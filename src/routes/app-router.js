@@ -5,6 +5,7 @@ import { clearMessage } from "../store/modules/notification";
 import AppLoading from '../components/AppLoading';
 import AnonymousRoute from './anonymous-route';
 import ProtectedRoute from './protected-route';
+import AppContentContext from '../contexts/AppContentContext'
 
 const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard'));
 const LandingPage = React.lazy(() => import('../pages/landingPage/LandingPage'));
@@ -21,14 +22,15 @@ const AppRouter = () => {
   }, [location, dispatch])
   return (
     <React.Suspense fallback={<AppLoading />}>
-      <Switch>
-        <AnonymousRoute exact path="/" component={LandingPage} />
-        <AnonymousRoute path="/login" exact component={Login} />
-        <AnonymousRoute path="/register" exact component={Register} />    
-
-        <ProtectedRoute path="/dashboard" component={Dashboard} />        
-        <Redirect to="/login" />
-      </Switch>
+      {/* <AppContentContext.Consumer> */}
+        <Switch>
+          <AnonymousRoute exact path="/" component={LandingPage} />
+          <AnonymousRoute path="/login" exact component={Login} />
+          <AnonymousRoute path="/register" exact component={Register} />    
+          <ProtectedRoute path="/dashboard" component={Dashboard} />        
+          <Redirect to="/login" />
+        </Switch>
+      {/* </AppContentContext.Consumer> */}
     </React.Suspense>
   )
 }

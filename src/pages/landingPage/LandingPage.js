@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import './LandingPage.css';
+import { Button } from 'primereact/button'
 
 
 const LandingPage = () => {
@@ -58,6 +59,7 @@ const LandingPage = () => {
                                                 <div class="button wow fadeInUp" data-wow-delay=".7s">
                                                     <a href="#" class="btn">Post a Job</a>
                                                     <a href="#" class="btn btn-alt green-back">See Our Jobs</a>
+                                                    <Button label="Save" />
                                                 </div>
                                             </div>
                                         </div>
@@ -1047,7 +1049,7 @@ const LandingPage = () => {
 
                                 <div class="f-about single-footer">
                                     <div class="logo">
-                                        <a href="index.html"><img src="assets/images/logo/logo.svg" alt="Logo"/></a>
+                                        <a href="index.html"><img src="assets/logo.png" alt="Logo"/></a>
                                     </div>
                                     <p>Start building your creative website with our awesome template Massive.</p>
                                     <ul class="contact-address">
