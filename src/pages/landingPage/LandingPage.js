@@ -46,7 +46,7 @@ const LandingPage = () => {
                                     <div class="col-lg-6 co-12">
                                         <div class="inner-content">
                                             <div class="hero-text">
-                                                <h1 class="wow fadeInUp" data-wow-delay=".3s">Find Your Career
+                                                <h1 class="wow fadeInUp prim"  data-wow-delay=".3s">Find Your Career
                                                     <br/>to Make a
                                                                                                         Better Life
                                                 </h1>
@@ -57,7 +57,7 @@ const LandingPage = () => {
                                                 </p>
                                                 <div class="button wow fadeInUp" data-wow-delay=".7s">
                                                     <a href="#" class="btn">Post a Job</a>
-                                                    <a href="#" class="btn btn-alt">See Our Jobs</a>
+                                                    <a href="#" class="btn btn-alt green-back">See Our Jobs</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -295,7 +295,7 @@ const LandingPage = () => {
                                         </select>
                                     </div>
                                     <div class="button">
-                                        <a class="btn" href="#">
+                                        <a class="btn green-back" href="#">
                                             Search
                                         </a>
                                     </div>
