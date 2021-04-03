@@ -462,8 +462,8 @@
       border-color: #5A2846;
       background: #5A2846; }
       .p-checkbox .p-checkbox-box.p-highlight:not(.p-disabled):hover {
-        border-color: #0b7ad1;
-        background: #0b7ad1;
+        border-color: #703759;
+        background: #703759;
         color: #ffffff; }
   .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
     border-color: #5A2846; }
@@ -473,8 +473,8 @@
     box-shadow: 0 0 0 0.2rem #a6d5fa;
     border-color: #5A2846; }
   .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
-    border-color: #0b7ad1;
-    background: #0b7ad1;
+    border-color: #703759;
+    background: #703759;
     color: #ffffff; }
   .p-checkbox.p-invalid > .p-checkbox-box {
     border-color: #f44336; }
@@ -486,7 +486,7 @@
 .p-input-filled .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
   background-color: #f8f9fa; }
 .p-input-filled .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
-  background: #0b7ad1; }
+  background: #703759; }
 
 .p-chips .p-chips-multiple-container {
   padding: 0.25rem 0.5rem; }
@@ -784,7 +784,7 @@
     .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before {
       background: #ffffff; }
   .p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover .p-inputswitch-slider {
-    background: #0d89ec; }
+    background: #703759; }
   .p-inputswitch.p-invalid {
     border-color: #f44336; }
 
@@ -1086,8 +1086,8 @@
       border-color: #5A2846;
       background: #5A2846; }
       .p-radiobutton .p-radiobutton-box.p-highlight:not(.p-disabled):hover {
-        border-color: #0b7ad1;
-        background: #0b7ad1;
+        border-color: #703759;
+        background: #703759;
         color: #ffffff; }
   .p-radiobutton.p-invalid > .p-radiobutton-box {
     border-color: #f44336; }
@@ -1101,7 +1101,7 @@
   .p-input-filled .p-radiobutton .p-radiobutton-box.p-highlight {
     background: #5A2846; }
     .p-input-filled .p-radiobutton .p-radiobutton-box.p-highlight:not(.p-disabled):hover {
-      background: #0b7ad1; }
+      background: #703759; }
 
 .p-rating .p-rating-icon {
   color: #495057;
@@ -1146,8 +1146,8 @@
     .p-selectbutton .p-button.p-highlight .p-button-icon-right {
       color: #ffffff; }
     .p-selectbutton .p-button.p-highlight:hover {
-      background: #0d89ec;
-      border-color: #0d89ec;
+      background: #703759;
+      border-color: #703759;
       color: #ffffff; }
       .p-selectbutton .p-button.p-highlight:hover .p-button-icon-left,
       .p-selectbutton .p-button.p-highlight:hover .p-button-icon-right {
@@ -1209,8 +1209,8 @@
     .p-togglebutton.p-button.p-highlight .p-button-icon-right {
       color: #ffffff; }
     .p-togglebutton.p-button.p-highlight:hover {
-      background: #0d89ec;
-      border-color: #0d89ec;
+      background: #703759;
+      border-color: #703759;
       color: #ffffff; }
       .p-togglebutton.p-button.p-highlight:hover .p-button-icon-left,
       .p-togglebutton.p-button.p-highlight:hover .p-button-icon-right {
@@ -1227,13 +1227,13 @@
   transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
   border-radius: 3px; }
   .p-button:enabled:hover {
-    background: #0d89ec;
+    background: #703759;
     color: #ffffff;
-    border-color: #0d89ec; }
+    border-color: #703759; }
   .p-button:enabled:active {
-    background: #0b7ad1;
+    background: #703759;
     color: #ffffff;
-    border-color: #0b7ad1; }
+    border-color: #703759; }
   .p-button.p-button-outlined {
     background-color: transparent;
     color: #5A2846;
@@ -1562,12 +1562,12 @@
       color: #D32F2F; }
 
 .p-button.p-button-link {
-  color: #0b7ad1;
+  color: #703759;
   background: transparent;
   border: transparent; }
   .p-button.p-button-link:enabled:hover {
     background: transparent;
-    color: #0b7ad1;
+    color: #703759;
     border-color: transparent; }
     .p-button.p-button-link:enabled:hover .p-button-label {
       text-decoration: underline; }
@@ -1577,7 +1577,7 @@
     border-color: transparent; }
   .p-button.p-button-link:enabled:active {
     background: transparent;
-    color: #0b7ad1;
+    color: #703759;
     border-color: transparent; }
 
 .p-carousel .p-carousel-content .p-carousel-prev,
@@ -1859,8 +1859,8 @@
 .fc .fc-view-container .fc-row {
   border-right: 1px solid #dee2e6; }
 .fc .fc-view-container .fc-event {
-  background: #0d89ec;
-  border: 1px solid #0d89ec;
+  background: #703759;
+  border: 1px solid #703759;
   color: #ffffff; }
 .fc .fc-view-container .fc-divider {
   background: #f8f9fa;
@@ -1875,13 +1875,13 @@
   display: flex;
   align-items: center; }
   .fc .fc-toolbar .fc-button:enabled:hover {
-    background: #0d89ec;
+    background: #703759;
     color: #ffffff;
-    border-color: #0d89ec; }
+    border-color: #703759; }
   .fc .fc-toolbar .fc-button:enabled:active {
-    background: #0b7ad1;
+    background: #703759;
     color: #ffffff;
-    border-color: #0b7ad1; }
+    border-color: #703759; }
     .fc .fc-toolbar .fc-button:enabled:active:focus {
       outline: 0 none;
       outline-offset: 0;
@@ -1916,8 +1916,8 @@
       border-color: #5A2846;
       color: #ffffff; }
       .fc .fc-toolbar .fc-button.fc-dayGridMonth-button.fc-button-active:hover, .fc .fc-toolbar .fc-button.fc-timeGridWeek-button.fc-button-active:hover, .fc .fc-toolbar .fc-button.fc-timeGridDay-button.fc-button-active:hover {
-        background: #0d89ec;
-        border-color: #0d89ec;
+        background: #703759;
+        border-color: #703759;
         color: #ffffff; }
     .fc .fc-toolbar .fc-button.fc-dayGridMonth-button:focus, .fc .fc-toolbar .fc-button.fc-timeGridWeek-button:focus, .fc .fc-toolbar .fc-button.fc-timeGridDay-button:focus {
       outline: 0 none;
@@ -2703,7 +2703,7 @@
     top: -1rem;
     right: -1rem; }
     .p-overlaypanel .p-overlaypanel-close:enabled:hover {
-      background: #0d89ec;
+      background: #703759;
       color: #ffffff; }
   .p-overlaypanel:after {
     border: solid transparent;
@@ -2791,13 +2791,13 @@
   margin-top: 0; }
 
 .p-fileupload-choose:not(.p-disabled):hover {
-  background: #0d89ec;
+  background: #703759;
   color: #ffffff;
-  border-color: #0d89ec; }
+  border-color: #703759; }
 .p-fileupload-choose:not(.p-disabled):active {
-  background: #0b7ad1;
+  background: #703759;
   color: #ffffff;
-  border-color: #0b7ad1; }
+  border-color: #703759; }
 
 .p-breadcrumb {
   background: #ffffff;
