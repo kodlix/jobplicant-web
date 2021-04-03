@@ -1,0 +1,10 @@
+.searchBar {
+ width: 0%;
+transition: all 0.5s;
+
+}
+
+.searchBar--active{
+width: 100%;
+transition: all 0.5s;
+}
