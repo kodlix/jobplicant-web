@@ -1,0 +1,18 @@
+.login-pane-left {
+    width: 500px;
+    background-color: #5A2846;
+    min-height: 101vh;
+}
+
+.brand-logo {
+    margin: 35px auto;
+}
+
+.login-pane-left .login-title {
+    font-weight: 700;
+    margin-top: 0px;
+}
+
+.fandlname {
+    margin-left: 4px
+}

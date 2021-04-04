@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './LandingPage.css';
 import { Button } from 'primereact/button'
 
@@ -14,7 +14,7 @@ const LandingPage = () => {
                             <div class="col-lg-12">
                                 <nav class="navbar navbar-expand-lg py-2">
                                     <a class="navbar-brand logo" href="index.html">
-                                        <img class="logo1" src="assets/logo.png" alt="Logo"/>
+                                        <img class="logo1" src="assets/logo.png" alt="Logo" />
                                     </a>
                                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                         <span class="toggler-icon"></span>
@@ -27,7 +27,7 @@ const LandingPage = () => {
                                         <a href="javacript:" data-toggle="modal" data-target="#login" class="login">
                                             <i class="lni lni-lock-alt"></i>
                                             Login</a>
-                                        <a href="javacript:" data-toggle="modal" data-target="#signup" class="btn">Sign Up</a>
+                                        <Link to="/register" data-toggle="modal" data-target="#signup" class="btn">Sign Up</Link>
                                     </div>
                                 </nav>
 
@@ -47,14 +47,14 @@ const LandingPage = () => {
                                     <div class="col-lg-6 co-12">
                                         <div class="inner-content">
                                             <div class="hero-text">
-                                                <h1 class="wow fadeInUp prim"  data-wow-delay=".3s">Find Your Career
-                                                    <br/>to Make a
+                                                <h1 class="wow fadeInUp prim" data-wow-delay=".3s">Find Your Career
+                                                    <br />to Make a
                                                                                                         Better Life
                                                 </h1>
                                                 <p class="wow fadeInUp" data-wow-delay=".5s">Creating a beautiful job website is
-                                                                                                        not
-                                                                                                        easy always. To make your life easier we are introducing Jobcamp template,
-                                                                                                        Leverage agile frameworks to high level overviews.
+                                                not
+                                                easy always. To make your life easier we are introducing Jobcamp template,
+                                                Leverage agile frameworks to high level overviews.
                                                 </p>
                                                 <div class="button wow fadeInUp" data-wow-delay=".7s">
                                                     <a href="#" class="btn">Post a Job</a>
@@ -66,7 +66,7 @@ const LandingPage = () => {
                                     </div>
                                     <div class="col-lg-6 co-12">
                                         <div class="hero-image wow fadeInRight" data-wow-delay=".4s">
-                                            <img src="assets/images/hero/banner.png" alt="#"/>
+                                            <img src="assets/images/hero/banner.png" alt="#" />
                                         </div>
                                     </div>
                                 </div>
@@ -79,13 +79,13 @@ const LandingPage = () => {
                                         <div class="inner-content">
                                             <div class="hero-text">
                                                 <h1 class="wow fadeInUp" data-wow-delay=".3s">Find Your Career
-                                                    <br/>to Make a
+                                                    <br />to Make a
                                                                                                         Better Life
                                                 </h1>
                                                 <p class="wow fadeInUp" data-wow-delay=".5s">Creating a beautiful job website is
-                                                                                                        not
-                                                                                                        easy always. To make your life easier we are introducing Jobcamp template,
-                                                                                                        Leverage agile frameworks to high level overviews.
+                                                not
+                                                easy always. To make your life easier we are introducing Jobcamp template,
+                                                Leverage agile frameworks to high level overviews.
                                                 </p>
                                                 <div class="button wow fadeInUp" data-wow-delay=".7s">
                                                     <a href="#" class="btn">Post a Job</a>
@@ -96,7 +96,7 @@ const LandingPage = () => {
                                     </div>
                                     <div class="col-lg-6 co-12">
                                         <div class="hero-image wow fadeInRight" data-wow-delay=".ss">
-                                            <img src="assets/images/hero/banner2.png" alt="#"/>
+                                            <img src="assets/images/hero/banner2.png" alt="#" />
                                         </div>
                                     </div>
                                 </div>
@@ -153,7 +153,7 @@ const LandingPage = () => {
                                     <div class="icon">
                                         <i class="lni lni-cog"></i>
                                     </div>
-                                    <h3>Technical<br/>
+                                    <h3>Technical<br />
                                         Support</h3>
                                 </a>
                             </div>
@@ -162,7 +162,7 @@ const LandingPage = () => {
                                     <div class="icon">
                                         <i class="lni lni-layers"></i>
                                     </div>
-                                    <h3>Business<br/>
+                                    <h3>Business<br />
                                         Development</h3>
                                 </a>
                             </div>
@@ -171,7 +171,7 @@ const LandingPage = () => {
                                     <div class="icon">
                                         <i class="lni lni-home"></i>
                                     </div>
-                                    <h3>Real Estate<br/>
+                                    <h3>Real Estate<br />
                                         Business</h3>
                                 </a>
                             </div>
@@ -180,7 +180,7 @@ const LandingPage = () => {
                                     <div class="icon">
                                         <i class="lni lni-search"></i>
                                     </div>
-                                    <h3>Share Maeket<br/>
+                                    <h3>Share Maeket<br />
                                         Analysis</h3>
                                 </a>
                             </div>
@@ -190,7 +190,7 @@ const LandingPage = () => {
                                         <i class="lni lni-investment"></i>
                                     </div>
                                     <h3>Finance & Banking
-                                        <br/>
+                                        <br />
                                         Service</h3>
                                 </a>
                             </div>
@@ -200,7 +200,7 @@ const LandingPage = () => {
                                         <i class="lni lni-cloud-network"></i>
                                     </div>
                                     <h3>IT & Networing
-                                        <br/>
+                                        <br />
                                         Sevices</h3>
                                 </a>
                             </div>
@@ -210,7 +210,7 @@ const LandingPage = () => {
                                         <i class="lni lni-restaurant"></i>
                                     </div>
                                     <h3>Restaurant
-                                        <br/>
+                                        <br />
                                         Services</h3>
                                 </a>
                             </div>
@@ -220,7 +220,7 @@ const LandingPage = () => {
                                         <i class="lni lni-fireworks"></i>
                                     </div>
                                     <h3>Defence & Fire
-                                        <br/>
+                                        <br />
                                         Service</h3>
                                 </a>
                             </div>
@@ -236,14 +236,14 @@ const LandingPage = () => {
                             <div class="col-lg-7 co-12">
                                 <div class="inner-content">
                                     <div class="hero-text">
-                                        <h1 class="wow fadeInUp" data-wow-delay=".3s">Find the Most Exciting<br/>
+                                        <h1 class="wow fadeInUp" data-wow-delay=".3s">Find the Most Exciting<br />
                                             Jobs to Make a
                                                                                         Better Life
                                         </h1>
                                         <p class="wow fadeInUp" data-wow-delay=".5s">Creating a beautiful job website is not
-                                                                                        easy always. To make<br/>
-                                            your life easier, we are introducing Jobcamp template,<br/>
-                                            Leverage agile frameworks to provide a robust<br/>
+                                                                                        easy always. To make<br />
+                                            your life easier, we are introducing Jobcamp template,<br />
+                                            Leverage agile frameworks to provide a robust<br />
                                             synopsis for high level overviews.
                                         </p>
                                         <div class="button wow fadeInUp" data-wow-delay=".7s">
@@ -271,13 +271,13 @@ const LandingPage = () => {
                                     <div class="form-group">
                                         <label class="font-weight-bold text-dark">What?</label>
                                         <div class=" form-location">
-                                            <input type="text" class="form-control" placeholder="What are you looking for..."/>
+                                            <input type="text" class="form-control" placeholder="What are you looking for..." />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-bold text-dark">Where?</label>
                                         <div class="form-location">
-                                            <input type="text" class="form-control" placeholder="Where..."/>
+                                            <input type="text" class="form-control" placeholder="Where..." />
                                         </div>
                                     </div>
                                     <div class="form-group select-border">
@@ -318,7 +318,7 @@ const LandingPage = () => {
                                     <h2 class="wow fadeInUp" data-wow-delay=".4s">Don’t just find. Be found. Put your
                                                                                 CV in front of great employers</h2>
                                     <p class="wow fadeInUp" data-wow-delay=".6s">It helps you to increase your chances of
-                                                                                finding a suitable job and let recruiters contact you
+                                    finding a suitable job and let recruiters contact you
                                                                                 about jobs that are not needed to pay for advertising.</p>
                                     <div class="button wow fadeInUp" data-wow-delay=".8s">
                                         <a href="add-resume.html" class="btn">
@@ -352,14 +352,14 @@ const LandingPage = () => {
 
                                 <div class="single-job wow fadeInUp" data-wow-delay=".3s">
                                     <div class="job-image">
-                                        <img src="assets/images/jobs/img1.png" alt="#"/>
+                                        <img src="assets/images/jobs/img1.png" alt="#" />
                                     </div>
                                     <div class="job-content">
                                         <h4>
                                             <a href="job-details.html">Software Engineer</a>
                                         </h4>
                                         <p>We are looking for Enrollment Advisors who are looking to take 30-35 appointments per
-                                                                                        week. All leads are pre-scheduled.
+                                        week. All leads are pre-scheduled.
                                         </p>
                                         <ul>
                                             <li>
@@ -390,14 +390,14 @@ const LandingPage = () => {
 
                                 <div class="single-job wow fadeInUp" data-wow-delay=".3s">
                                     <div class="job-image">
-                                        <img src="assets/images/jobs/img2.png" alt="#"/>
+                                        <img src="assets/images/jobs/img2.png" alt="#" />
                                     </div>
                                     <div class="job-content">
                                         <h4>
                                             <a href="job-details.html">Graphics Design</a>
                                         </h4>
                                         <p>We are looking for Enrollment Advisors who are looking to take 30-35 appointments per
-                                                                                        week. All leads are pre-scheduled.
+                                        week. All leads are pre-scheduled.
                                         </p>
                                         <ul>
                                             <li>
@@ -428,14 +428,14 @@ const LandingPage = () => {
 
                                 <div class="single-job wow fadeInUp" data-wow-delay=".3s">
                                     <div class="job-image">
-                                        <img src="assets/images/jobs/img3.png" alt="#"/>
+                                        <img src="assets/images/jobs/img3.png" alt="#" />
                                     </div>
                                     <div class="job-content">
                                         <h4>
                                             <a href="job-details.html">Ui/Ux Design</a>
                                         </h4>
                                         <p>We are looking for Enrollment Advisors who are looking to take 30-35 appointments per
-                                                                                        week. All leads are pre-scheduled.
+                                        week. All leads are pre-scheduled.
                                         </p>
                                         <ul>
                                             <li>
@@ -466,14 +466,14 @@ const LandingPage = () => {
 
                                 <div class="single-job wow fadeInUp" data-wow-delay=".3s">
                                     <div class="job-image">
-                                        <img src="assets/images/jobs/img4.png" alt="#"/>
+                                        <img src="assets/images/jobs/img4.png" alt="#" />
                                     </div>
                                     <div class="job-content">
                                         <h4>
                                             <a href="job-details.html">Web Developer</a>
                                         </h4>
                                         <p>We are looking for Enrollment Advisors who are looking to take 30-35 appointments per
-                                                                                        week. All leads are pre-scheduled.
+                                        week. All leads are pre-scheduled.
                                         </p>
                                         <ul>
                                             <li>
@@ -506,14 +506,14 @@ const LandingPage = () => {
 
                                 <div class="single-job wow fadeInUp" data-wow-delay=".5s">
                                     <div class="job-image">
-                                        <img src="assets/images/jobs/img7.png" alt="#"/>
+                                        <img src="assets/images/jobs/img7.png" alt="#" />
                                     </div>
                                     <div class="job-content">
                                         <h4>
                                             <a href="job-details.html">Digital Marketer</a>
                                         </h4>
                                         <p>We are looking for Enrollment Advisors who are looking to take 30-35 appointments per
-                                                                                        week. All leads are pre-scheduled.
+                                        week. All leads are pre-scheduled.
                                         </p>
                                         <ul>
                                             <li>
@@ -544,14 +544,14 @@ const LandingPage = () => {
 
                                 <div class="single-job wow fadeInUp" data-wow-delay=".5s">
                                     <div class="job-image">
-                                        <img src="assets/images/jobs/img5.png" alt="#"/>
+                                        <img src="assets/images/jobs/img5.png" alt="#" />
                                     </div>
                                     <div class="job-content">
                                         <h4>
                                             <a href="job-details.html">Sales Manager</a>
                                         </h4>
                                         <p>We are looking for Enrollment Advisors who are looking to take 30-35 appointments per
-                                                                                        week. All leads are pre-scheduled.
+                                        week. All leads are pre-scheduled.
                                         </p>
                                         <ul>
                                             <li>
@@ -582,14 +582,14 @@ const LandingPage = () => {
 
                                 <div class="single-job wow fadeInUp" data-wow-delay=".5s">
                                     <div class="job-image">
-                                        <img src="assets/images/jobs/img6.png" alt="#"/>
+                                        <img src="assets/images/jobs/img6.png" alt="#" />
                                     </div>
                                     <div class="job-content">
                                         <h4>
                                             <a href="job-details.html">Product Designer</a>
                                         </h4>
                                         <p>We are looking for Enrollment Advisors who are looking to take 30-35 appointments per
-                                                                                        week. All leads are pre-scheduled.
+                                        week. All leads are pre-scheduled.
                                         </p>
                                         <ul>
                                             <li>
@@ -620,14 +620,14 @@ const LandingPage = () => {
 
                                 <div class="single-job wow fadeInUp" data-wow-delay=".5s">
                                     <div class="job-image">
-                                        <img src="assets/images/jobs/img8.png" alt="#"/>
+                                        <img src="assets/images/jobs/img8.png" alt="#" />
                                     </div>
                                     <div class="job-content">
                                         <h4>
                                             <a href="job-details.html">Android Developer</a>
                                         </h4>
                                         <p>We are looking for Enrollment Advisors who are looking to take 30-35 appointments per
-                                                                                        week. All leads are pre-scheduled.
+                                        week. All leads are pre-scheduled.
                                         </p>
                                         <ul>
                                             <li>
@@ -694,8 +694,8 @@ const LandingPage = () => {
             </section>
 
             <section class=" testimonials">
-                <img class="patern1 wow fadeInRight" data-wow-delay=".3s" src="assets/images/testimonial/patern1.png" alt="#"/>
-                <img class="patern2 wow fadeInLeft" data-wow-delay=".5s" src="assets/images/testimonial/patern1.png" alt="#"/>
+                <img class="patern1 wow fadeInRight" data-wow-delay=".3s" src="assets/images/testimonial/patern1.png" alt="#" />
+                <img class="patern2 wow fadeInLeft" data-wow-delay=".5s" src="assets/images/testimonial/patern1.png" alt="#" />
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6 col-12">
@@ -712,13 +712,13 @@ const LandingPage = () => {
                                                 <i class="lni lni-quotation"></i>
                                             </div>
                                             <p>" I just brought it and i love it. Lorem Ipsum is simply dummy text of the and
-                                                                                                typesetting industry. Lorem Ipsum has been the industry's standard dummy text
-                                                                                                ever
-                                                                                                since the 1500s."
+                                            typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+                                            ever
+                                            since the 1500s."
                                             </p>
                                             <div class="bottom">
                                                 <div class="clien-image">
-                                                    <img src="assets/images/testimonial/testi1.jpg" alt="#"/>
+                                                    <img src="assets/images/testimonial/testi1.jpg" alt="#" />
                                                 </div>
                                                 <h4 class="name">Musharof Chowdhury
                                                     <span>CEO - Graygrids</span>
@@ -732,7 +732,7 @@ const LandingPage = () => {
                         </div>
                         <div class="col-lg-6 col-12">
                             <div class="testimonial-right wow fadeInRight" data-wow-delay=".5s">
-                                <img src="assets/images/testimonial/testimonial-right.png" alt="#"/>
+                                <img src="assets/images/testimonial/testimonial-right.png" alt="#" />
                             </div>
                         </div>
                     </div>
@@ -849,31 +849,31 @@ const LandingPage = () => {
                     <div class="client-logo-wrapper">
                         <div class="client-logo-carousel d-flex align-items-center justify-content-between">
                             <div class="client-logo">
-                                <img src="assets/images/clients/client1.png" alt="#"/>
+                                <img src="assets/images/clients/client1.png" alt="#" />
                             </div>
                             <div class="client-logo">
-                                <img src="assets/images/clients/client2.png" alt="#"/>
+                                <img src="assets/images/clients/client2.png" alt="#" />
                             </div>
                             <div class="client-logo">
-                                <img src="assets/images/clients/client3.png" alt="#"/>
+                                <img src="assets/images/clients/client3.png" alt="#" />
                             </div>
                             <div class="client-logo">
-                                <img src="assets/images/clients/client4.png" alt="#"/>
+                                <img src="assets/images/clients/client4.png" alt="#" />
                             </div>
                             <div class="client-logo">
-                                <img src="assets/images/clients/client5.png" alt="#"/>
+                                <img src="assets/images/clients/client5.png" alt="#" />
                             </div>
                             <div class="client-logo">
-                                <img src="assets/images/clients/client6.png" alt="#"/>
+                                <img src="assets/images/clients/client6.png" alt="#" />
                             </div>
                             <div class="client-logo">
-                                <img src="assets/images/clients/client2.png" alt="#"/>
+                                <img src="assets/images/clients/client2.png" alt="#" />
                             </div>
                             <div class="client-logo">
-                                <img src="assets/images/clients/client3.png" alt="#"/>
+                                <img src="assets/images/clients/client3.png" alt="#" />
                             </div>
                             <div class="client-logo">
-                                <img src="assets/images/clients/client4.png" alt="#"/>
+                                <img src="assets/images/clients/client4.png" alt="#" />
                             </div>
                         </div>
                     </div>
@@ -893,7 +893,7 @@ const LandingPage = () => {
                                     <div class="heading">
                                         <h3>Login From Here</h3>
                                         <p>Log in to continue your account
-                                            <br/>
+                                            <br />
                                             and explore new jobs.</p>
                                     </div>
                                     <div class="social-login">
@@ -912,18 +912,18 @@ const LandingPage = () => {
                                     <form action="https://demo.graygrids.com/">
                                         <div class="form-group">
                                             <label for="email" class="label">E-mail</label>
-                                            <input type="email" class="form-control" placeholder="example@gmail.com" id="email"/>
+                                            <input type="email" class="form-control" placeholder="example@gmail.com" id="email" />
                                         </div>
                                         <div class="form-group">
                                             <label for="password" class="label">Password</label>
                                             <div class="position-relative">
-                                                <input type="password" class="form-control" id="password" placeholder="Enter password"/>
+                                                <input type="password" class="form-control" id="password" placeholder="Enter password" />
                                             </div>
                                         </div>
                                         <div class="form-group d-flex flex-wrap justify-content-between">
 
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                                                 <label class="form-check-label" for="flexCheckDefault">Remember password</label>
                                             </div>
                                             <a href="#" class="font-size-3 text-dodger line-height-reset">Forget Password</a>
@@ -956,10 +956,10 @@ const LandingPage = () => {
                                 <div class="row">
                                     <div class="heading">
                                         <h3>Create a free Account
-                                            <br/>
+                                            <br />
                                             Today</h3>
                                         <p>Create your account to continue
-                                            <br/>
+                                            <br />
                                             and explore new jobs.</p>
                                     </div>
                                     <div class="social-login">
@@ -978,24 +978,24 @@ const LandingPage = () => {
                                     <form action="https://demo.graygrids.com/">
                                         <div class="form-group">
                                             <label for="email" class="label">E-mail</label>
-                                            <input type="email" class="form-control" placeholder="example@gmail.com"/>
+                                            <input type="email" class="form-control" placeholder="example@gmail.com" />
                                         </div>
                                         <div class="form-group">
                                             <label for="password" class="label">Password</label>
                                             <div class="position-relative">
-                                                <input type="password" class="form-control" placeholder="Enter password"/>
+                                                <input type="password" class="form-control" placeholder="Enter password" />
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="password" class="label">Confirm Password</label>
                                             <div class="position-relative">
-                                                <input type="password" class="form-control" placeholder="Enter password"/>
+                                                <input type="password" class="form-control" placeholder="Enter password" />
                                             </div>
                                         </div>
                                         <div class="form-group d-flex flex-wrap justify-content-between">
 
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""/>
+                                                <input class="form-check-input" type="checkbox" value="" />
                                                 <label class="form-check-label" for="flexCheckDefault">Agree to the
                                                     <a href="#">Terms & Conditions</a>
                                                 </label>
@@ -1021,7 +1021,7 @@ const LandingPage = () => {
                             <div class="col-lg-6 col-12">
                                 <div class="download-text text-white">
                                     <h3 class="text-white">Download Our Best Apps</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do<br/>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do<br />
                                         eiusmod tempor
                                                                                 incididunt ut labore et dolore</p>
                                 </div>
@@ -1049,7 +1049,7 @@ const LandingPage = () => {
 
                                 <div class="f-about single-footer">
                                     <div class="logo">
-                                        <a href="index.html"><img src="assets/logo.png" alt="Logo"/></a>
+                                        <a href="index.html"><img src="assets/logo.png" alt="Logo" /></a>
                                     </div>
                                     <p>Start building your creative website with our awesome template Massive.</p>
                                     <ul class="contact-address">
@@ -1113,7 +1113,7 @@ const LandingPage = () => {
                                             <h3>Join Our Newsletter</h3>
                                             <p>Subscribe to get the latest jobs posted, candidates...</p>
                                             <form action="https://demo.graygrids.com/themes/jobgrids/mail/mail.php" method="get" target="_blank" class="newsletter-inner">
-                                                <input name="EMAIL" placeholder="Your email address" class="common-input" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your email address'" required="" type="email"/>
+                                                <input name="EMAIL" placeholder="Your email address" class="common-input" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your email address'" required="" type="email" />
                                                 <div class="button">
                                                     <button class="btn">Subscribe Now!
                                                         <span class="dir-part"></span>
