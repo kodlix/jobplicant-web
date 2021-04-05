@@ -2,6 +2,7 @@ import React from 'react';
 import './Register.css'
 import { InputText } from 'primereact/inputtext';
 import { RadioButton } from 'primereact/radiobutton';
+import { Link } from 'react-router-dom';
 // import { Calendar } from 'primereact/calendar';
 
 
@@ -18,7 +19,7 @@ const Register = ({ }) => {
                     <div class="brand-logo text-center">
                         <img src="/assets/logo.png" width="150" alt="brand-logo" />
                     </div>
-                    <div className="authfy-login">
+                    <div className="authfy-login" hiden={true}>
                         <div className="authfy-panel panel-login text-center active">
                             {/* <div className="authfy-heading">
                                 <h3 className="auth-title">Login to your account</h3>
@@ -159,7 +160,10 @@ const Register = ({ }) => {
                                             </div>
                                         </div>
                                         <div className="form-group">
-                                            <p className="term-policy text-muted small p-mb-3">I agree to the <a href="#">privacy policy</a> and <a href="#">terms of service</a>.</p>
+                                            <p className="term-policy text-muted small p-mb-3">By clicking Sign Up, you agree to our <Link to="">Terms, Data Policy</Link> and <Link to="">Cookie Policy.</Link> You may receive SMS
+                                                notifications from us and can opt out at any time.Sign Up</p>
+
+                                            {/* <p >I agree to the <a href="#">privacy policy</a> and <a href="#">terms of service</a>.</p> */}
                                         </div>
                                         <div className="form-group">
                                             <Button type="submit" label="Sign up with email" />
