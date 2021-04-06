@@ -1,0 +1,52 @@
+.login-pane-right {
+    width: 500px;
+    background-color: #5A2846;
+    min-height: 101.3vh;
+}
+
+.brand-logo {
+    margin: 23px auto;
+}
+
+.login-pane-right .login-title {
+    font-weight: 700;
+    margin-top: 0px;
+}
+
+.fandlname {
+    margin-left: 50px;
+}
+
+.loginbtn {
+    margin-left: 46px;
+    width: 31vw;
+}
+
+.bgimage {
+    background-image: url('../../assets/images/loginimg.jpg');
+    background-repeat: no-repeat;
+    background-size: 883px 658px;
+}
+
+.socialmedia {
+    border-radius: 10px;
+    padding: 0px;
+    width: 135px;
+    margin-left: 67px;
+}
+
+.socialmedia.google {
+    background: #881008;
+}
+
+.socialmedia.facebook {
+    background: #081828;
+}
+
+
+/* 
+@media (min-width: 320px) and (max-width: 600px) {
+    .login-pane-right {
+        height: 100vh;
+    }
+} */

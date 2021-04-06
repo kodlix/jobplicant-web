@@ -1,11 +1,11 @@
 .login-pane-left {
     width: 500px;
     background-color: #5A2846;
-    min-height: 101vh;
+    min-height: 100vh;
 }
 
 .brand-logo {
-    margin: 35px auto;
+    margin: 23px auto;
 }
 
 .login-pane-left .login-title {
@@ -15,4 +15,14 @@
 
 .fandlname {
     margin-left: 4px
+}
+
+.signupbtn {
+    margin-left: 40px;
+}
+
+.bgimage {
+    background-image: url('../../assets/images/workspace.jpg');
+    background-repeat: no-repeat;
+    background-size: 883px 658px;
 }
