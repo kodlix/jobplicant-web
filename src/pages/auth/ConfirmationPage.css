@@ -21,15 +21,22 @@
     margin-left: 40px;
 }
 
+.confirmbtn {
+    margin-left: 7vw
+}
+
 .bgimage {
     background-image: url('../../assets/images/workspace.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
 
+.sendsms {
+    margin-right: 29vw;
+}
 
-/* @media (min-width: 320px) and (max-width: 600px) {
-    .login-pane-right {
-        height: auto;
+@media (min-width: 320px) and (max-width: 600px) {
+    .confirmbtn {
+        width: auto;
     }
-} */
+}

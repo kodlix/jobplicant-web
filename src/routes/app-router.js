@@ -10,6 +10,8 @@ const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard'));
 const LandingPage = React.lazy(() => import('../pages/landingPage/LandingPage'));
 const Login = React.lazy(() => import('../pages/auth/Login'));
 const Register = React.lazy(() => import('../pages/auth/Register'));
+const ConfirmationPage = React.lazy(() => import('../pages/auth/ConfirmationPage'));
+
 
 
 const AppRouter = () => {
@@ -26,6 +28,7 @@ const AppRouter = () => {
         <AnonymousRoute exact path="/" component={LandingPage} />
         <AnonymousRoute path="/login" exact component={Login} />
         <AnonymousRoute path="/register" exact component={Register} />
+        <AnonymousRoute path="/confirmationPage" exact component={ConfirmationPage} />
         <ProtectedRoute path="/dashboard" component={Dashboard} />
         <Redirect to="/login" />
       </Switch>

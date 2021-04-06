@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Register.css'
 import { InputText } from 'primereact/inputtext';
 import { RadioButton } from 'primereact/radiobutton';
@@ -9,6 +9,8 @@ import { Button } from 'primereact/button';
 
 
 const Register = ({ }) => {
+
+    const [gender, setGender] = useState(null)
     return (
         <>
             <div className="p-grid">
@@ -25,7 +27,7 @@ const Register = ({ }) => {
                             <div className="row">
                                 <div className="col-xs-12 col-sm-12">
                                     <div className="authfy-heading">
-                                        <h3 className="login-title p-mb-5 text-white">Sign up for free!</h3>
+                                        <h3 className="login-title p-mb-5">Sign up for free!</h3>
                                     </div>
                                     <form name="signupForm" className="signupForm p-field">
 
@@ -46,24 +48,27 @@ const Register = ({ }) => {
                                             <InputText type="text" className="form-control p-ml-6 p-mr-6" name="companyname" placeholder="Company Name" hidden={false} />
                                         </div>
 
-                                        <div><label htmlFor="city7" style={{ marginRight: 339, }} className="p-mb-2 p-text-bold text-white" > Gender</label> </div>
+                                        <div><label htmlFor="city7" style={{ marginRight: 339, }} className="p-mb-2 p-text-bold" > Gender</label> </div>
 
                                         <div className="p-formgroup-inline p-ml-6">
 
                                             <div className="p-field-checkbox">
-                                                <RadioButton inputId="city5" name="gender" value="female" />
-                                                <label htmlFor="city7">Female</label>
+                                                <RadioButton inputId="male" name="gender" value="male" onChange={(e) => setGender(e.value)} checked={gender === 'male'} />
+                                                {/* <RadioButton inputId="female" name="gender" value="female" /> */}
+                                                <label htmlFor="female">Female</label>
                                             </div>
                                             <div className="p-field-checkbox">
-                                                <RadioButton inputId="city6" name="gender" value="male" />
-                                                <label htmlFor="city6">Male</label>
+                                                <RadioButton inputId="female" name="gender" value="female" onChange={(e) => setGender(e.value)} checked={gender === 'female'} />
+                                                {/* <RadioButton inputId="male" name="gender" value="male" /> */}
+                                                <label htmlFor="male">Male</label>
                                             </div>
                                             <div className="p-field-checkbox">
-                                                <RadioButton inputId="city7" name="gender" value="custom" />
-                                                <label htmlFor="city7">Custom</label>
+                                                <RadioButton inputId="custom" name="gender" value="custom" onChange={(e) => setGender(e.value)} checked={gender === 'custom'} />
+                                                {/* <RadioButton inputId="custom" name="gender" value="custom" /> */}
+                                                <label htmlFor="custom">Custom</label>
                                             </div>
                                             <div>
-                                                <p className="term-policy small p-mb-3 p-mr-5">By clicking Sign Up, you agree to our <Link to="">Terms, Data Policy</Link>
+                                                <p className="term-policy small p-mb-3 p-mr-5 text-black">By clicking Sign Up, you agree to our <Link to="">Terms, Data Policy</Link>
                                                  and <Link to="">Cookie Policy.</Link> You may receive SMS
                                                 notifications from us and can opt out at any time.</p>
 

@@ -14,7 +14,7 @@ import { Button } from 'primereact/button';
 const Login = ({ }) => {
     return (
         <>
-            <div className="p-grid">
+            <div className="p-grid smallscreen">
                 {/* <div className="col-xs-12 col-sm-12"> */}
                 <div className="p-col bgimage">
                 </div>
@@ -27,11 +27,11 @@ const Login = ({ }) => {
 
                             <div className="p-grid">
                                 <div className="col-xs-12 col-sm-12">
-                                    <div className="authfy-heading">
-                                        <h3 className="auth-title text-white">Login to your account</h3>
-                                        <p className="p-m-4">Don’t have an account? <Link className="lnk-toggler " data-panel=".panel-signup" to="/register">Sign Up Free!</Link></p>
+                                    <div className="authfy-heading p-mt-6 p-mb-5">
+                                        <h3 className="auth-title">Login to your account</h3>
+                                        <p className="p-m-4 ">Don’t have an account? <Link className="lnk-toggler " data-panel=".panel-signup" to="/register">Sign Up Free!</Link></p>
                                     </div>
-                                    <div className="p-grid p-mt-2 p-pb-6 ">
+                                    <div className="p-grid p-mt-2 p-pb-5 ">
                                         <div className="p-col-6 socialmedia facebook">
                                             <Link className="">
                                                 <i className="pi pi-facebook p-pt-1" style={{ fontSize: 30 }}></i>
@@ -42,6 +42,10 @@ const Login = ({ }) => {
                                                 <i className="pi pi-google p-pt-1 " style={{ fontSize: 30 }}></i>
                                             </Link>
                                         </div>
+                                    </div>
+
+                                    <div class="p-col-xs-12 p-col-sm-12 p-mb-5">
+                                        <span class="spanOr">or</span>
                                     </div>
 
                                     {/* <div className="row loginOr p-mb-2">
@@ -57,13 +61,13 @@ const Login = ({ }) => {
                                             <InputText type="text" className="form-control p-ml-6 p-mr-6" name="newpassword" placeholder="Last Name" />
                                         </div>
 
-                                        <div className="row remember-row">
+                                        <div className="row remember-row p-m-4">
                                             <div className="col-6 col-xs-3 ">
                                                 <label className="checkbox text-left">
                                                     <input type="checkbox" value="remember-me" /><span className="label-text p-ml-1">Remember me</span>
                                                 </label>
                                             </div>
-                                            <div className="col-6 col-xs-3 ">
+                                            <div className="col-6 col-xs-3 p-mb-3 ">
                                                 <p className="forgotPwd col-xs-2">
                                                     <a className="lnk-toggler" data-panel=".panel-forgot" href="#">Forgot password?</a>
                                                 </p>

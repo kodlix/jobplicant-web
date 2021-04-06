@@ -1,6 +1,6 @@
 .login-pane-right {
     width: 500px;
-    background-color: #5A2846;
+    background-color: #fff;
     min-height: 101.3vh;
 }
 
@@ -41,7 +41,7 @@
 }
 
 .socialmedia.facebook {
-    background: #081828;
+    background: #4d6f92;
 }
 
 @media (min-width: 320px) and (max-width: 600px) {
@@ -53,4 +53,16 @@
         margin-right: auto;
         width: 78vw;
     }
+}
+
+
+/* @media (min-width: 320px) and (max-width: 600px) {
+    .smallscreen {
+        text-align: center;
+    }
+} */
+
+.spanOr {
+    font-size: large;
+    font-weight: bolder;
 }
