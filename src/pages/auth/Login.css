@@ -18,7 +18,8 @@
 }
 
 .loginbtn {
-    margin-left: 46px;
+    margin-left: auto;
+    margin-right: auto;
     width: 31vw;
 }
 
@@ -30,9 +31,9 @@
 
 .socialmedia {
     border-radius: 10px;
-    padding: 0px;
-    width: 135px;
-    margin-left: 67px;
+    height: max-content;
+    width: 156px;
+    margin: auto;
 }
 
 .socialmedia.google {
@@ -43,10 +44,13 @@
     background: #081828;
 }
 
-
-/* 
 @media (min-width: 320px) and (max-width: 600px) {
-    .login-pane-right {
+    /* .login-pane-right {
         height: 100vh;
+    } */
+    .loginbtn {
+        margin-left: auto;
+        margin-right: auto;
+        width: 78vw;
     }
-} */
+}

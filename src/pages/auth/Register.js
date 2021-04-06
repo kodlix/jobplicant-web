@@ -14,11 +14,11 @@ const Register = ({ }) => {
             <div className="p-grid">
                 <div className="p-col bgimage">
                 </div>
-                <div className="p-col-fixed login-pane-left">
+                <div className="p-col-fixed login-pane-right">
                     <div class="brand-logo text-center">
                         <img src="/assets/logo.png" width="150" alt="brand-logo" />
                     </div>
-                    <div className="authfy-login" hiden={true}>
+                    <div className="authfy-login">
                         <div className="authfy-panel panel-login text-center active">
                         </div>
                         <div className="authfy-panel panel-signup text-center">

@@ -15,6 +15,7 @@ const Login = ({ }) => {
     return (
         <>
             <div className="p-grid">
+                {/* <div className="col-xs-12 col-sm-12"> */}
                 <div className="p-col bgimage">
                 </div>
                 <div className="p-col-fixed login-pane-right">
@@ -22,30 +23,32 @@ const Login = ({ }) => {
                         <img src="/assets/logo.png" width="150" alt="brand-logo" />
                     </div>
                     <div className="authfy-login">
-                        <div className="authfy-panel panel-login text-center active">
-                            <div className="authfy-heading">
-                                <h3 className="auth-title text-white">Login to your account</h3>
-                                <p className="p-m-4">Don’t have an account? <Link className="lnk-toggler " data-panel=".panel-signup" to="/register">Sign Up Free!</Link></p>
-                            </div>
-                            <div className="p-grid p-mt-2 p-pb-6 ">
-                                <div className="p-col-6 socialmedia facebook">
-                                    <Link className="p-pb-4 ">
-                                        <i className="pi pi-facebook p-pt-3" style={{ fontSize: 40 }}></i>
-                                    </Link>
-                                </div>
-                                <div className="p-col-6 socialmedia google">
-                                    <Link to="#" className="">
-                                        <i className="pi pi-google p-pt-3 " style={{ fontSize: 40 }}></i>
-                                    </Link>
-                                </div>
-                            </div>
-                            {/* <div className="row loginOr p-mb-2">
+                        <div className="authfy-panel panel-login text-center">
+
+                            <div className="p-grid">
+                                <div className="col-xs-12 col-sm-12">
+                                    <div className="authfy-heading">
+                                        <h3 className="auth-title text-white">Login to your account</h3>
+                                        <p className="p-m-4">Don’t have an account? <Link className="lnk-toggler " data-panel=".panel-signup" to="/register">Sign Up Free!</Link></p>
+                                    </div>
+                                    <div className="p-grid p-mt-2 p-pb-6 ">
+                                        <div className="p-col-6 socialmedia facebook">
+                                            <Link className="">
+                                                <i className="pi pi-facebook p-pt-1" style={{ fontSize: 30 }}></i>
+                                            </Link>
+                                        </div>
+                                        <div className="p-col-6 socialmedia google">
+                                            <Link to="#" className="">
+                                                <i className="pi pi-google p-pt-1 " style={{ fontSize: 30 }}></i>
+                                            </Link>
+                                        </div>
+                                    </div>
+
+                                    {/* <div className="row loginOr p-mb-2">
                                 <div className="col-xs-12 col-sm-12">
                                     <span className="spanOr">or</span>
                                 </div>
                             </div> */}
-                            <div className="p-grid">
-                                <div className="col-xs-12 col-sm-12">
                                     <form name="loginForm" className="loginForm">
                                         <div className="p-field p-grid">
                                             <InputText type="text" className="form-control p-ml-6 p-mr-6" name="numberoremail" placeholder="Mobile number or email address" />

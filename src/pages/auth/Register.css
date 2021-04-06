@@ -1,4 +1,4 @@
-.login-pane-left {
+.login-pane-right {
     width: 500px;
     background-color: #5A2846;
     min-height: 101vh;
@@ -8,7 +8,7 @@
     margin: 23px auto;
 }
 
-.login-pane-left .login-title {
+.login-pane-right .login-title {
     font-weight: 700;
     margin-top: 0px;
 }
@@ -26,3 +26,10 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+
+/* @media (min-width: 320px) and (max-width: 600px) {
+    .login-pane-right {
+        height: auto;
+    }
+} */
