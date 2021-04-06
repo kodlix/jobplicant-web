@@ -1,7 +1,7 @@
 .login-pane-left {
     width: 500px;
     background-color: #5A2846;
-    min-height: 100vh;
+    min-height: 101vh;
 }
 
 .brand-logo {
@@ -24,5 +24,5 @@
 .bgimage {
     background-image: url('../../assets/images/workspace.jpg');
     background-repeat: no-repeat;
-    background-size: 883px 658px;
+    background-size: cover;
 }

@@ -25,7 +25,7 @@
 .bgimage {
     background-image: url('../../assets/images/loginimg.jpg');
     background-repeat: no-repeat;
-    background-size: 883px 658px;
+    background-size: cover;
 }
 
 .socialmedia {
