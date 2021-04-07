@@ -1,35 +1,28 @@
-.login-pane-right {
-    width: 500px;
-    background-color: fff;
-    min-height: 101vh;
-}
-
-.brand-logo {
-    margin: 23px auto;
-}
-
-.login-pane-right .login-title {
-    font-weight: 700;
-    margin-top: 0px;
-}
-
-.fandlname {
-    margin-left: 4px
-}
-
-.signupbtn {
-    margin-left: 40px;
-}
-
-.bgimage {
-    background-image: url('../../assets/images/workspace.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-
-/* @media (min-width: 320px) and (max-width: 600px) {
-    .login-pane-right {
-        height: auto;
-    }
-} */
+                .login-pane-right {
+                    width: 500px;
+                    background-color: fff;
+                    min-height: 101vh;
+                }
+                
+                .brand-logo {
+                    margin: 23px auto;
+                }
+                
+                .login-pane-right .login-title {
+                    font-weight: 700;
+                    margin-top: 0px;
+                }
+                
+                .fandlname {
+                    margin-left: 4px
+                }
+                
+                .signupbtn {
+                    margin-left: 40px;
+                }
+                
+                .bgimage {
+                    background-image: url('../../assets/images/workspace.jpg');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                }

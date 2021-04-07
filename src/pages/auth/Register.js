@@ -54,17 +54,14 @@ const Register = ({ }) => {
 
                                             <div className="p-field-checkbox">
                                                 <RadioButton inputId="male" name="gender" value="male" onChange={(e) => setGender(e.value)} checked={gender === 'male'} />
-                                                {/* <RadioButton inputId="female" name="gender" value="female" /> */}
                                                 <label htmlFor="female">Female</label>
                                             </div>
                                             <div className="p-field-checkbox">
                                                 <RadioButton inputId="female" name="gender" value="female" onChange={(e) => setGender(e.value)} checked={gender === 'female'} />
-                                                {/* <RadioButton inputId="male" name="gender" value="male" /> */}
                                                 <label htmlFor="male">Male</label>
                                             </div>
                                             <div className="p-field-checkbox">
                                                 <RadioButton inputId="custom" name="gender" value="custom" onChange={(e) => setGender(e.value)} checked={gender === 'custom'} />
-                                                {/* <RadioButton inputId="custom" name="gender" value="custom" /> */}
                                                 <label htmlFor="custom">Custom</label>
                                             </div>
                                             <div>
