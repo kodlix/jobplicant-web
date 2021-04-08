@@ -15,7 +15,6 @@ html {
 }
 
 .login-pane-right {
-    width: 500px;
     background-color: #fff;
     min-height: 101.3vh;
 }
@@ -60,6 +59,9 @@ html {
     background: #4d6f92;
 }
 
+
+/* adjusting the login btn */
+
 @media screen and (max-width: 500px) {
     .loginbtn {
         margin-left: auto;
@@ -67,24 +69,6 @@ html {
         width: 78vw;
     }
 }
-
-
-/* @media (min-width: 320px) and (max-width: 600px) {
-    .p-col-fixed {
-        flex: 0;
-        padding: 0;
-    }
-    .p-grid {
-        display: flex;
-        flex-wrap: wrap;
-        margin-right: -0.5rem;
-        margin-left: 0.5rem;
-        margin-top: -0.5rem;
-    }
-    .test {
-        background-color: pink;
-    }
-} */
 
 .spanOr {
     font-size: large;

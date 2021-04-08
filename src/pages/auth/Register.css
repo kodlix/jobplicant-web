@@ -1,11 +1,11 @@
                 .login-pane-right {
-                    width: 500px;
                     background-color: fff;
-                    min-height: 101vh;
+                    min-height: 102vh;
                 }
                 
                 .brand-logo {
                     margin: 23px auto;
+                    text-align: center;
                 }
                 
                 .login-pane-right .login-title {

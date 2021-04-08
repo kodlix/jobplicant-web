@@ -1,5 +1,4 @@
 .login-pane-right {
-    width: 500px;
     background-color: fff;
     min-height: 101vh;
 }
@@ -22,7 +21,7 @@
 }
 
 .confirmbtn {
-    margin-left: 7vw
+    margin-left: 3vw
 }
 
 .bgimage {
@@ -32,11 +31,17 @@
 }
 
 .sendsms {
-    margin-right: 29vw;
+    margin-right: 16vw;
 }
 
-@media (min-width: 320px) and (max-width: 600px) {
+@media screen and (max-width: 767px) {
+    .sendsms {
+        margin-right: 48vw;
+    }
     .confirmbtn {
-        width: auto;
+        margin-left: 7vw;
+    }
+    .message {
+        margin-bottom: 6vh;
     }
 }

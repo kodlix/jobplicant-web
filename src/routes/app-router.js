@@ -30,19 +30,11 @@ const AppRouter = () => {
   }, [location, dispatch])
   return (
     <React.Suspense fallback={<AppLoading />}>
-      {/* <AppContentContext.Consumer> */}
       <Switch>
         <AnonymousRoute exact path="/" component={LandingPage} />
         <AnonymousRoute path="/login" exact component={Login} />
         <AnonymousRoute path="/register" exact component={Register} />
-        <AnonymousRoute path="/confirmationPage" exact component={ConfirmationPage} />
-        <ProtectedRoute path="/dashboard" component={Dashboard} />
-        <Redirect to="/login" />
-      </Switch>
-      <Switch>
-        <AnonymousRoute exact path="/" component={LandingPage} />
-        <AnonymousRoute path="/login" exact component={Login} />
-        <AnonymousRoute path="/register" exact component={Register} />
+        <AnonymousRoute path="/confirmationpage" exact component={ConfirmationPage} />
         <AnonymousRoute path="/accounttype" exact component={AccountType} />
         <AnonymousRoute path="/employeraccounttype" exact component={EmployerAccountType} />
         <AnonymousRoute path="/employeeaccounttype" exact component={EmployeeAccountType} />
