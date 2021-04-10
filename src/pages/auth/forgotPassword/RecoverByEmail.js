@@ -17,11 +17,11 @@ const RecoverByEmail = () => {
                         </div>
                         <div className="jobplicant-panel">
                             <div className="jobplicant-heading">
-                                <h3 className="jobplicant-title p-mb-1 text-white">Recover your password</h3>
-                                <p>An Email has been sent to you to reset your password.</p>
+                                <h3 className="jobplicant-title p-mb-1">Recover your password</h3>
+                                <p className="p-text-secondary">An Email has been sent to you to reset your password.</p>
                             </div>
                             <div className="form-group">
-                                <Link to="/login">Back</Link>
+                                <Link to="/Login" className="p-mt-2 p-text-secondary back-button">Back to Login</Link>
                             </div>
                         </div>
                     </div>
