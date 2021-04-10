@@ -19,8 +19,8 @@ const NewPassword = () => {
                         </div>
                         <div className="jobplicant-panel">
                             <div className="jobplicant-heading">
-                                <h3 className="jobplicant-title p-mb-1 text-white">Recover your password</h3>
-                                <p>Please enter a new password</p>
+                                <h3 className="jobplicant-title p-mb-1">Recover your password</h3>
+                                <p className="p-text-secondary">Please enter a new password</p>
                             </div>
                             <form>
                                 <div className="p-fluid">
@@ -30,9 +30,9 @@ const NewPassword = () => {
                                     <div className="p-field">
                                         <InputText id="confirmPassword" type="text" placeholder="Confirm New Password" />
                                     </div>
-                                    <Button label="Confirm" className="form-group p-button-secondary" />
+                                    <Button label="Confirm" className="form-group" />
                                     <div className="form-group">
-                                        <Link to="/login">Back</Link>
+                                        <Link to="/Login" className="p-mt-2 p-text-secondary back-button">Back to Login</Link>
                                     </div>
                                 </div>
                             </form>
