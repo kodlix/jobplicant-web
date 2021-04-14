@@ -3,7 +3,7 @@ import superagentPromise from 'superagent-promise';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-export const API_ROOT = 'http://localhost:4500'; 
+export const API_ROOT = 'http://localhost:8080';
 export const IMAGE_URL = API_ROOT + '/account/uploads/';
 
 let token = null;
@@ -71,7 +71,7 @@ const Auth = {
   login: (email, password) =>
     requests.post('/account/login', { email, password }),
   register: data =>
-    requests.post('/account/register', data),
+    requests.post('/auth/signUp', data),
   checkValidEmail: email =>
     requests.post(`/account/email/is-valid`, { email }),
   forgotPassword: email =>

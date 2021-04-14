@@ -20,6 +20,10 @@ const RecoverByNumber = React.lazy(() => import('../pages/auth/forgotPassword/Re
 const RecoverByEmail = React.lazy(() => import('../pages/auth/forgotPassword/RecoverByEmail'));
 const ForgotPassword = React.lazy(() => import('../pages/auth/forgotPassword/ForgotPassword'));
 const NewPassword = React.lazy(() => import('../pages/auth/forgotPassword/NewPassword'));
+const PageNotFound = React.lazy(() => import('../pages/errorPage/PageNotFound'));
+const InternalServerError = React.lazy(() => import('../pages/errorPage/InternalServerError'));
+const BadRequest = React.lazy(() => import('../pages/errorPage/BadRequest'));
+
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -42,6 +46,9 @@ const AppRouter = () => {
         <AnonymousRoute path="/recoverbynumber" exact component={RecoverByNumber} />
         <AnonymousRoute path="/recoverbyemail" exact component={RecoverByEmail} />
         <AnonymousRoute path="/newpassword" exact component={NewPassword} />
+        <AnonymousRoute path="/pagenotfound" exact component={PageNotFound} />
+        <AnonymousRoute path="/internalservererror" component={InternalServerError} />
+        <AnonymousRoute path="/badrequest" component={BadRequest} />
         <ProtectedRoute path="/dashboard" component={Dashboard} />
         <Redirect to="/login" />
       </Switch>

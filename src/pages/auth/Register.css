@@ -26,3 +26,13 @@
                     background-repeat: no-repeat;
                     background-size: cover;
                 }
+                
+                .left-content {
+                    margin: 60px;
+                    margin-top: 24vh;
+                    color: white;
+                }
+                
+                .login-pane-left {
+                    background-color: #5A2846;
+                }
