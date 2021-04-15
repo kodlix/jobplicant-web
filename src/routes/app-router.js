@@ -8,6 +8,8 @@ import ProtectedRoute from './protected-route';
 import AppContentContext from '../contexts/AppContentContext'
 
 const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard'));
+const UserProfile = React.lazy(() => import('../pages/profile/UserProfile'));
+const CompanyProfile = React.lazy(() => import('../pages/profile/CompanyProfile'));
 const LandingPage = React.lazy(() => import('../pages/landingPage/LandingPage'));
 const Login = React.lazy(() => import('../pages/auth/Login'));
 const Register = React.lazy(() => import('../pages/auth/Register'));
@@ -27,7 +29,9 @@ const AppRouter = () => {
           <AnonymousRoute exact path="/" component={LandingPage} />
           <AnonymousRoute path="/login" exact component={Login} />
           <AnonymousRoute path="/register" exact component={Register} />    
-          <ProtectedRoute path="/dashboard" component={Dashboard} />        
+          <ProtectedRoute path="/dashboard" component={Dashboard} />       
+          <AnonymousRoute path="/userprofile" component={UserProfile} />   
+          <AnonymousRoute path="/companyprofile" component={CompanyProfile} />        
           <Redirect to="/login" />
         </Switch>
       {/* </AppContentContext.Consumer> */}
