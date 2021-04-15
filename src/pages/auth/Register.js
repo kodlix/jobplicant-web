@@ -48,7 +48,7 @@ const Register = ({ props }) => {
                         <div><h1 className="p-mb-6 p-mt-6 p-text-center text-white">Joplicant Home for all</h1></div>
                         <div>
                             <section>
-                                <p> <h3 className="text-white p-text-center"> Job seekers, Artisan, Employer</h3></p>
+                                <h3 className="text-white p-text-center"> Job seekers, Artisan, Employer</h3>
                             </section>
 
                             <section className="p-mt-6 p-text-center">
@@ -67,7 +67,7 @@ const Register = ({ props }) => {
 
                 </div>
                 <div className="login-pane-right p-col-12 p-md-4 p-lg-4">
-                    <div class="brand-logo text-center">
+                    <div className="brand-logo text-center">
                         <img src="/assets/logo.png" width="150" alt="brand-logo" />
                     </div>
                     <div className="">
@@ -91,8 +91,8 @@ const Register = ({ props }) => {
                                                 className="form-control p-ml-6 p-mr-6"
                                                 id="firstName"
                                                 name="firstName"
-                                                placeholder="First Name"
-                                                ref={register({ required: true })}
+                                                placeholder="First Name" 
+                                                {...register("firstName", { required: true })}
                                             />
                                         </div>
                                         <div className="p-field p-grid">
@@ -106,7 +106,7 @@ const Register = ({ props }) => {
                                                 name="lastName"
                                                 id="lastName"
                                                 placeholder="Last Name"
-                                                ref={register({ required: true })}
+                                                {...register("lastName",{ required: true })}
 
                                             />
                                         </div>
@@ -122,7 +122,7 @@ const Register = ({ props }) => {
                                                 name="email"
                                                 id="numberOrEmail"
                                                 placeholder="Mobile number or email address"
-                                                ref={register({ required: true })}
+                                                {...register("email",{ required: true })}
 
                                             />
                                         </div>
@@ -137,7 +137,7 @@ const Register = ({ props }) => {
                                                 name="password"
                                                 id="newPassword"
                                                 placeholder="New password"
-                                                ref={register({ required: true })}
+                                                {...register("password",{ required: true })}
                                             />
                                         </div>
                                         <div className="p-field p-grid">
@@ -152,7 +152,7 @@ const Register = ({ props }) => {
                                                 id="companyName"
                                                 placeholder="Company Name"
                                                 hidden={false}
-                                                ref={register({ required: true })}
+                                                {...register("name",{ required: true })}
                                             />
                                         </div>
 
@@ -161,22 +161,22 @@ const Register = ({ props }) => {
                                         <div className="p-formgroup-inline p-ml-6">
 
                                             <div className="p-field-checkbox">
-                                                <RadioButton inputId="male"
+                                                <RadioButton inputId="male" type="radio"
                                                     name="gender"
                                                     value="male"
                                                     onChange={(e) => setGender(e.value)}
                                                     checked={gender === 'male'}
-                                                    ref={register({ required: true })}
+                                                    {...register("gender",{ required: true })}
                                                 />
                                                 <label htmlFor="female">Female</label>
                                             </div>
                                             <div className="p-field-checkbox">
-                                                <RadioButton inputId="female"
+                                                <RadioButton inputId="female" type="radio"
                                                     name="gender"
                                                     value="female"
                                                     onChange={(e) => setGender(e.value)}
                                                     checked={gender === 'female'}
-                                                    ref={register({ required: true })}
+                                                    {...register("gender",{ required: true })}
 
 
                                                 />
@@ -196,7 +196,7 @@ const Register = ({ props }) => {
                                     </div>
 
                                 </form>
-                                <Link to="/Login" className="lnk-toggler p-text-secondary" data-panel=".panel-login" href="#">Already have an account?</Link>
+                                <Link to="/Login" className="lnk-toggler p-text-secondary" data-panel=".panel-login">Already have an account?</Link>
                             </div>
                         </div>
                     </div>
