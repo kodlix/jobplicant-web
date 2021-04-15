@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import './ConfirmationPage.css'
 import { InputText } from 'primereact/inputtext';
-import { RadioButton } from 'primereact/radiobutton';
 import { Link } from 'react-router-dom';
-import { Carousel } from 'primereact/carousel';
 import './Carousel.css';
 
 
@@ -12,9 +10,9 @@ import { Button } from 'primereact/button';
 
 
 
-const ConfirmationPage = ({ products, productTemplate }) => {
+const ConfirmationPage = ({  }) => {
 
-    const [sliderImage, setSliderImage] = useState([{ image1: '../../assets/images/workspace.jpg', altImage1: "worksplace" },
+    const [sliderImage] = useState([{ image1: '../../assets/images/workspace.jpg', altImage1: "worksplace" },
     { image2: '../../assets/images/loginimg.jpg', altImage2: "loading" }])
 
 
@@ -47,7 +45,7 @@ const ConfirmationPage = ({ products, productTemplate }) => {
 
                 </div>
                 <div className="login-pane-right p-col-12 p-md-4 p-lg-4">
-                    <div class="brand-logo text-center">
+                    <div className="brand-logo text-center">
                         <img src="/assets/logo.png" width="150" alt="brand-logo" />
                     </div>
                     <div className="authfy-login">

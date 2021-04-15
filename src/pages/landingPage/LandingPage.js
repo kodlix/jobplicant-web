@@ -7,27 +7,27 @@ import { Button } from 'primereact/button'
 const LandingPage = () => {
     return (
         <>
-            <header class="header">
-                <div class="navbar-area">
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <div class="col-lg-12">
-                                <nav class="navbar navbar-expand-lg py-2">
-                                    <a class="navbar-brand logo" href="index.html">
-                                        <img class="logo1" src="assets/logo.png" alt="Logo" />
+            <header className="header">
+                <div className="navbar-area">
+                    <div className="container">
+                        <div className="row align-items-center">
+                            <div className="col-lg-12">
+                                <nav className="navbar navbar-expand-lg py-2">
+                                    <a className="navbar-brand logo" href="index.html">
+                                        <img className="logo1" src="assets/logo.png" alt="Logo" />
                                     </a>
-                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                        <span class="toggler-icon"></span>
-                                        <span class="toggler-icon"></span>
-                                        <span class="toggler-icon"></span>
+                                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                        <span className="toggler-icon"></span>
+                                        <span className="toggler-icon"></span>
+                                        <span className="toggler-icon"></span>
                                     </button>
-                                    <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent"></div>
+                                    <div className="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent"></div>
 
-                                    <div class="button">
-                                        <a href="javacript:" data-toggle="modal" data-target="#login" class="login">
-                                            <i class="lni lni-lock-alt"></i>
+                                    <div className="button">
+                                        <a href="javacript:" data-toggle="modal" data-target="#login" className="login">
+                                            <i className="lni lni-lock-alt"></i>
                                             Login</a>
-                                        <Link to="/register" data-toggle="modal" data-target="#signup" class="btn">Sign Up</Link>
+                                        <Link to="/register" data-toggle="modal" data-target="#signup" className="btn">Sign Up</Link>
                                     </div>
                                 </nav>
 
@@ -38,64 +38,64 @@ const LandingPage = () => {
                 </div>
             </header>
 
-            <section class="hero-area style2">
-                <div class="hero-inner">
-                    <div class="home-slider">
-                        <div class="single-slider">
-                            <div class="container">
-                                <div class="row ">
-                                    <div class="col-lg-6 co-12">
-                                        <div class="inner-content">
-                                            <div class="hero-text">
-                                                <h1 class="wow fadeInUp prim" data-wow-delay=".3s">Find Your Career
+            <section className="hero-area style2">
+                <div className="hero-inner">
+                    <div className="home-slider">
+                        <div className="single-slider">
+                            <div className="container">
+                                <div className="row ">
+                                    <div className="col-lg-6 co-12">
+                                        <div className="inner-content">
+                                            <div className="hero-text">
+                                                <h1 className="wow fadeInUp prim" data-wow-delay=".3s">Find Your Career
                                                     <br />to Make a
                                                                                                         Better Life
                                                 </h1>
-                                                <p class="wow fadeInUp" data-wow-delay=".5s">Creating a beautiful job website is
+                                                <p className="wow fadeInUp" data-wow-delay=".5s">Creating a beautiful job website is
                                                 not
                                                 easy always. To make your life easier we are introducing Jobcamp template,
                                                 Leverage agile frameworks to high level overviews.
                                                 </p>
-                                                <div class="button wow fadeInUp" data-wow-delay=".7s">
-                                                    <a href="#" class="btn">Post a Job</a>
-                                                    <a href="#" class="btn btn-alt green-back">See Our Jobs</a>
+                                                <div className="button wow fadeInUp" data-wow-delay=".7s">
+                                                    <a href="#" className="btn">Post a Job</a>
+                                                    <a href="#" className="btn btn-alt green-back">See Our Jobs</a>
                                                     <Button label="Save" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 co-12">
-                                        <div class="hero-image wow fadeInRight" data-wow-delay=".4s">
+                                    <div className="col-lg-6 co-12">
+                                        <div className="hero-image wow fadeInRight" data-wow-delay=".4s">
                                             <img src="assets/images/hero/banner.png" alt="#" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="single-slider">
-                            <div class="container">
-                                <div class="row ">
-                                    <div class="col-lg-6 co-12">
-                                        <div class="inner-content">
-                                            <div class="hero-text">
-                                                <h1 class="wow fadeInUp" data-wow-delay=".3s">Find Your Career
+                        <div className="single-slider">
+                            <div className="container">
+                                <div className="row ">
+                                    <div className="col-lg-6 co-12">
+                                        <div className="inner-content">
+                                            <div className="hero-text">
+                                                <h1 className="wow fadeInUp" data-wow-delay=".3s">Find Your Career
                                                     <br />to Make a
                                                                                                         Better Life
                                                 </h1>
-                                                <p class="wow fadeInUp" data-wow-delay=".5s">Creating a beautiful job website is
+                                                <p className="wow fadeInUp" data-wow-delay=".5s">Creating a beautiful job website is
                                                 not
                                                 easy always. To make your life easier we are introducing Jobcamp template,
                                                 Leverage agile frameworks to high level overviews.
                                                 </p>
-                                                <div class="button wow fadeInUp" data-wow-delay=".7s">
-                                                    <a href="#" class="btn">Post a Job</a>
-                                                    <a href="#" class="btn btn-alt">See Our Jobs</a>
+                                                <div className="button wow fadeInUp" data-wow-delay=".7s">
+                                                    <a href="#" className="btn">Post a Job</a>
+                                                    <a href="#" className="btn btn-alt">See Our Jobs</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 co-12">
-                                        <div class="hero-image wow fadeInRight" data-wow-delay=".ss">
+                                    <div className="col-lg-6 co-12">
+                                        <div className="hero-image wow fadeInRight" data-wow-delay=".ss">
                                             <img src="assets/images/hero/banner2.png" alt="#" />
                                         </div>
                                     </div>
@@ -106,26 +106,26 @@ const LandingPage = () => {
                 </div>
 
             </section>
-            <section class="apply-process section">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-4 col-12">
-                            <div class="process-item">
-                                <i class="lni lni-user"></i>
+            <section className="apply-process section">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-4 col-md-4 col-12">
+                            <div className="process-item">
+                                <i className="lni lni-user"></i>
                                 <h4>Register Your Account</h4>
                                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-12">
-                            <div class="process-item">
-                                <i class="lni lni-book"></i>
+                        <div className="col-lg-4 col-md-4 col-12">
+                            <div className="process-item">
+                                <i className="lni lni-book"></i>
                                 <h4>Upload Your Resume</h4>
                                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-12">
-                            <div class="process-item">
-                                <i class="lni lni-briefcase"></i>
+                        <div className="col-lg-4 col-md-4 col-12">
+                            <div className="process-item">
+                                <i className="lni lni-briefcase"></i>
                                 <h4>Apply for Dream Job</h4>
                                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                             </div>
@@ -134,90 +134,90 @@ const LandingPage = () => {
                 </div>
             </section>
 
-            <section class="job-category section">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="section-title">
-                                <span class="wow fadeInDown" data-wow-delay=".2s">Job Category</span>
-                                <h2 class="wow fadeInUp" data-wow-delay=".4s">Choose Your Desire Category</h2>
-                                <p class="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem
+            <section className="job-category section">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12">
+                            <div className="section-title">
+                                <span className="wow fadeInDown" data-wow-delay=".2s">Job Category</span>
+                                <h2 className="wow fadeInUp" data-wow-delay=".4s">Choose Your Desire Category</h2>
+                                <p className="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem
                                                                         Ipsum available, but the majority have suffered alteration in some form.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="cat-head">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-6 col-12">
-                                <a href="browse-jobs.html" class="single-cat wow fadeInUp" data-wow-delay=".2s">
-                                    <div class="icon">
-                                        <i class="lni lni-cog"></i>
+                    <div className="cat-head">
+                        <div className="row">
+                            <div className="col-lg-3 col-md-6 col-12">
+                                <a href="browse-jobs.html" className="single-cat wow fadeInUp" data-wow-delay=".2s">
+                                    <div className="icon">
+                                        <i className="lni lni-cog"></i>
                                     </div>
                                     <h3>Technical<br />
                                         Support</h3>
                                 </a>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-12">
-                                <a href="browse-jobs.html" class="single-cat wow fadeInUp" data-wow-delay=".4s">
-                                    <div class="icon">
-                                        <i class="lni lni-layers"></i>
+                            <div className="col-lg-3 col-md-6 col-12">
+                                <a href="browse-jobs.html" className="single-cat wow fadeInUp" data-wow-delay=".4s">
+                                    <div className="icon">
+                                        <i className="lni lni-layers"></i>
                                     </div>
                                     <h3>Business<br />
                                         Development</h3>
                                 </a>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-12">
-                                <a href="browse-jobs.html" class="single-cat wow fadeInUp" data-wow-delay=".6s">
-                                    <div class="icon">
-                                        <i class="lni lni-home"></i>
+                            <div className="col-lg-3 col-md-6 col-12">
+                                <a href="browse-jobs.html" className="single-cat wow fadeInUp" data-wow-delay=".6s">
+                                    <div className="icon">
+                                        <i className="lni lni-home"></i>
                                     </div>
                                     <h3>Real Estate<br />
                                         Business</h3>
                                 </a>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-12">
-                                <a href="browse-jobs.html" class="single-cat wow fadeInUp" data-wow-delay=".8s">
-                                    <div class="icon">
-                                        <i class="lni lni-search"></i>
+                            <div className="col-lg-3 col-md-6 col-12">
+                                <a href="browse-jobs.html" className="single-cat wow fadeInUp" data-wow-delay=".8s">
+                                    <div className="icon">
+                                        <i className="lni lni-search"></i>
                                     </div>
                                     <h3>Share Maeket<br />
                                         Analysis</h3>
                                 </a>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-12">
-                                <a href="browse-jobs.html" class="single-cat wow fadeInUp" data-wow-delay=".2s">
-                                    <div class="icon">
-                                        <i class="lni lni-investment"></i>
+                            <div className="col-lg-3 col-md-6 col-12">
+                                <a href="browse-jobs.html" className="single-cat wow fadeInUp" data-wow-delay=".2s">
+                                    <div className="icon">
+                                        <i className="lni lni-investment"></i>
                                     </div>
                                     <h3>Finance & Banking
                                         <br />
                                         Service</h3>
                                 </a>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-12">
-                                <a href="browse-jobs.html" class="single-cat wow fadeInUp" data-wow-delay=".4s">
-                                    <div class="icon">
-                                        <i class="lni lni-cloud-network"></i>
+                            <div className="col-lg-3 col-md-6 col-12">
+                                <a href="browse-jobs.html" className="single-cat wow fadeInUp" data-wow-delay=".4s">
+                                    <div className="icon">
+                                        <i className="lni lni-cloud-network"></i>
                                     </div>
                                     <h3>IT & Networing
                                         <br />
                                         Sevices</h3>
                                 </a>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-12">
-                                <a href="browse-jobs.html" class="single-cat wow fadeInUp" data-wow-delay=".6s">
-                                    <div class="icon">
-                                        <i class="lni lni-restaurant"></i>
+                            <div className="col-lg-3 col-md-6 col-12">
+                                <a href="browse-jobs.html" className="single-cat wow fadeInUp" data-wow-delay=".6s">
+                                    <div className="icon">
+                                        <i className="lni lni-restaurant"></i>
                                     </div>
                                     <h3>Restaurant
                                         <br />
                                         Services</h3>
                                 </a>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-12">
-                                <a href="browse-jobs.html" class="single-cat wow fadeInUp" data-wow-delay=".8s">
-                                    <div class="icon">
-                                        <i class="lni lni-fireworks"></i>
+                            <div className="col-lg-3 col-md-6 col-12">
+                                <a href="browse-jobs.html" className="single-cat wow fadeInUp" data-wow-delay=".8s">
+                                    <div className="icon">
+                                        <i className="lni lni-fireworks"></i>
                                     </div>
                                     <h3>Defence & Fire
                                         <br />
@@ -229,32 +229,32 @@ const LandingPage = () => {
                 </div>
             </section>
 
-            <section class="hero-area style3 bg-white">
-                <div class="hero-inner">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-7 co-12">
-                                <div class="inner-content">
-                                    <div class="hero-text">
-                                        <h1 class="wow fadeInUp" data-wow-delay=".3s">Find the Most Exciting<br />
+            <section className="hero-area style3 bg-white">
+                <div className="hero-inner">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-lg-7 co-12">
+                                <div className="inner-content">
+                                    <div className="hero-text">
+                                        <h1 className="wow fadeInUp" data-wow-delay=".3s">Find the Most Exciting<br />
                                             Jobs to Make a
                                                                                         Better Life
                                         </h1>
-                                        <p class="wow fadeInUp" data-wow-delay=".5s">Creating a beautiful job website is not
+                                        <p className="wow fadeInUp" data-wow-delay=".5s">Creating a beautiful job website is not
                                                                                         easy always. To make<br />
                                             your life easier, we are introducing Jobcamp template,<br />
                                             Leverage agile frameworks to provide a robust<br />
                                             synopsis for high level overviews.
                                         </p>
-                                        <div class="button wow fadeInUp" data-wow-delay=".7s">
-                                            <a href="#" class="btn">Post a Job</a>
-                                            <a href="#" class="btn btn-alt">See Our Jobs</a>
+                                        <div className="button wow fadeInUp" data-wow-delay=".7s">
+                                            <a href="#" className="btn">Post a Job</a>
+                                            <a href="#" className="btn btn-alt">See Our Jobs</a>
                                         </div>
                                     </div>
-                                    <div class="job-search-wrap-two mt-50 wow fadeInUp" data-wow-delay=".9s">
-                                        <div class="trending-keywords mt-30">
-                                            <div class="keywords style-two">
-                                                <span class="title">Popular Keywords:</span>
+                                    <div className="job-search-wrap-two mt-50 wow fadeInUp" data-wow-delay=".9s">
+                                        <div className="trending-keywords mt-30">
+                                            <div className="keywords style-two">
+                                                <span className="title">Popular Keywords:</span>
                                                 <ul>
                                                     <li><a href="#">Administrative</a></li>
                                                     <li><a href="#">Android</a></li>
@@ -266,23 +266,23 @@ const LandingPage = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-5 offset-lg-0 col-md-8 offset-md-2 co-12">
-                                <form class="home-search wow fadeInRight" data-wow-delay=".5s">
-                                    <div class="form-group">
-                                        <label class="font-weight-bold text-dark">What?</label>
-                                        <div class=" form-location">
-                                            <input type="text" class="form-control" placeholder="What are you looking for..." />
+                            <div className="col-lg-5 offset-lg-0 col-md-8 offset-md-2 co-12">
+                                <form className="home-search wow fadeInRight" data-wow-delay=".5s">
+                                    <div className="form-group">
+                                        <label className="font-weight-bold text-dark">What?</label>
+                                        <div className=" form-location">
+                                            <input type="text" className="form-control" placeholder="What are you looking for..." />
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="font-weight-bold text-dark">Where?</label>
-                                        <div class="form-location">
-                                            <input type="text" class="form-control" placeholder="Where..." />
+                                    <div className="form-group">
+                                        <label className="font-weight-bold text-dark">Where?</label>
+                                        <div className="form-location">
+                                            <input type="text" className="form-control" placeholder="Where..." />
                                         </div>
                                     </div>
-                                    <div class="form-group select-border">
-                                        <label class="font-weight-bold text-dark">Choose Category?</label>
-                                        <select class="form-control basic-select">
+                                    <div className="form-group select-border">
+                                        <label className="font-weight-bold text-dark">Choose Category?</label>
+                                        <select className="form-control basic-select">
                                             <option>All categories
                                             </option>
                                             <option>Finance
@@ -296,8 +296,8 @@ const LandingPage = () => {
                                             <option>Healthcare</option>
                                         </select>
                                     </div>
-                                    <div class="button">
-                                        <a class="btn green-back" href="#">
+                                    <div className="button">
+                                        <a className="btn green-back" href="#">
                                             Search
                                         </a>
                                     </div>
@@ -308,21 +308,21 @@ const LandingPage = () => {
                 </div>
             </section>
 
-            <section class="call-action overlay section">
-                <div class="container">
-                    <div class="row ">
-                        <div class="col-lg-8 offset-lg-2 col-12">
-                            <div class="inner">
-                                <div class="section-title">
-                                    <span class="wow fadeInDown" data-wow-delay=".2s">GETTING STARTED TO WORK</span>
-                                    <h2 class="wow fadeInUp" data-wow-delay=".4s">Don’t just find. Be found. Put your
+            <section className="call-action overlay section">
+                <div className="container">
+                    <div className="row ">
+                        <div className="col-lg-8 offset-lg-2 col-12">
+                            <div className="inner">
+                                <div className="section-title">
+                                    <span className="wow fadeInDown" data-wow-delay=".2s">GETTING STARTED TO WORK</span>
+                                    <h2 className="wow fadeInUp" data-wow-delay=".4s">Don’t just find. Be found. Put your
                                                                                 CV in front of great employers</h2>
-                                    <p class="wow fadeInUp" data-wow-delay=".6s">It helps you to increase your chances of
+                                    <p className="wow fadeInUp" data-wow-delay=".6s">It helps you to increase your chances of
                                     finding a suitable job and let recruiters contact you
                                                                                 about jobs that are not needed to pay for advertising.</p>
-                                    <div class="button wow fadeInUp" data-wow-delay=".8s">
-                                        <a href="add-resume.html" class="btn">
-                                            <i class="lni lni-upload"></i>
+                                    <div className="button wow fadeInUp" data-wow-delay=".8s">
+                                        <a href="add-resume.html" className="btn">
+                                            <i className="lni lni-upload"></i>
                                             Upload Your
                                                                                         Resume</a>
                                     </div>
@@ -334,27 +334,27 @@ const LandingPage = () => {
             </section>
 
 
-            <section class="find-job section">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="section-title">
-                                <span class="wow fadeInDown" data-wow-delay=".2s">Hot Jobs</span>
-                                <h2 class="wow fadeInUp" data-wow-delay=".4s">Browse Recent Jobs</h2>
-                                <p class="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem
+            <section className="find-job section">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12">
+                            <div className="section-title">
+                                <span className="wow fadeInDown" data-wow-delay=".2s">Hot Jobs</span>
+                                <h2 className="wow fadeInUp" data-wow-delay=".4s">Browse Recent Jobs</h2>
+                                <p className="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem
                                                                         Ipsum available, but the majority have suffered alteration in some form.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="single-head">
-                        <div class="row">
-                            <div class="col-lg-6 col-12">
+                    <div className="single-head">
+                        <div className="row">
+                            <div className="col-lg-6 col-12">
 
-                                <div class="single-job wow fadeInUp" data-wow-delay=".3s">
-                                    <div class="job-image">
+                                <div className="single-job wow fadeInUp" data-wow-delay=".3s">
+                                    <div className="job-image">
                                         <img src="assets/images/jobs/img1.png" alt="#" />
                                     </div>
-                                    <div class="job-content">
+                                    <div className="job-content">
                                         <h4>
                                             <a href="job-details.html">Software Engineer</a>
                                         </h4>
@@ -363,19 +363,19 @@ const LandingPage = () => {
                                         </p>
                                         <ul>
                                             <li>
-                                                <i class="lni lni-website"></i>
+                                                <i className="lni lni-website"></i>
                                                 <a href="#">
                                                     winbrans.com</a>
                                             </li>
                                             <li>
-                                                <i class="lni lni-dollar"></i>
+                                                <i className="lni lni-dollar"></i>
                                                 $20k - $25k</li>
                                             <li>
-                                                <i class="lni lni-map-marker"></i>
+                                                <i className="lni lni-map-marker"></i>
                                                 New York</li>
                                         </ul>
                                     </div>
-                                    <div class="job-button">
+                                    <div className="job-button">
                                         <ul>
                                             <li>
                                                 <a href="job-details.html">Apply</a>
@@ -388,11 +388,11 @@ const LandingPage = () => {
                                 </div>
 
 
-                                <div class="single-job wow fadeInUp" data-wow-delay=".3s">
-                                    <div class="job-image">
+                                <div className="single-job wow fadeInUp" data-wow-delay=".3s">
+                                    <div className="job-image">
                                         <img src="assets/images/jobs/img2.png" alt="#" />
                                     </div>
-                                    <div class="job-content">
+                                    <div className="job-content">
                                         <h4>
                                             <a href="job-details.html">Graphics Design</a>
                                         </h4>
@@ -401,19 +401,19 @@ const LandingPage = () => {
                                         </p>
                                         <ul>
                                             <li>
-                                                <i class="lni lni-website"></i>
+                                                <i className="lni lni-website"></i>
                                                 <a href="#">
                                                     designhub.com</a>
                                             </li>
                                             <li>
-                                                <i class="lni lni-dollar"></i>
+                                                <i className="lni lni-dollar"></i>
                                                 $20k - $25k</li>
                                             <li>
-                                                <i class="lni lni-map-marker"></i>
+                                                <i className="lni lni-map-marker"></i>
                                                 Washington, USA</li>
                                         </ul>
                                     </div>
-                                    <div class="job-button">
+                                    <div className="job-button">
                                         <ul>
                                             <li>
                                                 <a href="job-details.html">Apply</a>
@@ -426,11 +426,11 @@ const LandingPage = () => {
                                 </div>
 
 
-                                <div class="single-job wow fadeInUp" data-wow-delay=".3s">
-                                    <div class="job-image">
+                                <div className="single-job wow fadeInUp" data-wow-delay=".3s">
+                                    <div className="job-image">
                                         <img src="assets/images/jobs/img3.png" alt="#" />
                                     </div>
-                                    <div class="job-content">
+                                    <div className="job-content">
                                         <h4>
                                             <a href="job-details.html">Ui/Ux Design</a>
                                         </h4>
@@ -439,19 +439,19 @@ const LandingPage = () => {
                                         </p>
                                         <ul>
                                             <li>
-                                                <i class="lni lni-website"></i>
+                                                <i className="lni lni-website"></i>
                                                 <a href="#">
                                                     uddesign.com</a>
                                             </li>
                                             <li>
-                                                <i class="lni lni-dollar"></i>
+                                                <i className="lni lni-dollar"></i>
                                                 $20k - $25k</li>
                                             <li>
-                                                <i class="lni lni-map-marker"></i>
+                                                <i className="lni lni-map-marker"></i>
                                                 Cupertino, USA</li>
                                         </ul>
                                     </div>
-                                    <div class="job-button">
+                                    <div className="job-button">
                                         <ul>
                                             <li>
                                                 <a href="job-details.html">Apply</a>
@@ -464,11 +464,11 @@ const LandingPage = () => {
                                 </div>
 
 
-                                <div class="single-job wow fadeInUp" data-wow-delay=".3s">
-                                    <div class="job-image">
+                                <div className="single-job wow fadeInUp" data-wow-delay=".3s">
+                                    <div className="job-image">
                                         <img src="assets/images/jobs/img4.png" alt="#" />
                                     </div>
-                                    <div class="job-content">
+                                    <div className="job-content">
                                         <h4>
                                             <a href="job-details.html">Web Developer</a>
                                         </h4>
@@ -477,19 +477,19 @@ const LandingPage = () => {
                                         </p>
                                         <ul>
                                             <li>
-                                                <i class="lni lni-website"></i>
+                                                <i className="lni lni-website"></i>
                                                 <a href="#">
                                                     webinner.com</a>
                                             </li>
                                             <li>
-                                                <i class="lni lni-dollar"></i>
+                                                <i className="lni lni-dollar"></i>
                                                 $20k - $25k</li>
                                             <li>
-                                                <i class="lni lni-map-marker"></i>
+                                                <i className="lni lni-map-marker"></i>
                                                 Delaware, USA</li>
                                         </ul>
                                     </div>
-                                    <div class="job-button">
+                                    <div className="job-button">
                                         <ul>
                                             <li>
                                                 <a href="job-details.html">Apply</a>
@@ -502,13 +502,13 @@ const LandingPage = () => {
                                 </div>
 
                             </div>
-                            <div class="col-lg-6 col-12">
+                            <div className="col-lg-6 col-12">
 
-                                <div class="single-job wow fadeInUp" data-wow-delay=".5s">
-                                    <div class="job-image">
+                                <div className="single-job wow fadeInUp" data-wow-delay=".5s">
+                                    <div className="job-image">
                                         <img src="assets/images/jobs/img7.png" alt="#" />
                                     </div>
-                                    <div class="job-content">
+                                    <div className="job-content">
                                         <h4>
                                             <a href="job-details.html">Digital Marketer</a>
                                         </h4>
@@ -517,19 +517,19 @@ const LandingPage = () => {
                                         </p>
                                         <ul>
                                             <li>
-                                                <i class="lni lni-website"></i>
+                                                <i className="lni lni-website"></i>
                                                 <a href="#">
                                                     marketers.com</a>
                                             </li>
                                             <li>
-                                                <i class="lni lni-dollar"></i>
+                                                <i className="lni lni-dollar"></i>
                                                 $20k - $25k</li>
                                             <li>
-                                                <i class="lni lni-map-marker"></i>
+                                                <i className="lni lni-map-marker"></i>
                                                 New York, USA</li>
                                         </ul>
                                     </div>
-                                    <div class="job-button">
+                                    <div className="job-button">
                                         <ul>
                                             <li>
                                                 <a href="job-details.html">Apply</a>
@@ -542,11 +542,11 @@ const LandingPage = () => {
                                 </div>
 
 
-                                <div class="single-job wow fadeInUp" data-wow-delay=".5s">
-                                    <div class="job-image">
+                                <div className="single-job wow fadeInUp" data-wow-delay=".5s">
+                                    <div className="job-image">
                                         <img src="assets/images/jobs/img5.png" alt="#" />
                                     </div>
-                                    <div class="job-content">
+                                    <div className="job-content">
                                         <h4>
                                             <a href="job-details.html">Sales Manager</a>
                                         </h4>
@@ -555,19 +555,19 @@ const LandingPage = () => {
                                         </p>
                                         <ul>
                                             <li>
-                                                <i class="lni lni-website"></i>
+                                                <i className="lni lni-website"></i>
                                                 <a href="#">
                                                     winbrans.com</a>
                                             </li>
                                             <li>
-                                                <i class="lni lni-dollar"></i>
+                                                <i className="lni lni-dollar"></i>
                                                 $20k - $25k</li>
                                             <li>
-                                                <i class="lni lni-map-marker"></i>
+                                                <i className="lni lni-map-marker"></i>
                                                 Delaware, USA</li>
                                         </ul>
                                     </div>
-                                    <div class="job-button">
+                                    <div className="job-button">
                                         <ul>
                                             <li>
                                                 <a href="job-details.html">Apply</a>
@@ -580,11 +580,11 @@ const LandingPage = () => {
                                 </div>
 
 
-                                <div class="single-job wow fadeInUp" data-wow-delay=".5s">
-                                    <div class="job-image">
+                                <div className="single-job wow fadeInUp" data-wow-delay=".5s">
+                                    <div className="job-image">
                                         <img src="assets/images/jobs/img6.png" alt="#" />
                                     </div>
-                                    <div class="job-content">
+                                    <div className="job-content">
                                         <h4>
                                             <a href="job-details.html">Product Designer</a>
                                         </h4>
@@ -593,19 +593,19 @@ const LandingPage = () => {
                                         </p>
                                         <ul>
                                             <li>
-                                                <i class="lni lni-website"></i>
+                                                <i className="lni lni-website"></i>
                                                 <a href="#">
                                                     winbrans.com</a>
                                             </li>
                                             <li>
-                                                <i class="lni lni-dollar"></i>
+                                                <i className="lni lni-dollar"></i>
                                                 $20k - $25k</li>
                                             <li>
-                                                <i class="lni lni-map-marker"></i>
+                                                <i className="lni lni-map-marker"></i>
                                                 New York, USA</li>
                                         </ul>
                                     </div>
-                                    <div class="job-button">
+                                    <div className="job-button">
                                         <ul>
                                             <li>
                                                 <a href="job-details.html">Apply</a>
@@ -618,11 +618,11 @@ const LandingPage = () => {
                                 </div>
 
 
-                                <div class="single-job wow fadeInUp" data-wow-delay=".5s">
-                                    <div class="job-image">
+                                <div className="single-job wow fadeInUp" data-wow-delay=".5s">
+                                    <div className="job-image">
                                         <img src="assets/images/jobs/img8.png" alt="#" />
                                     </div>
-                                    <div class="job-content">
+                                    <div className="job-content">
                                         <h4>
                                             <a href="job-details.html">Android Developer</a>
                                         </h4>
@@ -631,19 +631,19 @@ const LandingPage = () => {
                                         </p>
                                         <ul>
                                             <li>
-                                                <i class="lni lni-website"></i>
+                                                <i className="lni lni-website"></i>
                                                 <a href="#">
                                                     androidplex.com</a>
                                             </li>
                                             <li>
-                                                <i class="lni lni-dollar"></i>
+                                                <i className="lni lni-dollar"></i>
                                                 $20k - $25k</li>
                                             <li>
-                                                <i class="lni lni-map-marker"></i>
+                                                <i className="lni lni-map-marker"></i>
                                                 Cupertino, USA</li>
                                         </ul>
                                     </div>
-                                    <div class="job-button">
+                                    <div className="job-button">
                                         <ul>
                                             <li>
                                                 <a href="job-details.html">Apply</a>
@@ -658,16 +658,16 @@ const LandingPage = () => {
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="pagination center wow fadeInUp" data-wow-delay=".3s">
-                                    <ul class="pagination-list">
+                        <div className="row">
+                            <div className="col-12">
+                                <div className="pagination center wow fadeInUp" data-wow-delay=".3s">
+                                    <ul className="pagination-list">
                                         <li>
                                             <a href="#">
-                                                <i class="lni lni-arrow-left"></i>
+                                                <i className="lni lni-arrow-left"></i>
                                             </a>
                                         </li>
-                                        <li class="active">
+                                        <li className="active">
                                             <a href="#">1</a>
                                         </li>
                                         <li>
@@ -681,7 +681,7 @@ const LandingPage = () => {
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <i class="lni lni-arrow-right"></i>
+                                                <i className="lni lni-arrow-right"></i>
                                             </a>
                                         </li>
                                     </ul>
@@ -693,34 +693,34 @@ const LandingPage = () => {
                 </div>
             </section>
 
-            <section class=" testimonials">
-                <img class="patern1 wow fadeInRight" data-wow-delay=".3s" src="assets/images/testimonial/patern1.png" alt="#" />
-                <img class="patern2 wow fadeInLeft" data-wow-delay=".5s" src="assets/images/testimonial/patern1.png" alt="#" />
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 col-12">
-                            <div class="section-title align-left wow fadeInLeft" data-wow-delay=".3s">
+            <section className=" testimonials">
+                <img className="patern1 wow fadeInRight" data-wow-delay=".3s" src="assets/images/testimonial/patern1.png" alt="#" />
+                <img className="patern2 wow fadeInLeft" data-wow-delay=".5s" src="assets/images/testimonial/patern1.png" alt="#" />
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-6 col-12">
+                            <div className="section-title align-left wow fadeInLeft" data-wow-delay=".3s">
                                 <span>What saye's Our Clients</span>
                                 <h2>Our Testimonials</h2>
                             </div>
-                            <div class=" testimonial-inner-head wow fadeInLeft" data-wow-delay=".3s">
-                                <div class=" testimonial-inner">
-                                    <div class="testimonial-slider">
+                            <div className=" testimonial-inner-head wow fadeInLeft" data-wow-delay=".3s">
+                                <div className=" testimonial-inner">
+                                    <div className="testimonial-slider">
 
-                                        <div class="single-testimonial">
-                                            <div class="quote">
-                                                <i class="lni lni-quotation"></i>
+                                        <div className="single-testimonial">
+                                            <div className="quote">
+                                                <i className="lni lni-quotation"></i>
                                             </div>
                                             <p>" I just brought it and i love it. Lorem Ipsum is simply dummy text of the and
                                             typesetting industry. Lorem Ipsum has been the industry's standard dummy text
                                             ever
                                             since the 1500s."
                                             </p>
-                                            <div class="bottom">
-                                                <div class="clien-image">
+                                            <div className="bottom">
+                                                <div className="clien-image">
                                                     <img src="assets/images/testimonial/testi1.jpg" alt="#" />
                                                 </div>
-                                                <h4 class="name">Musharof Chowdhury
+                                                <h4 className="name">Musharof Chowdhury
                                                     <span>CEO - Graygrids</span>
                                                 </h4>
                                             </div>
@@ -730,8 +730,8 @@ const LandingPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-12">
-                            <div class="testimonial-right wow fadeInRight" data-wow-delay=".5s">
+                        <div className="col-lg-6 col-12">
+                            <div className="testimonial-right wow fadeInRight" data-wow-delay=".5s">
                                 <img src="assets/images/testimonial/testimonial-right.png" alt="#" />
                             </div>
                         </div>
@@ -740,33 +740,33 @@ const LandingPage = () => {
             </section>
 
 
-            <section class="pricing-table section">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="section-title">
-                                <span class="wow fadeInDown" data-wow-delay=".2s">Pricing Table</span>
-                                <h2 class="wow fadeInUp" data-wow-delay=".4s">Our Pricing Plan</h2>
-                                <p class="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem
+            <section className="pricing-table section">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12">
+                            <div className="section-title">
+                                <span className="wow fadeInDown" data-wow-delay=".2s">Pricing Table</span>
+                                <h2 className="wow fadeInUp" data-wow-delay=".4s">Our Pricing Plan</h2>
+                                <p className="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem
                                                                         Ipsum available, but the majority have suffered alteration in some form.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6 col-12">
+                    <div className="row">
+                        <div className="col-lg-4 col-md-6 col-12">
 
-                            <div class="single-table wow fadeInUp" data-wow-delay=".2s">
+                            <div className="single-table wow fadeInUp" data-wow-delay=".2s">
 
-                                <div class="table-head">
-                                    <h4 class="title">BASIC PACK</h4>
-                                    <div class="price">
-                                        <p class="amount">$30<span class="duration">per month</span>
+                                <div className="table-head">
+                                    <h4 className="title">BASIC PACK</h4>
+                                    <div className="price">
+                                        <p className="amount">$30<span className="duration">per month</span>
                                         </p>
                                     </div>
                                 </div>
 
 
-                                <ul class="table-list">
+                                <ul className="table-list">
                                     <li>5+ Listings</li>
                                     <li>Contact With Agent</li>
                                     <li>Contact With Agent</li>
@@ -775,27 +775,27 @@ const LandingPage = () => {
                                 </ul>
 
 
-                                <div class="button">
-                                    <a class="btn" href="#">Register Now</a>
+                                <div className="button">
+                                    <a className="btn" href="#">Register Now</a>
                                 </div>
 
                             </div>
 
                         </div>
-                        <div class="col-lg-4 col-md-6 col-12">
+                        <div className="col-lg-4 col-md-6 col-12">
 
-                            <div class="single-table wow fadeInUp" data-wow-delay=".4s">
+                            <div className="single-table wow fadeInUp" data-wow-delay=".4s">
 
-                                <div class="table-head">
-                                    <h4 class="title">STANDARD PACK</h4>
-                                    <div class="price">
-                                        <p class="amount">$40<span class="duration">per month</span>
+                                <div className="table-head">
+                                    <h4 className="title">STANDARD PACK</h4>
+                                    <div className="price">
+                                        <p className="amount">$40<span className="duration">per month</span>
                                         </p>
                                     </div>
                                 </div>
 
 
-                                <ul class="table-list">
+                                <ul className="table-list">
                                     <li>5+ Listings</li>
                                     <li>Contact With Agent</li>
                                     <li>Contact With Agent</li>
@@ -804,27 +804,27 @@ const LandingPage = () => {
                                 </ul>
 
 
-                                <div class="button">
-                                    <a class="btn" href="#">Register Now</a>
+                                <div className="button">
+                                    <a className="btn" href="#">Register Now</a>
                                 </div>
 
                             </div>
 
                         </div>
-                        <div class="col-lg-4 col-md-6 col-12">
+                        <div className="col-lg-4 col-md-6 col-12">
 
-                            <div class="single-table wow fadeInUp" data-wow-delay=".6s">
+                            <div className="single-table wow fadeInUp" data-wow-delay=".6s">
 
-                                <div class="table-head">
-                                    <h4 class="title">PREMIUM PACK</h4>
-                                    <div class="price">
-                                        <p class="amount">$60<span class="duration">per month</span>
+                                <div className="table-head">
+                                    <h4 className="title">PREMIUM PACK</h4>
+                                    <div className="price">
+                                        <p className="amount">$60<span className="duration">per month</span>
                                         </p>
                                     </div>
                                 </div>
 
 
-                                <ul class="table-list">
+                                <ul className="table-list">
                                     <li>5+ Listings</li>
                                     <li>Contact With Agent</li>
                                     <li>Contact With Agent</li>
@@ -833,8 +833,8 @@ const LandingPage = () => {
                                 </ul>
 
 
-                                <div class="button">
-                                    <a class="btn" href="#">Register Now</a>
+                                <div className="button">
+                                    <a className="btn" href="#">Register Now</a>
                                 </div>
 
                             </div>
@@ -844,35 +844,35 @@ const LandingPage = () => {
                 </div>
             </section>
 
-            <div class="client-logo-section">
-                <div class="container">
-                    <div class="client-logo-wrapper">
-                        <div class="client-logo-carousel d-flex align-items-center justify-content-between">
-                            <div class="client-logo">
+            <div className="client-logo-section">
+                <div className="container">
+                    <div className="client-logo-wrapper">
+                        <div className="client-logo-carousel d-flex align-items-center justify-content-between">
+                            <div className="client-logo">
                                 <img src="assets/images/clients/client1.png" alt="#" />
                             </div>
-                            <div class="client-logo">
+                            <div className="client-logo">
                                 <img src="assets/images/clients/client2.png" alt="#" />
                             </div>
-                            <div class="client-logo">
+                            <div className="client-logo">
                                 <img src="assets/images/clients/client3.png" alt="#" />
                             </div>
-                            <div class="client-logo">
+                            <div className="client-logo">
                                 <img src="assets/images/clients/client4.png" alt="#" />
                             </div>
-                            <div class="client-logo">
+                            <div className="client-logo">
                                 <img src="assets/images/clients/client5.png" alt="#" />
                             </div>
-                            <div class="client-logo">
+                            <div className="client-logo">
                                 <img src="assets/images/clients/client6.png" alt="#" />
                             </div>
-                            <div class="client-logo">
+                            <div className="client-logo">
                                 <img src="assets/images/clients/client2.png" alt="#" />
                             </div>
-                            <div class="client-logo">
+                            <div className="client-logo">
                                 <img src="assets/images/clients/client3.png" alt="#" />
                             </div>
-                            <div class="client-logo">
+                            <div className="client-logo">
                                 <img src="assets/images/clients/client4.png" alt="#" />
                             </div>
                         </div>
@@ -881,58 +881,58 @@ const LandingPage = () => {
             </div>
 
 
-            <div class="modal fade form-modal" id="login" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog max-width-px-840 position-relative">
-                    <button type="button" class="circle-32 btn-reset bg-white pos-abs-tr mt-md-n6 mr-lg-n6 focus-reset z-index-supper" data-dismiss="modal">
-                        <i class="lni lni-close"></i>
+            <div className="modal fade form-modal" id="login" tabIndex="-1" aria-hidden="true">
+                <div className="modal-dialog max-width-px-840 position-relative">
+                    <button type="button" className="circle-32 btn-reset bg-white pos-abs-tr mt-md-n6 mr-lg-n6 focus-reset z-index-supper" data-dismiss="modal">
+                        <i className="lni lni-close"></i>
                     </button>
-                    <div class="login-modal-main">
-                        <div class="row no-gutters">
-                            <div class="col-12">
-                                <div class="row">
-                                    <div class="heading">
+                    <div className="login-modal-main">
+                        <div className="row no-gutters">
+                            <div className="col-12">
+                                <div className="row">
+                                    <div className="heading">
                                         <h3>Login From Here</h3>
                                         <p>Log in to continue your account
                                             <br />
                                             and explore new jobs.</p>
                                     </div>
-                                    <div class="social-login">
+                                    <div className="social-login">
                                         <ul>
-                                            <li><a class="linkedin" href="#"><i class="lni lni-linkedin-original"></i>Log in
+                                            <li><a className="linkedin" href="#"><i className="lni lni-linkedin-original"></i>Log in
                                                                                                     with LinkedIn</a></li>
-                                            <li><a class="google" href="#"><i class="lni lni-google"></i>Log in with
+                                            <li><a className="google" href="#"><i className="lni lni-google"></i>Log in with
                                                                                                     Google</a></li>
-                                            <li><a class="facebook" href="#"><i class="lni lni-facebook-original"></i>Log in
+                                            <li><a className="facebook" href="#"><i className="lni lni-facebook-original"></i>Log in
                                                                                                     with Facebook</a></li>
                                         </ul>
                                     </div>
-                                    <div class="or-devider">
+                                    <div className="or-devider">
                                         <span>Or</span>
                                     </div>
                                     <form action="https://demo.graygrids.com/">
-                                        <div class="form-group">
-                                            <label for="email" class="label">E-mail</label>
-                                            <input type="email" class="form-control" placeholder="example@gmail.com" id="email" />
+                                        <div className="form-group">
+                                            <label htmlFor="email" className="label">E-mail</label>
+                                            <input type="email" className="form-control" placeholder="example@gmail.com" id="email" />
                                         </div>
-                                        <div class="form-group">
-                                            <label for="password" class="label">Password</label>
-                                            <div class="position-relative">
-                                                <input type="password" class="form-control" id="password" placeholder="Enter password" />
+                                        <div className="form-group">
+                                            <label htmlFor="password" className="label">Password</label>
+                                            <div className="position-relative">
+                                                <input type="password" className="form-control" id="password" placeholder="Enter password" />
                                             </div>
                                         </div>
-                                        <div class="form-group d-flex flex-wrap justify-content-between">
+                                        <div className="form-group d-flex flex-wrap justify-content-between">
 
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                <label class="form-check-label" for="flexCheckDefault">Remember password</label>
+                                            <div className="form-check">
+                                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                <label className="form-check-label" htmlFor="flexCheckDefault">Remember password</label>
                                             </div>
-                                            <a href="#" class="font-size-3 text-dodger line-height-reset">Forget Password</a>
+                                            <a href="#" className="font-size-3 text-dodger line-height-reset">Forget Password</a>
                                         </div>
-                                        <div class="form-group mb-8 button">
-                                            <button class="btn ">Log in
+                                        <div className="form-group mb-8 button">
+                                            <button className="btn ">Log in
                                             </button>
                                         </div>
-                                        <p class="text-center create-new-account">Don’t have an account?
+                                        <p className="text-center create-new-account">Don’t have an account?
                                             <a href="#">Create a
                                                                                                 free account</a>
                                         </p>
@@ -945,16 +945,16 @@ const LandingPage = () => {
             </div>
 
 
-            <div class="modal fade form-modal" id="signup" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog max-width-px-840 position-relative">
-                    <button type="button" class="circle-32 btn-reset bg-white pos-abs-tr mt-md-n6 mr-lg-n6 focus-reset z-index-supper" data-dismiss="modal">
-                        <i class="lni lni-close"></i>
+            <div className="modal fade form-modal" id="signup" tabIndex="-1" aria-hidden="true">
+                <div className="modal-dialog max-width-px-840 position-relative">
+                    <button type="button" className="circle-32 btn-reset bg-white pos-abs-tr mt-md-n6 mr-lg-n6 focus-reset z-index-supper" data-dismiss="modal">
+                        <i className="lni lni-close"></i>
                     </button>
-                    <div class="login-modal-main">
-                        <div class="row no-gutters">
-                            <div class="col-12">
-                                <div class="row">
-                                    <div class="heading">
+                    <div className="login-modal-main">
+                        <div className="row no-gutters">
+                            <div className="col-12">
+                                <div className="row">
+                                    <div className="heading">
                                         <h3>Create a free Account
                                             <br />
                                             Today</h3>
@@ -962,47 +962,47 @@ const LandingPage = () => {
                                             <br />
                                             and explore new jobs.</p>
                                     </div>
-                                    <div class="social-login">
+                                    <div className="social-login">
                                         <ul>
-                                            <li><a class="linkedin" href="#"><i class="lni lni-linkedin-original"></i>Import
+                                            <li><a className="linkedin" href="#"><i className="lni lni-linkedin-original"></i>Import
                                                                                                     from LinkedIn</a></li>
-                                            <li><a class="google" href="#"><i class="lni lni-google"></i>Import from
+                                            <li><a className="google" href="#"><i className="lni lni-google"></i>Import from
                                                                                                     Google</a></li>
-                                            <li><a class="facebook" href="#"><i class="lni lni-facebook-original"></i>Import
+                                            <li><a className="facebook" href="#"><i className="lni lni-facebook-original"></i>Import
                                                                                                     from Facebook</a></li>
                                         </ul>
                                     </div>
-                                    <div class="or-devider">
+                                    <div className="or-devider">
                                         <span>Or</span>
                                     </div>
                                     <form action="https://demo.graygrids.com/">
-                                        <div class="form-group">
-                                            <label for="email" class="label">E-mail</label>
-                                            <input type="email" class="form-control" placeholder="example@gmail.com" />
+                                        <div className="form-group">
+                                            <label htmlFor="email" className="label">E-mail</label>
+                                            <input type="email" className="form-control" placeholder="example@gmail.com" />
                                         </div>
-                                        <div class="form-group">
-                                            <label for="password" class="label">Password</label>
-                                            <div class="position-relative">
-                                                <input type="password" class="form-control" placeholder="Enter password" />
+                                        <div className="form-group">
+                                            <label htmlFor="password" className="label">Password</label>
+                                            <div className="position-relative">
+                                                <input type="password" className="form-control" placeholder="Enter password" />
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="password" class="label">Confirm Password</label>
-                                            <div class="position-relative">
-                                                <input type="password" class="form-control" placeholder="Enter password" />
+                                        <div className="form-group">
+                                            <label htmlFor="password" className="label">Confirm Password</label>
+                                            <div className="position-relative">
+                                                <input type="password" className="form-control" placeholder="Enter password" />
                                             </div>
                                         </div>
-                                        <div class="form-group d-flex flex-wrap justify-content-between">
+                                        <div className="form-group d-flex flex-wrap justify-content-between">
 
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" />
-                                                <label class="form-check-label" for="flexCheckDefault">Agree to the
+                                            <div className="form-check">
+                                                <input className="form-check-input" type="checkbox" value="" />
+                                                <label className="form-check-label" htmlFor="flexCheckDefault">Agree to the
                                                     <a href="#">Terms & Conditions</a>
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="form-group mb-8 button">
-                                            <button class="btn ">Sign Up
+                                        <div className="form-group mb-8 button">
+                                            <button className="btn ">Sign Up
                                             </button>
                                         </div>
                                     </form>
@@ -1014,26 +1014,26 @@ const LandingPage = () => {
             </div>
 
 
-            <footer class="footer apply-process">
-                <div class="footer-top apply-process">
-                    <div class="container">
-                        <div class="row align-items-center justify-content-center">
-                            <div class="col-lg-6 col-12">
-                                <div class="download-text text-white">
-                                    <h3 class="text-white">Download Our Best Apps</h3>
+            <footer className="footer apply-process">
+                <div className="footer-top apply-process">
+                    <div className="container">
+                        <div className="row align-items-center justify-content-center">
+                            <div className="col-lg-6 col-12">
+                                <div className="download-text text-white">
+                                    <h3 className="text-white">Download Our Best Apps</h3>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do<br />
                                         eiusmod tempor
                                                                                 incididunt ut labore et dolore</p>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-12">
-                                <div class="download-button">
-                                    <div class="button">
-                                        <a class="btn bg-white text-dark" href="#">
-                                            <i class="lni lni-apple"></i>
+                            <div className="col-lg-6 col-12">
+                                <div className="download-button">
+                                    <div className="button">
+                                        <a className="btn bg-white text-dark" href="#">
+                                            <i className="lni lni-apple"></i>
                                             App Store</a>
-                                        <a class="btn bg-white text-dark" href="#">
-                                            <i class="lni lni-play-store"></i>
+                                        <a className="btn bg-white text-dark" href="#">
+                                            <i className="lni lni-play-store"></i>
                                             Google Play</a>
                                     </div>
                                 </div>
@@ -1042,44 +1042,44 @@ const LandingPage = () => {
                     </div>
                 </div>
 
-                <div class="footer-middle">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-6 col-12">
+                <div className="footer-middle">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-lg-4 col-md-6 col-12">
 
-                                <div class="f-about single-footer">
-                                    <div class="logo">
+                                <div className="f-about single-footer">
+                                    <div className="logo">
                                         <a href="index.html"><img src="assets/logo.png" alt="Logo" /></a>
                                     </div>
                                     <p>Start building your creative website with our awesome template Massive.</p>
-                                    <ul class="contact-address">
+                                    <ul className="contact-address">
                                         <li>
                                             <span>Address:</span>
                                             555 Wall Street, USA, NY</li>
                                         <li>
                                             <span>Email:</span>
-                                            <a href="https://demo.graygrids.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b7d2cfd6dac7dbd2f7d6c7c2c499d4d8da">[email&#160;protected]</a>
+                                            <a href="https://demo.graygrids.com/cdn-cgi/l/email-protection" className="__cf_email__" data-cfemail="b7d2cfd6dac7dbd2f7d6c7c2c499d4d8da">[email&#160;protected]</a>
                                         </li>
                                         <li>
                                             <span>Call:</span>
                                             555-555-1234</li>
                                     </ul>
-                                    <div class="footer-social">
+                                    <div className="footer-social">
                                         <ul>
-                                            <li><a href="#"><i class="lni lni-facebook-original"></i></a></li>
-                                            <li><a href="#"><i class="lni lni-twitter-original"></i></a></li>
-                                            <li><a href="#"><i class="lni lni-linkedin-original"></i></a></li>
-                                            <li><a href="#"><i class="lni lni-pinterest"></i></a></li>
+                                            <li><a href="#"><i className="lni lni-facebook-original"></i></a></li>
+                                            <li><a href="#"><i className="lni lni-twitter-original"></i></a></li>
+                                            <li><a href="#"><i className="lni lni-linkedin-original"></i></a></li>
+                                            <li><a href="#"><i className="lni lni-pinterest"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
 
                             </div>
-                            <div class="col-lg-8 col-12">
-                                <div class="row">
-                                    <div class="col-lg-4 col-md-6 col-12">
+                            <div className="col-lg-8 col-12">
+                                <div className="row">
+                                    <div className="col-lg-4 col-md-6 col-12">
 
-                                        <div class="single-footer f-link">
+                                        <div className="single-footer f-link">
                                             <h3>For Candidates</h3>
                                             <ul>
                                                 <li><a href="#">User Dashboard</a></li>
@@ -1092,9 +1092,9 @@ const LandingPage = () => {
                                         </div>
 
                                     </div>
-                                    <div class="col-lg-4 col-md-6 col-12">
+                                    <div className="col-lg-4 col-md-6 col-12">
 
-                                        <div class="single-footer f-link">
+                                        <div className="single-footer f-link">
                                             <h3>For Employers</h3>
                                             <ul>
                                                 <li><a href="#">Post New</a></li>
@@ -1107,21 +1107,20 @@ const LandingPage = () => {
                                         </div>
 
                                     </div>
-                                    <div class="col-lg-4 col-md-6 col-12">
+                                    <div className="col-lg-4 col-md-6 col-12">
 
-                                        <div class="single-footer newsletter">
+                                        <div className="single-footer newsletter">
                                             <h3>Join Our Newsletter</h3>
                                             <p>Subscribe to get the latest jobs posted, candidates...</p>
-                                            <form action="https://demo.graygrids.com/themes/jobgrids/mail/mail.php" method="get" target="_blank" class="newsletter-inner">
-                                                <input name="EMAIL" placeholder="Your email address" class="common-input" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your email address'" required="" type="email" />
-                                                <div class="button">
-                                                    <button class="btn">Subscribe Now!
-                                                        <span class="dir-part"></span>
+                                            <form  target="_blank" className="newsletter-inner">
+                                                <input name="EMAIL" placeholder="Your email address" className="common-input"  required="" type="email" />
+                                                <div className="button">
+                                                    <button className="btn">Subscribe Now!
+                                                        <span className="dir-part"></span>
                                                     </button>
                                                 </div>
                                             </form>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -1129,18 +1128,18 @@ const LandingPage = () => {
                     </div>
                 </div>
 
-                <div class="footer-bottom">
-                    <div class="container">
-                        <div class="inner">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-12">
-                                    <div class="left">
+                <div className="footer-bottom">
+                    <div className="container">
+                        <div className="inner">
+                            <div className="row">
+                                <div className="col-lg-6 col-md-6 col-12">
+                                    <div className="left">
                                         <p>Designed and Developed by<a href="https://graygrids.com/" rel="nofollow" target="_blank">GrayGrids</a>
                                         </p>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-12">
-                                    <div class="right">
+                                <div className="col-lg-6 col-md-6 col-12">
+                                    <div className="right">
                                         <ul>
                                             <li><a href="#">Terms of use</a></li>
                                             <li><a href="#">Privacy Policy</a></li>

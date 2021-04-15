@@ -20,7 +20,7 @@ const AppAlert = () => {
                     {notification.error && <div className="row alert alert-error text-danger alert-dismissible fade show pb-2 mb-0" role="alert">
                         <span className="col-1 px-1 py-1 my-auto">
                             <i className="fas fa-exclamation-circle text-danger bg-light rounded-circle" style={{ fontSize: "2rem" }}></i>
-                            {/* <i class=""></i> */}
+                            {/* <i className=""></i> */}
                         </span>
                         <span className="col-10 text-wrap ml-1 my-auto">
                             {notification.error}
