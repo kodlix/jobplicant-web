@@ -12,7 +12,7 @@ import { registerUser } from 'store/modules/auth';
 
 
 
-const Register = ({ props }) => {
+const Register = ({ }) => {
 
     const { register, handleSubmit, erorrs } = useForm();
     const dispatch = useDispatch();
@@ -91,7 +91,7 @@ const Register = ({ props }) => {
                                                 className="form-control p-ml-6 p-mr-6"
                                                 id="firstName"
                                                 name="firstName"
-                                                placeholder="First Name" 
+                                                placeholder="First Name"
                                                 {...register("firstName", { required: true })}
                                             />
                                         </div>
@@ -106,7 +106,7 @@ const Register = ({ props }) => {
                                                 name="lastName"
                                                 id="lastName"
                                                 placeholder="Last Name"
-                                                {...register("lastName",{ required: true })}
+                                                {...register("lastName", { required: true })}
 
                                             />
                                         </div>
@@ -122,7 +122,7 @@ const Register = ({ props }) => {
                                                 name="email"
                                                 id="numberOrEmail"
                                                 placeholder="Mobile number or email address"
-                                                {...register("email",{ required: true })}
+                                                {...register("email", { required: true })}
 
                                             />
                                         </div>
@@ -137,7 +137,7 @@ const Register = ({ props }) => {
                                                 name="password"
                                                 id="newPassword"
                                                 placeholder="New password"
-                                                {...register("password",{ required: true })}
+                                                {...register("password", { required: true })}
                                             />
                                         </div>
                                         <div className="p-field p-grid">
@@ -152,7 +152,7 @@ const Register = ({ props }) => {
                                                 id="companyName"
                                                 placeholder="Company Name"
                                                 hidden={false}
-                                                {...register("name",{ required: true })}
+                                                {...register("name", { required: true })}
                                             />
                                         </div>
 
@@ -166,7 +166,7 @@ const Register = ({ props }) => {
                                                     value="male"
                                                     onChange={(e) => setGender(e.value)}
                                                     checked={gender === 'male'}
-                                                    {...register("gender",{ required: true })}
+                                                    {...register("gender", { required: true })}
                                                 />
                                                 <label htmlFor="female">Female</label>
                                             </div>
@@ -176,7 +176,7 @@ const Register = ({ props }) => {
                                                     value="female"
                                                     onChange={(e) => setGender(e.value)}
                                                     checked={gender === 'female'}
-                                                    {...register("gender",{ required: true })}
+                                                    {...register("gender", { required: true })}
 
 
                                                 />

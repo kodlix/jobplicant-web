@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
 
-const Login = ({ }) => {
+const Login = ({ props }) => {
 
     const dispatch = useDispatch();
     const { register, handleSubmit, erorrs } = useForm();
@@ -18,9 +18,10 @@ const Login = ({ }) => {
 
 
     const onSubmit = (user) => {
+
+        user.type = 'artisan';
         console.log(user)
-        return;
-        // dispatch(loginUser(user));
+        dispatch(loginUser(user));
     }
 
     return (
@@ -84,17 +85,17 @@ const Login = ({ }) => {
 
                                 <form onSubmit={handleSubmit(onSubmit)}>
                                     <div className="p-field p-grid">
-                                        <label htmlFor="numberoremail" className="p-sr-only">Number or Email
+                                        <label htmlFor="email" className="p-sr-only">Number or Email
                                                   <span className="p-text-danger p-pl-1">
                                                 {/* {erorrs.numberoremail && "number or email is required"} */}
                                             </span>
                                         </label>
                                         <InputText type="text"
                                             className="form-control p-ml-6 p-mr-6"
-                                            name="numberoremail"
-                                            id="numberoremail"
+                                            name="email"
+                                            id="email"
                                             placeholder="Mobile number or email address"
-                                            ref={register({ required: true })} />
+                                            {...register("email", { required: true })} />
                                     </div>
                                     <div className="p-field p-grid">
                                         <label htmlFor="password" className="p-sr-only">Password
@@ -104,9 +105,9 @@ const Login = ({ }) => {
                                         </label>
                                         <InputText type="password"
                                             className="form-control p-ml-6 p-mr-6 input-container-pass"
-                                            name="newpassword"
+                                            name="password"
                                             placeholder="Password "
-                                            ref={register({ required: true })}
+                                            {...register("password", { required: true })}
                                         />
                                         {/* <span> <i className="pi-eye-slash"></i></span>
                                             <span className="fa fa-eye-slash pwd-toggle"></span> */}
@@ -118,7 +119,7 @@ const Login = ({ }) => {
                                                 <Checkbox inputId="binary"
                                                     name="rememberme"
                                                     checked={checked} onChange={e => setChecked(e.checked)}
-                                                    ref={register()}
+                                                    {...register("rememberme")}
                                                 /><span className="label-text p-ml-1">Remember me</span>
 
                                             </div>
