@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
@@ -7,7 +8,8 @@ import { Tag } from 'primereact/tag';
 import { Dropdown } from 'primereact/dropdown';
 import { RadioButton } from 'primereact/radiobutton';
 import { OverlayPanel } from 'primereact/overlaypanel';
-import { Dialog } from 'primereact/dialog';
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import { Toast } from 'primereact/toast';
 import SectionHeader from './SectionHeader';
 import './UserProfile.css';
 
@@ -20,7 +22,10 @@ const EditMode = (props) => {
     { name: 'Istanbul', code: 'IST' },
     { name: 'Paris', code: 'PRS' }
   ];
-
+  const { register, handleSubmit, errors, setValue, watch, trigger, control, getValues, setError, clearErrors } = useForm({
+    mode: "onChange",
+    reValidateMode: 'onChange'
+  });
   const componentStatus = props.componentStatus;
   const [dates, setDates] = useState([]);
   const [portfolioItems, setPortfolioItems] = useState([]);
@@ -29,6 +34,7 @@ const EditMode = (props) => {
   const [hobbies, setHobbies] = useState([]);
   const [POIs, setPOIs] = useState([]);
   const [gender, setGender] = useState("");
+  const toast = useRef(null);
 
   const searchObjectArrayValues = (array, value) => {
     const skillExists = array.filter(skill => skill.name === value);
@@ -42,7 +48,6 @@ const EditMode = (props) => {
     setPOIs([]);
     props.onClick(event);
   }
-
   const handleDelete = () => {
     const itemToDeleteId = Object.keys(componentStatus).find(key => componentStatus[key] === true)
     console.log(itemToDeleteId);
@@ -130,21 +135,43 @@ const EditMode = (props) => {
       setPortfolioItems(newPortfolioArray);
     }
   };
+
+
+  // Submit buttons
+  const biographySubmit = (biography) => {
+    console.log(biography);
+    return
+    // setError("biography", {
+    //   type: "manual",
+    //   message: "Error message"
+    // });
+    // console.log(biography);
+  }
+
+
   return (
     <>
       {componentStatus.biographyEdit &&
         <div className="p-card p-mt-2">
-          <SectionHeader icon="bookmark" sectionTitle="Biography" deleteButton="true" onDelete={handleDelete} />
+          <SectionHeader icon="bookmark" sectionTitle="Edit Biography" deleteButton="true" onDelete={handleDelete} />
           <div className="p-card-body">
-            <label htmlFor="biographyInput" className="inputLabel">Give a short descripiton of your career history</label>
-            <InputTextarea id="biographyInput" type="text" rows="6" className="inputField" placeholder="Biography..." />
-            <EditModeFooter id="biographyEdit" onCancel={closeEditMode} />
+            <form onSubmit={handleSubmit(biographySubmit)}>
+              <label htmlFor="biographyInput" className="inputLabel">Give a short descripiton of your career history
+              {/* {errors.biography && <span className="text-danger font-weight-bold">{errors.biography.message}</span>} */}
+              </label>
+
+              <InputTextarea name="biography" {...register('biography', {
+                required: "required"
+              })}
+                id="biographyInput" type="text" rows="6" className="inputField" placeholder="Biography..." />
+              <EditModeFooter id="biographyEdit" onCancel={closeEditMode} />
+            </form>
           </div>
         </div>
       }
       {componentStatus.experienceEdit &&
         <div className="p-card p-mt-2">
-          <SectionHeader deleteButton="true" onDelete={handleDelete} icon="star-o" sectionTitle="Experience" />
+          <SectionHeader deleteButton="true" onDelete={handleDelete} icon="star-o" sectionTitle="Edit Experience" />
           <div className="p-card-body">
             <div className="p-fluid p-formgrid p-grid">
               <div className="p-field p-col-12 p-md-6">
@@ -178,7 +205,7 @@ const EditMode = (props) => {
       }
       {componentStatus.educationEdit &&
         <div className="p-card p-mt-2">
-          <SectionHeader deleteButton="true" onDelete={handleDelete} icon="book" sectionTitle="Education" />
+          <SectionHeader deleteButton="true" onDelete={handleDelete} icon="book" sectionTitle="Edit Education" />
           <div className="p-card-body">
             <div className="p-fluid p-formgrid p-grid">
               <div className="p-field p-col-12 p-md-6">
@@ -212,7 +239,7 @@ const EditMode = (props) => {
       }
       {componentStatus.skillEdit &&
         <div className="p-card p-mt-2">
-          <SectionHeader icon="tag" sectionTitle="Skills" />
+          <SectionHeader icon="tag" sectionTitle="Edit Skills" />
           <div className="p-card-body">
             <label htmlFor="skillInput" className="inputLabel p-pr-3">Add up to 10 skills</label>
             {skills.map((skill, index) => (
@@ -231,7 +258,7 @@ const EditMode = (props) => {
       }
       {componentStatus.hobbyEdit &&
         <div className="p-card p-mt-2">
-          <SectionHeader icon="heart" sectionTitle="Hobbies / Likes" />
+          <SectionHeader icon="heart" sectionTitle="Edit Hobbies / Likes" />
           <div className="p-card-body">
             <form>
               <span className="skillInput p-mb-4">
@@ -254,7 +281,7 @@ const EditMode = (props) => {
       }
       {componentStatus.POIEdit &&
         <div className="p-card p-mt-2">
-          <SectionHeader icon="briefcase" sectionTitle="Professions of Interest" />
+          <SectionHeader icon="briefcase" sectionTitle="Edit Professions of Interest" />
           <div className="p-card-body">
             <form>
               <span className="skillInput p-mb-4">
@@ -277,7 +304,7 @@ const EditMode = (props) => {
       }
       {componentStatus.LOIEdit &&
         <div className="p-card p-mt-2">
-          <SectionHeader deleteButton="true" onDelete={handleDelete} icon="map-marker" sectionTitle="Location of Interest" />
+          <SectionHeader deleteButton="true" onDelete={handleDelete} icon="map-marker" sectionTitle="Edit Location of Interest" />
           <div className="p-card-body">
             <form>
               <span className="skillInput p-mb-4">
@@ -295,7 +322,7 @@ const EditMode = (props) => {
       }
       {componentStatus.contactInfoEdit &&
         <div className="p-card p-mt-2">
-          <SectionHeader icon="phone" sectionTitle="Contact Information" />
+          <SectionHeader icon="phone" sectionTitle="Edit Contact Information" />
           <div className="p-card-body">
             <form>
               <span className="skillInput p-mb-4 p-fluid p-formgrid p-grid">
@@ -337,7 +364,7 @@ const EditMode = (props) => {
       }
       {componentStatus.personalInfoEdit &&
         <div className="p-card p-mt-2">
-          <SectionHeader icon="user" sectionTitle="Personal Information" />
+          <SectionHeader icon="user" sectionTitle="Edit Personal Information" />
           <div className="p-card-body">
             <form>
               <span className="skillInput p-mb-4 p-fluid p-formgrid p-grid">
@@ -384,7 +411,8 @@ const EditMode = (props) => {
       }
       {componentStatus.portfolioEdit &&
         <div className="p-card p-mt-2">
-          <SectionHeader icon="images" sectionTitle="Portfolio" />
+          <Toast ref={toast} />
+          <SectionHeader icon="images" sectionTitle="Edit Portfolio" />
           <div className="p-card-body">
             <span className="width-100 p-mb-4">
               <div className="p-grid">
