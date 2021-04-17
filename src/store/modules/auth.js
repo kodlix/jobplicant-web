@@ -71,7 +71,7 @@ export function registerUser(user) {
       response => {
         //handle success
         dispatch(showSuccessMessage(("registration successful, login to continue")));
-        dispatch(push('/login'));
+        dispatch(push('/emailconfirmation'));
       },
       error => {
         //handle error

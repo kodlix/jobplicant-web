@@ -1,0 +1,55 @@
+.feedback {
+    font-size: large;
+}
+
+.login-pane-left {
+    background-color: #5A2846;
+}
+
+.left-content {
+    margin: 60px;
+    margin-top: 24vh;
+    color: white;
+}
+
+.login-pane-right {
+    background-color: F6F9FC;
+    min-height: 101.3vh;
+}
+
+.resendemail {
+    font-weight: 500;
+    margin-left: 8.5vw;
+}
+
+.resendemail:hover {
+    color: #5A2846;
+}
+
+.verify-content {
+    margin-top: 20vh;
+}
+
+hr.verify {
+    width: 60%;
+    border: 2px solid #5A2846;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.verifycontent {
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media screen and (max-width: 500px) {
+    hr.verify {
+        width: 25em;
+        border: 2px solid #5A2846;
+        border-radius: 5px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

@@ -11,6 +11,7 @@ const LandingPage = React.lazy(() => import('../pages/landingPage/LandingPage'))
 const Login = React.lazy(() => import('../pages/auth/Login'));
 const Register = React.lazy(() => import('../pages/auth/Register'));
 const ConfirmationPage = React.lazy(() => import('../pages/auth/ConfirmationPage'));
+const EmailConfirmation = React.lazy(() => import('../pages/auth/EmailConfirmation'));
 
 
 const AccountType = React.lazy(() => import('../pages/auth/AccountType'));
@@ -39,6 +40,7 @@ const AppRouter = () => {
         <AnonymousRoute path="/login" exact component={Login} />
         <AnonymousRoute path="/register" exact component={Register} />
         <AnonymousRoute path="/confirmationpage" exact component={ConfirmationPage} />
+        <AnonymousRoute path="/emailconfirmation" exact component={EmailConfirmation} />
         <AnonymousRoute path="/accounttype" exact component={AccountType} />
         <AnonymousRoute path="/employeraccounttype" exact component={EmployerAccountType} />
         <AnonymousRoute path="/employeeaccounttype" exact component={EmployeeAccountType} />
