@@ -13,8 +13,10 @@ import { useForm } from 'react-hook-form';
 const Login = ({ props }) => {
 
     const dispatch = useDispatch();
-    const { register, handleSubmit, erorrs } = useForm();
+    const { register, handleSubmit, formState: { erorrs } } = useForm();
     const [checked, setChecked] = useState(false);
+
+    console.log("errors", erorrs)
 
 
     const onSubmit = (user) => {
@@ -65,7 +67,7 @@ const Login = ({ props }) => {
                                     <h3 className="auth-title">Login to your account</h3>
                                     <p className="p-m-4 ">Don’t have an account? <Link className="lnk-toggler " data-panel=".panel-signup" to="/register">Sign Up Free!</Link></p>
                                 </div>
-                                <div className="p-grid p-mt-2">
+                                <div className="p-grid p-mt-1">
                                     <div className="p-col-6">
                                         <Link to="#">
                                             <span className="p-badge p-badge-secondary p-badge-xl" style={{ fontSize: '4rem', minWidth: '6rem', height: '4rem', lineHeight: '3rem' }}>  <i className="pi pi-facebook styleclass" style={{ fontSize: 40 }}></i> </span>
@@ -85,22 +87,24 @@ const Login = ({ props }) => {
 
                                 <form onSubmit={handleSubmit(onSubmit)}>
                                     <div className="p-field p-grid">
-                                        <label htmlFor="email" className="p-sr-only">Number or Email
-                                                  <span className="p-text-danger p-pl-1">
-                                                {/* {erorrs.numberoremail && "number or email is required"} */}
-                                            </span>
-                                        </label>
+
                                         <InputText type="text"
                                             className="form-control p-ml-6 p-mr-6"
                                             name="email"
                                             id="email"
                                             placeholder="Mobile number or email address"
-                                            {...register("email", { required: true })} />
+                                            {...register('email', { required: true })}
+                                        />
+                                        <label htmlFor="email" className="p-sr-only">Number or Email
+                                                  <span className="p-text-danger p-pl-1">
+                                                {erorrs?.email?.type === "required" && (<p>{erorrs.email.message}</p>)}
+                                            </span>
+                                        </label>
                                     </div>
                                     <div className="p-field p-grid">
                                         <label htmlFor="password" className="p-sr-only">Password
                                                   <span className="p-text-danger p-pl-1">
-                                                {/* {erorrs.password && "password is required"} */}
+                                                {erorrs?.password?.type === "required" && <p>This field is required</p>}
                                             </span>
                                         </label>
                                         <InputText type="password"
