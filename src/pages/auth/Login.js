@@ -39,7 +39,7 @@ const Login = ({ }) => {
                 <div className="login-pane-left p-col-12 p-md-8 p-lg-8 p-xl-8">
                     <div className="left-content">
 
-                        <div><h1 className="p-mb-6 p-mt-6 p-text-center text-white">Joplicant Home for all</h1></div>
+                        <div><h1 className="p-mb-6 p-mt-4 p-text-center text-white">Joplicant Home for all</h1></div>
                         <div>
                             <section>
                                 <p> <h3 className="text-white p-text-center"> Job seekers, Artisan, Employer</h3></p>
@@ -68,11 +68,11 @@ const Login = ({ }) => {
                         <div className=" panel-login text-center">
 
                             <div className="">
-                                <div className="p-mt-6 p-mb-5">
+                                <div className="p-mt-0 p-mb-0">
                                     <h3 className="auth-title">Login to your account</h3>
                                     <p className="p-m-4 ">Don’t have an account? <Link className="lnk-toggler " data-panel=".panel-signup" to="/register">Sign Up Free!</Link></p>
                                 </div>
-                                <div className="p-grid p-mt-1">
+                                <div className="p-grid p-mt-0">
                                     <div className="p-col-6">
                                         <Link to="#">
                                             <span className="p-badge p-badge-secondary p-badge-xl" style={{ fontSize: '4rem', minWidth: '6rem', height: '4rem', lineHeight: '3rem' }}>  <i className="pi pi-facebook styleclass" style={{ fontSize: 40 }}></i> </span>
@@ -86,7 +86,7 @@ const Login = ({ }) => {
                                     </div>
                                 </div>
 
-                                <div className="p-col-xs-12 p-col-sm-12 p-mb-5">
+                                <div className="p-col-xs-12 p-col-sm-12 p-mb-2">
                                     <span className="spanOr">or</span>
                                 </div>
 
@@ -126,13 +126,13 @@ const Login = ({ }) => {
                                             <div className="p-field-checkbox">
                                                 <Checkbox inputId="binary"
                                                     name="rememberme"
+                                                    value="true"
                                                     checked={checked} onChange={e => setChecked(e.checked)}
                                                     {...register("rememberme")}
                                                 /><span className="label-text p-ml-1">Remember me</span>
-
                                             </div>
                                         </div>
-                                        <div className="col-6 col-xs-3 p-mb-3 ">
+                                        <div className="col-6 col-xs-3 p-mb-1 ">
                                             <p className="forgotPwd col-xs-2">
                                                 <Link className="lnk-toggler" data-panel=".panel-forgot" to="/forgotpassword">Forgot password?</Link>
                                             </p>
