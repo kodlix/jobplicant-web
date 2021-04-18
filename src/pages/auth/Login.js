@@ -1,23 +1,28 @@
 import React, { useState } from 'react';
-import './Login.css'
 import { InputText } from 'primereact/inputtext';
 import { Checkbox } from 'primereact/checkbox';
 import { Link } from 'react-router-dom';
-
 import { Button } from 'primereact/button';
 import { loginUser } from 'store/modules/auth';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
+import './Login.css'
 
-const Login = ({ props }) => {
 
+
+const Login = ({ }) => {
+
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        mode: "onChange",
+        reValidateMode: "onChange"
+    });
     const dispatch = useDispatch();
-    const { register, handleSubmit, formState: { erorrs } } = useForm();
+
+    console.log({ errors })
+
+
     const [checked, setChecked] = useState(false);
-
-    console.log("errors", erorrs)
-
 
     const onSubmit = (user) => {
 
@@ -87,32 +92,31 @@ const Login = ({ props }) => {
 
                                 <form onSubmit={handleSubmit(onSubmit)}>
                                     <div className="p-field p-grid">
-
                                         <InputText type="text"
                                             className="form-control p-ml-6 p-mr-6"
                                             name="email"
-                                            id="email"
                                             placeholder="Mobile number or email address"
-                                            {...register('email', { required: true })}
+                                            {...register('email', { required: "Please enter an email address or phone number" })}
+                                            id="email"
+
                                         />
-                                        <label htmlFor="email" className="p-sr-only">Number or Email
-                                                  <span className="p-text-danger p-pl-1">
-                                                {erorrs?.email?.type === "required" && (<p>{erorrs.email.message}</p>)}
-                                            </span>
+                                        <label htmlFor="email" className="">
+                                            {errors?.email?.type === "required" && <span className="text-danger font-weight-bold  p-pl-6"> <p>{errors.email.message}</p>
+                                            </span>}
                                         </label>
                                     </div>
                                     <div className="p-field p-grid">
-                                        <label htmlFor="password" className="p-sr-only">Password
-                                                  <span className="p-text-danger p-pl-1">
-                                                {erorrs?.password?.type === "required" && <p>This field is required</p>}
-                                            </span>
-                                        </label>
                                         <InputText type="password"
                                             className="form-control p-ml-6 p-mr-6 input-container-pass"
                                             name="password"
-                                            placeholder="Password "
-                                            {...register("password", { required: true })}
+                                            placeholder="Password"
+                                            {...register("password", { required: "Please enter a password." })}
                                         />
+
+                                        <label htmlFor="password" className="">
+                                            {errors?.password?.type === "required" && <span className="text-danger font-weight-bold p-pl-6"> <p>{errors.password.message}</p>
+                                            </span>}
+                                        </label>
                                         {/* <span> <i className="pi-eye-slash"></i></span>
                                             <span className="fa fa-eye-slash pwd-toggle"></span> */}
                                     </div>
@@ -127,15 +131,14 @@ const Login = ({ props }) => {
                                                 /><span className="label-text p-ml-1">Remember me</span>
 
                                             </div>
-
                                         </div>
                                         <div className="col-6 col-xs-3 p-mb-3 ">
                                             <p className="forgotPwd col-xs-2">
-                                                <a className="lnk-toggler" data-panel=".panel-forgot" href="#">Forgot password?</a>
+                                                <Link className="lnk-toggler" data-panel=".panel-forgot" to="/forgotpassword">Forgot password?</Link>
                                             </p>
                                         </div>
                                     </div>
-                                    <div className="p-grid p-mt-2">
+                                    <div className="p-grid">
                                         <Button label="Login" type="submit" className="loginbtn appcolor p-col-10" />
                                     </div>
                                 </form>
@@ -143,7 +146,6 @@ const Login = ({ props }) => {
                         </div>
                     </div>
                 </div>
-
             </div >
         </>
     )

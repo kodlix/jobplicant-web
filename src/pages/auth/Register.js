@@ -3,19 +3,19 @@ import { InputText } from 'primereact/inputtext';
 import { RadioButton } from 'primereact/radiobutton';
 import { Link } from 'react-router-dom';
 import { Button } from 'primereact/button';
-
-import './Register.css'
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { registerUser } from 'store/modules/auth';
 
-
+import './Register.css'
 
 
 const Register = ({ }) => {
 
-    const { register, handleSubmit, erorrs } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const dispatch = useDispatch();
+
+    console.log({ errors });
 
     const [gender, setGender] = useState(null)
 
@@ -28,12 +28,9 @@ const Register = ({ }) => {
     //   "lastName": "string"
 
     const onSubmit = (user) => {
-        // user.gender = user.gender;
         console.log(user)
         user.accountType = "artisan";
         dispatch(registerUser(user))
-
-
     }
 
 
@@ -82,78 +79,77 @@ const Register = ({ }) => {
                                     <div className="signupForm p-field p-form-group">
 
                                         <div className="p-field p-grid">
-                                            <label htmlFor="firstName" className="p-sr-only">FirstName
-                                        <span className="p-text-danger p-pl-1">
-                                                    {/* {erorrs.firstname && "Enter your First Name"} */}
-                                                </span>
-                                            </label>
+
                                             <InputText type="text"
                                                 className="form-control p-ml-6 p-mr-6"
-                                                id="firstName"
+                                                id="firstname"
                                                 name="firstName"
                                                 placeholder="First Name"
-                                                {...register("firstName", { required: true })}
+                                                {...register("firstName", { required: "First Name is required" })}
                                             />
+                                            <label htmlFor="firstname" className="">
+                                                {errors.firstName && <span className="text-danger font-weight-bold p-pl-6"> <p>{errors.firstName.message}</p>
+                                                </span>}
+                                            </label>
+
                                         </div>
                                         <div className="p-field p-grid">
-                                            <label htmlFor="lastName" className="p-sr-only">Last Name
-                                                  <span className="p-text-danger p-pl-1">
-                                                    {/* {erorrs.newpassword && "New password is required"} */}
-                                                </span>
-                                            </label>
                                             <InputText type="text"
                                                 className="form-control p-ml-6 p-mr-6"
                                                 name="lastName"
-                                                id="lastName"
+                                                id="lastname"
                                                 placeholder="Last Name"
-                                                {...register("lastName", { required: true })}
+                                                {...register("lastName", { required: "Last name is required" })}
 
                                             />
+                                            <label htmlFor="lastname" className="">
+                                                {errors.lastName && <span className="text-danger font-weight-bold p-pl-6"> <p>{errors.lastName.message}</p>
+                                                </span>}
+                                            </label>
                                         </div>
 
                                         <div className="p-field p-grid">
-                                            <label htmlFor="numberOrEmail" className="p-sr-only">Number or Email
-                                                  <span className="p-text-danger p-pl-1">
-                                                    {/* {erorrs.numberoremail && "numberoremail is required"} */}
-                                                </span>
-                                            </label>
+
                                             <InputText type="text"
                                                 className="form-control p-ml-6 p-mr-6"
                                                 name="email"
                                                 id="numberOrEmail"
                                                 placeholder="Mobile number or email address"
-                                                {...register("email", { required: true })}
+                                                {...register("email", { required: "Email is required" })}
 
                                             />
+                                            <label htmlFor="email" className="">
+                                                {errors.email && <span className="text-danger font-weight-bold p-pl-6"> <p>{errors.email.message}</p>
+                                                </span>}
+                                            </label>
                                         </div>
                                         <div className="p-field p-grid">
-                                            <label htmlFor="newPassword" className="p-sr-only">New Password
-                                                  <span className="p-text-danger p-pl-1">
-                                                    {/* {erorrs.newpassword && "password is required"} */}
-                                                </span>
-                                            </label>
                                             <InputText type="password"
                                                 className="form-control p-ml-6 p-mr-6"
                                                 name="password"
-                                                id="newPassword"
+                                                id="password"
                                                 placeholder="New password"
-                                                {...register("password", { required: true })}
+                                                {...register("password", { required: "Create a new password" })}
                                             />
+                                            <label htmlFor="password" className="">
+                                                {errors.password && <span className="text-danger font-weight-bold p-pl-6"> <p>{errors.password.message}</p>
+                                                </span>}
+                                            </label>
                                         </div>
                                         <div className="p-field p-grid">
-                                            <label htmlFor="companyName" className="p-sr-only">Company Name
-                                                  <span className="p-text-danger p-pl-1">
-                                                    {/* {erorrs.companyname && "companyname is required"} */}
-                                                </span>
-                                            </label>
+
                                             <InputText type="text"
                                                 className="form-control p-ml-6 p-mr-6"
                                                 name="name"
                                                 id="companyName"
                                                 placeholder="Company Name"
                                                 hidden={false}
-                                                {...register("name", { required: true })}
+                                                {...register("name", { required: "Name is required" })}
                                             />
+                                            <label htmlFor="name" className="">
+                                                {errors.name && <span className="text-danger font-weight-bold p-pl-6"> <p>{errors.name.message}</p>
+                                                </span>}
+                                            </label>
                                         </div>
 
                                         <div><label htmlFor="city7" style={{ marginRight: 339, }} className="p-mb-2 p-text-bold p-ml-6" > Gender</label> </div>
@@ -166,8 +162,9 @@ const Register = ({ }) => {
                                                     value="male"
                                                     onChange={(e) => setGender(e.value)}
                                                     checked={gender === 'male'}
-                                                    {...register("gender", { required: true })}
+                                                    {...register("gender", { required: "Gender is required" })}
                                                 />
+
                                                 <label htmlFor="female">Female</label>
                                             </div>
                                             <div className="p-field-checkbox">
@@ -176,12 +173,16 @@ const Register = ({ }) => {
                                                     value="female"
                                                     onChange={(e) => setGender(e.value)}
                                                     checked={gender === 'female'}
-                                                    {...register("gender", { required: true })}
+                                                    {...register("gender", { required: "Gendre is required" })}
 
 
                                                 />
                                                 <label htmlFor="female">Male</label>
                                             </div>
+                                            <label htmlFor="gender" className="">
+                                                {errors.gender && <span className="text-danger font-weight-bold p-pl-1"> <p>{errors.gender.message}</p>
+                                                </span>}
+                                            </label>
 
                                             <div>
                                                 <p className="term-policy small p-mb-3 p-mr-5 text-black">By clicking Sign Up, you agree to our <Link to="">Terms, Data Policy</Link>
@@ -189,6 +190,7 @@ const Register = ({ }) => {
                                                 notifications from us and can opt out at any time.</p>
 
                                             </div>
+
                                         </div>
                                         <div className="p-grid">
                                             <Button type="submit" label="Sign up with email" className="signupbtn appcolor p-col-10" />

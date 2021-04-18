@@ -1,8 +1,5 @@
 import React, { useState, useRef } from 'react';
-<<<<<<< HEAD
-=======
 import { useForm, Controller } from 'react-hook-form';
->>>>>>> origin/alex/add-user-profile-and-edit-forms
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
@@ -11,12 +8,8 @@ import { Tag } from 'primereact/tag';
 import { Dropdown } from 'primereact/dropdown';
 import { RadioButton } from 'primereact/radiobutton';
 import { OverlayPanel } from 'primereact/overlaypanel';
-<<<<<<< HEAD
-import { Dialog } from 'primereact/dialog';
-=======
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { Toast } from 'primereact/toast';
->>>>>>> origin/alex/add-user-profile-and-edit-forms
 import SectionHeader from './SectionHeader';
 import './UserProfile.css';
 
@@ -29,14 +22,10 @@ const EditMode = (props) => {
     { name: 'Istanbul', code: 'IST' },
     { name: 'Paris', code: 'PRS' }
   ];
-<<<<<<< HEAD
-
-=======
   const { register, handleSubmit, errors, setValue, watch, trigger, control, getValues, setError, clearErrors } = useForm({
     mode: "onChange",
     reValidateMode: 'onChange'
   });
->>>>>>> origin/alex/add-user-profile-and-edit-forms
   const componentStatus = props.componentStatus;
   const [dates, setDates] = useState([]);
   const [portfolioItems, setPortfolioItems] = useState([]);
@@ -45,10 +34,7 @@ const EditMode = (props) => {
   const [hobbies, setHobbies] = useState([]);
   const [POIs, setPOIs] = useState([]);
   const [gender, setGender] = useState("");
-<<<<<<< HEAD
-=======
   const toast = useRef(null);
->>>>>>> origin/alex/add-user-profile-and-edit-forms
 
   const searchObjectArrayValues = (array, value) => {
     const skillExists = array.filter(skill => skill.name === value);
@@ -62,10 +48,6 @@ const EditMode = (props) => {
     setPOIs([]);
     props.onClick(event);
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/alex/add-user-profile-and-edit-forms
   const handleDelete = () => {
     const itemToDeleteId = Object.keys(componentStatus).find(key => componentStatus[key] === true)
     console.log(itemToDeleteId);
@@ -153,8 +135,6 @@ const EditMode = (props) => {
       setPortfolioItems(newPortfolioArray);
     }
   };
-<<<<<<< HEAD
-=======
 
 
   // Submit buttons
@@ -169,18 +149,10 @@ const EditMode = (props) => {
   }
 
 
->>>>>>> origin/alex/add-user-profile-and-edit-forms
   return (
     <>
       {componentStatus.biographyEdit &&
         <div className="p-card p-mt-2">
-<<<<<<< HEAD
-          <SectionHeader icon="bookmark" sectionTitle="Biography" deleteButton="true" onDelete={handleDelete} />
-          <div className="p-card-body">
-            <label htmlFor="biographyInput" className="inputLabel">Give a short descripiton of your career history</label>
-            <InputTextarea id="biographyInput" type="text" rows="6" className="inputField" placeholder="Biography..." />
-            <EditModeFooter id="biographyEdit" onCancel={closeEditMode} />
-=======
           <SectionHeader icon="bookmark" sectionTitle="Edit Biography" deleteButton="true" onDelete={handleDelete} />
           <div className="p-card-body">
             <form onSubmit={handleSubmit(biographySubmit)}>
@@ -194,17 +166,12 @@ const EditMode = (props) => {
                 id="biographyInput" type="text" rows="6" className="inputField" placeholder="Biography..." />
               <EditModeFooter id="biographyEdit" onCancel={closeEditMode} />
             </form>
->>>>>>> origin/alex/add-user-profile-and-edit-forms
           </div>
         </div>
       }
       {componentStatus.experienceEdit &&
         <div className="p-card p-mt-2">
-<<<<<<< HEAD
-          <SectionHeader deleteButton="true" onDelete={handleDelete} icon="star-o" sectionTitle="Experience" />
-=======
           <SectionHeader deleteButton="true" onDelete={handleDelete} icon="star-o" sectionTitle="Edit Experience" />
->>>>>>> origin/alex/add-user-profile-and-edit-forms
           <div className="p-card-body">
             <div className="p-fluid p-formgrid p-grid">
               <div className="p-field p-col-12 p-md-6">
@@ -238,11 +205,7 @@ const EditMode = (props) => {
       }
       {componentStatus.educationEdit &&
         <div className="p-card p-mt-2">
-<<<<<<< HEAD
-          <SectionHeader deleteButton="true" onDelete={handleDelete} icon="book" sectionTitle="Education" />
-=======
           <SectionHeader deleteButton="true" onDelete={handleDelete} icon="book" sectionTitle="Edit Education" />
->>>>>>> origin/alex/add-user-profile-and-edit-forms
           <div className="p-card-body">
             <div className="p-fluid p-formgrid p-grid">
               <div className="p-field p-col-12 p-md-6">
@@ -276,11 +239,7 @@ const EditMode = (props) => {
       }
       {componentStatus.skillEdit &&
         <div className="p-card p-mt-2">
-<<<<<<< HEAD
-          <SectionHeader icon="tag" sectionTitle="Skills" />
-=======
           <SectionHeader icon="tag" sectionTitle="Edit Skills" />
->>>>>>> origin/alex/add-user-profile-and-edit-forms
           <div className="p-card-body">
             <label htmlFor="skillInput" className="inputLabel p-pr-3">Add up to 10 skills</label>
             {skills.map((skill, index) => (
@@ -299,11 +258,7 @@ const EditMode = (props) => {
       }
       {componentStatus.hobbyEdit &&
         <div className="p-card p-mt-2">
-<<<<<<< HEAD
-          <SectionHeader icon="heart" sectionTitle="Hobbies / Likes" />
-=======
           <SectionHeader icon="heart" sectionTitle="Edit Hobbies / Likes" />
->>>>>>> origin/alex/add-user-profile-and-edit-forms
           <div className="p-card-body">
             <form>
               <span className="skillInput p-mb-4">
@@ -326,11 +281,7 @@ const EditMode = (props) => {
       }
       {componentStatus.POIEdit &&
         <div className="p-card p-mt-2">
-<<<<<<< HEAD
-          <SectionHeader icon="briefcase" sectionTitle="Professions of Interest" />
-=======
           <SectionHeader icon="briefcase" sectionTitle="Edit Professions of Interest" />
->>>>>>> origin/alex/add-user-profile-and-edit-forms
           <div className="p-card-body">
             <form>
               <span className="skillInput p-mb-4">
@@ -353,11 +304,7 @@ const EditMode = (props) => {
       }
       {componentStatus.LOIEdit &&
         <div className="p-card p-mt-2">
-<<<<<<< HEAD
-          <SectionHeader deleteButton="true" onDelete={handleDelete} icon="map-marker" sectionTitle="Location of Interest" />
-=======
           <SectionHeader deleteButton="true" onDelete={handleDelete} icon="map-marker" sectionTitle="Edit Location of Interest" />
->>>>>>> origin/alex/add-user-profile-and-edit-forms
           <div className="p-card-body">
             <form>
               <span className="skillInput p-mb-4">
@@ -375,11 +322,7 @@ const EditMode = (props) => {
       }
       {componentStatus.contactInfoEdit &&
         <div className="p-card p-mt-2">
-<<<<<<< HEAD
-          <SectionHeader icon="phone" sectionTitle="Contact Information" />
-=======
           <SectionHeader icon="phone" sectionTitle="Edit Contact Information" />
->>>>>>> origin/alex/add-user-profile-and-edit-forms
           <div className="p-card-body">
             <form>
               <span className="skillInput p-mb-4 p-fluid p-formgrid p-grid">
@@ -421,11 +364,7 @@ const EditMode = (props) => {
       }
       {componentStatus.personalInfoEdit &&
         <div className="p-card p-mt-2">
-<<<<<<< HEAD
-          <SectionHeader icon="user" sectionTitle="Personal Information" />
-=======
           <SectionHeader icon="user" sectionTitle="Edit Personal Information" />
->>>>>>> origin/alex/add-user-profile-and-edit-forms
           <div className="p-card-body">
             <form>
               <span className="skillInput p-mb-4 p-fluid p-formgrid p-grid">
@@ -472,12 +411,8 @@ const EditMode = (props) => {
       }
       {componentStatus.portfolioEdit &&
         <div className="p-card p-mt-2">
-<<<<<<< HEAD
-          <SectionHeader icon="images" sectionTitle="Portfolio" />
-=======
           <Toast ref={toast} />
           <SectionHeader icon="images" sectionTitle="Edit Portfolio" />
->>>>>>> origin/alex/add-user-profile-and-edit-forms
           <div className="p-card-body">
             <span className="width-100 p-mb-4">
               <div className="p-grid">
