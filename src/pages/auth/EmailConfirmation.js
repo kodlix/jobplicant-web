@@ -55,13 +55,13 @@ const EmailConfirmation = () => {
                             <h3 className="auth-title"> Verifiction Link Sent</h3>
                         </div> */}
 
-                    <div className="">
+                    <div className="verifycontent">
                         <div>
                             <h3 className="p-text-secondary text-center"> A verification link has been sent to your email account</h3>
                             <hr className="verify" />
                         </div>
 
-                        <p className="feedback p-mt-6 verifycontent">We now need to verify your email address, we've sent an email to
+                        <p className="feedback p-mt-6">We now need to verify your email address, we've sent an email to
                             verify your email address. kindly click the link in that email to continue.</p>
                     </div>
                 </div>
