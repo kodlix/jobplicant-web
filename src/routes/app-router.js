@@ -48,6 +48,8 @@ const AppRouter = () => {
         <AnonymousRoute path="/recoverbynumber" exact component={RecoverByNumber} />
         <AnonymousRoute path="/recoverbyemail" exact component={RecoverByEmail} />
         <AnonymousRoute path="/newpassword" exact component={NewPassword} />
+        <AnonymousRoute path="/userprofile" component={UserProfile} />   
+        <AnonymousRoute path="/companyprofile" component={CompanyProfile} />       
         <AnonymousRoute path="/pagenotfound" exact component={PageNotFound} />
         <AnonymousRoute path="/internalservererror" component={InternalServerError} />
         <AnonymousRoute path="/badrequest" component={BadRequest} />
