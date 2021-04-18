@@ -10,7 +10,7 @@ import { Button } from 'primereact/button';
 
 
 
-const ConfirmationPage = ({  }) => {
+const ConfirmationPage = ({ }) => {
 
     const [sliderImage] = useState([{ image1: '../../assets/images/workspace.jpg', altImage1: "worksplace" },
     { image2: '../../assets/images/loginimg.jpg', altImage2: "loading" }])
@@ -67,7 +67,7 @@ const ConfirmationPage = ({  }) => {
                                         <InputText type="text" className="form-control p-ml-6 p-mr-6" name="companyname" placeholder="Enter Code" />
                                     </div>
                                 </form>
-                                <div className="sendsms p-text-secondary message"><Link to="#"><span >Send SMS Again</span></Link></div>
+                                <div className="sendsms p-text-secondary message font-weight-bold"><Link to="#"><span >Send SMS Again</span></Link></div>
                                 <hr className="p-mb-6" />
                                 <div className="confirmbtn p-grid">
                                     <Link to="/register">

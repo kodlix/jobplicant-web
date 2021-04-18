@@ -11,7 +11,7 @@ import './Login.css'
 
 
 
-const Login = ({ }) => {
+const Login = ({ props }) => {
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: "onChange",
@@ -24,11 +24,14 @@ const Login = ({ }) => {
 
     const [checked, setChecked] = useState(false);
 
+    console.log({ checked })
+
+
     const onSubmit = (user) => {
 
         user.type = 'artisan';
         console.log(user)
-        dispatch(loginUser(user));
+        // dispatch(loginUser(user));
     }
 
     return (
@@ -70,7 +73,7 @@ const Login = ({ }) => {
                             <div className="">
                                 <div className="p-mt-0 p-mb-0">
                                     <h3 className="auth-title">Login to your account</h3>
-                                    <p className="p-m-4 ">Don’t have an account? <Link className="lnk-toggler " data-panel=".panel-signup" to="/register">Sign Up Free!</Link></p>
+                                    <p className="p-m-4 ">Don’t have an account? <Link className="lnk-toggler font-weight-bold " data-panel=".panel-signup" to="/register">Sign Up Free!</Link></p>
                                 </div>
                                 <div className="p-grid p-mt-0">
                                     <div className="p-col-6">
@@ -110,7 +113,7 @@ const Login = ({ }) => {
                                             className="form-control p-ml-6 p-mr-6 input-container-pass"
                                             name="password"
                                             placeholder="Password"
-                                            {...register("password", { required: "Please enter a password." })}
+                                            {...register("password", { required: "Please enter your password." })}
                                         />
 
                                         <label htmlFor="password" className="">
@@ -124,17 +127,18 @@ const Login = ({ }) => {
                                     <div className="row remember-row p-m-4">
                                         <div className="col-6 col-xs-3 ">
                                             <div className="p-field-checkbox">
-                                                <Checkbox inputId="binary"
+                                                <Checkbox inputId="rememberMe"
                                                     name="rememberme"
-                                                    value="true"
-                                                    checked={checked} onChange={e => setChecked(e.checked)}
+                                                    // value={checked}
+                                                    id="rememberMe"
+                                                    checked={checked} onChange={e => setChecked(e.cheched)}
                                                     {...register("rememberme")}
-                                                /><span className="label-text p-ml-1">Remember me</span>
+                                                /> <label htmlFor="rememberMe"><span className="label-text p-ml-1">Remember me</span></label>
                                             </div>
                                         </div>
                                         <div className="col-6 col-xs-3 p-mb-1 ">
                                             <p className="forgotPwd col-xs-2">
-                                                <Link className="lnk-toggler" data-panel=".panel-forgot" to="/forgotpassword">Forgot password?</Link>
+                                                <Link className="lnk-toggler font-weight-bold" data-panel=".panel-forgot" to="/forgotpassword">Forgot password?</Link>
                                             </p>
                                         </div>
                                     </div>

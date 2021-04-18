@@ -90,7 +90,7 @@ const Register = ({ }) => {
                                             id="firstname"
                                             name="firstName"
                                             placeholder="First Name"
-                                            {...register("firstName", { required: "First Name is required" })}
+                                            {...register("firstName", { required: "Please enter your first name" })}
                                         />
                                         <label htmlFor="firstname" className="">
                                             {errors.firstName && <span className="text-danger font-weight-bold p-pl-6"> <p>{errors.firstName.message}</p>
@@ -104,7 +104,7 @@ const Register = ({ }) => {
                                             name="lastName"
                                             id="lastname"
                                             placeholder="Last Name"
-                                            {...register("lastName", { required: "Last name is required" })}
+                                            {...register("lastName", { required: "Please enter your last name" })}
 
                                         />
                                         <label htmlFor="lastname" className="">
@@ -122,12 +122,12 @@ const Register = ({ }) => {
                                             placeholder="Mobile number or email address"
                                             {...register("email", {
                                                 required: true,
-                                                pattern: RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i),
+                                                pattern: /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i,
                                             }
                                             )}
                                         />
                                         <label htmlFor="email" className="">
-                                            {errors?.email?.type === "required" && <span className="text-danger font-weight-bold p-pl-6"> <p>Email is required</p>
+                                            {errors?.email?.type === "required" && <span className="text-danger font-weight-bold p-pl-6"> <p>Please enter your email</p>
                                             </span>}
                                             {errors?.email?.type === "pattern" && <span className="text-danger font-weight-bold p-pl-6"> <p>Please enter a valid email <address></address></p></span>}
 
@@ -139,7 +139,7 @@ const Register = ({ }) => {
                                             name="password"
                                             id="password"
                                             placeholder="New password"
-                                            {...register("password", { required: "Create a new password" })}
+                                            {...register("password", { required: "Please enter your password" })}
                                         />
                                         <label htmlFor="password" className="">
                                             {errors.password && <span className="text-danger font-weight-bold p-pl-6"> <p>{errors.password.message}</p>
@@ -150,14 +150,14 @@ const Register = ({ }) => {
 
                                         <InputText type="text"
                                             className="form-control p-ml-6 p-mr-6"
-                                            name="name"
+                                            name="companyName"
                                             id="companyName"
                                             placeholder="Company Name"
                                             hidden={false}
-                                            {...register("name", { required: "Name is required" })}
+                                            {...register("companyName", { required: "Please enter your company's Name" })}
                                         />
                                         <label htmlFor="name" className="">
-                                            {errors.name && <span className="text-danger font-weight-bold p-pl-6"> <p>{errors.name.message}</p>
+                                            {errors.companyName && <span className="text-danger font-weight-bold p-pl-6"> <p>{errors.companyName.message}</p>
                                             </span>}
                                         </label>
                                     </div>
@@ -206,7 +206,7 @@ const Register = ({ }) => {
                                 </div>
 
                             </form>
-                            <Link to="/Login" className="p-text-secondary">Already have an account?</Link>
+                            <Link to="/Login" className="p-text-secondary font-weight-bold">Already have an account?</Link>
                         </div>
                     </div>
                     {/* </div>b */}
