@@ -7,6 +7,8 @@ import AnonymousRoute from './anonymous-route';
 import ProtectedRoute from './protected-route';
 import AppContentContext from '../contexts/AppContentContext'
 const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard'));
+const UserProfile = React.lazy(() => import('../pages/profile/UserProfile'));
+const CompanyProfile = React.lazy(() => import('../pages/profile/CompanyProfile'));
 const LandingPage = React.lazy(() => import('../pages/landingPage/LandingPage'));
 const Login = React.lazy(() => import('../pages/auth/Login'));
 const Register = React.lazy(() => import('../pages/auth/Register'));
@@ -48,13 +50,16 @@ const AppRouter = () => {
         <AnonymousRoute path="/recoverbynumber" exact component={RecoverByNumber} />
         <AnonymousRoute path="/recoverbyemail" exact component={RecoverByEmail} />
         <AnonymousRoute path="/newpassword" exact component={NewPassword} />
+        <AnonymousRoute path="/userprofile" component={UserProfile} />   
+        <AnonymousRoute path="/companyprofile" component={CompanyProfile} />       
         <AnonymousRoute path="/pagenotfound" exact component={PageNotFound} />
         <AnonymousRoute path="/internalservererror" component={InternalServerError} />
         <AnonymousRoute path="/badrequest" component={BadRequest} />
-        <ProtectedRoute path="/dashboard" component={Dashboard} />
+        <AnonymousRoute path="/userprofile" component={UserProfile} />   
+        <AnonymousRoute path="/companyprofile" component={CompanyProfile} />     
+        <ProtectedRoute path="/dashboard" component={Dashboard} />            
         <Redirect to="/login" />
       </Switch>
-      {/* </AppContentContext.Consumer> */}
     </React.Suspense>
   )
 }
