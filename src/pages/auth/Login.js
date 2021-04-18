@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Login.css'
-import { InputText } from 'primereact/inputtext';
+// import { input } from 'primereact/input';
 import { Checkbox } from 'primereact/checkbox';
 import { Link } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
 
-const Login = ({ }) => {
+const Login = ({ props}) => {
 
     const dispatch = useDispatch();
     const { register, handleSubmit, erorrs } = useForm();
@@ -19,8 +19,8 @@ const Login = ({ }) => {
 
     const onSubmit = (user) => {
         console.log(user)
-        return;
-        // dispatch(loginUser(user));
+        // return;
+        // // dispatch(loginUser(user));
     }
 
     return (
@@ -89,12 +89,12 @@ const Login = ({ }) => {
                                                 {/* {erorrs.numberoremail && "number or email is required"} */}
                                             </span>
                                         </label>
-                                        <InputText type="text"
+                                        <input type="text"
                                             className="form-control p-ml-6 p-mr-6"
                                             name="numberoremail"
                                             id="numberoremail"
                                             placeholder="Mobile number or email address"
-                                            ref={register({ required: true })} />
+                                            {...register("numberoremail", { required: true })} />
                                     </div>
                                     <div className="p-field p-grid">
                                         <label htmlFor="password" className="p-sr-only">Password
@@ -102,12 +102,12 @@ const Login = ({ }) => {
                                                 {/* {erorrs.password && "password is required"} */}
                                             </span>
                                         </label>
-                                        <InputText type="password"
+                                        <input type="password"
                                             className="form-control p-ml-6 p-mr-6 input-container-pass"
-                                            name="newpassword"
+                                            id="password"
+                                            name="password"
                                             placeholder="Password "
-                                            ref={register({ required: true })}
-                                        />
+                                            {...register("password", { required: true })} />
                                         {/* <span> <i className="pi-eye-slash"></i></span>
                                             <span className="fa fa-eye-slash pwd-toggle"></span> */}
                                     </div>
@@ -116,9 +116,10 @@ const Login = ({ }) => {
                                         <div className="col-6 col-xs-3 ">
                                             <div className="p-field-checkbox">
                                                 <Checkbox inputId="binary"
+                                                 id="rememberme"
                                                     name="rememberme"
                                                     checked={checked} onChange={e => setChecked(e.checked)}
-                                                    ref={register()}
+                                                    {...register("rememberme", { required: true })}
                                                 /><span className="label-text p-ml-1">Remember me</span>
 
                                             </div>
@@ -131,7 +132,7 @@ const Login = ({ }) => {
                                         </div>
                                     </div>
                                     <div className="p-grid p-mt-2">
-                                        <Button label="Login" type="submit" className="loginbtn appcolor p-col-10" />
+                                    <input type="submit" label="Sign up with email" value="click me" className="signupbtn appcolor p-col-10" />
                                     </div>
                                 </form>
                             </div>

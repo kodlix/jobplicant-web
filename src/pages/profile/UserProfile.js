@@ -1,18 +1,6 @@
 import React, { useState } from 'react';
-<<<<<<< HEAD
-import Biography from './Biography';
-import Education from './Education';
-import EditMode from './EditMode';
-import Experience from './Experience';
-import Skills from './Skills';
-import Hobbies from './Hobbies';
-import ProfessionsOfInterest from './ProfessionsOfInterest';
-import LocationOfInterest from './LocationOfInterest';
-import ContactInformation from './ContactInformation';
-=======
 import { TabView, TabPanel } from 'primereact/tabview';
 import InfoComponent from './InfoComponent';
->>>>>>> origin/alex/add-user-profile-and-edit-forms
 import Portfolio from './Portfolio';
 import './UserProfile.css';
 
@@ -20,12 +8,9 @@ const UserProfile = () => {
   const rating = 4.5;
   const [componentStatus, setComponentStatus] = useState({});
   const [imageSrc, setImageSrc] = useState("");
-<<<<<<< HEAD
-=======
   const [activeIndex, setActiveIndex] = useState();
 
 
->>>>>>> origin/alex/add-user-profile-and-edit-forms
   const uploadProfilePicture = () => {
     console.log("profile");
   }
@@ -97,27 +82,6 @@ const UserProfile = () => {
                   <div className="tab-titles">Portfolio</div>
                 </button>
               </div>
-<<<<<<< HEAD
-              {
-                !Object.values(componentStatus).includes(true) && <div className="content-body">
-                  <Biography onClick={toggleEditMode} />
-                  <div className="p-grid">
-                    <div className="p-col-12 p-md-8 content-leftPanel">
-                      <Experience onClick={toggleEditMode} />
-                      <Education onClick={toggleEditMode} />
-                    </div>
-                    <div className="p-col-12 content-rightPanel p-md-4">
-                      <Skills onClick={toggleEditMode} />
-                      <Hobbies onClick={toggleEditMode} />
-                      <ProfessionsOfInterest onClick={toggleEditMode} />
-                      <LocationOfInterest onClick={toggleEditMode} />
-                      <ContactInformation onClick={toggleEditMode} />
-                    </div>
-                  </div>
-                </div>
-              }
-              <EditMode componentStatus={componentStatus} onClick={toggleEditMode} />
-=======
               <TabView activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}>
                 <TabPanel header="Header I">
                   Content I
@@ -130,7 +94,6 @@ const UserProfile = () => {
                 </TabPanel>
               </TabView>
               <InfoComponent toggleEditMode={toggleEditMode} componentStatus={componentStatus} />
->>>>>>> origin/alex/add-user-profile-and-edit-forms
             </div>
             {
               !componentStatus.portfolioEdit && <div className="p-col-12 p-md-3 p-pt-2 portfolio-panel"><Portfolio expandImage={handleImageExpansion} onClick={toggleEditMode} /></div>
