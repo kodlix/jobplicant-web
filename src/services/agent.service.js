@@ -75,9 +75,9 @@ const Auth = {
   checkValidEmail: email =>
     requests.post(`/account/email/is-valid`, { email }),
   forgotPassword: email =>
-    requests.post(`/account/forgotPassword`, { email }),
-  updatePassword: (data) =>
-    requests.put(`/account/updatepassword`, data),
+    requests.put(`/auth/send-forget-password-email`, { email }),
+  updatePassword: (shortCode, data) =>
+    requests.put(`/auth/change-password-email/${shortCode}`, data),
   resetPassword: (email, password) =>
     requests.post(`/account/password/reset`, { email, password }),
   sendResetToken: (email) =>

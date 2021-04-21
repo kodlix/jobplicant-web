@@ -24,6 +24,11 @@
     margin-left: 3vw
 }
 
+.logo-container {
+    margin: 10px 0;
+    text-align: center;
+}
+
 .bgimage {
     background-image: url('../../assets/images/workspace.jpg');
     background-repeat: no-repeat;
@@ -31,7 +36,8 @@
 }
 
 .sendsms {
-    margin-right: 16vw;
+    margin-right: 21vw;
+    display: inline;
 }
 
 @media screen and (max-width: 767px) {
@@ -43,6 +49,16 @@
     }
     .message {
         margin-bottom: 6vh;
+    }
+    .small-screen {
+        display: none;
+    }
+    .login-pane-left {
+        min-height: 30vh;
+        max-height: 30vh;
+    }
+    .login-pane-right {
+        padding: 30px;
     }
 }
 
@@ -58,4 +74,8 @@
 
 .login-pane-left {
     background-color: #5A2846;
+}
+
+.label {
+    display: inline;
 }

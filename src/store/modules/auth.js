@@ -20,6 +20,8 @@ const authData = {
 const REGISTERED = 'jobplicant/auth/REGISTERED';
 const LOGGED_IN = 'jobplicant/auth/LOGGED_IN';
 const LOGGED_OUT = 'jobplicant/auth/LOGGED_OUT';
+const FORGOT_PASSWORD = 'jobplicant/auth/FORGOT_PASSWORD';
+const UPDATE_PASSWORD = 'jobplicant/auth/UPDATE_PASSWORD';
 
 // Reducer
 export default function reducer(state = authData, action = {}) {
@@ -43,6 +45,18 @@ export default function reducer(state = authData, action = {}) {
         fetching: false,
         currentUser: null
       };
+    case FORGOT_PASSWORD:
+      return {
+        ...state,
+        fetching: false,
+        currentUser: null
+      };
+    case UPDATE_PASSWORD:
+      return {
+        ...state,
+        fetching: false,
+        currentUser: null
+      };
     default: return state;
   }
 }
@@ -56,11 +70,17 @@ export function userLoggedIn(user) {
   return { type: LOGGED_IN, payload: user };
 }
 
-
 export function userLoggedOut() {
   return {
     type: LOGGED_OUT
   }
+}
+export function userForgotPassword() {
+  return { type: FORGOT_PASSWORD }
+}
+
+export function userUpdatePassword() {
+  return { type: UPDATE_PASSWORD }
 }
 
 
@@ -70,7 +90,7 @@ export function registerUser(user) {
     return agent.Auth.register(user).then(
       response => {
         //handle success
-        dispatch(showSuccessMessage(("registration successful, login to continue")));
+        dispatch(showSuccessMessage(("Signup successful, login to continue")));
         dispatch(push('/emailconfirmation'));
       },
       error => {
@@ -97,6 +117,37 @@ export function loginUser({ email, password, type }) {
   }
 }
 
+export function forgotPasswordUser({ email }) {
+  return dispatch => {
+    return agent.Auth.forgotPassword(email).then(
+      response => {
+        //handle success
+        dispatch(showSuccessMessage("A link to reset your password has been sent to your email"));
+        dispatch(push("/newpassword"));
+      },
+      error => {
+        //handle error
+        dispatch(showErrorMessage(error));
+      }
+    );
+  }
+}
+
+export function updateUserPassword({ shortCode }) {
+  return dispatch => {
+    return agent.Auth.updatePassword(shortCode).then(
+      response => {
+        //handle success
+        dispatch(showSuccessMessage("Password successfully updated"));
+        dispatch(push("/login"));
+      },
+      error => {
+        //handle error
+        dispatch(showErrorMessage(error));
+      }
+    );
+  }
+}
 
 function onLogin(dispatch, user) {
   agent.Auth.saveAuthData(user)

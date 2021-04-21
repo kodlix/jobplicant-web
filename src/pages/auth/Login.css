@@ -66,16 +66,30 @@ html {
 }
 
 @media screen and (max-width: 500px) {
-    .loginbtn {
-        margin-left: auto;
-        margin-right: auto;
-        width: 78vw;
+    .small-screen {
+        display: none;
+    }
+    .sm-page-title {
+        margin: 6vh 0 4vh 0;
+    }
+    .sm-social-media {
+        margin: 3vh 0;
+    }
+    .spanOr {
+        margin-bottom: 3vh;
+    }
+    .login-pane-left {
+        min-height: 30vh;
+        max-height: 30vh;
+    }
+    .login-pane-right {
+        padding: 30px;
     }
 }
 
 .spanOr {
     font-size: large;
-    font-weight: bolder;
+    margin: 3vh 0;
 }
 
 .styleclass {
@@ -88,6 +102,11 @@ html {
     min-width: 6rem;
     height: 4rem;
     line-height: 3rem;
+}
+
+.forgot-pwd,
+.sign-up {
+    color: #5A2846;
 }
 
 
