@@ -7,7 +7,7 @@ import '../UserProfile.css';
 const UserProfile = () => {
   const dataFromBack = {
     companyBiography: "companyLorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tempor aliquam felis, nec condimentum ipsum commodo id. Vivamus sit amet augue nec urna efficitur tincidunt. Vivamus consectetur aliquam lectus commodo viverra. Nunc eu augue nec arcu efficitur faucibus. Aliquam accumsan ac magna convallis bibendum. Quisque laoreet augue eget augue fermentum scelerisque. Vivamus dignissim mollis est dictum blandit. Nam porta auctor neque sed congue. Nullam rutrum eget ex at maximus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget vestibulum lorem.",
-    companyDetails: { industry: "Softaware development", dateOfEstablishment: "2012-10-05T14:48:00.000Z", numberOfEmployees: "23", contactPerson: "Jane Doe", regNo: "hfg-2222" },
+    companyDetails: { industry: { name: 'Networking', id: 'NY1' }, dateOfEstablishment: "2012-10-05T14:48:00.000Z", numberOfEmployees: 23, contactPerson: "Jane Doe", regNo: "hfg-2222" },
     companyContactInfo: { phoneNo: "08124685807", emailAddress: "JaneDoe@google.com", city: "ikeja", state: { name: 'Lagos', id: 'NY2' }, country: { name: 'Nigeria', id: 'NY1' }, companyURL: "www.example.com", address: "No. 4, Isaac John Street" }
     // experience: [
     //   { jobTitle: "software developer1", id: "experience1", companyName: "Google1", startDate: "2011-10-05T14:48:00.000Z", endDate: "2012-10-05T14:48:00.000Z", jobCategory: { name: 'Networking', id: 'NY1' }, location: { name: "Rome", id: "RM" }, description: "In charge of google maps API" },
