@@ -4,12 +4,12 @@
                 }
                 
                 .brand-logo {
-                    margin: 23px auto;
+                    margin: 3px auto;
                     text-align: center;
                 }
                 
                 .login-pane-right .login-title {
-                    font-weight: 700;
+                    font-weight: 600;
                     margin-top: 0px;
                 }
                 
@@ -17,7 +17,7 @@
                     margin-left: 4px
                 }
                 
-                .signupbtn {
+                .signup-btn {
                     margin-left: 40px;
                 }
                 
@@ -35,4 +35,54 @@
                 
                 .login-pane-left {
                     background-color: #5A2846;
+                }
+                
+                .gender-margin {
+                    margin-right: 339vw;
+                }
+                
+                .logo-container {
+                    margin: 10px 0;
+                    text-align: center;
+                }
+                
+                .app-color {
+                    color: #5A2846;
+                }
+                /*                 
+                @media screen and (max-width: 767px) {
+                    .small-screen {
+                        display: none;
+                    }
+                    .sm-page-title {
+                        margin: 2vh 0 5vh 0;
+                    }
+                    .jobplicant-logo {
+                        margin: 4vh 0;
+                    }
+                    .sm-signup-bnt {
+                        margin: 2vh 0;
+                    }
+                } */
+                
+                @media screen and (max-width: 767px) {
+                    .small-screen {
+                        display: none;
+                    }
+                    .login-pane-left {
+                        min-height: 30vh;
+                        max-height: 30vh;
+                    }
+                    .login-pane-right {
+                        padding: 30px;
+                    }
+                    .jobplicant-logo {
+                        margin: 4vh 0;
+                    }
+                    .sm-page-title {
+                        margin: 2vh 0 5vh 0;
+                    }
+                    .sm-signup-bnt {
+                        margin: 2vh 0;
+                    }
                 }
