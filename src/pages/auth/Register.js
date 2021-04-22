@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { RadioButton } from 'primereact/radiobutton';
 import { Link } from 'react-router-dom';
@@ -12,7 +12,10 @@ import './Register.css'
 
 const Register = ({ }) => {
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm({
+        mode: "onChange",
+        reValidateMode: "onChange"
+    });
     const dispatch = useDispatch();
 
     console.log({ errors });
@@ -20,11 +23,16 @@ const Register = ({ }) => {
     const [gender, setGender] = useState(null)
 
     const onSubmit = (user) => {
-        console.log(user)
+        console.log({ user })
         user.name = "Developer";
         user.accountType = "artisan";
         dispatch(registerUser(user))
     }
+
+
+    useEffect(() => {
+        register("gender", { required: "Gender is required" })
+    }, [register])
 
     return (
         <>
@@ -79,7 +87,7 @@ const Register = ({ }) => {
                                                 {...register("firstName", { required: "Please enter your first name" })}
                                             />
                                             <label htmlFor="firstname" className="">
-                                                {errors.firstName && <span className="text-danger font-weight-bold p-pl-6"> <p>{errors.firstName.message}</p>
+                                                {errors.firstName && <span className="text-danger font-weight-bold "> <p>{errors.firstName.message}</p>
                                                 </span>}
                                             </label>
 
@@ -94,7 +102,7 @@ const Register = ({ }) => {
 
                                             />
                                             <label htmlFor="lastname" className="">
-                                                {errors.lastName && <span className="text-danger font-weight-bold p-pl-6"> <p>{errors.lastName.message}</p>
+                                                {errors.lastName && <span className="text-danger font-weight-bold "> <p>{errors.lastName.message}</p>
                                                 </span>}
                                             </label>
                                         </div>
@@ -113,9 +121,9 @@ const Register = ({ }) => {
                                                 )}
                                             />
                                             <label htmlFor="email" className="">
-                                                {errors?.email?.type === "required" && <span className="text-danger font-weight-bold p-pl-6"> <p>Please enter your email</p>
+                                                {errors?.email?.type === "required" && <span className="text-danger font-weight-bold "> <p>Please enter your email</p>
                                                 </span>}
-                                                {errors?.email?.type === "pattern" && <span className="text-danger font-weight-bold p-pl-6"> <p>Please enter a valid email <address></address></p></span>}
+                                                {errors?.email?.type === "pattern" && <span className="text-danger font-weight-bold "> <p>Please enter a valid email <address></address></p></span>}
 
                                             </label>
                                         </div>
@@ -128,7 +136,7 @@ const Register = ({ }) => {
                                                 {...register("password", { required: "Please enter your password" })}
                                             />
                                             <label htmlFor="password" className="">
-                                                {errors.password && <span className="text-danger font-weight-bold p-pl-6"> <p>{errors.password.message}</p>
+                                                {errors.password && <span className="text-danger font-weight-bold "> <p>{errors.password.message}</p>
                                                 </span>}
                                             </label>
                                         </div>
@@ -143,12 +151,12 @@ const Register = ({ }) => {
                                                 {...register("companyName", { required: "Please enter your company's Name" })}
                                             />
                                             <label htmlFor="name" className="">
-                                                {errors.companyName && <span className="text-danger font-weight-bold p-pl-6"> <p>{errors.companyName.message}</p>
+                                                {errors.companyName && <span className="text-danger font-weight-bold "> <p>{errors.companyName.message}</p>
                                                 </span>}
                                             </label>
                                         </div>
 
-                                        <div><label htmlFor="gender" className="p-mb-1 p-text-bold gender-margin" > Gender</label> </div>
+                                        <div><label htmlFor="gender" className="p-mb-1 p-text-bold gender-margin app-color" > Gender</label> </div>
 
                                         <div className="p-formgroup-inline">
 
@@ -156,9 +164,9 @@ const Register = ({ }) => {
                                                 <RadioButton inputId="male" type="radio"
                                                     name="gender"
                                                     value="male"
-                                                    onChange={(e) => setGender(e.value)}
+                                                    onChange={(e) => { setGender(e.value); setValue("gender", e.value, { shouldValidate: true }) }}
                                                     checked={gender === 'male'}
-                                                    {...register("gender", { required: "Gender is required" })}
+                                                // {...register("gender", { required: "Gender is required" })}
                                                 />
 
                                                 <label htmlFor="male">Male</label>
@@ -167,9 +175,9 @@ const Register = ({ }) => {
                                                 <RadioButton inputId="female" type="radio"
                                                     name="gender"
                                                     value="female"
-                                                    onChange={(e) => setGender(e.value)}
+                                                    onChange={(e) => { setGender(e.value); setValue("gender", e.value, { shouldValidate: true }) }}
                                                     checked={gender === 'female'}
-                                                    {...register("gender", { required: "Gendre is required" })}
+                                                // {...register("gender", { required: "Gender is required" })}
                                                 />
                                                 <label htmlFor="female">Female</label>
                                             </div>
@@ -179,8 +187,8 @@ const Register = ({ }) => {
                                             {/* </label> */}
 
                                             <div>
-                                                <p className="term-policy p-mb-3 p-mr-5">By clicking Sign Up, you agree to our <Link to="">Terms, Data Policy </Link>
-                                                &nbsp; and <Link to="">Cookie Policy.</Link>.</p>
+                                                <p className="term-policy p-mb-3">By clicking Sign Up, you agree to our <Link to=""> <span className="app-color font-weight-bold">Terms, Data Policy </span></Link>
+                                                &nbsp; and <Link to=""> <span className="app-color font-weight-bold">Cookie Policy.</span></Link>.</p>
 
                                             </div>
 
@@ -191,7 +199,7 @@ const Register = ({ }) => {
                                     </div>
 
                                 </form>
-                                <Link to="/Login" className="p-text-secondary p-mt-3 font-weight-bold">Already have an account?</Link>
+                                <Link to="/Login" className="p-text-secondary p-mt-3 app-color font-weight-bold">Already have an account?</Link>
                             </div>
                         </div>
                         {/* </div>b */}

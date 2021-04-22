@@ -107,7 +107,8 @@ export function loginUser({ email, password, type }) {
       response => {
         //handle success
         dispatch(showSuccessMessage("login successful"));
-        dispatch(push("/recoverbyemail"));
+        onLogin(dispatch, response);
+        dispatch(push("/userprofile"));
       },
       error => {
         //handle error

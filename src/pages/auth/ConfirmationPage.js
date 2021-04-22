@@ -69,7 +69,7 @@ const ConfirmationPage = ({ }) => {
                                                 name="companyname"
                                                 placeholder="Enter Code" />
                                         </div>
-                                        <div className="sendsms p-text-secondary message font-weight-bold"><Link to="#"><span >Send SMS Again</span></Link></div>
+                                        <div className="sendsms message font-weight-bold"><Link to="#"><span className="app-color">Send SMS again</span></Link></div>
                                         <hr className="p-mb-3" />
                                     </div>
                                     <div className="row">

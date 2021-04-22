@@ -6,21 +6,21 @@ const superagent = superagentPromise(_superagent, global.Promise);
 export const API_ROOT = 'http://localhost:8080';
 export const IMAGE_URL = API_ROOT + '/account/uploads/';
 
-let token = null;
+let accessToken = null;
 const responseBody = res => res.body;
 
 const getAuthToken = () => {
   const auth = JSON.parse(window.localStorage.getItem('auth'));
-  const token = auth ? auth.token : null;
-  return token;
+  const accessToken = auth ? auth.accessToken : null;
+  return accessToken;
 }
 
 export const tokenPlugin = req => {
   req.set('Accept', 'application/json');
 
-  token = getAuthToken();
-  if (token) {
-    req.set('Authorization', `Bearer ${token}`);
+  accessToken = getAuthToken();
+  if (accessToken) {
+    req.set('Authorization', `Bearer ${accessToken}`);
   }
 
   req.on('response', function (res) {
@@ -45,16 +45,16 @@ const Auth = {
   logError: (data) =>
     requests.post('/v1/log/error', { data }),
   isAuth: () => {
-    const token = getAuthToken();
-    return !!token;
+    const accessToken = getAuthToken();
+    return !!accessToken;
   },
   setToken: () => {
     const auth = JSON.parse(window.localStorage.getItem('auth'));
-    token = auth.token;
+    accessToken = auth.accessToken;
   },
   saveAuthData: (_user) => {
     window.localStorage.setItem('auth', JSON.stringify(_user));
-    token = _user.token;
+    accessToken = _user.accessToken;
   },
   saveFirstTime: () => {
     window.localStorage.setItem('ftime', true);
@@ -64,7 +64,7 @@ const Auth = {
   },
   logout: () => {
     window.localStorage.removeItem('auth')
-    token = null
+    accessToken = null
   },
 
   current: () => JSON.parse(window.localStorage.getItem('auth')),
@@ -213,5 +213,5 @@ export default {
   JobVacancy,
   ScheduleMeeting,
   Poll,
-  setToken: _token => { token = _token; },
+  setToken: _accessToken => { accessToken = -accessToken; },
 };

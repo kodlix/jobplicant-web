@@ -49,6 +49,8 @@
     }
     .message {
         margin-bottom: 6vh;
+        color: #5A2846;
+        ;
     }
     .small-screen {
         display: none;
@@ -64,6 +66,10 @@
 
 .appcolor {
     background-color: #5A2846;
+}
+
+.app-color {
+    color: #5A2846;
 }
 
 .left-content {

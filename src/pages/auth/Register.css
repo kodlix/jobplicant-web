@@ -45,6 +45,10 @@
                     margin: 10px 0;
                     text-align: center;
                 }
+                
+                .app-color {
+                    color: #5A2846;
+                }
                 /*                 
                 @media screen and (max-width: 767px) {
                     .small-screen {

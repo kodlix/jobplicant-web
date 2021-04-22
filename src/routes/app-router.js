@@ -50,14 +50,12 @@ const AppRouter = () => {
         <AnonymousRoute path="/recoverbynumber" exact component={RecoverByNumber} />
         <AnonymousRoute path="/recoverbyemail" exact component={RecoverByEmail} />
         <AnonymousRoute path="/newpassword" exact component={NewPassword} />
-        <AnonymousRoute path="/userprofile" component={UserProfile} />   
-        <AnonymousRoute path="/companyprofile" component={CompanyProfile} />       
-        <AnonymousRoute path="/pagenotfound" exact component={PageNotFound} />
-        <AnonymousRoute path="/internalservererror" component={InternalServerError} />
-        <AnonymousRoute path="/badrequest" component={BadRequest} />
-        <AnonymousRoute path="/userprofile" component={UserProfile} />   
-        <AnonymousRoute path="/companyprofile" component={CompanyProfile} />     
-        <ProtectedRoute path="/dashboard" component={Dashboard} />            
+        <ProtectedRoute path="/pagenotfound" exact component={PageNotFound} />
+        <ProtectedRoute path="/internalservererror" component={InternalServerError} />
+        <ProtectedRoute path="/badrequest" component={BadRequest} />
+        <ProtectedRoute path="/userprofile" component={UserProfile} />
+        <ProtectedRoute path="/companyprofile" component={CompanyProfile} />
+        <ProtectedRoute path="/dashboard" component={Dashboard} />
         <Redirect to="/login" />
       </Switch>
     </React.Suspense>

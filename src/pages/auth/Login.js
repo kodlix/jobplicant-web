@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Checkbox } from 'primereact/checkbox';
 import { Link } from 'react-router-dom';
@@ -35,6 +35,10 @@ const Login = ({ props }) => {
         console.log(user)
         dispatch(loginUser(user));
     }
+
+    useEffect(() => {
+        register("rememberme")
+    }, [register])
 
     return (
         <>
@@ -109,7 +113,7 @@ const Login = ({ props }) => {
 
                                                 />
                                                 <label htmlFor="email" className="">
-                                                    {errors?.email?.type === "required" && <span className="text-danger font-weight-bold  p-pl-6"> <p>{errors.email.message}</p>
+                                                    {errors?.email?.type === "required" && <span className="text-danger font-weight-bold"> <p>{errors.email.message}</p>
                                                     </span>}
                                                 </label>
                                             </div>
@@ -122,28 +126,27 @@ const Login = ({ props }) => {
                                                 />
 
                                                 <label htmlFor="password" className="">
-                                                    {errors?.password?.type === "required" && <span className="text-danger font-weight-bold p-pl-6"> <p>{errors.password.message}</p>
+                                                    {errors?.password?.type === "required" && <span className="text-danger font-weight-bold"> <p>{errors.password.message}</p>
                                                     </span>}
                                                 </label>
                                                 {/* <span> <i className="pi-eye-slash"></i></span>
                                             <span className="fa fa-eye-slash pwd-toggle"></span> */}
                                             </div>
 
-                                            <div className="row p-m-4">
+                                            <div className="row">
                                                 <div className="col-6 col-xs-3 ">
                                                     <div className="p-field-checkbox">
                                                         <Checkbox inputId="rememberMe"
                                                             name="rememberme"
-                                                            // value={checked}
                                                             id="rememberMe"
-                                                            checked={checked} onChange={e => setChecked(e.cheched)}
-                                                            {...register("rememberme")}
+                                                            checked={checked}
+                                                            onChange={e => setChecked(e.checked)}
                                                         /> <label htmlFor="rememberMe"><span className="label-text p-ml-1">Remember me</span></label>
                                                     </div>
                                                 </div>
                                                 <div className="col-6 col-xs-3 p-mb-1 ">
                                                     <p className="col-xs-2 appcolor">
-                                                        <Link className="lnk-toggler font-weight-bold forgot-pwd" to="/forgotpassword">Forgot password?</Link>
+                                                        <Link className="font-weight-bold forgot-pwd" to="/forgotpassword">Forgot password?</Link>
                                                     </p>
                                                 </div>
                                             </div>
