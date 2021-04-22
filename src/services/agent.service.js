@@ -68,8 +68,8 @@ const Auth = {
   },
 
   current: () => JSON.parse(window.localStorage.getItem('auth')),
-  login: (email, password) =>
-    requests.post('/account/login', { email, password }),
+  login: (email, password, type) =>
+    requests.post('/auth/signIn', { email, password, type }),
   register: data =>
     requests.post('/auth/signUp', data),
   checkValidEmail: email =>

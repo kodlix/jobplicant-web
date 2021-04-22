@@ -1,26 +1,34 @@
 import React, { useState } from 'react';
-import './Login.css'
-// import { input } from 'primereact/input';
+import { InputText } from 'primereact/inputtext';
 import { Checkbox } from 'primereact/checkbox';
 import { Link } from 'react-router-dom';
-
 import { Button } from 'primereact/button';
 import { loginUser } from 'store/modules/auth';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
+import './Login.css'
+
+
 
 const Login = ({ props}) => {
 
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        mode: "onChange",
+        reValidateMode: "onChange"
+    });
     const dispatch = useDispatch();
-    const { register, handleSubmit, erorrs } = useForm();
+
+    console.log({ errors })
+
+
     const [checked, setChecked] = useState(false);
 
-
     const onSubmit = (user) => {
+
+        user.type = 'artisan';
         console.log(user)
-        // return;
-        // // dispatch(loginUser(user));
+        dispatch(loginUser(user));
     }
 
     return (
@@ -64,7 +72,7 @@ const Login = ({ props}) => {
                                     <h3 className="auth-title">Login to your account</h3>
                                     <p className="p-m-4 ">Don’t have an account? <Link className="lnk-toggler " data-panel=".panel-signup" to="/register">Sign Up Free!</Link></p>
                                 </div>
-                                <div className="p-grid p-mt-2">
+                                <div className="p-grid p-mt-1">
                                     <div className="p-col-6">
                                         <Link to="#">
                                             <span className="p-badge p-badge-secondary p-badge-xl" style={{ fontSize: '4rem', minWidth: '6rem', height: '4rem', lineHeight: '3rem' }}>  <i className="pi pi-facebook styleclass" style={{ fontSize: 40 }}></i> </span>
@@ -84,30 +92,31 @@ const Login = ({ props}) => {
 
                                 <form onSubmit={handleSubmit(onSubmit)}>
                                     <div className="p-field p-grid">
-                                        <label htmlFor="numberoremail" className="p-sr-only">Number or Email
-                                                  <span className="p-text-danger p-pl-1">
-                                                {/* {erorrs.numberoremail && "number or email is required"} */}
-                                            </span>
-                                        </label>
-                                        <input type="text"
+                                        <InputText type="text"
                                             className="form-control p-ml-6 p-mr-6"
-                                            name="numberoremail"
-                                            id="numberoremail"
+                                            name="email"
                                             placeholder="Mobile number or email address"
-                                            {...register("numberoremail", { required: true })} />
+                                            {...register('email', { required: "Please enter an email address or phone number" })}
+                                            id="email"
+
+                                        />
+                                        <label htmlFor="email" className="">
+                                            {errors?.email?.type === "required" && <span className="text-danger font-weight-bold  p-pl-6"> <p>{errors.email.message}</p>
+                                            </span>}
+                                        </label>
                                     </div>
                                     <div className="p-field p-grid">
-                                        <label htmlFor="password" className="p-sr-only">Password
-                                                  <span className="p-text-danger p-pl-1">
-                                                {/* {erorrs.password && "password is required"} */}
-                                            </span>
-                                        </label>
-                                        <input type="password"
+                                        <InputText type="password"
                                             className="form-control p-ml-6 p-mr-6 input-container-pass"
-                                            id="password"
                                             name="password"
-                                            placeholder="Password "
-                                            {...register("password", { required: true })} />
+                                            placeholder="Password"
+                                            {...register("password", { required: "Please enter a password." })}
+                                        />
+
+                                        <label htmlFor="password" className="">
+                                            {errors?.password?.type === "required" && <span className="text-danger font-weight-bold p-pl-6"> <p>{errors.password.message}</p>
+                                            </span>}
+                                        </label>
                                         {/* <span> <i className="pi-eye-slash"></i></span>
                                             <span className="fa fa-eye-slash pwd-toggle"></span> */}
                                     </div>
@@ -119,27 +128,25 @@ const Login = ({ props}) => {
                                                  id="rememberme"
                                                     name="rememberme"
                                                     checked={checked} onChange={e => setChecked(e.checked)}
-                                                    {...register("rememberme", { required: true })}
+                                                    {...register("rememberme")}
                                                 /><span className="label-text p-ml-1">Remember me</span>
 
                                             </div>
-
                                         </div>
                                         <div className="col-6 col-xs-3 p-mb-3 ">
                                             <p className="forgotPwd col-xs-2">
-                                                <a className="lnk-toggler" data-panel=".panel-forgot" href="#">Forgot password?</a>
+                                                <Link className="lnk-toggler" data-panel=".panel-forgot" to="/forgotpassword">Forgot password?</Link>
                                             </p>
                                         </div>
                                     </div>
-                                    <div className="p-grid p-mt-2">
-                                    <input type="submit" label="Sign up with email" value="click me" className="signupbtn appcolor p-col-10" />
+                                    <div className="p-grid">
+                                        <Button label="Login" type="submit" className="loginbtn appcolor p-col-10" />
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div >
         </>
     )

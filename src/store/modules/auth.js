@@ -5,21 +5,21 @@ import agent from "../../services/agent.service";
 // initial values
 const authData = {
   currentUser: {
-    email: "",
-    password: "",
-    token: "",
-    accountType: "",
-    accountPackage: "",
-    isRegComplete: false
+    // email: "",
+    // password: "",
+    // token: "",
+    // accountType: "",
+    // accountPackage: "",
+    // isRegComplete: false
   }
 };
 
 
 
 // Action types
-const REGISTERED = 'pharmaconnect/auth/REGISTERED';
-const LOGGED_IN = 'pharmaconnect/auth/LOGGED_IN';
-const LOGGED_OUT = 'pharmaconnect/auth/LOGGED_OUT';
+const REGISTERED = 'jobplicant/auth/REGISTERED';
+const LOGGED_IN = 'jobplicant/auth/LOGGED_IN';
+const LOGGED_OUT = 'jobplicant/auth/LOGGED_OUT';
 
 // Reducer
 export default function reducer(state = authData, action = {}) {
@@ -70,8 +70,8 @@ export function registerUser(user) {
     return agent.Auth.register(user).then(
       response => {
         //handle success
-        dispatch(showSuccessMessage(("registration successful. login to continue")));
-        dispatch(push("/login"));
+        dispatch(showSuccessMessage(("registration successful, login to continue")));
+        dispatch(push('/emailconfirmation'));
       },
       error => {
         //handle error
@@ -81,27 +81,13 @@ export function registerUser(user) {
   }
 }
 
-export function loginUser({ email, password }) {
+export function loginUser({ email, password, type }) {
   return dispatch => {
-    return agent.Auth.login(email, password).then(
+    return agent.Auth.login(email, password, type).then(
       response => {
         //handle success
         dispatch(showSuccessMessage("login successful"));
-        if (response.isRegComplete === false && response.accountType === 'individual') {
-          onLogin(dispatch, response);
-          dispatch(showInfoMessage("Kindly complete your registration to start connecting with great minds"));
-          dispatch(push('/individualregistration'));
-        }
-        else if (response.isRegComplete === false && response.accountType === 'corporate') {
-          onLogin(dispatch, response);
-          dispatch(showInfoMessage("Kindly complete your registration to start connecting with great minds"));
-          dispatch(push('/corporateregistration'));
-        }
-        else if (response.isRegComplete) {
-          onLogin(dispatch, response);
-          dispatch(push("/dashboard"));
-        }
-
+        dispatch(push("/recoverbyemail"));
       },
       error => {
         //handle error
