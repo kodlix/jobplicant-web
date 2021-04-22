@@ -7,8 +7,8 @@ import AnonymousRoute from './anonymous-route';
 import ProtectedRoute from './protected-route';
 import AppContentContext from '../contexts/AppContentContext'
 const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard'));
-const UserProfile = React.lazy(() => import('../pages/profile/UserProfile'));
-const CompanyProfile = React.lazy(() => import('../pages/profile/CompanyProfile'));
+const UserProfile = React.lazy(() => import('../pages/profile/userProfile/UserProfile'));
+const CompanyProfile = React.lazy(() => import('../pages/profile/companyProfile/CompanyProfile'));
 const LandingPage = React.lazy(() => import('../pages/landingPage/LandingPage'));
 const Login = React.lazy(() => import('../pages/auth/Login'));
 const Register = React.lazy(() => import('../pages/auth/Register'));

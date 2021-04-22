@@ -241,6 +241,20 @@
   vertical-align: baseline;
 }
 
+.p-datepicker .p-datepicker-header .p-datepicker-title select {
+  border: 2px solid #5a2846;
+  border-radius: 4px;
+}
+
+.p-datepicker .p-datepicker-header .p-datepicker-title select:focus {
+  box-shadow: 0 0 0 0.2rem #5a28465c;
+}
+
+.p-datepicker .p-monthpicker .p-monthpicker-month.p-highlight {
+  color: white;
+  background: #5a2846;
+}
+
 .backButton {
   cursor: pointer;
 }
@@ -257,6 +271,11 @@
 
 .inputField {
   width: 100%;
+}
+
+.p-radiobutton .p-radiobutton-box .p-radiobutton-icon {
+  width: 0;
+  height: 0;
 }
 
 .skillInput {
@@ -302,6 +321,7 @@
 
 .p-formgroup-inline {
   display: inline-flex;
+  vertical-align: super;
 }
 
 .editPortfolio-container {
