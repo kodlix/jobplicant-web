@@ -3,14 +3,15 @@ import { Link } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 
-
-import './ForgotPassword.css';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { updateUserPassword } from 'store/modules/auth';
 
+import './ForgotPassword.css';
+
 const NewPassword = (props) => {
     const dispatch = useDispatch();
+
     const { register, handleSubmit, watch, formState: { errors } } = useForm({
         mode: 'onChange',
         reValidateMode: 'onChange'
@@ -18,20 +19,21 @@ const NewPassword = (props) => {
 
     const password = useRef(({}));
     password.current = watch("password", "");
-    const sortCode = props.match.params.id
 
-    console.log({ props });
+    let url = props.location.search;
+    url = url.split('=');
+    const shortCode = url[2];
+    // userdata.shortCode = shortCode;
+    let email = "schinoyerem007@gmail.com";
 
-    // const data = {
-    //     sortCode: props.match.params.id
-    // }
+    console.log({ shortCode })
 
 
 
-    const onSubmit = (user) => {
-        user.sortCode = sortCode;
 
-        dispatch(updateUserPassword(user))
+    const onSubmit = (userdata) => {
+
+        dispatch(updateUserPassword(shortCode, email, userdata))
     }
 
 
@@ -56,7 +58,7 @@ const NewPassword = (props) => {
                                 <div className="p-fluid">
                                     <div className="p-field">
                                         <InputText
-                                            id="newPassword"
+                                            id="password"
                                             type="password"
                                             name="password"
                                             placeholder="New Password"
@@ -67,7 +69,7 @@ const NewPassword = (props) => {
                                                     message: "Password must not be less than 8 characters"
                                                 }
                                             })}
-                                        />  <label htmlFor="name" className="">
+                                        />  <label htmlFor="password" className="">
                                             {errors.password && <span className="text-danger font-weight-bold"> <p>{errors.password.message}</p>
                                             </span>}
                                         </label>
@@ -82,12 +84,12 @@ const NewPassword = (props) => {
                                                 validate: value => value === password.current || "The passwords do not match"
                                             })}
                                         />
-                                        <label htmlFor="name" className="">
+                                        <label htmlFor="confirmPassword" className="">
                                             {errors.confirmPassword && <span className="text-danger font-weight-bold"> <p>{errors.confirmPassword.message}</p>
                                             </span>}
                                         </label>
                                     </div>
-                                    <Button label="Confirm" className="form-group" />
+                                    <Button label="Confirm" type="submit" className="form-group" />
                                     <div className="form-group">
                                         <Link to="/Login" className="p-mt-2 p-text-secondary back-button">Back to Login</Link>
                                     </div>

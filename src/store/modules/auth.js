@@ -124,7 +124,7 @@ export function forgotPasswordUser({ email }) {
       response => {
         //handle success
         dispatch(showSuccessMessage("A link to reset your password has been sent to your email"));
-        dispatch(push("/newpassword"));
+        dispatch(push(""));
       },
       error => {
         //handle error
@@ -134,10 +134,11 @@ export function forgotPasswordUser({ email }) {
   }
 }
 
-export function updateUserPassword({ shortCode }) {
+export function updateUserPassword(data) {
   return dispatch => {
-    return agent.Auth.updatePassword(shortCode).then(
+    return agent.Auth.updatePassword(data).then(
       response => {
+        console.log({ response });
         //handle success
         dispatch(showSuccessMessage("Password successfully updated"));
         dispatch(push("/login"));

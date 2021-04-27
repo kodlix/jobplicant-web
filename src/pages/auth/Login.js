@@ -14,7 +14,7 @@ import './Login.css'
 
 
 
-const Login = ({ props}) => {
+const Login = ({ props }) => {
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: "onChange",
@@ -48,14 +48,14 @@ const Login = ({ props}) => {
 
                     {/* <div className="p-col bgimage login-pane-left p-col-12 p-md-8 p-lg-8">
                 </div> */}
-                    <div className="login-pane-left p-col-12 p-md-7 p-lg-8 p-xl-8 p-p-0 small-screen">
+                    <div className="login-pane-left p-col-12 p-md-7 p-lg-8 p-p-0 small-screen">
                         <div className="left-content">
 
                             <div><h1 className="p-mb-6 p-mt-4 p-text-center text-white">Joplicant Home for all</h1></div>
                             <div>
-                                <section>
+                                <div>
                                     <p> <h3 className="text-white p-text-center"> Job seekers, Artisan, Employer</h3></p>
-                                </section>
+                                </div>
 
                                 <section className="p-mt-6 p-text-center">
                                     <p>Artisans meets employers, you need to get a skilled worker for that urgent need? not too worry, </p>
@@ -65,9 +65,9 @@ const Login = ({ props}) => {
 
                             </div>
                             <div>
-                                <section className="p-text-center">
+                                <div className="p-text-center">
                                     <p>you need to get a skilled worker for that urgent need? not too worry, Instant Job Hire is all you need to connect to the right person within you.</p>
-                                </section>
+                                </div>
                             </div>
                         </div>
 
@@ -77,13 +77,13 @@ const Login = ({ props}) => {
                             <img src="/assets/logo.png" width="150" alt="brand-logo" />
                         </div>
                         <div className="">
-                            <div className=" panel-login text-center">
+                            <div className=" panel-login">
                                 <div className="">
                                     <div className="p-mt-0 p-mb-0">
-                                        <h3 className="sm-page-title">Login to your account</h3>
-                                        <p className="p-m-4 ">Don’t have an account? <Link className="lnk-toggler font-weight-bold sign-up" data-panel=".panel-signup" to="/register">Sign Up Free!</Link></p>
+                                        <h3 className="sm-page-title text-center">Login to your account</h3>
+                                        <p className="p-m-4 text-center ">Don’t have an account? <Link className="lnk-toggler font-weight-bold sign-up" data-panel=".panel-signup" to="/register">Sign Up Free!</Link></p>
                                     </div>
-                                    <div className="p-grid p-mt-0 sm-social-media">
+                                    <div className="p-grid p-mt-0 sm-social-media text-center">
                                         <div className="p-col-6">
                                             <Link to="#">
                                                 <span className="p-badge p-badge-secondary p-badge-xl" style={{ fontSize: '4rem', minWidth: '6rem', height: '4rem', lineHeight: '3rem' }}>  <i className="pi pi-facebook styleclass" style={{ fontSize: 40 }}></i> </span>
@@ -97,14 +97,14 @@ const Login = ({ props}) => {
                                         </div>
                                     </div>
 
-                                    <div className="p-col-xs-12 p-col-sm-12 p-mb-2">
+                                    <div className="p-col-xs-12 p-col-sm-12 p-mb-2 text-center">
                                         <span className="spanOr font-weight-bolder">or</span>
                                     </div>
 
                                     <form onSubmit={handleSubmit(onSubmit)}>
                                         <div className="p-fluid">
                                             <div className="p-field">
-                                                <InputText type="text"
+                                                <InputText type="email"
                                                     // className="form-control p-ml-6 p-mr-6"
                                                     name="email"
                                                     placeholder="Mobile number or email address"
@@ -119,14 +119,13 @@ const Login = ({ props}) => {
                                             </div>
                                             <div className="p-field">
                                                 <InputText type="password"
-                                                    // className="form-control p-ml-6 p-mr-6 input-container-pass"
                                                     name="password"
                                                     placeholder="Password"
                                                     {...register("password", { required: "Please enter your password." })}
                                                 />
 
                                                 <label htmlFor="password" className="">
-                                                    {errors?.password?.type === "required" && <span className="text-danger font-weight-bold"> <p>{errors.password.message}</p>
+                                                    {errors?.password?.type === "required" && <span className="text-danger font-weight-bold p-mr-6 error-msg"> <p>{errors.password.message}</p>
                                                     </span>}
                                                 </label>
                                                 {/* <span> <i className="pi-eye-slash"></i></span>

@@ -48,7 +48,7 @@ const ForgotPassword = () => {
                                         <InputText id="emailOrPassword"
                                             name="email"
                                             className="inputField"
-                                            type="text"
+                                            type="email"
                                             placeholder="Enter your email address"
                                             {...register("email", { required: "Please enter your email address" })
                                             }

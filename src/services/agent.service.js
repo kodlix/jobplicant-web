@@ -76,14 +76,16 @@ const Auth = {
     requests.post(`/account/email/is-valid`, { email }),
   forgotPassword: email =>
     requests.put(`/auth/send-forget-password-email`, { email }),
-  updatePassword: (shortCode, data) =>
-    requests.put(`/auth/change-password-email/${shortCode}`, data),
+  updatePassword: (data) => {
+    const { shortCode, email, password, confirmPassword } = data;
+    requests.put(`/auth/change-password-email/${shortCode}/${email}`, { password, confirmPassword })
+  },
   resetPassword: (email, password) =>
-    requests.post(`/account/password/reset`, { email, password }),
+    requests.post(`/ account / password / reset`, { email, password }),
   sendResetToken: (email) =>
-    requests.post(`/account/password/email`, { email }),
+    requests.post(`/ account / password / email`, { email }),
   verifyResetToken: (email, token) =>
-    requests.post(`/account/password/verify-token`, { email, token })
+    requests.post(`/ account / password / verify - token`, { email, token })
 }
 
 const User = {
@@ -94,9 +96,9 @@ const User = {
   edit: (user) =>
     requests.put('/user', user),
   delete: (id) =>
-    requests.del(`/user/${id}`),
+    requests.del(`/ user / ${id}`),
   view: (id) =>
-    requests.get(`/user/${id}`)
+    requests.get(`/ user / ${id}`)
 };
 
 const Sector = {
@@ -107,33 +109,33 @@ const Sector = {
   edit: (sector) =>
     requests.put('/sector', sector),
   delete: (id) =>
-    requests.del(`/sector/${id}`),
+    requests.del(`/ sector / ${id}`),
   view: (id) =>
-    requests.get(`/sector/${id}`)
+    requests.get(`/ sector / ${id}`)
 };
 
 const Account = {
   updateIndividualProfile: (email, data) =>
-    requests.put(`/account/individual/${email}`, data),
+    requests.put(`/ account / individual / ${email}`, data),
   updateProfilePicture: (image) =>
     requests.put('/account/uploads', image),
-  load: (email) => requests.get(`/account/getbyemail/${email}`),
+  load: (email) => requests.get(`/ account / getbyemail / ${email}`),
   updateCorporateProfile: (email, data) =>
-    requests.put(`/account/cooperate/${email}`, data),
+    requests.put(`/ account / cooperate / ${email}`, data),
   organizationName: () =>
     requests.get('/account/corporate/organizations'),
   getByID: (id) =>
-    requests.get(`/account/${id}`),
+    requests.get(`/ account / ${id}`),
 }
 
 const Country = {
   load: () => requests.get('/country'),
 };
 const State = {
-  loadByCountry: (countryid) => requests.get(`/state/getbycountry/${countryid}`),
+  loadByCountry: (countryid) => requests.get(`/ state / getbycountry / ${countryid}`),
 };
 const Lga = {
-  loadByState: (stateid) => requests.get(`/lga/getbystate/${stateid}`),
+  loadByState: (stateid) => requests.get(`/ lga / getbystate / ${stateid}`),
 };
 
 const JobVacancy = {
@@ -144,15 +146,15 @@ const JobVacancy = {
   loadAll: (pageNumber) =>
     requests.get('/jobvacancy', pageNumber),
   view: (id) =>
-    requests.get(`/jobvacancy/${id}`),
+    requests.get(`/ jobvacancy / ${id}`),
   edit: (id, jobvacancy) =>
-    requests.put(`/jobvacancy/${id}`, jobvacancy),
+    requests.put(`/ jobvacancy / ${id}`, jobvacancy),
   delete: (id) =>
-    requests.del(`/jobvacancy/${id}`),
+    requests.del(`/ jobvacancy / ${id}`),
   approve: (id, approval) =>
-    requests.put(`/jobvacancy/approve/${id}`, approval),
+    requests.put(`/ jobvacancy / approve / ${id}`, approval),
   reject: (id, rejection) =>
-    requests.put(`/jobvacancy/reject/${id}`, rejection)
+    requests.put(`/ jobvacancy / reject / ${id}`, rejection)
 
 };
 
@@ -163,11 +165,11 @@ const Outlet = {
   load: (pageNumber) =>
     requests.get('/outlet/apps/active', pageNumber),
   view: (id) =>
-    requests.get(`/outlet/${id}`),
+    requests.get(`/ outlet / ${id}`),
   edit: (id, outlet) =>
-    requests.put(`/outlet/${id}`, outlet),
+    requests.put(`/ outlet / ${id}`, outlet),
   delete: (id) =>
-    requests.del(`/outlet/${id}`)
+    requests.del(`/ outlet / ${id}`)
 };
 
 
@@ -177,11 +179,11 @@ const Poll = {
   load: (pageNumber) =>
     requests.get('/poll', pageNumber),
   view: (id) =>
-    requests.get(`/poll/${id}`),
+    requests.get(`/ poll / ${id}`),
   edit: (id, poll) =>
-    requests.put(`/poll/${id}`, poll),
+    requests.put(`/ poll / ${id}`, poll),
   delete: (id) =>
-    requests.del(`/poll/${id}`)
+    requests.del(`/ poll / ${id}`)
 };
 
 const ScheduleMeeting = {
@@ -190,15 +192,15 @@ const ScheduleMeeting = {
   load: () =>
     requests.get('/meeting'),
   view: (id) =>
-    requests.get(`/meeting/${id}`),
+    requests.get(`/ meeting / ${id}`),
   edit: (id, schedulemeeting) =>
-    requests.put(`/meeting/${id}`, schedulemeeting),
+    requests.put(`/ meeting / ${id}`, schedulemeeting),
   startmeeting: (id, startmeeting) =>
-    requests.put(`/meeting/start-meeting${id}`, startmeeting),
+    requests.put(`/ meeting / start - meeting${id}`, startmeeting),
   endmeeting: (id, endmeeting) =>
-    requests.put(`/meeting/end-meeting${id}`, endmeeting),
+    requests.put(`/ meeting / end - meeting${id}`, endmeeting),
   delete: (id) =>
-    requests.del(`/meeting/${id}`),
+    requests.del(`/ meeting / ${id}`),
 };
 
 export default {
