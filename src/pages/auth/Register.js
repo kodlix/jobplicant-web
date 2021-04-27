@@ -71,10 +71,10 @@ const Register = ({ }) => {
                         <div className="">
                             <div className="panel-login text-center">
                             </div>
-                            <div className="panel-signup text-center">
+                            <div className="panel-signup">
                                 {/* <div className=""> */}
                                 <div className="login-title sm-page-title">
-                                    <h3 className="p-mb-3">Sign up for free!</h3>
+                                    <h3 className="p-mb-3  text-center">Sign up for free!</h3>
                                 </div>
                                 <form onSubmit={handleSubmit(onSubmit)}>
                                     <div className="p-fluid">
@@ -109,7 +109,7 @@ const Register = ({ }) => {
 
                                         <div className="p-field">
 
-                                            <InputText type="text"
+                                            <InputText type="email"
                                                 // className="form-control p-ml-6 p-mr-6"
                                                 name="email"
                                                 id="numberOrEmail"
@@ -199,7 +199,9 @@ const Register = ({ }) => {
                                     </div>
 
                                 </form>
-                                <Link to="/Login" className="p-text-secondary p-mt-3 app-color font-weight-bold">Already have an account?</Link>
+                                <div className=" text-center">
+                                    <Link to="/Login" className="p-text-secondary p-mt-3 app-color font-weight-bold"> Already have an account?</Link>
+                                </div>
                             </div>
                         </div>
                         {/* </div>b */}

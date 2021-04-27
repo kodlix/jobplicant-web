@@ -56,9 +56,13 @@ html {
 }
 
 .left-content {
-    margin: 60px;
-    margin-top: 24vh;
+    margin: 24vh 60px 60px 60px;
+    /* margin-top: 24vh; */
     color: white;
+}
+
+.error-msg {
+    margin-right: 20px;
 }
 
 .login-pane-left {
@@ -107,6 +111,10 @@ html {
 .forgot-pwd,
 .sign-up {
     color: #5A2846;
+}
+
+.er {
+    margin-left: 0px;
 }
 
 

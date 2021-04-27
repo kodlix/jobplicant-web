@@ -24,10 +24,9 @@ const LandingPage = () => {
                                     <div className="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent"></div>
 
                                     <div className="button">
-                                        <a href="javacript:" data-toggle="modal" data-target="#login" className="login">
-                                            <i className="lni lni-lock-alt"></i>
-                                            Login</a>
-                                        <Link to="/register" data-toggle="modal" data-target="#signup" className="btn">Sign Up</Link>
+                                        <Link to="/login" className="login"> <i className="lni lni-lock-alt"></i>
+                                            Login</Link>
+                                        <Link to="/register" className="btn">Sign Up</Link>
                                     </div>
                                 </nav>
 
@@ -1112,8 +1111,8 @@ const LandingPage = () => {
                                         <div className="single-footer newsletter">
                                             <h3>Join Our Newsletter</h3>
                                             <p>Subscribe to get the latest jobs posted, candidates...</p>
-                                            <form  target="_blank" className="newsletter-inner">
-                                                <input name="EMAIL" placeholder="Your email address" className="common-input"  required="" type="email" />
+                                            <form target="_blank" className="newsletter-inner">
+                                                <input name="EMAIL" placeholder="Your email address" className="common-input" required="" type="email" />
                                                 <div className="button">
                                                     <button className="btn">Subscribe Now!
                                                         <span className="dir-part"></span>
