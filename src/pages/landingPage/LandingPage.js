@@ -58,7 +58,6 @@ const LandingPage = () => {
                                                 <div className="button wow fadeInUp" data-wow-delay=".7s">
                                                     <a href="#" className="btn">Post a Job</a>
                                                     <a href="#" className="btn btn-alt green-back">See Our Jobs</a>
-                                                    <Button label="Save" />
                                                 </div>
                                             </div>
                                         </div>

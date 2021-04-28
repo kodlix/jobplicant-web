@@ -16,7 +16,7 @@ const ConfirmationPage = React.lazy(() => import('../pages/auth/ConfirmationPage
 const EmailConfirmation = React.lazy(() => import('../pages/auth/EmailConfirmation'));
 
 
-const AccountType = React.lazy(() => import('../pages/auth/AccountType'));
+const AccountType = React.lazy(() => import('../pages/auth/AccountTypeStep'));
 const EmployerAccountType = React.lazy(() => import('../pages/auth/EmployerAccountType'));
 const EmployeeAccountType = React.lazy(() => import('../pages/auth/EmployeeAccountType'));
 const RecoverByNumber = React.lazy(() => import('../pages/auth/forgotPassword/RecoverByNumber'));
