@@ -1,21 +1,33 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const SectionHeader = ({ onClick, onDelete, sectionTitle, sectionId, icon, id, addButton = false, editButton = false, deleteButton = false, componentStatus }) => {
-  // const urlParams = new URLSearchParams(window.location.search);
-  // const myParam = urlParams.get('id');
-  // console.log(myParam);
-  const actionType = !componentStatus ? "" : (Object.values(componentStatus).includes('add') ? "Add" : "Edit");
-  const handleClick = (e) => {
-    if (e.target.id === "add") {
-      onClick(
-        { sectionTitle: sectionId, id: "add" })
-    }
-    else {
-      onClick(
-        { sectionTitle: sectionId, id: id })
-    }
+const SectionHeaderAddIcon = () => <i className="pi pi-plus" />;
+const SectionHeaderEditIcon = () => <i className="pi pi-pencil" />;
+
+
+const SectionHeaderAdd = (props) => {
+  const { show, type, onClick, href, sectionTitle, ...attributes } = props;
+  if (show) {
+    const createLink = `${href}?title=${sectionTitle}`;
+    return <Link to={createLink} {...attributes}><SectionHeaderAddIcon /></Link>
   }
 
+  return null;
+}
+
+const SectionHeaderEdit = (props) => {
+  const { show, type, onClick, href, sectionTitle, ...attributes } = props;
+  if (show) {
+    const editLink = `${href}?title=${sectionTitle}`;
+    return <Link to={editLink} {...attributes}><SectionHeaderEditIcon /></Link>
+  }
+
+  return null;
+}
+
+const SectionHeader = ({ onClick, onDelete, sectionTitle, sectionId, icon, id, addButton = false, editButton = false, deleteButton = false, componentStatus, ...props }) => {
+  const actionType = !componentStatus ? "" : (Object.values(componentStatus).includes('add') ? "Add" : "Edit");
+  const { createLink, editLink, editType = 'button' } = props;
 
   return (
     <>
@@ -25,8 +37,20 @@ const SectionHeader = ({ onClick, onDelete, sectionTitle, sectionId, icon, id, a
           {actionType} {sectionTitle}
         </span>
         <span>
-          {addButton && !id && <i className="pi pi-plus" id="add" onClick={handleClick} ></i>}
-          {editButton && id && <i className="pi pi-pencil" onClick={handleClick} id={id} ></i>}
+          <SectionHeaderAdd
+            id={id}
+            href={createLink}
+            type={editType}
+            show={addButton && !id}
+            sectionTitle={encodeURI(sectionTitle)}
+          />
+          <SectionHeaderEdit
+            id={id}
+            href={editLink}
+            type={editType}
+            show={editButton && id}
+            sectionTitle={encodeURI(sectionTitle)}
+          />
           {deleteButton && id && <i className="pi pi-trash" onClick={onDelete} id={id}></i>}
         </span>
       </div>
