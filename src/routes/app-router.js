@@ -17,6 +17,7 @@ const EmailConfirmation = React.lazy(() => import('../pages/auth/EmailConfirmati
 
 
 const AccountType = React.lazy(() => import('../pages/auth/AccountTypeStep'));
+const SecurityVerification = React.lazy(() => import('../pages/auth/SecurityVerification'));
 const EmployerAccountType = React.lazy(() => import('../pages/auth/EmployerAccountType'));
 const EmployeeAccountType = React.lazy(() => import('../pages/auth/EmployeeAccountType'));
 const RecoverByNumber = React.lazy(() => import('../pages/auth/forgotPassword/RecoverByNumber'));
@@ -41,6 +42,7 @@ const AppRouter = () => {
         <AnonymousRoute exact path="/" component={LandingPage} />
         <AnonymousRoute path="/login" exact component={Login} />
         <AnonymousRoute path="/register" exact component={Register} />
+        <AnonymousRoute path="/securityverification" exact component={SecurityVerification} />
         <AnonymousRoute path="/confirmationpage" exact component={ConfirmationPage} />
         <AnonymousRoute path="/emailconfirmation" exact component={EmailConfirmation} />
         <AnonymousRoute path="/accounttype" exact component={AccountType} />

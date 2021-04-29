@@ -1,13 +1,13 @@
-import {getLocation} from 'connected-react-router';
-import React, {useEffect} from 'react';
-import {registerUser} from 'store/modules/auth';
+import { getLocation } from 'connected-react-router';
+import React, { useEffect } from 'react';
+import { registerUser } from 'store/modules/auth';
 
 import './Register.css'
 
 
-const VerificationStep = ({goto, setAccountType}) => {
-    const setSelectedAccountType = (type, e)=>{
-        if(e.target.checked){
+const VerificationStep = ({ goto, setAccountType }) => {
+    const setSelectedAccountType = (type, e) => {
+        if (e.target.checked) {
             setAccountType(type)
         }
     }
@@ -21,7 +21,7 @@ const VerificationStep = ({goto, setAccountType}) => {
                                 minHeight: '101vh',
                                 margin: 0
                             }
-                    }>
+                        }>
                         <div className="left-content p-col-8 mx-auto">
                             <div className="card text-center">
                                 <div className="card-header">
@@ -32,30 +32,30 @@ const VerificationStep = ({goto, setAccountType}) => {
                                     <ul className="list-group px-4 py-4">
                                         <li className="list-group-item text-left">
                                             <div className="form-check text-dark">
-                                                <input className="form-check-input" 
-                                                    type="radio" name="accountType" 
+                                                <input className="form-check-input"
+                                                    type="radio" name="accountType"
                                                     id="invalidCheck"
-                                                    onChange={(e) => setSelectedAccountType('artisan', e)} required/>
+                                                    onChange={(e) => setSelectedAccountType('artisan', e)} required />
                                                 <label htmlFor="invalidCheck" className="font-weight-bold">Provide instant jobs as a skilled worker.</label>
                                             </div>
                                         </li>
                                         <li className="list-group-item text-left">
                                             <div className="form-check text-dark">
-                                                <input className="form-check-input" type="radio" name="accountType" id="invalidCheck2" onChange={(e) => setSelectedAccountType('instant-hire', e)} required/>
+                                                <input className="form-check-input" type="radio" name="accountType" id="invalidCheck2" onChange={(e) => setSelectedAccountType('instant-hire', e)} required />
                                                 <label className="form-check-label" htmlFor="invalidCheck2"></label>
                                                 <label htmlFor="invalidCheck2" className="font-weight-bold">Request for instant hires.</label>
                                             </div>
                                         </li>
                                         <li className="list-group-item text-left">
                                             <div className="form-check text-dark">
-                                                <input className="form-check-input" type="radio" name="accountType" id="invalidCheck3" onChange={(e) => setSelectedAccountType('job-seeker', e)} required/>
+                                                <input className="form-check-input" type="radio" name="accountType" id="invalidCheck3" onChange={(e) => setSelectedAccountType('job-seeker', e)} required />
                                                 <label className="form-check-label" htmlFor="invalidCheck3"></label>
                                                 <label htmlFor="invalidCheck3" className="font-weight-bold">Seek corporate job opportunities and apply for jobs.</label>
                                             </div>
                                         </li>
                                         <li className="list-group-item text-left">
                                             <div className="form-check text-dark">
-                                                <input className="form-check-input" type="radio" name="accountType" id="invalidCheck4" onChange={(e) => setSelectedAccountType('employer', e)} required/>
+                                                <input className="form-check-input" type="radio" name="accountType" id="invalidCheck4" onChange={(e) => setSelectedAccountType('employer', e)} required />
                                                 <label className="form-check-label" htmlFor="invalidCheck4"></label>
                                                 <label htmlFor="invalidCheck4" className="font-weight-bold">Register as a corporate body or organization. Recruit talents to addd to our work force.</label>
                                             </div>
@@ -69,7 +69,7 @@ const VerificationStep = ({goto, setAccountType}) => {
                                     <button type="button" className="btn btn-primary"
                                         onClick={
                                             () => goto(2)
-                                    }>Next</button>
+                                        }>Next</button>
                                 </div>
                             </div>
                         </div>

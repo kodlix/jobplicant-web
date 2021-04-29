@@ -3,6 +3,7 @@ import RegisterStep from './RegisterStep';
 import AccountTypeStep from './AccountTypeStep';
 
 import './Register.css'
+import VerificationStep from './VerificationStep';
 
 const Register = () => {
 
@@ -15,9 +16,10 @@ const Register = () => {
     return (
         <>
             <div>
-                {step == 1 && <AccountTypeStep goto={goto} setAccountType={setAccountType}/>}
-                {step == 2 && <RegisterStep accountType={accountType}/>}
-            </div>           
+                {/* {step == 1 && <AccountTypeStep goto={goto} setAccountType={setAccountType}/>} */}
+                {step == 1 && <VerificationStep goto={goto} setAccountType={setAccountType} />}
+                {step == 2 && <RegisterStep accountType={accountType} />}
+            </div>
         </>
     )
 }
