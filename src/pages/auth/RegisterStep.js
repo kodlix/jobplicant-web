@@ -18,9 +18,6 @@ const RegisterStep = ({ accountType}) => {
         reValidateMode: "onChange"
     });
     const dispatch = useDispatch();
-
-    console.log({ errors });
-
     const [gender, setGender] = useState(null)
 
     const onSubmit = (user) => {

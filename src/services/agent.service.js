@@ -85,7 +85,9 @@ const Auth = {
   sendResetToken: (email) =>
     requests.post(`/ account / password / email`, { email }),
   verifyResetToken: (email, token) =>
-    requests.post(`/ account / password / verify - token`, { email, token })
+    requests.post(`/ account / password / verify - token`, { email, token }),
+  verifyAccount: (code) =>
+    requests.get(`/verification/signup/${code}`)
 }
 
 const User = {
@@ -125,6 +127,8 @@ const Account = {
   organizationName: () =>
     requests.get('/account/corporate/organizations'),
   getByID: (id) =>
+    requests.get(`/ account / ${id}`),
+  verufyAccount: (id) =>
     requests.get(`/ account / ${id}`),
 }
 

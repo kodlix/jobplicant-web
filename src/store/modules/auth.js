@@ -91,7 +91,24 @@ export function registerUser(user) {
       response => {
         //handle success
         dispatch(showSuccessMessage(("Signup successful, login to continue")));
-        dispatch(push('/emailconfirmation'));
+        dispatch(push(`/security-verification?email=${response.email}`));
+      },
+      error => {
+        //handle error
+        dispatch(showErrorMessage(error));
+      }
+    );
+  }
+}
+
+
+export function verifyAccount(code) {
+  return dispatch => {
+    return agent.Auth.verifyAccount(code).then(
+      response => {
+        //handle success
+       alert("account verification successful, login to continue");
+        dispatch(push(`/login`));
       },
       error => {
         //handle error

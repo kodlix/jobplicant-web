@@ -42,7 +42,7 @@ const AppRouter = () => {
         <AnonymousRoute exact path="/" component={LandingPage} />
         <AnonymousRoute path="/login" exact component={Login} />
         <AnonymousRoute path="/register" exact component={Register} />
-        <AnonymousRoute path="/securityverification" exact component={SecurityVerification} />
+        <AnonymousRoute path="/security-verification" exact component={SecurityVerification} />
         <AnonymousRoute path="/confirmationpage" exact component={ConfirmationPage} />
         <AnonymousRoute path="/emailconfirmation" exact component={EmailConfirmation} />
         <AnonymousRoute path="/accounttype" exact component={AccountType} />
