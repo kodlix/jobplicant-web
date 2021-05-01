@@ -1,140 +1,73 @@
 // initial values
 const notification = {
-    error: "",
-    success: "",
-    warning: "",
-    info: "",
-    offline: false
+    type: "", // takes success, error, info, warning
+    title: "",
+    message: ""
 };
 
 
-
 // Action types
-const SUCCESS_DISPLAYED = 'pharmaconnect/notification/SUCCESS_DISPLAYED';
-const WARNING_DISPLAYED = 'pharmaconnect/notification/WARNING_DISPLAYED';
-const ERROR_DISPLAYED = 'pharmaconnect/notification/ERROR_DISPLAYED';
-const INFO_DISPLAYED = 'pharmaconnect/notification/INFO_DISPLAYED';
-const OFFLINE_ERROR_DISPLAYED = 'pharmaconnect/notification/OFFLINE_ERROR_DISPLAYED';
-const MESSAGE_CLEARED = 'pharmaconnect/notification/MESSAGE_CLEARED ';
+const MESSAGE_DISPLAYED = 'app/notification/SUCCESS_DISPLAYED';
+const MESSAGE_CLEARED = 'app/notification/MESSAGE_CLEARED ';
 
 // Reducer
 export default function reducer(state = notification, action = {}) {
     switch (action.type) {
-        case SUCCESS_DISPLAYED:
-        case WARNING_DISPLAYED:
-        case ERROR_DISPLAYED:
-        case INFO_DISPLAYED:
-            return {
+        case MESSAGE_DISPLAYED: return {
                 ...state,
-                [action.notificationType]: action.payload,
-                fetching: false,
-            };
-        case OFFLINE_ERROR_DISPLAYED:
-            return {
-                ...state,
-                offline: true,
-                fetching: false,
+                ...action.payload,
+                fetching: false
             };
 
-        case MESSAGE_CLEARED:
-            return {
+        case MESSAGE_CLEARED: return {
                 ...state,
-                error: null,
-                success: null,
-                warning: null,
-                info: null,
+                type: "",
+                title: "",
+                message: "",
                 fetching: false,
-                offline:false
+                offline: false
             };
-        default: return state;
+        default:
+            return state;
     }
 }
 
-//action creators
-export function errorMessageDisplayed(data) {
-    return {
-        type: ERROR_DISPLAYED,
-        payload: data,
-        notificationType: 'error'
+// action creators
+export function messageDisplayed(data) {
+    if (! data) {
+        return;
+    }
 
-    };
+    return {type: MESSAGE_DISPLAYED, payload: data, notificationType: data.type};
 }
 
-
-export function warningMessageDisplayed(data) {
-    return {
-        type: WARNING_DISPLAYED,
-        payload: data,
-        notificationType: 'warning'
-
-    };
-}
-
-
-export function successMessageDisplayed(data) {
-    return {
-        type: SUCCESS_DISPLAYED,
-        payload: data,
-        notificationType: 'success'
-
-    };
-}
-
-export function infoMessageDisplayed(data) {
-    return {
-        type: INFO_DISPLAYED,
-        payload: data,
-        notificationType: 'info'
-    };
-}
 
 export function messageCleared() {
-    return {
-        type: MESSAGE_CLEARED
-    };
+    return {type: MESSAGE_CLEARED};
 }
 
 export function offlineMessageDisplayed() {
-    return {
-        type: OFFLINE_ERROR_DISPLAYED
-    };
+    return {type: MESSAGE_DISPLAYED};
 }
 
 
-//actions
-export function showSuccessMessage(message) {
+// actions
+export function showMessage(data) {
+    if (data && data.type === 'error') {
+        return dispatch => {
+            dispatch(messageDisplayed({
+                type: 'error',
+                message: serializeError(data.message),
+                title: "An error occured"
+            }))
+        }
+    }
+
     return dispatch => {
-        dispatch(successMessageDisplayed(message))
+        dispatch(messageDisplayed(data))
     }
 }
 
-
-export function showErrorMessage(message) {
-    return dispatch => {
-        dispatch(errorMessageDisplayed(serializeError(message)))
-    }
-}
-
-
-
-export function showWarningMessage(message) {
-    return dispatch => {
-        dispatch(warningMessageDisplayed(message))
-    }
-}
-
-
-export function showInfoMessage(message) {
-    return dispatch => {
-        dispatch(infoMessageDisplayed(message))
-    }
-}
-
-export function showOfflineError() {
-    return dispatch => {
-        dispatch(offlineMessageDisplayed())
-    }
-}
 
 export function clearMessage() {
     return dispatch => {
@@ -155,9 +88,9 @@ function serializeError(error) {
 
 
     if (error.response && typeof error.response === 'object' && error.response !== null) {
-        const { body } = error.response;
+        const {body} = error.response;
         if (typeof body === 'object' && body !== null) {
-            const { message, error: bodyError } = body;
+            const {message, error: bodyError} = body;
             if (typeof message === 'string' && message !== null) {
                 return message
             }
@@ -183,6 +116,3 @@ function serializeError(error) {
 
     return "An error occurred, please try again later"
 }
-
-
-

@@ -2,7 +2,6 @@ import { combineReducers } from 'redux';
 import auth from './auth';
 import notification from "./notification";
 import account from './account';
-import outlet from "./outlet";
 import location from './location';
 import common from './common';
 import error from './error';
@@ -16,7 +15,6 @@ const appReducer = (history) => combineReducers({
   error,
   auth,
   account,
-  outlet,
   notification,
   location,
 });
