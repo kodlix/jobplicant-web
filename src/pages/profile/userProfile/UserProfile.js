@@ -5,6 +5,7 @@ import Portfolio from './userInfo/Portfolio';
 import TabComponent from './TabComponent';
 import '../UserProfile.css';
 import PersonalInfo from './userInfo/PersonalInfo';
+import AppNavBar from 'components/AppNavBar';
 
 const UserProfile = () => {
   const [componentStatus, setComponentStatus] = useState({});
@@ -48,7 +49,10 @@ const UserProfile = () => {
   }
 
   return (
-    <>
+    <div className="container">
+      {/* <div className="pattern"> */}
+        <AppNavBar />
+      {/* </div> */}
       {imageSrc &&
         <>
           <div className="portfolioItem-container">
@@ -57,7 +61,6 @@ const UserProfile = () => {
           <div className="portfolioItem-overlay" onClick={handleImageExpansion}>
           </div>
         </>}
-      <div className="pattern"></div>
       <div className="background">
         <div className="content-container">
           <div className="userProfile-header">
@@ -87,7 +90,7 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
