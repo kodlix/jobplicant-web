@@ -17,7 +17,6 @@ function App() {
   return (
     <React.Suspense fallback={<AppLoading />}>
       <AppAlert />
-      <AppNavBar />
       <AppRouter />
     </React.Suspense>
   )

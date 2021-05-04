@@ -5,7 +5,7 @@ import { clearMessage } from "../store/modules/notification";
 import AppLoading from '../components/AppLoading';
 import AnonymousRoute from './anonymous-route';
 import ProtectedRoute from './protected-route';
-import AppContentContext from '../contexts/AppContentContext'
+
 const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard'));
 const UserProfile = React.lazy(() => import('../pages/profile/userProfile/UserProfile'));
 const CompanyProfile = React.lazy(() => import('../pages/profile/companyProfile/CompanyProfile'));

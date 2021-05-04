@@ -1,15 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './LandingPage.css';
-import { Button } from 'primereact/button'
-import AppNavBar from 'components/AppNavBar';
 
 
 const LandingPage = () => {
     return (
         <>
-                <AppNavBar />
-
             <header className="header">
                 <div className="navbar-area">
                     <div className="container">
@@ -32,7 +28,6 @@ const LandingPage = () => {
                                         <Link to="/register" className="btn">Sign Up</Link>
                                     </div>
                                 </nav>
-
                             </div>
                         </div>
 

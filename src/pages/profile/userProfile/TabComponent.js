@@ -5,7 +5,7 @@ import InfoComponent from './userInfo/InfoComponent';
 import UserContacts from './userContacts/UserContacts';
 import UserJobs from './userJobs/UserJobs';
 import UserProfileEdit from './userProfileEdit';
-import ProtectedRoute from './../../../routes/protected-route';
+import ProtectedRoute from 'routes/protected-route';
 
 
 
