@@ -6,33 +6,7 @@ import { loadLga, loadStates } from "./location";
 // initial values
 const account = {
   profile: {
-    accountPackage: "Free",
-    phoneNumber: "",
-    country: "",
-    state: "",
-    lga: "",
-    city: "",
-    address: "",
-    pcn: "",
-    longitude: 0,
-    latitude: 0,
-    profileImage: "",
-    firstName: "",
-    lastName: "",
-    dateOfBirth: "",
-    isPracticing: true,
-    gender: "",
-    isRegComplete: true,
-    organizationName: "",
-    organizationType: "",
-    numberofEmployees: 0,
-    premisesImage: "",
-    companyRegistrationNumber: "",
-    yearofEstablishment: 0,
-    website: "",
-    openingTime: "",
-    closingTime: "",
-    typesOfPractice: "",
+
   }
 };
 

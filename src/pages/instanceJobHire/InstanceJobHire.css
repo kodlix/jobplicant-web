@@ -1,0 +1,93 @@
+.login-pane-right {
+    min-height: 70vh;
+}
+
+@media screen and (max-width: 767px) {
+    .sendsms {
+        margin-right: 48vw;
+    }
+    .confirmbtn {
+        margin-left: 7vw;
+    }
+    .message {
+        margin-bottom: 6vh;
+        color: #5A2846;
+        ;
+    }
+    .small-screen {
+        display: none;
+    }
+    .login-pane-left {
+        min-height: 30vh;
+        max-height: 30vh;
+    }
+    .login-pane-right {
+        padding: 30px;
+    }
+}
+
+.appcolor {
+    background-color: #5A2846;
+}
+
+.app-color {
+    color: #5A2846;
+}
+
+.left-content {
+    margin-top: 4vh;
+}
+
+.login-pane-left {
+    background-color: #5A2846;
+}
+
+.label {
+    display: inline;
+}
+
+.card-size {
+    width: 46vw;
+    margin: auto;
+}
+
+.card-size-list {
+    width: 65vw;
+    margin: auto;
+}
+
+.stars {
+    --percent: calc(var(--rating) / 5 * 100%);
+    display: inline-block;
+    font-size: var(--star-size);
+    /* font-family: Times; */
+    line-height: 1;
+}
+
+.stars:before {
+    content: '★★★★★';
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+    background-clip: content-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.profile-picture {
+    border-radius: 100%;
+    margin-right: 20px;
+    width: 90px;
+    height: 90px;
+}
+
+
+/* Dropdown styles */
+
+
+/* .dropdown-demo .p-dropdown {
+    width: 14rem;
+}
+
+.dropdown-demo .country-item-value img.flag {
+    width: 17px;
+} */

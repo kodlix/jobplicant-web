@@ -1,5 +1,5 @@
 import { push } from "connected-react-router";
-import { showErrorMessage, showSuccessMessage, showInfoMessage } from './notification';
+import { showErrorMessage, showSuccessMessage, showInfoMessage, warningMessageDisplayed } from './notification';
 import agent from "../../services/agent.service";
 
 // initial values
@@ -107,7 +107,8 @@ export function verifyAccount(code) {
     return agent.Auth.verifyAccount(code).then(
       response => {
         //handle success
-       alert("account verification successful, login to continue");
+        alert("account verification successful, login to continue");
+        dispatch(showSuccessMessage("account verification successful, login to continue"))
         dispatch(push(`/login`));
       },
       error => {
@@ -129,7 +130,7 @@ export function loginUser({ email, password, type }) {
       },
       error => {
         //handle error
-        dispatch(showErrorMessage(error));
+        dispatch(warningMessageDisplayed("Invalid user name or password"));
       }
     );
   }
