@@ -113,6 +113,7 @@
   border: none;
   background-color: initial;
   padding-top: 10px;
+  cursor: pointer;
 }
 
 .content-tab .pi {
@@ -133,6 +134,7 @@
   box-shadow: 1px 0px 2px #88888861;
   border: none;
   border-radius: 3px;
+  cursor: pointer;
   height: 70px;
 }
 
@@ -207,6 +209,7 @@
 
 .skilltag {
   background-color: #5a2846;
+  display: inline-block;
   color: white;
   padding: 0.3rem 0.5rem;
   border-radius: 15px;
@@ -241,6 +244,20 @@
   vertical-align: baseline;
 }
 
+.p-datepicker .p-datepicker-header .p-datepicker-title select {
+  border: 2px solid #5a2846;
+  border-radius: 4px;
+}
+
+.p-datepicker .p-datepicker-header .p-datepicker-title select:focus {
+  box-shadow: 0 0 0 0.2rem #5a28465c;
+}
+
+.p-datepicker .p-monthpicker .p-monthpicker-month.p-highlight {
+  color: white;
+  background: #5a2846;
+}
+
 .backButton {
   cursor: pointer;
 }
@@ -259,17 +276,22 @@
   width: 100%;
 }
 
+.p-radiobutton .p-radiobutton-box .p-radiobutton-icon {
+  width: 0;
+  height: 0;
+}
+
 .skillInput {
   width: fit-content;
   margin-top: 10px;
   margin-bottom: 50px;
 }
 
-.skillInput .p-dropdown {
+/* .skillInput .p-dropdown {
   border-color:#5a2846;
   border-radius: 5px 1px 1px 5px;
   min-width: 150px;
-}
+} */
 
 .skillInput .p-inputtext {
   padding-right: 2.5rem;
@@ -302,6 +324,7 @@
 
 .p-formgroup-inline {
   display: inline-flex;
+  vertical-align: super;
 }
 
 .editPortfolio-container {

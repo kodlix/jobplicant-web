@@ -49,9 +49,9 @@ const UserProfile = () => {
   }
 
   return (
-    <>
-     <AppNavBar/>   
-    <div className="container">
+    <div class="d-flex flex-column">
+      <AppNavBar/>
+      <div>
       {imageSrc &&
         <>
           <div className="portfolioItem-container">
@@ -90,7 +90,7 @@ const UserProfile = () => {
         </div>
       </div>
     </div>
-    </>
+    </div>
   );
 };
 
