@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { RadioButton } from 'primereact/radiobutton';
-import EditModeFooter from '../../../EditModeFooter';
+import ModeFooter from '../../../../profile/ModeFooter';
 import SectionHeader from '../../../SectionHeader';
 import '../../../UserProfile.css';
 
@@ -53,7 +53,7 @@ const [gender, setGender] = useState("");
               </span>
               <div>
               </div>
-              <EditModeFooter id="companyPersonalInfoEdit" onCancel={closeEditMode} />
+              <ModeFooter id="companyPersonalInfoEdit" onCancel={closeEditMode} />
             </form>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import EditModeFooter from '../../../EditModeFooter';
+import ModeFooter from '../../../../profile/ModeFooter';
 import SectionHeader from '../../../SectionHeader';
 import { InputTextarea } from 'primereact/inputtextarea';
 
@@ -50,7 +50,7 @@ const CompanyBiographyEdit = ({ data, closeEditMode }) => {
               id="companyBiographyInput" type="text" rows="6" className="inputField" placeholder="Biography..." value={companyBiography} onChange={(e) => {
                 setCompanyBiography(e.target.value); setValue("companyBiography", e.target.value)
               }} />
-            <EditModeFooter id="companyBiographyEdit" onCancel={closeEditMode} />
+            <ModeFooter id="companyBiographyEdit" onCancel={closeEditMode} />
           </form>
         </div>
       </div>

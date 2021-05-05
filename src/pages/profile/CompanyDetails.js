@@ -3,13 +3,13 @@ import SectionHeader from './SectionHeader';
 import './UserProfile.css';
 
 const CompanyDetails = (props) => {
-  const openEditMode = (event) => {
+  const mode = (event) => {
     props.onClick(event);
   }
   return (
     <>
       <div className="p-card p-mt-2">
-        <SectionHeader icon="chart-bar" sectionTitle="Company Information" id="companyDetailsEdit" addButton="true" editButton="true" onClick={openEditMode} />
+        <SectionHeader icon="chart-bar" sectionTitle="Company Information" id="companyDetailsEdit" addButton="true" editButton="true" onClick={mode} />
         <div className="p-ml-3 p-pb-3 p-grid">
           <div className="p-col-12 p-md-6"><b>Industry: </b>Web Development</div>
           <div className="p-col-12 p-md-6"><b>Year of Establishment: </b>2020</div>

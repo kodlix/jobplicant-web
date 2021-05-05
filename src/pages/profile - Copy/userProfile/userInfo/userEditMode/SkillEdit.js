@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import SectionHeader from '../../../SectionHeader';
 import { Tag } from 'primereact/tag';
 import { Dropdown } from 'primereact/dropdown';
-import EditModeFooter from '../../../EditModeFooter';
+import ModeFooter from '../../../../profile/ModeFooter';
 
 const SkillEdit = ({ data, closeEditMode }) => {
   const { register, handleSubmit, setValue } = useForm();
@@ -90,7 +90,7 @@ const SkillEdit = ({ data, closeEditMode }) => {
                 placeholder="Select Skill" icon="pi pi-plus" />
               <i className="pi pi-plus" onClick={handleSkillAdd}></i>
             </span>
-            <EditModeFooter id="skillEdit" onCancel={closeEditMode} />
+            <ModeFooter id="skillEdit" onCancel={closeEditMode} />
           </form>
         </div>
       </div>

@@ -138,7 +138,7 @@ const EditMode = (props) => {
           <div className="p-card-body">
             <label htmlFor="biographyInput" className="inputLabel">Give a short descripiton of your career history</label>
             <InputTextarea id="biographyInput" type="text" rows="6" className="inputField" placeholder="Biography..." />
-            <EditModeFooter id="biographyEdit" onCancel={closeEditMode} />
+            <ModeFooter id="biographyEdit" onCancel={closeEditMode} />
           </div>
         </div>
       }
@@ -172,7 +172,7 @@ const EditMode = (props) => {
                 <InputTextarea id="address" type="text" rows="4" />
               </div>
             </div>
-            <EditModeFooter id="experienceEdit" onCancel={closeEditMode} />
+            <ModeFooter id="experienceEdit" onCancel={closeEditMode} />
           </div>
         </div>
       }
@@ -206,7 +206,7 @@ const EditMode = (props) => {
                 <InputTextarea id="address" type="text" rows="4" />
               </div>
             </div>
-            <EditModeFooter id="educationEdit" onCancel={closeEditMode} />
+            <ModeFooter id="educationEdit" onCancel={closeEditMode} />
           </div>
         </div>
       }
@@ -225,7 +225,7 @@ const EditMode = (props) => {
                 placeholder="Select Skill" icon="pi pi-plus" />
               <i className="pi pi-plus" onClick={handleSkillAdd}></i>
             </span>
-            <EditModeFooter id="skillEdit" onCancel={closeEditMode} />
+            <ModeFooter id="skillEdit" onCancel={closeEditMode} />
           </div>
         </div>
       }
@@ -247,7 +247,7 @@ const EditMode = (props) => {
                   </button>
                 ))}
               </div>
-              <EditModeFooter id="hobbyEdit" onCancel={closeEditMode} />
+              <ModeFooter id="hobbyEdit" onCancel={closeEditMode} />
             </form>
           </div>
         </div>
@@ -270,7 +270,7 @@ const EditMode = (props) => {
                   </button>
                 ))}
               </div>
-              <EditModeFooter id="POIEdit" onCancel={closeEditMode} />
+              <ModeFooter id="POIEdit" onCancel={closeEditMode} />
             </form>
           </div>
         </div>
@@ -288,7 +288,7 @@ const EditMode = (props) => {
               </span>
               <div>
               </div>
-              <EditModeFooter id="LOIEdit" onCancel={closeEditMode} />
+              <ModeFooter id="LOIEdit" onCancel={closeEditMode} />
             </form>
           </div>
         </div>
@@ -330,7 +330,7 @@ const EditMode = (props) => {
               </span>
               <div>
               </div>
-              <EditModeFooter id="contactInfoEdit" onCancel={closeEditMode} />
+              <ModeFooter id="contactInfoEdit" onCancel={closeEditMode} />
             </form>
           </div>
         </div>
@@ -377,7 +377,7 @@ const EditMode = (props) => {
               </span>
               <div>
               </div>
-              <EditModeFooter id="personalInfoEdit" onCancel={closeEditMode} />
+              <ModeFooter id="personalInfoEdit" onCancel={closeEditMode} />
             </form>
           </div>
         </div>
@@ -421,7 +421,7 @@ const EditMode = (props) => {
             </span>
             <div>
             </div>
-            <EditModeFooter id="portfolioEdit" onCancel={closeEditMode} />
+            <ModeFooter id="portfolioEdit" onCancel={closeEditMode} />
           </div>
         </div>
       }
@@ -429,7 +429,7 @@ const EditMode = (props) => {
   );
 }
 
-const EditModeFooter = (props) => {
+const ModeFooter = (props) => {
   return (
     <>
       <div className="editMode-footer">

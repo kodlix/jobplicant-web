@@ -1,40 +1,45 @@
-import React, { useState } from 'react'
-import Biography from './Biography'
-import Education from './Education'
-import EditMode from './EditMode'
-import Experience from './Experience'
-import Skills from './Skills'
-import Hobbies from './Hobbies'
-import ProfessionsOfInterest from './ProfessionsOfInterest'
-import LocationOfInterest from './LocationOfInterest'
-import ContactInformation from './ContactInformation'
-import Portfolio from './Portfolio'
-import './UserProfile.css'
+import React, {useState} from 'react';
+import {useDispatch}  from 'react-redux';
 import AppNavBar from 'components/AppNavBar'
 import SectionHeader from './SectionHeader'
+import ModalForm from './ModalForm';
+import {openModal} from 'store/modules/modal';
+import { PROFILE } from 'constants/profile';
+
 
 const UserProfile = () => {
-  const rating = 4.5
-  const [componentStatus, setComponentStatus] = useState({})
-  const [imageSrc, setImageSrc] = useState('')
+  const dispatch = useDispatch();
+  const rating = 4.5;
+  const [profileData] = useState({})
+  const [] = useState({});
+  const [] = useState('');
+  const [mode, setMode] = useState("");
+
+  const expandImage = () => {
+
+  }
+
+  const openCreate = (name) => {
+    setMode('create');
+    dispatch(openModal(name))
+  }
+
+  const openEdit = (name) => {
+    setMode('edit');
+    dispatch(openModal(name));
+    
+  }
+
+
   const uploadProfilePicture = () => {
     console.log('profile')
   }
 
-  const handleImageExpansion = (propSrc) => {
-    const src = imageSrc ? '' : propSrc
-    setImageSrc(src)
-  }
 
-  const toggleEditMode = (e) => {
-    let currentStatus =
-      componentStatus[e.currentTarget.id] === true ? false : true
-    setComponentStatus({ [e.currentTarget.id]: currentStatus })
-  }
 
   return (
     <>
-      <div class="d-flex flex-column">
+      <div class='d-flex flex-column'>
         <AppNavBar />{' '}
         {/* <div className='portfolioItem-container'>
           <img
@@ -49,79 +54,79 @@ const UserProfile = () => {
           className='portfolioItem-overlay'
           onClick={handleImageExpansion}
         ></div> */}
-        <div className="background">
-          <div className="content-container">
-            <div className="userProfile-header">
-              <span className="profilePic-container">
+        <div className='background'>
+          <div className='content-container'>
+            <div className='userProfile-header'>
+              <span className='profilePic-container'>
                 <img
-                  src="../../assets/logo.png"
-                  alt="User Image"
-                  width="130"
-                  height="130"
-                  className="profile-picture"
+                  src='../../assets/logo.png'
+                  alt='User Image'
+                  width='130'
+                  height='130'
+                  className='profile-picture'
                 />
-                <label className="profilePic-label" htmlFor="upload-button">
-                  <i className="pi pi-camera"></i>
+                <label className='profilePic-label' htmlFor='upload-button'>
+                  <i className='pi pi-camera'></i>
                 </label>
               </span>
               <input
-                type="file"
-                id="upload-button"
+                type='file'
+                id='upload-button'
                 style={{ display: 'none' }}
                 onChange={uploadProfilePicture}
               />
               <div>
-                <h3 className="username p-mr-2">Jane Doe</h3>
-                {!componentStatus.personalInfoEdit && (
+                <h3 className='username p-mr-2'>Jane Doe</h3>
                   <i
-                    className="pi pi-pencil p-pr-3 personalInfo-edit"
-                    id="personalInfoEdit"
-                    onClick={toggleEditMode}
+                    className='pi pi-pencil p-pr-3 personalInfo-edit'
+                    id='personalInfoEdit'
+                    // onClick={toggleEditMode}
                   >
                     &nbsp;<u>(Edit Personal Info)</u>
                   </i>
-                )}
                 <div>Photographer at UNICEF</div>
                 <span>
-                  <div className="stars" style={{ '--rating': rating }}></div>
+                  <div className='stars' style={{ '--rating': rating }}></div>
                 </span>
               </div>
             </div>
-            <div className="p-grid">
-              <div className="p-col-12 p-md-9 content-smallscreen">
-                <div className="content-tab">
+            <div className='p-grid'>
+              <div className='p-col-12 p-md-9 content-smallscreen'>
+                <div className='content-tab'>
                   <button>
-                    <i className="pi pi-info-circle"></i>
-                    <div className="tab-titles">Info</div>
+                    <i className='pi pi-info-circle'></i>
+                    <div className='tab-titles'>Info</div>
                   </button>
                   <button>
-                    <i className="pi pi-briefcase"></i>
-                    <div className="tab-titles">Jobs</div>
+                    <i className='pi pi-briefcase'></i>
+                    <div className='tab-titles'>Jobs</div>
                   </button>
                   <button>
-                    <i className="pi pi-user"></i>
-                    <div className="tab-titles">Contacts</div>
+                    <i className='pi pi-user'></i>
+                    <div className='tab-titles'>Contacts</div>
                   </button>
                   <button>
-                    <i className="pi pi-users"></i>
-                    <div className="tab-titles">Groups</div>
+                    <i className='pi pi-users'></i>
+                    <div className='tab-titles'>Groups</div>
                   </button>
-                  <button className="tab-portfolio">
-                    <i className="pi pi-images"></i>
-                    <div className="tab-titles">Portfolio</div>
+                  <button className='tab-portfolio'>
+                    <i className='pi pi-images'></i>
+                    <div className='tab-titles'>Portfolio</div>
                   </button>
                 </div>
-                <div className="content-body">
+                <div className='content-body'>
                   {/* biography */}
-                  <div className="p-card p-mt-2">
+                  <div className='p-card p-mt-2'>
                     <SectionHeader
-                      icon="bookmark"
-                      sectionTitle="Biography"
-                      id="biographyEdit"
-                      addButton="true"
-                      editButton="true"
+                      icon='bookmark'
+                      sectionTitle='Biography'
+                      id='biographyEdit'
+                      showAddButton='true'
+                      showEditButton='true'
+                      openModalOnCreate={() => openEdit(PROFILE.BIOGRAPHY)}  
+                      openModalOnEdit={() => openCreate(PROFILE.BIOGRAPHY)}
                     />
-                    <div className="p-card-body">
+                    <div className='p-card-body'>
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                       Quisque tempor aliquam felis, nec condimentum ipsum
                       commodo id. Vivamus sit amet augue nec urna efficitur
@@ -135,36 +140,37 @@ const UserProfile = () => {
                       eget vestibulum lorem.
                     </div>
                   </div>
-                  <div className="p-grid">
-                    <div className="p-col-12 p-md-8 content-leftPanel">
+                  <div className='p-grid'>
+                    <div className='p-col-12 p-md-8 content-leftPanel'>
                       {/* experience */}
-                      <div className="p-card p-mt-2">
+                      <div className='p-card p-mt-2'>
                         <SectionHeader
-                          icon="star-o"
-                          sectionTitle="Experience"
-                          id="experienceEdit"
-                          addButton="true"
-                          onClick={openEditMode}
-                        />
+                          icon='star-o'
+                          sectionTitle='Experience'
+                          id='experienceEdit'
+                          showAddButton='true'
+                          openModalOnCreate={() => openCreate(PROFILE.EXPERIENCE)}
+                          openModalOnEdit={() => openEdit(PROFILE.EXPERIENCE)}
+                          />
                         <span>
-                          <div className="p-card-subtitle p-ml-3 p-mb-0 mainTitle">
+                          <div className='p-card-subtitle p-ml-3 p-mb-0 mainTitle'>
                             <span>
                               <b>UNICEF Assistant Photographer</b>
                               at
-                              <b className="experienceCompany">UNICEF</b>
+                              <b className='experienceCompany'>UNICEF</b>
                             </span>
                             <i
-                              className="pi pi-pencil icon-edit"
-                              onClick={openEditMode}
-                              id="experienceEdit"
+                              className='pi pi-pencil icon-edit'
+                              // onClick={mode}
+                              id='experienceEdit'
                             ></i>
                           </div>
-                          <div className="p-card-subtitle p-ml-3">
+                          <div className='p-card-subtitle p-ml-3'>
                             <b>
                               <small>(2015 - present)</small>
                             </b>
                           </div>
-                          <div className="p-card-body p-text-secondary">
+                          <div className='p-card-body p-text-secondary'>
                             Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit. Quisque tempor aliquam felis, nec condimentum
                             ipsum commodo id. Vivamus sit amet augue nec urna
@@ -180,20 +186,20 @@ const UserProfile = () => {
                           </div>
                         </span>
                         <span>
-                          <div className="p-card-subtitle p-ml-3 p-mb-0 mainTitle">
+                          <div className='p-card-subtitle p-ml-3 p-mb-0 mainTitle'>
                             <span>
                               <b>UNICEF Assistant Photographer</b>
                               at
-                              <b className="experienceCompany">UNICEF</b>
+                              <b className='experienceCompany'>UNICEF</b>
                             </span>
-                            <i className="pi pi-pencil icon-edit"></i>
+                            <i className='pi pi-pencil icon-edit'></i>
                           </div>
-                          <div className="p-card-subtitle p-ml-3">
+                          <div className='p-card-subtitle p-ml-3'>
                             <b>
                               <small>(2015-2019)</small>
                             </b>
                           </div>
-                          <div className="p-card-body p-text-secondary">
+                          <div className='p-card-body p-text-secondary'>
                             Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit. Quisque tempor aliquam felis, nec condimentum
                             ipsum commodo id. Vivamus sit amet augue nec urna
@@ -209,20 +215,20 @@ const UserProfile = () => {
                           </div>
                         </span>
                         <span>
-                          <div className="p-card-subtitle p-ml-3 p-mb-0 mainTitle">
+                          <div className='p-card-subtitle p-ml-3 p-mb-0 mainTitle'>
                             <span>
                               <b>UNICEF Assistant Photographer</b>
                               at
-                              <b className="experienceCompany">UNICEF</b>
+                              <b className='experienceCompany'>UNICEF</b>
                             </span>
-                            <i className="pi pi-pencil icon-edit"></i>
+                            <i className='pi pi-pencil icon-edit'></i>
                           </div>
-                          <div className="p-card-subtitle p-ml-3">
+                          <div className='p-card-subtitle p-ml-3'>
                             <b>
                               <small>(2015-2019)</small>
                             </b>
                           </div>
-                          <div className="p-card-body p-text-secondary">
+                          <div className='p-card-body p-text-secondary'>
                             Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit. Quisque tempor aliquam felis, nec condimentum
                             ipsum commodo id. Vivamus sit amet augue nec urna
@@ -238,28 +244,220 @@ const UserProfile = () => {
                           </div>
                         </span>
                       </div>
-                      <Education onClick={toggleEditMode} />
+                      <div className='p-card p-mt-2'>
+                        <SectionHeader
+                          icon='book'
+                          sectionTitle='Education'
+                          id='educationEdit'
+                          showAddButton='true'
+                          // onClick={mode}
+                        />
+                        <span>
+                          <div className='p-card-subtitle p-ml-3 p-mb-0 mainTitle'>
+                            <span>
+                              <b>Msc</b> in{' '}
+                              <b className='experienceCompany'>
+                                Arts and Literature
+                              </b>
+                            </span>
+                            <i
+                              className='pi pi-pencil'
+                              // onClick={mode}
+                              id='educationEdit'
+                            ></i>
+                          </div>
+                          <div className='p-card-subtitle p-ml-3 p-mb-0'>
+                            <b>
+                              <small>(2015-2019)</small>
+                            </b>
+                          </div>
+                          <div className='p-card-subtitle p-ml-3 p-mb-2'>
+                            <b>
+                              <small>University of Lagos</small>
+                            </b>
+                          </div>
+                          <div className='p-card-body p-text-secondary'>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Quisque tempor aliquam felis, nec condimentum
+                            ipsum commodo id. Vivamus sit amet augue nec urna
+                            efficitur tincidunt. Vivamus consectetur aliquam
+                            lectus commodo viverra. Nunc eu augue nec arcu
+                            efficitur faucibus. Aliquam accumsan ac magna
+                            convallis bibendum. Quisque laoreet augue eget augue
+                            fermentum scelerisque. Vivamus dignissim mollis est
+                            dictum blandit. Nam porta auctor neque sed congue.
+                            Nullam rutrum eget ex at maximus. Lorem ipsum dolor
+                            sit amet, consectetur adipiscing elit. Donec eget
+                            vestibulum lorem.
+                          </div>
+                        </span>
+                        <span>
+                          <div className='p-card-subtitle p-ml-3 p-mb-0 mainTitle'>
+                            <span>
+                              <b>Msc</b> in{' '}
+                              <b className='experienceCompany'>
+                                Arts and Literature
+                              </b>
+                            </span>
+                            <i className='pi pi-pencil'></i>
+                          </div>
+                          <div className='p-card-subtitle p-ml-3 p-mb-0'>
+                            <b>
+                              <small>(2015-2019)</small>
+                            </b>
+                          </div>
+                          <div className='p-card-subtitle p-ml-3 p-mb-2'>
+                            <b>
+                              <small>University of Lagos</small>
+                            </b>
+                          </div>
+                          <div className='p-card-body p-text-secondary'>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Quisque tempor aliquam felis, nec condimentum
+                            ipsum commodo id. Vivamus sit amet augue nec urna
+                            efficitur tincidunt. Vivamus consectetur aliquam
+                            lectus commodo viverra. Nunc eu augue nec arcu
+                            efficitur faucibus. Aliquam accumsan ac magna
+                            convallis bibendum. Quisque laoreet augue eget augue
+                            fermentum scelerisque. Vivamus dignissim mollis est
+                            dictum blandit. Nam porta auctor neque sed congue.
+                            Nullam rutrum eget ex at maximus. Lorem ipsum dolor
+                            sit amet, consectetur adipiscing elit. Donec eget
+                            vestibulum lorem.
+                          </div>
+                        </span>
+                        <span>
+                          <div className='p-card-subtitle p-ml-3 p-mb-0 mainTitle'>
+                            <span>
+                              <b>Msc</b> in{' '}
+                              <b className='experienceCompany'>
+                                Arts and Literature
+                              </b>
+                            </span>
+                            <i className='pi pi-pencil'></i>
+                          </div>
+                          <div className='p-card-subtitle p-ml-3 p-mb-0'>
+                            <b>
+                              <small>(2015-2019)</small>
+                            </b>
+                          </div>
+                          <div className='p-card-subtitle p-ml-3 p-mb-2'>
+                            <b>
+                              <small>University of Lagos</small>
+                            </b>
+                          </div>
+                          <div className='p-card-body p-text-secondary'>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Quisque tempor aliquam felis, nec condimentum
+                            ipsum commodo id. Vivamus sit amet augue nec urna
+                            efficitur tincidunt. Vivamus consectetur aliquam
+                            lectus commodo viverra. Nunc eu augue nec arcu
+                            efficitur faucibus. Aliquam accumsan ac magna
+                            convallis bibendum. Quisque laoreet augue eget augue
+                            fermentum scelerisque. Vivamus dignissim mollis est
+                            dictum blandit. Nam porta auctor neque sed congue.
+                            Nullam rutrum eget ex at maximus. Lorem ipsum dolor
+                            sit amet, consectetur adipiscing elit. Donec eget
+                            vestibulum lorem.
+                          </div>
+                        </span>
+                      </div>
                     </div>
-                    <div className="p-col-12 content-rightPanel p-md-4">
-                      <Skills onClick={toggleEditMode} />
-                      <Hobbies onClick={toggleEditMode} />
-                      <ProfessionsOfInterest onClick={toggleEditMode} />
-                      <LocationOfInterest onClick={toggleEditMode} />
-                      <ContactInformation onClick={toggleEditMode} />
+                    <div className='p-col-12 content-rightPanel p-md-4'>
+                    <div className="p-card p-mt-2">
+                    <SectionHeader icon="tag" sectionTitle="Skills" id="skillEdit" showAddButton="true" showEditButton="true" 
+                    // onClick={mode}
+                     />
+                    <div className="p-card-body">
+                      <span className="skilltag"><i className=""></i>CSS</span>
+                      <span className="skilltag"><i className=""></i>Photosop</span>
+                      <span className="skilltag"><i className=""></i>Adobe</span>
+                      <span className="skilltag"><i className=""></i>CSS</span>
+                    </div>
+                  </div>
+                  {/* hobbies */}
+                    <div className="p-card p-mt-2">
+                      <SectionHeader icon="heart" sectionTitle="Hobbies / Likes" id="hobbyEdit" showAddButton="true" showEditButton="true"
+                      //  onClick={mode}
+                        />
+                      <div className="p-card-body p-text-secondary">
+                        <ul className="listStyle p-grid">
+                          <li className="p-col-4">Hiking</li>
+                          <li className="p-col-4">Running</li>
+                          <li className="p-col-4">Swimming</li>
+                          <li className="p-col-4">Drawing</li>
+                        </ul>
+                      </div>
+                    </div>
+                      {/* profession */}
+                      <div className="p-card p-mt-2">
+                        <SectionHeader icon="briefcase" sectionTitle="Professions of Interest" id="POIEdit" showAddButton="true" 
+                        showEditButton="true" 
+                        // onClick={mode} 
+                        />
+                        <div className="p-card-body p-text-secondary">
+                          <ul className="listStyle">
+                            <li>Astronomy</li>
+                            <li>Graphic Design</li>
+                          </ul>
+                        </div>
+                      </div>
+                      {/* location of interest */}
+                      <div className="p-card p-mt-2">
+                        <SectionHeader icon="map-marker" sectionTitle="Location of Interest" id="LOIEdit" showAddButton="true" 
+                        showEditButton="true" 
+                        // onClick={mode} 
+                        />
+                        <div className="p-card-body p-text-secondary">
+                          Germany
+                        </div>
+                      </div>
+                      {/* contact information */}
+                      <div className="p-card p-mt-2">
+                      <SectionHeader icon="phone" sectionTitle="Contact Information" 
+                      id="contactInfoEdit" showAddButton="true" showEditButton="true" 
+                      // onClick={mode} 
+                      />
+                      <div className="p-card-body p-text-secondary">
+                        <span><b>Phone Number:</b> +23463736373</span>
+                        <span><b>Email: </b>+23463736373</span>
+                        <span><b>Location: </b>Isaac Johnson, Lagos. Nigeria</span>
+                      </div>
+                    </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="p-col-12 p-md-3 p-pt-2 portfolio-panel">
-                <Portfolio
-                  expandImage={handleImageExpansion}
-                  onClick={toggleEditMode}
-                />
+              {/* portfolio */}
+              <div className='p-col-12 p-md-3 p-pt-2 portfolio-panel'>
+                <div className="p-card">
+                  <SectionHeader icon="images" sectionTitle="Portfolio" id="portfolioEdit" showAddButton="true" showEditButton="true" 
+                  // onClick={mode} 
+                  />
+                  <div className="p-card-body p-grid p-mt-2">
+                    <button onClick={expandImage} className="p-md-3 p-m-2 p-p-0 portfolio-items">
+                      <img src="../../assets/images/breadcrumb/breadcrumb-bg.jpg" alt="Portfolio Item" width="100%" height="100%" />
+                    </button>
+                    <button onClick={expandImage} className="p-md-3 p-m-2 p-p-0 portfolio-items">
+                      <img src="../../assets/logo.png" alt="Portfolio Item" width="100%" height="100%" />
+                    </button>
+                    <button onClick={expandImage} className="p-md-3 p-m-2 p-p-0 portfolio-items">
+                      <img src="../../assets/images/hero/hero-image.png" alt="Portfolio Item" width="100%" height="100%" />
+                    </button>
+                    <button onClick={expandImage} className="p-md-3 p-m-2 p-p-0 portfolio-items">
+                      <img src="../../assets/images/hero/home-page4.jpg" alt="Portfolio Item" width="100%" height="100%" />
+                    </button>
+                    <button onClick={expandImage} className="p-md-3 p-m-2 p-p-0 portfolio-items">
+                      <img src="../../assets/logo.png" alt="Portfolio Item" width="100%" height="100%" />
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <ModalForm  data={profileData} mode={mode} />
     </>
   )
 }

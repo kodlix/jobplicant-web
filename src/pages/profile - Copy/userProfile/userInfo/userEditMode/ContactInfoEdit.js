@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { useDispatch, useSelector } from "react-redux";
-import EditModeFooter from '../../../EditModeFooter';
+import ModeFooter from '../../../../profile/ModeFooter';
 import SectionHeader from '../../../SectionHeader';
 import { Dropdown } from 'primereact/dropdown';
 import { loadCountry, loadStates, loadLga } from 'store/modules/location';
@@ -175,7 +175,7 @@ const ContactInfoEdit = ({ closeEditMode, data }) => {
             </span>
             <div>
             </div>
-            <EditModeFooter id="contactInfoEdit" onCancel={closeEditMode} />
+            <ModeFooter id="contactInfoEdit" onCancel={closeEditMode} />
           </form>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { loadCountry, loadStates, loadLga } from 'store/modules/location';
 import SectionHeader from '../../../SectionHeader';
-import EditModeFooter from '../../../EditModeFooter';
+import ModeFooter from '../../../../profile/ModeFooter';
 import { Dropdown } from 'primereact/dropdown';
 
 const CompanyContactInfo = ({ closeEditMode, data }) => {
@@ -206,7 +206,7 @@ const CompanyContactInfo = ({ closeEditMode, data }) => {
             </span>
             <div>
             </div>
-            <EditModeFooter id="companyContactInfoEdit" onCancel={closeEditMode} />
+            <ModeFooter id="companyContactInfoEdit" onCancel={closeEditMode} />
           </form>
         </div>
       </div>

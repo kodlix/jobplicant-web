@@ -5,7 +5,7 @@ import { OverlayPanel } from 'primereact/overlaypanel';
 import { Toast } from 'primereact/toast';
 import SectionHeader from '../../../SectionHeader';
 import '../../../UserProfile.css';
-import EditModeFooter from '../../../EditModeFooter';
+import ModeFooter from '../../../../profile/ModeFooter';
 
 const PortfolioEdit = ({ data, closeEditMode }) => {
   const { handleSubmit } = useForm();
@@ -87,7 +87,7 @@ const PortfolioEdit = ({ data, closeEditMode }) => {
             </span>
             <div>
             </div>
-            <EditModeFooter id="portfolioEdit" onCancel={closeEditMode} />
+            <ModeFooter id="portfolioEdit" onCancel={closeEditMode} />
           </form>
         </div>
       </div>

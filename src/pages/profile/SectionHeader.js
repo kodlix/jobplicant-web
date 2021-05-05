@@ -1,14 +1,8 @@
 import React from 'react';
 
-const SectionHeader = (props) => {
-  const { sectionTitle, icon, id, addButton = false, editButton = false, deleteButton = false } = props;
-  const openEditMode = (event) => {
-    props.onClick(event);
-  }
+const SectionHeader = ({openModalOnEdit, openModalOnCreate, deleteItem, sectionTitle, icon, id, showAddButton = false, showEditButton = false, showDeleteButton = false}) => {
 
-  const deleteItem = (event) => {
-    props.onDelete(event);
-  }
+
   return (
     <>
       <div className="p-card-title">
@@ -17,9 +11,9 @@ const SectionHeader = (props) => {
           {sectionTitle}
         </span>
         <span>
-          {addButton && <i className="pi pi-plus"></i>}
-          {editButton && <i className="pi pi-pencil" onClick={openEditMode} id={id}></i>}
-          {deleteButton && <i className="pi pi-trash" onClick={deleteItem} id={id}></i>}
+          {showAddButton && <i className="pi pi-plus" onClick={openModalOnCreate}></i>}
+          {showEditButton && <i className="pi pi-pencil" onClick={openModalOnEdit} id={id}></i>}
+          {showDeleteButton && <i className="pi pi-trash" onClick={deleteItem} id={id}></i>}
         </span>
       </div>
     </>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Tag } from 'primereact/tag';
-import EditModeFooter from '../../../EditModeFooter';
+import ModeFooter from '../../../../profile/ModeFooter';
 import SectionHeader from '../../../SectionHeader';
 import { Dropdown } from 'primereact/dropdown';
 
@@ -92,7 +92,7 @@ const POIEdit = ({ data, componentStatus, closeEditMode }) => {
                 placeholder="Select POI" icon="pi pi-plus" id="POIInput" />
               <i className="pi pi-plus" onClick={handlePOIAdd}></i>
             </span>
-            <EditModeFooter id="POIEdit" onCancel={closeEditMode} />
+            <ModeFooter id="POIEdit" onCancel={closeEditMode} />
           </form>
         </div>
       </div>

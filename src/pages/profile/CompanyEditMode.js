@@ -29,7 +29,7 @@ const CompanyEditMode = (props) => {
           <div className="p-card-body">
             <label htmlFor="biographyInput" className="inputLabel p-mb-2">Give a short descripiton of your company</label>
             <InputTextarea id="biographyInput" type="text" rows="6" className="inputField" placeholder="Biography..." />
-            <EditModeFooter id="biographyEdit" onCancel={closeEditMode} />
+            <ModeFooter id="biographyEdit" onCancel={closeEditMode} />
           </div>
         </div>
       }
@@ -59,7 +59,7 @@ const CompanyEditMode = (props) => {
                 <InputText id="firstname6" type="text" />
               </div>
             </div>
-            <EditModeFooter id="companyDetailsEdit" onCancel={closeEditMode} />
+            <ModeFooter id="companyDetailsEdit" onCancel={closeEditMode} />
           </div>
         </div>
       }
@@ -100,7 +100,7 @@ const CompanyEditMode = (props) => {
               </span>
               <div>
               </div>
-              <EditModeFooter id="contactInfoEdit" onCancel={closeEditMode} />
+              <ModeFooter id="contactInfoEdit" onCancel={closeEditMode} />
             </form>
           </div>
         </div>
@@ -147,7 +147,7 @@ const CompanyEditMode = (props) => {
               </span>
               <div>
               </div>
-              <EditModeFooter id="personalInfoEdit" onCancel={closeEditMode} />
+              <ModeFooter id="personalInfoEdit" onCancel={closeEditMode} />
             </form>
           </div>
         </div>
@@ -156,7 +156,7 @@ const CompanyEditMode = (props) => {
   );
 }
 
-const EditModeFooter = (props) => {
+const ModeFooter = (props) => {
   return (
     <>
       <div className="editMode-footer">

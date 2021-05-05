@@ -5,7 +5,7 @@ const PersonalInfo = ({ componentStatus, toggleEditMode }) => {
   const href = '/userprofile/edit'
   const sectionTitle = 'Personal Information';
 
-  const openEditMode = () => {
+  const mode = () => {
     toggleEditMode({ sectionTitle: "personalInfoEdit", id: "personalInfoEdit" })
   }
   return (
@@ -13,7 +13,7 @@ const PersonalInfo = ({ componentStatus, toggleEditMode }) => {
       <h3 className="username p-mr-2">Jane Doe</h3><span>
         <div className="stars" style={{ "--rating": rating }}></div>
       </span>
-      <Link to={`${href}?title=${sectionTitle}`}> <i className="pi pi-pencil p-pr-3 personalInfo-edit" id="personalInfoEdit" onClick={openEditMode}>&nbsp;<u>(Edit Personal Info)</u></i></Link>
+      <Link to={`${href}?title=${sectionTitle}`}> <i className="pi pi-pencil p-pr-3 personalInfo-edit" id="personalInfoEdit" onClick={mode}>&nbsp;<u>(Edit Personal Info)</u></i></Link>
 
     </>
   );

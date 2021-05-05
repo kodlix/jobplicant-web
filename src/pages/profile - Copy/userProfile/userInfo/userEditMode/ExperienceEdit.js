@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Calendar } from 'primereact/calendar';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { InputText } from 'primereact/inputtext';
-import EditModeFooter from '../../../EditModeFooter';
+import ModeFooter from '../../../../profile/ModeFooter';
 import SectionHeader from '../../../SectionHeader';
 import { Dropdown } from 'primereact/dropdown';
 
@@ -158,7 +158,7 @@ const ExperienceEdit = ({ experienceObject, componentStatus, closeEditMode }) =>
                   )} name="description" onChange={(e) => inputChange(e)} value={experience.description} />
                 </div>
               </div>
-              <EditModeFooter id="experienceEdit" onCancel={onEditCancel} />
+              <ModeFooter id="experienceEdit" onCancel={onEditCancel} />
             </form>
           </div>
         </div>

@@ -3,13 +3,13 @@ import SectionHeader from './SectionHeader';
 import './UserProfile.css';
 
 const CompanyContactInformation = (props) => {
-  const openEditMode = (event) => {
+  const mode = (event) => {
     props.onClick(event);
   }
   return (
     <>
       <div className="p-card p-mt-2">
-        <SectionHeader icon="phone" sectionTitle="Contact Information" id="contactInfoEdit" addButton="true" editButton="true" onClick={openEditMode} />
+        <SectionHeader icon="phone" sectionTitle="Contact Information" id="contactInfoEdit" addButton="true" editButton="true" onClick={mode} />
         <div className="p-card-body p-text-secondary">
           <div className="p-mb-2"><b>Phone Number:</b> +23463736373</div>
           <div className="p-mb-2"><b>Email: </b>rightclicks@gmail.com</div>

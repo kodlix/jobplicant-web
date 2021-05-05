@@ -5,6 +5,7 @@ import account from './account';
 import location from './location';
 import common from './common';
 import error from './error';
+import modal from './modal'
 
 
 import { connectRouter } from 'connected-react-router';
@@ -17,6 +18,7 @@ const appReducer = (history) => combineReducers({
   account,
   notification,
   location,
+  modal  
 });
 
 export default appReducer;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import EditModeFooter from '../../../EditModeFooter';
+import ModeFooter from '../../../../profile/ModeFooter';
 import SectionHeader from '../../../SectionHeader';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { InputText } from 'primereact/inputtext';
@@ -146,7 +146,7 @@ const EducationEdit = ({ educationObject, componentStatus, closeEditMode }) => {
                   )} name="address" onChange={(e) => inputChange(e)} value={education.address} />
                 </div>
               </div>
-              <EditModeFooter id="educationEdit" onCancel={onEditCancel} />
+              <ModeFooter id="educationEdit" onCancel={onEditCancel} />
             </form>
           </div>
         </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { InputText } from 'primereact/inputtext';
 import { Tag } from 'primereact/tag';
-import EditModeFooter from '../../../EditModeFooter';
+import ModeFooter from '../../../../profile/ModeFooter';
 import SectionHeader from '../../../SectionHeader';
 
 
@@ -66,7 +66,7 @@ const HobbyEdit = ({ data, closeEditMode }) => {
                   </button>
                 ))}
               </div>
-              <EditModeFooter id="hobbyEdit" onCancel={closeEditMode} />
+              <ModeFooter id="hobbyEdit" onCancel={closeEditMode} />
             </form>
           </div>
         </div>

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import ModeFooter from '../../../../profile/ModeFooter';
-import SectionHeader from '../../../SectionHeader';
 import { InputTextarea } from 'primereact/inputtextarea';
+import ModeFooter from 'pages/profile/ModeFooter';
+import SectionHeader from './SectionHeader';
 
-const BiographyEdit = ({ data, closeEditMode }) => {
+const BiographyForm = ({ data, closeEditMode, mode }) => {
   const { register, handleSubmit, setValue, clearErrors, formState: { } } = useForm({
     mode: "onChange",
     reValidateMode: 'onChange'
@@ -40,7 +40,7 @@ const BiographyEdit = ({ data, closeEditMode }) => {
           sectionTitle="Biography"
           onDelete={handleDelete}
           componentStatus={componentStatus}
-          deleteButton={Boolean(data?.length)}
+          showAddButton={false}
         />
 
         <div className="p-card-body">
@@ -48,10 +48,10 @@ const BiographyEdit = ({ data, closeEditMode }) => {
             <label htmlFor="biographyInput" className="inputLabel p-mb-2">Give a short descripiton of your career history
             </label>
             <InputTextarea name="biography" {...register('biography')}
-              id="biographyInput" type="text" rows="6" className="inputField" placeholder="Biography..." value={biography} onChange={(e) => {
+              id="biographyInput" type="text" rows="6" className="inputField" placeholder="Biography..." value={data} onChange={(e) => {
                 setBiography(e.target.value); setValue("biography", e.target.value)
               }} />
-            <ModeFooter id="biographyEdit" onCancel={closeEditMode} />
+            <ModeFooter id="biographyForm" onCancel={closeEditMode} />
           </form>
         </div>
       </div>
@@ -59,4 +59,4 @@ const BiographyEdit = ({ data, closeEditMode }) => {
   );
 }
 
-export default BiographyEdit;
+export default BiographyForm;

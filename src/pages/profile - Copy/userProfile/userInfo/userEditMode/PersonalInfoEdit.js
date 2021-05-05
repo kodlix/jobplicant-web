@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { InputText } from 'primereact/inputtext';
 import { RadioButton } from 'primereact/radiobutton';
 import { Calendar } from 'primereact/calendar';
-import EditModeFooter from '../../../EditModeFooter';
+import ModeFooter from '../../../../profile/ModeFooter';
 import SectionHeader from '../../../SectionHeader';
 const PersonalInfoEdit = ({ data, closeEditMode }) => {
   const { register, handleSubmit, setValue, clearErrors, formState: { errors } } = useForm({
@@ -132,7 +132,7 @@ const PersonalInfoEdit = ({ data, closeEditMode }) => {
             </span>
             <div>
             </div>
-            <EditModeFooter id="personalInfoEdit" onCancel={onEditCancel} />
+            <ModeFooter id="personalInfoEdit" onCancel={onEditCancel} />
           </form>
         </div>
       </div>

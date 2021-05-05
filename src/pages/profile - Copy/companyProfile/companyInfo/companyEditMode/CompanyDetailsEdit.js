@@ -5,7 +5,7 @@ import { InputNumber } from 'primereact/inputnumber';
 import { Calendar } from 'primereact/calendar';
 import { Dropdown } from 'primereact/dropdown';
 import SectionHeader from '../../../SectionHeader';
-import EditModeFooter from '../../../EditModeFooter';
+import ModeFooter from '../../../../profile/ModeFooter';
 
 import '../../../UserProfile.css';
 
@@ -132,7 +132,7 @@ const CompanyDetails = ({ data, closeEditMode }) => {
                 <InputField id="regNo" inputLabel="Registration Number" register={register} inputChange={inputChange} />
               </div>
             </div>
-            <EditModeFooter id="companyDetailsEdit" onCancel={onEditCancel} />
+            <ModeFooter id="companyDetailsEdit" onCancel={onEditCancel} />
           </form>
         </div>
       </div>
