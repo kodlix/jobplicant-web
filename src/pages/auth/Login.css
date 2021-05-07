@@ -67,6 +67,7 @@ html {
 
 .login-pane-left {
     background-color: #5A2846;
+    /* width: 50%; */
 }
 
 @media screen and (max-width: 500px) {
@@ -116,6 +117,19 @@ html {
 .er {
     margin-left: 0px;
 }
+
+.title,
+.sub-title {
+    font-weight: bolder;
+    color: rgb(44, 165, 94);
+    font-family: serif;
+    text-decoration: overline;
+}
+
+
+/* .about {
+    font-family: sans-serif;
+} */
 
 
 /* style={{ fontSize: '4rem', minWidth: '6rem', height: '4rem', lineHeight: '3rem' }} */

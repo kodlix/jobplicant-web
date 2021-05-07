@@ -27,6 +27,12 @@ const NewPassword = React.lazy(() => import('../pages/auth/forgotPassword/NewPas
 const PageNotFound = React.lazy(() => import('../pages/errorPage/PageNotFound'));
 const InternalServerError = React.lazy(() => import('../pages/errorPage/InternalServerError'));
 const BadRequest = React.lazy(() => import('../pages/errorPage/BadRequest'));
+const CreateInstanceJobHire = React.lazy(() => import('../pages/instanceJobHire/Create'));
+const ListInstanceJobHire = React.lazy(() => import('../pages/instanceJobHire/List'));
+const ViewInstanceJobHire = React.lazy(() => import('../pages/instanceJobHire/View'));
+const EditInstanceJobHire = React.lazy(() => import('../pages/instanceJobHire/Edit'));
+const Applicant = React.lazy(() => import('../pages/instanceJobHire/Applicant'));
+
 
 
 const AppRouter = () => {
@@ -48,9 +54,7 @@ const AppRouter = () => {
         <AnonymousRoute path="/accounttype" exact component={AccountType} />
         <AnonymousRoute path="/employeraccounttype" exact component={EmployerAccountType} />
         <AnonymousRoute path="/employeeaccounttype" exact component={EmployeeAccountType} />
-
         <AnonymousRoute path="/forgotpassword" exact component={ForgotPassword} />
-
         <AnonymousRoute path="/recoverbynumber" exact component={RecoverByNumber} />
         <AnonymousRoute path="/recoverbyemail" exact component={RecoverByEmail} />
 
@@ -61,6 +65,14 @@ const AppRouter = () => {
         <ProtectedRoute path="/userprofile" component={UserProfile} />
         {/* <ProtectedRoute path="/companyprofile" component={CompanyProfile} /> */}
         <ProtectedRoute path="/dashboard" component={Dashboard} />
+        <AnonymousRoute path="/newinstancejobhire" component={CreateInstanceJobHire} />
+        <AnonymousRoute path="/listinstancejobhire" component={ListInstanceJobHire} />
+        <AnonymousRoute path="/instancejobhire/view/:id" component={ViewInstanceJobHire} />
+        <AnonymousRoute path="/instancejobhire/edit/:id" component={EditInstanceJobHire} />
+        <AnonymousRoute path="/applicant" component={Applicant} />
+
+
+
         <Redirect to="/login" />
       </Switch>
     </React.Suspense>

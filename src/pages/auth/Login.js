@@ -48,25 +48,25 @@ const Login = ({ props }) => {
 
                     {/* <div className="p-col bgimage login-pane-left p-col-12 p-md-8 p-lg-8">
                 </div> */}
-                    <div className="login-pane-left p-col-12 p-md-7 p-lg-8 p-p-0 small-screen">
+                    <div className="login-pane-left p-col-12 p-md-7 p-lg-8 p-p-5 small-screen">
                         <div className="left-content">
-
-                            <div><h1 className="p-mb-6 p-mt-4 p-text-center text-white">Joplicant Home for all</h1></div>
+                            <div><h1 className="p-mb-0 p-text-center title">Joplicant Home for all</h1></div>
                             <div>
                                 <div>
-                                    <p> <h3 className="text-white p-text-center"> Job seekers, Artisan, Employer</h3></p>
+                                    <p> <h2 className="p-text-center sub-title"> Job seekers, Artisan, Employer</h2></p>
                                 </div>
-
-                                <section className="p-mt-6 p-text-center">
-                                    <p>Artisans meets employers, you need to get a skilled worker for that urgent need? not too worry, </p>
-                                    <p>Employeers find employees you need to get a skilled worker for that urgent need? not too worry, </p>
-                                    <p>Employees find the right jobs you need to get a skilled worker for that urgent need? not too worry, </p>
+                                <section className="about p-mt-4 p-mb-4">
+                                    <ul>
+                                        <li>Artisans meets employers</li>
+                                        <li> You need to get a skilled worker for that urgent need? not too worry,</li>
+                                        <li> Employeers find employees you need to get a skilled worker for that urgent need? not too worry,</li>
+                                        <li>Employees find the right jobs you need to get a skilled worker for that urgent need? not too worry,</li>
+                                    </ul>
                                 </section>
-
                             </div>
                             <div>
-                                <div className="p-text-center">
-                                    <p>you need to get a skilled worker for that urgent need? not too worry, Instant Job Hire is all you need to connect to the right person within you.</p>
+                                <div>
+                                    <p>You need to get a skilled worker for that urgent need? not too worry, Instant Job Hire is all you need to connect to the right person within you.</p>
                                 </div>
                             </div>
                         </div>

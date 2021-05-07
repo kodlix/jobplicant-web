@@ -62,7 +62,7 @@ const LandingPage = () => {
                                     </div>
                                     <div className="col-lg-6 co-12">
                                         <div className="hero-image wow fadeInRight" data-wow-delay=".4s">
-                                            <img src="assets/images/hero/banner.png" alt="#" />
+                                            <img src="assets/images/hero/jobplicant-job.jpg" alt="#" />
                                         </div>
                                     </div>
                                 </div>
@@ -108,21 +108,21 @@ const LandingPage = () => {
                         <div className="col-lg-4 col-md-4 col-12">
                             <div className="process-item">
                                 <i className="lni lni-user"></i>
-                                <h4>Register Your Account</h4>
+                                <h4>Employer</h4>
                                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-4 col-12">
                             <div className="process-item">
                                 <i className="lni lni-book"></i>
-                                <h4>Upload Your Resume</h4>
+                                <h4>Hand - Worker</h4>
                                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-4 col-12">
                             <div className="process-item">
                                 <i className="lni lni-briefcase"></i>
-                                <h4>Apply for Dream Job</h4>
+                                <h4>Corporate - Workers</h4>
                                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                             </div>
                         </div>
@@ -149,55 +149,20 @@ const LandingPage = () => {
                                     <div className="icon">
                                         <i className="lni lni-cog"></i>
                                     </div>
-                                    <h3>Technical<br />
-                                        Support</h3>
+                                    <h3>Artisan<br />
+                                        Job-seekers</h3>
                                 </a>
                             </div>
+
+
                             <div className="col-lg-3 col-md-6 col-12">
                                 <a href="browse-jobs.html" className="single-cat wow fadeInUp" data-wow-delay=".4s">
                                     <div className="icon">
-                                        <i className="lni lni-layers"></i>
+                                        <i className="lni lni-restaurant"></i>
                                     </div>
-                                    <h3>Business<br />
-                                        Development</h3>
-                                </a>
-                            </div>
-                            <div className="col-lg-3 col-md-6 col-12">
-                                <a href="browse-jobs.html" className="single-cat wow fadeInUp" data-wow-delay=".6s">
-                                    <div className="icon">
-                                        <i className="lni lni-home"></i>
-                                    </div>
-                                    <h3>Real Estate<br />
-                                        Business</h3>
-                                </a>
-                            </div>
-                            <div className="col-lg-3 col-md-6 col-12">
-                                <a href="browse-jobs.html" className="single-cat wow fadeInUp" data-wow-delay=".8s">
-                                    <div className="icon">
-                                        <i className="lni lni-search"></i>
-                                    </div>
-                                    <h3>Share Maeket<br />
-                                        Analysis</h3>
-                                </a>
-                            </div>
-                            <div className="col-lg-3 col-md-6 col-12">
-                                <a href="browse-jobs.html" className="single-cat wow fadeInUp" data-wow-delay=".2s">
-                                    <div className="icon">
-                                        <i className="lni lni-investment"></i>
-                                    </div>
-                                    <h3>Finance & Banking
-                                        <br />
-                                        Service</h3>
-                                </a>
-                            </div>
-                            <div className="col-lg-3 col-md-6 col-12">
-                                <a href="browse-jobs.html" className="single-cat wow fadeInUp" data-wow-delay=".4s">
-                                    <div className="icon">
-                                        <i className="lni lni-cloud-network"></i>
-                                    </div>
-                                    <h3>IT & Networing
-                                        <br />
-                                        Sevices</h3>
+                                    <h3>Corporate <br />
+                                        Employer
+                                    </h3>
                                 </a>
                             </div>
                             <div className="col-lg-3 col-md-6 col-12">
@@ -205,9 +170,9 @@ const LandingPage = () => {
                                     <div className="icon">
                                         <i className="lni lni-restaurant"></i>
                                     </div>
-                                    <h3>Restaurant
+                                    <h3>Corporate
                                         <br />
-                                        Services</h3>
+                                        Job</h3>
                                 </a>
                             </div>
                             <div className="col-lg-3 col-md-6 col-12">
@@ -215,9 +180,9 @@ const LandingPage = () => {
                                     <div className="icon">
                                         <i className="lni lni-fireworks"></i>
                                     </div>
-                                    <h3>Defence & Fire
+                                    <h3>Instant Job
                                         <br />
-                                        Service</h3>
+                                        Hire</h3>
                                 </a>
                             </div>
                         </div>
@@ -346,80 +311,6 @@ const LandingPage = () => {
                         <div className="row">
                             <div className="col-lg-6 col-12">
 
-                                <div className="single-job wow fadeInUp" data-wow-delay=".3s">
-                                    <div className="job-image">
-                                        <img src="assets/images/jobs/img1.png" alt="#" />
-                                    </div>
-                                    <div className="job-content">
-                                        <h4>
-                                            <a href="job-details.html">Software Engineer</a>
-                                        </h4>
-                                        <p>We are looking for Enrollment Advisors who are looking to take 30-35 appointments per
-                                        week. All leads are pre-scheduled.
-                                        </p>
-                                        <ul>
-                                            <li>
-                                                <i className="lni lni-website"></i>
-                                                <a href="#">
-                                                    winbrans.com</a>
-                                            </li>
-                                            <li>
-                                                <i className="lni lni-dollar"></i>
-                                                $20k - $25k</li>
-                                            <li>
-                                                <i className="lni lni-map-marker"></i>
-                                                New York</li>
-                                        </ul>
-                                    </div>
-                                    <div className="job-button">
-                                        <ul>
-                                            <li>
-                                                <a href="job-details.html">Apply</a>
-                                            </li>
-                                            <li>
-                                                <span>full time</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-
-                                <div className="single-job wow fadeInUp" data-wow-delay=".3s">
-                                    <div className="job-image">
-                                        <img src="assets/images/jobs/img2.png" alt="#" />
-                                    </div>
-                                    <div className="job-content">
-                                        <h4>
-                                            <a href="job-details.html">Graphics Design</a>
-                                        </h4>
-                                        <p>We are looking for Enrollment Advisors who are looking to take 30-35 appointments per
-                                        week. All leads are pre-scheduled.
-                                        </p>
-                                        <ul>
-                                            <li>
-                                                <i className="lni lni-website"></i>
-                                                <a href="#">
-                                                    designhub.com</a>
-                                            </li>
-                                            <li>
-                                                <i className="lni lni-dollar"></i>
-                                                $20k - $25k</li>
-                                            <li>
-                                                <i className="lni lni-map-marker"></i>
-                                                Washington, USA</li>
-                                        </ul>
-                                    </div>
-                                    <div className="job-button">
-                                        <ul>
-                                            <li>
-                                                <a href="job-details.html">Apply</a>
-                                            </li>
-                                            <li>
-                                                <span>Intern</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
 
 
                                 <div className="single-job wow fadeInUp" data-wow-delay=".3s">
@@ -499,81 +390,6 @@ const LandingPage = () => {
 
                             </div>
                             <div className="col-lg-6 col-12">
-
-                                <div className="single-job wow fadeInUp" data-wow-delay=".5s">
-                                    <div className="job-image">
-                                        <img src="assets/images/jobs/img7.png" alt="#" />
-                                    </div>
-                                    <div className="job-content">
-                                        <h4>
-                                            <a href="job-details.html">Digital Marketer</a>
-                                        </h4>
-                                        <p>We are looking for Enrollment Advisors who are looking to take 30-35 appointments per
-                                        week. All leads are pre-scheduled.
-                                        </p>
-                                        <ul>
-                                            <li>
-                                                <i className="lni lni-website"></i>
-                                                <a href="#">
-                                                    marketers.com</a>
-                                            </li>
-                                            <li>
-                                                <i className="lni lni-dollar"></i>
-                                                $20k - $25k</li>
-                                            <li>
-                                                <i className="lni lni-map-marker"></i>
-                                                New York, USA</li>
-                                        </ul>
-                                    </div>
-                                    <div className="job-button">
-                                        <ul>
-                                            <li>
-                                                <a href="job-details.html">Apply</a>
-                                            </li>
-                                            <li>
-                                                <span>Part Time</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-
-                                <div className="single-job wow fadeInUp" data-wow-delay=".5s">
-                                    <div className="job-image">
-                                        <img src="assets/images/jobs/img5.png" alt="#" />
-                                    </div>
-                                    <div className="job-content">
-                                        <h4>
-                                            <a href="job-details.html">Sales Manager</a>
-                                        </h4>
-                                        <p>We are looking for Enrollment Advisors who are looking to take 30-35 appointments per
-                                        week. All leads are pre-scheduled.
-                                        </p>
-                                        <ul>
-                                            <li>
-                                                <i className="lni lni-website"></i>
-                                                <a href="#">
-                                                    winbrans.com</a>
-                                            </li>
-                                            <li>
-                                                <i className="lni lni-dollar"></i>
-                                                $20k - $25k</li>
-                                            <li>
-                                                <i className="lni lni-map-marker"></i>
-                                                Delaware, USA</li>
-                                        </ul>
-                                    </div>
-                                    <div className="job-button">
-                                        <ul>
-                                            <li>
-                                                <a href="job-details.html">Apply</a>
-                                            </li>
-                                            <li>
-                                                <span>full time</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
 
 
                                 <div className="single-job wow fadeInUp" data-wow-delay=".5s">
@@ -685,157 +501,6 @@ const LandingPage = () => {
                             </div>
                         </div>
 
-                    </div>
-                </div>
-            </section>
-
-            <section className=" testimonials">
-                <img className="patern1 wow fadeInRight" data-wow-delay=".3s" src="assets/images/testimonial/patern1.png" alt="#" />
-                <img className="patern2 wow fadeInLeft" data-wow-delay=".5s" src="assets/images/testimonial/patern1.png" alt="#" />
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-6 col-12">
-                            <div className="section-title align-left wow fadeInLeft" data-wow-delay=".3s">
-                                <span>What saye's Our Clients</span>
-                                <h2>Our Testimonials</h2>
-                            </div>
-                            <div className=" testimonial-inner-head wow fadeInLeft" data-wow-delay=".3s">
-                                <div className=" testimonial-inner">
-                                    <div className="testimonial-slider">
-
-                                        <div className="single-testimonial">
-                                            <div className="quote">
-                                                <i className="lni lni-quotation"></i>
-                                            </div>
-                                            <p>" I just brought it and i love it. Lorem Ipsum is simply dummy text of the and
-                                            typesetting industry. Lorem Ipsum has been the industry's standard dummy text
-                                            ever
-                                            since the 1500s."
-                                            </p>
-                                            <div className="bottom">
-                                                <div className="clien-image">
-                                                    <img src="assets/images/testimonial/testi1.jpg" alt="#" />
-                                                </div>
-                                                <h4 className="name">Musharof Chowdhury
-                                                    <span>CEO - Graygrids</span>
-                                                </h4>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-6 col-12">
-                            <div className="testimonial-right wow fadeInRight" data-wow-delay=".5s">
-                                <img src="assets/images/testimonial/testimonial-right.png" alt="#" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-
-            <section className="pricing-table section">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="section-title">
-                                <span className="wow fadeInDown" data-wow-delay=".2s">Pricing Table</span>
-                                <h2 className="wow fadeInUp" data-wow-delay=".4s">Our Pricing Plan</h2>
-                                <p className="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem
-                                                                        Ipsum available, but the majority have suffered alteration in some form.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-lg-4 col-md-6 col-12">
-
-                            <div className="single-table wow fadeInUp" data-wow-delay=".2s">
-
-                                <div className="table-head">
-                                    <h4 className="title">BASIC PACK</h4>
-                                    <div className="price">
-                                        <p className="amount">$30<span className="duration">per month</span>
-                                        </p>
-                                    </div>
-                                </div>
-
-
-                                <ul className="table-list">
-                                    <li>5+ Listings</li>
-                                    <li>Contact With Agent</li>
-                                    <li>Contact With Agent</li>
-                                    <li>7×24 Fully Support</li>
-                                    <li>50GB Space</li>
-                                </ul>
-
-
-                                <div className="button">
-                                    <a className="btn" href="#">Register Now</a>
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div className="col-lg-4 col-md-6 col-12">
-
-                            <div className="single-table wow fadeInUp" data-wow-delay=".4s">
-
-                                <div className="table-head">
-                                    <h4 className="title">STANDARD PACK</h4>
-                                    <div className="price">
-                                        <p className="amount">$40<span className="duration">per month</span>
-                                        </p>
-                                    </div>
-                                </div>
-
-
-                                <ul className="table-list">
-                                    <li>5+ Listings</li>
-                                    <li>Contact With Agent</li>
-                                    <li>Contact With Agent</li>
-                                    <li>7×24 Fully Support</li>
-                                    <li>50GB Space</li>
-                                </ul>
-
-
-                                <div className="button">
-                                    <a className="btn" href="#">Register Now</a>
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div className="col-lg-4 col-md-6 col-12">
-
-                            <div className="single-table wow fadeInUp" data-wow-delay=".6s">
-
-                                <div className="table-head">
-                                    <h4 className="title">PREMIUM PACK</h4>
-                                    <div className="price">
-                                        <p className="amount">$60<span className="duration">per month</span>
-                                        </p>
-                                    </div>
-                                </div>
-
-
-                                <ul className="table-list">
-                                    <li>5+ Listings</li>
-                                    <li>Contact With Agent</li>
-                                    <li>Contact With Agent</li>
-                                    <li>7×24 Fully Support</li>
-                                    <li>50GB Space</li>
-                                </ul>
-
-
-                                <div className="button">
-                                    <a className="btn" href="#">Register Now</a>
-                                </div>
-
-                            </div>
-
-                        </div>
                     </div>
                 </div>
             </section>

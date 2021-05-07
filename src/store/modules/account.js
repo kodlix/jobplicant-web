@@ -1,8 +1,8 @@
-import {push} from "connected-react-router";
-import {showMessage} from './notification';
+import { push } from "connected-react-router";
+import { showMessage } from './notification';
 import agent from "../../services/agent.service";
-import {MESSAGE_TYPE} from '../constant'
-import {loadLga, loadStates} from "./location";
+import { MESSAGE_TYPE } from '../constant'
+import { loadLga, loadStates } from "./location";
 
 // initial values
 const account = {
@@ -48,17 +48,17 @@ const LOAD_PROFILE_BY_USER = 'pharmaconnect/account/LOAD_PROFILE_BY_USER';
 export default function reducer(state = account, action = {}) {
     switch (action.type) {
         case UPDATE_PROFILE: return {
-                ...state,
-                profile: action.payload
-            };
+            ...state,
+            profile: action.payload
+        };
         case LOAD_PROFILE: return {
-                ...state,
-                profile: action.payload
-            };
+            ...state,
+            profile: action.payload
+        };
         case LOAD_PROFILE_BY_USER: return {
-                ...state,
-                profile: action.payload
-            };
+            ...state,
+            profile: action.payload
+        };
         default:
             return state
     }
@@ -66,11 +66,11 @@ export default function reducer(state = account, action = {}) {
 
 // Action Creators
 export function LoadProfileData(data) {
-    return {type: LOAD_PROFILE, payload: data};
+    return { type: LOAD_PROFILE, payload: data };
 }
 
 export function LoadProfileDataByUser(data) {
-    return {type: LOAD_PROFILE_BY_USER, payload: data};
+    return { type: LOAD_PROFILE_BY_USER, payload: data };
 }
 
 // Actions
@@ -89,10 +89,10 @@ export function loadProfileWithData(email) {
 export function updateProfileIndividual(email, individual) {
     return dispatch => {
         return agent.Account.updateIndividualProfile(email, individual).then(response => { // handle success
-            dispatch(showMessage({type: MESSAGE_TYPE.SUCCESS, message: ("Individual profile successfully updated")}));
+            dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: ("Individual profile successfully updated") }));
             dispatch(push("/dashboard"));
         }, error => { // handle error
-            dispatch(showMessage({type: "error", message: error}));
+            dispatch(showMessage({ type: "error", message: error }));
         });
     }
 }
@@ -100,10 +100,10 @@ export function updateProfileIndividual(email, individual) {
 export function updateProfileCorporate(email, corporate) { // const auth = JSON.parse(localStorage.getItem('auth'));
     return dispatch => {
         return agent.Account.updateCorporateProfile(email, corporate).then(response => { // handle success
-            dispatch(showMessage({type: MESSAGE_TYPE.SUCCESS, message: ("Corporate profile successfully updated"), title: "Registration Successful"}));
+            dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: ("Corporate profile successfully updated"), title: "Registration Successful" }));
             dispatch(push("/dashboard"));
         }, error => { // handle error
-            dispatch(showMessage({type: "error", message: error}));
+            dispatch(showMessage({ type: "error", message: error }));
         });
     }
 }
@@ -111,9 +111,9 @@ export function updateProfileCorporate(email, corporate) { // const auth = JSON.
 export function updateProfilePicture(image) {
     return dispatch => {
         return agent.Account.updateProfilePicture(image).then(response => { // handle success
-            dispatch(showMessage({type: MESSAGE_TYPE.SUCCESS, message: ("Profile image successfully updated")}));
+            dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: ("Profile image successfully updated") }));
         }, error => { // handle error
-            dispatch(showMessage({type: "error", message: error}));
+            dispatch(showMessage({ type: "error", message: error }));
         });
     }
 }
@@ -124,7 +124,7 @@ export function loadAccountByUser(id) {
             dispatch(LoadProfileDataByUser(response))
 
         }, error => { // handle error
-            dispatch(showMessage({type: "error", message: error}));
+            dispatch(showMessage({ type: "error", message: error }));
         });
     }
 }

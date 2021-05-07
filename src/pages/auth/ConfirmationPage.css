@@ -40,6 +40,14 @@
     display: inline;
 }
 
+.title,
+.sub-title {
+    font-weight: bolder;
+    color: rgb(44, 165, 94);
+    font-family: serif;
+    text-decoration: overline;
+}
+
 @media screen and (max-width: 767px) {
     .sendsms {
         margin-right: 48vw;
