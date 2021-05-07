@@ -3,12 +3,12 @@ import { useForm } from 'react-hook-form';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { useDispatch, useSelector } from "react-redux";
-import ModeFooter from '../../../../profile/ModeFooter';
-import SectionHeader from '../../../SectionHeader';
+import ModeFooter from 'pages/profile/ModeFooter';
+import SectionHeader from 'pages/profile/SectionHeader';
 import { Dropdown } from 'primereact/dropdown';
 import { loadCountry, loadStates, loadLga } from 'store/modules/location';
 
-const ContactInfoEdit = ({ closeEditMode, data }) => {
+const ContactInfoForm = ({ closeEditMode, data }) => {
   const { register, handleSubmit, setValue, trigger, clearErrors, formState: { errors } } = useForm({
     mode: "onChange",
     reValidateMode: "all"
@@ -176,10 +176,11 @@ const ContactInfoEdit = ({ closeEditMode, data }) => {
             <div>
             </div>
             <ModeFooter id="contactInfoEdit" onCancel={closeEditMode} />
+            
           </form>
         </div>
       </div>
     </>);
 }
 
-export default ContactInfoEdit;
+export default ContactInfoForm;

@@ -117,15 +117,13 @@ const Sector = {
 };
 
 const Account = {
-  updateIndividualProfile: (email, data) =>
-    requests.put(`/ account / individual / ${email}`, data),
+  getProfileInfo: () =>
+    requests.get(`/accounts/profile/active`),
+  updateBiography: (biography) =>
+    requests.put('/accounts/bio', biography),
   updateProfilePicture: (image) =>
     requests.put('/account/uploads', image),
   load: (email) => requests.get(`/ account / getbyemail / ${email}`),
-  updateCorporateProfile: (email, data) =>
-    requests.put(`/ account / cooperate / ${email}`, data),
-  organizationName: () =>
-    requests.get('/account/corporate/organizations'),
   getByID: (id) =>
     requests.get(`/ account / ${id}`),
   verufyAccount: (id) =>

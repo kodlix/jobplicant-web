@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import SectionHeader from '../../../SectionHeader';
+import SectionHeader from './SectionHeader';
 import { Tag } from 'primereact/tag';
 import { Dropdown } from 'primereact/dropdown';
-import ModeFooter from '../../../../profile/ModeFooter';
+import ModeFooter from 'pages/profile/ModeFooter';
 
-const SkillEdit = ({ data, closeEditMode }) => {
+const SkillForm = ({ data, closeEditMode }) => {
   const { register, handleSubmit, setValue } = useForm();
 
   const skillsList = [
@@ -97,4 +97,4 @@ const SkillEdit = ({ data, closeEditMode }) => {
     </>);
 }
 
-export default SkillEdit;
+export default SkillForm;

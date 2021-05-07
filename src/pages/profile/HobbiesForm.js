@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { InputText } from 'primereact/inputtext';
 import { Tag } from 'primereact/tag';
-import ModeFooter from '../../../../profile/ModeFooter';
-import SectionHeader from '../../../SectionHeader';
+import ModeFooter from 'pages/profile/ModeFooter';
+import SectionHeader from './SectionHeader';
 
 
-const HobbyEdit = ({ data, closeEditMode }) => {
+const HobbyForm = ({ data, closeEditMode }) => {
   const { register, handleSubmit, setValue } = useForm();
   const [hobbies, setHobbies] = useState([]);
 
@@ -73,4 +73,4 @@ const HobbyEdit = ({ data, closeEditMode }) => {
           </>);
 }
 
-export default HobbyEdit;
+export default HobbyForm;

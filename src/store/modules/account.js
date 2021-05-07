@@ -3,61 +3,47 @@ import {showMessage} from './notification';
 import agent from "../../services/agent.service";
 import {MESSAGE_TYPE} from '../constant'
 import {loadLga, loadStates} from "./location";
+import { closeModal } from "./modal";
 
 // initial values
 const account = {
-    profile: {
-        accountPackage: "Free",
-        phoneNumber: "",
-        country: "",
-        state: "",
-        lga: "",
-        city: "",
-        address: "",
-        pcn: "",
-        longitude: 0,
-        latitude: 0,
-        profileImage: "",
+    profileInfo: {
+        id: "",
+        email: "",
         firstName: "",
         lastName: "",
-        dateOfBirth: "",
-        isPracticing: true,
-        gender: "",
-        isRegComplete: true,
-        organizationName: "",
-        organizationType: "",
-        numberofEmployees: 0,
-        premisesImage: "",
-        companyRegistrationNumber: "",
-        yearofEstablishment: 0,
-        website: "",
-        openingTime: "",
-        closingTime: "",
-        typesOfPractice: ""
+        imageUrl: "",
+        address: "",
+        companyName: "",
+        location: "",
+        phoneNumber: "",
+        profile: "",
+        accountType: "",
+        dateOfBirth:"",
+        hobbies: [],
+        interests:[],
+        state: "",
+        city: "",
+        lga: "",
+        country: "",
+        skills: [],
+        experiences: [],
+        educations: [],
     }
 };
 
 
 // Action types
-const UPDATE_PROFILE = 'pharmaconnect/account/UPDATE_PROFILE ';
-const LOAD_PROFILE = 'pharmaconnect/account/LOAD_PROFILE';
-const LOAD_PROFILE_BY_USER = 'pharmaconnect/account/LOAD_PROFILE_BY_USER';
+const UPDATE_PROFILE = 'app/account/UPDATE_PROFILE ';
+const LOAD_PROFILE_INFO = 'app/account/LOAD_PROFILE_INFO';
 
 
 // Reducer
 export default function reducer(state = account, action = {}) {
     switch (action.type) {
-        case UPDATE_PROFILE: return {
+        case LOAD_PROFILE_INFO: return {
                 ...state,
-                profile: action.payload
-            };
-        case LOAD_PROFILE: return {
-                ...state,
-                profile: action.payload
-            };
-        case LOAD_PROFILE_BY_USER: return {
-                ...state,
-                profile: action.payload
+                profileInfo: action.payload
             };
         default:
             return state
@@ -65,46 +51,31 @@ export default function reducer(state = account, action = {}) {
 };
 
 // Action Creators
-export function LoadProfileData(data) {
-    return {type: LOAD_PROFILE, payload: data};
-}
-
-export function LoadProfileDataByUser(data) {
-    return {type: LOAD_PROFILE_BY_USER, payload: data};
+export function profileInfoLoaded(data) {
+    return {type: LOAD_PROFILE_INFO, payload: data};
 }
 
 // Actions
-
-export function loadProfileWithData(email) {
+export function loadProfileInfo() {
     return dispatch => {
-        return agent.Account.load(email).then(response => {
-            dispatch(LoadProfileData(response))
-            dispatch(loadStates(response.country));
-            dispatch(loadLga(response.state));
+        return agent.Account.getProfileInfo().then(response => {
+            dispatch(profileInfoLoaded(response));
+            dispatch(showMessage({type: MESSAGE_TYPE.SUCCESS, title: "Profile Information",  message: ("Profile info loaded successfully")}));
         });
     }
 }
 
-
-export function updateProfileIndividual(email, individual) {
+export function updateBiography(biography) {
     return dispatch => {
-        return agent.Account.updateIndividualProfile(email, individual).then(response => { // handle success
-            dispatch(showMessage({type: MESSAGE_TYPE.SUCCESS, message: ("Individual profile successfully updated")}));
-            dispatch(push("/dashboard"));
-        }, error => { // handle error
+        return agent.Account.updateBiography(biography).then(response => {
+            dispatch(profileInfoLoaded(response));
+            dispatch(closeModal());
+            dispatch(showMessage({type: MESSAGE_TYPE.SUCCESS, title: "Update Profile Information",  message: ("Biography updated successfully")}));
+        },
+        error => { // handle error
             dispatch(showMessage({type: "error", message: error}));
-        });
-    }
-}
-
-export function updateProfileCorporate(email, corporate) { // const auth = JSON.parse(localStorage.getItem('auth'));
-    return dispatch => {
-        return agent.Account.updateCorporateProfile(email, corporate).then(response => { // handle success
-            dispatch(showMessage({type: MESSAGE_TYPE.SUCCESS, message: ("Corporate profile successfully updated"), title: "Registration Successful"}));
-            dispatch(push("/dashboard"));
-        }, error => { // handle error
-            dispatch(showMessage({type: "error", message: error}));
-        });
+        }
+        );
     }
 }
 
@@ -121,7 +92,7 @@ export function updateProfilePicture(image) {
 export function loadAccountByUser(id) {
     return dispatch => {
         return agent.Account.getByID(id).then(response => { // handle success
-            dispatch(LoadProfileDataByUser(response))
+            // dispatch(LoadProfileDataByUser(response))
 
         }, error => { // handle error
             dispatch(showMessage({type: "error", message: error}));
