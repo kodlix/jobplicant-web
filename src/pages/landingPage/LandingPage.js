@@ -12,9 +12,9 @@ const LandingPage = () => {
                         <div className="row align-items-center">
                             <div className="col-lg-12">
                                 <nav className="navbar navbar-expand-lg py-2">
-                                    <a className="navbar-brand logo" href="index.html">
+                                    <Link className="navbar-brand logo" to="index.html">
                                         <img className="logo1" src="assets/logo.png" alt="Logo" />
-                                    </a>
+                                    </Link>
                                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                         <span className="toggler-icon"></span>
                                         <span className="toggler-icon"></span>
@@ -54,15 +54,15 @@ const LandingPage = () => {
                                                 Leverage agile frameworks to high level overviews.
                                                 </p>
                                                 <div className="button wow fadeInUp" data-wow-delay=".7s">
-                                                    <a href="#" className="btn">Post a Job</a>
-                                                    <a href="#" className="btn btn-alt green-back">See Our Jobs</a>
+                                                    <Link to="#" className="btn">Post a Job</Link>
+                                                    <Link to="#" className="btn btn-alt green-back">See Our Jobs</Link>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="col-lg-6 co-12">
                                         <div className="hero-image wow fadeInRight" data-wow-delay=".4s">
-                                            <img src="assets/images/hero/jobplicant-job.jpg" alt="#" />
+                                            <img src="assets/images/hero/banner.png" alt="#" />
                                         </div>
                                     </div>
                                 </div>
@@ -84,15 +84,15 @@ const LandingPage = () => {
                                                 Leverage agile frameworks to high level overviews.
                                                 </p>
                                                 <div className="button wow fadeInUp" data-wow-delay=".7s">
-                                                    <a href="#" className="btn">Post a Job</a>
-                                                    <a href="#" className="btn btn-alt">See Our Jobs</a>
+                                                    <Link to="#" className="btn">Post a Job</Link>
+                                                    <Link to="#" className="btn btn-alt">See Our Jobs</Link>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="col-lg-6 co-12">
                                         <div className="hero-image wow fadeInRight" data-wow-delay=".ss">
-                                            <img src="assets/images/hero/banner2.png" alt="#" />
+                                            <img src="assets/images/hero/job-searcher.jpg" alt="#" />
                                         </div>
                                     </div>
                                 </div>
@@ -145,45 +145,45 @@ const LandingPage = () => {
                     <div className="cat-head">
                         <div className="row">
                             <div className="col-lg-3 col-md-6 col-12">
-                                <a href="browse-jobs.html" className="single-cat wow fadeInUp" data-wow-delay=".2s">
+                                <Link to="browse-jobs.html" className="single-cat wow fadeInUp" data-wow-delay=".2s">
                                     <div className="icon">
                                         <i className="lni lni-cog"></i>
                                     </div>
                                     <h3>Artisan<br />
                                         Job-seekers</h3>
-                                </a>
+                                </Link>
                             </div>
 
 
                             <div className="col-lg-3 col-md-6 col-12">
-                                <a href="browse-jobs.html" className="single-cat wow fadeInUp" data-wow-delay=".4s">
+                                <Link to="browse-jobs.html" className="single-cat wow fadeInUp" data-wow-delay=".4s">
                                     <div className="icon">
                                         <i className="lni lni-restaurant"></i>
                                     </div>
                                     <h3>Corporate <br />
                                         Employer
                                     </h3>
-                                </a>
+                                </Link>
                             </div>
                             <div className="col-lg-3 col-md-6 col-12">
-                                <a href="browse-jobs.html" className="single-cat wow fadeInUp" data-wow-delay=".6s">
+                                <Link to="browse-jobs.html" className="single-cat wow fadeInUp" data-wow-delay=".6s">
                                     <div className="icon">
                                         <i className="lni lni-restaurant"></i>
                                     </div>
                                     <h3>Corporate
                                         <br />
                                         Job</h3>
-                                </a>
+                                </Link>
                             </div>
                             <div className="col-lg-3 col-md-6 col-12">
-                                <a href="browse-jobs.html" className="single-cat wow fadeInUp" data-wow-delay=".8s">
+                                <Link to="browse-jobs.html" className="single-cat wow fadeInUp" data-wow-delay=".8s">
                                     <div className="icon">
                                         <i className="lni lni-fireworks"></i>
                                     </div>
                                     <h3>Instant Job
                                         <br />
                                         Hire</h3>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -208,8 +208,8 @@ const LandingPage = () => {
                                             synopsis for high level overviews.
                                         </p>
                                         <div className="button wow fadeInUp" data-wow-delay=".7s">
-                                            <a href="#" className="btn">Post a Job</a>
-                                            <a href="#" className="btn btn-alt">See Our Jobs</a>
+                                            <Link to="#" className="btn">Post a Job</Link>
+                                            <Link to="#" className="btn btn-alt">See Our Jobs</Link>
                                         </div>
                                     </div>
                                     <div className="job-search-wrap-two mt-50 wow fadeInUp" data-wow-delay=".9s">
@@ -217,10 +217,10 @@ const LandingPage = () => {
                                             <div className="keywords style-two">
                                                 <span className="title">Popular Keywords:</span>
                                                 <ul>
-                                                    <li><a href="#">Administrative</a></li>
-                                                    <li><a href="#">Android</a></li>
-                                                    <li><a href="#">app</a></li>
-                                                    <li><a href="#">ASP.NET</a></li>
+                                                    <li><Link to="#">Administrative</Link></li>
+                                                    <li><Link to="#">Android</Link></li>
+                                                    <li><Link to="#">app</Link></li>
+                                                    <li><Link to="#">ASP.NET</Link></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -258,9 +258,9 @@ const LandingPage = () => {
                                         </select>
                                     </div>
                                     <div className="button">
-                                        <a className="btn green-back" href="#">
+                                        <Link className="btn green-back" to="#">
                                             Search
-                                        </a>
+                                        </Link>
                                     </div>
                                 </form>
                             </div>
@@ -282,10 +282,10 @@ const LandingPage = () => {
                                     finding a suitable job and let recruiters contact you
                                                                                 about jobs that are not needed to pay for advertising.</p>
                                     <div className="button wow fadeInUp" data-wow-delay=".8s">
-                                        <a href="add-resume.html" className="btn">
+                                        <Link to="add-resume.html" className="btn">
                                             <i className="lni lni-upload"></i>
                                             Upload Your
-                                                                                        Resume</a>
+                                                                                        Resume</Link>
                                     </div>
                                 </div>
                             </div>
@@ -319,7 +319,7 @@ const LandingPage = () => {
                                     </div>
                                     <div className="job-content">
                                         <h4>
-                                            <a href="job-details.html">Ui/Ux Design</a>
+                                            <Link to="job-details.html">Ui/Ux Design</Link>
                                         </h4>
                                         <p>We are looking for Enrollment Advisors who are looking to take 30-35 appointments per
                                         week. All leads are pre-scheduled.
@@ -327,8 +327,8 @@ const LandingPage = () => {
                                         <ul>
                                             <li>
                                                 <i className="lni lni-website"></i>
-                                                <a href="#">
-                                                    uddesign.com</a>
+                                                <Link to="#">
+                                                    uddesign.com</Link>
                                             </li>
                                             <li>
                                                 <i className="lni lni-dollar"></i>
@@ -341,7 +341,7 @@ const LandingPage = () => {
                                     <div className="job-button">
                                         <ul>
                                             <li>
-                                                <a href="job-details.html">Apply</a>
+                                                <Link to="job-details.html">Apply</Link>
                                             </li>
                                             <li>
                                                 <span>Part Time</span>
@@ -357,7 +357,7 @@ const LandingPage = () => {
                                     </div>
                                     <div className="job-content">
                                         <h4>
-                                            <a href="job-details.html">Web Developer</a>
+                                            <Link to="job-details.html">Web Developer</Link>
                                         </h4>
                                         <p>We are looking for Enrollment Advisors who are looking to take 30-35 appointments per
                                         week. All leads are pre-scheduled.
@@ -365,8 +365,8 @@ const LandingPage = () => {
                                         <ul>
                                             <li>
                                                 <i className="lni lni-website"></i>
-                                                <a href="#">
-                                                    webinner.com</a>
+                                                <Link to="#">
+                                                    webinner.com</Link>
                                             </li>
                                             <li>
                                                 <i className="lni lni-dollar"></i>
@@ -379,7 +379,7 @@ const LandingPage = () => {
                                     <div className="job-button">
                                         <ul>
                                             <li>
-                                                <a href="job-details.html">Apply</a>
+                                                <Link to="job-details.html">Apply</Link>
                                             </li>
                                             <li>
                                                 <span>Intern</span>
@@ -398,7 +398,7 @@ const LandingPage = () => {
                                     </div>
                                     <div className="job-content">
                                         <h4>
-                                            <a href="job-details.html">Product Designer</a>
+                                            <Link to="job-details.html">Product Designer</Link>
                                         </h4>
                                         <p>We are looking for Enrollment Advisors who are looking to take 30-35 appointments per
                                         week. All leads are pre-scheduled.
@@ -406,8 +406,8 @@ const LandingPage = () => {
                                         <ul>
                                             <li>
                                                 <i className="lni lni-website"></i>
-                                                <a href="#">
-                                                    winbrans.com</a>
+                                                <Link to="#">
+                                                    winbrans.com</Link>
                                             </li>
                                             <li>
                                                 <i className="lni lni-dollar"></i>
@@ -420,7 +420,7 @@ const LandingPage = () => {
                                     <div className="job-button">
                                         <ul>
                                             <li>
-                                                <a href="job-details.html">Apply</a>
+                                                <Link to="job-details.html">Apply</Link>
                                             </li>
                                             <li>
                                                 <span>full time</span>
@@ -436,7 +436,7 @@ const LandingPage = () => {
                                     </div>
                                     <div className="job-content">
                                         <h4>
-                                            <a href="job-details.html">Android Developer</a>
+                                            <Link to="job-details.html">Android Developer</Link>
                                         </h4>
                                         <p>We are looking for Enrollment Advisors who are looking to take 30-35 appointments per
                                         week. All leads are pre-scheduled.
@@ -444,8 +444,8 @@ const LandingPage = () => {
                                         <ul>
                                             <li>
                                                 <i className="lni lni-website"></i>
-                                                <a href="#">
-                                                    androidplex.com</a>
+                                                <Link to="#">
+                                                    androidplex.com</Link>
                                             </li>
                                             <li>
                                                 <i className="lni lni-dollar"></i>
@@ -458,7 +458,7 @@ const LandingPage = () => {
                                     <div className="job-button">
                                         <ul>
                                             <li>
-                                                <a href="job-details.html">Apply</a>
+                                                <Link to="job-details.html">Apply</Link>
                                             </li>
                                             <li>
                                                 <span>Part Time</span>
@@ -475,26 +475,26 @@ const LandingPage = () => {
                                 <div className="pagination center wow fadeInUp" data-wow-delay=".3s">
                                     <ul className="pagination-list">
                                         <li>
-                                            <a href="#">
+                                            <Link to="#">
                                                 <i className="lni lni-arrow-left"></i>
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li className="active">
-                                            <a href="#">1</a>
+                                            <Link to="#">1</Link>
                                         </li>
                                         <li>
-                                            <a href="#">2</a>
+                                            <Link to="#">2</Link>
                                         </li>
                                         <li>
-                                            <a href="#">3</a>
+                                            <Link to="#">3</Link>
                                         </li>
                                         <li>
-                                            <a href="#">4</a>
+                                            <Link to="#">4</Link>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <Link to="#">
                                                 <i className="lni lni-arrow-right"></i>
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                 </div>
@@ -559,12 +559,12 @@ const LandingPage = () => {
                                     </div>
                                     <div className="social-login">
                                         <ul>
-                                            <li><a className="linkedin" href="#"><i className="lni lni-linkedin-original"></i>Log in
-                                                                                                    with LinkedIn</a></li>
-                                            <li><a className="google" href="#"><i className="lni lni-google"></i>Log in with
-                                                                                                    Google</a></li>
-                                            <li><a className="facebook" href="#"><i className="lni lni-facebook-original"></i>Log in
-                                                                                                    with Facebook</a></li>
+                                            <li><Link className="linkedin" to="#"><i className="lni lni-linkedin-original"></i>Log in
+                                                                                                    with LinkedIn</Link></li>
+                                            <li><Link className="google" to="#"><i className="lni lni-google"></i>Log in with
+                                                                                                    Google</Link></li>
+                                            <li><Link className="facebook" to="#"><i className="lni lni-facebook-original"></i>Log in
+                                                                                                    with Facebook</Link></li>
                                         </ul>
                                     </div>
                                     <div className="or-devider">
@@ -587,15 +587,15 @@ const LandingPage = () => {
                                                 <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                                                 <label className="form-check-label" htmlFor="flexCheckDefault">Remember password</label>
                                             </div>
-                                            <a href="#" className="font-size-3 text-dodger line-height-reset">Forget Password</a>
+                                            <Link to="#" className="font-size-3 text-dodger line-height-reset">Forget Password</Link>
                                         </div>
                                         <div className="form-group mb-8 button">
                                             <button className="btn ">Log in
                                             </button>
                                         </div>
                                         <p className="text-center create-new-account">Don’t have an account?
-                                            <a href="#">Create a
-                                                                                                free account</a>
+                                            <Link to="#">Create a
+                                                                                                free account</Link>
                                         </p>
                                     </form>
                                 </div>
@@ -625,12 +625,12 @@ const LandingPage = () => {
                                     </div>
                                     <div className="social-login">
                                         <ul>
-                                            <li><a className="linkedin" href="#"><i className="lni lni-linkedin-original"></i>Import
-                                                                                                    from LinkedIn</a></li>
-                                            <li><a className="google" href="#"><i className="lni lni-google"></i>Import from
-                                                                                                    Google</a></li>
-                                            <li><a className="facebook" href="#"><i className="lni lni-facebook-original"></i>Import
-                                                                                                    from Facebook</a></li>
+                                            <li><Link className="linkedin" to="#"><i className="lni lni-linkedin-original"></i>Import
+                                                                                                    from LinkedIn</Link></li>
+                                            <li><Link className="google" to="#"><i className="lni lni-google"></i>Import from
+                                                                                                    Google</Link></li>
+                                            <li><Link className="facebook" to="#"><i className="lni lni-facebook-original"></i>Import
+                                                                                                    from Facebook</Link></li>
                                         </ul>
                                     </div>
                                     <div className="or-devider">
@@ -658,7 +658,7 @@ const LandingPage = () => {
                                             <div className="form-check">
                                                 <input className="form-check-input" type="checkbox" value="" />
                                                 <label className="form-check-label" htmlFor="flexCheckDefault">Agree to the
-                                                    <a href="#">Terms & Conditions</a>
+                                                    <Link to="#">Terms & Conditions</Link>
                                                 </label>
                                             </div>
                                         </div>
@@ -690,12 +690,12 @@ const LandingPage = () => {
                             <div className="col-lg-6 col-12">
                                 <div className="download-button">
                                     <div className="button">
-                                        <a className="btn bg-white text-dark" href="#">
+                                        <Link className="btn bg-white text-dark" to="#">
                                             <i className="lni lni-apple"></i>
-                                            App Store</a>
-                                        <a className="btn bg-white text-dark" href="#">
+                                            App Store</Link>
+                                        <Link className="btn bg-white text-dark" to="#">
                                             <i className="lni lni-play-store"></i>
-                                            Google Play</a>
+                                            Google Play</Link>
                                     </div>
                                 </div>
                             </div>
@@ -710,7 +710,7 @@ const LandingPage = () => {
 
                                 <div className="f-about single-footer">
                                     <div className="logo">
-                                        <a href="index.html"><img src="assets/logo.png" alt="Logo" /></a>
+                                        <Link to="index.html"><img src="assets/logo.png" alt="Logo" /></Link>
                                     </div>
                                     <p>Start building your creative website with our awesome template Massive.</p>
                                     <ul className="contact-address">
@@ -719,7 +719,7 @@ const LandingPage = () => {
                                             555 Wall Street, USA, NY</li>
                                         <li>
                                             <span>Email:</span>
-                                            <a href="https://demo.graygrids.com/cdn-cgi/l/email-protection" className="__cf_email__" data-cfemail="b7d2cfd6dac7dbd2f7d6c7c2c499d4d8da">[email&#160;protected]</a>
+                                            <Link to="https://demo.graygrids.com/cdn-cgi/l/email-protection" className="__cf_email__" data-cfemail="b7d2cfd6dac7dbd2f7d6c7c2c499d4d8da">[email&#160;protected]</Link>
                                         </li>
                                         <li>
                                             <span>Call:</span>
@@ -727,10 +727,10 @@ const LandingPage = () => {
                                     </ul>
                                     <div className="footer-social">
                                         <ul>
-                                            <li><a href="#"><i className="lni lni-facebook-original"></i></a></li>
-                                            <li><a href="#"><i className="lni lni-twitter-original"></i></a></li>
-                                            <li><a href="#"><i className="lni lni-linkedin-original"></i></a></li>
-                                            <li><a href="#"><i className="lni lni-pinterest"></i></a></li>
+                                            <li><Link to="#"><i className="lni lni-facebook-original"></i></Link></li>
+                                            <li><Link to="#"><i className="lni lni-twitter-original"></i></Link></li>
+                                            <li><Link to="#"><i className="lni lni-linkedin-original"></i></Link></li>
+                                            <li><Link to="#"><i className="lni lni-pinterest"></i></Link></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -743,12 +743,12 @@ const LandingPage = () => {
                                         <div className="single-footer f-link">
                                             <h3>For Candidates</h3>
                                             <ul>
-                                                <li><a href="#">User Dashboard</a></li>
-                                                <li><a href="#">CV Packages</a></li>
-                                                <li><a href="#">Jobs Featured</a></li>
-                                                <li><a href="#">Jobs Urgent</a></li>
-                                                <li><a href="#">Candidate List</a></li>
-                                                <li><a href="#">Candidates Grid</a></li>
+                                                <li><Link to="#">User Dashboard</Link></li>
+                                                <li><Link to="#">CV Packages</Link></li>
+                                                <li><Link to="#">Jobs Featured</Link></li>
+                                                <li><Link to="#">Jobs Urgent</Link></li>
+                                                <li><Link to="#">Candidate List</Link></li>
+                                                <li><Link to="#">Candidates Grid</Link></li>
                                             </ul>
                                         </div>
 
@@ -758,12 +758,12 @@ const LandingPage = () => {
                                         <div className="single-footer f-link">
                                             <h3>For Employers</h3>
                                             <ul>
-                                                <li><a href="#">Post New</a></li>
-                                                <li><a href="#">Employer List</a></li>
-                                                <li><a href="#">Employers Grid</a></li>
-                                                <li><a href="#">Job Packages</a></li>
-                                                <li><a href="#">Jobs Listing</a></li>
-                                                <li><a href="#">Jobs Featured</a></li>
+                                                <li><Link to="#">Post New</Link></li>
+                                                <li><Link to="#">Employer List</Link></li>
+                                                <li><Link to="#">Employers Grid</Link></li>
+                                                <li><Link to="#">Job Packages</Link></li>
+                                                <li><Link to="#">Jobs Listing</Link></li>
+                                                <li><Link to="#">Jobs Featured</Link></li>
                                             </ul>
                                         </div>
 
@@ -795,17 +795,17 @@ const LandingPage = () => {
                             <div className="row">
                                 <div className="col-lg-6 col-md-6 col-12">
                                     <div className="left">
-                                        <p>Designed and Developed by<a href="https://graygrids.com/" rel="nofollow" target="_blank">GrayGrids</a>
+                                        <p>Designed and Developed by<Link to="#" rel="nofollow" target="_blank">RightClicks</Link>
                                         </p>
                                     </div>
                                 </div>
                                 <div className="col-lg-6 col-md-6 col-12">
                                     <div className="right">
                                         <ul>
-                                            <li><a href="#">Terms of use</a></li>
-                                            <li><a href="#">Privacy Policy</a></li>
-                                            <li><a href="#">Faq</a></li>
-                                            <li><a href="#">Contact</a></li>
+                                            <li><Link to="#">Terms of use</Link></li>
+                                            <li><Link to="#">Privacy Policy</Link></li>
+                                            <li><Link to="#">Faq</Link></li>
+                                            <li><Link to="#">Contact</Link></li>
                                         </ul>
                                     </div>
                                 </div>

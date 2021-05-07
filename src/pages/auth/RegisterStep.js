@@ -66,7 +66,6 @@ const RegisterStep = ({ accountType }) => {
                             <div className="panel-login text-center">
                             </div>
                             <div className="panel-signup">
-                                {/* <div className=""> */}
                                 <div className="login-title sm-page-title">
                                     <h3 className="p-mb-3  text-center">Sign up for free!</h3>
                                 </div>
@@ -74,7 +73,6 @@ const RegisterStep = ({ accountType }) => {
                                     <div className="p-fluid">
                                         <div className="p-field">
                                             <InputText type="text"
-                                                // className="form-control p-ml-6 p-mr-6"
                                                 id="firstname"
                                                 name="firstName"
                                                 placeholder="First Name"
@@ -88,7 +86,6 @@ const RegisterStep = ({ accountType }) => {
                                         </div>
                                         <div className="p-field">
                                             <InputText type="text"
-                                                // className="form-control p-ml-6 p-mr-6"
                                                 name="lastName"
                                                 id="lastname"
                                                 placeholder="Last Name"
@@ -104,7 +101,6 @@ const RegisterStep = ({ accountType }) => {
                                         <div className="p-field">
 
                                             <InputText type="email"
-                                                // className="form-control p-ml-6 p-mr-6"
                                                 name="email"
                                                 id="numberOrEmail"
                                                 placeholder="Mobile number or email address"
@@ -123,7 +119,6 @@ const RegisterStep = ({ accountType }) => {
                                         </div>
                                         <div className="p-field">
                                             <InputText type="password"
-                                                // className="form-control p-ml-6 p-mr-6"
                                                 name="password"
                                                 id="password"
                                                 placeholder="New password"
@@ -159,10 +154,8 @@ const RegisterStep = ({ accountType }) => {
                                                 />
                                                 <label htmlFor="female">Female</label>
                                             </div>
-                                            {/* <label htmlFor="gender" className=""> */}
                                             {errors.gender && <span className="text-danger font-weight-bold p-pl-1"> <p>{errors.gender.message}</p>
                                             </span>}
-                                            {/* </label> */}
 
 
                                         </div>
@@ -189,9 +182,7 @@ const RegisterStep = ({ accountType }) => {
                                                 &nbsp; and <Link to=""> <span className="app-color font-weight-bold">Cookie Policy.</span></Link>.</p>
 
                                         </div>
-                                        {/* <div className="p-grid sm-signup-bnt"> */}
                                         <Button type="submit" label="Sign up" className="form-group" />
-                                        {/* </div> */}
                                     </div>
 
                                 </form>
@@ -200,7 +191,6 @@ const RegisterStep = ({ accountType }) => {
                                 </div>
                             </div>
                         </div>
-                        {/* </div>b */}
                     </div>
                 </div>
             </div>

@@ -1,12 +1,19 @@
 import AppNavBar from 'components/AppNavBar';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { OnLogout } from '../../store/modules/auth';
 import './Dashboard.css';
 
 const Dashboard = () => {
+
+    const dispatch = useDispatch();
+    const LogOut = () => {
+        dispatch(OnLogout());
+    }
     return (
         <>
             <div class="d-flex flex-column">
-                <AppNavBar/>
+                <AppNavBar />
                 <div class="manage-jobs section">
                     <div class="container">
                         <div class="alerts-inner">
@@ -51,9 +58,9 @@ const Dashboard = () => {
                                                     Change Password</a>
                                             </li>
                                             <li>
-                                                <a href="index.html">
+                                                <span className="text-primary pointer" onClick={LogOut}>
                                                     <i class="lni lni-upload"></i>
-                                                    Sing Out</a>
+                                                    Sign Out</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -89,7 +96,7 @@ const Dashboard = () => {
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-12">
                                                     <div class="can-img">
-                                                        <a href="#"><img src="assets/images/jobs/candidates.png" alt="#"/></a>
+                                                        <a href="#"><img src="assets/images/jobs/candidates.png" alt="#" /></a>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-12">
@@ -111,7 +118,7 @@ const Dashboard = () => {
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-12">
                                                     <div class="can-img">
-                                                        <a href="#"><img src="assets/images/jobs/candidates.png" alt="#"/></a>
+                                                        <a href="#"><img src="assets/images/jobs/candidates.png" alt="#" /></a>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-12">
@@ -133,7 +140,7 @@ const Dashboard = () => {
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-12">
                                                     <div class="can-img">
-                                                        <a href="#"><img src="assets/images/jobs/candidates.png" alt="#"/></a>
+                                                        <a href="#"><img src="assets/images/jobs/candidates.png" alt="#" /></a>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-12">
@@ -155,7 +162,7 @@ const Dashboard = () => {
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-12">
                                                     <div class="can-img">
-                                                        <a href="#"><img src="assets/images/jobs/candidates.png" alt="#"/></a>
+                                                        <a href="#"><img src="assets/images/jobs/candidates.png" alt="#" /></a>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-12">
@@ -177,7 +184,7 @@ const Dashboard = () => {
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-12">
                                                     <div class="can-img">
-                                                        <a href="#"><img src="assets/images/jobs/candidates.png" alt="#"/></a>
+                                                        <a href="#"><img src="assets/images/jobs/candidates.png" alt="#" /></a>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-12">
@@ -199,7 +206,7 @@ const Dashboard = () => {
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-12">
                                                     <div class="can-img">
-                                                        <a href="#"><img src="assets/images/jobs/candidates.png" alt="#"/></a>
+                                                        <a href="#"><img src="assets/images/jobs/candidates.png" alt="#" /></a>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-12">
