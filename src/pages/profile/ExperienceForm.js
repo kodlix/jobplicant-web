@@ -4,12 +4,12 @@ import { Calendar } from 'primereact/calendar';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { InputText } from 'primereact/inputtext';
 import ModeFooter from 'pages/profile/ModeFooter';
-import SectionHeader from '../../../SectionHeader';
+import SectionHeader from './SectionHeader';
 import { Dropdown } from 'primereact/dropdown';
 
 
 
-const ExperienceForm = ({ experienceObject, componentStatus, closeEditMode }) => {
+const ExperienceForm = ({ experienceObject, componentStatus, data, closeEditMode }) => {
   const locationList = [
     { name: 'New York', id: 'NY' },
     { name: 'Rome', id: 'RM' },
@@ -34,30 +34,15 @@ const ExperienceForm = ({ experienceObject, componentStatus, closeEditMode }) =>
   });
   const [experience, setExperience] = useState({})
 
-  useEffect(() => {
-    if (experienceObject) {
-      for (const [key, value] of Object.entries(experienceObject)) {
-        if (key !== "id") {
-          if (key === "startDate" || "endDate") {
-            setValue(key, new Date(value));
-          }
-          setValue(key, value);
-        }
-      }
+  useEffect(() => {    
       const experienceFromDb = Object.assign({}, experienceObject);
       experienceFromDb.endDate = new Date(experienceFromDb.endDate);
       experienceFromDb.startDate = new Date(experienceFromDb.startDate);
       setExperience(experienceFromDb);
-    }
-  }, [componentStatus.experienceEdit]);
+    
+  }, []);
 
   const onEditCancel = (e) => {
-    for (const [key] of Object.entries(experience)) {
-      if (key !== "id") {
-        setValue(key, null);
-      }
-      setExperience({})
-    }
     clearErrors();
     closeEditMode(e.target.id);
   }
@@ -85,9 +70,9 @@ const ExperienceForm = ({ experienceObject, componentStatus, closeEditMode }) =>
   }
   return (
     <>
-      {componentStatus?.experienceEdit?.length > 0 &&
+      
         <div className="p-card p-mt-2">
-          <SectionHeader componentStatus={componentStatus} deleteButton="true" onDelete={handleDelete} icon="star-o" sectionTitle="Experience" id={experience.id} />
+          <SectionHeader  deleteButton="true" onDelete={handleDelete} icon="star-o" sectionTitle="Job Experience" id={experience.id} />
           <div className="p-card-body">
             <form onSubmit={handleSubmit(experienceSubmit)}>
               <div className="p-fluid p-formgrid p-grid">
@@ -162,7 +147,6 @@ const ExperienceForm = ({ experienceObject, componentStatus, closeEditMode }) =>
             </form>
           </div>
         </div>
-      }
     </>
   );
 }
