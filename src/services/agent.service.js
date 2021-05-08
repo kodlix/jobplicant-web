@@ -1,3 +1,4 @@
+import request from 'superagent';
 import _superagent from 'superagent';
 import superagentPromise from 'superagent-promise';
 
@@ -117,26 +118,36 @@ const Sector = {
 };
 
 const Account = {
-  updateIndividualProfile: (email, data) =>
-    requests.put(`/ account / individual / ${email}`, data),
+  getProfileInfo: () =>
+    requests.get(`/accounts/profile/active`),
+  updateBiography: (biography) =>
+    requests.put('/accounts/bio', biography),
+  updateContactInfo: (contactInfo) =>
+    requests.put('/accounts/contact-info', contactInfo),
+  updateHobies: (hobbies) =>
+    requests.put('/accounts/hobbies', hobbies),
   updateProfilePicture: (image) =>
     requests.put('/account/uploads', image),
   load: (email) => requests.get(`/ account / getbyemail / ${email}`),
-  updateCorporateProfile: (email, data) =>
-    requests.put(`/ account / cooperate / ${email}`, data),
-  organizationName: () =>
-    requests.get('/account/corporate/organizations'),
   getByID: (id) =>
     requests.get(`/ account / ${id}`),
   verufyAccount: (id) =>
     requests.get(`/ account / ${id}`),
 }
 
+const UserSkill = {
+  save: (userskill) =>
+    request.post('/user-skill', userskill),
+  load: () =>
+    request.get('/user-skill',),
+}
+
 const Country = {
   load: () => requests.get('/country'),
 };
 const State = {
-  loadByCountry: (countryid) => requests.get(`/ state / getbycountry / ${countryid}`),
+  loadByCountry: (countryid) =>
+    requests.get(`/state/getbycountry/${countryid}`),
 };
 const Lga = {
   loadByState: (stateid) => requests.get(`/ lga / getbystate / ${stateid}`),
@@ -175,7 +186,6 @@ const Outlet = {
   delete: (id) =>
     requests.del(`/ outlet / ${id}`)
 };
-
 
 const Poll = {
   save: (poll) =>
@@ -219,5 +229,6 @@ export default {
   JobVacancy,
   ScheduleMeeting,
   Poll,
+  UserSkill,
   setToken: _accessToken => { accessToken = -accessToken; },
 };

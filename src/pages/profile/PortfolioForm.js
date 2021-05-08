@@ -3,11 +3,10 @@ import { useForm } from 'react-hook-form';
 import { Button } from 'primereact/button';
 import { OverlayPanel } from 'primereact/overlaypanel';
 import { Toast } from 'primereact/toast';
-import SectionHeader from '../../../SectionHeader';
-import '../../../UserProfile.css';
-import ModeFooter from '../../../../profile/ModeFooter';
+import SectionHeader from './SectionHeader';
+import ModeFooter from 'pages/profile/ModeFooter';
 
-const PortfolioEdit = ({ data, closeEditMode }) => {
+const PortfolioForm = ({ data, closeEditMode }) => {
   const { handleSubmit } = useForm();
   const toast = useRef(null);
   const ref = useRef({});
@@ -95,4 +94,4 @@ const PortfolioEdit = ({ data, closeEditMode }) => {
   );
 }
 
-export default PortfolioEdit;
+export default PortfolioForm;

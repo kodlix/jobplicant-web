@@ -1,19 +1,23 @@
-import React, {useState} from 'react';
-import {useDispatch}  from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import AppNavBar from 'components/AppNavBar'
 import SectionHeader from './SectionHeader'
 import ModalForm from './ModalForm';
-import {openModal} from 'store/modules/modal';
+import { loadProfileInfo } from 'store/modules/account'
+import { openModal } from 'store/modules/modal';
 import { PROFILE } from 'constants/profile';
 
 
 const UserProfile = () => {
   const dispatch = useDispatch();
+  const profileInfo = useSelector(state => state.account.profileInfo);
   const rating = 4.5;
-  const [profileData] = useState({})
-  const [] = useState({});
-  const [] = useState('');
   const [mode, setMode] = useState("");
+
+
+  useEffect(() => {
+    dispatch(loadProfileInfo());
+  }, []);
 
   const expandImage = () => {
 
@@ -27,9 +31,8 @@ const UserProfile = () => {
   const openEdit = (name) => {
     setMode('edit');
     dispatch(openModal(name));
-    
-  }
 
+  }
 
   const uploadProfilePicture = () => {
     console.log('profile')
@@ -40,7 +43,7 @@ const UserProfile = () => {
   return (
     <>
       <div class='d-flex flex-column'>
-        <AppNavBar />{' '}
+        <AppNavBar />
         {/* <div className='portfolioItem-container'>
           <img
             src={imageSrc}
@@ -76,14 +79,14 @@ const UserProfile = () => {
                 onChange={uploadProfilePicture}
               />
               <div>
-                <h3 className='username p-mr-2'>Jane Doe</h3>
-                  <i
-                    className='pi pi-pencil p-pr-3 personalInfo-edit'
-                    id='personalInfoEdit'
-                    // onClick={toggleEditMode}
-                  >
-                    &nbsp;<u>(Edit Personal Info)</u>
-                  </i>
+                <h3 className='username p-mr-2'>{profileInfo.firstName} {profileInfo.lastName}</h3>
+                <i
+                  className='pi pi-pencil p-pr-3 personalInfo-edit'
+                  id='personalInfoEdit'
+                // onClick={toggleEditMode}
+                >
+                  &nbsp;<u>(Edit Personal Info)</u>
+                </i>
                 <div>Photographer at UNICEF</div>
                 <span>
                   <div className='stars' style={{ '--rating': rating }}></div>
@@ -123,21 +126,12 @@ const UserProfile = () => {
                       id='biographyEdit'
                       showAddButton='true'
                       showEditButton='true'
-                      openModalOnCreate={() => openEdit(PROFILE.BIOGRAPHY)}  
+                      openModalOnCreate={() => openEdit(PROFILE.BIOGRAPHY)}
                       openModalOnEdit={() => openCreate(PROFILE.BIOGRAPHY)}
+                      hasData={profileInfo?.profile}
                     />
                     <div className='p-card-body'>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Quisque tempor aliquam felis, nec condimentum ipsum
-                      commodo id. Vivamus sit amet augue nec urna efficitur
-                      tincidunt. Vivamus consectetur aliquam lectus commodo
-                      viverra. Nunc eu augue nec arcu efficitur faucibus.
-                      Aliquam accumsan ac magna convallis bibendum. Quisque
-                      laoreet augue eget augue fermentum scelerisque. Vivamus
-                      dignissim mollis est dictum blandit. Nam porta auctor
-                      neque sed congue. Nullam rutrum eget ex at maximus. Lorem
-                      ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                      eget vestibulum lorem.
+                      {profileInfo.profile}
                     </div>
                   </div>
                   <div className='p-grid'>
@@ -151,7 +145,7 @@ const UserProfile = () => {
                           showAddButton='true'
                           openModalOnCreate={() => openCreate(PROFILE.EXPERIENCE)}
                           openModalOnEdit={() => openEdit(PROFILE.EXPERIENCE)}
-                          />
+                        />
                         <span>
                           <div className='p-card-subtitle p-ml-3 p-mb-0 mainTitle'>
                             <span>
@@ -250,7 +244,9 @@ const UserProfile = () => {
                           sectionTitle='Education'
                           id='educationEdit'
                           showAddButton='true'
-                          // onClick={mode}
+                          showEditButton='true'
+                          openModalOnCreate={() => openEdit(PROFILE.EDUCATION)}
+                          openModalOnEdit={() => openCreate(PROFILE.EDUCATION)}
                         />
                         <span>
                           <div className='p-card-subtitle p-ml-3 p-mb-0 mainTitle'>
@@ -364,35 +360,52 @@ const UserProfile = () => {
                       </div>
                     </div>
                     <div className='p-col-12 content-rightPanel p-md-4'>
-                    <div className="p-card p-mt-2">
-                    <SectionHeader icon="tag" sectionTitle="Skills" id="skillEdit" showAddButton="true" showEditButton="true" 
-                    // onClick={mode}
-                     />
-                    <div className="p-card-body">
-                      <span className="skilltag"><i className=""></i>CSS</span>
-                      <span className="skilltag"><i className=""></i>Photosop</span>
-                      <span className="skilltag"><i className=""></i>Adobe</span>
-                      <span className="skilltag"><i className=""></i>CSS</span>
-                    </div>
-                  </div>
-                  {/* hobbies */}
-                    <div className="p-card p-mt-2">
-                      <SectionHeader icon="heart" sectionTitle="Hobbies / Likes" id="hobbyEdit" showAddButton="true" showEditButton="true"
-                      //  onClick={mode}
-                        />
-                      <div className="p-card-body p-text-secondary">
-                        <ul className="listStyle p-grid">
-                          <li className="p-col-4">Hiking</li>
-                          <li className="p-col-4">Running</li>
-                          <li className="p-col-4">Swimming</li>
-                          <li className="p-col-4">Drawing</li>
-                        </ul>
-                      </div>
-                    </div>
-                      {/* profession */}
                       <div className="p-card p-mt-2">
-                        <SectionHeader icon="briefcase" sectionTitle="Professions of Interest" id="POIEdit" showAddButton="true" 
-                        showEditButton="true" 
+                        <SectionHeader
+                          icon="tag"
+                          sectionTitle="Skills"
+                          id="skillEdit"
+                          showAddButton='true'
+                          showEditButton='true'
+                          openModalOnCreate={() => openEdit(PROFILE.SKILL)}
+                          openModalOnEdit={() => openCreate(PROFILE.SKILL)}
+                        // onClick={mode}
+                        />
+                        <div className="p-card-body">
+                          <span className="skilltag"><i className=""></i>CSS</span>
+                          <span className="skilltag"><i className=""></i>Photosop</span>
+                          <span className="skilltag"><i className=""></i>Adobe</span>
+                          <span className="skilltag"><i className=""></i>CSS</span>
+                        </div>
+                      </div>
+                      {/* hobbies */}
+                      <div className="p-card p-mt-2">
+                        <SectionHeader icon="heart" sectionTitle="Hobbies" id="hobbyEdit" showAddButton="true" showEditButton="true"
+                          showAddButton='true'
+                          showEditButton='true'
+                          openModalOnCreate={() => openEdit(PROFILE.HOBBY)}
+                          openModalOnEdit={() => openCreate(PROFILE.HOBBY)}
+                          hasData={profileInfo?.profile}
+
+                        />
+                        <div className="p-card-body p-text-secondary">
+                          <ul className="listStyle p-grid">
+                            {profileInfo.hobbies && profileInfo.hobbies.length > 0 && profileInfo.hobbies.map(hobby =>
+                              <li className="p-col-4">{hobby}</li>
+                            )}
+
+                          </ul>
+                        </div>
+                      </div>
+                      {/* profession of interest */}
+                      <div className="p-card p-mt-2">
+                        <SectionHeader icon="briefcase"
+                          sectionTitle="Professions of Interest"
+                          id="POIEdit" showAddButton="true"
+                          showAddButton='true'
+                          showEditButton='true'
+                          openModalOnCreate={() => openEdit(PROFILE.PROFESSION)}
+                          openModalOnEdit={() => openCreate(PROFILE.PROFESSION)}
                         // onClick={mode} 
                         />
                         <div className="p-card-body p-text-secondary">
@@ -404,9 +417,13 @@ const UserProfile = () => {
                       </div>
                       {/* location of interest */}
                       <div className="p-card p-mt-2">
-                        <SectionHeader icon="map-marker" sectionTitle="Location of Interest" id="LOIEdit" showAddButton="true" 
-                        showEditButton="true" 
-                        // onClick={mode} 
+                        <SectionHeader icon="map-marker"
+                          sectionTitle="Location of Interest"
+                          id="LOIEdit"
+                          showAddButton='true'
+                          showEditButton='true'
+                          openModalOnCreate={() => openEdit(PROFILE.LOCATION)}
+                          openModalOnEdit={() => openCreate(PROFILE.LOCATION)}
                         />
                         <div className="p-card-body p-text-secondary">
                           Germany
@@ -414,16 +431,21 @@ const UserProfile = () => {
                       </div>
                       {/* contact information */}
                       <div className="p-card p-mt-2">
-                      <SectionHeader icon="phone" sectionTitle="Contact Information" 
-                      id="contactInfoEdit" showAddButton="true" showEditButton="true" 
-                      // onClick={mode} 
-                      />
-                      <div className="p-card-body p-text-secondary">
-                        <span><b>Phone Number:</b> +23463736373</span>
-                        <span><b>Email: </b>+23463736373</span>
-                        <span><b>Location: </b>Isaac Johnson, Lagos. Nigeria</span>
+                        <SectionHeader icon="phone" sectionTitle="Contact Information"
+                          id="contactInfoEdit" showAddButton="true" showEditButton="true"
+                          showAddButton='true'
+                          showEditButton='true'
+                          openModalOnCreate={() => openEdit(PROFILE.CONTACT_INFO)}
+                          openModalOnEdit={() => openCreate(PROFILE.CONTACT_INFO)}
+                          hasData={profileInfo?.profile}
+
+                        />
+                        <div className="p-card-body p-text-secondary">
+                          <span><b>Phone Number:</b>{profileInfo.contactPhoneNumber}</span>
+                          <span><b>Email: </b>{profileInfo.contactEmail}</span>
+                          <span><b>Location: </b>{profileInfo.address}</span>
+                        </div>
                       </div>
-                    </div>
                     </div>
                   </div>
                 </div>
@@ -431,8 +453,12 @@ const UserProfile = () => {
               {/* portfolio */}
               <div className='p-col-12 p-md-3 p-pt-2 portfolio-panel'>
                 <div className="p-card">
-                  <SectionHeader icon="images" sectionTitle="Portfolio" id="portfolioEdit" showAddButton="true" showEditButton="true" 
-                  // onClick={mode} 
+                  <SectionHeader icon="images" sectionTitle="Portfolio"
+                    id="portfolioEdit"
+                    showAddButton='true'
+                    showEditButton='true'
+                    openModalOnCreate={() => openEdit(PROFILE.PORTFOLIO)}
+                    openModalOnEdit={() => openCreate(PROFILE.PORTFOLIO)}
                   />
                   <div className="p-card-body p-grid p-mt-2">
                     <button onClick={expandImage} className="p-md-3 p-m-2 p-p-0 portfolio-items">
@@ -457,7 +483,7 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-      <ModalForm  data={profileData} mode={mode} />
+      <ModalForm data={profileInfo} mode={mode} />
     </>
   )
 }

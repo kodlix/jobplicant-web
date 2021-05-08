@@ -3,13 +3,13 @@ import { useForm } from 'react-hook-form';
 import { Calendar } from 'primereact/calendar';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { InputText } from 'primereact/inputtext';
-import ModeFooter from '../../../../profile/ModeFooter';
+import ModeFooter from 'pages/profile/ModeFooter';
 import SectionHeader from '../../../SectionHeader';
 import { Dropdown } from 'primereact/dropdown';
 
 
 
-const ExperienceEdit = ({ experienceObject, componentStatus, closeEditMode }) => {
+const ExperienceForm = ({ experienceObject, componentStatus, closeEditMode }) => {
   const locationList = [
     { name: 'New York', id: 'NY' },
     { name: 'Rome', id: 'RM' },
@@ -178,4 +178,4 @@ const InputField = ({ id, inputLabel, register, inputChange }) => {
     }} />)
 }
 
-export default ExperienceEdit;
+export default ExperienceForm;

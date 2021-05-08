@@ -62,7 +62,7 @@ const AppRouter = () => {
         <ProtectedRoute path="/pagenotfound" exact component={PageNotFound} />
         <ProtectedRoute path="/internalservererror" component={InternalServerError} />
         <ProtectedRoute path="/badrequest" component={BadRequest} />
-        <ProtectedRoute path="/userprofile" component={UserProfile} />
+        <ProtectedRoute path="/profile-info" exact component={UserProfile} />
         {/* <ProtectedRoute path="/companyprofile" component={CompanyProfile} /> */}
         <ProtectedRoute path="/dashboard" component={Dashboard} />
         <AnonymousRoute path="/newinstancejobhire" component={CreateInstanceJobHire} />

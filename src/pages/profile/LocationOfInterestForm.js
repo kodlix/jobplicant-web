@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Tag } from 'primereact/tag';
-import ModeFooter from '../../../../profile/ModeFooter';
-import SectionHeader from '../../../SectionHeader';
+import ModeFooter from 'pages/profile/ModeFooter';
+import SectionHeader from './SectionHeader';
 import { Dropdown } from 'primereact/dropdown';
 
-const LOIEdit = ({ data, closeEditMode }) => {
+const LOIForm = ({ data, closeEditMode }) => {
   const { register, handleSubmit, setValue } = useForm();
 
   const LOIList = [
@@ -92,4 +92,4 @@ const LOIEdit = ({ data, closeEditMode }) => {
     </>);
 }
 
-export default LOIEdit;
+export default LOIForm;

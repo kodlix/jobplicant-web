@@ -5,10 +5,12 @@ import account from './account';
 import location from './location';
 import common from './common';
 import error from './error';
-import modal from './modal'
+import modal from './modal';
+import userSkill from './userSkill';
 
 
 import { connectRouter } from 'connected-react-router';
+import Skills from 'pages/profile/Skills';
 
 const appReducer = (history) => combineReducers({
   router: connectRouter(history),
@@ -18,7 +20,8 @@ const appReducer = (history) => combineReducers({
   account,
   notification,
   location,
-  modal  
+  modal,
+  userSkill,
 });
 
 export default appReducer;

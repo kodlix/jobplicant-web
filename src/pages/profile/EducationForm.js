@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import ModeFooter from '../../../../profile/ModeFooter';
-import SectionHeader from '../../../SectionHeader';
+import ModeFooter from 'pages/profile/ModeFooter';
+import SectionHeader from 'pages/profile/SectionHeader';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { InputText } from 'primereact/inputtext';
 import { Calendar } from 'primereact/calendar';
 import { Dropdown } from 'primereact/dropdown';
 
 
-const EducationEdit = ({ educationObject, componentStatus, closeEditMode }) => {
+const EducationForm = ({ educationObject, componentStatus, closeEditMode }) => {
   const { register, handleSubmit, setValue, clearErrors, formState: { errors } } = useForm({
     mode: "onChange",
     reValidateMode: "all"
@@ -166,4 +166,4 @@ const InputField = ({ id, inputLabel, register, inputChange }) => {
     }} />)
 }
 
-export default EducationEdit;
+export default EducationForm;
