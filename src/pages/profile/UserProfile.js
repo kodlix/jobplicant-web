@@ -13,6 +13,7 @@ const UserProfile = () => {
   const profileInfo = useSelector(state => state.account.profileInfo);
   const rating = 4.5;
   const [mode, setMode] = useState("");
+  const [itemToEdit, setItemToEdit] = useState({});
 
 
   useEffect(() => {
@@ -28,8 +29,9 @@ const UserProfile = () => {
     dispatch(openModal(name))
   }
 
-  const openEdit = (name) => {
+  const openEdit = (name, data) => {
     setMode('edit');
+    setItemToEdit(data);
     dispatch(openModal(name));
     
   }
@@ -146,97 +148,31 @@ const UserProfile = () => {
                           openModalOnCreate={() => openCreate(PROFILE.EXPERIENCE)}
                           openModalOnEdit={() => openEdit(PROFILE.EXPERIENCE)}
                           />
-                        <span>
+                        {
+                          profileInfo.experiences.map((item, index) => 
+                          <span>
                           <div className='p-card-subtitle p-ml-3 p-mb-0 mainTitle'>
                             <span>
-                              <b>UNICEF Assistant Photographer</b>
+                              <b>{item.jobTitle}</b>&nbsp;
                               at
-                              <b className='experienceCompany'>UNICEF</b>
+                              &nbsp;<b className='experienceCompany'>{item.company}</b>
                             </span>
                             <i
                               className='pi pi-pencil icon-edit'
-                              // onClick={mode}
+                              onClick={() => openEdit(PROFILE.EXPERIENCE, item)}
                               id='experienceEdit'
                             ></i>
                           </div>
                           <div className='p-card-subtitle p-ml-3'>
                             <b>
-                              <small>(2015 - present)</small>
+                              <small>({item.startDate} - {item.endDate || 'present'})</small>
                             </b>
                           </div>
                           <div className='p-card-body p-text-secondary'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Quisque tempor aliquam felis, nec condimentum
-                            ipsum commodo id. Vivamus sit amet augue nec urna
-                            efficitur tincidunt. Vivamus consectetur aliquam
-                            lectus commodo viverra. Nunc eu augue nec arcu
-                            efficitur faucibus. Aliquam accumsan ac magna
-                            convallis bibendum. Quisque laoreet augue eget augue
-                            fermentum scelerisque. Vivamus dignissim mollis est
-                            dictum blandit. Nam porta auctor neque sed congue.
-                            Nullam rutrum eget ex at maximus. Lorem ipsum dolor
-                            sit amet, consectetur adipiscing elit. Donec eget
-                            vestibulum lorem.
+                           {item.description}
                           </div>
-                        </span>
-                        <span>
-                          <div className='p-card-subtitle p-ml-3 p-mb-0 mainTitle'>
-                            <span>
-                              <b>UNICEF Assistant Photographer</b>
-                              at
-                              <b className='experienceCompany'>UNICEF</b>
-                            </span>
-                            <i className='pi pi-pencil icon-edit'></i>
-                          </div>
-                          <div className='p-card-subtitle p-ml-3'>
-                            <b>
-                              <small>(2015-2019)</small>
-                            </b>
-                          </div>
-                          <div className='p-card-body p-text-secondary'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Quisque tempor aliquam felis, nec condimentum
-                            ipsum commodo id. Vivamus sit amet augue nec urna
-                            efficitur tincidunt. Vivamus consectetur aliquam
-                            lectus commodo viverra. Nunc eu augue nec arcu
-                            efficitur faucibus. Aliquam accumsan ac magna
-                            convallis bibendum. Quisque laoreet augue eget augue
-                            fermentum scelerisque. Vivamus dignissim mollis est
-                            dictum blandit. Nam porta auctor neque sed congue.
-                            Nullam rutrum eget ex at maximus. Lorem ipsum dolor
-                            sit amet, consectetur adipiscing elit. Donec eget
-                            vestibulum lorem.
-                          </div>
-                        </span>
-                        <span>
-                          <div className='p-card-subtitle p-ml-3 p-mb-0 mainTitle'>
-                            <span>
-                              <b>UNICEF Assistant Photographer</b>
-                              at
-                              <b className='experienceCompany'>UNICEF</b>
-                            </span>
-                            <i className='pi pi-pencil icon-edit'></i>
-                          </div>
-                          <div className='p-card-subtitle p-ml-3'>
-                            <b>
-                              <small>(2015-2019)</small>
-                            </b>
-                          </div>
-                          <div className='p-card-body p-text-secondary'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Quisque tempor aliquam felis, nec condimentum
-                            ipsum commodo id. Vivamus sit amet augue nec urna
-                            efficitur tincidunt. Vivamus consectetur aliquam
-                            lectus commodo viverra. Nunc eu augue nec arcu
-                            efficitur faucibus. Aliquam accumsan ac magna
-                            convallis bibendum. Quisque laoreet augue eget augue
-                            fermentum scelerisque. Vivamus dignissim mollis est
-                            dictum blandit. Nam porta auctor neque sed congue.
-                            Nullam rutrum eget ex at maximus. Lorem ipsum dolor
-                            sit amet, consectetur adipiscing elit. Donec eget
-                            vestibulum lorem.
-                          </div>
-                        </span>
+                        </span>)
+                        }                       
                       </div>
                       <div className='p-card p-mt-2'>
                         <SectionHeader
@@ -479,7 +415,7 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-      <ModalForm  data={profileInfo} mode={mode} />
+      <ModalForm  data={profileInfo} mode={mode} itemToEdit={itemToEdit}/>
     </>
   )
 }

@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import auth from './auth';
 import notification from "./notification";
 import account from './account';
+import experience from './experience'
 import location from './location';
 import common from './common';
 import error from './error';
@@ -18,6 +19,7 @@ const appReducer = (history) => combineReducers({
   account,
   notification,
   location,
+  experience,
   modal  
 });
 

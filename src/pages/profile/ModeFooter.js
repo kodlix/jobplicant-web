@@ -6,7 +6,7 @@ import { Button } from 'primereact/button';
 import { closeModal } from 'store/modules/modal';
 
 
-const ModeFooter = ({ id, onCancel }) => {
+const ModeFooter = ({ id }) => {
   const dispatch = useDispatch();
 
   return (

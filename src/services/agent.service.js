@@ -121,6 +121,8 @@ const Account = {
     requests.get(`/accounts/profile/active`),
   updateBiography: (biography) =>
     requests.put('/accounts/bio', biography),
+   updateExperience: (experience) =>
+    requests.put('/accounts/job-experience', experience),
   updateProfilePicture: (image) =>
     requests.put('/account/uploads', image),
   load: (email) => requests.get(`/ account / getbyemail / ${email}`),
@@ -128,6 +130,19 @@ const Account = {
     requests.get(`/ account / ${id}`),
   verufyAccount: (id) =>
     requests.get(`/ account / ${id}`),
+}
+
+const JobExperience = {
+  save: (data) =>
+    requests.post('/job-experience', data),
+  load: () => requests.get('/job-experience'),
+  search: (param) => requests.get('/job-experience' + param),
+  edit: (id, data) =>
+    requests.put(`/job-experience/${id}`, data),
+  delete: (id) =>
+    requests.del(`/job-experience/ ${id}`),
+  view: (id) =>
+    requests.get(`/job-experience/ ${id}`)
 }
 
 const Country = {
@@ -211,6 +226,7 @@ export default {
   Outlet,
   Sector,
   Account,
+  JobExperience,
   Country,
   State,
   Lga,

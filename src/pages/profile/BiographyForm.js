@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import {useDispatch, useSelector}  from 'react-redux';
+import {useDispatch}  from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { InputTextarea } from 'primereact/inputtextarea';
 import ModeFooter from 'pages/profile/ModeFooter';
 import { updateBiography} from 'store/modules/account'
 import SectionHeader from './SectionHeader';
 
-const BiographyForm = ({ data, closeEditMode }) => {
+const BiographyForm = ({ data }) => {
   const { register, handleSubmit, formState: {errors } } = useForm({
     mode: "onChange",
     reValidateMode: 'onChange'
@@ -45,7 +45,7 @@ const BiographyForm = ({ data, closeEditMode }) => {
             </label>
             <InputTextarea name="profile" {...register('profile', { required: "required" })}
               id="biographyInput" type="text" rows="6" className="inputField" placeholder="Biography..." defaultValue={biography}  />
-            <ModeFooter id="biographyForm" onCancel={closeEditMode} />
+            <ModeFooter id="biographyForm" />
           </form>
         </div>
       </div>

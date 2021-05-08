@@ -70,7 +70,21 @@ export function updateBiography(biography) {
         return agent.Account.updateBiography(biography).then(response => {
             dispatch(profileInfoLoaded(response));
             dispatch(closeModal());
-            dispatch(showMessage({type: MESSAGE_TYPE.SUCCESS, title: "Update Profile Information",  message: ("Biography updated successfully")}));
+            dispatch(showMessage({type: MESSAGE_TYPE.SUCCESS, title: "Update Profile Information",  message: ("Biography saved successfully")}));
+        },
+        error => { // handle error
+            dispatch(showMessage({type: "error", message: error}));
+        }
+        );
+    }
+}
+
+export function updateExperience(experience) {
+    return dispatch => {
+        return agent.Account.updateExperience(experience).then(response => {
+            dispatch(profileInfoLoaded(response));
+            dispatch(closeModal());
+            dispatch(showMessage({type: MESSAGE_TYPE.SUCCESS, title: "Update Profile Information",  message: ("Job experience saved successfully")}));
         },
         error => { // handle error
             dispatch(showMessage({type: "error", message: error}));
