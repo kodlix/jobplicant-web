@@ -1,6 +1,4 @@
-import { getLocation } from 'connected-react-router';
-import React, { useEffect } from 'react';
-import { registerUser } from 'store/modules/auth';
+import React from 'react';
 
 import './Register.css'
 
@@ -24,7 +22,7 @@ const VerificationStep = ({ goto, setAccountType }) => {
                         }>
                         <div className="left-content p-col-8 mx-auto">
                             <div className="card text-center">
-                                <div className="card-header">
+                                <div className="card-header bg-color">
                                     Featured
                                 </div>
                                 <div className="card-body">

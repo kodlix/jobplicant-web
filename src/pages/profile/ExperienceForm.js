@@ -60,8 +60,8 @@ const {
     //     : e.target.value
     // const updatedExperienceObject = Object.assign({}, experience)
     // updatedExperienceObject[inputName] = inputValue
-    // setExperience({...experience, ...updatedExperienceObject})
-    // setValue(inputName, inputValue, { shouldValidate: true })
+    setExperience({...experience, ...updatedExperienceObject})
+    setValue(inputName, inputValue, { shouldValidate: true })
   }
 
   const handleDelete = e => {

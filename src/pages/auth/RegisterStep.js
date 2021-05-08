@@ -10,7 +10,7 @@ import { registerUser } from 'store/modules/auth';
 import './Register.css'
 
 
-const RegisterStep = ({ accountType}) => {
+const RegisterStep = ({ accountType }) => {
 
     const [step, setStep] = useState(1)
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
@@ -36,24 +36,24 @@ const RegisterStep = ({ accountType}) => {
                 <div className="p-grid p-mx-0">
                     <div className="login-pane-left p-col-12 p-md-7 p-lg-8 p-xl-8 small-screen">
                         <div className="left-content">
-
-                            <div><h1 className="p-mb-3 p-mt-3 p-text-center text-white">Joplicant Home for all</h1></div>
+                            <div><h1 className="p-mb-0 p-text-center title">Joplicant Home for all</h1></div>
                             <div>
-                                <section>
-                                    <h3 className="text-white p-text-center"> Job seekers, Artisan, Employer</h3>
+                                <div>
+                                    <p> <h2 className="p-text-center sub-title"> Job seekers, Artisan, Employer</h2></p>
+                                </div>
+                                <section className="about font-weight-bold p-mt-4 p-mb-4">
+                                    <ul>
+                                        <li>Artisans meets employers</li>
+                                        <li> You need to get a skilled worker for that urgent need? not too worry,</li>
+                                        <li> Employeers find employees you need to get a skilled worker for that urgent need? not too worry,</li>
+                                        <li>Employees find the right jobs you need to get a skilled worker for that urgent need? not too worry,</li>
+                                    </ul>
                                 </section>
-
-                                <section className="p-mt-6 p-text-center">
-                                    <p>Artisans meets employers, you need to get a skilled worker for that urgent need? not too worry, </p>
-                                    <p>Employeers find employees you need to get a skilled worker for that urgent need? not too worry, </p>
-                                    <p>Employees find the right jobs you need to get a skilled worker for that urgent need? not too worry, </p>
-                                </section>
-
                             </div>
                             <div>
-                                <section className="p-text-center">
-                                    <p>you need to get a skilled worker for that urgent need? not too worry, Instant Job Hire is all you need to connect to the right person within you.</p>
-                                </section>
+                                <div className="font-weight-bold">
+                                    <p>You need to get a skilled worker for that urgent need? not too worry, Instant Job Hire is all you need to connect to the right person within you.</p>
+                                </div>
                             </div>
                         </div>
 
@@ -66,7 +66,6 @@ const RegisterStep = ({ accountType}) => {
                             <div className="panel-login text-center">
                             </div>
                             <div className="panel-signup">
-                                {/* <div className=""> */}
                                 <div className="login-title sm-page-title">
                                     <h3 className="p-mb-3  text-center">Sign up for free!</h3>
                                 </div>
@@ -74,7 +73,6 @@ const RegisterStep = ({ accountType}) => {
                                     <div className="p-fluid">
                                         <div className="p-field">
                                             <InputText type="text"
-                                                // className="form-control p-ml-6 p-mr-6"
                                                 id="firstname"
                                                 name="firstName"
                                                 placeholder="First Name"
@@ -88,7 +86,6 @@ const RegisterStep = ({ accountType}) => {
                                         </div>
                                         <div className="p-field">
                                             <InputText type="text"
-                                                // className="form-control p-ml-6 p-mr-6"
                                                 name="lastName"
                                                 id="lastname"
                                                 placeholder="Last Name"
@@ -104,7 +101,6 @@ const RegisterStep = ({ accountType}) => {
                                         <div className="p-field">
 
                                             <InputText type="email"
-                                                // className="form-control p-ml-6 p-mr-6"
                                                 name="email"
                                                 id="numberOrEmail"
                                                 placeholder="Mobile number or email address"
@@ -123,7 +119,6 @@ const RegisterStep = ({ accountType}) => {
                                         </div>
                                         <div className="p-field">
                                             <InputText type="password"
-                                                // className="form-control p-ml-6 p-mr-6"
                                                 name="password"
                                                 id="password"
                                                 placeholder="New password"
@@ -134,7 +129,7 @@ const RegisterStep = ({ accountType}) => {
                                                 </span>}
                                             </label>
                                         </div>
-                                        
+
                                         <div><label htmlFor="gender" className="p-mb-1 p-text-bold gender-margin app-color" > Gender</label> </div>
 
                                         <div className="p-formgroup-inline">
@@ -159,16 +154,14 @@ const RegisterStep = ({ accountType}) => {
                                                 />
                                                 <label htmlFor="female">Female</label>
                                             </div>
-                                            {/* <label htmlFor="gender" className=""> */}
                                             {errors.gender && <span className="text-danger font-weight-bold p-pl-1"> <p>{errors.gender.message}</p>
                                             </span>}
-                                            {/* </label> */}
 
 
                                         </div>
                                         {
-                                           accountType === 'employer' && 
-                                           <div className="p-field">
+                                            accountType === 'employer' &&
+                                            <div className="p-field">
                                                 <InputText type="text"
                                                     className="form-control p-mb-4"
                                                     name="companyName"
@@ -183,15 +176,13 @@ const RegisterStep = ({ accountType}) => {
                                                 </label>
                                             </div>
                                         }
-                                        
+
                                         <div>
-                                                <p className="term-policy p-mb-3">By clicking Sign Up, you agree to our <Link to=""> <span className="app-color font-weight-bold">Terms, Data Policy </span></Link>
+                                            <p className="term-policy p-mb-3">By clicking Sign Up, you agree to our <Link to=""> <span className="app-color font-weight-bold">Terms, Data Policy </span></Link>
                                                 &nbsp; and <Link to=""> <span className="app-color font-weight-bold">Cookie Policy.</span></Link>.</p>
 
-                                            </div>
-                                        {/* <div className="p-grid sm-signup-bnt"> */}
+                                        </div>
                                         <Button type="submit" label="Sign up" className="form-group" />
-                                        {/* </div> */}
                                     </div>
 
                                 </form>
@@ -200,7 +191,6 @@ const RegisterStep = ({ accountType}) => {
                                 </div>
                             </div>
                         </div>
-                        {/* </div>b */}
                     </div>
                 </div>
             </div>

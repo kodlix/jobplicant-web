@@ -1,12 +1,13 @@
-import React, {useState, useEffect} from 'react';
-import { useSelector}  from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Dialog } from 'primereact/dialog';
 import BiographyForm from './BiographyForm';
-import {PROFILE} from 'constants/profile';
+import Experience from './Experience';
+import { PROFILE } from 'constants/profile';
 
 import './ModalForm.css';
-import ExperienceForm from './ExperienceForm';
-import ContactInfoForm from './CompanyContactInfoForm';
+import ExperienceForm from './Experience';
+import ContactInfoForm from './ContactInformationForm';
 import EducationForm from './EducationForm';
 import LOIForm from './LocationOfInterestForm';
 import HobbyForm from './HobbiesForm';
@@ -17,7 +18,6 @@ import ProfessionsOfInterest from './ProfessionsOfInterest';
 const ModalForm = ({data, itemToEdit}) => {
     const modalName = useSelector(state => state.modal.name);
     const [name, setName] = useState("");
-  
 
   useEffect(() => {
       setName(modalName);
@@ -36,7 +36,7 @@ const ModalForm = ({data, itemToEdit}) => {
             {name === PROFILE.PROFESSION && <ProfessionsOfInterest  data={data.experiences} itemToEdit={itemToEdit}/>}
 
         </Dialog>
-     );
+    );
 }
- 
-export default ModalForm;  
+
+export default ModalForm;

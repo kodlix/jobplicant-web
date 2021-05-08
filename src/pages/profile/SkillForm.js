@@ -4,8 +4,11 @@ import SectionHeader from './SectionHeader';
 import { Tag } from 'primereact/tag';
 import { Dropdown } from 'primereact/dropdown';
 import ModeFooter from 'pages/profile/ModeFooter';
+import { useDispatch } from 'react-redux';
+import { createSkill } from 'store/modules/userSkill';
 
 const SkillForm = ({ data, closeEditMode }) => {
+  const dispatch = useDispatch()
   const { register, handleSubmit, setValue } = useForm();
 
   const skillsList = [
@@ -65,8 +68,11 @@ const SkillForm = ({ data, closeEditMode }) => {
 
   const skillSubmit = (skill) => {
     console.log(skill);
+    dispatch(createSkill(skill));
     return;
   }
+
+
 
   const componentStatus = { skills: 'add' };
   if (data?.length > 0) {

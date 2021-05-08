@@ -1,3 +1,4 @@
+import request from 'superagent';
 import _superagent from 'superagent';
 import superagentPromise from 'superagent-promise';
 
@@ -123,6 +124,10 @@ const Account = {
     requests.put('/accounts/bio', biography),
    updateExperience: (experience) =>
     requests.put('/accounts/job-experience', experience),
+  updateContactInfo: (contactInfo) =>
+    requests.put('/accounts/contact-info', contactInfo),
+  updateHobies: (hobbies) =>
+    requests.put('/accounts/hobbies', hobbies),
   updateProfilePicture: (image) =>
     requests.put('/account/uploads', image),
   load: (email) => requests.get(`/ account / getbyemail / ${email}`),
@@ -145,11 +150,19 @@ const JobExperience = {
     requests.get(`/job-experience/ ${id}`)
 }
 
+const UserSkill = {
+  save: (userskill) =>
+    request.post('/user-skill', userskill),
+  load: () =>
+    request.get('/user-skill')
+}
+
 const Country = {
   load: () => requests.get('/country'),
 };
 const State = {
-  loadByCountry: (countryid) => requests.get(`/ state / getbycountry / ${countryid}`),
+  loadByCountry: (countryid) =>
+    requests.get(`/state/getbycountry/${countryid}`),
 };
 const Lga = {
   loadByState: (stateid) => requests.get(`/ lga / getbystate / ${stateid}`),
@@ -188,7 +201,6 @@ const Outlet = {
   delete: (id) =>
     requests.del(`/ outlet / ${id}`)
 };
-
 
 const Poll = {
   save: (poll) =>
@@ -233,5 +245,6 @@ export default {
   JobVacancy,
   ScheduleMeeting,
   Poll,
+  UserSkill,
   setToken: _accessToken => { accessToken = -accessToken; },
 };

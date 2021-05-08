@@ -65,6 +65,19 @@
                     }
                 } */
                 
+                .title,
+                .sub-title {
+                    font-weight: bolder;
+                    color: rgb(44, 165, 94);
+                    font-family: serif;
+                    text-decoration: overline;
+                }
+                
+                .bg-color {
+                    background-color: rgb(44, 165, 94);
+                    /* background-color: #5A2846; */
+                }
+                
                 @media screen and (max-width: 767px) {
                     .small-screen {
                         display: none;

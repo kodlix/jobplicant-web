@@ -7,6 +7,7 @@ import ModeFooter from 'pages/profile/ModeFooter';
 import SectionHeader from 'pages/profile/SectionHeader';
 import { Dropdown } from 'primereact/dropdown';
 import { loadCountry, loadStates, loadLga } from 'store/modules/location';
+import { updateCompanyContactInfo } from 'store/modules/account';
 
 const ContactInfoForm = ({ closeEditMode, data }) => {
   const { register, handleSubmit, setValue, trigger, clearErrors, formState: { errors } } = useForm({
@@ -19,29 +20,50 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
   const lgas = useSelector(state => state.location.lgas);
   const [contactInfo, setContactInfo] = useState({});
 
+
   useEffect(() => {
     dispatch(loadCountry());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (data) {
-      dispatch(loadStates(data.country.id));
-      dispatch(loadLga(data.state.id));
-      for (const [key, value] of Object.entries(data)) {
-        setValue(key, value);
-      }
-      setContactInfo(data);
-    }
-    else {
-      for (const [key] of Object.entries(contactInfo)) {
-        setValue(key, null);
-      }
-      setContactInfo({})
-    }
-    clearErrors();
-  }, [data]);
+  const handleCountryChange = (e) => {
+    let conuntryId = e.target.value.id;
+    dispatch(loadStates(conuntryId));
+  }
+
+  const handleStateChange = (e) => {
+    let stateId = e.target.value.id;
+    dispatch(loadLga(stateId));
+  }
 
 
+  // useEffect(() => {
+  //   setContactInfo(d)
+  // },[])
+
+  // useEffect(() => {
+  //   if (data) {
+  //     dispatch(loadStates(data.country.id));
+  //     dispatch(loadLga(data.state.id));
+  //     for (const [key, value] of Object.entries(data)) {
+  //       setValue(key, value);
+  //     }
+  //     setContactInfo(data);
+  //   }
+  //   else {
+  //     for (const [key] of Object.entries(contactInfo)) {
+  //       setValue(key, null);
+  //     }
+  //     setContactInfo({})
+  //   }
+  //   clearErrors();
+  // }, [data]);
+
+
+
+  // const inputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setContactInfo({ ...contactInfo, [name]: value ?? JSON.parse(value) });
+  // }
 
   const inputChange = (e, inputId) => {
     const inputName = inputId && (inputId === "pend") ? inputId : e.target.name;
@@ -49,21 +71,21 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
     setValue(inputName, inputValue,
       { shouldValidate: true }
     )
-    if (inputName === "country" && e.target.value) {
-      //check if country is empty to empty states array in redux
-      dispatch(loadStates(e.target.value.id));
-    }
-    if (inputName === "state" && e.target.value) {
-      //check if state is empty to empty lga array in redux
-      dispatch(loadLga(e.target.value.id));
-    }
+    // if (inputName === "country" && e.target.value) {
+    //   //check if country is empty to empty states array in redux
+    //   dispatch(loadStates(e.target.value.id));
+    //}
+    // if (inputName === "state" && e.target.value) {
+    //   //check if state is empty to empty lga array in redux
+    //   dispatch(loadLga(e.target.value.id));
+    // }
     if (inputName === "phoneNo" && !inputValue) {
       trigger("phoneNo");
     }
-    else if (inputName === "emailAddress" && !inputValue) {
-      trigger("emailAddress");
+    else if (inputName === "email" && !inputValue) {
+      trigger("email");
     }
-    else if (inputName === "phoneNo" || "emailAddress") {
+    else if (inputName === "phoneNo" || "email") {
       trigger();
     }
     const updatedContactInfoObject = Object.assign({}, contactInfo);
@@ -72,7 +94,11 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
   }
 
   const contactInfoSubmit = (data) => {
+    data.lga = "Ifako";
+    data.country = data.country.name;
+    data.state = data.state.name
     console.log(data);
+    dispatch(updateCompanyContactInfo(data));
     return;
   }
 
@@ -84,24 +110,24 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
           <form onSubmit={handleSubmit(contactInfoSubmit)}>
             <span className="skillInput p-mb-4 p-fluid p-formgrid p-grid">
               <div className="p-field p-col-12 p-md-6">
-                <label htmlFor="phoneNo" className="inputLabel p-pr-3">Phone Number
-                  {errors.phoneNo && <small className="text-danger font-weight-bold">&nbsp; {errors.phoneNo.message}</small>}
+                <label htmlFor="phoneNumber" className="inputLabel p-pr-3">Phone Number
+                  {errors.phoneNumber && <small className="text-danger font-weight-bold">&nbsp; {errors.phoneNumber.message}</small>}
                 </label>
-                <InputText name="phoneNo" id="phoneNo" type="number"
-                  {...register("phoneNo",
+                <InputText name="phoneNumber" id="phoneNumber" type="number"
+                  {...register("phoneNumber",
                     { validate: value => value?.length > 0 || contactInfo.emailAddress?.length > 0 || "* Phone Number or Email is required" }
                   )}
                   onChange={(e) => {
-                    inputChange(e, "phoneNo");
+                    inputChange(e, "phoneNumber");
                   }} />
               </div>
               <div className="p-field p-col-12 p-md-6">
-                <label htmlFor="emailAddress" className="inputLabel p-pr-3">Email Address
-                  {errors.emailAddress && <small className="text-danger font-weight-bold">&nbsp;
-                  {errors?.emailAddress?.message}</small>}
+                <label htmlFor="email" className="inputLabel p-pr-3">Email Address
+                  {errors.email && <small className="text-danger font-weight-bold">&nbsp;
+                  {errors?.email?.message}</small>}
                 </label>
-                <InputText name="emailAddress" id="emailAddress" type="email"
-                  {...register("emailAddress",
+                <InputText name="email" id="email" type="email" value={contactInfo.email}
+                  {...register("email",
                     {
                       validate: value => value?.length > 0 || contactInfo.phoneNo?.length > 0 || "* Email or Phone Number is required",
                       pattern: {
@@ -110,21 +136,18 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                       }
                     })}
                   onChange={(e) => {
-                    inputChange(e, "emailAddress")
+                    inputChange(e, "email")
                   }} />
               </div>
               <div className="p-field p-col-12 p-md-4 p-py-0 p-pl-2 p-pr-2">
-                <label htmlFor="LGA" className="inputLabel p-pr-3">LGA *
-                  {errors.LGA && <small className="text-danger font-weight-bold">&nbsp; {errors.LGA.message}</small>}
+                <label htmlFor="lga" className="inputLabel p-pr-3">LGA *
+                  {errors.lga && <small className="text-danger font-weight-bold">&nbsp; {errors.LGA.message}</small>}
                 </label>
                 <Dropdown options={lgas}
                   optionLabel="name" filter showClear filterBy="name"
-                  icon="pi pi-plus" id="LGA" name="LGA" value={contactInfo.LGA}
-                  {...register("LGA",
-                    {
-                      required: ` LGA is required`
-                    }
-                  )} onChange={(e) => inputChange(e)} />
+                  icon="pi pi-plus" id="lga" name="lga" value={contactInfo.lga}
+                  {...register("lga", {})}
+                  onChange={(e) => inputChange(e)} />
               </div>
               <div className="p-field p-col-12 p-md-4 p-py-0 p-pl-2 p-pr-2">
                 <label htmlFor="state" className="inputLabel p-pr-3">State *
@@ -136,7 +159,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                     {
                       required: ` State is required`
                     }
-                  )} onChange={(e) => inputChange(e)} />
+                  )} onChange={(e) => { inputChange(e, "state"); handleStateChange(e) }} />
               </div>
               <div className="p-field p-col-12 p-md-4 p-py-0 p-pl-2 p-pr-2">
                 <label htmlFor="country" className="inputLabel p-pr-3">Country *
@@ -148,7 +171,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                     {
                       required: ` Country is required`
                     }
-                  )} onChange={(e) => inputChange(e)} />
+                  )} onChange={(e) => { inputChange(e, "country"); handleCountryChange(e) }} />
               </div>
               <div className="p-field p-col-12 p-md-4 p-py-0 p-pl-2 p-pr-2" >
                 <label htmlFor="postalCode" className="inputLabel p-pr-3">Postal Code *
@@ -176,7 +199,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
             <div>
             </div>
             <ModeFooter id="contactInfoEdit" onCancel={closeEditMode} />
-            
+
           </form>
         </div>
       </div>

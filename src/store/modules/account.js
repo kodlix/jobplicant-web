@@ -1,8 +1,8 @@
-import {push} from "connected-react-router";
-import {showMessage} from './notification';
+import { push } from "connected-react-router";
+import { showMessage } from './notification';
 import agent from "../../services/agent.service";
-import {MESSAGE_TYPE} from '../constant'
-import {loadLga, loadStates} from "./location";
+import { MESSAGE_TYPE } from '../constant'
+import { loadLga, loadStates } from "./location";
 import { closeModal } from "./modal";
 
 // initial values
@@ -19,12 +19,13 @@ const account = {
         phoneNumber: "",
         profile: "",
         accountType: "",
-        dateOfBirth:"",
+        dateOfBirth: "",
         hobbies: [],
-        interests:[],
+        interests: [],
         state: "",
         city: "",
         lga: "",
+        postalCode: "",
         country: "",
         skills: [],
         experiences: [],
@@ -42,9 +43,9 @@ const LOAD_PROFILE_INFO = 'app/account/LOAD_PROFILE_INFO';
 export default function reducer(state = account, action = {}) {
     switch (action.type) {
         case LOAD_PROFILE_INFO: return {
-                ...state,
-                profileInfo: action.payload
-            };
+            ...state,
+            profileInfo: action.payload
+        };
         default:
             return state
     }
@@ -52,7 +53,7 @@ export default function reducer(state = account, action = {}) {
 
 // Action Creators
 export function profileInfoLoaded(data) {
-    return {type: LOAD_PROFILE_INFO, payload: data};
+    return { type: LOAD_PROFILE_INFO, payload: data };
 }
 
 // Actions
@@ -60,7 +61,7 @@ export function loadProfileInfo() {
     return dispatch => {
         return agent.Account.getProfileInfo().then(response => {
             dispatch(profileInfoLoaded(response));
-            dispatch(showMessage({type: MESSAGE_TYPE.SUCCESS, title: "Profile Information",  message: ("Profile info loaded successfully")}));
+            dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, title: "Profile Information", message: ("Profile info loaded successfully") }));
         });
     }
 }
@@ -85,10 +86,39 @@ export function updateExperience(experience) {
             dispatch(profileInfoLoaded(response));
             dispatch(closeModal());
             dispatch(showMessage({type: MESSAGE_TYPE.SUCCESS, title: "Update Profile Information",  message: ("Job experience saved successfully")}));
+            dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, title: "Update Profile Information", message: ("Biography updated successfully") }));
         },
-        error => { // handle error
-            dispatch(showMessage({type: "error", message: error}));
-        }
+            error => { // handle error
+                dispatch(showMessage({ type: "error", message: error }));
+            }
+        );
+    }
+}
+
+export function updateContactInfo(data) {
+    return dispatch => {
+        return agent.Account.updateContactInfo(data).then(response => {
+            dispatch(profileInfoLoaded(response));
+            dispatch(closeModal());
+            dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, title: "Update Profile Information", message: ("Contact information updated successfully") }));
+        },
+            error => { // handle error
+                dispatch(showMessage({ type: "error", message: error }));
+            }
+        );
+    }
+}
+
+export function updateUserHobies(hobbies) {
+    return dispatch => {
+        return agent.Account.updateHobies(hobbies).then(response => {
+            dispatch(profileInfoLoaded(response));
+            dispatch(closeModal());
+            dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, title: "Update Profile Information", message: ("Hobbies updated successfully") }));
+        },
+            error => { // handle error
+                dispatch(showMessage({ type: "error", message: error }));
+            }
         );
     }
 }
@@ -96,9 +126,9 @@ export function updateExperience(experience) {
 export function updateProfilePicture(image) {
     return dispatch => {
         return agent.Account.updateProfilePicture(image).then(response => { // handle success
-            dispatch(showMessage({type: MESSAGE_TYPE.SUCCESS, message: ("Profile image successfully updated")}));
+            dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: ("Profile image successfully updated") }));
         }, error => { // handle error
-            dispatch(showMessage({type: "error", message: error}));
+            dispatch(showMessage({ type: "error", message: error }));
         });
     }
 }
@@ -109,7 +139,7 @@ export function loadAccountByUser(id) {
             // dispatch(LoadProfileDataByUser(response))
 
         }, error => { // handle error
-            dispatch(showMessage({type: "error", message: error}));
+            dispatch(showMessage({ type: "error", message: error }));
         });
     }
 }

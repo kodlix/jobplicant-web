@@ -29,8 +29,29 @@ const ForgotPassword = () => {
         <>
             <div className="p-fluid">
                 <div className="p-grid p-mx-0">
-                    <div className="p-col-12 p-md-7 p-lg-8 jobplicant-panel-left p-p-0 small-screen">
-                        <div className="p-col bgimage">
+                    <div className="p-col-12 p-md-7 p-lg-8 jobplicant-panel-left login-pane-left p-p-5 small-screen">
+                        {/* <div className="p-col bgimage">
+                        </div> */}
+                        <div className="left-content">
+                            <div><h1 className="p-mb-0  p-text-center title">Joplicant Home for all</h1></div>
+                            <div>
+                                <div>
+                                    <p> <h2 className="p-text-center sub-title"> Job seekers, Artisan, Employer</h2></p>
+                                </div>
+                                <section className="about font-weight-bold p-mt-4 p-mb-4">
+                                    <ul>
+                                        <li>Artisans meets employers</li>
+                                        <li> You need to get a skilled worker for that urgent need? not too worry,</li>
+                                        <li> Employeers find employees you need to get a skilled worker for that urgent need? not too worry,</li>
+                                        <li>Employees find the right jobs you need to get a skilled worker for that urgent need? not too worry,</li>
+                                    </ul>
+                                </section>
+                            </div>
+                            <div>
+                                <div className="font-weight-bold">
+                                    <p>You need to get a skilled worker for that urgent need? not too worry, Instant Job Hire is all you need to connect to the right person within you.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className="p-col-12 p-md-5 p-lg-4 jobplicant-panel-right">
