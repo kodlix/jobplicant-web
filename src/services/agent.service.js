@@ -4,7 +4,7 @@ import superagentPromise from 'superagent-promise';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-export const API_ROOT = 'http://localhost:8080';
+export const API_ROOT = process.env.NODE_ENV === "development" ? (process.env.API_ROOT_LOCAL || 'http://localhost:8080') : process.env.API_ROOT_PROD;
 export const IMAGE_URL = API_ROOT + '/account/uploads/';
 
 let accessToken = null;

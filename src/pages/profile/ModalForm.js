@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Dialog } from 'primereact/dialog';
 import BiographyForm from './BiographyForm';
-import Experience from './Experience';
-import { PROFILE } from 'constants/profile';
+import {PROFILE} from 'constants/profile';
 
 import './ModalForm.css';
-import ExperienceForm from './Experience';
+import ExperienceForm from './ExperienceForm';
 import ContactInfoForm from './ContactInformationForm';
 import EducationForm from './EducationForm';
 import LOIForm from './LocationOfInterestForm';

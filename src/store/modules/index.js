@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router';
 import auth from './auth';
 import notification from "./notification";
 import account from './account';

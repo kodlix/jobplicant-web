@@ -108,7 +108,7 @@ export function loginUser({ email, password, type }) {
     return agent.Auth.login(email, password, type).then(response => { // handle success
       dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "login successful" }));
       onLogin(dispatch, response);
-      dispatch(push("/userprofile"));
+      dispatch(push("/profile-info"));
     }, error => { // handle error
       dispatch(showMessage({ type: "error", message: error }));
     });
