@@ -50,16 +50,16 @@ const {
   }
 
   const inputChange = (e, inputId) => {
-    // const inputName =
-    //   inputId && (inputId === 'startDate' || 'endDate')
-    //     ? inputId
-    //     : e.target.name
-    // const inputValue =
-    //   inputId && (inputId === 'startDate' || 'endDate')
-    //     ? e.value
-    //     : e.target.value
-    // const updatedExperienceObject = Object.assign({}, experience)
-    // updatedExperienceObject[inputName] = inputValue
+    const inputName =
+      inputId && (inputId === 'startDate' || 'endDate')
+        ? inputId
+        : e.target.name
+    const inputValue =
+      inputId && (inputId === 'startDate' || 'endDate')
+        ? e.value
+        : e.target.value
+    const updatedExperienceObject = Object.assign({}, experience)
+     updatedExperienceObject[inputName] = inputValue
     setExperience({...experience, ...updatedExperienceObject})
     setValue(inputName, inputValue, { shouldValidate: true })
   }
