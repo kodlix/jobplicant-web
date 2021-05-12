@@ -65,7 +65,7 @@ const AppRouter = () => {
         <ProtectedRoute path="/profile-info" exact component={UserProfile} />
         {/* <ProtectedRoute path="/companyprofile" component={CompanyProfile} /> */}
         <ProtectedRoute path="/dashboard" component={Dashboard} />
-        <AnonymousRoute path="/newinstancejobhire" component={CreateInstanceJobHire} />
+        <ProtectedRoute path="/newinstancejobhire" component={CreateInstanceJobHire} />
         <AnonymousRoute path="/listinstancejobhire" component={ListInstanceJobHire} />
         <AnonymousRoute path="/instancejobhire/view/:id" component={ViewInstanceJobHire} />
         <AnonymousRoute path="/instancejobhire/edit/:id" component={EditInstanceJobHire} />

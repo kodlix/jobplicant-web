@@ -16,33 +16,24 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
   });
   const dispatch = useDispatch();
   const countries = useSelector(state => state.location.countries);
-  const states = useSelector(state => state.location.states);
-  const lgas = useSelector(state => state.location.lgas);
   const [contactInfo, setContactInfo] = useState({});
   const profileInfo = useSelector(state => state.account.profileInfo);
-  const [selectCountry, setSelectedCountry] = useState("null");
-
 
 
   useEffect(() => {
     dispatch(loadCountry());
   }, [dispatch]);
 
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
-    setSelectedCountry({ ...selectCountry, [name]: value ?? JSON.parse(value) });
-  }
 
   useEffect(() => {
     if (profileInfo) {
+      setContactInfo({ ...profileInfo, country: profileInfo.country });
+
       for (const [key, value] of Object.entries(profileInfo)) {
         setValue(key, value);
         setValue('phoneNumber', profileInfo.contactPhoneNumber);
-        setValue('country', profileInfo.country);
-
 
       }
-      setContactInfo(profileInfo);
     }
     else {
       for (const [key] of Object.entries(contactInfo)) {
@@ -53,35 +44,42 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
     clearErrors();
   }, [profileInfo]);
 
+  const { phoneNumber, email, country, city, postalCode, address } = contactInfo;
 
 
-  const inputChange = (e, inputId) => {
-    const inputName = inputId && (inputId === "pend") ? inputId : e.target.name;
-    const inputValue = inputId && (inputId === "pend") ? e.value : e.target.value;
-    setValue(inputName, inputValue,
-      { shouldValidate: true }
-    )
-    // if (inputName === "country" && e.target.value) {
-    //   //check if country is empty to empty states array in redux
-    //   dispatch(loadStates(e.target.value.id));
-    // }
-    if (inputName === "phoneNumber" && !inputValue) {
-      trigger("phoneNumber");
-    }
-    else if (inputName === "email" && !inputValue) {
-      trigger("email");
-    }
-    else if (inputName === "phoneNumber" || "email") {
-      trigger();
-    }
-    const updatedContactInfoObject = Object.assign({}, contactInfo);
-    updatedContactInfoObject[inputName] = inputValue;
-    setContactInfo(updatedContactInfoObject);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    const contactData = { ...contactInfo, [name]: value };
+    setContactInfo(contactData);
   }
+
+  // const inputChange = (e, inputId) => {
+  //   const inputName = inputId && (inputId === "pend") ? inputId : e.target.name;
+  //   const inputValue = inputId && (inputId === "pend") ? e.value : e.target.value;
+  //   setValue(inputName, inputValue,
+  //     { shouldValidate: true }
+  //   )
+  //   if (inputName === "country" && e.target.value.id) {
+  //     //check if country is empty to empty states array in redux
+  //     dispatch(loadCountry(e.target.value.id));
+  //   }
+  //   if (inputName === "phoneNumber" && !inputValue) {
+  //     trigger("phoneNumber");
+  //   }
+  //   else if (inputName === "email" && !inputValue) {
+  //     trigger("email");
+  //   }
+  //   else if (inputName === "phoneNumber" || "email") {
+  //     trigger();
+  //   }
+  //   const updatedContactInfoObject = Object.assign({}, contactInfo);
+  //   updatedContactInfoObject[inputName] = inputValue;
+  //   setContactInfo(updatedContactInfoObject);
+  // }
+
 
   const contactInfoSubmit = (data) => {
 
-    data.country = data.country.name;
     dispatch(updateContactInfo(data))
     return;
   }
@@ -99,11 +97,9 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                 </label>
                 <InputText name="phoneNumber" id="phoneNumber" type="number"
                   {...register("phoneNumber",
-                    { validate: value => value?.length > 0 || contactInfo.emailAddress?.length > 0 || "* Phone Number is required" }
+                    { validate: value => value?.length > 0 || email?.length > 0 || "* Phone Number is required" }
                   )}
-                  onChange={(e) => {
-                    inputChange(e, "phoneNumber");
-                  }} />
+                  onChange={handleChange} />
               </div>
               <div className="p-field p-col-12 p-md-6">
                 <label htmlFor="email" className="inputLabel p-pr-3">Email Address
@@ -113,15 +109,13 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                 <InputText name="email" id="email" type="email"
                   {...register("email",
                     {
-                      validate: value => value?.length > 0 || contactInfo.phoneNo?.length > 0 || "* Email is required",
+                      validate: value => value?.length > 0 || phoneNumber?.length > 0 || "* Email is required",
                       pattern: {
                         value: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                         message: "* Entered value does not match email format"
                       }
                     })}
-                  onChange={(e) => {
-                    inputChange(e, "email")
-                  }} />
+                  onChange={handleChange} />
               </div>
 
               <div className="p-field p-col-12 p-md-4 p-py-0 p-pl-2 p-pr-2">
@@ -132,10 +126,10 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                 <select id="country"
                   className="form-control"
                   name="country"
-                  value={selectCountry?.country}
+                  value={country}
                   // onChange={(e) => handleOnChange(e)}
-                  onChange={(e) => inputChange(e, "country")}
-                  {...register("country", { required: true })}
+                  onChange={handleChange}
+                  {...register("country")}
 
                 >
                   <option value="">Select Country</option>
@@ -145,13 +139,12 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
 
                 </select>
 
-                {/* <Dropdown options={countries}
+                {/* {countries.length > 0 ? <Dropdown options={countries}
                   optionLabel="name" filter showClear filterBy="name"
-                  icon="pi pi-plus" id="country" name="country" value={contactInfo.country}  {...register("country",
-                    {
-                      required: ` Country is required`
-                    }
-                  )} onChange={(e) => inputChange(e, "country")} /> */}
+                  icon="pi pi-plus" id="country" name="country" value={country}
+                  defaultValue={country} selected={country}
+                  {...register("country", { required: ` Country is required` })}
+                  onChange={handleChange} /> : <div>Loading countries</div>} */}
               </div>
 
 
@@ -160,12 +153,12 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                 <label htmlFor="city" className="inputLabel p-pr-3">City *
                   {errors.city && <small className="text-danger font-weight-bold">&nbsp; {errors.city.message}</small>}
                 </label>
-                <InputText options={states}
-                  optionLabel="name" filter showClear filterBy="name"
-                  icon="pi pi-plus" id="city" name="city" value={contactInfo.city}
+                <InputText
+                  optionLabel="name"
+                  icon="pi pi-plus" id="city" name="city" value={city}
                   placeholder="City"
                   {...register("city", { required: ` City is required` })}
-                  onChange={(e) => inputChange(e, "city")} />
+                  onChange={handleChange} />
               </div>
 
               <div className="p-field p-col-12 p-md-4 p-py-0 p-pl-2 p-pr-2" >
@@ -173,18 +166,23 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                   {errors.postalCode && <span className="text-danger font-weight-bold">&nbsp; {errors.postalCode.message}</span>}
                 </label>
                 <InputText id="postalCode" type="text" placeholder="Postal Code"
-                  {...register("postalCode", {})} onChange={(e) => inputChange(e)} />
+                  {...register("postalCode", {})} onChange={handleChange} />
               </div>
+
               <div className="p-field p-col-12 p-md-12">
                 <label htmlFor="address" className="inputLabel">Address *
                   {errors.address && <span className="text-danger font-weight-bold">&nbsp; {errors.address.message}</span>}
                 </label>
-                <InputTextarea id="address" type="text" rows="2" className="inputField" placeholder="Address" name="address" value={contactInfo.address}
-                  {...register("address",
-                    {
-                      required: ` Address is required`,
-                    }
-                  )} onChange={(e) => inputChange(e)} />
+                <InputTextarea
+                  id="address"
+                  type="text"
+                  rows="2"
+                  className="inputField"
+                  placeholder="Address"
+                  name="address"
+                  value={address}
+                  {...register("address")}
+                  onChange={handleChange} />
               </div>
             </span>
             <div>
