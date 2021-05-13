@@ -44,7 +44,7 @@ const UserProfile = () => {
 
   return (
     <>
-      <div class='d-flex flex-column'>
+      <div className='d-flex flex-column'>
         <AppNavBar />
         {/* <div className='portfolioItem-container'>
           <img
@@ -99,22 +99,22 @@ const UserProfile = () => {
               <div className='p-col-12 p-md-9 content-smallscreen'>
                 <div className='content-tab'>
                   <button>
-                    <i className='pi pi-info-circle'></i>
+                    <i className='pi pi-info-circle text-white'></i>
                     <div className='tab-titles'>Info</div>
                   </button>
                   <button>
-                    <i className='pi pi-briefcase'></i>
+                    <i className='pi pi-briefcase text-white' ></i>
                     <div className='tab-titles'>Jobs</div>
                   </button>
                   <button>
-                    <i className='pi pi-user'></i>
+                    <i className='pi pi-user text-white'></i>
                     <div className='tab-titles'>Contacts</div>
                   </button>
                   <button>
-                    <i className='pi pi-users'></i>
+                    <i className='pi pi-users text-white'></i>
                     <div className='tab-titles'>Groups</div>
                   </button>
-                  <button className='tab-portfolio'>
+                  <button className='tab-portfolio text-white'>
                     <i className='pi pi-images'></i>
                     <div className='tab-titles'>Portfolio</div>
                   </button>
@@ -147,32 +147,32 @@ const UserProfile = () => {
                           showAddButton='true'
                           openModalOnCreate={() => openCreate(PROFILE.EXPERIENCE)}
                           openModalOnEdit={() => openEdit(PROFILE.EXPERIENCE)}
-                          />
+                        />
                         {
-                          profileInfo.experiences.map((item, index) => 
-                          <span>
-                          <div className='p-card-subtitle p-ml-3 p-mb-0 mainTitle'>
+                          profileInfo.experiences.map((item, index) =>
                             <span>
-                              <b>{item.jobTitle}</b>&nbsp;
+                              <div className='p-card-subtitle p-ml-3 p-mb-0 mainTitle'>
+                                <span>
+                                  <b>{item.jobTitle}</b>&nbsp;
                               at
                               &nbsp;<b className='experienceCompany'>{item.company}</b>
-                            </span>
-                            <i
-                              className='pi pi-pencil icon-edit'
-                              onClick={() => openEdit(PROFILE.EXPERIENCE, item)}
-                              id='experienceEdit'
-                            ></i>
-                          </div>
-                          <div className='p-card-subtitle p-ml-3'>
-                            <b>
-                              <small>({item.startDate} - {item.endDate || 'present'})</small>
-                            </b>
-                          </div>
-                          <div className='p-card-body p-text-secondary'>
-                           {item.description}
-                          </div>
-                        </span>)
-                        }                       
+                                </span>
+                                <i
+                                  className='pi pi-pencil icon-edit'
+                                  onClick={() => openEdit(PROFILE.EXPERIENCE, item)}
+                                  id='experienceEdit'
+                                ></i>
+                              </div>
+                              <div className='p-card-subtitle p-ml-3'>
+                                <b>
+                                  <small>({item.startDate} - {item.endDate || 'present'})</small>
+                                </b>
+                              </div>
+                              <div className='p-card-body p-text-secondary'>
+                                {item.description}
+                              </div>
+                            </span>)
+                        }
                       </div>
                       <div className='p-card p-mt-2'>
                         <SectionHeader
@@ -419,7 +419,7 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-      <ModalForm  data={profileInfo} mode={mode} itemToEdit={itemToEdit}/>
+      <ModalForm data={profileInfo} mode={mode} itemToEdit={itemToEdit} />
     </>
   )
 }

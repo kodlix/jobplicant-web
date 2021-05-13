@@ -1,54 +1,29 @@
-.login-pane-right {
-    min-height: 70vh;
+.card-size {
+    width: 36vw;
+    margin: auto;
 }
 
-@media screen and (max-width: 767px) {
-    .sendsms {
-        margin-right: 48vw;
-    }
-    .confirmbtn {
-        margin-left: 7vw;
-    }
-    .message {
-        margin-bottom: 6vh;
-        color: #5A2846;
-        ;
-    }
-    .small-screen {
-        display: none;
-    }
-    .login-pane-left {
-        min-height: 30vh;
-        max-height: 30vh;
-    }
-    .login-pane-right {
-        padding: 30px;
-    }
+.header-color {
+    background-color: rgb(44, 165, 94);
 }
 
 .appcolor {
     background-color: #5A2846;
 }
 
-.app-color {
+.text-color {
     color: #5A2846;
 }
 
-.left-content {
-    /* margin: 60px; */
-    margin-top: 4vh;
-    /* color: white; */
-}
-
-.login-pane-left {
-    background-color: #5A2846;
-}
-
-.label {
-    display: inline;
-}
-
-.card-size {
-    width: 36vw;
-    margin: auto;
+@media screen and (max-width: 767px) {
+    .message {
+        margin-bottom: 6vh;
+        color: #5A2846;
+        ;
+    }
+    .card-size {
+        width: 90%;
+        margin: auto;
+        margin-top: 6vh;
+    }
 }

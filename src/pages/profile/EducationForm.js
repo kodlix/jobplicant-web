@@ -47,7 +47,7 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode }) => {
       educationFromDb.yearOfGraduation = new Date(educationFromDb.yearOfGraduation);
       setEducation(educationFromDb);
     }
-  }, [componentStatus.educationEdit]);
+  }, [componentStatus?.educationEdit]);
 
   const inputChange = (e, name) => {
     const inputName = name && (name === "yearOfGraduation") ? name : e.target.name;

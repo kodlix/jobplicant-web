@@ -57,19 +57,19 @@ const AppRouter = () => {
         <AnonymousRoute path="/forgotpassword" exact component={ForgotPassword} />
         <AnonymousRoute path="/recoverbynumber" exact component={RecoverByNumber} />
         <AnonymousRoute path="/recoverbyemail" exact component={RecoverByEmail} />
-
         <AnonymousRoute path="/reset" exact component={NewPassword} />
+
         <ProtectedRoute path="/pagenotfound" exact component={PageNotFound} />
         <ProtectedRoute path="/internalservererror" component={InternalServerError} />
         <ProtectedRoute path="/badrequest" component={BadRequest} />
         <ProtectedRoute path="/profile-info" exact component={UserProfile} />
         {/* <ProtectedRoute path="/companyprofile" component={CompanyProfile} /> */}
         <ProtectedRoute path="/dashboard" component={Dashboard} />
-        <AnonymousRoute path="/newinstancejobhire" component={CreateInstanceJobHire} />
-        <AnonymousRoute path="/listinstancejobhire" component={ListInstanceJobHire} />
-        <AnonymousRoute path="/instancejobhire/view/:id" component={ViewInstanceJobHire} />
-        <AnonymousRoute path="/instancejobhire/edit/:id" component={EditInstanceJobHire} />
-        <AnonymousRoute path="/applicant" component={Applicant} />
+        <ProtectedRoute path="/newinstancejobhire" component={CreateInstanceJobHire} />
+        <ProtectedRoute path="/listinstancejobhire" component={ListInstanceJobHire} />
+        <ProtectedRoute path="/instancejobhire/view/:id" component={ViewInstanceJobHire} />
+        <ProtectedRoute path="/instancejobhire/edit/:id" component={EditInstanceJobHire} />
+        <ProtectedRoute path="/applicant" component={Applicant} />
 
 
 
