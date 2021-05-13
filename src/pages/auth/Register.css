@@ -29,7 +29,7 @@
                 
                 .left-content {
                     margin: 60px;
-                    margin-top: 24vh;
+                    margin-top: 8vh;
                     color: white;
                 }
                 
@@ -49,21 +49,11 @@
                 .app-color {
                     color: #5A2846;
                 }
-                /*                 
-                @media screen and (max-width: 767px) {
-                    .small-screen {
-                        display: none;
-                    }
-                    .sm-page-title {
-                        margin: 2vh 0 5vh 0;
-                    }
-                    .jobplicant-logo {
-                        margin: 4vh 0;
-                    }
-                    .sm-signup-bnt {
-                        margin: 2vh 0;
-                    }
-                } */
+                
+                .appcolor {
+                    background-color: #5A2846;
+                    color: #fff;
+                }
                 
                 .title,
                 .sub-title {
@@ -73,9 +63,8 @@
                     text-decoration: overline;
                 }
                 
-                .bg-color {
+                .header-color {
                     background-color: rgb(44, 165, 94);
-                    /* background-color: #5A2846; */
                 }
                 
                 @media screen and (max-width: 767px) {
@@ -97,5 +86,14 @@
                     }
                     .sm-signup-bnt {
                         margin: 2vh 0;
+                    }
+                    .left-content {
+                        margin: auto;
+                        margin-top: 8vh;
+                        color: #fff;
+                        width: 90%;
+                    }
+                    .sm-height {
+                        min-height: '101vh';
                     }
                 }

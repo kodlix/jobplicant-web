@@ -2,32 +2,16 @@
     min-height: 70vh;
 }
 
-@media screen and (max-width: 767px) {
-    .sendsms {
-        margin-right: 48vw;
-    }
-    .confirmbtn {
-        margin-left: 7vw;
-    }
-    .message {
-        margin-bottom: 6vh;
-        color: #5A2846;
-        ;
-    }
-    .small-screen {
-        display: none;
-    }
-    .login-pane-left {
-        min-height: 30vh;
-        max-height: 30vh;
-    }
-    .login-pane-right {
-        padding: 30px;
-    }
-}
-
 .appcolor {
     background-color: #5A2846;
+}
+
+.header-color {
+    background-color: rgb(44, 165, 94);
+}
+
+.bgcolor {
+    background-color: rgb(246, 249, 252);
 }
 
 .app-color {
@@ -36,10 +20,6 @@
 
 .left-content {
     margin-top: 4vh;
-}
-
-.login-pane-left {
-    background-color: #5A2846;
 }
 
 .label {
@@ -86,14 +66,39 @@
     padding-bottom: 20px;
 }
 
-
-/* Dropdown styles */
-
-
-/* .dropdown-demo .p-dropdown {
-    width: 14rem;
+.create-form {
+    width: 60;
+    margin: auto;
 }
 
-.dropdown-demo .country-item-value img.flag {
-    width: 17px;
-} */
+@media screen and (max-width: 767px) {
+    .sendsms {
+        margin-right: 48vw;
+    }
+    .confirmbtn {
+        margin-left: 7vw;
+    }
+    .message {
+        margin-bottom: 6vh;
+        color: #5A2846;
+        ;
+    }
+    .small-screen {
+        display: none;
+    }
+    /* left .login-pane-left {
+        min-height: 30vh;
+        max-height: 30vh;
+    } */
+    .login-pane-right {
+        padding: 30px;
+    }
+    .card-size {
+        width: 90%;
+        margin: auto;
+    }
+    .card-size-list {
+        width: 90%;
+        margin: auto;
+    }
+}

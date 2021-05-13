@@ -99,22 +99,22 @@ const UserProfile = () => {
               <div className='p-col-12 p-md-9 content-smallscreen'>
                 <div className='content-tab'>
                   <button>
-                    <i className='pi pi-info-circle'></i>
+                    <i className='pi pi-info-circle text-white'></i>
                     <div className='tab-titles'>Info</div>
                   </button>
                   <button>
-                    <i className='pi pi-briefcase'></i>
+                    <i className='pi pi-briefcase text-white' ></i>
                     <div className='tab-titles'>Jobs</div>
                   </button>
                   <button>
-                    <i className='pi pi-user'></i>
+                    <i className='pi pi-user text-white'></i>
                     <div className='tab-titles'>Contacts</div>
                   </button>
                   <button>
-                    <i className='pi pi-users'></i>
+                    <i className='pi pi-users text-white'></i>
                     <div className='tab-titles'>Groups</div>
                   </button>
-                  <button className='tab-portfolio'>
+                  <button className='tab-portfolio text-white'>
                     <i className='pi pi-images'></i>
                     <div className='tab-titles'>Portfolio</div>
                   </button>
