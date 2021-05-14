@@ -12,234 +12,234 @@ const Dashboard = () => {
     }
     return (
         <>
-            <div class="d-flex flex-column">
+            <div className="d-flex flex-column">
                 <AppNavBar />
-                <div class="manage-jobs section">
-                    <div class="container">
-                        <div class="alerts-inner">
-                            <div class="row">
+                <div className="manage-jobs section">
+                    <div className="container">
+                        <div className="alerts-inner">
+                            <div className="row">
 
-                                <div class="col-lg-4 col-12">
-                                    <div class="dashbord-sidebar">
+                                <div className="col-lg-4 col-12">
+                                    <div className="dashbord-sidebar">
                                         <ul>
-                                            <li class="heading">Manage Account</li>
+                                            <li className="heading">Manage Account</li>
                                             <li>
-                                                <a href="resume.html">
-                                                    <i class="lni lni-clipboard"></i>
+                                                <a href="/">
+                                                    <i className="lni lni-clipboard"></i>
                                                     My Resume</a>
                                             </li>
                                             <li>
-                                                <a href="bookmarked.html">
-                                                    <i class="lni lni-bookmark"></i>
+                                                <a href="/">
+                                                    <i className="lni lni-bookmark"></i>
                                                     Bookmarked Jobs</a>
                                             </li>
                                             <li>
-                                                <a href="notifications.html">
-                                                    <i class="lni lni-alarm"></i>
+                                                <a href="/">
+                                                    <i className="lni lni-alarm"></i>
                                                     Notifications
-                                                    <span class="notifi">5</span>
+                                                    <span className="notifi">5</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="manage-applications.html">
-                                                    <i class="lni lni-envelope"></i>
+                                                <a href="/">
+                                                    <i className="lni lni-envelope"></i>
                                                     Manage
                                                                         Applications</a>
                                             </li>
                                             <li>
-                                                <a class="active" href="manage-jobs.html">
-                                                    <i class="lni lni-briefcase"></i>
+                                                <a className="active" href="/">
+                                                    <i className="lni lni-briefcase"></i>
                                                     Manage
                                                                         Jobs</a>
                                             </li>
                                             <li>
-                                                <a href="change-password.html">
-                                                    <i class="lni lni-lock"></i>
+                                                <a href="/">
+                                                    <i className="lni lni-lock"></i>
                                                     Change Password</a>
                                             </li>
                                             <li>
                                                 <span className="text-primary pointer" onClick={LogOut}>
-                                                    <i class="lni lni-upload"></i>
+                                                    <i className="lni lni-upload"></i>
                                                     Sign Out</span>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
 
-                                <div class="col-lg-8 col-12">
-                                    <div class="job-items">
-                                        <div class="manage-list">
-                                            <div class="row">
-                                                <div class="col-lg-3 col-md-3 col-12">
+                                <div className="col-lg-8 col-12">
+                                    <div className="job-items">
+                                        <div className="manage-list">
+                                            <div className="row">
+                                                <div className="col-lg-3 col-md-3 col-12">
                                                     <p>Name</p>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-12">
+                                                <div className="col-lg-3 col-md-3 col-12">
                                                     <p>Contract Type</p>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-12">
+                                                <div className="col-lg-3 col-md-3 col-12">
                                                     <p>Candidates</p>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-12">
+                                                <div className="col-lg-3 col-md-3 col-12">
                                                     <p>Featured</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="manage-content">
-                                            <div class="row align-items-center justify-content-center">
-                                                <div class="col-lg-3 col-md-3 col-12">
+                                        <div className="manage-content">
+                                            <div className="row align-items-center justify-content-center">
+                                                <div className="col-lg-3 col-md-3 col-12">
                                                     <h3>Web Designer</h3>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-12">
+                                                <div className="col-lg-3 col-md-3 col-12">
                                                     <p>
-                                                        <span class="time">Full-Time</span>
+                                                        <span className="time">Full-Time</span>
                                                     </p>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-12">
-                                                    <div class="can-img">
-                                                        <a href="#"><img src="assets/images/jobs/candidates.png" alt="#" /></a>
+                                                <div className="col-lg-3 col-md-3 col-12">
+                                                    <div className="can-img">
+                                                        <a href="/"><img src="assets/images/jobs/candidates.png" alt="#" /></a>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-12">
+                                                <div className="col-lg-3 col-md-3 col-12">
                                                     <p>
-                                                        <i class="lni lni-star"></i>
+                                                        <i className="lni lni-star"></i>
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="manage-content">
-                                            <div class="row align-items-center justify-content-center">
-                                                <div class="col-lg-3 col-md-3 col-12">
+                                        <div className="manage-content">
+                                            <div className="row align-items-center justify-content-center">
+                                                <div className="col-lg-3 col-md-3 col-12">
                                                     <h3>UI/UX designer</h3>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-12">
+                                                <div className="col-lg-3 col-md-3 col-12">
                                                     <p>
-                                                        <span class="time">Full-Time</span>
+                                                        <span className="time">Full-Time</span>
                                                     </p>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-12">
-                                                    <div class="can-img">
-                                                        <a href="#"><img src="assets/images/jobs/candidates.png" alt="#" /></a>
+                                                <div className="col-lg-3 col-md-3 col-12">
+                                                    <div className="can-img">
+                                                        <a href="/"><img src="assets/images/jobs/candidates.png" alt="#" /></a>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-12">
+                                                <div className="col-lg-3 col-md-3 col-12">
                                                     <p>
-                                                        <i class="lni lni-star"></i>
+                                                        <i className="lni lni-star"></i>
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="manage-content">
-                                            <div class="row align-items-center justify-content-center">
-                                                <div class="col-lg-3 col-md-3 col-12">
+                                        <div className="manage-content">
+                                            <div className="row align-items-center justify-content-center">
+                                                <div className="col-lg-3 col-md-3 col-12">
                                                     <h3>Developer</h3>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-12">
+                                                <div className="col-lg-3 col-md-3 col-12">
                                                     <p>
-                                                        <span class="time">Full-Time</span>
+                                                        <span className="time">Full-Time</span>
                                                     </p>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-12">
-                                                    <div class="can-img">
-                                                        <a href="#"><img src="assets/images/jobs/candidates.png" alt="#" /></a>
+                                                <div className="col-lg-3 col-md-3 col-12">
+                                                    <div className="can-img">
+                                                        <a href="/"><img src="assets/images/jobs/candidates.png" alt="#" /></a>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-12">
+                                                <div className="col-lg-3 col-md-3 col-12">
                                                     <p>
-                                                        <i class="lni lni-star"></i>
+                                                        <i className="lni lni-star"></i>
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="manage-content">
-                                            <div class="row align-items-center justify-content-center">
-                                                <div class="col-lg-3 col-md-3 col-12">
+                                        <div className="manage-content">
+                                            <div className="row align-items-center justify-content-center">
+                                                <div className="col-lg-3 col-md-3 col-12">
                                                     <h3>Senior UX Designer</h3>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-12">
+                                                <div className="col-lg-3 col-md-3 col-12">
                                                     <p>
-                                                        <span class="time">Full-Time</span>
+                                                        <span className="time">Full-Time</span>
                                                     </p>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-12">
-                                                    <div class="can-img">
-                                                        <a href="#"><img src="assets/images/jobs/candidates.png" alt="#" /></a>
+                                                <div className="col-lg-3 col-md-3 col-12">
+                                                    <div className="can-img">
+                                                        <a href="/"><img src="assets/images/jobs/candidates.png" alt="#" /></a>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-12">
+                                                <div className="col-lg-3 col-md-3 col-12">
                                                     <p>
-                                                        <i class="lni lni-star"></i>
+                                                        <i className="lni lni-star"></i>
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="manage-content">
-                                            <div class="row align-items-center justify-content-center">
-                                                <div class="col-lg-3 col-md-3 col-12">
+                                        <div className="manage-content">
+                                            <div className="row align-items-center justify-content-center">
+                                                <div className="col-lg-3 col-md-3 col-12">
                                                     <h3>Graphics Design</h3>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-12">
+                                                <div className="col-lg-3 col-md-3 col-12">
                                                     <p>
-                                                        <span class="time">Full-Time</span>
+                                                        <span className="time">Full-Time</span>
                                                     </p>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-12">
-                                                    <div class="can-img">
-                                                        <a href="#"><img src="assets/images/jobs/candidates.png" alt="#" /></a>
+                                                <div className="col-lg-3 col-md-3 col-12">
+                                                    <div className="can-img">
+                                                        <a href="/"><img src="assets/images/jobs/candidates.png" alt="#" /></a>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-12">
+                                                <div className="col-lg-3 col-md-3 col-12">
                                                     <p>
-                                                        <i class="lni lni-star"></i>
+                                                        <i className="lni lni-star"></i>
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="manage-content">
-                                            <div class="row align-items-center justify-content-center">
-                                                <div class="col-lg-3 col-md-3 col-12">
+                                        <div className="manage-content">
+                                            <div className="row align-items-center justify-content-center">
+                                                <div className="col-lg-3 col-md-3 col-12">
                                                     <h3>Sales Manager</h3>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-12">
+                                                <div className="col-lg-3 col-md-3 col-12">
                                                     <p>
-                                                        <span class="time">Part-Time</span>
+                                                        <span className="time">Part-Time</span>
                                                     </p>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-12">
-                                                    <div class="can-img">
-                                                        <a href="#"><img src="assets/images/jobs/candidates.png" alt="#" /></a>
+                                                <div className="col-lg-3 col-md-3 col-12">
+                                                    <div className="can-img">
+                                                        <a href="/"><img src="assets/images/jobs/candidates.png" alt="#" /></a>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-12">
+                                                <div className="col-lg-3 col-md-3 col-12">
                                                     <p>
-                                                        <i class="lni lni-star"></i>
+                                                        <i className="lni lni-star"></i>
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="pagination left pagination-md-center">
-                                        <ul class="pagination-list">
+                                    <div className="pagination left pagination-md-center">
+                                        <ul className="pagination-list">
                                             <li>
-                                                <a href="#">
-                                                    <i class="lni lni-arrow-left"></i>
+                                                <a href="/">
+                                                    <i className="lni lni-arrow-left"></i>
                                                 </a>
                                             </li>
-                                            <li class="active">
-                                                <a href="#">1</a>
+                                            <li className="active">
+                                                <a href="/">1</a>
                                             </li>
                                             <li>
-                                                <a href="#">2</a>
+                                                <a href="/">2</a>
                                             </li>
                                             <li>
-                                                <a href="#">3</a>
+                                                <a href="/">3</a>
                                             </li>
                                             <li>
-                                                <a href="#">4</a>
+                                                <a href="/">4</a>
                                             </li>
                                             <li>
-                                                <a href="#">
-                                                    <i class="lni lni-arrow-right"></i>
+                                                <a href="/">
+                                                    <i className="lni lni-arrow-right"></i>
                                                 </a>
                                             </li>
                                         </ul>

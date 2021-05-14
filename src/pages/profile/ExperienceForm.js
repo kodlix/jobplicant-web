@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import {useDispatch}  from 'react-redux';
 import { useForm } from 'react-hook-form'
-import { Calendar } from 'primereact/calendar'
 import { InputTextarea } from 'primereact/inputtextarea'
 import { InputText } from 'primereact/inputtext'
 import ModeFooter from 'pages/profile/ModeFooter'
 import SectionHeader from './SectionHeader'
 import { Dropdown } from 'primereact/dropdown'
-import { updateExperience, createExperience} from 'store/modules/experience'
+import { createExperience} from 'store/modules/experience'
 
 
 const ExperienceForm = ({

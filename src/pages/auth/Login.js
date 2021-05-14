@@ -85,12 +85,12 @@ const Login = ({ props }) => {
                                     </div>
                                     <div className="p-grid p-mt-0 sm-social-media text-center">
                                         <div className="p-col-6">
-                                            <Link to="#">
+                                            <Link to="/">
                                                 <span className="p-badge p-badge-secondary p-badge-xl" style={{ fontSize: '4rem', minWidth: '6rem', height: '4rem', lineHeight: '3rem' }}>  <i className="pi pi-facebook styleclass" style={{ fontSize: 40 }}></i> </span>
                                             </Link>
                                         </div>
                                         <div className="p-col-6">
-                                            <Link to="#" className="">
+                                            <Link to="/" className="">
                                                 <span className="p-badge p-badge-danger p-badge-xl " style={{ fontSize: '4rem', minWidth: '6rem', height: '4rem', lineHeight: '3rem' }}>
                                                     <i className="pi pi-google p-pt-1" style={{ fontSize: 40, paddingTop: '20px' }}> </i></span>
                                             </Link>
@@ -145,7 +145,7 @@ const Login = ({ props }) => {
                                                 </div>
                                                 <div className="col-6 col-xs-3 p-mb-1 ">
                                                     <p className="col-xs-2 appcolor">
-                                                        <Link className="font-weight-bold forgot-pwd" to="/forgotpassword">Forgot password?</Link>
+                                                        <Link  className="font-weight-bold forgot-pwd" to="/forgotpassword">Forgot password?</Link>
                                                     </p>
                                                 </div>
                                             </div>

@@ -1,20 +1,15 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 
 
 import './InstanceJobHire.css'
 import { Link } from 'react-router-dom';
 
 
-const List = (props) => {
+const List = () => {
 
-    const dispatch = useDispatch();
 
     const id = 1;
 
-
-    const [desc, setDesc] = useState('');
-    const [selectedCategory, setselectedCategory] = useState(null);
 
 
     const handleDeleteInstJob = () => {

@@ -4,8 +4,7 @@ import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { useDispatch, useSelector } from "react-redux";
 import ModeFooter from 'pages/profile/ModeFooter';
-import { Dropdown } from 'primereact/dropdown';
-import { loadCountry, loadStates, loadLga } from 'store/modules/location';
+import { loadCountry} from 'store/modules/location';
 import { updateContactInfo } from 'store/modules/account';
 import SectionHeader from './SectionHeader';
 
@@ -17,9 +16,11 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
   const dispatch = useDispatch();
   const countries = useSelector(state => state.location.countries);
   const states = useSelector(state => state.location.states);
-  const lgas = useSelector(state => state.location.lgas);
+ 
+  
   const [contactInfo, setContactInfo] = useState({});
   const profileInfo = useSelector(state => state.account.profileInfo);
+  const loading = useSelector(state => state.account.loading);
   const [selectCountry, setSelectedCountry] = useState("null");
 
 
@@ -28,10 +29,10 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
     dispatch(loadCountry());
   }, [dispatch]);
 
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
-    setSelectedCountry({ ...selectCountry, [name]: value ?? JSON.parse(value) });
-  }
+  // const handleOnChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setSelectedCountry({ ...selectCountry, [name]: value ?? JSON.parse(value) });
+  // }
 
   useEffect(() => {
     if (profileInfo) {
@@ -39,8 +40,6 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
         setValue(key, value);
         setValue('phoneNumber', profileInfo.contactPhoneNumber);
         setValue('country', profileInfo.country);
-
-
       }
       setContactInfo(profileInfo);
     }
@@ -81,7 +80,6 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
 
   const contactInfoSubmit = (data) => {
 
-    data.country = data.country.name;
     dispatch(updateContactInfo(data))
     return;
   }
@@ -189,7 +187,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
             </span>
             <div>
             </div>
-            <ModeFooter id="contactInfoEdit" onCancel={closeEditMode} />
+            <ModeFooter id="contactInfoEdit" loading={loading} onCancel={closeEditMode} />
           </form>
         </div>
       </div>

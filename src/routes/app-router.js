@@ -71,8 +71,6 @@ const AppRouter = () => {
         <AnonymousRoute path="/instancejobhire/edit/:id" component={EditInstanceJobHire} />
         <AnonymousRoute path="/applicant" component={Applicant} />
 
-
-
         <Redirect to="/login" />
       </Switch>
     </React.Suspense>

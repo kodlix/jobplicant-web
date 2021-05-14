@@ -10,7 +10,7 @@ import './SecurityVerification.css'
 import { useQuery } from 'hooks/use-query';
 
 
-const SecurityVerification = ({}) => {
+const SecurityVerification = () => {
 
     const dispatch = useDispatch();
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -72,7 +72,7 @@ const SecurityVerification = ({}) => {
                                                             </label>
                                                         </div>
                                                         <div className="font-weight-bold">
-                                                            <Link to="#">
+                                                            <Link to="/">
                                                                 <span className="app-color">Resend Code</span>
                                                             </Link>
                                                         </div>

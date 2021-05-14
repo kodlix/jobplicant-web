@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import './InstanceJobHire.css'
 
 const Applicant = () => {
-    const rating = 4.5;
 
     return (
         <>
