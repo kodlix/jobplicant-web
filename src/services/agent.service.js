@@ -4,9 +4,8 @@ import superagentPromise from 'superagent-promise';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-// export const API_ROOT = process.env.NODE_ENV === "development" ? (process.env.API_ROOT_LOCAL || 'http://localhost:8080') : process.env.API_ROOT_PROD;
-export const API_ROOT  = "https://jobplicant-api-pyfpg.ondigitalocean.app";
-console.log(API_ROOT);
+export const API_ROOT = process.env.NODE_ENV === "development" ? process.env.API_ROOT_LOCAL : "https://jobplicant-api-pyfpg.ondigitalocean.app";
+console.log('API_ROOT', API_ROOT);
 console.log("environmental variables", process.env);
 export const IMAGE_URL = API_ROOT + '/account/uploads/';
 
