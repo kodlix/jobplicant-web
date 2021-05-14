@@ -1,4 +1,5 @@
 import AppNavBar from 'components/AppNavBar';
+import AppSideBar from 'components/AppSideBar';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { OnLogout } from '../../store/modules/auth';
@@ -14,6 +15,7 @@ const Dashboard = () => {
         <>
             <div class="d-flex flex-column">
                 <AppNavBar />
+                <AppSideBar />
                 <div class="manage-jobs section">
                     <div class="container">
                         <div class="alerts-inner">

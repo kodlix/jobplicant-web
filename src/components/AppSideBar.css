@@ -1,3 +1,50 @@
 .point {
     cursor: pointer;
 }
+
+a {
+    width: 100%;
+}
+
+.p-sidebar, .p-toggleable-content, .p-panelmenu-content {
+    background-color: #5A2846 !important;
+    background: #5A2846 !important;
+    border: none !important;
+}
+
+.heading {
+    color: white;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.li-border, .p-panelmenu-header-link {
+    border: 2px solid #f5f5f50a;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.li-icon, li > .pi, .pi-fw, .p-panelmenu-header-link > .pi, .p-sidebar-icon {
+    color: #6FCF97 !important;
+    margin-right: 10px;
+}
+
+.li-icon, li > .pi, .pi-fw, .p-panelmenu-header-link > .pi {
+    color: #6FCF97 !important;
+}
+
+.li-title, .p-menuitem-text, .p-menuitem-text {
+    font-size: 13px;
+    color: white !important;
+}
+
+.p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link:not(.p-disabled):hover, .li-border:hover, .p-panelmenu-header:hover, .p-panelmenu-header:focus-within {
+    background: #ffffff33;
+}
+
+/* li with submenu */
+.p-panelmenu-header-link {
+    background-color: inherit !important;
+    border: 2px solid #f5f5f50a !important;
+}
+/* li with submenu */
