@@ -6,6 +6,7 @@ import ModalForm from "./ModalForm";
 import { loadProfileInfo } from "store/modules/account";
 import { openModal } from "store/modules/modal";
 import { PROFILE } from "constants/profile";
+import { deleteEducation } from "store/modules/education";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -22,20 +23,11 @@ const UserProfile = () => {
     dispatch(loadProfileInfo());
   }, []);
 
-  // useEffect(() => {
-  //   if (profileInfo) {
-  //     if (profileInfo.location != null) {
-  //       const json = JSON.parse(profileInfo.location);
-  //       const loi = json.map((location) => location.LOIName);
-  //       console.log(loi.join(", "));
-  //       setLOI(loi.join(", "));
-  //     }
-  //     if (profileInfo.interests != null) {
-  //       const profileInterests = JSON.parse(profileInfo.interests);
-  //       setInterests(profileInterests);
-  //     }
-  //   }
-  // }, [profileInfo]);
+  useEffect(() => {
+    if(profileInfo){
+      console.log('change must happen');
+    }
+  }, [profileInfo]);
 
   const expandImage = () => {};
 
@@ -64,6 +56,15 @@ const UserProfile = () => {
     console.log(interests);
     return interests.join(", ");
   };
+
+  const formatDate = (date) => {
+    let year = date.getFullYear();
+    let month = (1 + date.getMonth()).toString().padStart(2, '0');
+    let day = date.getDate().toString().padStart(2, '0');
+  
+    return year + '/' + month + '/' + day;
+}
+
 
   const formatSkills = (skills) => {
     console.log(skills);
@@ -195,8 +196,8 @@ const UserProfile = () => {
                             <div className="p-card-subtitle p-ml-3">
                               <b>
                                 <small>
-                                  ({item.startDate} -{" "}
-                                  {item.endDate || "present"})
+                                  ({formatDate(new Date(item.startDate))} -{" "}
+                                  {formatDate(new Date(item.endDate)) || "present"})
                                 </small>
                               </b>
                             </div>
@@ -216,115 +217,47 @@ const UserProfile = () => {
                           openModalOnCreate={() => openEdit(PROFILE.EDUCATION)}
                           openModalOnEdit={() => openCreate(PROFILE.EDUCATION)}
                         />
-                        <span>
-                          <div className="p-card-subtitle p-ml-3 p-mb-0 mainTitle">
+                        {profileInfo.educations.length > 0 ? profileInfo.educations.map((education, index) => <div key={index}>
+                          <div className="p-card-subtitle p-ml-3 p-mb-0 mainTitle" >
                             <span>
-                              <b>Msc</b> in{" "}
+                              <b>{education.qualification}</b> in{" "}
                               <b className="experienceCompany">
-                                Arts and Literature
+                                {education.course} 
                               </b>
                             </span>
+                            <span>
                             <i
                               className="pi pi-pencil"
-                              // onClick={mode}
+                              onClick={() => openEdit(PROFILE.EDUCATION, education)}
                               id="educationEdit"
                             ></i>
-                          </div>
-                          <div className="p-card-subtitle p-ml-3 p-mb-0">
-                            <b>
-                              <small>(2015-2019)</small>
-                            </b>
-                          </div>
-                          <div className="p-card-subtitle p-ml-3 p-mb-2">
-                            <b>
-                              <small>University of Lagos</small>
-                            </b>
-                          </div>
-                          <div className="p-card-body p-text-secondary">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Quisque tempor aliquam felis, nec condimentum
-                            ipsum commodo id. Vivamus sit amet augue nec urna
-                            efficitur tincidunt. Vivamus consectetur aliquam
-                            lectus commodo viverra. Nunc eu augue nec arcu
-                            efficitur faucibus. Aliquam accumsan ac magna
-                            convallis bibendum. Quisque laoreet augue eget augue
-                            fermentum scelerisque. Vivamus dignissim mollis est
-                            dictum blandit. Nam porta auctor neque sed congue.
-                            Nullam rutrum eget ex at maximus. Lorem ipsum dolor
-                            sit amet, consectetur adipiscing elit. Donec eget
-                            vestibulum lorem.
-                          </div>
-                        </span>
-                        <span>
-                          <div className="p-card-subtitle p-ml-3 p-mb-0 mainTitle">
-                            <span>
-                              <b>Msc</b> in{" "}
-                              <b className="experienceCompany">
-                                Arts and Literature
-                              </b>
+                            {" "}
+                            <i style={{cursor: 'pointer'}}
+                              className="pi pi-times"
+                              onClick={() => {
+                                var confirmation = window.confirm('Action is irreversible, are you sure you want to delete?');
+                                if(confirmation){
+                                  dispatch(deleteEducation(education.id));
+
+                                }
+                              }}
+                              id="educationEdit"
+                            ></i>
                             </span>
-                            <i className="pi pi-pencil"></i>
                           </div>
                           <div className="p-card-subtitle p-ml-3 p-mb-0">
                             <b>
-                              <small>(2015-2019)</small>
+                              <small>Graduation ({formatDate(new Date(education.yearOfGraduation))})</small>
                             </b>
                           </div>
                           <div className="p-card-subtitle p-ml-3 p-mb-2">
                             <b>
-                              <small>University of Lagos</small>
+                              <small>{education.institution}</small>
                             </b>
                           </div>
-                          <div className="p-card-body p-text-secondary">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Quisque tempor aliquam felis, nec condimentum
-                            ipsum commodo id. Vivamus sit amet augue nec urna
-                            efficitur tincidunt. Vivamus consectetur aliquam
-                            lectus commodo viverra. Nunc eu augue nec arcu
-                            efficitur faucibus. Aliquam accumsan ac magna
-                            convallis bibendum. Quisque laoreet augue eget augue
-                            fermentum scelerisque. Vivamus dignissim mollis est
-                            dictum blandit. Nam porta auctor neque sed congue.
-                            Nullam rutrum eget ex at maximus. Lorem ipsum dolor
-                            sit amet, consectetur adipiscing elit. Donec eget
-                            vestibulum lorem.
-                          </div>
-                        </span>
-                        <span>
-                          <div className="p-card-subtitle p-ml-3 p-mb-0 mainTitle">
-                            <span>
-                              <b>Msc</b> in{" "}
-                              <b className="experienceCompany">
-                                Arts and Literature
-                              </b>
-                            </span>
-                            <i className="pi pi-pencil"></i>
-                          </div>
-                          <div className="p-card-subtitle p-ml-3 p-mb-0">
-                            <b>
-                              <small>(2015-2019)</small>
-                            </b>
-                          </div>
-                          <div className="p-card-subtitle p-ml-3 p-mb-2">
-                            <b>
-                              <small>University of Lagos</small>
-                            </b>
-                          </div>
-                          <div className="p-card-body p-text-secondary">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Quisque tempor aliquam felis, nec condimentum
-                            ipsum commodo id. Vivamus sit amet augue nec urna
-                            efficitur tincidunt. Vivamus consectetur aliquam
-                            lectus commodo viverra. Nunc eu augue nec arcu
-                            efficitur faucibus. Aliquam accumsan ac magna
-                            convallis bibendum. Quisque laoreet augue eget augue
-                            fermentum scelerisque. Vivamus dignissim mollis est
-                            dictum blandit. Nam porta auctor neque sed congue.
-                            Nullam rutrum eget ex at maximus. Lorem ipsum dolor
-                            sit amet, consectetur adipiscing elit. Donec eget
-                            vestibulum lorem.
-                          </div>
-                        </span>
+                          <div className="p-card-body p-text-secondary">{education.address} </div>
+                        </div>) : <span></span>}
+                        
                       </div>
                     </div>
                     <div className="p-col-12 content-rightPanel p-md-4">

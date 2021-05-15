@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import ModeFooter from "pages/profile/ModeFooter";
 import SectionHeader from "pages/profile/SectionHeader";
 import { InputTextarea } from "primereact/inputtextarea";
 import { InputText } from "primereact/inputtext";
 import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
-import { updateEducation } from "store/modules/education";
+import { updateEducation, createEducation } from "store/modules/education";
 
-const EducationForm = ({ educationObject, componentStatus, closeEditMode }) => {
+const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemToEdit }) => {
   const {
     register,
     handleSubmit,
@@ -20,20 +20,24 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode }) => {
     mode: "onChange",
     reValidateMode: "all",
   });
-  const loading = useSelector(state => state.education.loading);
+  
+
+  const loading = useSelector((state) => state.education.loading);
   const dispatch = useDispatch();
+  const [yearOfGraduation, setYearOfGraduation] = useState(null);
   const [education, setEducation] = useState({
-    certificateTitle: '',
-    qualification: '',
-    yearOfGraduation: '',
-    institution: '',
-    country: '',
-    address: ''
+    institution: "",
+    qualification: "",
+    course: "",
+
+    country: "",
+    city: "",
+    address: "",
   });
 
   let todayDate = new Date();
 
-  const certificateTitleList = [
+  const qualificationList = [
     { name: "Bsc", id: "bsc" },
     { name: "Msc", id: "Msc" },
     { name: "Phd", id: "Phd" },
@@ -67,20 +71,37 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode }) => {
     }
   }, [componentStatus?.educationEdit]);
 
-  // const inputChange = (e, name) => {
-  //   const inputName =
-  //     name && name === "yearOfGraduation" ? name : e.target.name;
-  //   const inputValue =
-  //     name && name === "yearOfGraduation" ? e.value : e.target.value;
-  //   const updatedEducationObject = Object.assign({}, education);
-  //   updatedEducationObject[inputName] = inputValue;
-  //   setEducation(updatedEducationObject);
-  //   setValue(inputName, inputValue, { shouldValidate: true });
-  // };
+  useEffect(() => {
+   if(itemToEdit){
+    const newDate = new Date(itemToEdit.yearOfGraduation).toISOString();
+
+     setEducation({ 
+       ...education, 
+       institution: itemToEdit.institution,
+       qualification: qualificationList.find(q => q.name == itemToEdit.qualification),
+       course: itemToEdit.course,
+       
+       country: countryList.find(c => c.name == itemToEdit.country),
+       city: itemToEdit.city,
+       address: itemToEdit.address,
+      });
+      setYearOfGraduation(new Date(itemToEdit.yearOfGraduation));
+      
+      setValue('institution', itemToEdit.institution);
+      setValue('qualification', itemToEdit.qualification);
+      setValue('course', itemToEdit.course);
+      setValue('city', itemToEdit.city);
+      setValue('country', itemToEdit.country);
+      setValue('yearOfGraduation', newDate);
+      setValue('address', itemToEdit.address);
+      
+   }
+  }, [itemToEdit])
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
+    
     setEducation({ ...education, [name]: value });
     setValue(name, value, { shouldValidate: true });
   };
@@ -101,10 +122,13 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode }) => {
   };
 
   const educationSubmit = (data) => {
-    // data.yearOfGraduation = new Date(data.yearOfGraduation).toISOString();
     console.log(data);
-    // dispatch(updateEducation(data));
-    return;
+    if(itemToEdit == null){
+      dispatch(createEducation(data));
+    }else{
+      dispatch(updateEducation(itemToEdit.id, data));
+    }
+   
   };
 
   return (
@@ -132,38 +156,41 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode }) => {
                   )}
                 </label>
                 <Dropdown
-                  options={certificateTitleList}
+                  options={qualificationList}
                   optionLabel="name"
                   filter
                   showClear
                   filterBy="name"
                   icon="pi pi-plus"
-                  id="certificateTitle"
-                  name="certificateTitle"
-                  value={education.certificateTitle}
-                  {...register("certificateTitle", {
-                    required: `* Certificate Title is required`,
+                  id="qualification"
+                  name="qualification"
+                  value={education?.qualification}
+                  {...register("qualification", {
+                    required: `* Qualification is required`,
                   })}
-                  onChange={e => {
+                  onChange={(e) => {
+                    setEducation({
+                      ...education,
+                      ["qualification"]: e.target.value,
+                    });
                     const value = e.target.value.name;
-                    setEducation({ ...education, ['certificateTitle']: value});
-                    setValue('certificateTitle', value, { shouldValidate: true });
+                    setValue("qualification", value, { shouldValidate: true });
                   }}
                 />
               </div>
               <div className="p-field p-col-12 p-md-6">
-                <label className="inputLabel" htmlFor="certificateName">
-                  Certificate Name
-                  {errors.certificateName && (
+                <label className="inputLabel" htmlFor="course">
+                  Course
+                  {errors.course && (
                     <span className="text-danger font-weight-bold">
-                      &nbsp; {errors.certificateName.message}
+                      &nbsp; {errors.course.message}
                     </span>
                   )}
                 </label>
                 <InputField
-                  id="certificateName"
-                  name="qualification"
-                  inputLabel="Certificate Name"
+                  id="course"
+                  name="course"
+                  inputLabel="Course Name"
                   register={register}
                   inputChange={handleChange}
                 />
@@ -181,14 +208,14 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode }) => {
                   id="yearOfGraduation"
                   view="month"
                   dateFormat="mm/yy"
-                  yearNavigator 
+                  yearNavigator
                   yearRange="2010:2030"
-                  value={education.yearOfGraduation}
+                  value={yearOfGraduation}
                   onSelect={(e) => {
-                    const inputName = 'yearOfGraduation';
+                    const inputName = "yearOfGraduation";
                     const value = new Date(e.value).toISOString();
-                
-                    setEducation({ ...education, yearOfGraduation: value});
+
+                    setYearOfGraduation(value);
                     setValue(inputName, value, { shouldValidate: true });
                   }}
                   name="yearOfGraduation"
@@ -198,7 +225,7 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode }) => {
                   maxDate={todayDate}
                 />
               </div>
-              <div className="p-field p-col-12 p-md-6">
+              <div className="p-field p-col-12 p-md-12">
                 <label className="inputLabel" htmlFor="institution">
                   Institution Name
                   {errors.institution && (
@@ -212,6 +239,23 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode }) => {
                   inputLabel="Institution Name"
                   register={register}
                   name="institution"
+                  inputChange={handleChange}
+                />
+              </div>
+              <div className="p-field p-col-12 p-md-6">
+                <label className="inputLabel" htmlFor="city">
+                  City
+                  {errors.city && (
+                    <span className="text-danger font-weight-bold">
+                      &nbsp; {errors.city.message}
+                    </span>
+                  )}
+                </label>
+                <InputField
+                  id="city"
+                  inputLabel="City"
+                  register={register}
+                  name="city"
                   inputChange={handleChange}
                 />
               </div>
@@ -237,12 +281,10 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode }) => {
                   {...register("country", {
                     required: `* Country is required`,
                   })}
-                  onChange={e => {
-                
-                    const value = e.target.value.name;
-                    console.log(value);
-                    setEducation({...education, ['country']: value});
-                    setValue('country', value, { shouldValidate: true });
+                  onChange={(e) => {
+                    setEducation({ ...education, ["country"]: e.target.value });
+                    const value = e.target.value.name; 
+                    setValue("country", value, { shouldValidate: true });
                   }}
                 />
               </div>
@@ -268,7 +310,11 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode }) => {
                 />
               </div>
             </div>
-            <ModeFooter loading={loading} id="educationEdit" onCancel={onEditCancel} />
+            <ModeFooter
+              loading={loading}
+              id="educationEdit"
+              onCancel={onEditCancel}
+            />
           </form>
         </div>
       </div>
