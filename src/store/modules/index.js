@@ -9,6 +9,7 @@ import common from './common';
 import error from './error';
 import modal from './modal';
 import userSkill from './userSkill';
+import education from './education';
 
 const appReducer = (history) => combineReducers({
   router: connectRouter(history),
@@ -18,6 +19,7 @@ const appReducer = (history) => combineReducers({
   account,
   notification,
   location,
+  education,
   experience,
   modal,
   userSkill,

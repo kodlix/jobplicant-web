@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Toast } from 'primereact/toast';
 import './AppAlert.css';
 

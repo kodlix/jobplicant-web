@@ -1,29 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import {useDispatch}  from 'react-redux';
-import { useForm } from 'react-hook-form';
-import { InputTextarea } from 'primereact/inputtextarea';
-import ModeFooter from 'pages/profile/ModeFooter';
-import { updateBiography} from 'store/modules/account'
-import SectionHeader from './SectionHeader';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { InputTextarea } from "primereact/inputtextarea";
+import ModeFooter from "pages/profile/ModeFooter";
+import { updateBiography } from "store/modules/account";
+import SectionHeader from "./SectionHeader";
 
 const BiographyForm = ({ data }) => {
-  const { register, handleSubmit, formState: {errors } } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     mode: "onChange",
-    reValidateMode: 'onChange'
-  });  
+    reValidateMode: "onChange",
+  });
   const dispatch = useDispatch();
-  const [biography, setBiography] = useState("")
+  const loading = useSelector(state => state.account.loading);
+  const [biography, setBiography] = useState("");
   const handleDelete = (e) => {
     console.log(e.target.id);
-  }
+  };
 
   useEffect(() => {
-      setBiography(data)
+    setBiography(data);
   }, [data]);
 
   const biographySubmit = (biography) => {
     dispatch(updateBiography(biography));
-  }
+  };
 
   return (
     <>
@@ -37,20 +42,33 @@ const BiographyForm = ({ data }) => {
 
         <div className="p-card-body">
           <form onSubmit={handleSubmit(biographySubmit)}>
-            <label htmlFor="biographyInput" className="inputLabel p-mb-2">Give a short descripiton of your career history
+            <label htmlFor="biographyInput" className="inputLabel p-mb-2">
+              Give a short descripiton of your career history
             </label>
             <label htmlFor="biographyInput" className="">
-                {errors?.biography?.type === "required" && <span className="text-danger font-weight-bold"> <p> &nbsp;(*{errors.biography.message})</p>
-                </span>}
+              {errors?.biography?.type === "required" && (
+                <span className="text-danger font-weight-bold">
+                  {" "}
+                  <p> &nbsp;(*{errors.biography.message})</p>
+                </span>
+              )}
             </label>
-            <InputTextarea name="profile" {...register('profile', { required: "required" })}
-              id="biographyInput" type="text" rows="6" className="inputField" placeholder="Biography..." defaultValue={biography}  />
-            <ModeFooter id="biographyForm" />
+            <InputTextarea
+              name="profile"
+              {...register("profile", { required: "required" })}
+              id="biographyInput"
+              type="text"
+              rows="6"
+              className="inputField"
+              placeholder="Biography..."
+              defaultValue={biography}
+            />
+            <ModeFooter id="biographyForm" loading={loading} />
           </form>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default BiographyForm;

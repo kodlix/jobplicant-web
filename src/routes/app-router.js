@@ -71,8 +71,6 @@ const AppRouter = () => {
         <ProtectedRoute path="/instancejobhire/edit/:id" component={EditInstanceJobHire} />
         <ProtectedRoute path="/applicant" component={Applicant} />
 
-
-
         <Redirect to="/login" />
       </Switch>
     </React.Suspense>

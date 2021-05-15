@@ -12,7 +12,7 @@ import './Register.css'
 
 const RegisterStep = ({ accountType }) => {
 
-    const [step, setStep] = useState(1)
+    // const [step, setStep] = useState(1)
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         mode: "onChange",
         reValidateMode: "onChange"
@@ -178,8 +178,8 @@ const RegisterStep = ({ accountType }) => {
                                         }
 
                                         <div>
-                                            <p className="term-policy p-mb-3">By clicking Sign Up, you agree to our <Link to=""> <span className="app-color font-weight-bold">Terms, Data Policy </span></Link>
-                                                &nbsp; and <Link to=""> <span className="app-color font-weight-bold">Cookie Policy.</span></Link>.</p>
+                                            <p className="term-policy p-mb-3">By clicking Sign Up, you agree to our <Link to="/"> <span className="app-color font-weight-bold">Terms, Data Policy </span></Link>
+                                                &nbsp; and <Link to="/"> <span className="app-color font-weight-bold">Cookie Policy.</span></Link>.</p>
 
                                         </div>
                                         <Button type="submit" label="Sign up" className="form-group" />

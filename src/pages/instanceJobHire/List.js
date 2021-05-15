@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 
 
 import './InstanceJobHire.css'
@@ -8,15 +7,11 @@ import AppNavBar from 'components/AppNavBar';
 import { Button } from 'primereact/button';
 
 
-const List = (props) => {
+const List = () => {
 
-    const dispatch = useDispatch();
 
     const id = 1;
 
-
-    const [desc, setDesc] = useState('');
-    const [selectedCategory, setselectedCategory] = useState(null);
 
 
     const handleDeleteInstJob = () => {

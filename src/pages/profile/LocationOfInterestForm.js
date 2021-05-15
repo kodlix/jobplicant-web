@@ -1,57 +1,60 @@
-import React, { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { Tag } from 'primereact/tag';
-import ModeFooter from 'pages/profile/ModeFooter';
-import SectionHeader from './SectionHeader';
-import { Dropdown } from 'primereact/dropdown';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { Tag } from "primereact/tag";
+import ModeFooter from "pages/profile/ModeFooter";
+import SectionHeader from "./SectionHeader";
+import { Dropdown } from "primereact/dropdown";
+import { updateLOI } from "store/modules/account";
 
 const LOIForm = ({ data, closeEditMode }) => {
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.account.loading);
   const { register, handleSubmit, setValue } = useForm();
 
   const LOIList = [
-    { name: 'New York', id: 'NY' },
-    { name: 'Rome', id: 'RM' },
-    { name: 'London', id: 'LDN' },
-    { name: 'Istanbul', id: 'IST' },
-    { name: 'Paris', id: 'PRS' },
-    { name: 'Paris11', id: 'PRS11' },
-    { name: 'Paris22', id: 'PRS22' }
+    { name: "New York", id: "NY" },
+    { name: "Rome", id: "RM" },
+    { name: "London", id: "LDN" },
+    { name: "Istanbul", id: "IST" },
+    { name: "Paris", id: "PRS" },
+    { name: "Paris11", id: "PRS11" },
+    { name: "Paris22", id: "PRS22" },
   ];
 
   const [LOIs, setLOIs] = useState([]);
-  const [currentLOI, setCurrentLOI] = useState();
+  const [currentLOI, setCurrentLOI] = useState("");
 
   const searchObjectArrayValues = (array, value) => {
-    const LOIExists = array.filter(LOI => LOI.id === value);
+    const LOIExists = array.filter((LOI) => LOI === value);
     return !Boolean(LOIExists.length > 0);
-  }
+  };
 
   const handleLOIChange = (e) => {
-    setCurrentLOI(e.target.value);
-  }
+    setCurrentLOI(e.target.value.name);
+  };
 
   const handleLOIAdd = () => {
     if (LOIs.length === 2) {
       setCurrentLOI();
       return;
     }
-    if (currentLOI && currentLOI.name) {
-      if (searchObjectArrayValues(LOIs, currentLOI.id)) {
-        setLOIs([...LOIs, { LOIName: currentLOI.name, id: currentLOI.id }]);
-        setValue("LOI", [...LOIs, { LOIName: currentLOI.name, id: currentLOI.id }])
-        setCurrentLOI();
-        return;
+    if (currentLOI) {
+      if (searchObjectArrayValues(LOIs, currentLOI)) {
+        setLOIs([...LOIs, currentLOI]);
+        setValue("location", [...LOIs, currentLOI]);
       }
-      setCurrentLOI();
+      return;
     }
-  }
-  const handleLOIDelete = (e) => {
-    if (e.target.className === "p-tag-icon pi pi-times") {
-      const newLOIArray = LOIs.filter(LOI => LOI.id !== e.currentTarget.id);
-      setLOIs(newLOIArray);
-      setValue("LOI", newLOIArray)
-    }
-  }
+    // setCurrentLOI("");
+  };
+  const handleLOIDelete = (loiToRemove) => {
+    // if (e.target.className === "p-tag-icon pi pi-times") {
+    const newLOIArray = LOIs.filter((LOI) => LOI !== loiToRemove);
+    setLOIs(newLOIArray);
+    setValue("location", newLOIArray);
+    // }
+  };
 
   useEffect(() => {
     if (data?.length > 0) {
@@ -60,12 +63,14 @@ const LOIForm = ({ data, closeEditMode }) => {
       register("LOI");
       setValue("LOI", data);
     }
-  }, [data])
+  }, [data]);
 
-  const LOISubmit = (LOI) => {
-    console.log(LOI);
+  const LOISubmit = (loiData) => {
+    console.log(loiData);
+
+    dispatch(updateLOI(loiData.location));
     return;
-  }
+  };
   return (
     <>
       <div className="p-card p-mt-2">
@@ -73,23 +78,50 @@ const LOIForm = ({ data, closeEditMode }) => {
         <div className="p-card-body">
           <form onSubmit={handleSubmit(LOISubmit)}>
             <span className="skillInput p-mb-4">
-              <label htmlFor="LOIInput" className="inputLabel p-pr-3">Add up to 2 locations of interest</label>
+              <label htmlFor="LOIInput" className="inputLabel p-pr-3">
+                Add up to 2 locations of interest
+              </label>
             </span>
-            {LOIs?.map((LOI, index) => (
-              <button key={index} onClick={(e) => handleLOIDelete(e)} type="button" className="p-mr-2 p-p-0 tag-container" id={LOI.id}><Tag value={LOI.LOIName} icon="pi pi-times" className="p-p-2" ></Tag>
-              </button>
-            ))}
+            {LOIs.length > 0 ? (
+              LOIs.map((LOI, index) => (
+                <button
+                  key={index}
+                  onClick={(e) => handleLOIDelete(LOI)}
+                  type="button"
+                  className="p-mr-2 p-p-0 tag-container"
+                  id={LOI}
+                >
+                  <Tag value={LOI} icon="pi pi-times" className="p-p-2"></Tag>
+                </button>
+              ))
+            ) : (
+              <div>No tags</div>
+            )}
             <span className="skillInput">
-              <Dropdown value={currentLOI} options={LOIList} onChange={(e) => handleLOIChange(e)}
-                optionLabel="name" filter showClear filterBy="name"
-                placeholder="Select LOI" icon="pi pi-plus" id="LOIInput" />
+              <Dropdown
+                value={currentLOI}
+                options={LOIList}
+                onChange={(e) => handleLOIChange(e)}
+                optionLabel="name"
+                filter
+                showClear
+                filterBy="name"
+                placeholder="Select LOI"
+                icon="pi pi-plus"
+                id="LOIInput"
+              />
               <i className="pi pi-plus" onClick={handleLOIAdd}></i>
             </span>
-            <ModeFooter id="LOIEdit" onCancel={closeEditMode} />
+            <ModeFooter
+              id="LOIEdit"
+              loading={loading}
+              onCancel={closeEditMode}
+            />
           </form>
         </div>
       </div>
-    </>);
-}
+    </>
+  );
+};
 
 export default LOIForm;

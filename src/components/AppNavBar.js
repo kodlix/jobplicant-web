@@ -23,7 +23,7 @@ const AppNavBar = () => {
                                     <div className="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                         <ul id="nav" className="navbar-nav ml-auto">
                                             <li className="nav-item">
-                                                <Link className="active text-light" to="index.html">Home</Link>
+                                                <Link className="active text-light" to="/">Home</Link>
                                             </li>
                                             <li className="nav-item">
                                                 <Link to="#">Jobs</Link>
@@ -39,14 +39,14 @@ const AppNavBar = () => {
                                                 <Link to="#">messages</Link>
                                             </li>
                                             <li className="nav-item">
-                                                <Link to="contact.html">Contact
+                                                <Link to="/contact">Contact
                                                 </Link>
                                             </li>
                                             <li className="nav-item">
                                                 <Link to="#">notifications</Link>
                                                 <ul className="sub-menu">
                                                     <li>
-                                                        <Link to="blog-grid-sidebar.html">notification 1</Link>
+                                                        <Link to="/blog-grid-sidebar">notification 1</Link>
                                                     </li>
                                                     <li>
                                                         <Link to="blog-grid-sidebar.html">notification 2</Link>

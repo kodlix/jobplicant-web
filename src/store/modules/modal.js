@@ -2,7 +2,8 @@ import agent from "services/agent.service";
 
 // initial values
 const modal = {
-    name: ""
+    name: "",
+    visible: false,
 };
 
 
@@ -27,12 +28,14 @@ export default function reducer(state = modal, action) {
         case MODAL_OPEN:
             return {
                 ...state,
-                name: action.payload
+                name: action.payload,
+                visible: true,
             };
         case MODAL_CLOSED:
             return {
                 ...state,
-                name: ""
+                name: "",
+                visible: false,
             };
         default: return state
     }

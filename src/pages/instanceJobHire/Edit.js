@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
@@ -9,9 +8,8 @@ import { Dropdown } from 'primereact/dropdown';
 import './InstanceJobHire.css'
 
 
-const Edit = ({ }) => {
+const Edit = () => {
 
-    const dispatch = useDispatch();
     const { register, handleSubmit, formState: { errors }, setValue } = useForm({
         mode: "onChange",
         reValidateMode: "onChange"
@@ -20,9 +18,6 @@ const Edit = ({ }) => {
     const [desc, setDesc] = useState('');
     const [selectedCategory, setselectedCategory] = useState(null);
     const [jobDateNow, setJobDateNow] = useState(false);
-
-
-    const id = 1;
 
     const Categories = [
         { name: 'Mechine', code: 'Mec' },
