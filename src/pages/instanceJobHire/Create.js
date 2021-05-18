@@ -92,13 +92,13 @@ const InstanceJobHire = ({ }) => {
                             <div className='content-tab content-tab-width p-mb-2' >
                                 <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
                                     <li className="nav-item" role="presentation">
-                                        <button className="nav-link active" id="create-instant-tab" data-bs-toggle="pill" data-bs-target="#create-instant" type="button" role="tab" aria-controls="create-instant" aria-selected="true">Create Instant Hire</button>
+                                        <button className="nav-link text-white" id="create-instant-tab" data-bs-toggle="pill" data-bs-target="#create-instant" type="button" role="tab" aria-controls="create-instant" aria-selected="true">Create Instant Hire</button>
                                     </li>
                                     <li className="nav-item" role="presentation">
-                                        <button className="nav-link" id="instant-hire-list-tab" data-bs-toggle="pill" data-bs-target="#instant-hire-list" type="button" role="tab" aria-controls="instant-hire-list" aria-selected="false">Instant Hires</button>
+                                        <button className="nav-link text-white active" id="instant-hire-list-tab" data-bs-toggle="pill" data-bs-target="#instant-hire-list" type="button" role="tab" aria-controls="instant-hire-list" aria-selected="false">Instant Hires</button>
                                     </li>
                                     <li className="nav-item" role="presentation">
-                                        <button className="nav-link" id="applicant-tab-tab" data-bs-toggle="pill" data-bs-target="#applicant-tab" type="button" role="tab" aria-controls="applicant-tab" aria-selected="false">Applicants</button>
+                                        <button className="nav-link text-white" id="applicant-tab-tab" data-bs-toggle="pill" data-bs-target="#applicant-tab" type="button" role="tab" aria-controls="applicant-tab" aria-selected="false">Applicants</button>
                                     </li>
                                 </ul>
 
@@ -212,10 +212,10 @@ const InstanceJobHire = ({ }) => {
                                 </div>
                             </div>
 
-                            <div className="tab-pane fade" id="instant-hire-list" role="tabpanel" aria-labelledby="instant-hire-list-tab">
+                            <div className="tab-pane fade show active" id="instant-hire-list" role="tabpanel" aria-labelledby="instant-hire-list-tab">
                                 <InstantHires />
                             </div>
-                            <div className="tab-pane fade show active" id="applicant-tab" role="tabpanel" aria-labelledby="applicant-tab">
+                            <div className="tab-pane fade" id="applicant-tab" role="tabpanel" aria-labelledby="applicant-tab">
                                 <Applicant />
                             </div>
                         </div>

@@ -7,7 +7,7 @@
 }
 
 .header-color {
-    background-color: rgb(44, 165, 94);
+    background-color: rgb(44, 165, 94)!important;
 }
 
 .bgcolor {
@@ -116,10 +116,15 @@
     margin-left: 50vw;
 }
 
-.hight-card:hover {
+.height-card:hover {
     transform: scale(1.02);
     cursor: pointer;
     background: rgba(173, 187, 192, 0.1);
+}
+
+.applicant-width {
+    width: 62vw;
+    margin: auto;
 }
 
 @media screen and (max-width: 767px) {

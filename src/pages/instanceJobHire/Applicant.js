@@ -7,67 +7,71 @@ const Applicant = () => {
 
     return (
         <>
-            <section className="find-job job-list section test">
-                <div className="container">
-                    <div class="row row-cols-12 row-cols-md-3 g-4">
-                        <div class="col-4">
-                            <div class="card">
-                                <img src="../../assets/user-icon.png" height="150px" class="card-img-top" alt="..." />
-                                <div class="card-body">
-                                    <h5 class="card-title">Chinedu Michael - <span className="font-weight-bold">Plumber</span> </h5>
+            <section>
+                <div className="applicant-width">
+                    <div className="card card-size p-mt-2">
+                        <div className="card-body p-pt-0">
+                            <div class="row row-cols-12 row-cols-md-3 g-4">
+                                <div class="col-4">
+                                    <div class="card mt-3">
+                                        <img src="../../assets/user-icon.png" height="150px" class="card-img-top" alt="..." />
+                                        <div class="card-body">
+                                            <p class="card-title font-weight-bold">Chinedu Michael - <span className="font-weight-bold">Plumber</span> </p>
 
-                                    <p class="card-text"> <span className="font-weight-bold">Location :</span> 113, Gowan estate, Egbeda.</p>
-                                    <p class="card-text"><span className="font-weight-bold">Phone Nuber:</span> 08065907281</p>
-                                    <p class="card-text"><span className="font-weight-bold">Price Rate :</span> 4000</p>
-                                    <p class="card-text"><span className="font-weight-bold">Ratings :</span> ****</p>
+                                            <p class="card-text"> <span className="font-weight-bold">Location :</span> 113, Gowan estate, Egbeda.</p>
+                                            <p class="card-text"><span className="font-weight-bold">Phone Nuber:</span> 08065907281</p>
+                                            <p class="card-text"><span className="font-weight-bold">Price Rate :</span> 4000</p>
+                                            <p class="card-text"><span className="font-weight-bold">Ratings :</span> ****</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card">
-                                <img src="../../assets/user-icon.png " width="10px" height="150px" class="card-img-top" alt="..." />
-                                <div class="card-body">
-                                    <h5 class="card-title">Chinedu Michael - <span className="font-weight-bold">Plumber</span></h5>
-                                    <p class="card-text"> <span className="font-weight-bold">Location :</span> 113, Gowan estate, Egbeda.</p>
-                                    <p class="card-text"><span className="font-weight-bold">Phone Nuber:</span> 08065907281</p>
-                                    <p class="card-text"><span className="font-weight-bold">Price Rate :</span> 4000</p>
-                                    <p class="card-text"><span className="font-weight-bold">Ratings :</span> ****</p>
+                                <div class="col-4">
+                                    <div class="card mt-3">
+                                        <img src="../../assets/user-icon.png " width="10px" height="150px" class="card-img-top" alt="..." />
+                                        <div class="card-body">
+                                            <p class="card-title font-weight-bold">Chinedu Michael - <span className="font-weight-bold">Plumber</span></p>
+                                            <p class="card-text"> <span className="font-weight-bold">Location :</span> 113, Gowan estate, Egbeda.</p>
+                                            <p class="card-text"><span className="font-weight-bold">Phone Nuber:</span> 08065907281</p>
+                                            <p class="card-text"><span className="font-weight-bold">Price Rate :</span> 4000</p>
+                                            <p class="card-text"><span className="font-weight-bold">Ratings :</span> ****</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card">
-                                <img src="../../assets/user-icon.png " width="10px" height="150px" class="card-img-top" alt="..." />
-                                <div class="card-body">
-                                    <h5 class="card-title">Chinedu Michael - <span className="font-weight-bold">Plumber</span></h5>
-                                    <p class="card-text"> <span className="font-weight-bold">Location :</span> 113, Gowan estate, Egbeda.</p>
-                                    <p class="card-text"><span className="font-weight-bold">Phone Nuber:</span> 08065907281</p>
-                                    <p class="card-text"><span className="font-weight-bold">Price Rate :</span> 4000</p>
-                                    <p class="card-text"><span className="font-weight-bold">Ratings :</span> ****</p>
+                                <div class="col-4">
+                                    <div class="card mt-3">
+                                        <img src="../../assets/user-icon.png " width="10px" height="150px" class="card-img-top" alt="..." />
+                                        <div class="card-body">
+                                            <p class="card-title font-weight-bold">Chinedu Michael - <span className="font-weight-bold">Plumber</span></p>
+                                            <p class="card-text"> <span className="font-weight-bold">Location :</span> 113, Gowan estate, Egbeda.</p>
+                                            <p class="card-text"><span className="font-weight-bold">Phone Nuber:</span> 08065907281</p>
+                                            <p class="card-text"><span className="font-weight-bold">Price Rate :</span> 4000</p>
+                                            <p class="card-text"><span className="font-weight-bold">Ratings :</span> ****</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card">
-                                <img src="../../assets/user-icon.png " width="10px" height="150px" class="card-img-top" alt="..." />
-                                <div class="card-body">
-                                    <h5 class="card-title">Chinedu Michael - <span className="font-weight-bold">Plumber</span></h5>
-                                    <p class="card-text"> <span className="font-weight-bold">Location :</span> 113, Gowan estate, Egbeda.</p>
-                                    <p class="card-text"><span className="font-weight-bold">Phone Nuber:</span> 08065907281</p>
-                                    <p class="card-text"><span className="font-weight-bold">Price Rate :</span> 4000</p>
-                                    <p class="card-text"><span className="font-weight-bold">Ratings :</span> ****</p>
+                                <div class="col-4">
+                                    <div class="card mt-3">
+                                        <img src="../../assets/user-icon.png " width="10px" height="150px" class="card-img-top" alt="..." />
+                                        <div class="card-body">
+                                            <p class="card-title font-weight-bold">Chinedu Michael - <span className="font-weight-bold">Plumber</span></p>
+                                            <p class="card-text"> <span className="font-weight-bold">Location :</span> 113, Gowan estate, Egbeda.</p>
+                                            <p class="card-text"><span className="font-weight-bold">Phone Nuber:</span> 08065907281</p>
+                                            <p class="card-text"><span className="font-weight-bold">Price Rate :</span> 4000</p>
+                                            <p class="card-text"><span className="font-weight-bold">Ratings :</span> ****</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card">
-                                <img src="../../assets/user-icon.png " width="10px" height="150px" class="card-img-top" alt="..." />
-                                <div class="card-body">
-                                    <h5 class="card-title">Chinedu Michael - <span className="font-weight-bold">Plumber</span></h5>
-                                    <p class="card-text"> <span className="font-weight-bold">Location :</span> 113, Gowan estate, Egbeda.</p>
-                                    <p class="card-text"><span className="font-weight-bold">Phone Nuber:</span> 08065907281</p>
-                                    <p class="card-text"><span className="font-weight-bold">Price Rate :</span> 4000</p>
-                                    <p class="card-text"><span className="font-weight-bold">Ratings :</span> ****</p>
+                                <div class="col-4">
+                                    <div class="card mt-3">
+                                        <img src="../../assets/user-icon.png " width="10px" height="150px" class="card-img-top" alt="..." />
+                                        <div class="card-body">
+                                            <p class="card-title font-weight-bold">Chinedu Michael - <span className="font-weight-bold">Plumber</span></p>
+                                            <p class="card-text"> <span className="font-weight-bold">Location :</span> 113, Gowan estate, Egbeda.</p>
+                                            <p class="card-text"><span className="font-weight-bold">Phone Nuber:</span> 08065907281</p>
+                                            <p class="card-text"><span className="font-weight-bold">Price Rate :</span> 4000</p>
+                                            <p class="card-text"><span className="font-weight-bold">Ratings :</span> ****</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
