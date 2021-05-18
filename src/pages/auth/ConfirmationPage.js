@@ -10,7 +10,7 @@ import { Button } from 'primereact/button';
 
 
 
-const ConfirmationPage = ({ }) => {
+const ConfirmationPage = () => {
 
     const [sliderImage] = useState([{ image1: '../../assets/images/workspace.jpg', altImage1: "worksplace" },
     { image2: '../../assets/images/loginimg.jpg', altImage2: "loading" }])

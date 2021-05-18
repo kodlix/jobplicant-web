@@ -4,8 +4,7 @@ import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { useDispatch, useSelector } from "react-redux";
 import ModeFooter from 'pages/profile/ModeFooter';
-import { Dropdown } from 'primereact/dropdown';
-import { loadCountry, loadStates, loadLga } from 'store/modules/location';
+import { loadCountry} from 'store/modules/location';
 import { updateContactInfo } from 'store/modules/account';
 import SectionHeader from './SectionHeader';
 
@@ -16,14 +15,24 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
   });
   const dispatch = useDispatch();
   const countries = useSelector(state => state.location.countries);
+  const states = useSelector(state => state.location.states);
+ 
+  
   const [contactInfo, setContactInfo] = useState({});
   const profileInfo = useSelector(state => state.account.profileInfo);
+  const loading = useSelector(state => state.account.loading);
+  const [selectCountry, setSelectedCountry] = useState("null");
+
 
 
   useEffect(() => {
     dispatch(loadCountry());
   }, [dispatch]);
 
+  // const handleOnChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setSelectedCountry({ ...selectCountry, [name]: value ?? JSON.parse(value) });
+  // }
 
   useEffect(() => {
     if (profileInfo) {
@@ -32,7 +41,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
       for (const [key, value] of Object.entries(profileInfo)) {
         setValue(key, value);
         setValue('phoneNumber', profileInfo.contactPhoneNumber);
-
+        setValue('country', profileInfo.country);
       }
     }
     else {
@@ -187,7 +196,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
             </span>
             <div>
             </div>
-            <ModeFooter id="contactInfoEdit" onCancel={closeEditMode} />
+            <ModeFooter id="contactInfoEdit" loading={loading} onCancel={closeEditMode} />
           </form>
         </div>
       </div>

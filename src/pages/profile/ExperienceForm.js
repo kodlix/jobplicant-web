@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import {useDispatch}  from 'react-redux';
 import { useForm } from 'react-hook-form'
-import { Calendar } from 'primereact/calendar'
 import { InputTextarea } from 'primereact/inputtextarea'
 import { InputText } from 'primereact/inputtext'
 import ModeFooter from 'pages/profile/ModeFooter'
 import SectionHeader from './SectionHeader'
 import { Dropdown } from 'primereact/dropdown'
-import { updateExperience, createExperience} from 'store/modules/experience'
+import { createExperience} from 'store/modules/experience'
+import { Calendar } from 'primereact/calendar';
 
 
 const ExperienceForm = ({
@@ -34,13 +34,24 @@ const {
 } = useForm({mode: 'onChange', reValidateMode: 'onChange'});
 
 
-  const [experience, setExperience] = useState({})
+  const [experience, setExperience] = useState({});
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
   useEffect(() => {
     if(itemToEdit){
-      setExperience(itemToEdit)
-      experience.endDate = new Date(itemToEdit.endDate)
-      experience.startDate = new Date(itemToEdit.startDate)
+      console.log(itemToEdit)
+      setExperience({...experience, 
+        
+        jobCategory: jobCategoryList.find(j => j.name == itemToEdit.jobCategory),
+      });
+      // experience.endDate = new Date(itemToEdit.endDate)
+      // experience.startDate = new Date(itemToEdit.startDate)
+      setStartDate(itemToEdit.startDate);
+      setEndDate(itemToEdit.endDate);
+
+      setValue('description', itemToEdit.description);
+    
     }   
   }, [itemToEdit])
 
@@ -133,19 +144,27 @@ const {
                     </span>
                   )}
                 </label>
-                <input
+                <Calendar
                   id='startDate'
-                  type="date"
-                  value={experience.startDate}
-                  onChange={e => {
-                    inputChange(e, 'startDate')
-                  }}
+                  type="date"               
+                  value={startDate}
                   // dateFormat='dd/mm/yy'
                   name='startDate'
                   {...register('startDate', {
                     required: `* Start Date is required`
                   })}
-                  // maxDate={experience?.endDate}
+                  onSelect={(e) => {
+                    const inputName = "startDate";
+                    const value = new Date(e.value).toISOString();
+
+                    setStartDate(value);
+                    setValue(inputName, value, { shouldValidate: true });
+                  }}
+                  name="startDate"
+                  {...register("startDate", {
+                    required: `* Start date is required`,
+                  })}
+                  
                 />
               </div> 
               <div className='p-field p-col-12 p-md-6'>
@@ -158,19 +177,27 @@ const {
                     </span>
                   )}
                 </label>
-                <input
+                <Calendar
                   id='endDate'
                   type="date"
-                  value={experience?.endDate}
-                  onChange={e => {
-                    inputChange(e, 'endDate')
-                  }}
+                  value={endDate}
                   // dateFormat='dd/mm/yy'
                   name='endDate'
                   {...register('endDate', {
                     required: `* End Date is required`
                   })}
-                  // minDate={experience.startDate}
+                  onSelect={(e) => {
+                    const inputName = "endDate";
+                    const value = new Date(e.value).toISOString();
+
+                    setStartDate(value);
+                    setValue(inputName, value, { shouldValidate: true });
+                  }}
+                  name="endDate"
+                  {...register("endDate", {
+                    required: `* End date is required`,
+                  })}
+                  
                 />
               </div>
               <div className='p-field p-col-12 p-md-6'>

@@ -1,14 +1,14 @@
 import React from 'react';
-import LineChart from './LineChart';
-import BarChart from './BarChart';
+// import LineChart from './LineChart';
+// import BarChart from './BarChart';
 import ProgressTrackerBar from './ProgressTrackerBar';
 import DataTableComponent from './DataTableComponent';
 
 const EmployeeDashboard = () => {
   return (
     <div className="dashboard-container">
-      <h3 style={{ color: "var(--surface-a)" }} className="p-pb-2"><i className="pi pi-chart-line p-pr-2"></i>Dashboard</h3>
-      <h6 style={{ color: "var(--surface-a)" }} className="p-mb-4">Account activity on Jobplicant so far</h6>
+      <h3 style={{ }} className="p-pb-2"><i className="pi pi-chart-line p-pr-2"></i>Dashboard</h3>
+      <h6 style={{}} className="p-mb-4">Account activity on Jobplicant so far</h6>
       <div className="p-grid">
         <div className="p-col-12 p-lg-4 p-p-lg-1">
           <div className="p-card h-100 p-mt-2 text-center">
@@ -148,7 +148,7 @@ const EmployeeDashboard = () => {
               Earning Breakdown
             </div>
             <div className="p-card-body">
-              <LineChart />
+              {/* <LineChart /> */}
             </div>
           </div>
         </div>
@@ -158,7 +158,7 @@ const EmployeeDashboard = () => {
               Monthly Revenue
             </div>
             <div className="p-card-body">
-              <BarChart />
+              {/* <BarChart /> */}
             </div>
           </div>
         </div>
