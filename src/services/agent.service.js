@@ -4,7 +4,7 @@ import superagentPromise from "superagent-promise";
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api-pyfpg.ondigitalocean.app";
+export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api.herokuapp.com";
 console.log('API_ROOT', API_ROOT);
 console.log("environmental variables", process.env);
 export const IMAGE_URL = API_ROOT + '/account/uploads/';
