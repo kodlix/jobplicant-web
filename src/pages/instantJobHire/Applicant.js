@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './InstanceJobHire.css'
+import './InstantJobHire.css'
 
 const Applicant = () => {
-    const rating = 4.5;
 
     return (
         <>
@@ -12,7 +11,7 @@ const Applicant = () => {
                     <div className="card card-size p-mt-2">
                         <div className="card-body p-pt-0">
                             <div class="row row-cols-12 row-cols-md-3 g-4">
-                                <div class="col-4 col-sm-12">
+                                <div class="col-4 col-sm-12 highlight-card">
                                     <div class="card mt-3">
                                         <img src="../../assets/user-icon.png" height="150px" class="card-img-top" alt="..." />
                                         <div class="card-body">
@@ -25,7 +24,7 @@ const Applicant = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-4 col-sm-12">
+                                <div class="col-4 col-sm-12 highlight-card">
                                     <div class="card mt-3">
                                         <img src="../../assets/user-icon.png " width="10px" height="150px" class="card-img-top" alt="..." />
                                         <div class="card-body">
@@ -37,7 +36,7 @@ const Applicant = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-4 col-sm-12">
+                                <div class="col-4 col-sm-12 highlight-card">
                                     <div class="card mt-3">
                                         <img src="../../assets/user-icon.png " width="10px" height="150px" class="card-img-top" alt="..." />
                                         <div class="card-body">
@@ -49,7 +48,7 @@ const Applicant = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-4 col-sm-12">
+                                <div class="col-4 col-sm-12 highlight-card">
                                     <div class="card mt-3">
                                         <img src="../../assets/user-icon.png " width="10px" height="150px" class="card-img-top" alt="..." />
                                         <div class="card-body">
@@ -61,7 +60,7 @@ const Applicant = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-4 col-sm-12">
+                                <div class="col-4 col-sm-12 highlight-card">
                                     <div class="card mt-3">
                                         <img src="../../assets/user-icon.png " width="10px" height="150px" class="card-img-top" alt="..." />
                                         <div class="card-body">

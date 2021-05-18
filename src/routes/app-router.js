@@ -27,11 +27,11 @@ const NewPassword = React.lazy(() => import('../pages/auth/forgotPassword/NewPas
 const PageNotFound = React.lazy(() => import('../pages/errorPage/PageNotFound'));
 const InternalServerError = React.lazy(() => import('../pages/errorPage/InternalServerError'));
 const BadRequest = React.lazy(() => import('../pages/errorPage/BadRequest'));
-const CreateInstanceJobHire = React.lazy(() => import('../pages/instanceJobHire/Create'));
-const ListInstanceJobHire = React.lazy(() => import('../pages/instanceJobHire/List'));
-const ViewInstanceJobHire = React.lazy(() => import('../pages/instanceJobHire/View'));
-const EditInstanceJobHire = React.lazy(() => import('../pages/instanceJobHire/Edit'));
-const Applicant = React.lazy(() => import('../pages/instanceJobHire/Applicant'));
+const CreateInstanceJobHire = React.lazy(() => import('../pages/instantJobHire/Create'));
+const ListInstanceJobHire = React.lazy(() => import('../pages/instantJobHire/List'));
+const ViewInstanceJobHire = React.lazy(() => import('../pages/instantJobHire/View'));
+const EditInstanceJobHire = React.lazy(() => import('../pages/instantJobHire/Edit'));
+const Applicant = React.lazy(() => import('../pages/instantJobHire/Applicant'));
 
 
 
@@ -70,8 +70,6 @@ const AppRouter = () => {
         <ProtectedRoute path="/instant-hire/view/:id" component={ViewInstanceJobHire} />
         <ProtectedRoute path="/instant-hire/edit/:id" component={EditInstanceJobHire} />
         <ProtectedRoute path="/applicant" component={Applicant} />
-
-
 
         <Redirect to="/login" />
       </Switch>

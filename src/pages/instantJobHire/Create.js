@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Dropdown } from 'primereact/dropdown';
 import { TabView, TabPanel } from 'primereact/tabview';
-
-import './InstanceJobHire.css'
 import AppNavBar from 'components/AppNavBar';
 import InstantHires from './List';
 import Applicant from './Applicant';
 
+import './InstantJobHire.css'
 
-const InstanceJobHire = ({ }) => {
 
-    const dispatch = useDispatch();
+
+const InstanceJobHire = () => {
+
     const { register, handleSubmit, formState: { errors }, setValue } = useForm({
         mode: "onChange",
         reValidateMode: "onChange"

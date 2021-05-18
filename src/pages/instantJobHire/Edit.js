@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Dropdown } from 'primereact/dropdown';
-
-import './InstanceJobHire.css'
 import AppNavBar from 'components/AppNavBar';
 import { TabPanel, TabView } from 'primereact/tabview';
 import { Link } from 'react-router-dom';
 
+import './InstantJobHire.css'
 
-const Edit = ({ }) => {
 
-    const dispatch = useDispatch();
+
+const Edit = () => {
+
     const { register, handleSubmit, formState: { errors }, setValue } = useForm({
         mode: "onChange",
         reValidateMode: "onChange"
@@ -25,9 +24,6 @@ const Edit = ({ }) => {
     const [jobDateNow, setJobDateNow] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
 
-
-
-    const id = 1;
 
     const Categories = [
         { name: 'Mechine', code: 'Mec' },

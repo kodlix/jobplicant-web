@@ -3,24 +3,15 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-import './InstanceJobHire.css'
+import './InstantJobHire.css'
 
 
 
 const InstantHires = (props) => {
 
-    const dispatch = useDispatch();
 
     const id = 1;
 
-
-    const [desc, setDesc] = useState('');
-    const [selectedCategory, setselectedCategory] = useState(null);
-
-
-    const handleDeleteInstJob = () => {
-
-    }
     const handleDeleteItem = (Id) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -66,7 +57,7 @@ const InstantHires = (props) => {
                                             <div className="">
                                                 <div className="panel-login text-center"></div>
                                                 <div className="card">
-                                                    <div className="card-body height-card">
+                                                    <div className="card-body highlight-card">
 
                                                         <div className="dropdown font-weight-bold ml-2" style={{ float: "right" }}>
                                                             <i type="button" className="pi pi-ellipsis-v bg-secondary text-white px-3  p-2  rounded-pill" role="button" id="dropdownMenuLink"
@@ -95,7 +86,7 @@ const InstantHires = (props) => {
                                                     </div>
                                                 </div>
                                                 <div className="card p-mt-1 " >
-                                                    <div className="card-body height-card">
+                                                    <div className="card-body highlight-card">
                                                         <div className="dropdown font-weight-bold ml-2" style={{ float: "right" }}>
                                                             <i type="button" className="pi pi-ellipsis-v bg-secondary text-white px-3  p-2  rounded-pill" role="button" id="dropdownMenuLink"
                                                                 data-bs-toggle="dropdown" aria-expanded="false"></i>
@@ -124,7 +115,7 @@ const InstantHires = (props) => {
                                                     </div>
                                                 </div>
                                                 <div className="card p-mt-1">
-                                                    <div className="card-body height-card">
+                                                    <div className="card-body highlight-card">
                                                         <div className="dropdown font-weight-bold ml-2" style={{ float: "right" }}>
                                                             <i type="button" className="pi pi-ellipsis-v bg-secondary text-white px-3  p-2  rounded-pill" role="button" id="dropdownMenuLink"
                                                                 data-bs-toggle="dropdown" aria-expanded="false"></i>

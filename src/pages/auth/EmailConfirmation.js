@@ -69,9 +69,7 @@ const EmailConfirmation = () => {
                 <div className="confirmbtn p-grid">
                     <Link to="/login">
                         < span className="p-p-4 p-text-primary resendemail"> Resend email </span>  </Link>
-                    {/* <Link>
-                                <span className="p-p-4 p-text-secondary ">Back</span>
-                            </Link> */}
+              
                 </div>
                 {/* </div> */}
             </div>

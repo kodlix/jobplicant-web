@@ -116,7 +116,7 @@
     margin-left: 50vw;
 }
 
-.height-card:hover {
+.highlight-card:hover {
     transform: scale(1.02);
     cursor: pointer;
     background: rgba(173, 187, 192, 0.1);
