@@ -3,11 +3,11 @@
 }
 
 .appcolor {
-    background-color: #5A2846;
+    background-color: #5A2846 !important;
 }
 
 .header-color {
-    background-color: rgb(44, 165, 94);
+    background-color: rgb(44, 165, 94)!important;
 }
 
 .bgcolor {
@@ -27,12 +27,12 @@
 }
 
 .card-size {
-    width: 46vw;
+    width: 62vw;
     margin: auto;
 }
 
 .card-size-list {
-    width: 65vw;
+    width: 62vw;
     margin: auto;
 }
 
@@ -71,6 +71,62 @@
     margin: auto;
 }
 
+
+/* content tab styles */
+
+.content-tab {
+    background-color: #5a2846;
+    color: white;
+    height: 60px;
+}
+
+.content-tab button {
+    border: none;
+    background-color: initial;
+    padding-top: 10px;
+}
+
+.content-tab .pi {
+    font-size: 20px;
+    padding: 4px 20px;
+}
+
+.content-tab .tab-titles {
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.content-tab-width {
+    width: 80%;
+    margin: auto;
+}
+
+.tab-width {
+    width: 76%;
+    margin: auto;
+}
+
+.back-btn {
+    margin-left: 12vw;
+    background-color: #6FCF97;
+}
+
+.submit-btn {
+    margin-left: 50vw;
+}
+
+.height-card:hover {
+    transform: scale(1.02);
+    cursor: pointer;
+    background: rgba(173, 187, 192, 0.1);
+}
+
+.applicant-width {
+    width: 62vw;
+    margin: auto;
+}
+
 @media screen and (max-width: 767px) {
     .sendsms {
         margin-right: 48vw;
@@ -97,8 +153,19 @@
         width: 90%;
         margin: auto;
     }
-    .card-size-list {
-        width: 90%;
+    /* .card-size-list {
+        width: 100%;
         margin: auto;
+    } */
+    .content-tab-width,
+    .card-size-list {
+        width: 100%;
+    }
+    .tab-width {
+        width: 95%;
+        margin: auto;
+    }
+    .back-btn {
+        margin-left: 6vw;
     }
 }

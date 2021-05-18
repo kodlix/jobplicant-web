@@ -58,7 +58,7 @@ const AppNavBar = ({displaySearBar = false}) => {
                                             </li>
                                         </ul>
                                     </div>
-                                    <Link to={"/newinstancejobhire"}>
+                                    <Link to={"/new-instant-hire"}>
                                         <button className="button btn bg-light text-muted font-weight-bold" style={{ width: '14rem' }}>
                                             Create Instant Job
                                     </button></Link>

@@ -65,10 +65,10 @@ const AppRouter = () => {
         <ProtectedRoute path="/profile-info" exact component={UserProfile} />
         {/* <ProtectedRoute path="/companyprofile" component={CompanyProfile} /> */}
         <ProtectedRoute path="/dashboard" component={Dashboard} />
-        <ProtectedRoute path="/newinstancejobhire" component={CreateInstanceJobHire} />
-        <ProtectedRoute path="/listinstancejobhire" component={ListInstanceJobHire} />
-        <ProtectedRoute path="/instancejobhire/view/:id" component={ViewInstanceJobHire} />
-        <ProtectedRoute path="/instancejobhire/edit/:id" component={EditInstanceJobHire} />
+        <ProtectedRoute path="/new-instant-hire" component={CreateInstanceJobHire} />
+        <ProtectedRoute path="/instant-hires" component={ListInstanceJobHire} />
+        <ProtectedRoute path="/instant-hire/view/:id" component={ViewInstanceJobHire} />
+        <ProtectedRoute path="/instant-hire/edit/:id" component={EditInstanceJobHire} />
         <ProtectedRoute path="/applicant" component={Applicant} />
 
         <Redirect to="/login" />

@@ -4,7 +4,7 @@ import superagentPromise from "superagent-promise";
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api.herokuapp.com";
+export const API_ROOT = "https://jobplicant-api.herokuapp.com";
 console.log('API_ROOT', API_ROOT);
 console.log("environmental variables", process.env);
 export const IMAGE_URL = API_ROOT + '/account/uploads/';
@@ -116,11 +116,14 @@ const Sector = {
 };
 
 const Account = {
-  getProfileInfo: () => requests.get(`/accounts/profile/active`),
-  updateBiography: (biography) => requests.put("/accounts/bio", biography),
-  
   updateExperience: (experience) =>
     requests.put("/accounts/job-experience", experience),
+  getProfileInfo: () =>
+    requests.get(`/accounts/profile/active`),
+  updateBiography: (biography) =>
+    requests.put('/accounts/bio', biography),
+  updateExperience: (experience) =>
+    requests.put('/accounts/job-experience', experience),
   updateContactInfo: (contactInfo) =>
     requests.put("/accounts/contact-info", contactInfo),
   updateLOI: (loi) =>

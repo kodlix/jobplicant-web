@@ -38,7 +38,7 @@ const SecurityVerification = () => {
                         }>
                         <div className="p-mt-4 p-col-12 mx-auto">
                             <div className="card card-size">
-                                <div className="card-header header-color  text-white font-weight-bold">
+                                <div className="card-header appcolor  text-white font-weight-bold">
                                     Security Verification
                                 </div>
                                 <div className="card-body">
