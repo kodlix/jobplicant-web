@@ -76,6 +76,9 @@
   padding: 7px;
   color: white;
 }
+.pi-active {
+  color: #55B3B1;
+}
 
 /* rating */
 :root {

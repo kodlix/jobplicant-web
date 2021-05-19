@@ -14,8 +14,9 @@ const INITIAL_STATE = {
     address: "",
     city: "",
     country: "",
-    id: ''
+    id: "",
   },
+  updatedOrDeleted: false,
 };
 
 //ACTION TYPES
@@ -25,32 +26,33 @@ const LOADING_EDUCATION = "LOADING_EDUCATION";
 const LOAD_EDUCATION_ERROR = "LOAD_EDUCATION_ERROR";
 const DELETE_EDUCATION = "DELETE_EDUCATION";
 
-//REDUCER 
+//REDUCER
 export default function reducer(state = INITIAL_STATE, action = {}) {
   switch (action.type) {
     case LOADING_EDUCATION:
       return {
         ...state,
         loading: true,
+        updatedOrDeleted: false,
       };
     case UPDATE_EDUCATION:
       return {
         ...state,
         loading: false,
         data: action.payload,
+        updatedOrDeleted: true,
       };
     case LOAD_EDUCATION:
       return {
         ...state,
         loading: false,
         data: action.payload,
+        updatedOrDeleted: false,
       };
     case LOAD_EDUCATION_ERROR:
-      return { ...state, loading: false };
+      return { ...state, loading: false, updatedOrDeleted: false };
     case DELETE_EDUCATION:
-      const id = action.payload;
-      const newData = state.data.filter(d => d.id !== id );
-      return { ...state, data: newData } 
+      return { ...state, loading: false, updatedOrDeleted: true };
     default:
       return state;
   }
@@ -75,8 +77,8 @@ export const educationLoadedError = () => ({
 });
 export const deleteUserEducation = (id) => ({
   type: DELETE_EDUCATION,
-  payload: id
-})
+  payload: id,
+});
 //ACTIONS
 export const loadEducation = () => (dispatch) => {
   return agent.Education.load().then((response) => {
@@ -135,22 +137,24 @@ export const updateEducation = (id, education) => (dispatch) => {
   );
 };
 //to delete education
-export const deleteEducation = (id) => dispatch => {
+export const deleteEducation = (id) => (dispatch) => {
   dispatch(isLoading());
-  return agent.Education.delete(id).then(response => {
-    dispatch(deleteUserEducation());
-    dispatch(
-      showMessage({
-        type: MESSAGE_TYPE.SUCCESS,
-        title: "Delete Information",
-        message: "Education deleted successfully",
-      })
-    );
-    dispatch(educationLoadedError());
-  },
-  (error) => {
-    // handle error
-    dispatch(educationLoadedError());
-    dispatch(showMessage({ type: "error", message: error }));
-  })
-}
+  return agent.Education.delete(id).then(
+    (response) => {
+      dispatch(deleteUserEducation());
+      dispatch(
+        showMessage({
+          type: MESSAGE_TYPE.SUCCESS,
+          title: "Delete Information",
+          message: "Education deleted successfully",
+        })
+      );
+      dispatch(educationLoadedError());
+    },
+    (error) => {
+      // handle error
+      dispatch(educationLoadedError());
+      dispatch(showMessage({ type: "error", message: error }));
+    }
+  );
+};

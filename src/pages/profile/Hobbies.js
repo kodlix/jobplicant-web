@@ -1,26 +1,39 @@
-import React from 'react';
-import SectionHeader from './SectionHeader';
-import './UserProfile.css';
+import React from "react";
+import SectionHeader from "./SectionHeader";
+import { PROFILE } from "constants/profile";
+import "./UserProfile.css";
 
-const Hobbies = (props) => {
-  const mode = (event) => {
-    props.onClick(event);
-  }
+const Hobbies = ({ openCreate, openEdit, profileInfo }) => {
+
   return (
     <>
       <div className="p-card p-mt-2">
-        <SectionHeader icon="heart" sectionTitle="Hobbies / Likes" id="hobbyEdit" addButton="true" editButton="true" onClick={mode} />
+        <SectionHeader
+          icon="heart"
+          sectionTitle="Hobbies"
+          id="hobbyEdit"
+          showAddButton="true"
+          showEditButton="true"
+          showAddButton="true"
+          showEditButton="true"
+          openModalOnCreate={() => openEdit(PROFILE.HOBBY)}
+          openModalOnEdit={() => openCreate(PROFILE.HOBBY)}
+          hasData={profileInfo?.profile}
+        />
         <div className="p-card-body p-text-secondary">
           <ul className="listStyle p-grid">
-            <li className="p-col-4">Hiking</li>
-            <li className="p-col-4">Running</li>
-            <li className="p-col-4">Swimming</li>
-            <li className="p-col-4">Drawing</li>
+            {profileInfo.hobbies &&
+              profileInfo.hobbies.length > 0 &&
+              profileInfo.hobbies.map((hobby, index) => (
+                <li key={index} className="p-col-4">
+                  {hobby}
+                </li>
+              ))}
           </ul>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default Hobbies;

@@ -15,6 +15,7 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
     handleSubmit,
     setValue,
     clearErrors,
+    reset,
     formState: { errors },
   } = useForm({
     mode: "onChange",
@@ -95,6 +96,9 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
       setValue('yearOfGraduation', newDate);
       setValue('address', itemToEdit.address);
       
+   }else{
+     reset();
+     console.log('cear form')
    }
   }, [itemToEdit])
 

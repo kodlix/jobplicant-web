@@ -31,22 +31,25 @@ const LOIForm = ({ data, closeEditMode }) => {
   };
 
   const handleLOIChange = (e) => {
-    setCurrentLOI(e.target.value.name);
+    setCurrentLOI(e.target.value);
   };
 
   const handleLOIAdd = () => {
-    if (LOIs.length === 2) {
-      setCurrentLOI();
+    if (LOIs.length > 2) {
+      setCurrentLOI("");
       return;
     }
     if (currentLOI) {
-      if (searchObjectArrayValues(LOIs, currentLOI)) {
-        setLOIs([...LOIs, currentLOI]);
-        setValue("location", [...LOIs, currentLOI]);
+      const { name } = currentLOI;
+
+      if (searchObjectArrayValues(LOIs, name)) {
+        setLOIs([...LOIs, name]);
+        console.log(name)
+        console.log(LOIs)
       }
-      return;
+      setValue("location", LOIs);
+      setCurrentLOI("");
     }
-    // setCurrentLOI("");
   };
   const handleLOIDelete = (loiToRemove) => {
     // if (e.target.className === "p-tag-icon pi pi-times") {
@@ -101,7 +104,7 @@ const LOIForm = ({ data, closeEditMode }) => {
               <Dropdown
                 value={currentLOI}
                 options={LOIList}
-                onChange={(e) => handleLOIChange(e)}
+                onChange={handleLOIChange}
                 optionLabel="name"
                 filter
                 showClear

@@ -1,23 +1,41 @@
-import React from 'react';
-import SectionHeader from './SectionHeader';
-import './UserProfile.css';
+import React from "react";
+import SectionHeader from "./SectionHeader";
+import { PROFILE } from "constants/profile";
+import "./UserProfile.css";
 
-const ContactInformation = (props) => {
-  const mode = (event) => {
-    props.onClick(event);
-  }
+const ContactInformation = ({ openCreate, openEdit, profileInfo }) => {
   return (
     <>
       <div className="p-card p-mt-2">
-        <SectionHeader icon="phone" sectionTitle="Contact Information" id="contactInfoEdit" addButton="true" editButton="true" onClick={mode} />
+        <SectionHeader
+          icon="phone"
+          sectionTitle="Contact Information"
+          id="contactInfoEdit"
+          showAddButton="true"
+          showEditButton="true"
+          showAddButton="true"
+          showEditButton="true"
+          openModalOnCreate={() => openEdit(PROFILE.CONTACT_INFO)}
+          openModalOnEdit={() => openCreate(PROFILE.CONTACT_INFO)}
+          hasData={profileInfo?.profile}
+        />
         <div className="p-card-body p-text-secondary">
-          <span><b>Phone Number:</b> +23463736373</span>
-          <span><b>Email: </b>+23463736373</span>
-          <span><b>Location: </b>Isaac Johnson, Lagos. Nigeria</span>
+          <span>
+            <b>Phone Number:</b>
+            {profileInfo.contactPhoneNumber}
+          </span>
+          <span>
+            <b>Email: </b>
+            {profileInfo.contactEmail}
+          </span>
+          <span>
+            <b>Location: </b>
+            {profileInfo.address}
+          </span>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default ContactInformation;
