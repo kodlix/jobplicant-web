@@ -7,6 +7,8 @@ import { loginUser } from 'store/modules/auth';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Toast } from 'primereact/toast';
+import { Password } from 'primereact/password';
+
 
 
 
@@ -25,6 +27,8 @@ const Login = ({ props }) => {
 
 
     const [checked, setChecked] = useState(false);
+    const [pass, setPass] = useState('');
+
 
     console.log({ checked })
 
@@ -105,7 +109,6 @@ const Login = ({ props }) => {
                                         <div className="p-fluid">
                                             <div className="p-field">
                                                 <InputText type="email"
-                                                    // className="form-control p-ml-6 p-mr-6"
                                                     name="email"
                                                     placeholder="Mobile number or email address"
                                                     {...register('email', { required: "Please enter an email address or phone number" })}
@@ -118,11 +121,22 @@ const Login = ({ props }) => {
                                                 </label>
                                             </div>
                                             <div className="p-field">
-                                                <InputText type="password"
+                                                {/* <InputText type="password"
                                                     name="password"
                                                     placeholder="Password"
                                                     {...register("password", { required: "Please enter your password." })}
+                                                /> */}
+                                                <Password
+                                                    value={pass} onChange={(e) => setPass(e.target.value)}
+                                                    toggleMask
+                                                    name="password"
+                                                    placeholder="Password"
+                                                    feedback={false}
+                                                    {...register("password", { required: "Please enter your password." })}
+
                                                 />
+
+
 
                                                 <label htmlFor="password" className="">
                                                     {errors?.password?.type === "required" && <span className="text-danger font-weight-bold p-mr-6 error-msg"> <p>{errors.password.message}</p>
@@ -145,7 +159,7 @@ const Login = ({ props }) => {
                                                 </div>
                                                 <div className="col-6 col-xs-3 p-mb-1 ">
                                                     <p className="col-xs-2 appcolor">
-                                                        <Link  className="font-weight-bold forgot-pwd" to="/forgotpassword">Forgot password?</Link>
+                                                        <Link className="font-weight-bold forgot-pwd" to="/forgotpassword">Forgot password?</Link>
                                                     </p>
                                                 </div>
                                             </div>

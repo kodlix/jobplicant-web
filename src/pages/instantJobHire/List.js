@@ -1,39 +1,68 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import { Toast } from 'primereact/toast';
+
+
 import Swal from 'sweetalert2';
 
 import './InstantJobHire.css'
+import { Button } from 'primereact/button';
 
 
 
 const InstantHires = (props) => {
 
+    const [visible, setVisible] = useState(false);
+    const toast = useRef(null);
+
+    const accept = () => {
+        toast.current.show({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+    }
+
+    const reject = () => {
+        toast.currents.show({ severity: 'info', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+    }
+
+
+
 
     const id = 1;
 
-    const handleDeleteItem = (Id) => {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#276678',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // dispatch(deleteEventType(Id));
-                // Swal.fire(
-                //     'Deleted!',
-                //     'Your scheduled meeting has been deleted.',
-                //     'success'
-                // )
-                return;
-            }
-        })
+    const deleteRequest = () => {
+        confirmDialog({
+            message: 'Do you want to delete this record?',
+            header: 'Delete Confirmation',
+            icon: 'pi pi-info-circle',
+            acceptClassName: 'p-button-danger',
+            accept,
+            reject
+        });
+    };
 
-    }
+    // const handleDeleteItem = (Id) => {
+    //     Swal.fire({
+    //         title: 'Are you sure?',
+    //         text: "You won't be able to revert this!",
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#276678',
+    //         cancelButtonColor: '#d33',
+    //         confirmButtonText: 'Yes, delete it!'
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             // dispatch(deleteEventType(Id));
+    //             // Swal.fire(
+    //             //     'Deleted!',
+    //             //     'Your scheduled meeting has been deleted.',
+    //             //     'success'
+    //             // )
+    //             return;
+    //         }
+    //     })
+
+    // }
 
 
 
@@ -60,13 +89,15 @@ const InstantHires = (props) => {
                                                     <div className="card-body highlight-card">
 
                                                         <div className="dropdown font-weight-bold ml-2" style={{ float: "right" }}>
-                                                            <i type="button" className="pi pi-ellipsis-v bg-secondary text-white px-3  p-2  rounded-pill" role="button" id="dropdownMenuLink"
+                                                            <i type="button" className="pi pi-ellipsis-v bg-secondary text-white px-3  p-1  rounded-pill" role="button" id="dropdownMenuLink"
                                                                 data-bs-toggle="dropdown" aria-expanded="false"></i>
                                                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                                 <li> <Link to={`/instant-hire/edit/${id}`} className="dropdown-item">Edit</Link>
                                                                 </li>
                                                                 <span>
-                                                                    <li className="dropdown-item text-danger" style={{ cursor: "pointer" }} onClick={() => handleDeleteItem(id)} >
+                                                                    <li className="dropdown-item text-danger" style={{ cursor: "pointer" }}
+                                                                        onClick={deleteRequest}
+                                                                    >
                                                                         Delete        </li>
                                                                 </span>
                                                             </ul>
@@ -88,14 +119,15 @@ const InstantHires = (props) => {
                                                 <div className="card p-mt-1 " >
                                                     <div className="card-body highlight-card">
                                                         <div className="dropdown font-weight-bold ml-2" style={{ float: "right" }}>
-                                                            <i type="button" className="pi pi-ellipsis-v bg-secondary text-white px-3  p-2  rounded-pill" role="button" id="dropdownMenuLink"
+                                                            <i type="button" className="pi pi-ellipsis-v bg-secondary text-white px-3  p-1  rounded-pill" role="button" id="dropdownMenuLink"
                                                                 data-bs-toggle="dropdown" aria-expanded="false"></i>
                                                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                                 <li> <Link to={`/instant-hire/edit/${id}`} className="dropdown-item">Edit</Link>
                                                                 </li>
                                                                 <span>
-                                                                    <li className="dropdown-item text-danger" style={{ cursor: "pointer" }} onClick={() => handleDeleteItem(id)} >
+                                                                    <li className="dropdown-item text-danger" style={{ cursor: "pointer" }}  >
                                                                         Delete        </li>
+                                                                    {/* onClick={() => handleDeleteItem(id)} */}
                                                                 </span>
                                                             </ul>
 
@@ -117,13 +149,13 @@ const InstantHires = (props) => {
                                                 <div className="card p-mt-1">
                                                     <div className="card-body highlight-card">
                                                         <div className="dropdown font-weight-bold ml-2" style={{ float: "right" }}>
-                                                            <i type="button" className="pi pi-ellipsis-v bg-secondary text-white px-3  p-2  rounded-pill" role="button" id="dropdownMenuLink"
+                                                            <i type="button" className="pi pi-ellipsis-v bg-secondary text-white px-3  p-1  rounded-pill" role="button" id="dropdownMenuLink"
                                                                 data-bs-toggle="dropdown" aria-expanded="false"></i>
                                                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                                 <li> <Link to={`/instant-hire/edit/${id}`} className="dropdown-item">Edit</Link>
                                                                 </li>
                                                                 <span>
-                                                                    <li className="dropdown-item text-danger" style={{ cursor: "pointer" }} onClick={() => handleDeleteItem(id)} >
+                                                                    <li className="dropdown-item text-danger" style={{ cursor: "pointer" }} >
                                                                         Delete        </li>
                                                                 </span>
                                                             </ul>

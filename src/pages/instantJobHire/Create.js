@@ -26,19 +26,6 @@ const InstanceJobHire = () => {
     const [activeIndex, setActiveIndex] = useState(0);
 
 
-    <TabView activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}>
-        <TabPanel header="Header I">
-            Content I
-    </TabPanel>
-        <TabPanel header="Header II">
-            Content II
-    </TabPanel>
-        <TabPanel header="Header III">
-            Content III
-    </TabPanel>
-    </TabView>
-
-
     const Categories = [
         { name: 'Mechine', code: 'Mec' },
         { name: 'Plumber', code: 'Plu' },
@@ -89,21 +76,31 @@ const InstanceJobHire = () => {
 
 
                             <div className='content-tab content-tab-width p-mb-2' >
-                                <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                    <li className="nav-item" role="presentation">
-                                        <button className="nav-link text-white" id="create-instant-tab" data-bs-toggle="pill" data-bs-target="#create-instant" type="button" role="tab" aria-controls="create-instant" aria-selected="true">Create Instant Hire</button>
-                                    </li>
-                                    <li className="nav-item" role="presentation">
-                                        <button className="nav-link text-white active" id="instant-hire-list-tab" data-bs-toggle="pill" data-bs-target="#instant-hire-list" type="button" role="tab" aria-controls="instant-hire-list" aria-selected="false">Instant Hires</button>
-                                    </li>
-                                    <li className="nav-item" role="presentation">
-                                        <button className="nav-link text-white" id="applicant-tab-tab" data-bs-toggle="pill" data-bs-target="#applicant-tab" type="button" role="tab" aria-controls="applicant-tab" aria-selected="false">Applicants</button>
-                                    </li>
-                                </ul>
+                                <nav>
+                                    <div class="nav  p-pt-2" id="nav-tab" role="tablist">
+
+                                        {/* nav-tabs */}
+                                        {/* <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist"> */}
+                                        <button class="nav-link text-white font-weight-bold " id="create-instant-tab" data-bs-toggle="tab" data-bs-target="#create-instant" type="button" role="tab" aria-controls="create-instant" aria-selected="true">Create Instant Hire</button>
+                                        <button class="nav-link text-white font-weight-bold active" id="instant-hire-list-tab" data-bs-toggle="tab" data-bs-target="#instant-hire-list" type="button" role="tab" aria-controls="instant-hire-list" aria-selected="false">Instant Hires</button>
+                                        <button class="nav-link text-white font-weight-bold" id="applicant-tab-tab" data-bs-toggle="tab" data-bs-target="#applicant-tab" type="button" role="tab" aria-controls="applicant-tab" aria-selected="false">Applicants</button>
+
+                                        {/* <li className="nav-item" role="presentation"> */}
+                                        {/* <button className="nav-link text-white" id="create-instant-tab" data-bs-toggle="pill" data-bs-target="#create-instant" type="button" role="tab" aria-controls="create-instant" aria-selected="true">Create Instant Hire</button> */}
+                                        {/* </li> */}
+                                        {/* <li className="nav-item" role="presentation">
+                                            <button className="nav-link text-white active" id="instant-hire-list-tab" data-bs-toggle="pill" data-bs-target="#instant-hire-list" type="button" role="tab" aria-controls="instant-hire-list" aria-selected="false">Instant Hires</button>
+                                        </li>
+                                        <li className="nav-item" role="presentation">
+                                            <button className="nav-link text-white" id="applicant-tab-tab" data-bs-toggle="pill" data-bs-target="#applicant-tab" type="button" role="tab" aria-controls="applicant-tab" aria-selected="false">Applicants</button>
+                                        </li> */}
+                                        {/* </ul> */}
+                                    </div>
+                                </nav>
 
                             </div>
                         </div>
-                        <div className="tab-content" id="pills-tabContent">
+                        <div className="tab-content" id="nav-tabContent">
                             <div className="tab-pane fade " id="create-instant" role="tabpanel" aria-labelledby="create-instant-tab">
                                 <div className="card card-size p-mt-2">
                                     <div className="card-body p-pt-0">
