@@ -13,16 +13,16 @@ const VerificationStep = ({ goto, setAccountType }) => {
         <>
             <div className="p-fluid">
                 <div className="p-grid">
-                    <div className="login-pane-left p-col-12"
+                    <div className="login-pane-left p-col-12 sm-height"
                         style={
                             {
-                                minHeight: '101vh',
+                                minHeight: '104vh',
                                 margin: 0
                             }
                         }>
                         <div className="left-content p-col-8 mx-auto">
                             <div className="card text-center">
-                                <div className="card-header bg-color">
+                                <div className="card-header appcolor ">
                                     Featured
                                 </div>
                                 <div className="card-body">
@@ -64,7 +64,7 @@ const VerificationStep = ({ goto, setAccountType }) => {
                                     STEP 1/2
                                 </div>
                                 <div className=" text-right p-2 px-10">
-                                    <button type="button" className="btn btn-primary"
+                                    <button type="button" className="btn appcolor"
                                         onClick={
                                             () => goto(2)
                                         }>Next</button>

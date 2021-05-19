@@ -1,3 +1,85 @@
 .pointer {
     cursor: pointer;
 }
+
+.background-top {
+    background-color: rgb(35 38 45 / 15%);
+    color: #5A2846;
+    height: 13rem;
+}
+
+.background-bottom {
+    background-color: #5a28461f;
+    height: 180vh;
+}
+
+.dashboard-container {
+    height: 100vh;
+    width: 90%;
+    margin: 0 auto;
+    left: 5%;
+    top: 180px;
+    position: absolute;
+}
+
+.cardtitle {
+    border-bottom: 1px solid #5a284657;
+    font-size: 1rem !important;
+    padding: 0.5rem 1rem;
+}
+
+.svgimage {
+    background-image: url('../../assets/images/Time09.jpg');
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 250px;
+    background-position: center;
+    background-size: contain;
+    position: relative;
+}
+
+/* Progress chart */
+.progressBar-title {
+    color: rgb(110, 108, 108);
+    display: flex;
+    font-size: 12px;
+    font-weight: 500;
+    justify-content: space-between;
+    margin-bottom: 0.3rem;
+}
+
+.progressBar {
+    margin-bottom: 1rem;
+    height: 15px;
+    border-radius: 5px;
+}
+
+.progressBar1 > .p-progressbar-value {
+    background: red;
+}
+
+.progressBar2 > .p-progressbar-value {
+    background: rgb(255, 153, 0);
+}
+
+.progressBar3 > .p-progressbar-value {
+    background: blue;
+}
+
+.progressBar4 > .p-progressbar-value {
+    background: skyblue;
+}
+
+.progressBar5 > .p-progressbar-value {
+    background: green;
+}
+
+/* Progress chart */
+
+.pi-dollar {
+    font-size: 1.5rem;
+}
+
+
+
+

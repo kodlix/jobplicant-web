@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './AppNavBar.css';
 
-const AppNavBar = () => {
+const AppNavBar = ({displaySearBar = false}) => {
 
     return (
         <div className="header-container">
@@ -12,7 +12,7 @@ const AppNavBar = () => {
                         <div className="row align-items-center">
                             <div className="col-lg-12">
                                 <nav className="navbar navbar-expand-lg">
-                                    <Link className="navbar-brand logo" to="index.html">
+                                    <Link className="navbar-brand logo" to="/profile-info">
                                         <img className="logo1" src="assets/logo.png" alt="Logo" />
                                     </Link>
                                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,10 +58,10 @@ const AppNavBar = () => {
                                             </li>
                                         </ul>
                                     </div>
-
-                                    <button className="button btn bg-light text-muted font-weight-bold" style={{ width: '14rem' }}>
-                                        Post Instant Job
-                                    </button>
+                                    <Link to={"/new-instant-hire"}>
+                                        <button className="button btn bg-light text-muted font-weight-bold" style={{ width: '14rem' }}>
+                                            Create Instant Job
+                                    </button></Link>
                                 </nav>
 
                             </div>
@@ -78,12 +78,14 @@ const AppNavBar = () => {
                 </p>
                 </div>
             </div>
-            <div className="search-bar mx-auto align-content-center">
+            { displaySearBar && 
+                <div className="search-bar mx-auto align-content-center">
                 <div className="input-group py-4 mx-auto" style={{ width: '25rem' }}>
                     <input type="text" className="form-control" placeholder="search for content" aria-label="search for content" aria-describedby="basic-addon2" />
                     <span className="input-group-text btn brown-color" id="basic-addon2">Search</span>
                 </div>
             </div>
+            }                   
         </div>
 
     );

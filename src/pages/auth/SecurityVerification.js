@@ -1,9 +1,9 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import {Button} from 'primereact/button';
-import {InputText} from 'primereact/inputtext';
+import { Button } from 'primereact/button';
+import { InputText } from 'primereact/inputtext';
 import { verifyAccount } from 'store/modules/auth';
 
 import './SecurityVerification.css'
@@ -22,27 +22,27 @@ const SecurityVerification = () => {
     const email = query.get('email');
     const phonenumber = query.get('phonenumber');
 
-    const onSubmit = ({code}) => {
+    const onSubmit = ({ code }) => {
         dispatch(verifyAccount(code))
     }
     return (
         <>
             <div className="p-fluid">
                 <div className="p-grid">
-                    <div className="login-pane-left p-col-12"
+                    <div className="appcolor p-col-12"
                         style={
                             {
-                                minHeight: '101vh',
+                                minHeight: '104vh',
                                 margin: 0
                             }
-                    }>
-                        <div className="left-content p-col-8 mx-auto">
+                        }>
+                        <div className="p-mt-4 p-col-12 mx-auto">
                             <div className="card card-size">
-                                <div className="card-header p-text-secondary font-weight-bold">
+                                <div className="card-header appcolor  text-white font-weight-bold">
                                     Security Verification
                                 </div>
                                 <div className="card-body">
-                                    <div className="login-pane-right p-4">
+                                    <div className="p-4">
                                         <div className="">
                                             <div className="panel-login text-center"></div>
                                             <div className="panel-signup ">
@@ -62,11 +62,11 @@ const SecurityVerification = () => {
                                                     <div className="p-fluid">
                                                         <div className="p-field">
                                                             <InputText type="text"
-                                                             placeholder="Enter verification code"
-                                                             name="code"
-                                                             {...register("code", { required: "verification code is required" })}
-                                                             />
-                                                             <label htmlFor="lastname" className="">
+                                                                placeholder="Enter verification code"
+                                                                name="code"
+                                                                {...register("code", { required: "verification code is required" })}
+                                                            />
+                                                            <label htmlFor="lastname" className="">
                                                                 {errors.code && <span className="text-danger font-weight-bold "> <p>{errors.code.message}</p>
                                                                 </span>}
                                                             </label>
@@ -76,10 +76,10 @@ const SecurityVerification = () => {
                                                                 <span className="app-color">Resend Code</span>
                                                             </Link>
                                                         </div>
-                                                        <hr className="p-mb-3"/>
+                                                        <hr className="p-mb-3" />
                                                     </div>
 
-                                                    <Button type="submit" label="Submit" className="appcolor continue-btn"/>
+                                                    <Button type="submit" label="Submit" className="appcolor continue-btn" />
                                                 </form>
                                             </div>
                                         </div>
