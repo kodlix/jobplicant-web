@@ -1,4 +1,3 @@
-import request from "superagent";
 import _superagent from "superagent";
 import superagentPromise from "superagent-promise";
 

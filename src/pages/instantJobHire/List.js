@@ -1,20 +1,13 @@
 import React, { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
-import { Toast } from 'primereact/toast';
-
-
-import Swal from 'sweetalert2';
-
+import { confirmDialog } from 'primereact/confirmdialog';
 import './InstantJobHire.css'
-import { Button } from 'primereact/button';
 
 
 
-const InstantHires = (props) => {
+const InstantHires = () => {
 
-    const [visible, setVisible] = useState(false);
+    const [] = useState(false);
     const toast = useRef(null);
 
     const accept = () => {
