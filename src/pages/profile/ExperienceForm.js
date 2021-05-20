@@ -1,157 +1,180 @@
-import React, { useState, useEffect } from 'react'
-import {useDispatch}  from 'react-redux';
-import { useForm } from 'react-hook-form'
-import { InputTextarea } from 'primereact/inputtextarea'
-import { InputText } from 'primereact/inputtext'
-import ModeFooter from 'pages/profile/ModeFooter'
-import SectionHeader from './SectionHeader'
-import { Dropdown } from 'primereact/dropdown'
-import { createExperience} from 'store/modules/experience'
-import { Calendar } from 'primereact/calendar';
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { InputTextarea } from "primereact/inputtextarea";
+import { InputText } from "primereact/inputtext";
+import ModeFooter from "pages/profile/ModeFooter";
+import SectionHeader from "./SectionHeader";
+import { Dropdown } from "primereact/dropdown";
+import { createExperience, updateExperience } from "store/modules/experience";
+import { Calendar } from "primereact/calendar";
+import InputField from "components/InputField";
 
-
-const ExperienceForm = ({
-  closeEditMode,
-  itemToEdit = null,
-}) => {
+const jobCategoryList = [
+  { name: "Networking", id: "NY1" },
+  { name: "Retail Manager", id: "RM1" },
+  { name: "Life Coach", id: "LDN1" },
+  { name: "Graphic Design", id: "IST1" },
+  { name: "Teaching", id: "PRS1" },
+  { name: "Legal Services", id: "PRS3" },
+];
+const ExperienceForm = ({ closeEditMode, itemToEdit = null }) => {
   const dispatch = useDispatch();
-  const jobCategoryList = [
-    { name: 'Networking', id: 'NY1' },
-    { name: 'Retail Manager', id: 'RM1' },
-    { name: 'Life Coach', id: 'LDN1' },
-    { name: 'Graphic Design', id: 'IST1' },
-    { name: 'Teaching', id: 'PRS1' },
-    { name: 'Legal Services', id: 'PRS3' }
-  ]
-const {
+  const {
     register,
     handleSubmit,
     setValue,
     clearErrors,
-    formState: {
-        errors
-    }
-} = useForm({mode: 'onChange', reValidateMode: 'onChange'});
-
+    reset,
+    formState: { errors },
+  } = useForm({ mode: "onChange", reValidateMode: "onChange" });
 
   const [experience, setExperience] = useState({});
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  /**
+   * {
+  "jobTitle": "string",
+  "startDate": "2021-05-19T00:22:08.253Z",
+  "endDate": "2021-05-19T00:22:08.253Z",
+  "location": "string",
+  "company": "string",
+  "description": "string",
+  "jobCategoryName": "string",
+  "jobCategoryId": "string"
+}
+   */
 
   useEffect(() => {
-    if(itemToEdit){
+    if (itemToEdit) {
       console.log(itemToEdit)
-      setExperience({...experience, 
-        
-        jobCategory: jobCategoryList.find(j => j.name == itemToEdit.jobCategory),
+      setExperience({
+        ...experience,
+
+        jobCategory: jobCategoryList.find(
+          (j) => j.name == itemToEdit.jobCategoryName
+        ),
+        startDate: new Date(itemToEdit.startDate),
+        endDate: new Date(itemToEdit.endDate),
+        location: itemToEdit.location,
+        description: itemToEdit.description,
+        jobTitle: itemToEdit.jobTitle,
+        company: itemToEdit.company,
       });
-      // experience.endDate = new Date(itemToEdit.endDate)
-      // experience.startDate = new Date(itemToEdit.startDate)
-      setStartDate(itemToEdit.startDate);
-      setEndDate(itemToEdit.endDate);
+      // setStartDate(itemToEdit.startDate);
+      // setEndDate(itemToEdit.endDate);
 
-      setValue('description', itemToEdit.description);
-    
-    }   
-  }, [itemToEdit])
+      setValue("description", itemToEdit.description);
+      setValue("startDate", itemToEdit.startDate);
+      setValue("endDate", itemToEdit.endDate);
+      setValue("location", itemToEdit.location);
+      setValue("description", itemToEdit.description);
+      setValue("jobTitle", itemToEdit.jobTitle);
+      setValue("jobCategory", itemToEdit.jobCategory);
+      setValue("company", itemToEdit.company);
+    }
+  }, [itemToEdit]);
 
-  const onEditCancel = e => {
-    clearErrors()
-    closeEditMode(e.target.id)
-  }
+  const onEditCancel = (e) => {
+    clearErrors();
+    closeEditMode(e.target.id);
+  };
 
   const inputChange = (e, inputId) => {
     const inputName =
-      inputId && (inputId === 'startDate' || 'endDate')
+      inputId && (inputId === "startDate" || "endDate")
         ? inputId
-        : e.target.name
+        : e.target.name;
     const inputValue =
-      inputId && (inputId === 'startDate' || 'endDate')
+      inputId && (inputId === "startDate" || "endDate")
         ? e.value
-        : e.target.value
-    const updatedExperienceObject = Object.assign({}, experience)
-     updatedExperienceObject[inputName] = inputValue
-    setExperience({...experience, ...updatedExperienceObject})
-    setValue(inputName, inputValue, { shouldValidate: true })
-  }
+        : e.target.value;
+    const updatedExperienceObject = Object.assign({}, experience);
+    updatedExperienceObject[inputName] = inputValue;
+    setExperience({ ...experience, ...updatedExperienceObject });
+    setValue(inputName, inputValue, { shouldValidate: true });
+  };
 
-  const handleDelete = e => {
-    console.log(e.target.id)
-  }
+  const handleDelete = (e) => {
+    console.log(e.target.id);
+  };
 
-  const experienceSubmit = data => {
-    data.endDate = new Date(data.endDate).toISOString()
-    data.startDate = new Date(data.startDate).toISOString()
+  const experienceSubmit = (data) => {
+    data.endDate = new Date(data.endDate).toISOString();
+    data.startDate = new Date(data.startDate).toISOString();
     data.jobCategoryName = data.jobCategory.name;
     data.jobCategoryId = data.jobCategory.id;
-    console.log(data)
+  
+    if(itemToEdit === null)
     dispatch(createExperience(data));
-
-  }
+    else 
+    dispatch(updateExperience(itemToEdit.id, data));
+  };
   return (
     <>
-      <div className='p-card p-mt-2'>
+      <div className="p-card p-mt-2">
         <SectionHeader
-          deleteButton='true'
+          deleteButton="true"
           onDelete={handleDelete}
-          icon='star-o'
-          sectionTitle='Job Experience'
+          icon="star-o"
+          sectionTitle="Job Experience"
           id={experience.id}
         />
-        <div className='p-card-body'>
+        <div className="p-card-body">
           <form onSubmit={handleSubmit(experienceSubmit)}>
-            <div className='p-fluid p-formgrid p-grid'>
-              <div className='p-field p-col-12 p-md-6'>
-                <label className='inputLabel' htmlFor='jobTitle'>
+            <div className="p-fluid p-formgrid p-grid">
+              <div className="p-field p-col-12 p-md-6">
+                <label className="inputLabel" htmlFor="jobTitle">
                   Job Title
                   {errors.jobTitle && (
-                    <span className='text-danger font-weight-bold'>
+                    <span className="text-danger font-weight-bold">
                       &nbsp; {errors.jobTitle.message}
                     </span>
                   )}
                 </label>
                 <InputField
-                  id='jobTitle'
-                  inputLabel='Job Title'
+                  id="jobTitle"
+                  inputLabel="Job Title"
                   register={register}
                   inputChange={inputChange}
-                  defaultValue={itemToEdit && itemToEdit.jobTitle}
+                  defaultValue={experience.jobTitle}
                 />
               </div>
-              <div className='p-field p-col-12 p-md-6'>
-                <label className='inputLabel' htmlFor='company'>
+              <div className="p-field p-col-12 p-md-6">
+                <label className="inputLabel" htmlFor="company">
                   Company Name
                   {errors.company && (
-                    <span className='text-danger font-weight-bold'>
+                    <span className="text-danger font-weight-bold">
                       &nbsp; {errors.company.message}
                     </span>
                   )}
                 </label>
                 <InputField
-                  id='company'
-                  inputLabel='Company Name'
+                  id="company"
+                  inputLabel="Company Name"
                   register={register}
                   inputChange={inputChange}
-                  defaultValue={itemToEdit && itemToEdit.company}
+                  name="company"
+                  defaultValue={experience.company}
                 />
               </div>
-               <div className='p-field p-col-12 p-md-6'>
-                <label className='inputLabel' htmlFor='startDate'>
+              <div className="p-field p-col-12 p-md-6">
+                <label className="inputLabel" htmlFor="startDate">
                   Start Date
                   {errors.startDate && (
-                    <span className='text-danger font-weight-bold'>
+                    <span className="text-danger font-weight-bold">
                       &nbsp; {errors.startDate.message}
                     </span>
                   )}
                 </label>
                 <Calendar
-                  id='startDate'
-                  type="date"               
-                  value={startDate}
+                  id="startDate"
+                  type="date"
+                  value={experience.startDate}
                   // dateFormat='dd/mm/yy'
-                  name='startDate'
-                  {...register('startDate', {
-                    required: `* Start Date is required`
+                  name="startDate"
+                  {...register("startDate", {
+                    required: `* Start Date is required`,
                   })}
                   onSelect={(e) => {
                     const inputName = "startDate";
@@ -164,31 +187,30 @@ const {
                   {...register("startDate", {
                     required: `* Start date is required`,
                   })}
-                  
                 />
-              </div> 
-              <div className='p-field p-col-12 p-md-6'>
-                <label className='inputLabel' htmlFor='endDate'>
-                  {' '}
+              </div>
+              <div className="p-field p-col-12 p-md-6">
+                <label className="inputLabel" htmlFor="endDate">
+                  {" "}
                   End Date
                   {errors.endDate && (
-                    <span className='text-danger font-weight-bold'>
+                    <span className="text-danger font-weight-bold">
                       &nbsp; {errors.endDate.message}
                     </span>
                   )}
                 </label>
                 <Calendar
-                  id='endDate'
+                  id="endDate"
                   type="date"
-                  value={endDate}
+                  value={experience.endDate}
                   // dateFormat='dd/mm/yy'
-                  name='endDate'
-                  {...register('endDate', {
-                    required: `* End Date is required`
+                  name="endDate"
+                  {...register("endDate", {
+                    required: `* End Date is required`,
                   })}
                   onSelect={(e) => {
                     const inputName = "endDate";
-                    const value = new Date(e.value).toISOString();
+                    const value = e.value.toISOString();
 
                     setStartDate(value);
                     setValue(inputName, value, { shouldValidate: true });
@@ -197,95 +219,101 @@ const {
                   {...register("endDate", {
                     required: `* End date is required`,
                   })}
-                  
                 />
               </div>
-              <div className='p-field p-col-12 p-md-6'>
-                <label className='inputLabel' htmlFor='jobCategory'>
+              <div className="p-field p-col-12 p-md-6">
+                <label className="inputLabel" htmlFor="jobCategory">
                   Job Category
                   {errors.jobCategory && (
-                    <span className='text-danger font-weight-bold'>
+                    <span className="text-danger font-weight-bold">
                       &nbsp; {errors.jobCategory.message}
                     </span>
                   )}
                 </label>
                 <Dropdown
                   options={jobCategoryList}
-                  optionLabel='name'
+                  optionLabel="name"
                   filter
                   showClear
-                  filterBy='name'
-                  icon='pi pi-plus'
-                  id='jobCategory'
-                  name='jobCategory'
+                  filterBy="name"
+                  icon="pi pi-plus"
+                  id="jobCategory"
+                  name="jobCategory"
                   value={experience.jobCategory}
-                  {...register('jobCategory', {
-                    required: `* Job Category is required`
+                  {...register("jobCategory", {
+                    required: `* Job Category is required`,
                   })}
-                  onChange={e => inputChange(e)}
+                  onChange={(e) => inputChange(e)}
                 />
               </div>
-              <div className='p-field p-col-12 p-md-6'>
-                <label className='inputLabel' htmlFor='address'>
+              <div className="p-field p-col-12 p-md-6">
+                <label className="inputLabel" htmlFor="address">
                   Location
                   {errors.location && (
-                    <span className='text-danger font-weight-bold'>
+                    <span className="text-danger font-weight-bold">
                       &nbsp; {errors.location.message}
                     </span>
                   )}
                 </label>
                 <InputField
-                  id='location'
-                  inputLabel='Location'
+                  id="location"
+                  inputLabel="Location"
                   register={register}
                   inputChange={inputChange}
+                  defaultValue={experience.location}
                 />
               </div>
-              <div className='p-field p-col-12'>
-                <label className='inputLabel' htmlFor='address'>
+              <div className="p-field p-col-12">
+                <label className="inputLabel" htmlFor="address">
                   Description
                   {errors.description && (
-                    <span className='text-danger font-weight-bold'>
+                    <span className="text-danger font-weight-bold">
                       &nbsp; {errors.description.message}
                     </span>
                   )}
                 </label>
                 <InputTextarea
-                  id='address'
-                  type='text'
-                  rows='4'
-                  {...register('description', {
-                    required: `* Description is required`
+                  id="address"
+                  type="text"
+                  rows="4"
+                  {...register("description", {
+                    required: `* Description is required`,
                   })}
-                  name='description'
-                  onChange={e => inputChange(e)}
+                  name="description"
+                  onChange={(e) => inputChange(e)}
                   value={experience.description}
                 />
               </div>
             </div>
-            <ModeFooter id='experienceEdit' onCancel={onEditCancel} />
+            <ModeFooter id="experienceEdit" onCancel={onEditCancel} />
           </form>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-const InputField = ({ id, inputLabel, register, inputChange, defaultValue }) => {
-  return (
-    <InputText
-      id={id}
-      type='text'
-      name={id}
-      defaultValue={defaultValue}
-      {...register(id, {
-        required: `* ${inputLabel} is required`
-      })}
-      onChange={e => {
-        inputChange(e)
-      }}
-    />
-  )
-}
+// const InputField = ({
+//   id,
+//   inputLabel,
+//   register,
+//   inputChange,
+//   defaultValue,
+// }) => {
+//   return (
+//     <InputText
+//       id={id}
+//       type="text"
+//       name={id}
+//       defaultValue={defaultValue}
+//       {...register(id, {
+//         required: `* ${inputLabel} is required`,
+//       })}
+//       onChange={(e) => {
+//         inputChange(e);
+//       }}
+//     />
+//   );
+// };
 
-export default ExperienceForm
+export default ExperienceForm;
