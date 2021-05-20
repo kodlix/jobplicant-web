@@ -70,6 +70,10 @@ html {
     /* width: 50%; */
 }
 
+.p-password input {
+    width: 15rem;
+}
+
 @media screen and (max-width: 500px) {
     .small-screen {
         display: none;

@@ -4,7 +4,14 @@ import superagentPromise from "superagent-promise";
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
+<<<<<<< HEAD
 export const API_ROOT = "https://jobplicant-api.herokuapp.com";
+=======
+// export const API_ROOT = process.env.NODE_ENV === "development" ? process.env.API_ROOT_LOCAL : "https://jobplicant-api-pyfpg.ondigitalocean.app";
+// export const API_ROOT = process.env.NODE_ENV === "development" ? (process.env.API_ROOT_LOCAL || 'http://localhost:8080') : process.env.API_ROOT_PROD;
+
+export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api.herokuapp.com";
+>>>>>>> origin/instant-hire-module-May18
 console.log('API_ROOT', API_ROOT);
 console.log("environmental variables", process.env);
 export const IMAGE_URL = API_ROOT + '/account/uploads/';
@@ -116,24 +123,35 @@ const Sector = {
 };
 
 const Account = {
+<<<<<<< HEAD
   getProfileInfo: () => requests.get(`/accounts/profile/active`),
   updateBiography: (biography) => requests.put("/accounts/bio", biography),
   updateProfile: (profile) => requests.put("/accounts/profile", profile), //To update personal info e.g firstname, lastname etc... 
   updateExperience: (experience) =>
     requests.put("/accounts/job-experience", experience),
+=======
+>>>>>>> origin/instant-hire-module-May18
   getProfileInfo: () =>
     requests.get(`/accounts/profile/active`),
   updateBiography: (biography) =>
     requests.put('/accounts/bio', biography),
   updateExperience: (experience) =>
     requests.put('/accounts/job-experience', experience),
+<<<<<<< HEAD
+=======
+  getProfileInfo: () => requests.get(`/accounts/profile/active`),
+  updateBiography: (biography) => requests.put("/accounts/bio", biography),
+
+  updateExperience: (experience) =>
+    requests.put("/accounts/job-experience", experience),
+>>>>>>> origin/instant-hire-module-May18
   updateContactInfo: (contactInfo) =>
     requests.put("/accounts/contact-info", contactInfo),
   updateLOI: (loi) =>
-    requests.put("/accounts/location", {"location": loi}),
-  updateHobies: (hobbies) => requests.put("/accounts/hobbies", {hobbies}),
+    requests.put("/accounts/location", { "location": loi }),
+  updateHobies: (hobbies) => requests.put("/accounts/hobbies", { hobbies }),
   updateProfessionOfInterest: (interests) =>
-    requests.put("/accounts/interests", {"interest": interests}),
+    requests.put("/accounts/interests", { "interest": interests }),
   updateProfilePicture: (image) => requests.put("/account/uploads", image),
   load: (email) => requests.get(`/ account / getbyemail / ${email}`),
   getByID: (id) => requests.get(`/ account / ${id}`),

@@ -36,30 +36,6 @@
     margin: auto;
 }
 
-.stars {
-    --percent: calc(var(--rating) / 5 * 100%);
-    display: inline-block;
-    font-size: var(--star-size);
-    /* font-family: Times; */
-    line-height: 1;
-}
-
-.stars:before {
-    content: '★★★★★';
-    letter-spacing: 3px;
-    background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
-    background-clip: content-box;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.profile-picture {
-    border-radius: 100%;
-    margin-right: 20px;
-    width: 90px;
-    height: 90px;
-}
-
 .find-job1 .single-job1 .job-content1 h4 {
     /* padding-right: 200px; */
     position: relative;
@@ -70,9 +46,6 @@
     width: 60;
     margin: auto;
 }
-
-
-/* content tab styles */
 
 .content-tab {
     background-color: #5a2846;
@@ -116,7 +89,7 @@
     margin-left: 50vw;
 }
 
-.height-card:hover {
+.highlight-card:hover {
     transform: scale(1.02);
     cursor: pointer;
     background: rgba(173, 187, 192, 0.1);
@@ -126,6 +99,9 @@
     width: 62vw;
     margin: auto;
 }
+
+
+/* Media Query Section */
 
 @media screen and (max-width: 767px) {
     .sendsms {

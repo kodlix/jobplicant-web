@@ -4,11 +4,12 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Dropdown } from 'primereact/dropdown';
-
-import './InstanceJobHire.css'
 import AppNavBar from 'components/AppNavBar';
 import { TabPanel, TabView } from 'primereact/tabview';
 import { Link } from 'react-router-dom';
+
+import './InstantJobHire.css'
+
 
 
 const Edit = () => {
