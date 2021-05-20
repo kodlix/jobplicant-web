@@ -24,14 +24,14 @@ const RecoverByNumber = React.lazy(() => import('../pages/auth/forgotPassword/Re
 const RecoverByEmail = React.lazy(() => import('../pages/auth/forgotPassword/RecoverByEmail'));
 const ForgotPassword = React.lazy(() => import('../pages/auth/forgotPassword/ForgotPassword'));
 const NewPassword = React.lazy(() => import('../pages/auth/forgotPassword/NewPassword'));
-const PageNotFound = React.lazy(() => import('../pages/errorPage/PageNotFound'));
-const InternalServerError = React.lazy(() => import('../pages/errorPage/InternalServerError'));
-const BadRequest = React.lazy(() => import('../pages/errorPage/BadRequest'));
-const CreateInstantJobHire = React.lazy(() => import('../pages/instantJobHire/Create'));
-const ListInstantJobHire = React.lazy(() => import('../pages/instantJobHire/List'));
-const ViewInstantJobHire = React.lazy(() => import('../pages/instantJobHire/View'));
-const EditInstantJobHire = React.lazy(() => import('../pages/instantJobHire/Edit'));
-const Applicant = React.lazy(() => import('../pages/instantJobHire/Applicant'));
+const PageNotFound = React.lazy(() => import('../pages/error-page/PageNotFound'));
+const InternalServerError = React.lazy(() => import('../pages/error-page/InternalServerError'));
+const BadRequest = React.lazy(() => import('../pages/error-page/BadRequest'));
+const CreateInstantJobHire = React.lazy(() => import('../pages/instant-job-hire/Create'));
+const ListInstantJobHire = React.lazy(() => import('../pages/instant-job-hire/List'));
+const ViewInstantJobHire = React.lazy(() => import('../pages/instant-job-hire/View'));
+const EditInstantJobHire = React.lazy(() => import('../pages/instant-job-hire/Edit'));
+const Applicant = React.lazy(() => import('../pages/instant-job-hire/Applicant'));
 
 
 
