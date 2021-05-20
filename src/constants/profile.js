@@ -9,5 +9,5 @@ export const PROFILE  = {
     PROFESSION: 'profession',
     PERSONAL_INFO: 'personal_info',
     PORTFOLIO: 'portfolio',    
-
+    PORTFOLIO_MODAL: 'portfolio_modal'
 }

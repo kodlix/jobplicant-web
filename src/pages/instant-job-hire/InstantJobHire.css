@@ -1,0 +1,147 @@
+.login-pane-right {
+    min-height: 70vh;
+}
+
+.appcolor {
+    background-color: #5A2846 !important;
+}
+
+.header-color {
+    background-color: rgb(44, 165, 94)!important;
+}
+
+.bgcolor {
+    background-color: rgb(246, 249, 252);
+}
+
+.app-color {
+    color: #5A2846;
+}
+
+.left-content {
+    margin-top: 4vh;
+}
+
+.label {
+    display: inline;
+}
+
+.card-size {
+    width: 62vw;
+    margin: auto;
+}
+
+.card-size-list {
+    width: 62vw;
+    margin: auto;
+}
+
+.find-job1 .single-job1 .job-content1 h4 {
+    /* padding-right: 200px; */
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.create-form {
+    width: 60;
+    margin: auto;
+}
+
+.content-tab {
+    background-color: #5a2846;
+    color: white;
+    height: 60px;
+}
+
+.content-tab button {
+    border: none;
+    background-color: initial;
+    padding-top: 10px;
+}
+
+.content-tab .pi {
+    font-size: 20px;
+    padding: 4px 20px;
+}
+
+.content-tab .tab-titles {
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.content-tab-width {
+    width: 80%;
+    margin: auto;
+}
+
+.tab-width {
+    width: 76%;
+    margin: auto;
+}
+
+.back-btn {
+    margin-left: 12vw;
+    background-color: #6FCF97;
+}
+
+.submit-btn {
+    margin-left: 50vw;
+}
+
+.highlight-card:hover {
+    transform: scale(1.02);
+    cursor: pointer;
+    background: rgba(173, 187, 192, 0.1);
+}
+
+.applicant-width {
+    width: 62vw;
+    margin: auto;
+}
+
+
+/* Media Query Section */
+
+@media screen and (max-width: 767px) {
+    .sendsms {
+        margin-right: 48vw;
+    }
+    .confirmbtn {
+        margin-left: 7vw;
+    }
+    .message {
+        margin-bottom: 6vh;
+        color: #5A2846;
+        ;
+    }
+    .small-screen {
+        display: none;
+    }
+    /* left .login-pane-left {
+        min-height: 30vh;
+        max-height: 30vh;
+    } */
+    .login-pane-right {
+        padding: 30px;
+    }
+    .card-size {
+        width: 90%;
+        margin: auto;
+    }
+    /* .card-size-list {
+        width: 100%;
+        margin: auto;
+    } */
+    .content-tab-width,
+    .card-size-list {
+        width: 100%;
+    }
+    .tab-width {
+        width: 95%;
+        margin: auto;
+    }
+    .back-btn {
+        margin-left: 6vw;
+    }
+}

@@ -24,14 +24,14 @@ const RecoverByNumber = React.lazy(() => import('../pages/auth/forgotPassword/Re
 const RecoverByEmail = React.lazy(() => import('../pages/auth/forgotPassword/RecoverByEmail'));
 const ForgotPassword = React.lazy(() => import('../pages/auth/forgotPassword/ForgotPassword'));
 const NewPassword = React.lazy(() => import('../pages/auth/forgotPassword/NewPassword'));
-const PageNotFound = React.lazy(() => import('../pages/errorPage/PageNotFound'));
-const InternalServerError = React.lazy(() => import('../pages/errorPage/InternalServerError'));
-const BadRequest = React.lazy(() => import('../pages/errorPage/BadRequest'));
-const CreateInstanceJobHire = React.lazy(() => import('../pages/instanceJobHire/Create'));
-const ListInstanceJobHire = React.lazy(() => import('../pages/instanceJobHire/List'));
-const ViewInstanceJobHire = React.lazy(() => import('../pages/instanceJobHire/View'));
-const EditInstanceJobHire = React.lazy(() => import('../pages/instanceJobHire/Edit'));
-const Applicant = React.lazy(() => import('../pages/instanceJobHire/Applicant'));
+const PageNotFound = React.lazy(() => import('../pages/error-page/PageNotFound'));
+const InternalServerError = React.lazy(() => import('../pages/error-page/InternalServerError'));
+const BadRequest = React.lazy(() => import('../pages/error-page/BadRequest'));
+const CreateInstantJobHire = React.lazy(() => import('../pages/instant-job-hire/Create'));
+const ListInstantJobHire = React.lazy(() => import('../pages/instant-job-hire/List'));
+const ViewInstantJobHire = React.lazy(() => import('../pages/instant-job-hire/View'));
+const EditInstantJobHire = React.lazy(() => import('../pages/instant-job-hire/Edit'));
+const Applicant = React.lazy(() => import('../pages/instant-job-hire/Applicant'));
 
 
 
@@ -65,10 +65,10 @@ const AppRouter = () => {
         <ProtectedRoute path="/profile-info" exact component={UserProfile} />
         {/* <ProtectedRoute path="/companyprofile" component={CompanyProfile} /> */}
         <ProtectedRoute path="/dashboard" component={Dashboard} />
-        <ProtectedRoute path="/newinstancejobhire" component={CreateInstanceJobHire} />
-        <ProtectedRoute path="/listinstancejobhire" component={ListInstanceJobHire} />
-        <ProtectedRoute path="/instancejobhire/view/:id" component={ViewInstanceJobHire} />
-        <ProtectedRoute path="/instancejobhire/edit/:id" component={EditInstanceJobHire} />
+        <ProtectedRoute path="/new-instant-hire" component={CreateInstantJobHire} />
+        <ProtectedRoute path="/instant-hires" component={ListInstantJobHire} />
+        <ProtectedRoute path="/instant-hire/view/:id" component={ViewInstantJobHire} />
+        <ProtectedRoute path="/instant-hire/edit/:id" component={EditInstantJobHire} />
         <ProtectedRoute path="/applicant" component={Applicant} />
 
         <Redirect to="/login" />

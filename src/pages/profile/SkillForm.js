@@ -4,8 +4,8 @@ import SectionHeader from "./SectionHeader";
 import { Tag } from "primereact/tag";
 import { Dropdown } from "primereact/dropdown";
 import ModeFooter from "pages/profile/ModeFooter";
-import { useDispatch } from "react-redux";
-import { createSkill } from "store/modules/userSkill";
+import { useDispatch, useSelector } from "react-redux";
+import { createSkill, deleteSkill } from "store/modules/userSkill";
 
 const skillsList = [
   { name: "New York", id: "NY" },
@@ -19,6 +19,7 @@ const skillsList = [
 
 const SkillForm = ({ data, closeEditMode }) => {
   const dispatch = useDispatch();
+  const loading = useSelector(state => state.userSkill.loading);
   const { register, handleSubmit, setValue } = useForm();
 
   const [currentSkill, setCurrentSkill] = useState("");
@@ -30,11 +31,9 @@ const SkillForm = ({ data, closeEditMode }) => {
   };
 
   const handleSkillChange = (e) => {
-    setCurrentSkill(e.target.value.name);
-    console.log(e.target.value.name)
+    setCurrentSkill(e.value);
   };
 
-  
   useEffect(() => {
     if (data?.length > 0) {
       setCurrentSkill();
@@ -45,23 +44,28 @@ const SkillForm = ({ data, closeEditMode }) => {
   }, [data]);
 
   const handleSkillAdd = () => {
+    
     if (skills.length === 10) {
       setCurrentSkill("");
       return;
     }
+
     if (currentSkill) {
-      if (searchObjectArrayValues(skills, currentSkill)) {
+      if (searchObjectArrayValues(skills, currentSkill.id)) {
         setSkills([...skills, currentSkill]);
-        setValue("skills", [...skills, currentSkill]);
+        setValue("skills", skills);
         setCurrentSkill("");
       }
     }
   };
 
-
   const handleSkillDelete = (skillToDelete) => {
     // if (e.target.className === "p-tag-icon pi pi-times") {
-    const newSkillArray = skills.filter((skill) => skill.name.toLowerCase() !== skillToDelete.toLowerCase());
+
+    // dispatch(deleteSkill(skillToDelete.id));
+    const newSkillArray = skills.filter(
+      (skill) => skill.id !== skillToDelete.id
+    );
     setSkills(newSkillArray);
     setValue("skills", newSkillArray);
     // }
@@ -94,19 +98,24 @@ const SkillForm = ({ data, closeEditMode }) => {
             {skills.map((skill, index) => (
               <button
                 key={index}
-                onClick={(e) => handleSkillDelete(skill.name)}
+                onClick={(e) => handleSkillDelete(skill)}
                 type="button"
                 className="p-mr-2 p-p-0 p-mb-1 tag-container"
                 id={skill}
               >
-                <Tag value={skill?.name} icon="pi pi-times" className="p-p-2"></Tag>
+                {loading ? <i className="fa fa-spinner fa-spin"></i> : <span></span>}
+                <Tag
+                  value={skill?.name}
+                  icon="pi pi-times"
+                  className="p-p-2"
+                ></Tag>
               </button>
             ))}
             <span className="skillInput">
               <Dropdown
                 value={currentSkill}
                 options={skillsList}
-                onChange={(e) => handleSkillChange(e)}
+                onChange={handleSkillChange}
                 optionLabel="name"
                 filter
                 showClear

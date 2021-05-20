@@ -56,12 +56,14 @@ export default function reducer(state = account, action = {}) {
         ...state,
         loading: false,
       };
+
     default:
       return state;
   }
 }
 
 // Action Creators
+
 export function profileInfoLoaded(data) {
   return { type: LOAD_PROFILE_INFO, payload: data };
 }
@@ -73,6 +75,29 @@ export const loading = () => ({
 });
 
 // Actions
+export function updatePersonalProfile(data) {
+  return (dispatch) => {
+    dispatch(loading());
+    return agent.Account.updateProfile(data).then(
+      (response) => {
+        dispatch(profileInfoLoaded(response));
+        dispatch(closeModal());
+        dispatch(
+          showMessage({
+            type: MESSAGE_TYPE.SUCCESS,
+            title: "Profile Information",
+            message: "Personal profile info loaded successfully",
+          })
+        );
+      },
+      (error) => {
+        // handle error
+        dispatch(profileInfoLoadedError());
+        dispatch(showMessage({ type: "error", message: error }));
+      }
+    );
+  };
+}
 export function loadProfileInfo() {
   return (dispatch) => {
     return agent.Account.getProfileInfo().then((response) => {

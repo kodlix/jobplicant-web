@@ -1,4 +1,3 @@
-import request from "superagent";
 import _superagent from "superagent";
 import superagentPromise from "superagent-promise";
 
@@ -118,16 +117,22 @@ const Sector = {
 const Account = {
   getProfileInfo: () => requests.get(`/accounts/profile/active`),
   updateBiography: (biography) => requests.put("/accounts/bio", biography),
-  
+  updateProfile: (profile) => requests.put("/accounts/profile", profile), //To update personal info e.g firstname, lastname etc... 
   updateExperience: (experience) =>
     requests.put("/accounts/job-experience", experience),
+  getProfileInfo: () =>
+    requests.get(`/accounts/profile/active`),
+  updateBiography: (biography) =>
+    requests.put('/accounts/bio', biography),
+  updateExperience: (experience) =>
+    requests.put('/accounts/job-experience', experience),
   updateContactInfo: (contactInfo) =>
     requests.put("/accounts/contact-info", contactInfo),
   updateLOI: (loi) =>
-    requests.put("/accounts/location", {"location": loi}),
-  updateHobies: (hobbies) => requests.put("/accounts/hobbies", {hobbies}),
+    requests.put("/accounts/location", { "location": loi }),
+  updateHobies: (hobbies) => requests.put("/accounts/hobbies", { hobbies }),
   updateProfessionOfInterest: (interests) =>
-    requests.put("/accounts/interests", {"interest": interests}),
+    requests.put("/accounts/interests", { "interest": interests }),
   updateProfilePicture: (image) => requests.put("/account/uploads", image),
   load: (email) => requests.get(`/ account / getbyemail / ${email}`),
   getByID: (id) => requests.get(`/ account / ${id}`),
@@ -149,13 +154,14 @@ const Education = {
   load: () => requests.get("/education"),
   search: (param) => requests.get("/education" + param),
   edit: (id, data) => requests.put(`/education/${id}`, data),
-  delete: (id) => requests.del(`/education/ ${id}`),
-  view: (id) => requests.get(`/education/ ${id}`),
+  delete: (id) => requests.del(`/education/${id}`),
+  view: (id) => requests.get(`/education/${id}`),
 }
 
 const UserSkill = {
   save: (userskill) => requests.post("/user-skill", userskill),
   load: () => requests.get("/user-skill"),
+  delete: (id) => requests.del(`/user-skill/${id}`),
 };
 
 const Country = {

@@ -22,7 +22,7 @@ const VerificationStep = ({ goto, setAccountType }) => {
                         }>
                         <div className="left-content p-col-8 mx-auto">
                             <div className="card text-center">
-                                <div className="card-header header-color ">
+                                <div className="card-header appcolor ">
                                     Featured
                                 </div>
                                 <div className="card-body">
