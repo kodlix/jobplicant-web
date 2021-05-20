@@ -2,6 +2,12 @@
     cursor: pointer;
 }
 
+.sideBar-button {
+    position: fixed;
+    top: 140px;
+    z-index: 1;
+}
+
 a {
     width: 100%;
 }
@@ -33,7 +39,7 @@ a {
     color: #6FCF97 !important;
 }
 
-.li-title, .p-menuitem-text, .p-menuitem-text {
+.li-title, .p-sidebar .p-menuitem-text {
     font-size: 13px;
     color: white !important;
 }

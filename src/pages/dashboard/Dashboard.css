@@ -10,22 +10,20 @@
 
 .background-bottom {
     background-color: #5a28461f;
-    height: 180vh;
 }
 
 .dashboard-container {
-    height: 100vh;
     width: 90%;
     margin: 0 auto;
-    left: 5%;
-    top: 180px;
-    position: absolute;
+    top: -140px;
+    position: relative;
 }
 
 .cardtitle {
     border-bottom: 1px solid #5a284657;
     font-size: 1rem !important;
-    padding: 0.5rem 1rem;
+    padding: 1rem 1rem;
+    background-color: white;
 }
 
 .svgimage {
@@ -80,6 +78,49 @@
     font-size: 1.5rem;
 }
 
+/* table */
+.p-datatable-wrapper {
+    padding: 1rem;
+}
+
+.p-datatable .p-datatable-header {
+    padding: 0;
+}
+
+.p-sortable-column-icon  {
+    float: right;
+}
+
+.actionColumn-trash, .actionColumn-ellipsis {
+    cursor: pointer;
+}
+/* table */
+
+@media screen and (max-width: 992px) {
+    .grid-margin {
+        margin-left: -0.25rem;
+        margin-right: -0.25rem;
+        padding-bottom: 0.5rem !important;
+    }
+}
+
+@media screen and (max-width: 930px) {
+    .datatable-container {
+        overflow-x: scroll;
+        padding: 0 !important;
+        margin-left: .25rem !important;
+        margin-right: .25rem !important;
+    }
+    
+    .datatable-content {
+        width: 51rem;
+    }
+
+    .p-datatable-wrapper {
+        padding: 0;
+    }
+
+}
 
 
 
