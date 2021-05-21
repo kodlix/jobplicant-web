@@ -61,7 +61,7 @@ const ModalForm = ({ data, itemToEdit }) => {
         <HobbyForm data={data.hobbies} itemToEdit={itemToEdit} />
       )}
       {name === PROFILE.PORTFOLIO && (
-        <PortfolioForm data={data.experiences} itemToEdit={itemToEdit} />
+        <PortfolioForm data={data.portfolios} itemToEdit={itemToEdit} />
       )}
       {name === PROFILE.SKILL && (
         <SkillForm data={data.skills} itemToEdit={itemToEdit} />
@@ -73,7 +73,7 @@ const ModalForm = ({ data, itemToEdit }) => {
         />
       )}
       {name === PROFILE.PORTFOLIO_MODAL && (
-          <PortfolioModal data={data.skills} itemToEdit={itemToEdit} />
+          <PortfolioModal data={data.portfolios} itemToEdit={itemToEdit} />
       )}
     </Dialog>
   );

@@ -4,6 +4,7 @@ import { Toast } from "primereact/toast";
 import SectionHeader from "./SectionHeader";
 import ModeFooter from "pages/profile/ModeFooter";
 import { Carousel } from "primereact/carousel";
+import { useSelector } from "react-redux";
 
 const images = [
   "https://source.unsplash.com/random/800x600",
@@ -16,7 +17,8 @@ const images = [
 
 const PortfolioModal = ({ data, closeEditMode }) => {
   const toast = useRef(null);
-  const [portfolioImages, setPortfolioImages] = useState(images);
+  const profileInfo = useSelector((state) => state.account.profileInfo);
+  const [portfolioImages, setPortfolioImages] = useState(profileInfo.portfolios);
   const responsiveOptions = [
     {
       breakpoint: "1024px",
@@ -43,7 +45,7 @@ const PortfolioModal = ({ data, closeEditMode }) => {
             <img
               src={portfolio}
               onError={(e) => (e.target.src = `${portfolio}`)}
-              alt={portfolio}
+              alt="portfolio image"
               className="product-image"
               style={{height: "100%", width: "100%"}}
             />

@@ -41,7 +41,7 @@ const ProfessionsOfInterestForm = ({ data, closeEditMode, onClick }) => {
     }
     if (interests && interests.length < 5) {
       setInterests([...interests, interest.trim()]);
-      setValue("interests", [...interests, interest.trim()]);
+      setValue("interests", interests);
       setInterestInputValue("");
     }
   };
@@ -55,10 +55,8 @@ const ProfessionsOfInterestForm = ({ data, closeEditMode, onClick }) => {
   };
 
   const interestSubmit = (interest) => {
-    console.log(JSON.stringify(interest.interests));
-
-    dispatch(updateProfessionOfInterest(interest.interests));
-    return;
+    dispatch(updateProfessionOfInterest(interests));
+  
   };
 
   return (

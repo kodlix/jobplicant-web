@@ -27,7 +27,7 @@ const HobbyForm = ({ data, closeEditMode }) => {
     }
     if (hobby.trim() && hobbies.length < 5) {
       setHobbies([...hobbies, hobby.trim()]);
-      setValue("hobbies", [...hobbies, hobby.trim()]);
+      setValue("hobbies", hobbies);
       setHobbyInputValue('');
     }
   };
@@ -51,9 +51,8 @@ const HobbyForm = ({ data, closeEditMode }) => {
   // }, []);
 
   const hobbySubmit = (hobby) => {
-    console.log(hobby);
-    dispatch(updateUserHobies(hobby));
-    return;
+    dispatch(updateUserHobies(hobbies));
+    
   };
 
   const componentStatus = { skills: "add" };

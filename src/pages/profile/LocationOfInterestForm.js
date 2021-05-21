@@ -7,31 +7,33 @@ import SectionHeader from "./SectionHeader";
 import { Dropdown } from "primereact/dropdown";
 import { updateLOI } from "store/modules/account";
 
+const LOIList = [
+  { name: "New York", id: "NY" },
+  { name: "Rome", id: "RM" },
+  { name: "London", id: "LDN" },
+  { name: "Istanbul", id: "IST" },
+  { name: "Paris", id: "PRS" },
+  { name: "Paris11", id: "PRS11" },
+  { name: "Paris22", id: "PRS22" },
+];
+
 const LOIForm = ({ data, closeEditMode }) => {
+  const { register, handleSubmit, setValue } = useForm();
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.account.loading);
-  const { register, handleSubmit, setValue } = useForm();
-
-  const LOIList = [
-    { name: "New York", id: "NY" },
-    { name: "Rome", id: "RM" },
-    { name: "London", id: "LDN" },
-    { name: "Istanbul", id: "IST" },
-    { name: "Paris", id: "PRS" },
-    { name: "Paris11", id: "PRS11" },
-    { name: "Paris22", id: "PRS22" },
-  ];
 
   const [LOIs, setLOIs] = useState([]);
   const [currentLOI, setCurrentLOI] = useState("");
 
   const searchObjectArrayValues = (array, value) => {
-    const LOIExists = array.filter((LOI) => LOI === value);
+    const LOIExists = array.filter((LOI) => LOI.id === value);
     return !Boolean(LOIExists.length > 0);
   };
 
   const handleLOIChange = (e) => {
-    setCurrentLOI(e.target.value);
+    const value = e.target.value;
+
+    setCurrentLOI(value);
   };
 
   const handleLOIAdd = () => {
@@ -40,12 +42,10 @@ const LOIForm = ({ data, closeEditMode }) => {
       return;
     }
     if (currentLOI) {
-      const { name } = currentLOI;
-
-      if (searchObjectArrayValues(LOIs, name)) {
-        setLOIs([...LOIs, name]);
-        console.log(name)
-        console.log(LOIs)
+      const { id } = currentLOI;
+  
+      if (searchObjectArrayValues(LOIs, id)) {
+        setLOIs([...LOIs, currentLOI]);
       }
       setValue("location", LOIs);
       setCurrentLOI("");
@@ -61,19 +61,16 @@ const LOIForm = ({ data, closeEditMode }) => {
 
   useEffect(() => {
     if (data?.length > 0) {
-      setCurrentLOI();
       setLOIs(data);
       register("LOI");
       setValue("LOI", data);
     }
-  }, [data]);
+  }, []);
 
   const LOISubmit = (loiData) => {
-    console.log(loiData);
-
-    dispatch(updateLOI(loiData.location));
-    return;
+    dispatch(updateLOI(LOIs));
   };
+
   return (
     <>
       <div className="p-card p-mt-2">
@@ -92,9 +89,13 @@ const LOIForm = ({ data, closeEditMode }) => {
                   onClick={(e) => handleLOIDelete(LOI)}
                   type="button"
                   className="p-mr-2 p-p-0 tag-container"
-                  id={LOI}
+                  id={LOI.id}
                 >
-                  <Tag value={LOI} icon="pi pi-times" className="p-p-2"></Tag>
+                  <Tag
+                    value={LOI.name}
+                    icon="pi pi-times"
+                    className="p-p-2"
+                  ></Tag>
                 </button>
               ))
             ) : (
