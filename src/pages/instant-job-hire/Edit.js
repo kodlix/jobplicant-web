@@ -9,6 +9,7 @@ import { TabPanel, TabView } from 'primereact/tabview';
 import { Link } from 'react-router-dom';
 
 import './InstantJobHire.css'
+import Job from './Job';
 
 
 
@@ -185,6 +186,7 @@ const Edit = () => {
                                 </div>
                             </div>
                         </div>
+                        <Job />
                     </div>
                 </div >
             </div >

@@ -10,7 +10,7 @@ import InstantHires from './List';
 import Applicant from './Applicant';
 
 import './InstantJobHire.css'
-import Portfolio from 'pages/profile/Portfolio';
+import Job from './Job.js';
 
 
 
@@ -203,7 +203,7 @@ const InstanceJobHire = () => {
 
                             </div>
                             {/* portfolio */}
-                            <Portfolio
+                            <Job
                             // openCreate={openCreate}
                             // openEdit={openEdit}
                             // profileInfo={profileInfo}

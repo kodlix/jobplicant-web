@@ -12,13 +12,13 @@ const InstantHires = () => {
     const [visible, setVisible] = useState(false);
     const toast = useRef(null);
 
-    const accept = () => {
-        toast.current.show({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
-    }
+    // const accept = () => {
+    //     toast.current.show({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+    // }
 
-    const reject = () => {
-        toast.currents.show({ severity: 'info', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
-    }
+    // const reject = () => {
+    //     toast.currents.show({ severity: 'info', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+    // }
 
 
 
@@ -31,8 +31,8 @@ const InstantHires = () => {
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             acceptClassName: 'p-button-danger',
-            accept,
-            reject
+            // accept,
+            // reject
         });
     };
 
