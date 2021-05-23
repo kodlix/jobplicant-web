@@ -1,3 +1,7 @@
+#reject {
+    border: none;
+}
+
 .login-pane-right {
     min-height: 70vh;
 }
@@ -70,13 +74,8 @@
     color: #fff;
 }
 
-.content-tab-width {
-    width: 80%;
-    margin: auto;
-}
-
 .tab-width {
-    width: 76%;
+    width: 85%;
     margin: auto;
 }
 
@@ -100,6 +99,16 @@
     margin: auto;
 }
 
+.background {
+    background-color: #F2F2F2;
+}
+
+.content-container {
+    width: 85%;
+    margin: auto;
+    padding-top: 30px;
+}
+
 
 /* Media Query Section */
 
@@ -118,10 +127,6 @@
     .small-screen {
         display: none;
     }
-    /* left .login-pane-left {
-        min-height: 30vh;
-        max-height: 30vh;
-    } */
     .login-pane-right {
         padding: 30px;
     }
@@ -129,11 +134,6 @@
         width: 90%;
         margin: auto;
     }
-    /* .card-size-list {
-        width: 100%;
-        margin: auto;
-    } */
-    .content-tab-width,
     .card-size-list {
         width: 100%;
     }
