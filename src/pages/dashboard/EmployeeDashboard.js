@@ -148,7 +148,7 @@ const EmployeeDashboard = () => {
               Earning Breakdown
             </div>
             <div className="p-card-body p-p-0">
-              <LineChart />
+              {/* <LineChart /> */}
             </div>
           </div>
         </div>
@@ -158,7 +158,7 @@ const EmployeeDashboard = () => {
               Monthly Revenue
             </div>
             <div className="p-card-body p-p-0">
-              <BarChart />
+              {/* <BarChart /> */}
             </div>
           </div>
         </div>
