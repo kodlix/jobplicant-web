@@ -264,9 +264,11 @@ export function updateUserHobies(hobbies) {
 
 export function updateProfilePicture(image) {
   return (dispatch) => {
+    dispatch(loading());
     return agent.Account.updateProfilePicture(image).then(
       (response) => {
         // handle success
+        dispatch(profileInfoLoaded(response));
         dispatch(
           showMessage({
             type: MESSAGE_TYPE.SUCCESS,
@@ -276,6 +278,30 @@ export function updateProfilePicture(image) {
       },
       (error) => {
         // handle error
+        dispatch(profileInfoLoadedError());
+        dispatch(showMessage({ type: "error", message: error }));
+      }
+    );
+  };
+}
+
+export function updateProfilePortfolio(images) {
+  return (dispatch) => {
+    dispatch(loading());
+    return agent.Account.updateProfilePortfolio(images).then(
+      (response) => {
+        // handle success
+        dispatch(profileInfoLoaded(response));
+        dispatch(
+          showMessage({
+            type: MESSAGE_TYPE.SUCCESS,
+            message: "Portfolio image successfully updated",
+          })
+        );
+      },
+      (error) => {
+        // handle error
+        dispatch(profileInfoLoadedError());
         dispatch(showMessage({ type: "error", message: error }));
       }
     );

@@ -6,7 +6,7 @@ import "./UserProfile.css";
 const LocationOfInterest = ({
   openCreate,
   openEdit,
-  profileInfo,
+  profileInfo
 }) => {
 
   const formatLocation = (profileLocation) => {

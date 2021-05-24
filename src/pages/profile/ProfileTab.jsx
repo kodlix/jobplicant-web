@@ -1,50 +1,46 @@
-const ProfileTab = ({ activeTab }) => {
+import { useState } from "react";
+import { Link } from "react-router-dom";
+
+const ProfileTab = () => {
+  const [activeTab, setActiveTab] = useState("info");
+ 
   return (
     <>
-      <button>
+      <Link to={`/profile/info`} onClick={() => setActiveTab("info")} >
         <i
-          className={`pi pi-info-circle ${activeTab === "info" && "pi-active"}`}
+          className={`pi pi-info-circle ${activeTab === 'info' && 'pi-active'}`}
         ></i>
-        <div className={`tab-titles ${activeTab === "info" && "pi-active"}`}>
+        <div className="tab-titles pi-active">
           Info
         </div>
-      </button>
-      <button>
+      </Link>
+      <Link to={`/profile/jobs`} onClick={() => setActiveTab("jobs")}>
         <i
-          className={`pi pi-briefcase ${activeTab === "jobs" && "pi-active"}`}
+          className={`pi pi-briefcase ${activeTab === 'jobs' && 'pi-active'}`}
         ></i>
-        <div className={`tab-titles ${activeTab === "jobs" && "pi-active"}`}>
+        <div className="tab-titles" >
           Jobs
         </div>
-      </button>
-      <button>
+      </Link>
+      <Link to={`/profile/contacts`} onClick={() => setActiveTab("contacts")}>
         <i
-          className={`pi pi-user ${activeTab === "contacts" && "pi-active"}`}
+          className={`pi pi-user ${activeTab === 'contacts' && 'pi-active'}`}
         ></i>
         <div
-          className={`tab-titles ${activeTab === "contacts" && "pi-active"}`}
+          className={`tab-titles`}
         >
           Contacts
         </div>
-      </button>
-      <button>
+      </Link>
+      <Link to={`/profile/groups`} onClick={() => setActiveTab("groups")}>
         <i
-          className={`pi pi-users ${activeTab === "groups" && "pi-active"}`}
+          className={`pi pi-users ${activeTab === 'groups' && 'pi-active'}`}
         ></i>
-        <div className={`tab-titles ${activeTab === "groups" && "pi-active"}`}>
+        <div className={`tab-titles`}>
           Groups
         </div>
-      </button>
-      <button className="tab-portfolio">
-        <i
-          className={`pi pi-images ${activeTab === "portfolio" && "pi-active"}`}
-        ></i>
-        <div
-          className={`tab-titles ${activeTab === "portfolio" && "pi-active"}`}
-        >
-          Portfolio
-        </div>
-      </button>
+      </Link>
+      
     </>
   );
 };

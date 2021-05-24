@@ -135,10 +135,11 @@ const Account = {
   updateHobies: (hobbies) => requests.put("/accounts/hobbies", { hobbies }),
   updateProfessionOfInterest: (interests) =>
     requests.put("/accounts/interests", { "interest": interests }),
-  updateProfilePicture: (image) => requests.put("/account/uploads", image),
-  load: (email) => requests.get(`/ account / getbyemail / ${email}`),
-  getByID: (id) => requests.get(`/ account / ${id}`),
-  verufyAccount: (id) => requests.get(`/ account / ${id}`),
+  updateProfilePicture: (image) => requests.put("/accounts/upload-avatar", image),
+  updateProfilePortfolio: (images) => requests.put("/accounts/upload-portfolios", images),
+  load: (email) => requests.get(`/account/getbyemail/${email}`),
+  getByID: (id) => requests.get(`/account/${id}`),
+  verufyAccount: (id) => requests.get(`/account/${id}`),
 };
 
 const JobExperience = {
