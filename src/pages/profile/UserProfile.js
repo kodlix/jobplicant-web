@@ -17,7 +17,6 @@ const UserProfile = ({ match }) => {
   const dispatch = useDispatch();
   const [mode, setMode] = useState("");
   const [itemToEdit, setItemToEdit] = useState({});
-<<<<<<< HEAD
 
   //formatted entries
   const [LOI, setLOI] = useState(null);
@@ -29,9 +28,6 @@ const UserProfile = ({ match }) => {
   }, [educationUpdatedOrDeleted, userSkillUpdatedOrDeleted,experienceUpdatedOrDeleted]);
 
   const expandImage = () => { };
-=======
-  
->>>>>>> origin/profile-info
 
   const openCreate = (name) => {
     setMode("create");
@@ -44,7 +40,6 @@ const UserProfile = ({ match }) => {
     dispatch(openModal(name));
   };
 
-<<<<<<< HEAD
   const uploadProfilePicture = (e) => {
     console.log("files");
     console.table(e.target.files);
@@ -58,8 +53,6 @@ const UserProfile = ({ match }) => {
     return year + "/" + month + "/" + day;
   };
 
-=======
->>>>>>> origin/profile-info
   return (
     <>
       <div className="d-flex flex-column">
@@ -77,7 +70,6 @@ const UserProfile = ({ match }) => {
               <div className="p-col-12 p-md-9 content-smallscreen">
                 <div className="content-tab">
                   {/* ProfileTab */}
-<<<<<<< HEAD
                   <ProfileTab activeTab={activeTab} />
                 </div>
                 <div className="content-body">
@@ -136,7 +128,6 @@ const UserProfile = ({ match }) => {
                       />
                     </div>
                   </div>
-=======
                   <ProfileTab  />
                 </div>
                 <div className="content-body">
@@ -147,7 +138,6 @@ const UserProfile = ({ match }) => {
                   <Route path={`${match.path}/jobs`} component={JobsTab} />
                   <Route path={`${match.path}/contacts`} component={ContactsTab} />
                   <Route path={`${match.path}/groups`} component={GroupsTab} />
->>>>>>> origin/profile-info
                 </div>
               </div>
               {/* portfolio */}
