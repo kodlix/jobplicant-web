@@ -1,20 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Dropdown } from 'primereact/dropdown';
-import AppNavBar from 'components/AppNavBar';
-import { TabPanel, TabView } from 'primereact/tabview';
-import { Link } from 'react-router-dom';
 
 import './InstantJobHire.css'
-import Job from './Job';
 import InstantHeader from './instant-header';
 
 
-
-const Edit = ({ setMode, mode, data }) => {
+const New = ({ setMode, mode }) => {
 
     const { register, handleSubmit, formState: { errors }, setValue } = useForm({
         mode: "onChange",
@@ -22,9 +17,8 @@ const Edit = ({ setMode, mode, data }) => {
     });
 
     const [desc, setDesc] = useState('');
-    const [selectedCategory, setselectedCategory] = useState(null);
-    const [jobDateNow, setJobDateNow] = useState(false);
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [jobDateNow, setJobDateNow] = useState(true);
 
 
     const Categories = [
@@ -35,7 +29,7 @@ const Edit = ({ setMode, mode, data }) => {
     ];
 
     const onServiceChange = (e) => {
-        setselectedCategory(e.value);
+        setSelectedCategory(e.value);
     }
 
     const toggleJobDate = (e) => {
@@ -52,6 +46,10 @@ const Edit = ({ setMode, mode, data }) => {
         }
     }
 
+    useEffect(() => {
+        register("jobservice", { required: "Please Select job service" })
+    }, [])
+
     const onSubmit = (data) => {
         if (jobDateNow) {
             data.jobDate = new Date.now();
@@ -60,7 +58,7 @@ const Edit = ({ setMode, mode, data }) => {
     return (
         <>
             <InstantHeader
-                title="Edit instant hire"
+                title="Create new instant hire"
                 setMode={setMode}
                 showBack={true}
                 mode={mode}
@@ -78,9 +76,9 @@ const Edit = ({ setMode, mode, data }) => {
                                 optionLabel="name"
                                 name="jobservice"
                                 placeholder="Select Job Service"
-                                {...register("jobservice", { required: "Please Select job service" })}
 
                             />
+
                             {errors.jobservice && <span className="text-danger font-weight-bold "> <p>{errors.jobservice.message}</p>
                             </span>}
                         </div>
@@ -117,10 +115,10 @@ const Edit = ({ setMode, mode, data }) => {
 
                         <div className="p-field">
                             <label htmlFor="instance">  Job Date * &nbsp;
-                                                                            ( <input type="checkbox" onClick={toggleJobDate} name="instance"
+                                                        ( <input type="checkbox" onClick={toggleJobDate} name="instance" defaultChecked={jobDateNow}
                                     className="align-text-bottom" />
                                 <small className="font-weight-bold"> NOW </small> )
-                                                                             </label>
+                                                                    </label>
 
                             <InputText type="date"
                                 placeholder="Job Date"
@@ -164,9 +162,8 @@ const Edit = ({ setMode, mode, data }) => {
                 </div>
                 <Button icon="pi pi-check" iconPos="left" label="Submit" id="saveButton" type="submit" className="float-right" />
             </form>
-
         </>
-    )
+    );
 }
 
-export default Edit;
+export default New;
