@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { InputText } from "primereact/inputtext";
 import { Tag } from "primereact/tag";
@@ -11,13 +11,22 @@ const HobbyForm = ({ data, closeEditMode }) => {
   const loading = useSelector(state => state.account.loading);
   const dispatch = useDispatch();
 
-  const { handleSubmit, setValue } = useForm({
+  const { register, handleSubmit, setValue } = useForm({
     mode: "onChange",
     reValidateMode: "onChange",
   });
 
   const [hobbies, setHobbies] = useState([]);
   const [hobbyInputValue, setHobbyInputValue] = useState("");
+
+  useEffect(() => {
+    if (data?.length > 0) {
+      setHobbies(data);
+      register("hobbies");
+      setValue("hobbies", data);
+    }
+  }, [data]);
+
 
   const handleHobbyAdd = () => {
     // const hobby = document.getElementById("hobbyInput").value;

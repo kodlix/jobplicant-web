@@ -4,6 +4,7 @@ import { PROFILE } from "constants/profile";
 import "./UserProfile.css";
 
 const Hobbies = ({ openCreate, openEdit, profileInfo }) => {
+  console.log(profileInfo.hobbies)
 
   return (
     <>
