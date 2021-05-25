@@ -2,10 +2,6 @@
     border: none;
 }
 
-.login-pane-right {
-    min-height: 70vh;
-}
-
 .instant .title {
     font-size: 1.1rem;
     font-weight: 500;
@@ -26,16 +22,8 @@
     background-color: rgb(44, 165, 94)!important;
 }
 
-.bgcolor {
-    background-color: rgb(246, 249, 252);
-}
-
 .app-color {
     color: #5A2846;
-}
-
-.left-content {
-    margin-top: 4vh;
 }
 
 .label {
@@ -65,11 +53,6 @@
     /* padding-right: 200px; */
     position: relative;
     padding-bottom: 20px;
-}
-
-.create-form {
-    width: 60;
-    margin: auto;
 }
 
 .content-tab {
@@ -105,10 +88,6 @@
     background-color: #6FCF97;
 }
 
-.submit-btn {
-    margin-left: 50vw;
-}
-
 .highlight-card:hover {
     transform: scale(1.02);
     cursor: pointer;
@@ -134,22 +113,8 @@
 /* Media Query Section */
 
 @media screen and (max-width: 767px) {
-    .sendsms {
-        margin-right: 48vw;
-    }
-    .confirmbtn {
-        margin-left: 7vw;
-    }
-    .message {
-        margin-bottom: 6vh;
-        color: #5A2846;
-        ;
-    }
     .small-screen {
         display: none;
-    }
-    .login-pane-right {
-        padding: 30px;
     }
     .card-size {
         width: 90%;
@@ -157,10 +122,6 @@
     }
     .card-size-list {
         width: 100%;
-    }
-    .tab-width {
-        width: 95%;
-        margin: auto;
     }
     .back-btn {
         margin-left: 6vw;
