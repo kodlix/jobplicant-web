@@ -20,8 +20,8 @@ const Education = ({ openCreate, openEdit, profileInfo, formatDate }) => {
           openModalOnCreate={() => openEdit(PROFILE.EDUCATION)}
           openModalOnEdit={() => openCreate(PROFILE.EDUCATION)}
         />
-        {profileInfo.educations.length > 0 ? (
-          profileInfo.educations.map((education, index) => (
+        {profileInfo?.educations.length > 0 ? (
+          profileInfo?.educations.map((education, index) => (
             <div key={index}>
               <div className="p-card-subtitle p-ml-3 p-mb-0 mainTitle">
                 <span>

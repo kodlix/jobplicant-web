@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppNavBar from "components/AppNavBar";
 
 import Portfolio from "./Portfolio";
 import ProfileTab from "./ProfileTab";
-import PersonalInfo from "./PersonalInfo";
 import InfoTab from "./tabs/InfoTab";
 import { Route } from "react-router";
 import JobsTab from "./tabs/JobsTab";
@@ -11,9 +10,19 @@ import ContactsTab from "./tabs/ContactsTab";
 import GroupsTab from "./tabs/GroupsTab";
 import { useDispatch } from "react-redux";
 import { openModal } from "store/modules/modal";
+import { loadProfileInfo } from "store/modules/account";
+import Biography from "./Biography";
+import Experience from "./Experience";
+import Education from "./Education";
+import Skills from "./Skills";
+import Hobbies from "./Hobbies";
+import ProfessionsOfInterest from "./ProfessionsOfInterest";
+import LocationOfInterest from "./LocationOfInterest";
+import ContactInformation from "./ContactInformation";
+import PersonalInfo from "./PersonalInfo";
 
-const UserProfile = ({ match }) => {
-  
+const UserProfile = ({ match, profileInfo, activeTab, educationUpdatedOrDeleted, userSkillUpdatedOrDeleted, experienceUpdatedOrDeleted }) => {
+
   const dispatch = useDispatch();
   const [mode, setMode] = useState("");
   const [itemToEdit, setItemToEdit] = useState({});
@@ -25,7 +34,7 @@ const UserProfile = ({ match }) => {
   useEffect(() => {
     console.log("change must happen");
     dispatch(loadProfileInfo());
-  }, [educationUpdatedOrDeleted, userSkillUpdatedOrDeleted,experienceUpdatedOrDeleted]);
+  }, [educationUpdatedOrDeleted, userSkillUpdatedOrDeleted, experienceUpdatedOrDeleted]);
 
   const expandImage = () => { };
 
@@ -128,11 +137,11 @@ const UserProfile = ({ match }) => {
                       />
                     </div>
                   </div>
-                  <ProfileTab  />
+                  <ProfileTab />
                 </div>
                 <div className="content-body">
                   {/* biography */}
-                  
+
                   <Route path={`${match.path}/`} exact component={InfoTab} />
                   <Route path={`${match.path}/info`} component={InfoTab} />
                   <Route path={`${match.path}/jobs`} component={JobsTab} />
@@ -141,12 +150,12 @@ const UserProfile = ({ match }) => {
                 </div>
               </div>
               {/* portfolio */}
-              <Portfolio openCreate={openCreate} openEdit={openEdit}/>
+              <Portfolio openCreate={openCreate} openEdit={openEdit} />
             </div>
           </div>
         </div>
       </div>
-      
+
     </>
   );
 };
