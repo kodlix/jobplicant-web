@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Rating } from 'primereact/rating';
-import './InstantJobHire.css'
 import { Button } from 'primereact/button';
 import AppNavBar from 'components/AppNavBar';
+import Job from './Job';
+
+import './InstantJobHire.css'
+
 
 // import { DataTable } from 'primereact/datatable';
 // import { Column } from 'primereact/column';
@@ -35,104 +38,106 @@ const Applicant = () => {
 
     return (
         <>
-            <div className='d-flex flex-column' >
+            <div className='d-flex flex-column background' >
                 {/* <div className="container"> */}
                 <AppNavBar />
-                <div className="p-grid">
+                <div className="content-container">
                     <div className="p-grid">
-                        <h5>the header show show here</h5>
-
-                        <div className="p-col">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Rating
+                        <div className="p-pl-3">
+                            <div className="p-grid">
+                                <div className="p-col">
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Rating
                                 </button>
-                                <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
-                                    <li class="dropdown-item">
-                                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
+                                        <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
+                                            <li class="dropdown-item">
+                                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
                                      Unrated
                                     </li>
-                                    <li class="dropdown-item">
-                                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
+                                            <li class="dropdown-item">
+                                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
                                      Good Fit
                                     </li>
-                                    <li class="dropdown-item">
-                                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
+                                            <li class="dropdown-item">
+                                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
                                          Maybe
                                     </li>
-                                    <li class="dropdown-item pr-1">
-                                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
+                                            <li class="dropdown-item pr-1">
+                                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
                                             Not a fit
                                     </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="p-col">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Years of experience
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div className="p-col">
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Years of experience
                                 </button>
-                                <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
-                                    {/* <li><a class="dropdown-item" href="#">Action</a></li>
+                                        <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
+                                            {/* <li><a class="dropdown-item" href="#">Action</a></li>
                                     <li><a class="dropdown-item" href="#">Another action</a></li>
                                     <li><a class="dropdown-item" href="#">Something else here</a></li> */}
-                                    <li class="dropdown-item">
-                                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
+                                            <li class="dropdown-item">
+                                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
                                      Less than 1 year
                                     </li>
-                                    <li class="dropdown-item">
-                                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
+                                            <li class="dropdown-item">
+                                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
                                      1 to 2 years
                                     </li>
-                                    <li class="dropdown-item">
-                                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
+                                            <li class="dropdown-item">
+                                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
                                         &nbsp; 3 to 5 years
                                     </li>
-                                    <li class="dropdown-item pr-1">
-                                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
+                                            <li class="dropdown-item pr-1">
+                                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
                                         &nbsp; 6 to 10 years
                                     </li>
-                                    <li class="dropdown-item pr-1">
-                                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
+                                            <li class="dropdown-item pr-1">
+                                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
                                              &nbsp; More than 10 years
                                     </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="p-col">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Sorted by
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div className="p-col">
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Sorted by
                                 </button>
-                                <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
-                                    {/* <li><a class="dropdown-item" href="#">Action</a></li>
+                                        <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
+                                            {/* <li><a class="dropdown-item" href="#">Action</a></li>
                                     <li><a class="dropdown-item" href="#">Another action</a></li>
                                     <li><a class="dropdown-item" href="#">Something else here</a></li> */}
-                                    <li class="dropdown-item">
-                                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
+                                            <li class="dropdown-item">
+                                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
                                      Option 1
                                     </li>
-                                    <li class="dropdown-item">
-                                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
+                                            <li class="dropdown-item">
+                                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
                                     Option 2
                                     </li>
-                                    <li class="dropdown-item">
-                                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
+                                            <li class="dropdown-item">
+                                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
                                         &nbsp; Option 3
                                     </li>
-                                    <li class="dropdown-item pr-1">
-                                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
+                                            <li class="dropdown-item pr-1">
+                                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
                                         &nbsp; Option 4
                                     </li>
-                                </ul>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="p-col-12 p-md-9">
-                        <div className="p-pl-6 p-pt-2">
-                            <h5 className="font-weight-bold">10 Applicants (7 results) </h5>
+                        <div className="p-col-12 p-md-9">
+                            {/* <div className="p-pl-6 p-pt-2"> */}
+                            <h5 className="font-weight-bold p-pt-3">5 Applicants (3 results) </h5>
+                            {/* </div> */}
+                            <hr />
                         </div>
-                        <hr />
                         <div className="card card-size">
                             <div className="card-body p-pt-0">
                                 <div className="p-4">
@@ -261,22 +266,26 @@ const Applicant = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className="p-grid">
-                            <div className="col-12">
-                                <div className="pagination center">
-                                    <ul className="pagination-list">
-                                        <li><Link to="#"><i className="lni lni-arrow-left"></i></Link></li>
-                                        <li className="active"><Link to="#">1</Link></li>
-                                        <li><Link to="#">2</Link></li>
-                                        <li><Link to="#"><i className="lni lni-arrow-right"></i></Link></li>
-                                    </ul>
-                                </div>
+                        </div>
+                        {/* Job Component*/}
+                        <Job />
+
+
+                    </div>
+                    <div className="p-grid">
+                        <div className="col-12">
+                            <div className="pagination center">
+                                <ul className="pagination-list">
+                                    <li><Link to="#"><i className="lni lni-arrow-left"></i></Link></li>
+                                    <li className="active"><Link to="#">1</Link></li>
+                                    <li><Link to="#">2</Link></li>
+                                    <li><Link to="#"><i className="lni lni-arrow-right"></i></Link></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    {/* </div> */}
+
                 </div>
             </div>
 

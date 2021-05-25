@@ -78,17 +78,17 @@ const InstantHires = ({ setMode, mode }) => {
                         <i className="pi pi-trash" style={{ fontSize: '0.8rem', padding: '.5rem' }} onClick={deleteRequest}></i>
 
                     </div>
-
-                    <small className="p-text-secondary">
-                        <p className="font-weight-bold app-color">Machine Service</p>
-                        <p><span className="font-weight-bold app-color">Job Location : </span> 115, Gowan estate, Egbeda, Lagos</p>
-                        <p><span className="font-weight-bold app-color">Time : </span> Now</p>
-                        <div className="row">
-                            <div className="p-col-4 p-ml-1"><span className="font-weight-bold app-color">Start Date: </span> 5/16/2021</div>
-                            <div className="p-col-6"><span className="font-weight-bold app-color">End Date:               </span> 10/16/2021</div>
-                        </div>
-                        <p><span className="font-weight-bold app-color">Job Description : </span> I urgently need a mechanic to come repair my car,i hink it has an engine problem</p>
-                    </small>
+                    <Link to={'/instant-hire-applicants'}>
+                        <small className="p-text-secondary">
+                            <p className="font-weight-bold app-color">Fashion Design Service</p>
+                            <p><span className="font-weight-bold app-color">Job Location : </span> 115, Gowan estate, Egbeda, Lagos</p>
+                            <p><span className="font-weight-bold app-color">Time : </span> Now</p>
+                            <div className="row">
+                                <div className="p-col-4 p-ml-1"><span className="font-weight-bold app-color">Start Date: </span> 5/16/2021</div>
+                                <div className="p-col-6"><span className="font-weight-bold app-color">End Date:               </span> 10/16/2021</div>
+                            </div>
+                            <p><span className="font-weight-bold app-color">Job Description : </span> I urgently need a mechanic to come repair my car,i hink it has an engine problem</p>
+                        </small></Link>
                 </div>
                 <hr />
 
@@ -99,18 +99,18 @@ const InstantHires = ({ setMode, mode }) => {
                         <i className="pi pi-trash" style={{ fontSize: '0.8rem', padding: '.5rem' }} onClick={deleteRequest}></i>
 
                     </div>
+                    <Link to={'/instant-hire-applicants'}>
+                        <small className="p-text-secondary">
+                            <p className="font-weight-bold app-color">Fashion Design Service</p>
+                            <p><span className="font-weight-bold app-color">Job Location : </span> 115, Gowan estate, Egbeda, Lagos</p>
+                            <p><span className="font-weight-bold app-color">Time : </span> Now</p>
+                            <div className="row">
+                                <div className="p-col-4 p-ml-1"><span className="font-weight-bold app-color">Start Date: </span> 5/16/2021</div>
+                                <div className="p-col-6"><span className="font-weight-bold app-color">End Date:               </span> 10/16/2021</div>
+                            </div>
+                            <p><span className="font-weight-bold app-color">Job Description : </span> I urgently need a mechanic to come repair my car,i hink it has an engine problem</p>
 
-                    <small className="p-text-secondary">
-                        <p className="font-weight-bold app-color">Fashion Design Service</p>
-                        <p><span className="font-weight-bold app-color">Job Location : </span> 115, Gowan estate, Egbeda, Lagos</p>
-                        <p><span className="font-weight-bold app-color">Time : </span> Now</p>
-                        <div className="row">
-                            <div className="p-col-4 p-ml-1"><span className="font-weight-bold app-color">Start Date: </span> 5/16/2021</div>
-                            <div className="p-col-6"><span className="font-weight-bold app-color">End Date:               </span> 10/16/2021</div>
-                        </div>
-                        <p><span className="font-weight-bold app-color">Job Description : </span> I urgently need a mechanic to come repair my car,i hink it has an engine problem</p>
-
-                    </small>
+                        </small></Link>
                 </div>
                 <hr />
 
@@ -121,18 +121,18 @@ const InstantHires = ({ setMode, mode }) => {
                         <i className="pi pi-trash" style={{ fontSize: '0.8rem', padding: '.5rem' }} onClick={deleteRequest}></i>
 
                     </div>
+                    <Link to={'/instant-hire-applicants'}>
+                        <small className="p-text-secondary">
+                            <p className="font-weight-bold app-color">Fashion Design Service</p>
+                            <p><span className="font-weight-bold app-color">Job Location : </span><span>115, Gowan estate, Egbeda, Lagos</span> </p>
+                            <p><span className="font-weight-bold app-color">Time : </span> Now</p>
+                            <div className="row">
+                                <div className="p-col-4 p-ml-1"><span className="font-weight-bold app-color">Start Date: </span> 5/16/2021</div>
+                                <div className="p-col-6"><span className="font-weight-bold app-color">End Date:               </span> 10/16/2021</div>
+                            </div>
+                            <p><span className="font-weight-bold app-color">Job Description : </span> I urgently need a mechanic to come repair my car,i hink it has an engine problem</p>
 
-                    <small className="p-text-secondary">
-                        <p className="font-weight-bold app-color">Plumming Service</p>
-                        <p><span className="font-weight-bold app-color">Job Location : </span><span>115, Gowan estate, Egbeda, Lagos</span> </p>
-                        <p><span className="font-weight-bold app-color">Time : </span> Now</p>
-                        <div className="row">
-                            <div className="p-col-4 p-ml-1"><span className="font-weight-bold app-color">Start Date: </span> 5/16/2021</div>
-                            <div className="p-col-6"><span className="font-weight-bold app-color">End Date:               </span> 10/16/2021</div>
-                        </div>
-                        <p><span className="font-weight-bold app-color">Job Description : </span> I urgently need a mechanic to come repair my car,i hink it has an engine problem</p>
-
-                    </small>
+                        </small></Link>
                 </div>
             </div>
         </div>
