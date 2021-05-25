@@ -6,6 +6,18 @@
     min-height: 70vh;
 }
 
+.instant .title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: .5rem 0;
+}
+
+.instant button {
+    width: 6rem !important;
+    padding: .4rem;
+    border-radius: 5%;
+}
+
 .appcolor {
     background-color: #5A2846 !important;
 }
@@ -35,9 +47,18 @@
     margin: auto;
 }
 
+.nav-tabs {
+    border-bottom: none !important;
+}
+
+.nav-link.active {
+    padding: 12px;
+}
+
 .card-size-list {
     width: 62vw;
     margin: auto;
+    padding: 18px;
 }
 
 .find-job1 .single-job1 .job-content1 h4 {

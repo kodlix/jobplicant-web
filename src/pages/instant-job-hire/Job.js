@@ -15,7 +15,7 @@ const Job = ({ openCreate, openEdit, profileInfo }) => {
 
     return (
         <>
-            <div className="p-col-12 p-md-3 p-pt-3 portfolio-panel">
+            <div className="p-col-12 p-md-3 p-pt-2 portfolio-panel">
                 <div className="p-card">
                     <SectionHeader
                         icon="briefcase"

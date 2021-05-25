@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Rating } from 'primereact/rating';
 import './InstantJobHire.css'
 import { Button } from 'primereact/button';
+import AppNavBar from 'components/AppNavBar';
 
 const Applicant = () => {
 
@@ -16,6 +17,7 @@ const Applicant = () => {
         <>
             <div className='d-flex flex-column' >
                 {/* <div className="content-container"> */}
+                <AppNavBar />
                 <div className="p-grid">
                     <div className="p-col-12 p-md-9">
                         <div className="card card-size">
@@ -170,11 +172,8 @@ const Applicant = () => {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            {/* <h5 className="modal-title font-weight-bold text-center text-primary" id="staticBackdropLabel">Applicant Name</h5> */}
                             <img src="../../assets/user-icon.png " width="10px" height="200px" className="card-img-top" alt="..." />
-                            {/* <button type="button" className="close" data-bs-dismiss="modal" aria-bs-label="Close"> */}
-                            {/* <span aria-hidden="true">&times;</span> */}
-                            {/* </button> */}
+
                         </div>
                         <div className="modal-body">
                             <p><span className="font-weight-bold">Funll Name:</span> <span > Chinedu Michael</span></p>

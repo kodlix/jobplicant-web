@@ -69,7 +69,7 @@ const AppRouter = () => {
         <ProtectedRoute path="/instant-hires" component={ListInstantJobHire} />
         <ProtectedRoute path="/instant-hire/view/:id" component={ViewInstantJobHire} />
         <ProtectedRoute path="/instant-hire/edit/:id" component={EditInstantJobHire} />
-        <ProtectedRoute path="/applicant" component={Applicant} />
+        <ProtectedRoute path="/instant-hire-applicants" component={Applicant} />
 
         <Redirect to="/login" />
       </Switch>
