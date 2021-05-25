@@ -1,0 +1,9 @@
+.profileNav {
+    display: flex;
+    flex-direction: row;
+}
+.profileNav a {
+    text-decoration: none;    
+    width: 5vw;
+    text-align: center;
+}

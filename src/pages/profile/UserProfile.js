@@ -27,16 +27,6 @@ const UserProfile = ({ match, profileInfo, activeTab, educationUpdatedOrDeleted,
   const [mode, setMode] = useState("");
   const [itemToEdit, setItemToEdit] = useState({});
 
-  //formatted entries
-  const [LOI, setLOI] = useState(null);
-  const [interests, setInterests] = useState(null);
-
-  useEffect(() => {
-    console.log("change must happen");
-    dispatch(loadProfileInfo());
-  }, [educationUpdatedOrDeleted, userSkillUpdatedOrDeleted, experienceUpdatedOrDeleted]);
-
-  const expandImage = () => { };
 
   const openCreate = (name) => {
     setMode("create");
@@ -47,19 +37,6 @@ const UserProfile = ({ match, profileInfo, activeTab, educationUpdatedOrDeleted,
     setMode("edit");
     // setItemToEdit(data);
     dispatch(openModal(name));
-  };
-
-  const uploadProfilePicture = (e) => {
-    console.log("files");
-    console.table(e.target.files);
-  };
-
-  const formatDate = (date) => {
-    let year = date.getFullYear();
-    let month = (1 + date.getMonth()).toString().padStart(2, "0");
-    let day = date.getDate().toString().padStart(2, "0");
-
-    return year + "/" + month + "/" + day;
   };
 
   return (
@@ -79,64 +56,6 @@ const UserProfile = ({ match, profileInfo, activeTab, educationUpdatedOrDeleted,
               <div className="p-col-12 p-md-9 content-smallscreen">
                 <div className="content-tab">
                   {/* ProfileTab */}
-                  <ProfileTab activeTab={activeTab} />
-                </div>
-                <div className="content-body">
-                  {/* biography */}
-                  <Biography
-                    openCreate={openCreate}
-                    openEdit={openEdit}
-                    profileInfo={profileInfo}
-                  />
-                  <div className="p-grid">
-                    <div className="p-col-12 p-md-8 content-leftPanel">
-                      {/* experience */}
-                      <Experience
-                        openCreate={openCreate}
-                        openEdit={openEdit}
-                        profileInfo={profileInfo}
-                        formatDate={formatDate}
-                      />
-                      <Education
-                        openCreate={openCreate}
-                        openEdit={openEdit}
-                        profileInfo={profileInfo}
-                        formatDate={formatDate}
-                      />
-                    </div>
-                    <div className="p-col-12 content-rightPanel p-md-4">
-                      {/* skills */}
-                      <Skills
-                        openCreate={openCreate}
-                        openEdit={openEdit}
-                        profileInfo={profileInfo}
-                      />
-                      {/* hobbies */}
-                      <Hobbies
-                        openCreate={openCreate}
-                        openEdit={openEdit}
-                        profileInfo={profileInfo}
-                      />
-                      {/* profession of interest */}
-                      <ProfessionsOfInterest
-                        openCreate={openCreate}
-                        openEdit={openEdit}
-                        profileInfo={profileInfo}
-                      />
-                      {/* location of interest */}
-                      <LocationOfInterest
-                        openCreate={openCreate}
-                        openEdit={openEdit}
-                        profileInfo={profileInfo}
-                      />
-                      {/* contact information */}
-                      <ContactInformation
-                        openCreate={openCreate}
-                        openEdit={openEdit}
-                        profileInfo={profileInfo}
-                      />
-                    </div>
-                  </div>
                   <ProfileTab />
                 </div>
                 <div className="content-body">

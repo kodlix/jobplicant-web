@@ -58,11 +58,13 @@ const PersonalInfo = ({ openCreate, openEdit }) => {
     }, 2000);
   };
 
+
+
   return (
     <div className="userProfile-header">
       <span className="profilePic-container">
         <img
-          src={selectedFile ? preview : (profileInfo.imageUrl !== '') ? profileInfo.ImageUrl : "../../assets/logo.png" }
+          src={selectedFile ? preview : (typeof(profileInfo.imageUrl) === 'string' && profileInfo.imageUrl !== '' ) ? profileInfo.ImageUrl : "../../assets/logo.png" }
           alt="User Image"
           width="130"
           height="130"

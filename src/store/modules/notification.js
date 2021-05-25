@@ -7,7 +7,7 @@ const notification = {
 
 
 // Action types
-const MESSAGE_DISPLAYED = 'app/notification/SUCCESS_DISPLAYED';
+const MESSAGE_DISPLAYED = 'app/notification/MESSAGE_DISPLAYED';
 const MESSAGE_CLEARED = 'app/notification/MESSAGE_CLEARED ';
 
 // Reducer
@@ -58,7 +58,7 @@ export function showMessage(data) {
             dispatch(messageDisplayed({
                 type: 'error',
                 message: serializeError(data.message),
-                title: "An error occured"
+                title: data.title || "An error occured"
             }))
         }
     }

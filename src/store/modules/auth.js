@@ -86,7 +86,7 @@ export function registerUser(user) {
       dispatch(push(`/security-verification?email=${response.email
         }`));
     }, error => { // handle error
-      dispatch(showMessage({ type: "error", message: error }));
+      dispatch(showMessage({ type: "error", message: error, title: "User Registration Failed" }));
     });
   }
 }
@@ -106,7 +106,7 @@ export function verifyAccount(code) {
 export function loginUser({ email, password, type }) {
   return dispatch => {
     return agent.Auth.login(email, password, type).then(response => { // handle success
-      dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "login successful" }));
+      dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "welcome, login successful", title:"Login Success" }));
       onLogin(dispatch, response);
       dispatch(push("/profile-info"));
     }, error => { // handle error
