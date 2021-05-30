@@ -102,7 +102,7 @@ const AccountTypeStep = ({ goto, setAccountType }) => {
                           name="accountType"
                           id="invalidCheck4"
                           onChange={(e) =>
-                            setSelectedAccountType("employer", e)
+                            setSelectedAccountType("corporate", e)
                           }
                           required
                         />
