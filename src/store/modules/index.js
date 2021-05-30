@@ -3,6 +3,7 @@ import { connectRouter } from 'connected-react-router';
 import auth from './auth';
 import notification from "./notification";
 import account from './account';
+import company from './company' ;
 import experience from './experience'
 import location from './location';
 import common from './common';
@@ -17,6 +18,7 @@ const appReducer = (history) => combineReducers({
   error,
   auth,
   account,
+  company,
   notification,
   location,
   education,

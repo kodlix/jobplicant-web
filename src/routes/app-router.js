@@ -5,6 +5,7 @@ import { clearMessage } from "../store/modules/notification";
 import AppLoading from '../components/AppLoading';
 import AnonymousRoute from './anonymous-route';
 import ProtectedRoute from './protected-route';
+import CompanyProfile from 'pages/company/CompanyProfile';
 
 const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard'));
 const UserProfile = React.lazy(() => import('pages/profile/UserProfile'));
@@ -63,6 +64,7 @@ const AppRouter = () => {
         <ProtectedRoute path="/internalservererror" component={InternalServerError} />
         <ProtectedRoute path="/badrequest" component={BadRequest} />
         <ProtectedRoute path="/profile" component={UserProfile} />
+        <ProtectedRoute path="/company" component={CompanyProfile} />
         {/* <ProtectedRoute path="/companyprofile" component={CompanyProfile} /> */}
         <ProtectedRoute path="/dashboard" component={Dashboard} />
         <ProtectedRoute path="/new-instant-hire" component={CreateInstantJobHire} />

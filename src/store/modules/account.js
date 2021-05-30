@@ -63,7 +63,6 @@ export default function reducer(state = account, action = {}) {
 }
 
 // Action Creators
-
 export function profileInfoLoaded(data) {
   return { type: LOAD_PROFILE_INFO, payload: data };
 }
