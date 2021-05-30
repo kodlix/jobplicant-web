@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './AppNavBar.css';
 
-const AppNavBar = ({displaySearBar = false}) => {
+const AppNavBar = ({ displaySearBar = false }) => {
 
     return (
         <div className="header-container">
@@ -27,6 +27,14 @@ const AppNavBar = ({displaySearBar = false}) => {
                                             </li>
                                             <li className="nav-item">
                                                 <Link to="#">Jobs</Link>
+                                                <ul className="sub-menu">
+                                                    <li>
+                                                        <Link to="/blog-grid-sidebar">Artisan</Link>
+                                                    </li>
+                                                    <li>
+                                                        <Link to="blog-grid-sidebar.html">Corporate </Link>
+                                                    </li>
+                                                </ul>
                                             </li>
                                             <li className="nav-item">
                                                 <Link to="#">Hire</Link>
@@ -78,14 +86,14 @@ const AppNavBar = ({displaySearBar = false}) => {
                 </p>
                 </div>
             </div>
-            { displaySearBar && 
+            { displaySearBar &&
                 <div className="search-bar mx-auto align-content-center">
-                <div className="input-group py-4 mx-auto" style={{ width: '25rem' }}>
-                    <input type="text" className="form-control" placeholder="search for content" aria-label="search for content" aria-describedby="basic-addon2" />
-                    <span className="input-group-text btn brown-color" id="basic-addon2">Search</span>
+                    <div className="input-group py-4 mx-auto" style={{ width: '25rem' }}>
+                        <input type="text" className="form-control" placeholder="search for content" aria-label="search for content" aria-describedby="basic-addon2" />
+                        <span className="input-group-text btn brown-color" id="basic-addon2">Search</span>
+                    </div>
                 </div>
-            </div>
-            }                   
+            }
         </div>
 
     );

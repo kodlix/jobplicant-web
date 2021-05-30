@@ -51,6 +51,12 @@ const AppSideBar = (props) => {
                         <ul>
                             <li className="heading">Manage Account</li>
                             <li className='li-border'>
+                                <Link to="/profile">
+                                    <i className="li-icon lni lni-user"></i>
+                                    <span className="li-title">My Profile</span>
+                                </Link>
+                            </li>
+                            <li className='li-border'>
                                 <Link to="/dashboard">
                                     <i className="li-icon lni lni-clipboard"></i>
                                     <span className="li-title">My Resume</span>
