@@ -4,7 +4,7 @@ import { PROFILE } from "constants/profile";
 
 import "./UserProfile.css";
 
-const Experience = ({ openCreate, openEdit, profileInfo,formatDate }) => {
+const Experience = ({ openCreate, openEdit, profileInfo, formatDate }) => {
 
   return (
     <>

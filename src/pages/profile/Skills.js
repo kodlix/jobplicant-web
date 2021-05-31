@@ -17,7 +17,7 @@ const Skills = ({ openEdit, openCreate, profileInfo }) => {
         : "No skill";
     return skillTemp;
   };
-  
+
   return (
     <>
       <div className="p-card p-mt-2">
@@ -29,9 +29,9 @@ const Skills = ({ openEdit, openCreate, profileInfo }) => {
           showEditButton="true"
           openModalOnCreate={() => openEdit(PROFILE.SKILL)}
           openModalOnEdit={() => openCreate(PROFILE.SKILL)}
-          // onClick={mode}
+        // onClick={mode}
         />
-        <div className="p-card-body">{formatSkills(profileInfo.skills)}</div>
+        <div className="p-card-body">{formatSkills(profileInfo?.skills)}</div>
       </div>
     </>
   );

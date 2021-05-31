@@ -2,6 +2,11 @@
     border: none;
 }
 
+.instant-hire-flex {
+    display: flex;
+    flex-direction: row;
+}
+
 .instant .title {
     font-size: 1.1rem;
     font-weight: 500;
@@ -113,6 +118,14 @@
     background-color: aqua;
 }
 
+.fit-in {
+    margin-left: -19rem;
+}
+
+.bk-btn {
+    margin-left: "35vw"
+}
+
 
 /* Media Query Section */
 
@@ -129,5 +142,11 @@
     }
     .back-btn {
         margin-left: 6vw;
+    }
+    .sm-screen {
+        width: 58vw;
+    }
+    .bk-btn {
+        margin-left: 1px;
     }
 }

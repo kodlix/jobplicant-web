@@ -13,16 +13,6 @@ const InstantHires = ({ setMode, mode }) => {
     const [visible, setVisible] = useState(false);
     const toast = useRef(null);
 
-    // const accept = () => {
-    //     toast.current.show({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
-    // }
-
-    // const reject = () => {
-    //     toast.currents.show({ severity: 'info', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
-    // }
-
-
-
 
     const id = 1;
 
@@ -37,33 +27,8 @@ const InstantHires = ({ setMode, mode }) => {
         });
     };
 
-    // const handleDeleteItem = (Id) => {
-    //     Swal.fire({
-    //         title: 'Are you sure?',
-    //         text: "You won't be able to revert this!",
-    //         icon: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#276678',
-    //         cancelButtonColor: '#d33',
-    //         confirmButtonText: 'Yes, delete it!'
-    //     }).then((result) => {
-    //         if (result.isConfirmed) {
-    //             // dispatch(deleteEventType(Id));
-    //             // Swal.fire(
-    //             //     'Deleted!',
-    //             //     'Your scheduled meeting has been deleted.',
-    //             //     'success'
-    //             // )
-    //             return;
-    //         }
-    //     })
-
-    // }
-
-
-
     return (
-        <div className="p-4">
+        <div>
             <InstantHeader
                 title="All Created instant hires"
                 setMode={setMode}

@@ -56,7 +56,7 @@ const New = ({ setMode, mode }) => {
         }
     }
     return (
-        <>
+        <div>
             <InstantHeader
                 title="Create new instant hire"
                 setMode={setMode}
@@ -162,7 +162,7 @@ const New = ({ setMode, mode }) => {
                 </div>
                 <Button icon="pi pi-check" iconPos="left" label="Submit" id="saveButton" type="submit" className="float-right" />
             </form>
-        </>
+        </div>
     );
 }
 

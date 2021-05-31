@@ -19,7 +19,7 @@ const Biography = ({ openCreate, openEdit, profileInfo }) => {
           openModalOnEdit={() => openCreate(PROFILE.BIOGRAPHY)}
           hasData={profileInfo?.profile}
         />
-        <div className="p-card-body">{profileInfo.profile}</div>
+        <div className="p-card-body">{profileInfo?.profile}</div>
       </div>
     </>
   );
