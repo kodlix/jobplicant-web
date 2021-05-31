@@ -1,0 +1,17 @@
+.commentForm {
+  width: 100%;
+  margin-left: 18px;
+  background-color: #5a284625;
+  border-radius: 10px;
+}
+
+.reply-button {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: none;
+}
+
+.reply-button:hover {
+  color: #6FCF97;
+}
