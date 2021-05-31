@@ -63,16 +63,15 @@ const AppRouter = () => {
         <ProtectedRoute path="/pagenotfound" exact component={PageNotFound} />
         <ProtectedRoute path="/internalservererror" component={InternalServerError} />
         <ProtectedRoute path="/badrequest" component={BadRequest} />
-        <ProtectedRoute path="/profile-info" exact component={UserProfile} />
+        <ProtectedRoute path="/profile" component={UserProfile} />
         {/* <ProtectedRoute path="/companyprofile" component={CompanyProfile} /> */}
         <ProtectedRoute path="/dashboard" component={Dashboard} />
         <ProtectedRoute path="/new-instant-hire" component={CreateInstantJobHire} />
         <ProtectedRoute path="/instant-hires" component={ListInstantJobHire} />
         <ProtectedRoute path="/instant-hire/view/:id" component={ViewInstantJobHire} />
         <ProtectedRoute path="/instant-hire/edit/:id" component={EditInstantJobHire} />
-        <ProtectedRoute path="/applicant" component={Applicant} />
+        <ProtectedRoute path="/instant-hire-applicants" component={Applicant} />
         <ProtectedRoute path="/timeline" exact component={Timeline} />
-
         <Redirect to="/login" />
       </Switch>
     </React.Suspense>

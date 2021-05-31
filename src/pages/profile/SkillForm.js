@@ -8,18 +8,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { createSkill, deleteSkill } from "store/modules/userSkill";
 
 const skillsList = [
-  { name: "New York", id: "NY" },
-  { name: "Rome", id: "RM" },
-  { name: "London", id: "LDN" },
-  { name: "Istanbul", id: "IST" },
-  { name: "Paris", id: "PRS" },
-  { name: "Paris11", id: "PRS11" },
-  { name: "Paris22", id: "PRS22" },
+  { name: "Java", id: "NY" },
+  { name: "Javascript", id: "RM" },
+  { name: "Python", id: "LDN" },
+  { name: "Database", id: "IST" },
+  { name: "Graphic Design", id: "PRS" },
+  { name: "Web Design", id: "PRS11" },
+  { name: "Software Analysis", id: "PRS22" },
 ];
 
 const SkillForm = ({ data, closeEditMode }) => {
   const dispatch = useDispatch();
-  const loading = useSelector(state => state.userSkill.loading);
+  const loading = useSelector((state) => state.userSkill.loading);
   const { register, handleSubmit, setValue } = useForm();
 
   const [currentSkill, setCurrentSkill] = useState("");
@@ -44,7 +44,6 @@ const SkillForm = ({ data, closeEditMode }) => {
   }, [data]);
 
   const handleSkillAdd = () => {
-    
     if (skills.length === 10) {
       setCurrentSkill("");
       return;
@@ -72,9 +71,7 @@ const SkillForm = ({ data, closeEditMode }) => {
   };
 
   const skillSubmit = (skill) => {
-    console.log(skill);
-    dispatch(createSkill(skill));
-    return;
+    dispatch(createSkill(skills.map(skill => skill.name)));
   };
 
   const componentStatus = { skills: "add" };
@@ -103,7 +100,11 @@ const SkillForm = ({ data, closeEditMode }) => {
                 className="p-mr-2 p-p-0 p-mb-1 tag-container"
                 id={skill}
               >
-                {loading ? <i className="fa fa-spinner fa-spin"></i> : <span></span>}
+                {loading ? (
+                  <i className="fa fa-spinner fa-spin"></i>
+                ) : (
+                  <span></span>
+                )}
                 <Tag
                   value={skill?.name}
                   icon="pi pi-times"

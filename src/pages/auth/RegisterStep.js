@@ -160,7 +160,7 @@ const RegisterStep = ({ accountType }) => {
 
                                         </div>
                                         {
-                                            accountType === 'employer' &&
+                                            accountType === 'Corporate' &&
                                             <div className="p-field">
                                                 <InputText type="text"
                                                     className="form-control p-mb-4"

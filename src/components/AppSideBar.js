@@ -44,7 +44,7 @@ const AppSideBar = (props) => {
 
     return (
         <>
-            <Button icon="pi pi-arrow-right" onClick={() => setVisibleLeft(true)} className="p-mr-2" />
+            <Button icon="pi pi-arrow-right" onClick={() => setVisibleLeft(true)} className="p-mr-2 sideBar-button" />
             <Sidebar visible={visibleLeft} onHide={() => setVisibleLeft(false)}>
                 <div className="col-12">
                     <div className="dashbord-sidebar">

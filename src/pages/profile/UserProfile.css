@@ -122,8 +122,12 @@
     color: white;
     height: 60px;
 }
-
-.content-tab button {
+.content-tab a {
+    text-decoration: none;
+    color: #fafafa;
+    text-align: center;
+}
+.content-tab button, .content-tab a {
     border: none;
     background-color: initial;
     padding-top: 10px;
@@ -364,7 +368,7 @@
     top: 10px;
 }
 
-.portfolioItem-icons>button {
+.portfolioItem-icons>button, .portfolioItem-icons>a {
     background-color: transparent;
     padding: 6px;
     border: 0;
@@ -375,7 +379,9 @@
 }
 
 .portfolioItem-icons>button:hover,
-.portfolioItem-icons>button:focus {
+.portfolioItem-icons>button:focus,
+.portfolioItem-icons>a:hover,
+.portfolioItem-icons>a:focus {
     background-color: transparent !important;
     box-shadow: none;
     border: 0;

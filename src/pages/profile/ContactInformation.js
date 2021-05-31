@@ -4,6 +4,7 @@ import { PROFILE } from "constants/profile";
 import "./UserProfile.css";
 
 const ContactInformation = ({ openCreate, openEdit, profileInfo }) => {
+  
   return (
     <>
       <div className="p-card p-mt-2">
