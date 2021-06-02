@@ -7,6 +7,7 @@ import { Dropdown } from 'primereact/dropdown';
 
 import './InstantJobHire.css'
 import InstantHeader from './instant-header';
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 
 
 const New = ({ setMode, mode }) => {
@@ -45,6 +46,17 @@ const New = ({ setMode, mode }) => {
             setJobDateNow(false);
         }
     }
+
+    const confirm = () => {
+        confirmDialog({
+            message: 'Are you sure you want to make this request?',
+            header: 'Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            // accept,
+            // reject
+        });
+    };
+
 
     useEffect(() => {
         register("jobservice", { required: "Please Select job service" })
@@ -160,8 +172,12 @@ const New = ({ setMode, mode }) => {
                         </div>
                     </div>
                 </div>
-                <Button icon="pi pi-check" iconPos="left" label="Submit" id="saveButton" type="submit" className="float-right" />
+                <Button icon="pi pi-check" iconPos="left" label="Submit" onClick={confirm} id="saveButton" type="submit" className="float-right" />
             </form>
+
+            {/* <ConfirmDialog visible={visible} onHide={() => setVisible(false)} message="Are you sure you want to proceed?"
+                header="Confirmation" icon="pi pi-exclamation-triangle" accept={accept} reject={reject} />
+            <Button onClick={() => setVisible(true)} icon="pi pi-check" label="Confirm" /> */}
         </div>
     );
 }

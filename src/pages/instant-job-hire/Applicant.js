@@ -120,14 +120,40 @@ const Applicant = () => {
                             </div>
                         </div>
                         <div className="p-col-12 p-md-9">
-                            {/* <div className="p-pl-6 p-pt-2"> */}
                             <h5 className="font-weight-bold p-pt-3">5 Applicants (3 results) </h5>
-                            {/* </div> */}
                             <hr />
                         </div>
-                        <div className="card card-size">
+                        {/* <div className="card card-size col-9" style={{ marginLeft: "12px" }}>
+                            <div className="card-body d-flex justify-content-between p-mb-1">
+                                <div>
+                                    <h5> <span className="font-weight-bold">Plumbing Work > </span> <span>Applicant (6 result)</span></h5>
+                                    <p className="font-weight-bold">Location : <span>113, Gowna Estate</span></p>
+                                </div>
+                                <div>
+                                    <Link to="/new-instant-hire" className="bk-btn p-pt-2 app-color">
+                                        <i className="pi pi-arrow-left">Back</i>
+                                    </Link>
+                                </div>                            </div>
+                        </div> */}
+
+                        <div className="card card-size mt-2">
                             <div className="card-body p-pt-0">
                                 <div className="p-4">
+                                    <div className="d-flex justify-content-between p-mb-1">
+                                        <div>
+                                            <h5> <span className="font-weight-bold text-secondary">Plumbing Work > </span> <span>5 Applicant (6 result)</span></h5>
+                                            <p className="font-weight-bold">Location : <span>113, Gowna Estate</span></p>
+                                        </div>
+                                        <div>
+                                            <Link to="/new-instant-hire" className="bk-btn p-pt-2 app-color">
+                                                <i className="pi pi-arrow-left">Back</i>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                    <hr className="appcolor" />
+                                    <div className="">
+
+                                    </div>
                                     <div className="row">
                                         <div className="col-md-4 col-sm-12 highlight-card p-pb-3" >
                                             <div className="card">
@@ -257,18 +283,11 @@ const Applicant = () => {
                         </div>
                         {/* Job Component*/}
                         <Job />
-
-
                     </div>
                     <div className="p-grid">
                         <div className="col-12">
-                            <div className="pagination center">
-                                <ul className="pagination-list">
-                                    <li><Link to="#"><i className="lni lni-arrow-left"></i></Link></li>
-                                    <li className="active"><Link to="#">1</Link></li>
-                                    <li><Link to="#">2</Link></li>
-                                    <li><Link to="#"><i className="lni lni-arrow-right"></i></Link></li>
-                                </ul>
+                            <div className="pagination center p-mb-1">
+                                <Button label="Load more" className="p-button-sm" />
                             </div>
                         </div>
                     </div>
