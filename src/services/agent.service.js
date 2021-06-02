@@ -1,3 +1,4 @@
+import request from "superagent";
 import _superagent from "superagent";
 import superagentPromise from "superagent-promise";
 
@@ -170,6 +171,7 @@ const UserSkill = {
 const Country = {
   load: () => requests.get("/country"),
 };
+
 const State = {
   loadByCountry: (countryid) =>
     requests.get(`/state/getbycountry/${countryid}`),
@@ -222,6 +224,12 @@ const ScheduleMeeting = {
   delete: (id) => requests.del(`/ meeting / ${id}`),
 };
 
+const Company = {
+  load: () => requests.get(`/company`),
+  put: (id, data) => requests.put(`/company/${id}`, data),
+  updateCompanyInfo: (id, data) => requests.put("/company/"+id+"/company-info", data)
+}
+
 export default {
   Auth,
   User,
@@ -235,6 +243,7 @@ export default {
   JobVacancy,
   ScheduleMeeting,
   Poll,
+  Company,
   Education,
   UserSkill,
   setToken: (_accessToken) => {

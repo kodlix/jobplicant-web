@@ -160,7 +160,7 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
                   )}
                 </label>
                 <Dropdown
-                  options={qualificationList}
+                  options={countryList}
                   optionLabel="name"
                   filter
                   showClear
