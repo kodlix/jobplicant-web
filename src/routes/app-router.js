@@ -6,6 +6,7 @@ import AppLoading from '../components/AppLoading';
 import AnonymousRoute from './anonymous-route';
 import ProtectedRoute from './protected-route';
 import CompanyProfile from 'pages/company/CompanyProfile';
+import CreateJob from 'pages/job/CreateJob';
 
 const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard'));
 const UserProfile = React.lazy(() => import('pages/profile/UserProfile'));
@@ -65,6 +66,8 @@ const AppRouter = () => {
         <ProtectedRoute path="/badrequest" component={BadRequest} />
         <ProtectedRoute path="/profile" component={UserProfile} />
         <ProtectedRoute path="/company" component={CompanyProfile} />
+        <ProtectedRoute path="/jobs/create" component={CreateJob} />
+        
         {/* <ProtectedRoute path="/companyprofile" component={CompanyProfile} /> */}
         <ProtectedRoute path="/dashboard" component={Dashboard} />
         <ProtectedRoute path="/new-instant-hire" component={CreateInstantJobHire} />
