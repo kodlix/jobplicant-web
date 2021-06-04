@@ -20,7 +20,7 @@ import ProfessionsOfInterest from "./ProfessionsOfInterest";
 import LocationOfInterest from "./LocationOfInterest";
 import ContactInformation from "./ContactInformation";
 import PersonalInfo from "./PersonalInfo";
-import BreadCrumbPane from 'helpers/BreadCrumb';
+// import BreadCrumbPane from 'helpers/BreadCrumb';
 
 
 const UserProfile = ({ match, profileInfo, activeTab, educationUpdatedOrDeleted, userSkillUpdatedOrDeleted, experienceUpdatedOrDeleted }) => {
@@ -45,7 +45,7 @@ const UserProfile = ({ match, profileInfo, activeTab, educationUpdatedOrDeleted,
     <>
       <div className="d-flex flex-column">
         <AppNavBar />
-        <BreadCrumbPane />
+        {/* <BreadCrumbPane /> */}
 
         <div className="background">
           <div className="content-container">

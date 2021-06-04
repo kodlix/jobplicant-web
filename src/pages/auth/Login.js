@@ -9,12 +9,7 @@ import { useForm } from 'react-hook-form';
 import { Toast } from 'primereact/toast';
 import { Password } from 'primereact/password';
 
-
-
-
 import './Login.css'
-
-
 
 const Login = ({ props }) => {
 
@@ -28,6 +23,7 @@ const Login = ({ props }) => {
 
     const [checked, setChecked] = useState(false);
     const [pass, setPass] = useState('');
+    // console.log(props.accountType);
 
 
     console.log({ checked })
@@ -35,7 +31,7 @@ const Login = ({ props }) => {
 
     const onSubmit = (user) => {
 
-        user.type = 'artisan';
+        user.type = 'artisan'; // Not required but needed to login successfully
         console.log(user)
         dispatch(loginUser(user));
     }

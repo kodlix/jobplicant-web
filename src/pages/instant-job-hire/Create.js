@@ -14,7 +14,7 @@ import Job from './Job.js';
 import New from './New';
 import Edit from './Edit';
 import InstantHeader from './instant-header';
-import BreadCrumbPane from 'helpers/BreadCrumb';
+// import BreadCrumbPane from 'helpers/BreadCrumb';
 
 
 
@@ -82,7 +82,7 @@ const InstanceJobHire = () => {
             <div className='d-flex flex-column' >
                 <AppNavBar />
                 <div>
-                    <BreadCrumbPane />
+                    {/* <BreadCrumbPane /> */}
                 </div>
                 <div className="background instant" >
                     <div className="content-container">
