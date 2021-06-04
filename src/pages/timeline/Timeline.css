@@ -1,0 +1,283 @@
+.timeline-container {
+  background-color: #5a28461f;
+  /* 5a28461f */
+  padding-top: 5rem;
+}
+
+.timeline-content {
+  width: 80%;
+  margin: auto;
+}
+
+.profile-picture {
+  border: 3px #5A2846 solid;  
+}
+
+.dropdown-item {
+  font-size: 0.8rem;
+}
+
+.postInputButton {
+  width: 100%;
+  background-color: #5a284625;
+  border-radius: 15px;
+  border-color: #5a284625;
+}
+
+.postInputButton:hover {
+  background-color: #5a284621 !important;
+}
+
+.postInputButton > .p-button-label {
+  flex: none;
+  color: #495057;
+}
+
+/* left panel */
+.leftpanel-top-container {
+  height: 127px;
+  background-color: #5A2846;
+}
+
+.leftpanel-bottom-container {
+  text-align: center;
+  margin-top: -2.5rem;
+}
+
+.timeline-leftpanel-connection {
+  padding: 1rem 0;
+  border-top: 1px rgba(128, 128, 128, 0.432) solid;
+  border-bottom: 1px rgba(128, 128, 128, 0.432) solid;
+}
+
+.suggestion-button {
+  color: #00000070;
+  background: #5a284600;
+  border: 2px #00000070 solid;
+  width: 2rem !important;
+  height: 2rem;
+}
+
+.suggestion-button > .pi-plus {
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+/* left panel */
+
+.cardtitle {
+  border-bottom: 1px solid #5a284657;
+  font-size: 1rem !important;
+  padding: 0.7rem 1rem;
+}
+
+.cardsubtitle {
+  font-size: 0.8rem !important;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cardtitle-posts {
+  font-size: 1.2rem !important;
+  font-weight: 500 !important;
+}
+
+.cardtitle-posttime {
+  color: gray;
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem !important;
+} 
+
+/* Recent Jobs sidepanel */
+a .cardsubtitle {
+  color: black;
+}
+
+a .p-card-body {
+  color: rgba(0, 0, 0, 0.616);
+}
+/* Recent Jobs sidepanel */
+
+/* Recent Jobs sidepanel on hover */
+a.p-card-body:hover {
+  background-color: #5A2846;
+}
+
+ a.p-card-body:hover > .jobDescription, a.p-card-body:hover > .cardsubtitle {
+  color: white;
+}
+/* Recent Jobs sidepanel on hover */
+
+.poster-description {
+  color: gray;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+}
+
+.jobDescription {
+  font-size: 0.8rem;
+  /* overflow: hidden;
+  max-height: 45px; */
+}
+
+.dropdown-item {
+  cursor: pointer;
+}
+
+.skilltag {
+  background-color: #5a28463f;
+  color: black;
+  padding: 0.3rem 0.5rem;
+  border-radius: 15px;
+  font-weight: 600;
+  margin: 0 10px 10px 0;
+}
+
+.likers-picture {
+  margin-left: -23px;
+}
+
+.cardtitle-statusbar {
+  color: gray;
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem !important;
+  justify-content: space-between;
+  border-top: 1px rgba(128, 128, 128, 0.432) solid;
+  border-bottom: 1px rgba(128, 128, 128, 0.432) solid;
+}
+
+.post-statusbar-content {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.post-statusbar-content:hover {
+  color: #6FCF97;
+  transition: none;
+}
+
+/* Modals */
+.viewerGroups-dropdown {
+  margin-top: 0.5rem;
+  background-color: #5a284625;
+  border-radius: 7px;
+}
+
+.viewerGroups-dropdown > .p-dropdown-label {
+  font-size: 0.8rem !important;
+  font-weight: 600;
+  padding: 0.3rem 0.5rem;
+}
+
+.viewerGroups-dropdown > .p-dropdown-trigger > .p-dropdown-trigger-icon  {
+  font-size: 0.8rem;
+  width: 1rem;
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+  font-size: 0.8rem !important;
+  padding: 0.3rem 0.5rem;
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+    color: white;
+    background: #5a2846;
+}
+
+.postInputArea:hover {
+  border-color: transparent !important;
+  box-shadow: none;
+}
+
+.postInputTitle, .postInputTitle:focus, .postInputTitle:hover {
+  width: 100%;
+  background-color: #5a284626;
+  /* border-radius: 15px; */
+  border-color: transparent;
+  border: none;
+  border-radius: 10px;
+  border: 1px solid #5a2846;
+  /* border-bottom: 1.5px solid #5a284680; */
+  box-shadow: none !important;
+}
+
+.postTitle-container {
+  margin-top: 1rem;
+  border: 1px solid #5a2846;
+  width: fit-content;
+}
+
+.postInputArea {
+  width: 100%;
+  background-color: inherit;
+  /* border-radius: 15px; */
+  border-color: transparent;
+  border: transparent;
+}
+
+.postInputArea:focus {
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+
+.postInputArea:focus-visible {
+  outline: none;
+}
+
+.addToPost-icon {
+  border: 3px solid #5a2846;
+  border-radius: 100%;
+  padding: 0.25rem;
+  background-color: white;
+  color: #5a2846;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.postInputText-modal {
+  background-color: #5a284626;
+  border: 1px solid #5a2846;
+  padding: 0rem 1rem 2rem 0;
+  border-radius: 15px;
+  margin-top: 1.2rem;
+}
+
+.timelineMediaItem-container {
+  background-color: #5a2846;
+  border-radius: 10px;
+  height:10rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.timelineMediaItem-container > button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  background-color: green;
+  border: none;
+}
+
+.timelineMediaItem {
+  height: 9rem;
+  /* height: 100%; */
+  width: 100%;
+  object-fit: contain;
+}
+
+
+@media screen and (max-width: 1200px) {
+  .timeline-content {
+    width: 94%;
+  }
+}
+
+/* .modalInputArea-container .p-inputtext:enabled:focus {
+  margin-top: 1rem;
+} */
+/* Modals */

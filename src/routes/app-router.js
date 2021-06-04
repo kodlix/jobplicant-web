@@ -32,6 +32,7 @@ const ListInstantJobHire = React.lazy(() => import('../pages/instant-job-hire/Li
 const ViewInstantJobHire = React.lazy(() => import('../pages/instant-job-hire/View'));
 const EditInstantJobHire = React.lazy(() => import('../pages/instant-job-hire/Edit'));
 const Applicant = React.lazy(() => import('../pages/instant-job-hire/Applicant'));
+const Timeline = React.lazy(() => import('../pages/timeline/Timeline'));
 
 
 
@@ -70,7 +71,7 @@ const AppRouter = () => {
         <ProtectedRoute path="/instant-hire/view/:id" component={ViewInstantJobHire} />
         <ProtectedRoute path="/instant-hire/edit/:id" component={EditInstantJobHire} />
         <ProtectedRoute path="/instant-hire-applicants" component={Applicant} />
-
+        <ProtectedRoute path="/timeline" exact component={Timeline} />
         <Redirect to="/login" />
       </Switch>
     </React.Suspense>
