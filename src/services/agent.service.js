@@ -4,8 +4,8 @@ import superagentPromise from "superagent-promise";
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api.herokuapp.com";
-// export const API_ROOT = "https://jobplicant-api.herokuapp.com";
+// export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api.herokuapp.com";
+export const API_ROOT = "https://jobplicant-api.herokuapp.com";
 
 console.log('API_ROOT', API_ROOT);
 console.log("environmental variables", process.env);
@@ -227,7 +227,7 @@ const ScheduleMeeting = {
 const Company = {
   load: () => requests.get(`/company`),
   put: (id, data) => requests.put(`/company/${id}`, data),
-  updateCompanyInfo: (id, data) => requests.put("/company/"+id+"/company-info", data)
+  updateCompanyInfo: (id, data) => requests.put("/company/" + id + "/company-info", data)
 }
 
 export default {

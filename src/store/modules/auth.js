@@ -94,10 +94,12 @@ export function registerUser(user) {
 
 export function verifyAccount(code) {
   return dispatch => {
-    return agent.Auth.verifyAccount(code).then(response => { // handle success
+    return agent.Auth.verifyAccount(code).then(response => {
+      // handle success
       dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "account verification successful, login to continue" }));
       dispatch(push(`/login`));
-    }, error => { // handle error
+    }, error => {
+      // handle error
       dispatch(showMessage({ type: "error", message: error }));
     });
   }
@@ -105,13 +107,28 @@ export function verifyAccount(code) {
 
 export function loginUser({ email, password, type }) {
   return dispatch => {
-    return agent.Auth.login(email, password, type).then(response => { // handle success
-      dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "welcome, login successful", title:"Login Success" }));
-      onLogin(dispatch, response);
-      dispatch(push("/profile-info"));
-    }, error => { // handle error
-      dispatch(showMessage({ type: "error", message: error }));
-    });
+    return agent.Auth.login(email, password, type).then(
+      response => {
+        // handle success
+        dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "welcome, login successful", title: "Login Success" }));
+        if (response.accountType === "Corporate") {
+          onLogin(dispatch, response);
+          console.log({ response });
+          dispatch(push('/company'));
+        }
+        else if (response.accountType === "Instant Hire") {
+          onLogin(dispatch, response);
+          dispatch(push('/new-instant-hire'));
+        }
+        else {
+          onLogin(dispatch, response);
+          dispatch(push("/profile"));
+        }
+
+      }, error => {
+        // handle error
+        dispatch(showMessage({ type: "error", message: error }));
+      });
   }
 }
 
