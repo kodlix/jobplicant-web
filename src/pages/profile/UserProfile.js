@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import AppNavBar from "components/AppNavBar";
 
 import Portfolio from "./Portfolio";
@@ -10,24 +10,15 @@ import ContactsTab from "./tabs/ContactsTab";
 import GroupsTab from "./tabs/GroupsTab";
 import { useDispatch } from "react-redux";
 import { openModal } from "store/modules/modal";
-import { loadProfileInfo } from "store/modules/account";
-import Biography from "./Biography";
-import Experience from "./Experience";
-import Education from "./Education";
-import Skills from "./Skills";
-import Hobbies from "./Hobbies";
-import ProfessionsOfInterest from "./ProfessionsOfInterest";
-import LocationOfInterest from "./LocationOfInterest";
-import ContactInformation from "./ContactInformation";
 import PersonalInfo from "./PersonalInfo";
 // import BreadCrumbPane from 'helpers/BreadCrumb';
 
 
-const UserProfile = ({ match, profileInfo, activeTab, educationUpdatedOrDeleted, userSkillUpdatedOrDeleted, experienceUpdatedOrDeleted }) => {
+const UserProfile = ({ match }) => {
 
   const dispatch = useDispatch();
-  const [mode, setMode] = useState("");
-  const [itemToEdit, setItemToEdit] = useState({});
+  const [, setMode] = useState("");
+  const [] = useState({});
 
 
   const openCreate = (name) => {
@@ -35,7 +26,7 @@ const UserProfile = ({ match, profileInfo, activeTab, educationUpdatedOrDeleted,
     dispatch(openModal(name));
   };
 
-  const openEdit = (name, data) => {
+  const openEdit = (name) => {
     setMode("edit");
     // setItemToEdit(data);
     dispatch(openModal(name));
@@ -43,10 +34,6 @@ const UserProfile = ({ match, profileInfo, activeTab, educationUpdatedOrDeleted,
 
   return (
     <>
-      <div className="d-flex flex-column">
-        <AppNavBar />
-        {/* <BreadCrumbPane /> */}
-
         <div className="background">
           <div className="content-container">
             {/* personal info */}
@@ -76,8 +63,6 @@ const UserProfile = ({ match, profileInfo, activeTab, educationUpdatedOrDeleted,
             </div>
           </div>
         </div>
-      </div>
-
     </>
   );
 };

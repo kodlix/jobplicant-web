@@ -20,10 +20,6 @@ const CompanyProfile = () => {
     }, []);
 
   return (
-    <>
-      <div className="d-flex flex-column">
-        <AppNavBar />
-
         <div className="background">
           <div className="content-container">
             {/*  */}
@@ -41,9 +37,7 @@ const CompanyProfile = () => {
             {/*  */}
           </div>
         </div>
-      </div>
-    </>
-  );
+      );
 };
 
 export default CompanyProfile

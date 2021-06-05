@@ -111,6 +111,14 @@ export function loginUser({ email, password, type }) {
       response => {
         // handle success
         dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "welcome, login successful", title: "Login Success" }));
+
+        if (response.role === ("Super-admin" || "developer")) {
+          onLogin(dispatch, response);
+          console.log({ response });
+          dispatch(push('/admin'));
+          return;
+        }
+        
         if (response.accountType === "Corporate") {
           onLogin(dispatch, response);
           console.log({ response });

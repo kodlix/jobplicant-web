@@ -1,3 +1,4 @@
+import AppNavBar from 'components/AppNavBar';
 import React from 'react';
 import { Route, Redirect } from 'react-router';
 import AppSideBar from '../components/AppSideBar'
@@ -5,15 +6,23 @@ import AppSideBar from '../components/AppSideBar'
 import agent from '../services/agent.service';
 
 const ProtectedRoute = ({ children, ...rest }) => {
-  if (agent.Auth.isAuth()) {
+  if (agent.Auth.isAuth() && !agent.Auth.isAdmin()) {
     return (
       <>
-        <AppSideBar />
-        <Route {...rest}>{children}</Route>
+        <div className='d-flex flex-column'>
+          <AppNavBar />
+          <AppSideBar />
+          <Route {...rest}>{children}</Route>
+        </div>
       </>
     )
   } else {
-    return <Redirect to={{ pathname: '/login' }} />;
+    if(agent.Auth.isAuth() && agent.Auth.isAdmin()){
+      return <Redirect to={{ pathname: '/admin' }} />;
+    }
+    else{
+      return <Redirect to={{ pathname: '/login' }} />;
+    }
   }
 };
 

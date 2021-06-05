@@ -7,6 +7,8 @@ import AnonymousRoute from './anonymous-route';
 import ProtectedRoute from './protected-route';
 import CompanyProfile from 'pages/company/CompanyProfile';
 import CreateJob from 'pages/job/CreateJob';
+import AdminDashboard from 'pages/admin/dashboard/AdminDashboard';
+import ProtectedAdminRoute from './protected-admin-route';
 
 const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard'));
 const UserProfile = React.lazy(() => import('pages/profile/UserProfile'));
@@ -77,6 +79,10 @@ const AppRouter = () => {
         <ProtectedRoute path="/instant-hire/edit/:id" component={EditInstantJobHire} />
         <ProtectedRoute path="/instant-hire-applicants" component={Applicant} />
         <ProtectedRoute path="/timeline" exact component={Timeline} />
+
+
+        {/* admin routes */}
+        <ProtectedAdminRoute path="/admin" component={AdminDashboard} />
         <Redirect to="/login" />
       </Switch>
     </React.Suspense>

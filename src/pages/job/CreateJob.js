@@ -36,9 +36,7 @@ const CreateJob = () => {
   const onSubmit = () => {};
 
   return (
-    <>
-      <div className="d-flex flex-column">
-        <AppNavBar />
+    <>      
         <div style={{height: '100px',backgroundColor: 'red', width: '100%', position: 'relative'}}>
           <img src="/assets/logo.png" style={{width: '100px', height: '100px', position: 'absolute', bottom: '-25px', left: '100px', borderRadius: "50%"}} />
         </div>
@@ -417,7 +415,6 @@ const CreateJob = () => {
             {/*  */}
           </div>
         </div>
-      </div>
     </>
   );
 };

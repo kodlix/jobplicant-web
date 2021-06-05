@@ -22,9 +22,6 @@ const Timeline = () => {
 
   return (
     <>
-      <div className="d-flex flex-column">
-        <AppNavBar />
-      </div>
       <div className="timeline-container">
         <div className="timeline-content">
           <div className="p-grid p-mt-2 p-m-0">

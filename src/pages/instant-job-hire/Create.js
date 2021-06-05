@@ -79,37 +79,30 @@ const InstanceJobHire = () => {
     }
     return (
         <>
-            <div className='d-flex flex-column' >
-                <AppNavBar />
-                <div>
-                    {/* <BreadCrumbPane /> */}
-                </div>
-                <div className="background instant" >
-                    <div className="content-container">
-                        <div className="p-grid">
-                            <div className="p-col-12 p-md-9">
-                                <div className="card card-size-list">
-                                    <div className="card-body">
-                                        {mode === modes.create && <New setMode={setActiveMode} mode={modes.list} />}
+            <div className="background instant" >
+                <div className="content-container">
+                    <div className="p-grid">
+                        <div className="p-col-12 p-md-9">
+                            <div className="card card-size-list">
+                                <div className="card-body">
+                                    {mode === modes.create && <New setMode={setActiveMode} mode={modes.list} />}
 
-                                        {mode === modes.list && <div className="tab-pane fade show active" id="instant-hire-list" role="tabpanel" aria-labelledby="instant-hire-list-tab">
-                                            <InstantHires setMode={setActiveMode} mode={modes.create} />
-                                        </div>
-                                        }
-
-                                        {mode === modes.edit && <Edit setMode={setActiveMode} mode={modes.list} />}
-                                        {/* <div className="tab-pane fade" id="applicant-tab" role="tabpanel" aria-labelledby="applicant-tab">
-                                            <Applicant />
-                                        </div> */}
+                                    {mode === modes.list && <div className="tab-pane fade show active" id="instant-hire-list" role="tabpanel" aria-labelledby="instant-hire-list-tab">
+                                        <InstantHires setMode={setActiveMode} mode={modes.create} />
                                     </div>
+                                    }
+
+                                    {mode === modes.edit && <Edit setMode={setActiveMode} mode={modes.list} />}
+                                    {/* <div className="tab-pane fade" id="applicant-tab" role="tabpanel" aria-labelledby="applicant-tab">
+                                        <Applicant />
+                                    </div> */}
                                 </div>
                             </div>
-                            <Job />
                         </div>
+                        <Job />
                     </div>
                 </div>
             </div>
-
         </>
     )
 }
