@@ -8,6 +8,7 @@ import { InputText } from "primereact/inputtext";
 import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
 import { updateEducation, createEducation } from "store/modules/education";
+import { fetchCountries } from "store/modules/util";
 
 const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemToEdit }) => {
   const {
@@ -45,14 +46,11 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
     { name: "OND", id: "OND" },
     { name: "HND", id: "HND" },
   ];
+  const countryList = useSelector(state => state.util.countries);
 
-  const countryList = [
-    { name: "Nigeria", id: "NG" },
-    { name: "Ghana", id: "GH" },
-    { name: "Germany", id: "GER" },
-    { name: "Canada", id: "CND" },
-    { name: "USA", id: "USA" },
-  ];
+  useEffect(() => {
+    dispatch(fetchCountries());
+  }, []);
 
   useEffect(() => {
     if (educationObject) {
