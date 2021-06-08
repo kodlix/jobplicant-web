@@ -5,14 +5,16 @@ import AppNavBar from "components/AppNavBar";
 import InputField from "components/InputField";
 import { Button } from "primereact/button";
 import { Calendar } from "primereact/calendar";
-// import { Editor } from "react-draft-wysiwyg";
-// import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import BackgroundImage from '../../assets/bg.png'
+import avatarImage from '../../assets/avatar.png'
 
 const CreateJob = () => {
   // const loading = useSelector((state) => state.job.loading);
   // const id = useSelector((state) => state.account.profileInfo.id);
   const dispatch = useDispatch();
+  const [editorHtml, setEditorHtml] = useState("");
   const [companyInfo, setCompanyInfo] = useState({});
   const {
     register,
@@ -33,12 +35,33 @@ const CreateJob = () => {
     setValue(name, value, { shouldValidate: true });
   };
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    console.log({ ...companyInfo, description: editorHtml })
+  };
 
   return (
-    <>      
-        <div style={{height: '100px',backgroundColor: 'red', width: '100%', position: 'relative'}}>
-          <img src="/assets/logo.png" style={{width: '100px', height: '100px', position: 'absolute', bottom: '-25px', left: '100px', borderRadius: "50%"}} />
+    <>
+      <div className="d-flex flex-column">
+        {/* <AppNavBar /> */}
+        <div
+          style={{
+            height: "100px",
+            backgroundImage: `url(${BackgroundImage})`,
+            width: "100%",
+            position: "relative",
+          }}
+        >
+          <img
+            src={avatarImage}
+            style={{
+              width: "100px",
+              height: "100px",
+              position: "absolute",
+              bottom: "-25px",
+              left: "100px",
+              borderRadius: "50%",
+            }}
+          />
         </div>
 
         <div className="background">
@@ -48,7 +71,9 @@ const CreateJob = () => {
               <div className="p-col-12 p-md-9 content-smallscreen">
                 <div className="content-body">
                   <div className="d-flex justify-content-end">
-                    <button className="btn btn-sm btn-primary"><i className="pi pi-back-arrow"></i>{' '}Back</button>
+                    <button className="btn btn-sm btn-primary">
+                      <i className="pi pi-back-arrow"></i> Back
+                    </button>
                   </div>
                   <div className="p-2"></div>
                   <form onSubmit={handleSubmit(onSubmit)}>
@@ -268,7 +293,6 @@ const CreateJob = () => {
                                 register={register}
                                 inputChange={handleChange}
                                 className="form-control"
-                        
                               />
                             </div>
                             <div className="p-field p-col-6 p-md-6 p-sm-12">
@@ -302,23 +326,28 @@ const CreateJob = () => {
                           <h5>Job Description</h5>
                           <div className="p-2"></div>
                           <div className="row">
-                            <div className="p-field p-col-6 p-md-6 p-sm-12">
-                              <label className="inputLabel" htmlFor="course">
-                                {/* Job Title */}
-                                {errors.jobTitle && (
-                                  <span className="text-danger font-weight-bold">
-                                    &nbsp; {errors.jobTitle.message}
-                                  </span>
-                                )}
-                              </label>
-                              <div style={{ height: "200px" }}>
+                            <div className="p-field p-col-12 p-md-12 p-sm-12">
+                              {errors.jobTitle && (
+                                <span className="text-danger font-weight-bold">
+                                  &nbsp; {errors.jobTitle.message}
+                                </span>
+                              )}
+                              <div style={{ height: "200px" }} id="description">
                                 {/* Editor */}
-                                {/* <Editor
-                                  // editorState={editorState}
-                                  wrapperClassName="demo-wrapper"
-                                  editorClassName="demo-editor"
-                                  // onEditorStateChange={this.onEditorStateChange}
-                                /> */}
+                                <ReactQuill
+                                  style={{ height: '100%' }}
+                                  bounds={document.querySelector('#description')}
+                                  theme="snow"
+                                  onChange={(html) => {
+                                    setEditorHtml(html);
+
+                                  }}
+                                  value={editorHtml}
+
+                                  modules={editorModules}
+                                  formats={editorFormats}
+                                  placeholder="Write something..."
+                                />
                               </div>
                             </div>
                           </div>
@@ -344,24 +373,29 @@ const CreateJob = () => {
                                 )}
                               </label>
                               <Calendar
-                                  id="startDate"
-                                  view="month"
-                                  dateFormat="mm/yy"
-                                  yearNavigator
-                                  yearRange="2010:2030"
-                                  value={new Date(companyInfo.startDate)}
-                                  onSelect={(e) => {
-                                    const value = new Date(e.value).toISOString();
+                                id="startDate"
+                                view="month"
+                                dateFormat="mm/yy"
+                                yearNavigator
+                                yearRange="2010:2030"
+                                value={new Date(companyInfo.startDate)}
+                                onSelect={(e) => {
+                                  const value = new Date(e.value).toISOString();
 
-                                    setCompanyInfo({...companyInfo, startDate: value});
-                                    setValue("startDate", value, { shouldValidate: true });
-                                  }}
-                                  name="startDate"
-                                  {...register("startDate", {
-                                    required: `* Start date is required`,
-                                  })}
-                                  style={{width: '100%'}}
-                                />
+                                  setCompanyInfo({
+                                    ...companyInfo,
+                                    startDate: value,
+                                  });
+                                  setValue("startDate", value, {
+                                    shouldValidate: true,
+                                  });
+                                }}
+                                name="startDate"
+                                {...register("startDate", {
+                                  required: `* Start date is required`,
+                                })}
+                                style={{ width: "100%" }}
+                              />
                             </div>
                             <div className="p-field p-col-6 p-md-6 p-sm-12">
                               <label className="inputLabel" htmlFor="startDate">
@@ -373,24 +407,29 @@ const CreateJob = () => {
                                 )}
                               </label>
                               <Calendar
-                                  id="endDate"
-                                  view="month"
-                                  dateFormat="mm/yy"
-                                  yearNavigator
-                                  yearRange="2010:2030"
-                                  value={new Date(companyInfo.endDate)}
-                                  onSelect={(e) => {
-                                    const value = new Date(e.value).toISOString();
+                                id="endDate"
+                                view="month"
+                                dateFormat="mm/yy"
+                                yearNavigator
+                                yearRange="2010:2030"
+                                value={new Date(companyInfo.endDate)}
+                                onSelect={(e) => {
+                                  const value = new Date(e.value).toISOString();
 
-                                    setCompanyInfo({...companyInfo, endDate: value});
-                                    setValue("endDate", value, { shouldValidate: true });
-                                  }}
-                                  name="startDate"
-                                  {...register("endDate", {
-                                    required: `* End date is required`,
-                                  })}
-                                  style={{width: '100%'}}
-                                />
+                                  setCompanyInfo({
+                                    ...companyInfo,
+                                    endDate: value,
+                                  });
+                                  setValue("endDate", value, {
+                                    shouldValidate: true,
+                                  });
+                                }}
+                                name="startDate"
+                                {...register("endDate", {
+                                  required: `* End date is required`,
+                                })}
+                                style={{ width: "100%" }}
+                              />
                             </div>
                           </div>
                         </div>
@@ -402,7 +441,7 @@ const CreateJob = () => {
                       <Button
                         icon="pi pi-check"
                         iconPos="left"
-                        label="Update"
+                        label="Create"
                         id="saveButton"
                         type="submit"
                       />
@@ -415,8 +454,46 @@ const CreateJob = () => {
             {/*  */}
           </div>
         </div>
+      </div>
     </>
   );
 };
+
+const editorModules = {
+  toolbar: [
+    [{ header: "1" }, { header: "2" }, { font: [] }],
+    [{ size: [] }],
+    ["bold", "italic", "underline", "strike", "blockquote"],
+    [
+      { list: "ordered" },
+      { list: "bullet" },
+      { indent: "-1" },
+      { indent: "+1" },
+    ],
+    ["link", "image", "video"],
+    ["clean"],
+  ],
+  clipboard: {
+    // toggle to add extra line breaks when pasting HTML:
+    matchVisual: false,
+  },
+};
+
+const editorFormats = [
+  "header",
+  "font",
+  "size",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "blockquote",
+  "list",
+  "bullet",
+  "indent",
+  "link",
+  "image",
+  "video",
+];
 
 export default CreateJob;

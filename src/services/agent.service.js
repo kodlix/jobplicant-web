@@ -180,7 +180,7 @@ const State = {
     requests.get(`/state/getbycountry/${countryid}`),
 };
 const Lga = {
-  loadByState: (stateid) => requests.get(`/ lga / getbystate / ${stateid}`),
+  loadByState: (stateid) => requests.get(`/lga/getbystate/${stateid}`),
 };
 
 const JobVacancy = {
