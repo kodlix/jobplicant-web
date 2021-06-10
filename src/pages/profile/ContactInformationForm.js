@@ -90,7 +90,6 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
   const contactInfoSubmit = (data) => {
 
     dispatch(updateContactInfo(data))
-    return;
   }
 
   return (
@@ -191,7 +190,10 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                   name="address"
                   value={address}
                   {...register("address")}
-                  onChange={handleChange} />
+                  onChange={e => {
+                    setContactInfo({ ...contactInfo, address: e.target.value});
+                    setValue('address', e.target.value);
+                  }} />
               </div>
             </span>
             <div>

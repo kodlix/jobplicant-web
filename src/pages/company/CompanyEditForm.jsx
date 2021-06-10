@@ -1,25 +1,30 @@
 import InputField from "components/InputField";
 import ModeFooter from "pages/profile/ModeFooter";
 import { Button } from "primereact/button";
+import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
 import { InputTextarea } from "primereact/inputtextarea";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCompanyInfo } from "store/modules/company";
+import { loadCountry, loadLga, loadStates } from "store/modules/location";
 
-const countryList = [
-  { name: "Nigeria", id: "NG" },
-  { name: "Ghana", id: "GH" },
-  { name: "Germany", id: "GER" },
-  { name: "Canada", id: "CND" },
-  { name: "USA", id: "USA" },
-];
+// const countryList = [
+//   { name: "Nigeria", id: "NG" },
+//   { name: "Ghana", id: "GH" },
+//   { name: "Germany", id: "GER" },
+//   { name: "Canada", id: "CND" },
+//   { name: "USA", id: "USA" },
+// ];
 
 const CompanyEditForm = () => {
   const loading = useSelector((state) => state.company.loading);
   const id = useSelector((state) => state.account.profileInfo.id);
   const dispatch = useDispatch();
+  const countries = useSelector(state => state.location.countries);
+  const states = useSelector(state => state.location.states);
+  const lgas = useSelector(state => state.location.lgas);
   const [companyInfo, setCompanyInfo] = useState({});
   const {
     register,
@@ -33,7 +38,7 @@ const CompanyEditForm = () => {
     reValidateMode: "all",
   });
 
-  const uploadProfilePicture = e => {}
+  const uploadProfilePicture = e => { }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,16 +47,33 @@ const CompanyEditForm = () => {
     setValue(name, value, { shouldValidate: true });
   };
 
+  useEffect(() => {
+    dispatch(loadCountry());
+  }, [dispatch]);
+
+  const handleCountryChange = (e) => {
+    let conuntryId = e.target.value.id;
+    dispatch(loadStates(conuntryId));
+  }
+
+  const handleStateChange = (e) => {
+    let stateId = e.target.value.id;
+    dispatch(loadLga(stateId));
+  }
+
   const onSubmit = () => {
-      const obj = { 
-        ...companyInfo, 
-        countryId: companyInfo.country.id,
-        countryName: companyInfo.country.name,
-        stateId: 1, 
-        stateName: companyInfo.state,
-        noOfEmployees: parseInt(companyInfo.noOfEmployees),
+    const obj = {
+      ...companyInfo,
+      countryId: companyInfo.country.id,
+      countryName: companyInfo.country.name,
+      stateId: companyInfo.state.id,
+      stateName: companyInfo.state.name,
+      lga: companyInfo.lga,
+      lgaId: companyInfo.lga.id,
+      lgaName: companyInfo.lga.name,
+      noOfEmployees: parseInt(companyInfo.noOfEmployees),
     }
-    console.log(`id: ${id}, company info: `, obj)
+    // console.log(`id: ${id}, company info: `, obj)
 
     dispatch(updateCompanyInfo(id, obj))
   };
@@ -95,13 +117,37 @@ const CompanyEditForm = () => {
                           </span>
                         )}
                       </label>
-                      <InputField
+                      {/* <InputField
                         id="yearOfEstablishment"
                         name="yearOfEstablishment"
                         inputLabel="yearOfEstablishment"
                         register={register}
                         inputChange={handleChange}
                         className="form-control"
+                      /> */}
+                      <Calendar
+                        id="yearOfEstablishment"
+                        view="month"
+                        dateFormat="yy"
+                        yearNavigator 
+                        yearRange="2010:2030"
+                        value={new Date(companyInfo.yearOfEstablishment)}
+                        onSelect={(e) => {
+                          const value = new Date(e.value).toISOString();
+
+                          setCompanyInfo({
+                            ...companyInfo,
+                            yearOfEstablishment: value,
+                          });
+                          setValue("yearOfEstablishment", value, {
+                            shouldValidate: true,
+                          });
+                        }}
+                        name="yearOfEstablishment"
+                        {...register("yearOfEstablishment", {
+                          required: `* Year of establishment is required`,
+                        })}
+                        style={{ width: "100%" }}
                       />
                     </div>
                   </div>
@@ -153,15 +199,15 @@ const CompanyEditForm = () => {
                       alt="User Image"
                       width="180"
                       height="180"
-                      className="profile-picture" 
-                      style={{border: '4px solid #eee'}}
+                      className="profile-picture"
+                      style={{ border: '4px solid #eee' }}
                     />
                     <label className="profilePic-label" htmlFor="upload-button">
                       <i className="pi pi-camera"></i>
                     </label>
                   </span>
                   <input
-                    type="file" 
+                    type="file"
                     id="upload-button"
                     style={{ display: "none" }}
                     onChange={uploadProfilePicture}
@@ -180,8 +226,9 @@ const CompanyEditForm = () => {
                       </span>
                     )}
                   </label>
+                  
                   <Dropdown
-                    options={countryList}
+                    options={countries}
                     optionLabel="name"
                     filter
                     showClear
@@ -190,11 +237,16 @@ const CompanyEditForm = () => {
                     id="country"
                     name="country"
                     value={companyInfo.country}
-                    {...register("country", {
-                      required: `* Country is required`,
-                    })}
-                    onChange={handleChange}
-                    className="inputField"
+                    {...register("country",
+                      {
+                        required: ` Country is required`
+                      }
+                    )}
+                    onChange={(e) => {
+                      handleChange(e)
+                      handleCountryChange(e);
+                    }} 
+                    className="form-control"
                   />
                 </div>
                 <div className="p-field p-col-6 p-md-6">
@@ -206,12 +258,26 @@ const CompanyEditForm = () => {
                       </span>
                     )}
                   </label>
-                  <InputField
-                    id="state"
+
+                  <Dropdown
+                    options={states}
+                    optionLabel="name"
+                    filter
+                    showClear
+                    filterBy="name"
+                    icon="pi pi-plus"
+                    id="stateList"
                     name="state"
-                    inputLabel="state"
-                    register={register}
-                    inputChange={handleChange}
+                    value={companyInfo.state}
+                    {...register("state",
+                      {
+                        required: ` State is required`
+                      }
+                    )}
+                    onChange={(e) => {
+                      handleChange(e);
+                      handleStateChange(e);
+                    }} 
                     className="form-control"
                   />
                 </div>
@@ -226,12 +292,26 @@ const CompanyEditForm = () => {
                       </span>
                     )}
                   </label>
-                  <InputField
-                    id="lga"
+                  
+                  <Dropdown
+                    options={lgas}
+                    optionLabel="name"
+                    filter
+                    showClear
+                    filterBy="name"
+                    icon="pi pi-plus"
+                    id="lgaList"
                     name="lga"
-                    inputLabel="lga"
-                    register={register}
-                    inputChange={handleChange}
+                    value={companyInfo.lga}
+                    {...register("lga",
+                      {
+                        required: ` LGA is required`
+                      }
+                    )}
+                    onChange={(e) => {
+                      handleChange(e);
+                      handleChange(e)
+                    }} 
                     className="form-control"
                   />
                 </div>
@@ -289,13 +369,14 @@ const CompanyEditForm = () => {
                     inputLabel="noOfEmployees"
                     register={register}
                     inputChange={handleChange}
-                    className="form-control"
+                    className="form-control" 
+                    type="number"
                   />
                 </div>
               </div>
             </div>
             <div id="personalProfileForm" className="editMode-footer p-d-flex align-item-end">
-            <Button disabled={loading} icon="pi pi-check" iconPos="left" label={loading ? 'please wait...' : 'Save'} id="saveButton" type='submit' />
+              <Button disabled={loading} icon="pi pi-check" iconPos="left" label={loading ? 'please wait...' : 'Save'} id="saveButton" type='submit' />
             </div>
             <div className="pb-4"></div>
           </form>

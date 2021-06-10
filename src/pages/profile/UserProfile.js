@@ -39,7 +39,8 @@ const UserProfile = ({ match }) => {
             {/* personal info */}
             <PersonalInfo
               openCreate={openCreate}
-              openEdit={openEdit}
+              openEdit={openEdit} 
+              
             />
 
             <div className="p-grid">

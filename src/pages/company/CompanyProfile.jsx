@@ -16,7 +16,7 @@ const CompanyProfile = () => {
     useEffect(() => {
         //...
         dispatch(loadProfileInfo())
-        dispatch(loadCompanyInfo())
+        // dispatch(loadCompanyInfo())
     }, []);
 
   return (

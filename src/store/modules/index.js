@@ -12,6 +12,7 @@ import modal from './modal';
 import userSkill from './userSkill';
 import education from './education';
 import util from './util';
+import job from './job';
 
 const appReducer = (history) => combineReducers({
   router: connectRouter(history),
@@ -20,6 +21,7 @@ const appReducer = (history) => combineReducers({
   auth,
   account,
   company,
+  job,
   notification,
   location,
   education,

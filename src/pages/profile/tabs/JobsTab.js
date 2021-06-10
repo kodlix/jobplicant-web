@@ -1,5 +1,5 @@
 import CorporateJob from 'components/CorporateJob';
-import { Badge } from 'primereact/badge';
+
 const jobs = [
   {
     title: "Web Developer",
