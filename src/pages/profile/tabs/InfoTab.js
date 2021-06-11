@@ -30,7 +30,7 @@ const InfoTab = () =>{
   );
   const experienceUpdatedOrDeleted = useSelector(state => state.experience.updatedOrDeleted);
 
-  const [mode, setMode] = useState("");
+  const [mode, setMode] = useState("create");
   const [itemToEdit, setItemToEdit] = useState({});
 
   //formatted entries
@@ -46,6 +46,7 @@ const InfoTab = () =>{
 
   const openCreate = (name) => {
     setMode("create");
+    setItemToEdit({});
     dispatch(openModal(name));
   };
 

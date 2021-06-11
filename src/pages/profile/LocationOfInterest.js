@@ -8,11 +8,10 @@ const LocationOfInterest = ({
   openEdit,
   profileInfo
 }) => {
-
   const formatLocation = (profileLocation) => {
-    console.log(profileLocation);
-    return profileLocation;
-    // return profileLocation.map(location => location.LOIName).join(", ");
+    console.log('profile location', profileLocation?.locations)
+
+    return <strong>{profileLocation.join(", ")}</strong>
   };
 
 
@@ -29,8 +28,8 @@ const LocationOfInterest = ({
           openModalOnEdit={() => openCreate(PROFILE.LOCATION)}
         />
         <div className="p-card-body p-text-secondary">
-          {profileInfo.location !== null
-            ? formatLocation(profileInfo.location)
+          {profileInfo?.locations !== null
+            ? <strong>{profileInfo?.locations?.join(", ")}</strong>
             : "locations"}
         </div>
       </div>

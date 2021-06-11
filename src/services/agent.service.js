@@ -136,7 +136,7 @@ const Account = {
   updateContactInfo: (contactInfo) =>
     requests.put("/accounts/contact-info", contactInfo),
   updateLOI: (loi) =>
-    requests.put("/accounts/location", { "location": loi }),
+    requests.put("/accounts/location", { "locations": loi }),
   updateHobies: (hobbies) => requests.put("/accounts/hobbies", { hobbies }),
   updateProfessionOfInterest: (interests) =>
     requests.put("/accounts/interests", { "interest": interests }),
@@ -152,7 +152,7 @@ const JobExperience = {
   load: () => requests.get("/job-experience"),
   search: (param) => requests.get("/job-experience" + param),
   edit: (id, data) => requests.put(`/job-experience/${id}`, data),
-  delete: (id) => requests.del(`/job-experience/ ${id}`),
+  delete: (id) => requests.del(`/job-experience/${id}`),
   view: (id) => requests.get(`/job-experience/ ${id}`),
 };
 
@@ -172,7 +172,7 @@ const Education = {
 }
 
 const UserSkill = {
-  save: (userskill) => requests.post("/user-skill", userskill),
+  save: (userskill) => requests.post("/user-skill", {"skills": userskill}),
   load: () => requests.get("/user-skill"),
   delete: (id) => requests.del(`/user-skill/${id}`),
 };

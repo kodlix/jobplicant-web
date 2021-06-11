@@ -4,7 +4,7 @@ import agent from "../../services/agent.service";
 import { MESSAGE_TYPE } from "../constant";
 import { loadLga, loadStates } from "./location";
 import { closeModal } from "./modal";
-import { loadProfileInfo } from "./account";
+import { deleteProfileExperience, loadProfileInfo } from "./account";
 
 // initial values
 const experience = {
@@ -20,7 +20,6 @@ const experience = {
     jobCategoryName: "",
     jobCategoryId: "",
   },
-  experiences: [],
   loading: false,
   updatedOrDeleted: false,
 };
@@ -34,6 +33,7 @@ const LOADING_ERROR = "LOADING_ERROR";
 // Reducer
 export default function reducer(state = experience, action = {}) {
   switch (action.type) {
+    
     case LOAD_EXPERIENCE:
       return {
         ...state,
@@ -63,6 +63,7 @@ export function loadError() {
     type: LOADING_ERROR,
   };
 }
+
 export function isLoading(){
     return {type: LOADING}
 }
@@ -102,6 +103,7 @@ export function createExperience(data) {
 
 export function updateExperience(id, data) {
   return (dispatch) => {
+    dispatch(isLoading())
     return agent.JobExperience.edit(id, data).then(
       (response) => {
         dispatch(experienceLoaded(response));
@@ -122,3 +124,4 @@ export function updateExperience(id, data) {
     );
   };
 }
+
