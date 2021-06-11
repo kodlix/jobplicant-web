@@ -49,7 +49,7 @@ const PortfolioForm = ({ data, closeEditMode }) => {
         id: "portfolio" + (portfolioItems.length + 1),
         imageURL: preview,
       });
-      setPortfolioItems(newPortfolioArray);
+      setPortfolioItems(newPortfolioArray.map(p => p.imageURL));
 
       setSelectedFiles([...selectedFiles, file]);
     }

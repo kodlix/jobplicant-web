@@ -31,7 +31,7 @@ const Skills = ({ openEdit, openCreate, profileInfo }) => {
           openModalOnEdit={() => openCreate(PROFILE.SKILL)}
         // onClick={mode}
         />
-        <div className="p-card-body">{formatSkills(profileInfo?.skills)}</div>
+        <div className="p-card-body"><strong>{formatSkills(profileInfo?.skills)}</strong></div>
       </div>
     </>
   );
