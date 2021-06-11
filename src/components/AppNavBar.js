@@ -54,14 +54,14 @@ const AppNavBar = ({ displaySearBar = false }) => {
                                                 <Link to="#">notifications</Link>
                                                 <ul className="sub-menu">
                                                     <li>
-                                                        <Link to="/blog-grid-sidebar">notification 1</Link>
+                                                        <Link to="/instant-jobs">Instant Jobs</Link>
                                                     </li>
-                                                    <li>
+                                                    {/* <li>
                                                         <Link to="blog-grid-sidebar.html">notification 2</Link>
                                                     </li>
                                                     <li>
                                                         <Link to="blog-grid-sidebar.html">notification 3</Link>
-                                                    </li>
+                                                    </li> */}
                                                 </ul>
                                             </li>
                                         </ul>

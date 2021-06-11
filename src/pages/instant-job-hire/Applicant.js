@@ -133,7 +133,7 @@ const Applicant = () => {
                                 <div className="row">
                                     <div className="col-md-4 col-sm-12 highlight-card p-pb-3" >
                                         <div className="card">
-                                            <img src="../../assets/user-icon.png" height="150px" className="card-img-top" alt="..." />
+                                            <img src="https://source.unsplash.com/random/100x100" height="150px" className="card-img-top" alt="..." />
                                             <div className="card-body" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                                 <p className="card-title font-weight-bold app-color">Chinedu Michael - <span className="font-weight-bold">Plumber</span> </p>
 
@@ -158,7 +158,7 @@ const Applicant = () => {
                                     <div className="col-md-4 col-sm-12 highlight-card p-pb-3" >
 
                                         <div className="card">
-                                            <img src="../../assets/user-icon.png" height="150px" className="card-img-top" alt="..." />
+                                            <img src="https://source.unsplash.com/random/100x100" height="150px" className="card-img-top" alt="..." />
                                             <div className="card-body" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                                 <p className="card-title font-weight-bold app-color">Chinedu Michael - <span className="font-weight-bold">Plumber</span> </p>
 
@@ -182,7 +182,7 @@ const Applicant = () => {
                                     </div>
                                     <div className="col-md-4 col-sm-12 highlight-card p-pb-3" >
                                         <div className="card">
-                                            <img src="../../assets/user-icon.png" height="150px" className="card-img-top" alt="..." />
+                                            <img src="https://source.unsplash.com/random/100x100" height="150px" className="card-img-top" alt="..." />
                                             <div className="card-body" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                                 <p className="card-title font-weight-bold app-color">Chinedu Michael - <span className="font-weight-bold">Plumber</span> </p>
 

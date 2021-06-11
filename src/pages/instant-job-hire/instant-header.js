@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import './InstantJobHire.css'
 
 
-const InstantHeader = ({ title, setMode, mode, showCreateButton = false, showBack = false, count = 3 }) => {
+const InstantHeader = ({ title, setMode, mode, showCreateButton = false, showBack = false, count }) => {
     return (
         <>
             <header className="d-flex">

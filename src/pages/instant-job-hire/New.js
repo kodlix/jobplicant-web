@@ -8,9 +8,13 @@ import { Dropdown } from 'primereact/dropdown';
 import './InstantJobHire.css'
 import InstantHeader from './instant-header';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import { useDispatch } from 'react-redux';
+import { createInstantJob } from 'store/modules/instantJob';
+import { Calendar } from 'primereact/calendar';
 
 
 const New = ({ setMode, mode }) => {
+    const dispatch = useDispatch();
 
     const { register, handleSubmit, formState: { errors }, setValue } = useForm({
         mode: "onChange",
@@ -18,9 +22,10 @@ const New = ({ setMode, mode }) => {
     });
 
     const [desc, setDesc] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState("");
     const [jobDateNow, setJobDateNow] = useState(true);
-
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
 
     const Categories = [
         { name: 'Mechine', code: 'Mec' },
@@ -33,40 +38,47 @@ const New = ({ setMode, mode }) => {
         setSelectedCategory(e.value);
     }
 
+
+    let period = new Date();
+    let instaceJobDate = period.getUTCFullYear() + "/" + (period.getUTCMonth() + 1) + "/" + period.getUTCDate() + " " + period.getUTCHours() + ":" + period.getUTCMinutes() + ":" + period.getUTCSeconds();
+
     const toggleJobDate = (e) => {
         if (e.target.checked) {
-            let period = new Date();
-            let instaceJobDate = period.getUTCFullYear() + "/" + (period.getUTCMonth() + 1) + "/" + period.getUTCDate() + " " + period.getUTCHours() + ":" + period.getUTCMinutes() + ":" + period.getUTCSeconds();
-            setValue("jobDate", instaceJobDate, { shouldValidate: true })
+            setValue("startDate", instaceJobDate, { shouldValidate: true })
+            console.log(instaceJobDate)
             setJobDateNow(true);
-            console.log({ instaceJobDate });
-
         } else {
-            setValue("jobDate", " ", { shouldValidate: true })
+            setValue("startDate", "", { shouldValidate: true })
             setJobDateNow(false);
         }
     }
 
     const confirm = () => {
-        confirmDialog({
-            message: 'Are you sure you want to make this request?',
-            header: 'Confirmation',
-            icon: 'pi pi-exclamation-triangle',
-            // accept,
-            // reject
-        });
+        // confirmDialog({
+        //     message: 'Are you sure you want to make this request?',
+        //     header: 'Confirmation',
+        //     icon: 'pi pi-exclamation-triangle',
+        //     accept,
+        //     reject,
+        //     if(accept) {
+        //         onSubmit();
+        //     }
+        // });
     };
 
 
     useEffect(() => {
-        register("jobservice", { required: "Please Select job service" })
     }, [])
 
     const onSubmit = (data) => {
+        console.log({ data });
+
         if (jobDateNow) {
             data.jobDate = new Date.now();
         }
+        dispatch(createInstantJob(data));
     }
+
     return (
         <div>
             <InstantHeader
@@ -80,18 +92,18 @@ const New = ({ setMode, mode }) => {
                 <div className="row">
                     <div className="p-fluid p-md-6 p-sm-12">
                         <div className="p-field">
-                            <label htmlFor="jobservice"> Job Service *</label>
+                            <label htmlFor="service"> Job Service *</label>
                             <Dropdown
                                 value={selectedCategory}
                                 options={Categories}
                                 onChange={onServiceChange}
                                 optionLabel="name"
-                                name="jobservice"
+                                name="service"
                                 placeholder="Select Job Service"
-
+                                {...register("service", { required: "Please Select a service" })}
                             />
 
-                            {errors.jobservice && <span className="text-danger font-weight-bold "> <p>{errors.jobservice.message}</p>
+                            {errors.jobservice && <span className="text-danger font-weight-bold "> <p>{errors.service.message}</p>
                             </span>}
                         </div>
 
@@ -123,27 +135,83 @@ const New = ({ setMode, mode }) => {
                             </span>}
                         </div>
                     </div>
+
+                    <div className="p-fluid p-md-6 p-sm-12">
+                        <div className="p-field">
+                            <label htmlFor="phoneNumber">Phone Number * </label>
+                            <InputText
+                                type="number"
+                                placeholder="Phone Number"
+                                name="phoneNumber"
+                                {...register("phoneNumber", { required: "Phone Number is required" })}
+
+                            />
+
+                            {errors.address && <span className="text-danger font-weight-bold "> <p>{errors.phoneNumber.message}</p>
+                            </span>}
+                        </div>
+                    </div>
                     <div className="p-fluid p-md-6 p-sm-12">
 
                         <div className="p-field">
-                            <label htmlFor="instance">  Job Date * &nbsp;
+                            <label htmlFor="startDate">  Start Date * &nbsp;
                                                         ( <input type="checkbox" onClick={toggleJobDate} name="instance" defaultChecked={jobDateNow}
                                     className="align-text-bottom" />
-                                <small className="font-weight-bold"> NOW </small> )
-                                                                    </label>
-
-                            <InputText type="date"
-                                placeholder="Job Date"
-                                name="jobDate"
+                                <small className="font-weight-bold"> NOW </small>  )
+                         </label>
+                            <Calendar
+                                id="startDate"
+                                type="date"
+                                value={instaceJobDate || startDate}
                                 disabled={jobDateNow}
-                                {...register("jobDate", { required: "JobDate is required" })}
+                                name="startDate"
+                                {...register("startDate", {
+                                    required: `* Start Date is required`,
+                                })}
+                                onSelect={(e) => {
+                                    const inputName = "startDate";
+                                    const value = new Date(e.value).toISOString();
+
+                                    setStartDate(value);
+                                    setValue(inputName, value, { shouldValidate: true });
+                                }}
+                                name="startDate"
+                                {...register("startDate", {
+                                    required: `* Start date is required`,
+                                })}
                             />
-                            {errors.jobDate && <span className="text-danger font-weight-bold "> <p>{errors.jobDate.message}</p>
+                            {errors.startDate && <span className="text-danger font-weight-bold "> <p>{errors.startDate.message}</p>
                             </span>}
                         </div>
                     </div>
 
-                    {jobDateNow === false && <div className="p-fluid p-md-6 p-sm-12">
+                    <div className="p-fluid p-md-6 p-sm-12">
+                        <div className="p-field">
+                            <label htmlFor="endDate">{" "}End Date * </label>
+                            <Calendar
+                                id="endDate"
+                                type="date"
+                                value={endDate}
+                                name="endDate"
+                                {...register("endDate", {
+                                    required: `* End Date is required`,
+                                })}
+                                onSelect={(e) => {
+                                    const inputName = "endDate";
+                                    const value = e.value.toISOString();
+                                    setEndDate(value);
+                                    setValue(inputName, value, { shouldValidate: true });
+                                }}
+                                name="endDate"
+                                {...register("endDate", {
+                                    required: `* End date is required`,
+                                })}
+                            />
+                            {errors.endDate && (<span className="text-danger font-weight-bold">&nbsp; {errors.endDate.message}</span>)}
+                        </div>
+                    </div>
+
+                    <div className="p-fluid p-md-6 p-sm-12" hidden={jobDateNow}>
                         <div className="p-field">
                             <label htmlFor="lastname"> Time *</label>
                             <InputText type="time"
@@ -154,7 +222,7 @@ const New = ({ setMode, mode }) => {
                             {errors.time && <span className="text-danger font-weight-bold "> <p>{errors.time.message}</p>
                             </span>}
                         </div>
-                    </div>}
+                    </div>
                     <div className="p-fluid p-md-12 p-sm-12">
                         <div className="p-field">
                             <label htmlFor="lastname"> Description *</label>

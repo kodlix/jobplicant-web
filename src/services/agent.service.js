@@ -4,8 +4,8 @@ import superagentPromise from "superagent-promise";
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api.herokuapp.com";
-// export const API_ROOT = "https://jobplicant-api.herokuapp.com";
+// export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api.herokuapp.com";
+export const API_ROOT = "https://jobplicant-api.herokuapp.com";
 
 console.log('API_ROOT', API_ROOT);
 console.log("environmental variables", process.env);
@@ -233,6 +233,15 @@ const Company = {
   updateCompanyInfo: (id, data) => requests.put("/company/" + id + "/company-info", data)
 }
 
+const InstantJob = {
+  save: (instantjob) =>
+    requests.post("/instant-job", instantjob),
+  // load: (search, page) => request.get(`/instant-job/?search=${search}&page=${page}`),
+  load: () => request.get(`/instant-job/`),
+  view: (id) => request.get(`/instant-job/${id}`)
+
+};
+
 export default {
   Auth,
   User,
@@ -249,6 +258,7 @@ export default {
   Company,
   Education,
   UserSkill,
+  InstantJob,
   setToken: (_accessToken) => {
     accessToken = _accessToken;
   },
