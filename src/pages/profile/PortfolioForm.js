@@ -22,14 +22,14 @@ const PortfolioForm = ({ data, closeEditMode }) => {
   useEffect(() => {
     if (data?.length > 0) {
       setPortfolioItems(data);
-      console.log('data is called')
+      console.log('data is called', data)
     }
     
   }, []);
 
   const deletePortfolio = (e) => {
     const newPortfolioArray = portfolioItems.filter(
-      (item) => item.id !== e.target.id
+      (item) => item !== e.target.id
     );
     setPortfolioItems(newPortfolioArray);
   };
@@ -111,20 +111,20 @@ const PortfolioForm = ({ data, closeEditMode }) => {
                       key={index}
                     > 
                       <div className="p-mx-2">
-                        <img src={item.imageURL} alt="Portfolio Item" />
+                        <img src={item} alt="Portfolio Item" />
                         <span className="portfolioItem-icons">
                           <Button
                             type="button"
                             icon="pi pi-ellipsis-h"
-                            onClick={(e) => ref.current[item.id].toggle(e)}
+                            onClick={(e) => ref.current[item].toggle(e)}
                           />
                           <OverlayPanel
-                            ref={(element) => (ref.current[item.id] = element)}
+                            ref={(element) => (ref.current[item] = element)}
                           >
                             <div
                               className="p-py-2 p-px-3"
                               onClick={deletePortfolio}
-                              id={item.id}
+                              id={item}
                             >
                               <i className="pi pi-trash p-pr-2"></i> Delete
                               Image

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import AppNavBar from "components/AppNavBar";
@@ -9,10 +9,17 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import BackgroundImage from '../../assets/bg.png'
 import avatarImage from '../../assets/avatar.png'
+import { Dropdown } from "primereact/dropdown";
+import { loadCountry, loadStates } from "store/modules/location";
+import { createJob } from "store/modules/job";
+
+const contractTypeList = ["Full-Time", "Contact-Based", "Internship"];
 
 const CreateJob = () => {
-  // const loading = useSelector((state) => state.job.loading);
+  const loading = useSelector((state) => state.job.loading);
   // const id = useSelector((state) => state.account.profileInfo.id);
+  const countries = useSelector(state => state.location.countries);
+  const states = useSelector(state => state.location.states);
   const dispatch = useDispatch();
   const [editorHtml, setEditorHtml] = useState("");
   const [companyInfo, setCompanyInfo] = useState({});
@@ -20,6 +27,7 @@ const CreateJob = () => {
     register,
     handleSubmit,
     setValue,
+    setError,
     clearErrors,
     reset,
     formState: { errors },
@@ -35,8 +43,42 @@ const CreateJob = () => {
     setValue(name, value, { shouldValidate: true });
   };
 
+  useEffect(() => {
+    dispatch(loadCountry());
+  }, [dispatch]);
+
+  const handleCountryChange = (e) => {
+    let conuntryId = e.target.value.id;
+    dispatch(loadStates(conuntryId));
+  }
+
   const onSubmit = () => {
-    console.log({ ...companyInfo, description: editorHtml })
+    if (!editorHtml)
+      return setError('jobDescription', {
+        type: "manual",
+        message: 'Job description is required'
+      })
+
+    const dataToPost = {
+      companyName: companyInfo.companyName,
+      title: companyInfo.jobTitle,
+      description: editorHtml,
+      contactType: companyInfo.contractType, //TODO: To be corrected
+      hideCompanyName: companyInfo.hideCompanyName,
+      jobUrl: companyInfo.website,
+      minSalary: parseInt(companyInfo.minSalary),
+      maxSalary: parseInt(companyInfo.maxSalary),
+      minQualification: companyInfo.minQualification,
+      location: companyInfo.jobLocation,
+      industry: companyInfo.industry,
+      startDate: new Date(companyInfo.startDate),
+      endDate: new Date(companyInfo.endDate),
+      country: companyInfo.country.name,
+      state: companyInfo.state.name,
+      minYearOfExperience: parseInt(companyInfo.minYearOfExperience),
+    }
+    // console.log(dataToPost);
+    return dispatch(createJob(dataToPost))
   };
 
   return (
@@ -112,9 +154,9 @@ const CreateJob = () => {
                                 )}
                               </label>
                               <InputField
-                                id="Industry"
+                                id="industry"
                                 name="industry"
-                                inputLabel="Industry"
+                                inputLabel="industry"
                                 register={register}
                                 inputChange={handleChange}
                                 className="form-control"
@@ -232,14 +274,19 @@ const CreateJob = () => {
                                   </span>
                                 )}
                               </label>
-                              <InputField
-                                id="contractType"
+                              <Dropdown
+                                value={companyInfo.contractType}
+                                options={contractTypeList}
+                                onChange={handleChange}
                                 name="contractType"
-                                inputLabel="Contract Type"
-                                register={register}
-                                inputChange={handleChange}
+                                filter
+                                showClear
+                                placeholder="Select Contract Type"
+                                icon="pi pi-plus"
+                                id="contractTypeInput"
                                 className="form-control"
                               />
+
                             </div>
                             <div className="p-field p-col-6 p-md-6 p-sm-12">
                               <label className="inputLabel" htmlFor="course">
@@ -313,6 +360,119 @@ const CreateJob = () => {
                                 className="form-control"
                               />
                             </div>
+                            <div className="p-field p-col-6 p-md-6">
+                              <label className="inputLabel" htmlFor="course">
+                                Country<span className="text-red">*</span>
+                                {errors.phoneNumber && (
+                                  <span className="text-danger font-weight-bold">
+                                    &nbsp; {errors.phoneNumber.message}
+                                  </span>
+                                )}
+                              </label>
+
+                              <Dropdown
+                                options={countries}
+                                optionLabel="name"
+                                filter
+                                showClear
+                                filterBy="name"
+                                icon="pi pi-plus"
+                                id="country"
+                                name="country"
+                                value={companyInfo.country}
+                                {...register("country",
+                                  {
+                                    required: ` Country is required`
+                                  }
+                                )}
+                                onChange={(e) => {
+                                  handleChange(e)
+                                  handleCountryChange(e);
+                                }}
+                                className="form-control"
+                              />
+                            </div>
+                            <div className="p-field p-col-6 p-md-6">
+                              <label className="inputLabel" htmlFor="course">
+                                State<span className="text-red">*</span>
+                                {errors.state && (
+                                  <span className="text-danger font-weight-bold">
+                                    &nbsp; {errors.state.message}
+                                  </span>
+                                )}
+                              </label>
+
+                              <Dropdown
+                                options={states}
+                                optionLabel="name"
+                                filter
+                                showClear
+                                filterBy="name"
+                                icon="pi pi-plus"
+                                id="stateList"
+                                name="state"
+                                value={companyInfo.state}
+                                {...register("state",
+                                  {
+                                    required: ` State is required`
+                                  }
+                                )}
+                                onChange={(e) => {
+                                  handleChange(e);
+                                }}
+                                className="form-control"
+                              />
+                            </div>
+
+                            <div className="p-field p-col-6 p-md-6">
+                              <label className="inputLabel" htmlFor="course">
+                                Minimum Year of Experience<span className="text-red">*</span>
+                                {errors.lga && (
+                                  <span className="text-danger font-weight-bold">
+                                    &nbsp; {errors.lga.message}
+                                  </span>
+                                )}
+                              </label>
+
+                              <InputField
+                                id="minYearOfExperience"
+                                name="minYearOfExperience"
+                                inputLabel="Minimum Year of Experience"
+                                register={register}
+                                inputChange={handleChange}
+                                className="form-control"
+                              />
+
+                            </div>
+
+                            <div className="p-field p-col-6 p-md-6">
+                              <label className="inputLabel" htmlFor="course">
+                                Don't show company name?<span className="text-red">*</span>
+                                {errors.hideCompanyName && (
+                                  <span className="text-danger font-weight-bold">
+                                    &nbsp; {errors.hideCompanyName.message}
+                                  </span>
+                                )}
+                              </label>
+                              <Dropdown
+                                options={[{ name: 'Show', value: true }, { name: 'Hide', value: false }]}
+                                optionLabel="name"
+                                filter
+                                showClear
+                                filterBy="name"
+                                icon="pi pi-plus"
+                                id="hideCompanyName"
+                                name="hideCompanyName"
+                                value={companyInfo.hideCompanyName}
+                                {...register("hideCompanyName")}
+                                onChange={(e) => {
+                                  handleChange(e);
+                                  console.log(e.target.value)
+                                }}
+                                className="form-control"
+                              />
+                            </div>
+
                           </div>
                         </div>
                       </div>
@@ -327,9 +487,9 @@ const CreateJob = () => {
                           <div className="p-2"></div>
                           <div className="row">
                             <div className="p-field p-col-12 p-md-12 p-sm-12">
-                              {errors.jobTitle && (
+                              {errors.jobDescription && (
                                 <span className="text-danger font-weight-bold">
-                                  &nbsp; {errors.jobTitle.message}
+                                  &nbsp; {errors.jobDescription.message}
                                 </span>
                               )}
                               <div style={{ height: "200px" }} id="description">
@@ -340,7 +500,7 @@ const CreateJob = () => {
                                   theme="snow"
                                   onChange={(html) => {
                                     setEditorHtml(html);
-
+                                    setValue('jobDescription', html, { shouldValidate: true })
                                   }}
                                   value={editorHtml}
 
@@ -441,8 +601,9 @@ const CreateJob = () => {
                       <Button
                         icon="pi pi-check"
                         iconPos="left"
-                        label="Create"
+                        label={loading ? 'Please wait...' : "Create"}
                         id="saveButton"
+                        disabled={loading}
                         type="submit"
                       />
                     </div>

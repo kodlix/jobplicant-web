@@ -43,7 +43,7 @@ const ModalForm = ({ data, itemToEdit }) => {
         <BiographyForm data={data.profile} itemToEdit={itemToEdit} />
       )}
       {name === PROFILE.PERSONAL_INFO && (
-          <PersonalInfoForm data={data.profile} itemToEdit={itemToEdit} />
+          <PersonalInfoForm data={data} itemToEdit={itemToEdit} />
       )}
       {name === PROFILE.EXPERIENCE && (
         <ExperienceForm data={data.experiences} itemToEdit={itemToEdit} />

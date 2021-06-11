@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
@@ -15,6 +15,16 @@ import { Calendar } from 'primereact/calendar';
 
 const New = ({ setMode, mode }) => {
     const dispatch = useDispatch();
+    const toast = useRef(null);
+
+    const accept = () => {
+        toast.current.show({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+    }
+
+    const reject = () => {
+        toast.currents.show({ severity: 'info', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+        return;
+    }
 
     const { register, handleSubmit, formState: { errors }, setValue } = useForm({
         mode: "onChange",
@@ -76,7 +86,19 @@ const New = ({ setMode, mode }) => {
         if (jobDateNow) {
             data.jobDate = new Date.now();
         }
-        dispatch(createInstantJob(data));
+
+        // const confirm = () => {
+        confirmDialog({
+            message: 'Are you sure you want to make this request?',
+            header: 'Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            accept,
+            reject,
+            if(accept) {
+                dispatch(createInstantJob(data));
+            }
+        });
+        // };
     }
 
     return (

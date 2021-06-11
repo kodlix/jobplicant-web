@@ -1,5 +1,4 @@
 import { Badge } from "primereact/badge"
-
 const CorporateJob = ({ jobs }) => {
     return (<>
         {jobs?.map(({ title, type, company, salary, skills, description }, index) => (

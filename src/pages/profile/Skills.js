@@ -14,7 +14,7 @@ const Skills = ({ openEdit, openCreate, profileInfo }) => {
     const skillTemp =
       skills.length > 0
         ? skills.map(skill => skill.name).join(", ")
-        : "No skill";
+        : "";
     return skillTemp;
   };
 

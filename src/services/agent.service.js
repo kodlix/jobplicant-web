@@ -11,6 +11,7 @@ console.log('API_ROOT', API_ROOT);
 console.log("environmental variables", process.env);
 export const IMAGE_URL = API_ROOT + '/account/uploads/';
 
+
 let accessToken = null;
 const responseBody = (res) => res.body;
 
@@ -155,6 +156,11 @@ const JobExperience = {
   view: (id) => requests.get(`/job-experience/ ${id}`),
 };
 
+const Job = {
+  save: (data) => requests.post("/job", data),
+  load: () => requests.get("/job")
+}
+
 //education service api
 const Education = {
   save: (data) => requests.post("/education", data),
@@ -249,6 +255,7 @@ export default {
   Sector,
   Account,
   JobExperience,
+  Job,
   Country,
   State,
   Lga,

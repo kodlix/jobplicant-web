@@ -1,8 +1,34 @@
 // import React from 'react'
-// import { BreadCrumb } from 'primereact/breadcrumb';
+import { BreadCrumb } from 'primereact/breadcrumb';
+import { useHistory } from 'react-router';
 // import { withRouter } from 'react-router';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
+
+const CustomBreadCrumb = () => {
+    const history = useHistory();
+
+    const paths = history.location.pathname.split('/');
+    const size = paths.length;
+
+    return (
+        <div className="breadcrumb">
+            <div>
+                {
+                    paths.map((path, index) => {
+
+                        return path === ""
+                            ? <span><Link to="/"><i className="pi pi-home"></i></Link> {' '}{(index + 1) <= size ? <i className="pi pi-arrow-right"></i> : ""}</span>
+                            : <span>{' '}
+                                <Link to={`/${path}`}>{path}</Link>{' '}{(index + 1) !== size ? <span><i className="pi pi-arrow-right"></i></span> : ""}</span>
+                    })
+                }
+            </div>
+        </div>
+    )
+}
+
+export default CustomBreadCrumb
 
 // const BreadCrumbPane = (props) => {
 //     console.log(props)
