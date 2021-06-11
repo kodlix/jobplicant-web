@@ -4,6 +4,7 @@ import agent from "../../services/agent.service";
 import { MESSAGE_TYPE } from "../constant";
 import { loadLga, loadStates } from "./location";
 import { closeModal } from "./modal";
+import { loadError } from "./experience";
 
 // initial values
 const account = {
@@ -39,6 +40,8 @@ const LOADING = "LOADING";
 const UPDATE_PROFILE = "app/account/UPDATE_PROFILE ";
 const LOAD_PROFILE_INFO = "app/account/LOAD_PROFILE_INFO";
 const LOAD_PROFILE_INFO_ERROR = "LOAD_PROFILE_INFO_ERROR";
+const DELETE_EXPERIENCE = "DELETE_EXPERIENCE";
+const DELETE_EDUCATION = "DELETE_EDUCATION";
 
 // Reducer
 export default function reducer(state = account, action = {}) {
@@ -56,7 +59,26 @@ export default function reducer(state = account, action = {}) {
         ...state,
         loading: false,
       };
-
+    case DELETE_EDUCATION: 
+      const newEducations =  state.profileInfo.educations.filter(edu => edu.id !== action.payload);
+      console.log('new education', newEducations);
+      return {
+        ...state,
+        profileInfo: {
+          ...state.profileInfo,
+          educations: [...newEducations]
+        }
+      }
+    case DELETE_EXPERIENCE: 
+      const newExperiences = state.profileInfo.experiences.filter(exp => exp.id !== action.payload)
+      console.log('newExperiences', newExperiences);
+      return {
+        ...state,
+        profileInfo: {
+          ...state.profileInfo,
+          experiences: [...newExperiences]
+        }
+      }
     default:
       return state;
   }
@@ -72,6 +94,17 @@ export const profileInfoLoadedError = () => ({
 export const loading = () => ({
   type: LOADING,
 });
+
+//delete education action creator
+export const deleteProfileEducation = id => ({
+  type: DELETE_EDUCATION,
+  payload: id
+})
+//delete experience action creator
+export const deleteProfileExperience = id => ({
+  type: DELETE_EXPERIENCE,
+  payload: id
+})
 
 // Actions
 export function updatePersonalProfile(data) {
@@ -291,6 +324,7 @@ export function updateProfilePortfolio(images) {
       (response) => {
         // handle success
         dispatch(profileInfoLoaded(response));
+        dispatch(closeModal())
         dispatch(
           showMessage({
             type: MESSAGE_TYPE.SUCCESS,
@@ -321,3 +355,50 @@ export function loadAccountByUser(id) {
     );
   };
 }
+
+//to delete education
+export const deleteExperience = (id) => (dispatch) => {
+  dispatch(loading());
+  return agent.JobExperience.delete(id).then(
+    (response) => {
+      dispatch(deleteProfileExperience(id));
+      dispatch(
+        showMessage({
+          type: MESSAGE_TYPE.SUCCESS,
+          title: "Delete Information",
+          message: "Job experience deleted successfully",
+        })
+      );
+      dispatch(loadError());
+    },
+    (error) => {
+      // handle error
+      dispatch(loadError());
+      dispatch(showMessage({ type: "error", message: error }));
+    }
+  );
+};
+//to delete education
+export const deleteEducation = (id) => (dispatch) => {
+  dispatch(deleteProfileEducation(id));
+  
+  // dispatch(loading());
+  // return agent.Education.delete(id).then(
+  //   (response) => {
+  //     dispatch(deleteProfileEducation(id))
+  //     dispatch(
+  //       showMessage({
+  //         type: MESSAGE_TYPE.SUCCESS,
+  //         title: "Delete Information",
+  //         message: "Education deleted successfully",
+  //       })
+  //     );
+  //     dispatch(loadError());
+  //   },
+  //   (error) => {
+  //     // handle error
+  //     dispatch(loadError());
+  //     dispatch(showMessage({ type: "error", message: error }));
+  //   }
+  // );
+};

@@ -107,21 +107,9 @@ const Applicant = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="p-col-12 p-md-9">
+                    {/* <div className="p-col-12 p-md-9">
                         <h5 className="font-weight-bold p-pt-3">5 Applicants (3 results) </h5>
                         <hr />
-                    </div>
-                    {/* <div className="card card-size col-9" style={{ marginLeft: "12px" }}>
-                        <div className="card-body d-flex justify-content-between p-mb-1">
-                            <div>
-                                <h5> <span className="font-weight-bold">Plumbing Work > </span> <span>Applicant (6 result)</span></h5>
-                                <p className="font-weight-bold">Location : <span>113, Gowna Estate</span></p>
-                            </div>
-                            <div>
-                                <Link to="/new-instant-hire" className="bk-btn p-pt-2 app-color">
-                                    <i className="pi pi-arrow-left">Back</i>
-                                </Link>
-                            </div>                            </div>
                     </div> */}
 
                     <div className="card card-size mt-2">
@@ -129,7 +117,7 @@ const Applicant = () => {
                             <div className="p-4">
                                 <div className="d-flex justify-content-between p-mb-1">
                                     <div>
-                                        <h5> <span className="font-weight-bold text-secondary">Plumbing Work </span> <span>5 Applicant (6 result)</span></h5>
+                                        <h5> <span className="font-weight-bold text-secondary">Plumbing Work </span> <span className="app-color">5 Applicant (6 result)</span></h5>
                                         <p className="font-weight-bold">Location : <span>113, Gowna Estate</span></p>
                                     </div>
                                     <div>
@@ -280,7 +268,7 @@ const Applicant = () => {
                     </div>
                 </div>
 
-            </div>    
+            </div>
             <div className="modal fade p-mt-6" id="staticBackdrop" modalDisplay={modalDisplay} data-backdrop="static" data-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">

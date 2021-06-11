@@ -68,7 +68,8 @@ const LOIForm = ({ data, closeEditMode }) => {
   }, []);
 
   const LOISubmit = (loiData) => {
-    dispatch(updateLOI(LOIs));
+    const dataToPost = LOIs.map(loi => loi.name);
+    dispatch(updateLOI(dataToPost));
   };
 
   return (

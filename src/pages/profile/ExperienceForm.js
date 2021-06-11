@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { InputTextarea } from "primereact/inputtextarea";
 import { InputText } from "primereact/inputtext";
@@ -18,7 +18,7 @@ const jobCategoryList = [
   { name: "Teaching", id: "PRS1" },
   { name: "Legal Services", id: "PRS3" },
 ];
-const ExperienceForm = ({ closeEditMode, itemToEdit = null }) => {
+const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
   const dispatch = useDispatch();
   const {
     register,
@@ -29,28 +29,13 @@ const ExperienceForm = ({ closeEditMode, itemToEdit = null }) => {
     formState: { errors },
   } = useForm({ mode: "onChange", reValidateMode: "onChange" });
 
+  const loading = useSelector(state => state.experience.loading);
   const [experience, setExperience] = useState({});
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-  /**
-   * {
-  "jobTitle": "string",
-  "startDate": "2021-05-19T00:22:08.253Z",
-  "endDate": "2021-05-19T00:22:08.253Z",
-  "location": "string",
-  "company": "string",
-  "description": "string",
-  "jobCategoryName": "string",
-  "jobCategoryId": "string"
-}
-   */
 
   useEffect(() => {
-    if (itemToEdit) {
-      console.log(itemToEdit)
+    if (itemToEdit !== null) {
       setExperience({
         ...experience,
-
         jobCategory: jobCategoryList.find(
           (j) => j.name == itemToEdit.jobCategoryName
         ),
@@ -61,16 +46,14 @@ const ExperienceForm = ({ closeEditMode, itemToEdit = null }) => {
         jobTitle: itemToEdit.jobTitle,
         company: itemToEdit.company,
       });
-      // setStartDate(itemToEdit.startDate);
-      // setEndDate(itemToEdit.endDate);
-
+   
       setValue("description", itemToEdit.description);
       setValue("startDate", itemToEdit.startDate);
       setValue("endDate", itemToEdit.endDate);
       setValue("location", itemToEdit.location);
       setValue("description", itemToEdit.description);
       setValue("jobTitle", itemToEdit.jobTitle);
-      setValue("jobCategory", itemToEdit.jobCategory);
+      setValue("jobCategory",jobCategoryList.find((j) => j.name == itemToEdit.jobCategoryName));
       setValue("company", itemToEdit.company);
     }
   }, [itemToEdit]);
@@ -99,16 +82,17 @@ const ExperienceForm = ({ closeEditMode, itemToEdit = null }) => {
     console.log(e.target.id);
   };
 
-  const experienceSubmit = (data) => {
-    data.endDate = new Date(data.endDate).toISOString();
-    data.startDate = new Date(data.startDate).toISOString();
-    data.jobCategoryName = data.jobCategory.name;
-    data.jobCategoryId = data.jobCategory.id;
-  
-    if(itemToEdit === null)
-    dispatch(createExperience(data));
-    else 
-    dispatch(updateExperience(itemToEdit.id, data));
+  const experienceSubmit = (formData) => {
+    formData.endDate = new Date(formData.endDate).toISOString();
+    formData.startDate = new Date(formData.startDate).toISOString();
+    formData.jobCategoryName = formData.jobCategory.name;
+    formData.jobCategoryId = formData.jobCategory.id;
+
+    if (mode === 'create')
+      dispatch(createExperience(formData));
+    else
+      dispatch(updateExperience(itemToEdit.id, formData));
+
   };
   return (
     <>
@@ -180,7 +164,6 @@ const ExperienceForm = ({ closeEditMode, itemToEdit = null }) => {
                     const inputName = "startDate";
                     const value = new Date(e.value).toISOString();
 
-                    setStartDate(value);
                     setValue(inputName, value, { shouldValidate: true });
                   }}
                   name="startDate"
@@ -211,8 +194,6 @@ const ExperienceForm = ({ closeEditMode, itemToEdit = null }) => {
                   onSelect={(e) => {
                     const inputName = "endDate";
                     const value = e.value.toISOString();
-
-                    setStartDate(value);
                     setValue(inputName, value, { shouldValidate: true });
                   }}
                   name="endDate"
@@ -285,7 +266,7 @@ const ExperienceForm = ({ closeEditMode, itemToEdit = null }) => {
                 />
               </div>
             </div>
-            <ModeFooter id="experienceEdit" onCancel={onEditCancel} />
+            <ModeFooter id="experienceEdit" onCancel={onEditCancel} loading={loading} />
           </form>
         </div>
       </div>
@@ -293,27 +274,5 @@ const ExperienceForm = ({ closeEditMode, itemToEdit = null }) => {
   );
 };
 
-// const InputField = ({
-//   id,
-//   inputLabel,
-//   register,
-//   inputChange,
-//   defaultValue,
-// }) => {
-//   return (
-//     <InputText
-//       id={id}
-//       type="text"
-//       name={id}
-//       defaultValue={defaultValue}
-//       {...register(id, {
-//         required: `* ${inputLabel} is required`,
-//       })}
-//       onChange={(e) => {
-//         inputChange(e);
-//       }}
-//     />
-//   );
-// };
 
 export default ExperienceForm;

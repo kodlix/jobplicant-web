@@ -11,6 +11,7 @@ import GroupsTab from "./tabs/GroupsTab";
 import { useDispatch } from "react-redux";
 import { openModal } from "store/modules/modal";
 import PersonalInfo from "./PersonalInfo";
+import CustomBreadCrumb from "helpers/BreadCrumb";
 // import BreadCrumbPane from 'helpers/BreadCrumb';
 
 
@@ -35,11 +36,16 @@ const UserProfile = ({ match }) => {
   return (
     <>
         <div className="background">
+          <div className="pl-5">
+          <CustomBreadCrumb />
+          </div>
           <div className="content-container">
+            
             {/* personal info */}
             <PersonalInfo
               openCreate={openCreate}
-              openEdit={openEdit}
+              openEdit={openEdit} 
+              
             />
 
             <div className="p-grid">

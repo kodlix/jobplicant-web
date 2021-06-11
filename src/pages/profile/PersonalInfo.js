@@ -12,6 +12,8 @@ const PersonalInfo = ({ openCreate, openEdit }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
 
+  console.log('profileInfo', profileInfo.imageUrl)
+
   useEffect(() => {
     dispatch(loadProfileInfo());
   }, []);
@@ -63,13 +65,20 @@ const PersonalInfo = ({ openCreate, openEdit }) => {
   return (
     <div className="userProfile-header">
       <span className="profilePic-container">
-        <img
-          src={selectedFile ? preview : (typeof(profileInfo.imageUrl) === 'string' && profileInfo.imageUrl !== '' ) ? profileInfo.ImageUrl : "../../assets/logo.png" }
+        {selectedFile ? (<img
+          src={preview}
           alt="User Image"
           width="130"
           height="130"
           className="profile-picture"
-        />
+        />) : 
+        (<img src={profileInfo.imageUrl} 
+          alt="User Image"
+          width="130"
+          height="130"
+          className="profile-picture"
+          />)
+          }
         <label className="profilePic-label" htmlFor="upload-button">
           {loading ? (
             <i className="pi pi-spin pi-spinner" style={{ color: "black" }}>
