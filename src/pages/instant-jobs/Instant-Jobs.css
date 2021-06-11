@@ -1,0 +1,152 @@
+#reject {
+    border: none;
+}
+
+.instant-hire-flex {
+    display: flex;
+    flex-direction: row;
+}
+
+.instant .title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: .5rem 0;
+}
+
+.instant button {
+    width: 6rem !important;
+    padding: .4rem;
+    border-radius: 5%;
+}
+
+.appcolor {
+    background-color: #5A2846 !important;
+}
+
+.header-color {
+    background-color: rgb(44, 165, 94)!important;
+}
+
+.app-color {
+    color: #5A2846;
+}
+
+.label {
+    display: inline;
+}
+
+.card-size {
+    width: 62vw;
+    margin: auto;
+}
+
+.nav-tabs {
+    border-bottom: none !important;
+}
+
+.nav-link.active {
+    padding: 12px;
+}
+
+.card-size-list {
+    width: 62vw;
+    margin: auto;
+    padding: 18px;
+}
+
+.find-job1 .single-job1 .job-content1 h4 {
+    /* padding-right: 200px; */
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.content-tab {
+    background-color: #5a2846;
+    color: white;
+    height: 60px;
+}
+
+.content-tab button {
+    border: none;
+    background-color: initial;
+    padding-top: 10px;
+}
+
+.content-tab .pi {
+    font-size: 20px;
+    padding: 4px 20px;
+}
+
+.content-tab .tab-titles {
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.tab-width {
+    width: 85%;
+    margin: auto;
+}
+
+.back-btn {
+    margin-left: 12vw;
+    background-color: #6FCF97;
+}
+
+.highlight-card:hover {
+    transform: scale(1.02);
+    cursor: pointer;
+    background: rgba(173, 187, 192, 0.1);
+}
+
+.applicant-width {
+    width: 62vw;
+    margin: auto;
+}
+
+.background {
+    background-color: #F2F2F2;
+}
+
+.content-container {
+    width: 85%;
+    margin: auto;
+    padding-top: 30px;
+}
+
+.applicant-header-color {
+    background-color: aqua;
+}
+
+.fit-in {
+    margin-left: -19rem;
+}
+
+.bk-btn {
+    margin-left: "35vw"
+}
+
+
+/* Media Query Section */
+
+@media screen and (max-width: 767px) {
+    .small-screen {
+        display: none;
+    }
+    .card-size {
+        width: 90%;
+        margin: auto;
+    }
+    .card-size-list {
+        width: 100%;
+    }
+    .back-btn {
+        margin-left: 6vw;
+    }
+    .sm-screen {
+        width: 58vw;
+    }
+    .bk-btn {
+        margin-left: 1px;
+    }
+}
