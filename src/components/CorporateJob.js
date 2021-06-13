@@ -1,5 +1,13 @@
 import { Badge } from 'primereact/badge';
-const CorporateJob = ({ jobs }) => {
+import { useSelector } from 'react-redux';
+const CorporateJob = () => {
+    const jobs = useSelector(state => state.job.jobs);
+
+    if (!jobs.length)
+        return <div className="d-flex justify-content-center p-5">
+            <h3>No Jobs listed yet!</h3>
+        </div>
+
     return (<>
         {jobs.map(({ title, type, company, salary, skills, description }, index) => (
             <div className="p-card p-4 mt-2 p-d-flex justify-content-between" key={index}>

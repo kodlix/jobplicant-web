@@ -1,4 +1,7 @@
 import CorporateJob from 'components/CorporateJob';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { loadJobs } from 'store/modules/job';
 
 const jobs = [
   {
@@ -48,7 +51,15 @@ const jobs = [
   },
 ];
 
-const JobsTab = () => (
+const JobsTab = () => {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadJobs())
+  }, []);
+
+  return (
   <>
     <div className="d-flex" style={{border: "1px solid black"}}>
       <a
@@ -66,9 +77,10 @@ const JobsTab = () => (
       </a>
     </div>
     <div className="mt-3">
-      <CorporateJob jobs={jobs} />
+      <CorporateJob />
     </div>
   </>
 );
+}
 
 export default JobsTab;
