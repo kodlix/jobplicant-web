@@ -60,19 +60,19 @@ const ModalForm = ({ data, itemToEdit, mode }) => {
       {name === PROFILE.HOBBY && (
         <HobbyForm data={data.hobbies} itemToEdit={itemToEdit} mode={mode} />
       )}
-      {name === PROFILE.PORTFOLIO && (
-        <PortfolioForm data={data.portfolios} itemToEdit={itemToEdit} mode={mode} />
-      )}
       {name === PROFILE.SKILL && (
         <SkillForm data={data.skills} itemToEdit={itemToEdit} mode={mode} />
-      )}
+        )}
       {name === PROFILE.PROFESSION && (
         <ProfessionsOfInterestForm
-          data={data.interests}
-          itemToEdit={itemToEdit}
-          mode={mode}
+        data={data.interests}
+        itemToEdit={itemToEdit}
+        mode={mode}
         />
-      )}
+        )}
+      {name === PROFILE.PORTFOLIO && (
+          <PortfolioForm data={data.portfolios} itemToEdit={itemToEdit} mode={mode} />
+        )}
       {name === PROFILE.PORTFOLIO_MODAL && (
         <PortfolioModal data={data.portfolios} itemToEdit={itemToEdit} mode={mode} />
       )}

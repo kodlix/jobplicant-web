@@ -44,6 +44,19 @@ export const loading = () => ({
 });
 
 // Actions
+export const loadJobs = () => (dispatch) => {
+    return agent.Job.load().then((response) => {
+        dispatch(jobsLoaded(response));
+        dispatch(
+            showMessage({
+                type: MESSAGE_TYPE.SUCCESS,
+                title: "Jobs",
+                message: "Jobs loaded successfully",
+            })
+        );
+    });
+};
+
 export function createJob(data) {
     return (dispatch) => {
         dispatch(loading());
