@@ -2,6 +2,8 @@ import React from "react";
 import SectionHeader from "./SectionHeader";
 import { PROFILE } from "constants/profile";
 import "./UserProfile.css";
+import { Badge } from "primereact/badge";
+import { Tag } from "primereact/tag";
 /**skills.map((skill, index) => (
             <span key={index} className="skilltag">
               <i className=""></i>
@@ -13,7 +15,7 @@ const Skills = ({ openEdit, openCreate, profileInfo }) => {
     console.log(skills);
     const skillTemp =
       skills.length > 0
-        ? skills.map(skill => skill.name).join(", ")
+        ? skills.map(skill => <span><Tag>{skill}</Tag>&nbsp;&nbsp;</span>)
         : "";
     return skillTemp;
   };

@@ -2,6 +2,7 @@ import React from "react";
 import SectionHeader from "./SectionHeader";
 import { PROFILE } from "constants/profile";
 import "./UserProfile.css";
+import { Tag } from "primereact/tag";
 
 const LocationOfInterest = ({
   openCreate,
@@ -28,8 +29,8 @@ const LocationOfInterest = ({
           openModalOnEdit={() => openCreate(PROFILE.LOCATION)}
         />
         <div className="p-card-body p-text-secondary">
-          {profileInfo?.locations !== null
-            ? <strong>{profileInfo?.locations?.join(", ")}</strong>
+          {profileInfo?.locations.length 
+            ? profileInfo?.locations.map(location => <span><Tag>{location}</Tag>&nbsp;&nbsp;</span>)
             : "locations"}
         </div>
       </div>

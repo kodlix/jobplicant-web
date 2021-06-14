@@ -123,6 +123,7 @@ const Sector = {
 
 const Account = {
   getProfileInfo: () => requests.get(`/accounts/profile/active`),
+  updateCompanyInfo: (data) => requests.put("/accounts/company-info", data),
   updateBiography: (biography) => requests.put("/accounts/bio", biography),
   updateProfile: (profile) => requests.put("/accounts/profile", profile), //To update personal info e.g firstname, lastname etc... 
   updateExperience: (experience) =>
@@ -236,7 +237,7 @@ const ScheduleMeeting = {
 const Company = {
   load: () => requests.get(`/company`),
   put: (id, data) => requests.put(`/company/${id}`, data),
-  updateCompanyInfo: (id, data) => requests.put("/company/" + id + "/company-info", data)
+
 }
 
 export default {

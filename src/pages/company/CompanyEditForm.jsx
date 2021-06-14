@@ -7,25 +7,27 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { updateProfilePicture } from "store/modules/account";
 import { updateCompanyInfo } from "store/modules/company";
 import { loadCountry, loadLga, loadStates } from "store/modules/location";
 
-// const countryList = [
-//   { name: "Nigeria", id: "NG" },
-//   { name: "Ghana", id: "GH" },
-//   { name: "Germany", id: "GER" },
-//   { name: "Canada", id: "CND" },
-//   { name: "USA", id: "USA" },
-// ];
-
 const CompanyEditForm = () => {
   const loading = useSelector((state) => state.company.loading);
+  const uploading = useSelector((state) => state.account.loading);
   const id = useSelector((state) => state.account.profileInfo.id);
+  const profileInfo = useSelector(state => state.account.profileInfo);
+
   const dispatch = useDispatch();
   const countries = useSelector(state => state.location.countries);
   const states = useSelector(state => state.location.states);
   const lgas = useSelector(state => state.location.lgas);
   const [companyInfo, setCompanyInfo] = useState({});
+
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+
+  console.log('company info', profileInfo);
+
   const {
     register,
     handleSubmit,
@@ -38,8 +40,6 @@ const CompanyEditForm = () => {
     reValidateMode: "all",
   });
 
-  const uploadProfilePicture = e => { }
-
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -49,7 +49,71 @@ const CompanyEditForm = () => {
 
   useEffect(() => {
     dispatch(loadCountry());
-  }, [dispatch]);
+    setCompanyInfo({
+      ...companyInfo,
+      yearOfEstablishment: new Date(profileInfo.yearOfEstablishment),
+      companyName: profileInfo.companyName,
+      // country: companyInfo.country,
+      // stateName: companyInfo.state.name,
+      // lga: companyInfo.lga,
+      // lgaId: companyInfo.lga.id,
+      // lgaName: companyInfo.lga.name,
+      noOfEmployees: companyInfo.noOfEmployees,
+      phoneNumber: companyInfo.contactPhoneNumber,
+      website: profileInfo.website,
+      address: profileInfo.address
+    });
+
+    setValue("companyName", profileInfo.companyName);
+    setValue("yearOfEstablishment", profileInfo.yearOfEstablishment);
+    setValue('phoneNumber', profileInfo.contactPhoneNumber);
+    setValue('website', profileInfo.website);
+
+    setValue('city', profileInfo.city);
+    setValue('noOfEmployees', profileInfo.noOfEmployees);
+    setValue('address', profileInfo.address);
+
+  }, [dispatch, profileInfo]);
+
+  useEffect(() => {
+    if (!selectedFile) {
+      setPreview(undefined);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFile);
+    setPreview(objectUrl);
+
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile, uploading]);
+
+  const uploadProfilePicture = e => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedFile(undefined);
+      return;
+    }
+    let selectedFile = e.target.files[0];
+
+    setSelectedFile(selectedFile);
+    setTimeout(() => {
+      const confirmation = window.confirm(
+        "Do you want to upload this image as company logo?"
+      );
+
+      if (confirmation) {
+        console.log(selectedFile);
+        var formData = new FormData();
+        var extension = selectedFile.type.replace(/(.*)\//g, "");
+        let filename = `${id}.${extension}`;
+        // console.log(filename)
+        formData.append("image", selectedFile, filename);
+        //   //dispatch to the service
+        dispatch(updateProfilePicture(formData));
+
+        return;
+      }
+    }, 2000);
+  }
 
   const handleCountryChange = (e) => {
     let conuntryId = e.target.value.id;
@@ -72,10 +136,11 @@ const CompanyEditForm = () => {
       lgaId: companyInfo.lga.id,
       lgaName: companyInfo.lga.name,
       noOfEmployees: parseInt(companyInfo.noOfEmployees),
+      contactPhoneNumber: companyInfo.phoneNumber,
     }
     // console.log(`id: ${id}, company info: `, obj)
 
-    dispatch(updateCompanyInfo(id, obj))
+    dispatch(updateCompanyInfo(obj))
   };
 
   return (
@@ -129,7 +194,7 @@ const CompanyEditForm = () => {
                         id="yearOfEstablishment"
                         view="month"
                         dateFormat="yy"
-                        yearNavigator 
+                        yearNavigator
                         yearRange="2010:2030"
                         value={new Date(companyInfo.yearOfEstablishment)}
                         onSelect={(e) => {
@@ -194,16 +259,29 @@ const CompanyEditForm = () => {
                 <div className="col-md-3 text-center">
 
                   <span className="profilePic-container">
-                    <img
-                      src="../../assets/logo.png"
+                    {selectedFile ? (<img
+                      src={preview}
                       alt="User Image"
                       width="180"
                       height="180"
                       className="profile-picture"
                       style={{ border: '4px solid #eee' }}
-                    />
+                    />) :
+                      (<img src={profileInfo.imageUrl}
+                        alt="User Image"
+                        width="130"
+                        height="130"
+                        className="profile-picture"
+                      />)
+                    }
                     <label className="profilePic-label" htmlFor="upload-button">
-                      <i className="pi pi-camera"></i>
+                      {uploading ? (
+                        <i className="pi pi-spin pi-spinner" style={{ color: "black" }}>
+                          {" "}
+                        </i>
+                      ) : (
+                        <i className="pi pi-camera"></i>
+                      )}
                     </label>
                   </span>
                   <input
@@ -226,7 +304,7 @@ const CompanyEditForm = () => {
                       </span>
                     )}
                   </label>
-                  
+
                   <Dropdown
                     options={countries}
                     optionLabel="name"
@@ -245,7 +323,7 @@ const CompanyEditForm = () => {
                     onChange={(e) => {
                       handleChange(e)
                       handleCountryChange(e);
-                    }} 
+                    }}
                     className="form-control"
                   />
                 </div>
@@ -277,7 +355,7 @@ const CompanyEditForm = () => {
                     onChange={(e) => {
                       handleChange(e);
                       handleStateChange(e);
-                    }} 
+                    }}
                     className="form-control"
                   />
                 </div>
@@ -292,7 +370,7 @@ const CompanyEditForm = () => {
                       </span>
                     )}
                   </label>
-                  
+
                   <Dropdown
                     options={lgas}
                     optionLabel="name"
@@ -311,7 +389,7 @@ const CompanyEditForm = () => {
                     onChange={(e) => {
                       handleChange(e);
                       handleChange(e)
-                    }} 
+                    }}
                     className="form-control"
                   />
                 </div>
@@ -369,7 +447,7 @@ const CompanyEditForm = () => {
                     inputLabel="noOfEmployees"
                     register={register}
                     inputChange={handleChange}
-                    className="form-control" 
+                    className="form-control"
                     type="number"
                   />
                 </div>

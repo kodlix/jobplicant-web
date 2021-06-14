@@ -64,10 +64,10 @@ export const loading = () => ({
 });
 
 // Actions
-export function updateCompanyInfo(id, data) {
+export function updateCompanyInfo(data) {
   return (dispatch) => {
     dispatch(loading());
-    return agent.Company.updateCompanyInfo(id, data).then(
+    return agent.Account.updateCompanyInfo(data).then(
       (response) => {
         dispatch(companyInfoLoaded(response));
         //   dispatch(closeModal());

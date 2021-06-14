@@ -15,8 +15,6 @@ const Portfolio = ({ openCreate, openEdit }) => {
     openEdit(PROFILE.PORTFOLIO_MODAL);
   };
 
-  console.log('portfolio', profileInfo?.portfolios);
-
   return (
     <>
       <div className="p-col-12 p-md-3 p-pt-2 portfolio-panel">
@@ -27,8 +25,8 @@ const Portfolio = ({ openCreate, openEdit }) => {
             id="portfolioEdit"
             showAddButton="true"
             showEditButton="true"
-            openModalOnCreate={() => openEdit(PROFILE.PORTFOLIO)}
-            openModalOnEdit={() => openCreate(PROFILE.PORTFOLIO)}
+            openModalOnCreate={() => openCreate(PROFILE.PORTFOLIO)}
+            openModalOnEdit={() => openEdit(PROFILE.PORTFOLIO)}
           />
           <div className="p-card-body p-grid p-mt-2">
             {profileInfo?.portfolios &&

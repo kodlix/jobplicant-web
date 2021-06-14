@@ -76,6 +76,7 @@ const CreateJob = () => {
       country: companyInfo.country.name,
       state: companyInfo.state.name,
       minYearOfExperience: parseInt(companyInfo.minYearOfExperience),
+
     }
     // console.log(dataToPost);
     return dispatch(createJob(dataToPost))
@@ -124,6 +125,7 @@ const CreateJob = () => {
                       <div className="container">
                         <div className="p-4">
                           <h5>Company Information</h5>
+                          
                           <div className="p-2"></div>
                           <div className="row">
                             <div className="p-field p-col-6 p-md-6 p-sm-12">

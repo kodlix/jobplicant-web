@@ -7,15 +7,7 @@ import ModeFooter from "pages/profile/ModeFooter";
 import { useDispatch, useSelector } from "react-redux";
 import { createSkill, deleteSkill } from "store/modules/userSkill";
 
-const skillsList = [
-  { name: "Java", id: "NY" },
-  { name: "Javascript", id: "RM" },
-  { name: "Python", id: "LDN" },
-  { name: "Database", id: "IST" },
-  { name: "Graphic Design", id: "PRS" },
-  { name: "Web Design", id: "PRS11" },
-  { name: "Software Analysis", id: "PRS22" },
-];
+const skillsList = ["Java", "Javascript", "Python", "Database", "Graphic Design", "Web Design", "Software Analysis"];
 
 const SkillForm = ({ data, closeEditMode }) => {
   const dispatch = useDispatch();
@@ -51,7 +43,7 @@ const SkillForm = ({ data, closeEditMode }) => {
     }
 
     if (currentSkill) {
-      if (searchObjectArrayValues(skills, currentSkill.id)) {
+      if (searchObjectArrayValues(skills, currentSkill)) {
         setSkills([...skills, currentSkill]);
         setValue("skills", skills);
         setCurrentSkill("");
@@ -72,7 +64,7 @@ const SkillForm = ({ data, closeEditMode }) => {
   };
 
   const skillSubmit = (skill) => {
-    dispatch(createSkill(skills.map(skill => skill.name)));
+    dispatch(createSkill(skills));
   };
 
   const componentStatus = { skills: "add" };
@@ -107,7 +99,7 @@ const SkillForm = ({ data, closeEditMode }) => {
                   <span></span>
                 )}
                 <Tag
-                  value={skill?.name}
+                  value={skill}
                   icon="pi pi-times"
                   className="p-p-2"
                 ></Tag>
@@ -118,7 +110,7 @@ const SkillForm = ({ data, closeEditMode }) => {
                 value={currentSkill}
                 options={skillsList}
                 onChange={handleSkillChange}
-                optionLabel="name"
+                optionLabel=""
                 filter
                 showClear
                 filterBy="name"

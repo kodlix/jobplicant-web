@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 
 import "./ProfileTab.css";
 
-const ProfileTab = () => {
+const ProfileTab = (props) => {
+  console.log(props);
   const [activeTab, setActiveTab] = useState("info");
 
   return (
