@@ -12,6 +12,9 @@ import avatarImage from '../../assets/avatar.png'
 import { Dropdown } from "primereact/dropdown";
 import { loadCountry, loadStates } from "store/modules/location";
 import { createJob } from "store/modules/job";
+import { Link } from "react-router-dom";
+
+import './CreateJob.css';
 
 const contractTypeList = ["Full-Time", "Contact-Based", "Internship"];
 
@@ -112,18 +115,24 @@ const CreateJob = () => {
             <div className="p-grid">
               <div className="p-col-12 p-md-9 content-smallscreen">
                 <div className="content-body">
-                  <div className="d-flex justify-content-end">
+                  {/* <div className="d-flex justify-content-end">
                     <button className="btn btn-sm btn-primary">
                       <i className="pi pi-back-arrow"></i> Back
                     </button>
-                  </div>
+                  </div> */}
                   <div className="p-2"></div>
                   <form onSubmit={handleSubmit(onSubmit)}>
                     {/* company info */}
                     <div className="card bg-white">
                       <div className="container">
                         <div className="p-4">
-                          <h5>Company Information</h5>
+                          <div className="d-flex justify-content-between">
+                            <h5>Company Information</h5>
+                            <div className="app-color">
+                              <Link to="/profile/jobs" className="bk-btn p-pt-2 app-color"><i className="pi pi-arrow-left">Back</i></Link>
+                              {/* <i className="pi pi-back-arrow"></i> Back */}
+                            </div>
+                          </div>
                           <div className="p-2"></div>
                           <div className="row">
                             <div className="p-field p-col-6 p-md-6 p-sm-12">
@@ -239,7 +248,7 @@ const CreateJob = () => {
                       </div>
                     </div>
                     {/* ./company info */}
-                    <div className="p-2"></div>
+                    <div className="p-1"></div>
                     {/* job info */}
                     <div className="card bg-white">
                       <div className="container">
@@ -478,7 +487,7 @@ const CreateJob = () => {
                       </div>
                     </div>
                     {/* ./job info */}
-                    <div className="p-2"></div>
+                    <div className="p-1"></div>
                     {/* job description */}
                     <div className="card bg-white">
                       <div className="container">
@@ -515,7 +524,7 @@ const CreateJob = () => {
                       </div>
                     </div>
                     {/*  ./job description */}
-                    <div className="p-2"></div>
+                    <div className="p-1"></div>
                     {/* job vacancy */}
                     <div className="card bg-white">
                       <div className="container">

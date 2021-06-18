@@ -55,9 +55,7 @@ const New = ({ mode }) => {
             setJobDateNow(false);
         }
     }
-    window.onbeforeunload = function () {
-        return "Data will be lost if you leave the page, are you sure?";
-    };
+
 
 
 

@@ -2,8 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { Toast } from 'primereact/toast';
-
-import './InstantJobHire.css'
 import InstantHeader from './instant-header';
 import { useDispatch, useSelector } from 'react-redux';
 import InstantJobs from 'pages/instant-jobs/List';
@@ -12,18 +10,12 @@ import { deleteInstantJob, loadInstantJobs } from '../../store/modules/instantJo
 import moment from 'moment';
 import Job from './Job';
 
+import './InstantJobHire.css'
 
 const InstantHires = (props) => {
     const dispatch = useDispatch();
 
-    const [visible, setVisible] = useState(false);
-    const [pageNumber, setPageNumber] = useState(1);
     const instantJobs = useSelector(state => state.instantJob.instantjobs);
-    console.log({ instantJobs });
-
-    const jobid = props.match.params.id;
-    console.log({ props });
-
 
     useEffect(() => {
         dispatch(loadInstantJobs())
@@ -79,9 +71,6 @@ const InstantHires = (props) => {
                                                     </small></Link>
                                             </div>
                                             <hr />
-
-
-
                                         </div>
                                     )}
                                     {

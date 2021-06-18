@@ -7,6 +7,7 @@ import { OnLogout } from '../store/modules/auth';
 import { Link } from 'react-router-dom';
 
 import './AppSideBar.css';
+import agentService from 'services/agent.service';
 
 const AppSideBar = (props) => {
     const dispatch = useDispatch();
@@ -15,6 +16,10 @@ const AppSideBar = (props) => {
     const LogOut = () => {
         dispatch(OnLogout());
     };
+
+    const userLogedin = agentService.Auth.current();
+    let userAccountType = userLogedin.accountType;
+    console.log({ userAccountType });
 
     const items = [
         {
@@ -50,12 +55,18 @@ const AppSideBar = (props) => {
                     <div className="dashbord-sidebar">
                         <ul>
                             <li className="heading">Manage Account</li>
-                            <li className='li-border'>
+                            {userAccountType === "Corporate" ? <li className='li-border'>
+                                <Link to="/company">
+                                    <i className="li-icon lni lni-user"></i>
+                                    <span className="li-title">My Profile</span>
+                                </Link>
+                            </li> : <li className='li-border'>
                                 <Link to="/profile">
                                     <i className="li-icon lni lni-user"></i>
                                     <span className="li-title">My Profile</span>
                                 </Link>
-                            </li>
+                            </li>}
+
                             <li className='li-border'>
                                 <Link to="/dashboard">
                                     <i className="li-icon lni lni-clipboard"></i>

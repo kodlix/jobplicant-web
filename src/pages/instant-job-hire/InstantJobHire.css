@@ -94,9 +94,10 @@
 }
 
 .highlight-card:hover {
-    transform: scale(1.02);
     cursor: pointer;
-    background: rgba(173, 187, 192, 0.1);
+    background: #5a2846;
+    color: white;
+    transform: scale(1.02);
 }
 
 .applicant-width {

@@ -84,7 +84,7 @@ const CompanyEditForm = () => {
         <div className="container">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="p-4">
-              <h3>Edit Profile</h3>
+              <h4>Edit Profile</h4>
               <div className="p-2"></div>
               <div className="row">
                 <div className="col-md-9">
@@ -129,7 +129,7 @@ const CompanyEditForm = () => {
                         id="yearOfEstablishment"
                         view="month"
                         dateFormat="yy"
-                        yearNavigator 
+                        yearNavigator
                         yearRange="2010:2030"
                         value={new Date(companyInfo.yearOfEstablishment)}
                         onSelect={(e) => {
@@ -191,14 +191,14 @@ const CompanyEditForm = () => {
                     </div>
                   </div>
                 </div>
-                <div className="col-md-3 text-center">
+                <div className="col-md-3 text-center p-mt-4">
 
                   <span className="profilePic-container">
                     <img
                       src="../../assets/logo.png"
                       alt="User Image"
-                      width="180"
-                      height="180"
+                      width="160"
+                      height="160"
                       className="profile-picture"
                       style={{ border: '4px solid #eee' }}
                     />
@@ -226,7 +226,7 @@ const CompanyEditForm = () => {
                       </span>
                     )}
                   </label>
-                  
+
                   <Dropdown
                     options={countries}
                     optionLabel="name"
@@ -245,7 +245,7 @@ const CompanyEditForm = () => {
                     onChange={(e) => {
                       handleChange(e)
                       handleCountryChange(e);
-                    }} 
+                    }}
                     className="form-control"
                   />
                 </div>
@@ -277,7 +277,7 @@ const CompanyEditForm = () => {
                     onChange={(e) => {
                       handleChange(e);
                       handleStateChange(e);
-                    }} 
+                    }}
                     className="form-control"
                   />
                 </div>
@@ -292,7 +292,7 @@ const CompanyEditForm = () => {
                       </span>
                     )}
                   </label>
-                  
+
                   <Dropdown
                     options={lgas}
                     optionLabel="name"
@@ -311,7 +311,7 @@ const CompanyEditForm = () => {
                     onChange={(e) => {
                       handleChange(e);
                       handleChange(e)
-                    }} 
+                    }}
                     className="form-control"
                   />
                 </div>
@@ -369,13 +369,13 @@ const CompanyEditForm = () => {
                     inputLabel="noOfEmployees"
                     register={register}
                     inputChange={handleChange}
-                    className="form-control" 
+                    className="form-control"
                     type="number"
                   />
                 </div>
               </div>
             </div>
-            <div id="personalProfileForm" className="editMode-footer p-d-flex align-item-end">
+            <div id="personalProfileForm" className="editMode-footer p-d-flex align-item-end flex-row-reverse">
               <Button disabled={loading} icon="pi pi-check" iconPos="left" label={loading ? 'please wait...' : 'Save'} id="saveButton" type='submit' />
             </div>
             <div className="pb-4"></div>

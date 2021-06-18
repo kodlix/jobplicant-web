@@ -1,5 +1,8 @@
 import { Badge } from 'primereact/badge';
 import { useSelector } from 'react-redux';
+
+
+
 const CorporateJob = () => {
     const jobs = useSelector(state => state.job.jobs);
 
