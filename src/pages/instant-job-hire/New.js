@@ -17,14 +17,7 @@ const New = ({ setMode, mode }) => {
     const dispatch = useDispatch();
     const toast = useRef(null);
 
-    const accept = () => {
-        toast.current.show({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
-    }
 
-    const reject = () => {
-        toast.currents.show({ severity: 'info', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
-        return;
-    }
 
     const { register, handleSubmit, formState: { errors }, setValue } = useForm({
         mode: "onChange",
@@ -64,17 +57,22 @@ const New = ({ setMode, mode }) => {
     }
 
     const confirm = () => {
-        // confirmDialog({
-        //     message: 'Are you sure you want to make this request?',
-        //     header: 'Confirmation',
-        //     icon: 'pi pi-exclamation-triangle',
-        //     accept,
-        //     reject,
-        //     if(accept) {
-        //         onSubmit();
-        //     }
-        // });
+        confirmDialog({
+            message: 'Are you sure you want to make this request?',
+            header: 'Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            accept,
+            reject,
+        });
     };
+
+    const accept = () => {
+        onSubmit();
+    }
+
+    const reject = () => {
+        return;
+    }
 
 
     useEffect(() => {
@@ -88,17 +86,19 @@ const New = ({ setMode, mode }) => {
         }
 
         // const confirm = () => {
-        confirmDialog({
-            message: 'Are you sure you want to make this request?',
-            header: 'Confirmation',
-            icon: 'pi pi-exclamation-triangle',
-            accept,
-            reject,
-            if(accept) {
-                dispatch(createInstantJob(data));
-            }
-        });
+        // confirmDialog({
+        //     message: 'Are you sure you want to make this request?',
+        //     header: 'Confirmation',
+        //     icon: 'pi pi-exclamation-triangle',
+        //     accept,
+        //     reject,
+        //     if(accept) {
+        //         dispatch(createInstantJob(data));
+        //     }
+        // });
         // };
+        dispatch(createInstantJob(data));
+
     }
 
     return (
@@ -177,10 +177,10 @@ const New = ({ setMode, mode }) => {
 
                         <div className="p-field">
                             <label htmlFor="startDate">  Start Date * &nbsp;
-                                                        ( <input type="checkbox" onClick={toggleJobDate} name="instance" defaultChecked={jobDateNow}
+                                ( <input type="checkbox" onClick={toggleJobDate} name="instance" defaultChecked={jobDateNow}
                                     className="align-text-bottom" />
                                 <small className="font-weight-bold"> NOW </small>  )
-                         </label>
+                            </label>
                             <Calendar
                                 id="startDate"
                                 type="date"
@@ -262,7 +262,7 @@ const New = ({ setMode, mode }) => {
                         </div>
                     </div>
                 </div>
-                <Button icon="pi pi-check" iconPos="left" label="Submit" onClick={confirm} id="saveButton" type="submit" className="float-right" />
+                <Button icon="pi pi-check" iconPos="left" onClick={confirm()} label="Submit" id="saveButton" type="submit" className="float-right" />
             </form>
 
             {/* <ConfirmDialog visible={visible} onHide={() => setVisible(false)} message="Are you sure you want to proceed?"

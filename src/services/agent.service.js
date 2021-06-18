@@ -4,8 +4,8 @@ import superagentPromise from "superagent-promise";
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-// export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api.herokuapp.com";
-export const API_ROOT = "https://jobplicant-api.herokuapp.com";
+export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:4500' : "https://jobplicant-api.herokuapp.com";
+// export const API_ROOT = "https://jobplicant-api.herokuapp.com";
 
 console.log('API_ROOT', API_ROOT);
 console.log("environmental variables", process.env);
@@ -172,7 +172,7 @@ const Education = {
 }
 
 const UserSkill = {
-  save: (userskill) => requests.post("/user-skill", {"skills": userskill}),
+  save: (userskill) => requests.post("/user-skill", { "skills": userskill }),
   load: () => requests.get("/user-skill"),
   delete: (id) => requests.del(`/user-skill/${id}`),
 };
@@ -240,11 +240,14 @@ const Company = {
 }
 
 const InstantJob = {
-  save: (instantjob) =>
-    requests.post("/instant-job", instantjob),
-  // load: (search, page) => request.get(`/instant-job/?search=${search}&page=${page}`),
-  load: () => request.get(`/instant-job/`),
-  view: (id) => request.get(`/instant-job/${id}`)
+  save: (instantjob) => requests.post("/instant-job", instantjob),
+  apply: (jobid, job) => requests.post(`/instant-job/${jobid}/apply`, job),
+  load: () => requests.get(`/instant-job`),
+  loadApplicants: (jobId) => requests.get(`/instant-job/${jobId}/applicants`),
+  view: (id) => requests.get(`/instant-job/${id}`),
+  edit: (id, instantJob) => requests.put(`/instant-job/${id}`, instantJob),
+  delete: (id) => requests.del(`/instant-job/${id}`),
+
 
 };
 

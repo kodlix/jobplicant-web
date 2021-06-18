@@ -74,11 +74,11 @@ const AppRouter = () => {
 
         {/* <ProtectedRoute path="/companyprofile" component={CompanyProfile} /> */}
         <ProtectedRoute path="/dashboard" component={Dashboard} />
-        <ProtectedRoute path="/new-instant-hire" component={CreateInstantJobHire} />
+        <ProtectedRoute path="/create-instant-hire" component={CreateInstantJobHire} />
         <ProtectedRoute path="/instant-hires" component={ListInstantJobHire} />
         <ProtectedRoute path="/instant-hire/view/:id" component={ViewInstantJobHire} />
         <ProtectedRoute path="/instant-hire/edit/:id" component={EditInstantJobHire} />
-        <ProtectedRoute path="/instant-hire-applicants" component={Applicant} />
+        <ProtectedRoute path="/instant-hire-applicants/:id" component={Applicant} />
 
         <ProtectedRoute path="/instant-jobs" component={InstantJobs} />
         <ProtectedRoute path="/timeline" exact component={Timeline} />
