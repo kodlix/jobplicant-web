@@ -2,6 +2,7 @@ import React from "react";
 import SectionHeader from "./SectionHeader";
 import { PROFILE } from "constants/profile";
 import "./UserProfile.css";
+import { Tag } from "primereact/tag";
 
 const Hobbies = ({ openCreate, openEdit, profileInfo }) => {
   console.log(profileInfo.hobbies)
@@ -23,13 +24,9 @@ const Hobbies = ({ openCreate, openEdit, profileInfo }) => {
         />
         <div className="p-card-body p-text-secondary">
           <ul className="listStyle p-grid">
-            {profileInfo.hobbies &&
-              profileInfo.hobbies.length > 0 &&
-              profileInfo.hobbies.map((hobby, index) => (
-                <li key={index} className="p-col-4">
-                  {hobby}
-                </li>
-              ))}
+            {profileInfo.hobbies !== null 
+              ? (profileInfo?.hobbies.map(hobby => <span><Tag>{hobby}</Tag>&nbsp;&nbsp;</span>))
+              : "No hobbies"}
           </ul>
         </div>
       </div>

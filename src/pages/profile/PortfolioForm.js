@@ -22,7 +22,6 @@ const PortfolioForm = ({ data, closeEditMode }) => {
   useEffect(() => {
     if (data?.length > 0) {
       setPortfolioItems(data);
-      console.log('data is called', data)
     }
     
   }, []);
@@ -62,8 +61,7 @@ const PortfolioForm = ({ data, closeEditMode }) => {
 
   const portfolioSubmit = () => {
     const formData = new FormData();
-    console.log(portfolioItems);
-    console.log(formData);
+
     selectedFiles.forEach((file) => {
       const extension = file.type.replace(/(.*)\//g, "");
       const filename = `${uuidv4()}.${extension}`;
@@ -71,8 +69,6 @@ const PortfolioForm = ({ data, closeEditMode }) => {
       formData.append("image", file, filename);
     });
     dispatch(updateProfilePortfolio(formData));
-    // console.log(selectedFiles);
-    return;
   };
 
   return (

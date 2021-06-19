@@ -2,13 +2,11 @@ import React from "react";
 import SectionHeader from "./SectionHeader";
 import { PROFILE } from "constants/profile";
 import "./UserProfile.css";
+import { Tag } from "primereact/tag";
 
 const ProfessionsOfInterest = ({ openCreate, openEdit, profileInfo}) => {
 
-  const formatInterest = (interests) => {
-    console.log(interests);
-    return interests.join(", ");
-  };
+  const formatInterest = (interests) => <strong>{interests.map(interest => <span><Tag>{interest}</Tag>&nbsp;&nbsp;</span>)}</strong>;
 
   return (
     <>

@@ -59,8 +59,8 @@ export default function reducer(state = account, action = {}) {
         ...state,
         loading: false,
       };
-    case DELETE_EDUCATION: 
-      const newEducations =  state.profileInfo.educations.filter(edu => edu.id !== action.payload);
+    case DELETE_EDUCATION:
+      const newEducations = state.profileInfo.educations.filter(edu => edu.id !== action.payload);
       console.log('new education', newEducations);
       return {
         ...state,
@@ -69,7 +69,7 @@ export default function reducer(state = account, action = {}) {
           educations: [...newEducations]
         }
       }
-    case DELETE_EXPERIENCE: 
+    case DELETE_EXPERIENCE:
       const newExperiences = state.profileInfo.experiences.filter(exp => exp.id !== action.payload)
       console.log('newExperiences', newExperiences);
       return {
@@ -132,16 +132,16 @@ export function updatePersonalProfile(data) {
 }
 export function loadProfileInfo() {
   return (dispatch) => {
-    return agent.Account.getProfileInfo().then((response) => {
-      dispatch(profileInfoLoaded(response));
-      dispatch(
-        showMessage({
-          type: MESSAGE_TYPE.SUCCESS,
-          title: "Profile Information",
-          message: "Profile info loaded successfully",
-        })
-      );
-    });
+    // return agent.Account.getProfileInfo().then((response) => {
+    //   dispatch(profileInfoLoaded(response));
+    //   dispatch(
+    //     showMessage({
+    //       type: MESSAGE_TYPE.SUCCESS,
+    //       title: "Profile Information",
+    //       message: "Profile info loaded successfully",
+    //     })
+    //   );
+    // });
   };
 }
 
@@ -381,7 +381,7 @@ export const deleteExperience = (id) => (dispatch) => {
 //to delete education
 export const deleteEducation = (id) => (dispatch) => {
   dispatch(deleteProfileEducation(id));
-  
+
   // dispatch(loading());
   // return agent.Education.delete(id).then(
   //   (response) => {
