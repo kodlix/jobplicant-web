@@ -15,7 +15,7 @@ const Comment = () => {
           </span>
         </div>
         <div>
-          the rain in spain falls mainly in the plane.
+          the rain in spain falls mainly in the plain.
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lacus urna, fermentum eu eros vel, hendrerit elementum ex. Integer augue sem, ornare id consectetur in, lobortis mattis sapien. Ut metus augue, pharetra et dui et, accumsan vulputate nulla. Aliquam aliquam vestibulum arcu tincidunt pellentesque. Fusce mollis sodales laoreet. Quisque pellentesque pellentesque eros.
          </div>
         <div className="p-mt-1">
