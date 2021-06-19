@@ -58,8 +58,9 @@ const CompanyEditForm = () => {
       // lga: companyInfo.lga,
       // lgaId: companyInfo.lga.id,
       // lgaName: companyInfo.lga.name,
-      noOfEmployees: companyInfo.noOfEmployees,
-      phoneNumber: companyInfo.contactPhoneNumber,
+      city: profileInfo.city,
+      noOfEmployees: profileInfo.noOfEmployees,
+      phoneNumber: profileInfo.contactPhoneNumber,
       website: profileInfo.website,
       address: profileInfo.address
     });
@@ -137,6 +138,7 @@ const CompanyEditForm = () => {
       lgaName: companyInfo.lga.name,
       noOfEmployees: parseInt(companyInfo.noOfEmployees),
       contactPhoneNumber: companyInfo.phoneNumber,
+      city: companyInfo.city
     }
     // console.log(`id: ${id}, company info: `, obj)
 

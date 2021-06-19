@@ -29,7 +29,7 @@ const LocationOfInterest = ({
           openModalOnEdit={() => openCreate(PROFILE.LOCATION)}
         />
         <div className="p-card-body p-text-secondary">
-          {profileInfo?.locations.length 
+          {profileInfo?.locations && profileInfo?.locations.length 
             ? profileInfo?.locations.map(location => <span><Tag>{location}</Tag>&nbsp;&nbsp;</span>)
             : "locations"}
         </div>
