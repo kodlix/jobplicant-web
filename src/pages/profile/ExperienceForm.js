@@ -266,7 +266,8 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
                 />
               </div>
             </div>
-            <ModeFooter id="experienceEdit" onCancel={onEditCancel} loading={loading} />
+            {loading && <i className="fa fa-spin fa-spinner"></i>}
+            <ModeFooter id="experienceEdit" onCancel={onEditCancel} />
           </form>
         </div>
       </div>

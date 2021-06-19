@@ -141,7 +141,7 @@ const CompanyEditForm = () => {
       city: companyInfo.city
     }
     // console.log(`id: ${id}, company info: `, obj)
-
+    // console.log(obj)
     dispatch(updateCompanyInfo(obj))
   };
 
@@ -431,7 +431,8 @@ const CompanyEditForm = () => {
                       register("address");
                       handleChange(e);
                     }}
-                    className="form-control"
+                    className="form-control" 
+                    defaultValue={companyInfo.address}
                   ></textarea>
                 </div>
                 <div className="p-field p-col-6 p-md-6">

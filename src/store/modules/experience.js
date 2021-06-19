@@ -33,7 +33,9 @@ const LOADING_ERROR = "LOADING_ERROR";
 // Reducer
 export default function reducer(state = experience, action = {}) {
   switch (action.type) {
-    
+    case LOADING:
+      return { ...state, loading: true, updatedOrDeleted: false };
+
     case LOAD_EXPERIENCE:
       return {
         ...state,
@@ -41,8 +43,6 @@ export default function reducer(state = experience, action = {}) {
         loading: false,
         updatedOrDeleted: true,
       };
-    case LOADING:
-      return { ...state, loading: true, updatedOrDeleted: false };
     case LOADING_ERROR:
       return {
         ...state,
@@ -64,8 +64,8 @@ export function loadError() {
   };
 }
 
-export function isLoading(){
-    return {type: LOADING}
+export function isLoading() {
+  return { type: LOADING }
 }
 // Actions
 export function loadExperience(id) {
