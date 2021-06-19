@@ -46,7 +46,7 @@ const InstantHires = (props) => {
                             <div className="card card-size-list">
                                 <div className="card-body">
                                     <InstantHeader
-                                        title="All Created instant hires"
+                                        title="All created instant hires"
                                         showCreateButton={true}
                                         count={instantJobs?.length}
                                     />
