@@ -6,19 +6,12 @@ import ModeFooter from "pages/profile/ModeFooter";
 import { Carousel } from "primereact/carousel";
 import { useSelector } from "react-redux";
 
-const images = [
-  "https://source.unsplash.com/random/800x600",
-  "https://source.unsplash.com/random/800x600",
-  "https://source.unsplash.com/random/800x600",
-  "https://source.unsplash.com/random/800x600",
-  "https://source.unsplash.com/random/800x600",
-  "https://source.unsplash.com/random/800x600",
-];
 
 const PortfolioModal = ({ data, closeEditMode }) => {
   const toast = useRef(null);
   const profileInfo = useSelector((state) => state.account.profileInfo);
   const [portfolioImages, setPortfolioImages] = useState(profileInfo.portfolios);
+
   const responsiveOptions = [
     {
       breakpoint: "1024px",

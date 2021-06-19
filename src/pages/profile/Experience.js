@@ -3,9 +3,11 @@ import SectionHeader from "./SectionHeader";
 import { PROFILE } from "constants/profile";
 
 import "./UserProfile.css";
+import { deleteExperience } from "store/modules/account";
+import { useDispatch } from "react-redux";
 
 const Experience = ({ openCreate, openEdit, profileInfo, formatDate }) => {
-
+  const dispatch = useDispatch();
   return (
     <>
       <div className="p-card p-mt-2">
@@ -29,6 +31,19 @@ const Experience = ({ openCreate, openEdit, profileInfo, formatDate }) => {
                 onClick={() => openEdit(PROFILE.EXPERIENCE, item)}
                 id="experienceEdit"
               ></i>
+              <i
+                    style={{ cursor: "pointer" }}
+                    className="pi pi-times"
+                    onClick={() => {
+                      var confirmation = window.confirm(
+                        "Action is irreversible, are you sure you want to delete?"
+                      );
+                      if (confirmation) {
+                        dispatch(deleteExperience(item.id));
+                      }
+                    }}
+                    id="educationEdit"
+                  ></i>
             </div>
             <div className="p-card-subtitle p-ml-3">
               <b>

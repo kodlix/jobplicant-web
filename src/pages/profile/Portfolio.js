@@ -15,6 +15,8 @@ const Portfolio = ({ openCreate, openEdit }) => {
     openEdit(PROFILE.PORTFOLIO_MODAL);
   };
 
+  console.log('portfolio', profileInfo?.portfolios);
+
   return (
     <>
       <div className="p-col-12 p-md-3 p-pt-2 portfolio-panel">

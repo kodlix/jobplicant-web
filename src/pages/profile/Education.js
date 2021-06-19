@@ -1,5 +1,5 @@
 import React from "react";
-import { deleteEducation } from "store/modules/education";
+import { deleteEducation } from "store/modules/account";
 import SectionHeader from "./SectionHeader";
 import { PROFILE } from "constants/profile";
 import "./UserProfile.css";
@@ -17,8 +17,8 @@ const Education = ({ openCreate, openEdit, profileInfo, formatDate }) => {
           id="educationEdit"
           showAddButton="true"
           showEditButton="true"
-          openModalOnCreate={() => openEdit(PROFILE.EDUCATION)}
-          openModalOnEdit={() => openCreate(PROFILE.EDUCATION)}
+          openModalOnCreate={() => openCreate(PROFILE.EDUCATION)}
+          openModalOnEdit={() => openEdit(PROFILE.EDUCATION)}
         />
         {profileInfo?.educations.length > 0 ? (
           profileInfo?.educations.map((education, index) => (

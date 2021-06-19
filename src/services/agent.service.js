@@ -4,12 +4,13 @@ import superagentPromise from "superagent-promise";
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api.herokuapp.com";
-// export const API_ROOT = "https://jobplicant-api.herokuapp.com";
+// export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api.herokuapp.com";
+export const API_ROOT = "https://jobplicant-api.herokuapp.com";
 
 console.log('API_ROOT', API_ROOT);
 console.log("environmental variables", process.env);
 export const IMAGE_URL = API_ROOT + '/account/uploads/';
+
 
 let accessToken = null;
 const responseBody = (res) => res.body;
@@ -135,7 +136,7 @@ const Account = {
   updateContactInfo: (contactInfo) =>
     requests.put("/accounts/contact-info", contactInfo),
   updateLOI: (loi) =>
-    requests.put("/accounts/location", { "location": loi }),
+    requests.put("/accounts/location", { "locations": loi }),
   updateHobies: (hobbies) => requests.put("/accounts/hobbies", { hobbies }),
   updateProfessionOfInterest: (interests) =>
     requests.put("/accounts/interests", { "interest": interests }),
@@ -151,9 +152,14 @@ const JobExperience = {
   load: () => requests.get("/job-experience"),
   search: (param) => requests.get("/job-experience" + param),
   edit: (id, data) => requests.put(`/job-experience/${id}`, data),
-  delete: (id) => requests.del(`/job-experience/ ${id}`),
+  delete: (id) => requests.del(`/job-experience/${id}`),
   view: (id) => requests.get(`/job-experience/ ${id}`),
 };
+
+const Job = {
+  save: (data) => requests.post("/job", data),
+  load: () => requests.get("/job")
+}
 
 //education service api
 const Education = {
@@ -166,7 +172,7 @@ const Education = {
 }
 
 const UserSkill = {
-  save: (userskill) => requests.post("/user-skill", userskill),
+  save: (userskill) => requests.post("/user-skill", {"skills": userskill}),
   load: () => requests.get("/user-skill"),
   delete: (id) => requests.del(`/user-skill/${id}`),
 };
@@ -180,7 +186,7 @@ const State = {
     requests.get(`/state/getbycountry/${countryid}`),
 };
 const Lga = {
-  loadByState: (stateid) => requests.get(`/ lga / getbystate / ${stateid}`),
+  loadByState: (stateid) => requests.get(`/lga/getbystate/${stateid}`),
 };
 
 const JobVacancy = {
@@ -254,6 +260,7 @@ export default {
   Sector,
   Account,
   JobExperience,
+  Job,
   Country,
   State,
   Lga,

@@ -8,8 +8,9 @@ import { InputText } from "primereact/inputtext";
 import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
 import { updateEducation, createEducation } from "store/modules/education";
+import { fetchCountries } from "store/modules/util";
 
-const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemToEdit }) => {
+const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemToEdit, mode }) => {
   const {
     register,
     handleSubmit,
@@ -22,6 +23,7 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
     reValidateMode: "all",
   });
   
+  console.log('mode', mode)
 
   const loading = useSelector((state) => state.education.loading);
   const dispatch = useDispatch();
@@ -45,37 +47,33 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
     { name: "OND", id: "OND" },
     { name: "HND", id: "HND" },
   ];
-
-  const countryList = [
-    { name: "Nigeria", id: "NG" },
-    { name: "Ghana", id: "GH" },
-    { name: "Germany", id: "GER" },
-    { name: "Canada", id: "CND" },
-    { name: "USA", id: "USA" },
-  ];
+  const countryList = useSelector(state => state.util.countries);
 
   useEffect(() => {
-    if (educationObject) {
-      for (const [key, value] of Object.entries(educationObject)) {
-        if (key !== "id") {
-          if (key === "yearOfGraduation") {
-            setValue(key, new Date(value));
-          }
-          setValue(key, value);
-        }
-      }
-      const educationFromDb = Object.assign({}, educationObject);
-      educationFromDb.yearOfGraduation = new Date(
-        educationFromDb.yearOfGraduation
-      );
-      setEducation(educationFromDb);
-    }
-  }, [componentStatus?.educationEdit]);
+    dispatch(fetchCountries());
+  }, [fetchCountries]);
+
+  // useEffect(() => {
+  //   if (educationObject) {
+  //     for (const [key, value] of Object.entries(educationObject)) {
+  //       if (key !== "id") {
+  //         if (key === "yearOfGraduation") {
+  //           setValue(key, new Date(value));
+  //         }
+  //         setValue(key, value);
+  //       }
+  //     }
+  //     const educationFromDb = Object.assign({}, educationObject);
+  //     educationFromDb.yearOfGraduation = new Date(
+  //       educationFromDb.yearOfGraduation
+  //     );
+  //     setEducation(educationFromDb);
+  //   }
+  // }, [componentStatus?.educationEdit]);
 
   useEffect(() => {
-   if(itemToEdit){
-    const newDate = new Date(itemToEdit.yearOfGraduation).toISOString();
-
+    if(Object.values(itemToEdit).length >= 1){
+     console.log('item edit', itemToEdit)
      setEducation({ 
        ...education, 
        institution: itemToEdit.institution,
@@ -86,6 +84,7 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
        city: itemToEdit.city,
        address: itemToEdit.address,
       });
+      const newDate = new Date(itemToEdit.yearOfGraduation).toISOString();
       setYearOfGraduation(new Date(itemToEdit.yearOfGraduation));
       
       setValue('institution', itemToEdit.institution);
@@ -96,9 +95,6 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
       setValue('yearOfGraduation', newDate);
       setValue('address', itemToEdit.address);
       
-   }else{
-     reset();
-     console.log('cear form')
    }
   }, [itemToEdit])
 
@@ -127,7 +123,8 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
 
   const educationSubmit = (data) => {
     console.log(data);
-    if(itemToEdit == null){
+    data.qualification = data.qualification.name;
+    if(mode === 'create'){
       dispatch(createEducation(data));
     }else{
       dispatch(updateEducation(itemToEdit.id, data));
@@ -152,15 +149,15 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
             <div className="p-fluid p-formgrid p-grid">
               <div className="p-field p-col-12 p-md-6">
                 <label className="inputLabel" htmlFor="certificateTitle">
-                  Certificate Title
-                  {errors.certificateTitle && (
+                  Qualification
+                  {errors.qualification && (
                     <span className="text-danger font-weight-bold">
-                      &nbsp; {errors.certificateTitle.message}
+                      &nbsp; {errors.qualification.message}
                     </span>
                   )}
                 </label>
                 <Dropdown
-                  options={countryList}
+                  options={qualificationList}
                   optionLabel="name"
                   filter
                   showClear
@@ -168,18 +165,11 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
                   icon="pi pi-plus"
                   id="qualification"
                   name="qualification"
-                  value={education?.qualification}
+                  value={education.qualification}
                   {...register("qualification", {
                     required: `* Qualification is required`,
                   })}
-                  onChange={(e) => {
-                    setEducation({
-                      ...education,
-                      ["qualification"]: e.target.value,
-                    });
-                    const value = e.target.value.name;
-                    setValue("qualification", value, { shouldValidate: true });
-                  }}
+                  onChange={handleChange}
                 />
               </div>
               <div className="p-field p-col-12 p-md-6">
@@ -194,14 +184,14 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
                 <InputField
                   id="course"
                   name="course"
-                  inputLabel="Course Name"
+                  inputLabel="course"
                   register={register}
                   inputChange={handleChange}
                 />
               </div>
               <div className="p-field p-col-12">
                 <label className="inputLabel" htmlFor="yearOfGraduation">
-                  Date of Graduation
+                  Year of Graduation
                   {errors.yearOfGraduation && (
                     <span className="text-danger font-weight-bold">
                       &nbsp; {errors.yearOfGraduation.message}
@@ -211,7 +201,7 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
                 <Calendar
                   id="yearOfGraduation"
                   view="month"
-                  dateFormat="mm/yy"
+                  dateFormat="yy"
                   yearNavigator
                   yearRange="2010:2030"
                   value={yearOfGraduation}

@@ -36,6 +36,7 @@ const SkillForm = ({ data, closeEditMode }) => {
 
   useEffect(() => {
     if (data?.length > 0) {
+      console.log('data', data)
       setCurrentSkill();
       setSkills(data);
       register("skills");
