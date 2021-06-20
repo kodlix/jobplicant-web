@@ -85,9 +85,11 @@ export default function reducer(state = account, action = {}) {
 }
 
 // Action Creators
-export function profileInfoLoaded(data) {
-  return { type: LOAD_PROFILE_INFO, payload: data };
-}
+export const profileInfoLoaded = (data) => ({
+  type: LOAD_PROFILE_INFO,
+  payload: data
+})
+
 export const profileInfoLoadedError = () => ({
   type: LOAD_PROFILE_INFO_ERROR,
 });
@@ -130,19 +132,17 @@ export function updatePersonalProfile(data) {
     );
   };
 }
-export function loadProfileInfo() {
-  return (dispatch) => {
-    // return agent.Account.getProfileInfo().then((response) => {
-    //   dispatch(profileInfoLoaded(response));
-    //   dispatch(
-    //     showMessage({
-    //       type: MESSAGE_TYPE.SUCCESS,
-    //       title: "Profile Information",
-    //       message: "Profile info loaded successfully",
-    //     })
-    //   );
-    // });
-  };
+export const loadProfileInfo = () => (dispatch) => {
+  return agent.Account.getProfileInfo().then((response) => {
+    dispatch(profileInfoLoaded(response));
+    dispatch(
+      showMessage({
+        type: MESSAGE_TYPE.SUCCESS,
+        title: "Profile Information",
+        message: "Profile info loaded successfully",
+      })
+    );
+  });
 }
 
 export function updateBiography(biography) {
