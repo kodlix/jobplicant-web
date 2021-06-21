@@ -2,16 +2,34 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Rating } from 'primereact/rating';
 import { Button } from 'primereact/button';
+import { loadApplicants, loadInstantJob, } from 'store/modules/instantJob';
+
 import Job from './Job';
 
 import './InstantJobHire.css'
+import { useSelector, useDispatch } from 'react-redux';
 
-const Applicant = () => {
-
+const Applicant = (props) => {
+    const dispatch = useDispatch()
 
     const [rating, setRating] = useState(4);
     const [modalDisplay, setModalDisplay] = useState(false);
 
+    const instantJobs = useSelector(state => state.instantJob.instantjobs);
+    const instantJobId = props.match.params.id;
+
+    const applicants = useSelector(state => state.instantJob.applicants);
+    console.log({ instantJobs })
+    console.log({ applicants });
+
+
+    useEffect(() => {
+        dispatch(loadApplicants(instantJobId))
+    }, [dispatch])
+
+    useEffect(() => {
+        dispatch(loadInstantJob(instantJobId))
+    }, [dispatch])
 
 
     return (
@@ -24,24 +42,24 @@ const Applicant = () => {
                                 <div className="dropdown">
                                     <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                         Rating
-                            </button>
+                                    </button>
                                     <ul className="dropdown-menu " aria-labelledby="dropdownMenuButton1">
                                         <li className="dropdown-item">
                                             <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
-                                    Unrated
-                                </li>
+                                            Unrated
+                                        </li>
                                         <li className="dropdown-item">
                                             <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
-                                    Good Fit
-                                </li>
+                                            Good Fit
+                                        </li>
                                         <li className="dropdown-item">
                                             <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
-                                        Maybe
-                                </li>
+                                            Maybe
+                                        </li>
                                         <li className="dropdown-item pr-1">
                                             <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
-                                        Not a fit
-                                </li>
+                                            Not a fit
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -49,31 +67,31 @@ const Applicant = () => {
                                 <div className="dropdown">
                                     <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                         Years of experience
-                            </button>
+                                    </button>
                                     <ul className="dropdown-menu " aria-labelledby="dropdownMenuButton1">
                                         {/* <li><a className="dropdown-item" href="#">Action</a></li>
                                 <li><a className="dropdown-item" href="#">Another action</a></li>
                                 <li><a className="dropdown-item" href="#">Something else here</a></li> */}
                                         <li className="dropdown-item">
                                             <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
-                                    Less than 1 year
-                                </li>
+                                            Less than 1 year
+                                        </li>
                                         <li className="dropdown-item">
                                             <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
-                                    1 to 2 years
-                                </li>
+                                            1 to 2 years
+                                        </li>
                                         <li className="dropdown-item">
                                             <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />
-                                    &nbsp; 3 to 5 years
-                                </li>
+                                            &nbsp; 3 to 5 years
+                                        </li>
                                         <li className="dropdown-item pr-1">
                                             <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />
-                                    &nbsp; 6 to 10 years
-                                </li>
+                                            &nbsp; 6 to 10 years
+                                        </li>
                                         <li className="dropdown-item pr-1">
                                             <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />
                                             &nbsp; More than 10 years
-                                </li>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -81,27 +99,27 @@ const Applicant = () => {
                                 <div className="dropdown">
                                     <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                         Sorted by
-                            </button>
+                                    </button>
                                     <ul className="dropdown-menu " aria-labelledby="dropdownMenuButton1">
                                         {/* <li><a className="dropdown-item" href="#">Action</a></li>
                                 <li><a className="dropdown-item" href="#">Another action</a></li>
                                 <li><a className="dropdown-item" href="#">Something else here</a></li> */}
                                         <li className="dropdown-item">
                                             <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
-                                    Option 1
-                                </li>
+                                            Option 1
+                                        </li>
                                         <li className="dropdown-item">
                                             <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
-                                Option 2
-                                </li>
+                                            Option 2
+                                        </li>
                                         <li className="dropdown-item">
                                             <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />
-                                    &nbsp; Option 3
-                                </li>
+                                            &nbsp; Option 3
+                                        </li>
                                         <li className="dropdown-item pr-1">
                                             <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />
-                                    &nbsp; Option 4
-                                </li>
+                                            &nbsp; Option 4
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -117,11 +135,11 @@ const Applicant = () => {
                             <div className="p-4">
                                 <div className="d-flex justify-content-between p-mb-1">
                                     <div>
-                                        <h5> <span className="font-weight-bold text-secondary">Plumbing Work </span> <span className="app-color">5 Applicant (6 result)</span></h5>
-                                        <p className="font-weight-bold">Location : <span>113, Gowna Estate</span></p>
+                                        <h5> <span className="font-weight-bold text-secondary">{instantJobs.service}</span> <span className="app-color"> {instantJobs.length ? instantJobs.length : 0} Applicant ({instantJobs.length ? instantJobs.length : 0} result)</span></h5>
+                                        <p className="font-weight-bold">Location : <span>{instantJobs.location}</span></p>
                                     </div>
                                     <div>
-                                        <Link to="/new-instant-hire" className="bk-btn p-pt-2 app-color">
+                                        <Link to="/instant-hires" className="bk-btn p-pt-2 app-color">
                                             <i className="pi pi-arrow-left">Back</i>
                                         </Link>
                                     </div>
@@ -131,16 +149,17 @@ const Applicant = () => {
 
                                 </div>
                                 <div className="row">
+
                                     <div className="col-md-4 col-sm-12 highlight-card p-pb-3" >
-                                        <div className="card">
-                                            <img src="../../assets/user-icon.png" height="150px" className="card-img-top" alt="..." />
+                                        {instantJobs && instantJobs.length > 0 && instantJobs.map(job => <div className="card">
+                                            <img src="https://source.unsplash.com/random/100x100" height="150px" className="card-img-top" alt="..." />
                                             <div className="card-body" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                                 <p className="card-title font-weight-bold app-color">Chinedu Michael - <span className="font-weight-bold">Plumber</span> </p>
 
                                                 <p className="card-text"> <span className="font-weight-bold">Location :</span> 113, Gowan estate, Egbeda.</p>
                                                 <p className="card-text"><span className="font-weight-bold">Phone Nuber:</span> 08065907281</p>
                                                 <p className="card-text"><span className="font-weight-bold">Rating :
-                                                    </span> <span className="p-p-0"> <Rating value={rating} disabled={true} cancel={false} onChange={(e) => setRating(e.value)} stars={5} /></span>
+                                                </span> <span className="p-p-0"> <Rating value={rating} disabled={true} cancel={false} onChange={(e) => setRating(e.value)} stars={5} /></span>
                                                 </p>
 
                                             </div>
@@ -153,107 +172,19 @@ const Applicant = () => {
                                                 </div>
 
                                             </div>
-                                        </div>
+                                        </div>)}
+                                        {instantJobs.length === 0 && <strong className="mx-auto text-secondary">There are no applicants for this job</strong>}
+
                                     </div>
-                                    <div className="col-md-4 col-sm-12 highlight-card p-pb-3" >
 
-                                        <div className="card">
-                                            <img src="../../assets/user-icon.png" height="150px" className="card-img-top" alt="..." />
-                                            <div className="card-body" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                                <p className="card-title font-weight-bold app-color">Chinedu Michael - <span className="font-weight-bold">Plumber</span> </p>
 
-                                                <p className="card-text"> <span className="font-weight-bold">Location :</span> 113, Gowan estate, Egbeda.</p>
-                                                <p className="card-text"><span className="font-weight-bold">Phone Nuber:</span> 08065907281</p>
-                                                <p className="card-text"><span className="font-weight-bold">Rating :
-                                                    </span> <span className="p-p-0"> <Rating value={rating} disabled={true} cancel={false} onChange={(e) => setRating(e.value)} stars={5} /></span>
-                                                </p>
-
-                                            </div>
-                                            <div className="p-grid p-pl-5 p-pb-2">
-                                                <div className="p-pr-2">
-                                                    <Button icon="pi pi-check" iconPos="left" label="Accept" id="saveButton" className="p-button-sm" />
-                                                </div>
-                                                <div className="">
-                                                    <Button label="Reject" icon="pi pi-times" iconPos="left" id="reject" className="p-button-sm" />
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4 col-sm-12 highlight-card p-pb-3" >
-                                        <div className="card">
-                                            <img src="../../assets/user-icon.png" height="150px" className="card-img-top" alt="..." />
-                                            <div className="card-body" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                                <p className="card-title font-weight-bold app-color">Chinedu Michael - <span className="font-weight-bold">Plumber</span> </p>
-
-                                                <p className="card-text"> <span className="font-weight-bold">Location :</span> 113, Gowan estate, Egbeda.</p>
-                                                <p className="card-text"><span className="font-weight-bold">Phone Nuber:</span> 08065907281</p>
-                                                <p className="card-text"><span className="font-weight-bold">Rating :
-                                                    </span> <span className="p-p-0"> <Rating value={rating} disabled={true} cancel={false} onChange={(e) => setRating(e.value)} stars={5} /></span>
-                                                </p>
-
-                                            </div>
-                                            <div className="p-grid p-pl-5 p-pb-2">
-                                                <div className="p-pr-2">
-                                                    <Button icon="pi pi-check" iconPos="left" label="Accept" id="saveButton" className="p-button-sm" />
-                                                </div>
-                                                <div className="">
-                                                    <Button label="Reject" icon="pi pi-times" iconPos="left" id="reject" className="p-button-sm" />
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4 col-sm-12 highlight-card p-pb-3" >
-                                        <div className="card">
-                                            <img src="../../assets/user-icon.png" height="150px" className="card-img-top" alt="..." />
-                                            <div className="card-body" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                                <p className="card-title font-weight-bold app-color">Chinedu Michael - <span className="font-weight-bold">Plumber</span> </p>
-
-                                                <p className="card-text"> <span className="font-weight-bold">Location :</span> 113, Gowan estate, Egbeda.</p>
-                                                <p className="card-text"><span className="font-weight-bold">Phone Nuber:</span> 08065907281</p>
-                                                <p className="card-text"><span className="font-weight-bold">Rating :
-                                                    </span> <span className="p-p-0"> <Rating value={rating} disabled={true} cancel={false} onChange={(e) => setRating(e.value)} stars={5} /></span>
-                                                </p>
-
-                                            </div>
-                                            <div className="p-grid p-pl-5 p-pb-2">
-                                                <div className="p-pr-2">
-                                                    <Button icon="pi pi-check" iconPos="left" label="Accept" id="saveButton" className="p-button-sm" />
-                                                </div>
-                                                <div className="">
-                                                    <Button label="Reject" icon="pi pi-times" iconPos="left" id="reject" className="p-button-sm" />
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4 col-sm-12 highlight-card p-pb-3" >
-                                        <div className="card">
-                                            <img src="../../assets/user-icon.png" height="150px" className="card-img-top" alt="..." />
-                                            <div className="card-body" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                                <p className="card-title font-weight-bold app-color">Chinedu Michael - <span className="font-weight-bold">Plumber</span> </p>
-
-                                                <p className="card-text"> <span className="font-weight-bold">Location :</span> 113, Gowan estate, Egbeda.</p>
-                                                <p className="card-text"><span className="font-weight-bold">Phone Nuber:</span> 08065907281</p>
-                                                <p className="card-text"><span className="font-weight-bold">Rating :
-                                                    </span> <span className="p-p-0"> <Rating value={rating} disabled={true} cancel={false} onChange={(e) => setRating(e.value)} stars={5} /></span>
-                                                </p>
-
-                                            </div>
-                                            <div className="p-grid p-pl-5 p-pb-2">
-                                                <div className="p-pr-2">
-                                                    <Button icon="pi pi-check" iconPos="left" label="Accept" id="saveButton" className="p-button-sm" />
-                                                </div>
-                                                <div className="">
-                                                    <Button label="Reject" icon="pi pi-times" iconPos="left" id="reject" className="p-button-sm" />
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {instantJobs.length === 0 && <strong className="mx-auto text-secondary">There are no applicants for this job</strong>}
                                 </div>
+                                {instantJobs.length === 0 && <strong className="mx-auto text-secondary">There are no applicants for this job</strong>}
+
                             </div>
+                            {instantJobs.length === 0 && <strong className="mx-auto text-secondary" >There are no applicants for this job</strong>}
+
                         </div>
 
                     </div>
@@ -283,7 +214,7 @@ const Applicant = () => {
                             <p><span className="font-weight-bold"> phone Number: </span><span > 08098765432</span></p>
                             <p ><span className="font-weight-bold">Bio:</span> <span classNam="p-p-0">I'm a mad ass professional at what i do, Also striving to improve</span></p>
                             <p className="card-text"><span className="font-weight-bold">Rating :
-                                </span> <span className="p-p-0"> <Rating value={rating} disabled={true} cancel={false} onChange={(e) => setRating(e.value)} stars={5} /></span>
+                            </span> <span className="p-p-0"> <Rating value={rating} disabled={true} cancel={false} onChange={(e) => setRating(e.value)} stars={5} /></span>
                             </p>
                         </div>
                         <div className="modal-footer py-2">

@@ -54,22 +54,16 @@ const AppNavBar = ({ displaySearBar = false }) => {
                                                 <Link to="#">notifications</Link>
                                                 <ul className="sub-menu">
                                                     <li>
-                                                        <Link to="/blog-grid-sidebar">notification 1</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link to="blog-grid-sidebar.html">notification 2</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link to="blog-grid-sidebar.html">notification 3</Link>
+                                                        <Link to="/instant-jobs">Instant Jobs</Link>
                                                     </li>
                                                 </ul>
                                             </li>
                                         </ul>
                                     </div>
-                                    <Link to={"/new-instant-hire"}>
+                                    <Link to={"/instant-hires"}>
                                         <button className="button btn bg-light text-muted font-weight-bold" style={{ width: '14rem' }}>
                                             Create Instant Job
-                                    </button></Link>
+                                        </button></Link>
                                 </nav>
 
                             </div>
@@ -83,10 +77,10 @@ const AppNavBar = ({ displaySearBar = false }) => {
                 <div className="container">
                     <p className="px-4">
                         There are 9 available Plumbers for your location at Ikeja, Lagos
-                </p>
+                    </p>
                 </div>
             </div>
-            { displaySearBar &&
+            {displaySearBar &&
                 <div className="search-bar mx-auto align-content-center">
                     <div className="input-group py-4 mx-auto" style={{ width: '25rem' }}>
                         <input type="text" className="form-control" placeholder="search for content" aria-label="search for content" aria-describedby="basic-addon2" />

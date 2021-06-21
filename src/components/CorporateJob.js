@@ -1,5 +1,8 @@
 import { Badge } from 'primereact/badge';
 import { useSelector } from 'react-redux';
+
+
+
 const CorporateJob = () => {
     const jobs = useSelector(state => state.job.jobs);
 
@@ -9,7 +12,7 @@ const CorporateJob = () => {
         </div>
 
     return (<>
-        {jobs.map(({ title, type, company, salary, skills, description }, index) => (
+        {jobs?.map(({ title, type, company, salary, skills, description }, index) => (
             <div className="p-card p-4 mt-2 p-d-flex justify-content-between" key={index}>
                 <div className="d-flex">
                     <img

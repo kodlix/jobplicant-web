@@ -3,6 +3,8 @@ import { BreadCrumb } from 'primereact/breadcrumb';
 import { useHistory } from 'react-router';
 // import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
+
+
 const CustomBreadCrumb = () => {
     const history = useHistory();
 
@@ -15,8 +17,8 @@ const CustomBreadCrumb = () => {
                 {
                     paths.map((path, index) => {
 
-                        return path === "" 
-                            ? <span><Link to="/"><i className="pi pi-home"></i></Link> {' '}{(index+1) <= size ? <i className="pi pi-arrow-right"></i> : ""}</span>
+                        return path === ""
+                            ? <span><Link to="/"><i className="pi pi-home"></i></Link> {' '}{(index + 1) <= size ? <i className="pi pi-arrow-right"></i> : ""}</span>
                             : <span>{' '}
                                 <Link to={`/${path}`}>{path}</Link>{' '}{(index + 1) !== size ? <span><i className="pi pi-arrow-right"></i></span> : ""}</span>
                     })

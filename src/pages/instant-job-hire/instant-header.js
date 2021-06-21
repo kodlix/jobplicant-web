@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import './InstantJobHire.css'
 
 
-const InstantHeader = ({ title, setMode, mode, showCreateButton = false, showBack = false, count = 3 }) => {
+const InstantHeader = ({ title, showCreateButton = false, showBack = false, count }) => {
     return (
         <>
             <header className="d-flex">
@@ -13,11 +13,8 @@ const InstantHeader = ({ title, setMode, mode, showCreateButton = false, showBac
                     <h2 className="title sm-screen ">{title} ({count}) </h2>
                 </div>
                 <div className="flex-shrink-0">
-                    {showCreateButton && <Button iconPos="left" label="Create" id="saveButton" type="button" onClick={() => setMode(mode)} />}
-                    {showBack &&
-                        <Link to="/new-instant-hire" onClick={() => setMode(mode)} className="bk-btn p-pt-2 app-color">
-                            <i className="pi pi-arrow-left">Back</i>
-                        </Link>}
+                    {showCreateButton && <Link to="/create-instant-hire"> <Button iconPos="left" label="Create" id="saveButton" type="button" /></Link>}
+                    {showBack && <Link to="/instant-hires" className="bk-btn p-pt-2 app-color"><i className="pi pi-arrow-left">Back</i></Link>}
                 </div>
             </header >
             <hr className="font-weight-bolder appcolor" />

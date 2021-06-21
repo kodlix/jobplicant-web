@@ -94,15 +94,18 @@
 }
 
 .highlight-card:hover {
-    cursor: pointer;
-    background: #5a2846;
-    color: white;
     transform: scale(1.02);
+    cursor: pointer;
+    background: rgba(173, 187, 192, 0.1);
 }
 
 .applicant-width {
     width: 62vw;
     margin: auto;
+}
+
+.background {
+    background-color: #F2F2F2;
 }
 
 .content-container {
