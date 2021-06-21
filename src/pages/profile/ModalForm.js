@@ -27,10 +27,7 @@ const ModalForm = ({ data, itemToEdit, mode }) => {
     setName(modalName);
   }, [modalName]);
 
-  const onHide = () => {
-    console.log("on hiding modal");
-    dispatch(loadProfileInfo());
-  };
+  const onHide = () => dispatch(loadProfileInfo());
 
   return (
     <Dialog

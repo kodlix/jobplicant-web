@@ -1,10 +1,19 @@
+import moment from 'moment';
 import { Badge } from 'primereact/badge';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadJobs } from 'store/modules/job';
 
 
 
 const CorporateJob = () => {
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(loadJobs())
+    }, [])
+
     const jobs = useSelector(state => state.job.jobs);
+    console.log(jobs)
 
     if (!jobs.length)
         return <div className="d-flex justify-content-center p-5">
@@ -12,8 +21,9 @@ const CorporateJob = () => {
         </div>
 
     return (<>
-        {jobs?.map(({ title, type, company, salary, skills, description }, index) => (
+        {jobs.length && jobs.map((job, index) => (
             <div className="p-card p-4 mt-2 p-d-flex justify-content-between" key={index}>
+               {/* <p>{JSON.stringify(job)}</p> */}
                 <div className="d-flex">
                     <img
                         src="https://source.unsplash.com/random/100x100"
@@ -23,17 +33,28 @@ const CorporateJob = () => {
                     <div className="p-2" ></div>
                     <div>
                         <ul>
-                            <li className="p-d-flex p-ai-center p-as-center"><h4>{title}</h4> <Badge value={type} severity="success"></Badge></li>
-                            <li>{company}</li>
+                            <li className="p-d-flex p-ai-center p-as-center"><h4>{job.title}</h4> <Badge severity="success"></Badge></li>
+                            <li>{job.companyName}</li>
                             <li className="d-flex">
                                 <div className="box">
                                     <h6>Salary</h6>
-                                    <p>{salary}</p>
+                                    <p>Min {job.minSalary}</p>
+                                    <p>Max {job.maxSalary}</p>
                                 </div>
-                                <div className="box">
+                                {/* <div className="box">
                                     <h6>Skills</h6>
-                                    <p>{skills.join(", ")}</p>
-                                </div>
+                                    <p>{skills }</p>
+                                </div> */}
+                                <a target="_blank" href={job.jobUrl}>{job.jobUrl}</a>
+                                <p>Industry: {job.industry}</p>
+                            </li>
+                            <li>
+                                <p>Start date {moment(job.startDate).format("MMM d, yyyy")}</p>
+                                <p>End date {moment(job.endDate).format("MMM d, yyyy")}</p>
+                            </li>
+                            <li>
+                                <p>Location: {job.location}</p>
+                                <p>State: {job.state}</p>
                             </li>
                         </ul>
                     </div>

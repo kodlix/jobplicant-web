@@ -3,14 +3,17 @@ import PersonalInfo from "pages/profile/PersonalInfo";
 import ProfileTab from "pages/profile/ProfileTab";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { Route, useRouteMatch } from "react-router";
 import { loadProfileInfo } from "store/modules/account";
 import { loadCompanyInfo } from "store/modules/company";
 import CompanyEdit from "./CompanyEdit";
 import CompanyEditForm from "./CompanyEditForm";
+import CompanyJob from "./CompanyJob";
 
 import './CompanyProfile.css';
 
 const CompanyProfile = () => {
+  const match = useRouteMatch()
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,7 +33,11 @@ const CompanyProfile = () => {
               <ProfileTab />
             </div>
             <div className="content-body pt-1">
-              <CompanyEditForm />
+              {/* <CompanyEditForm /> */}
+              <Route path={`${match.path}/`} exact component={CompanyEditForm} />
+              <Route path={`${match.path}/info`} component={CompanyEditForm} />
+              <Route path={`${match.path}/edit`} component={CompanyEditForm} />
+              <Route path={`${match.path}/jobs`} component={CompanyJob} />
             </div>
           </div>
         </div>

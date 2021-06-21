@@ -12,7 +12,7 @@ import avatarImage from '../../assets/avatar.png'
 import { Dropdown } from "primereact/dropdown";
 import { loadCountry, loadStates } from "store/modules/location";
 import { createJob } from "store/modules/job";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import './CreateJob.css';
 
@@ -20,6 +20,8 @@ const contractTypeList = ["Full-Time", "Contact-Based", "Internship"];
 
 const CreateJob = () => {
   const loading = useSelector((state) => state.job.loading);
+  const jobs = useSelector(state => state.job.jobs)
+  const history = useHistory()
   // const id = useSelector((state) => state.account.profileInfo.id);
   const countries = useSelector(state => state.location.countries);
   const states = useSelector(state => state.location.states);
@@ -49,6 +51,13 @@ const CreateJob = () => {
   useEffect(() => {
     dispatch(loadCountry());
   }, [dispatch]);
+
+  useEffect(() => {
+    if(jobs.length){
+      history.push('/company/jobs')
+    } 
+  }, [jobs.length])
+
 
   const handleCountryChange = (e) => {
     let conuntryId = e.target.value.id;
