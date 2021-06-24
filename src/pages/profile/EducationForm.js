@@ -22,7 +22,7 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
     mode: "onChange",
     reValidateMode: "all",
   });
-  
+
   console.log('mode', mode)
 
   const loading = useSelector((state) => state.education.loading);
@@ -72,21 +72,21 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
   // }, [componentStatus?.educationEdit]);
 
   useEffect(() => {
-    if(Object.values(itemToEdit).length >= 1){
-     console.log('item edit', itemToEdit)
-     setEducation({ 
-       ...education, 
-       institution: itemToEdit.institution,
-       qualification: qualificationList.find(q => q.name == itemToEdit.qualification),
-       course: itemToEdit.course,
-       
-       country: countryList.find(c => c.name == itemToEdit.country),
-       city: itemToEdit.city,
-       address: itemToEdit.address,
+    if (Object.values(itemToEdit).length >= 1) {
+      console.log('item edit', itemToEdit)
+      setEducation({
+        ...education,
+        institution: itemToEdit.institution,
+        qualification: qualificationList.find(q => q.name == itemToEdit.qualification),
+        course: itemToEdit.course,
+
+        country: countryList.find(c => c.name == itemToEdit.country),
+        city: itemToEdit.city,
+        address: itemToEdit.address,
       });
       const newDate = new Date(itemToEdit.yearOfGraduation).toISOString();
       setYearOfGraduation(new Date(itemToEdit.yearOfGraduation));
-      
+
       setValue('institution', itemToEdit.institution);
       setValue('qualification', itemToEdit.qualification);
       setValue('course', itemToEdit.course);
@@ -94,14 +94,14 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
       setValue('country', itemToEdit.country);
       setValue('yearOfGraduation', newDate);
       setValue('address', itemToEdit.address);
-      
-   }
+
+    }
   }, [itemToEdit])
 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    
+
     setEducation({ ...education, [name]: value });
     setValue(name, value, { shouldValidate: true });
   };
@@ -124,12 +124,12 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
   const educationSubmit = (data) => {
     console.log(data);
     data.qualification = data.qualification.name;
-    if(mode === 'create'){
+    if (mode === 'create') {
       dispatch(createEducation(data));
-    }else{
+    } else {
       dispatch(updateEducation(itemToEdit.id, data));
     }
-   
+
   };
 
   return (
@@ -277,7 +277,7 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
                   })}
                   onChange={(e) => {
                     setEducation({ ...education, ["country"]: e.target.value });
-                    const value = e.target.value.name; 
+                    const value = e.target.value.name;
                     setValue("country", value, { shouldValidate: true });
                   }}
                 />

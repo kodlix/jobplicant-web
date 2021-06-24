@@ -14,6 +14,14 @@ import Job from './Job';
 import './InstantJobHire.css'
 import moment from 'moment';
 
+const Categories = [
+    { name: 'Machine', code: 'Mec' },
+    { name: 'Plumber', code: 'Plu' },
+    { name: 'Tailor', code: 'Tai' },
+    { name: 'chef', code: 'chef' },
+    { name: 'Dry-cleaners', code: 'Lan' },
+];
+
 const Edit = (props) => {
 
     const dispatch = useDispatch();
@@ -22,10 +30,9 @@ const Edit = (props) => {
         reValidateMode: "onChange"
     });
 
-
     const [desc, setDesc] = useState('');
-    const [selectedCategory, setselectedCategory] = useState(null);
-    const [jobDateNow, setJobDateNow] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [isJobDateNow, setIsJobDateNow] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
@@ -36,14 +43,26 @@ const Edit = (props) => {
 
     // const { service, description, time, location, address } = instantjob;
     const instantJobId = props.match.params.id;
+    console.log({ itemToEdit })
 
     useEffect(() => {
         setItemToEdit(instantjob)
         if (itemToEdit) {
-            itemToEdit.startDate && setValue("startDate", itemToEdit.startDate.substr(0, 10))
+            itemToEdit.startDate = new Date(itemToEdit.startDate);
+            itemToEdit.endDate = new Date(itemToEdit.endDate);
+            let category = Categories.find(category => category.name === itemToEdit.service);
+            setSelectedCategory(category)
+            console.log("category", category)
 
+            // setValue("service", itemToEdit.service);
+            // setValue("location", itemToEdit.location);
+            // setValue("address", itemToEdit.address);
+            // setValue("phoneNumber", itemToEdit.phoneNumber);
+            // setValue("endDate", itemToEdit.endDate);
+            // setValue("startDate", itemToEdit.startDate);
+            // setValue("description", itemToEdit.description);
         }
-    }, [instantjob])
+    }, [instantjob, itemToEdit])
 
     useEffect(() => {
         dispatch(loadInstantJob(instantJobId))
@@ -52,50 +71,53 @@ const Edit = (props) => {
     const handleOnChange = (e) => {
         const { name, value } = e.target;
         setItemToEdit({ ...itemToEdit, [name]: value ?? JSON.parse(value) });
+        setValue(name, value, { shouldValidate: true });
+
     }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
 
-    const Categories = [
-        { name: 'Machine', code: 'Mec' },
-        { name: 'Plumber', code: 'Plu' },
-        { name: 'Tailor', code: 'Tai' },
-        { name: 'chef', code: 'chef' },
-        { name: 'Dry-cleaners', code: 'Lan' },
-    ];
+        setSelectedCategory(e.value);
+        setValue(name, value, { shouldValidate: true });
+    };
+
+    // const toggleJobDate = (e) => {
+    //     if (e.target.checked) {
+    //         let period = new Date();
+    //         let instaceJobDate = period.getUTCFullYear() + "/" + (period.getUTCMonth() + 1) + "/" + period.getUTCDate() + " " + period.getUTCHours() + ":" + period.getUTCMinutes() + ":" + period.getUTCSeconds();
+    //         setValue("jobDate", instaceJobDate, { shouldValidate: true })
+    //         setJobDateNow(true);
+    //         console.log({ instaceJobDate });
+
+    //     } else {
+    //         setValue("jobDate", " ", { shouldValidate: true })
+    //         setJobDateNow(false);
+    //     }
+    // }
 
 
-    const onServiceChange = (e) => {
-        setselectedCategory(e.value);
-    }
+    let period = new Date();
+    let instaceJobDate = period.getUTCFullYear() + "/" + (period.getUTCMonth() + 1) + "/" + period.getUTCDate() + " " + period.getUTCHours() + ":" + period.getUTCMinutes() + ":" + period.getUTCSeconds();
 
     const toggleJobDate = (e) => {
         if (e.target.checked) {
-            let period = new Date();
-            let instaceJobDate = period.getUTCFullYear() + "/" + (period.getUTCMonth() + 1) + "/" + period.getUTCDate() + " " + period.getUTCHours() + ":" + period.getUTCMinutes() + ":" + period.getUTCSeconds();
-            setValue("jobDate", instaceJobDate, { shouldValidate: true })
-            setJobDateNow(true);
-            console.log({ instaceJobDate });
+            setValue("startDate", instaceJobDate, { shouldValidate: true })
+            setValue("time", new Date().toLocaleTimeString(), { shouldValidate: false })
 
+            console.log("instant job => ", instaceJobDate)
+            setIsJobDateNow(true);
         } else {
-            setValue("jobDate", " ", { shouldValidate: true })
-            setJobDateNow(false);
+            setValue("startDate", "", { shouldValidate: true })
+            setIsJobDateNow(!isJobDateNow);
         }
     }
 
-
     const onSubmit = (data) => {
-        if (jobDateNow) {
-            data.jobDate = new Date.now();
+        if (isJobDateNow) {
+            data.startDate = new Date().toISOString()
         }
         data.service = data.service.name;
-
-        // data.service = itemToEdit.service;
-        // data.address = itemToEdit.address;
-        // data.startDate = itemToEdit.startDate;
-        // data.endDate = itemToEdit.endDate;
-        // data.time = itemToEdit.time;
-        // data.location = itemToEdit.location;
-        // data.description = itemToEdit.description;
-        // data.service = data.service.name;
+        data.endDate = (itemToEdit.endDate).toISOString();
         dispatch(editInstantJob(instantJobId, data));
     }
     return (
@@ -111,24 +133,25 @@ const Edit = (props) => {
                                         title="Edit instant hire"
                                         showBack={true}
                                     />
-
                                     <form onSubmit={handleSubmit(onSubmit)}>
                                         <div className="row">
                                             <div className="p-fluid p-md-6 p-sm-12">
                                                 <div className="p-field">
                                                     <label htmlFor="service"> Job Service *</label>
                                                     <Dropdown
-                                                        value={selectedCategory || itemToEdit.service}
                                                         options={Categories}
-                                                        onChange={(e) => { onServiceChange(e); handleOnChange(e) }}
-                                                        // value={itemToEdit.service}
                                                         optionLabel="name"
+                                                        filter
+                                                        showClear
+                                                        filterBy="name"
+                                                        icon="pi pi-plus"
+                                                        id="service"
                                                         name="service"
-                                                        placeholder="Select Job Service"
-                                                        {...register("service", { required: "Please Select a service" })}
+                                                        value={selectedCategory}
+                                                        {...register("service", { required: `* Please Select a service` })}
+                                                        onChange={handleChange}
                                                     />
-
-                                                    {errors.jobservice && <span className="text-danger font-weight-bold "> <p>{errors.service.message}</p>
+                                                    {errors.service && <span className="text-danger font-weight-bold "> <p>{errors.service.message}</p>
                                                     </span>}
                                                 </div>
 
@@ -140,7 +163,7 @@ const Edit = (props) => {
                                                         type="text"
                                                         placeholder="Location"
                                                         name="location"
-                                                        defaultValue={itemToEdit.location}
+                                                        defaultValue={itemToEdit?.location}
                                                         onChange={(e) => handleOnChange(e)}
 
                                                         {...register("location", { required: "Location is required" })}
@@ -187,15 +210,15 @@ const Edit = (props) => {
 
                                                 <div className="p-field">
                                                     <label htmlFor="startDate">  Start Date * &nbsp;
-                                                        ( <input type="checkbox" onClick={toggleJobDate} name="instance" defaultChecked={jobDateNow}
+                                                        ( <input type="checkbox" onClick={toggleJobDate} name="instance" defaultChecked={isJobDateNow}
                                                             className="align-text-bottom" />
-                                                        <small className="font-weight-bold"> NOW </small>  )
+                                                        <small className="font-weight-bold"> NOW </small>  )  &nbsp; {isJobDateNow && (<span className="appcolor text-white px-3"> {instaceJobDate}</span>)}
                                                     </label>
                                                     <Calendar
                                                         id="startDate"
                                                         type="date"
                                                         value={itemToEdit?.startDate}
-                                                        disabled={jobDateNow}
+                                                        disabled={isJobDateNow}
                                                         name="startDate"
                                                         {...register("startDate", {
                                                             required: `* Start Date is required`,
@@ -241,7 +264,7 @@ const Edit = (props) => {
                                                 </div>
                                             </div>
 
-                                            <div className="p-fluid p-md-6 p-sm-12" hidden={jobDateNow}>
+                                            {!isJobDateNow && <div className="p-fluid p-md-6 p-sm-12">
                                                 <div className="p-field">
                                                     <label htmlFor="lastname"> Time *</label>
                                                     <InputText type="time"
@@ -254,13 +277,13 @@ const Edit = (props) => {
                                                     {errors.time && <span className="text-danger font-weight-bold "> <p>{errors.time.message}</p>
                                                     </span>}
                                                 </div>
-                                            </div>
+                                            </div>}
                                             <div className="p-fluid p-md-12 p-sm-12">
                                                 <div className="p-field">
                                                     <label htmlFor="description"> Description *</label>
                                                     <InputTextarea
                                                         defaultValue={desc}
-                                                        onChange={(e) => setDesc(e.target.value)}
+                                                        // onChange={(e) => setDesc(e.target.value)}
                                                         rows={3}
                                                         cols={30}
                                                         placeholder="Job Description"

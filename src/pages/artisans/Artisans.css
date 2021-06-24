@@ -98,10 +98,11 @@
     transform: scale(1.02);
 }
 
-.applicant-width {
+
+/* .artisans-width {
     width: 62vw;
     margin: auto;
-}
+} */
 
 .content-container {
     width: 85%;
@@ -119,6 +120,16 @@
 
 .bk-btn {
     margin-left: "35vw"
+}
+
+.search-container button {
+    padding: 6px 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
 }
 
 

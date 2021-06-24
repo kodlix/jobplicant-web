@@ -37,9 +37,16 @@ const New = ({ setMode, mode }) => {
         { name: 'chef', code: 'chef' },
     ];
 
-    const onServiceChange = (e) => {
-        setSelectedCategory(e.value);
-    }
+    // const onServiceChange = (e) => {
+    //     setSelectedCategory(e.value);
+    // }
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        setSelectedCategory({ ...education, [name]: value });
+        setValue(name, value, { shouldValidate: true });
+    };
 
 
     let period = new Date();
@@ -115,14 +122,33 @@ const New = ({ setMode, mode }) => {
                     <div className="p-fluid p-md-6 p-sm-12">
                         <div className="p-field">
                             <label htmlFor="service"> Job Service *</label>
-                            <Dropdown
+                            {/* <Dropdown
                                 value={selectedCategory}
                                 options={Categories}
                                 onChange={onServiceChange}
                                 optionLabel="name"
                                 name="service"
+                                filter
+                                showClear
+                                filterBy="name"
                                 placeholder="Select Job Service"
                                 {...register("service", { required: "Please Select a service" })}
+                            /> */}
+
+                            <Dropdown
+                                options={Categories}
+                                optionLabel="name"
+                                filter
+                                showClear
+                                filterBy="name"
+                                icon="pi pi-plus"
+                                id="service"
+                                name="service"
+                                value={education.qualification}
+                                {...register("qualification", {
+                                    required: `* Qualification is required`,
+                                })}
+                                onChange={handleChange}
                             />
 
                             {errors.jobservice && <span className="text-danger font-weight-bold "> <p>{errors.service.message}</p>

@@ -29,6 +29,7 @@ const InstantHires = (props) => {
             acceptClassName: 'p-button-danger',
             accept: () => {
                 dispatch(deleteInstantJob(id));
+                dispatch(loadInstantJobs());
             },
             reject: () => {
                 return;
@@ -54,15 +55,17 @@ const InstantHires = (props) => {
                                         <div key={instantjob.id}>
                                             <div className="panel-login text-center"></div>
                                             <div className="highlight-card p-p-2">
-                                                <div className="float-right ">
+                                                <div className="float-right d-flex">
                                                     <Link to={`/instant-hire/edit/${instantjob.id}`}> <span><i className="pi pi-pencil" ></i></span></Link>
-                                                    <i className="pi pi-trash" style={{ fontSize: '0.8rem', padding: '.5rem' }} onClick={() => deleteRequest(instantjob.id)}></i>
+                                                    <i className="pi pi-trash" style={{ fontSize: '0.8rem', padding: '.2rem' }} onClick={() => deleteRequest(instantjob.id)}></i>
                                                 </div>
                                                 <Link to={`/instant-hire-applicants/${instantjob.id}`}>
                                                     <small className="p-text-secondary">
                                                         <p className="font-weight-bold app-color ">Job Service : {instantjob.service} </p>
                                                         <p><span className="font-weight-bold app-color">Job Location : </span> {instantjob.location}</p>
                                                         <p><span className="font-weight-bold app-color">Time : </span>{instantjob.time} </p>
+                                                        <p><span className="font-weight-bold app-color">Address : </span>{instantjob.address} </p>
+                                                        <p><span className="font-weight-bold app-color">Phone Number : </span>{instantjob.phoneNumber} </p>
                                                         <p><span className="font-weight-bold app-color">Job Description : </span> {instantjob.description} </p>
                                                         <div className="p-grid">
                                                             <div className="p-col-4"><span className="font-weight-bold app-color">Start Date: </span> {moment(instantjob.startDate).format('MMMM DD, YYYY')} </div>

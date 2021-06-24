@@ -62,7 +62,7 @@ const AppNavBar = ({ displaySearBar = false }) => {
                                     </div>
                                     <Link to={"/instant-hires"}>
                                         <button className="button btn bg-light text-muted font-weight-bold" style={{ width: '14rem' }}>
-                                            Create Instant Job
+                                            Request Instant Job
                                         </button></Link>
                                 </nav>
 

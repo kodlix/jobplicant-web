@@ -40,6 +40,10 @@ const InstantJobs = React.lazy(() => import('../pages/instant-jobs/List'));
 const Timeline = React.lazy(() => import('../pages/timeline/Timeline'));
 
 
+const Artisan = React.lazy(() => import('../pages/artisans/List'));
+
+
+
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -82,6 +86,9 @@ const AppRouter = () => {
 
         <ProtectedRoute path="/instant-jobs" component={InstantJobs} />
         <ProtectedRoute path="/timeline" exact component={Timeline} />
+
+
+        <ProtectedRoute path="/artisans" exact component={Artisan} />
 
 
         {/* admin routes */}

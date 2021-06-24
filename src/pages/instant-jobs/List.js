@@ -78,7 +78,9 @@ const InstantJobs = () => {
                                                             </div>
                                                         </Link>
                                                         <div className="p-grid p-pt-2">
-                                                            <div className="offset-md-7 p-pr-2"> <Button icon="pi pi-check" iconPos="left" label="Apply" id="saveButton" className="p-button-sm" onClick={() => handleApply(instantjob.id)} /></div>
+                                                            <div className="offset-md-5 p-pr-2 d-flex">
+                                                                <p> <span className="font-weight-bold app-color p-mt-2"> Interested ? &nbsp; </span> </p>
+                                                                <Button label="Yes" id="saveButton" className="p-button-sm" onClick={() => handleApply(instantjob.id)} /></div>
                                                             <div className="p-pr-1"> <Button label="View" id="reject" className="p-button-sm" /></div>
                                                         </div>
 
