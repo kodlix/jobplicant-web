@@ -109,9 +109,9 @@ export function loadInstantJob(id) {
     }
 }
 
-export function applyInstantJob(id, job) {
+export function applyInstantJob(id) {
     return dispatch => {
-        return agent.InstantJob.apply(id, job).then(
+        return agent.InstantJob.apply(id).then(
             response => {
                 //handle success
                 dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "You have successfully applied for this job", title: 'Applied successfully' }));

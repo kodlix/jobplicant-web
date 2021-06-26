@@ -23,14 +23,13 @@ const InstantJobs = () => {
     }, [dispatch])
 
 
-    const handleApply = (id, jobID) => {
+    const handleApply = (id) => {
         confirmDialog({
             message: 'You are about to apply for this job?',
             header: 'Confirmation',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                jobID = id;
-                dispatch(applyInstantJob(id, jobID))
+                dispatch(applyInstantJob(id))
             },
             reject: () => {
                 return;
