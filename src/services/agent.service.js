@@ -244,7 +244,10 @@ const InstantJob = {
   save: (instantjob) => requests.post("/instant-job", instantjob),
   apply: (jobid) => requests.post(`/instant-job/${jobid}/apply`, null),
   load: () => requests.get(`/instant-job`),
-  loadApplicants: (jobId) => requests.get(`/instant-job/${jobId}/applicants`),
+  loadApplicants: (jobId) =>
+    requests.get(`/instant-job/${jobId}/applicants`),
+  loadAllInstantJobs: (page, take) =>
+    requests.get("/instant-job/current", page, take),
   view: (id) => requests.get(`/instant-job/${id}`),
   edit: (id, instantJob) => requests.put(`/instant-job/${id}`, instantJob),
   delete: (id) => requests.del(`/instant-job/${id}`),

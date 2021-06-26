@@ -19,8 +19,7 @@ const Applicant = (props) => {
     const instantJobId = props.match.params.id;
 
     const applicants = useSelector(state => state.instantJob.applicants);
-    console.log({ instantJobs })
-    console.log({ applicants });
+    console.log("Applicant => ", applicants);
 
 
     useEffect(() => {
@@ -135,7 +134,7 @@ const Applicant = (props) => {
                             <div className="p-4">
                                 <div className="d-flex justify-content-between p-mb-1">
                                     <div>
-                                        <h5> <span className="font-weight-bold text-secondary">{instantJobs.service}</span> <span className="app-color"> {instantJobs.length ? instantJobs.length : 0} Applicant ({instantJobs.length ? instantJobs.length : 0} result)</span></h5>
+                                        <h5> <span className="font-weight-bold text-secondary">{instantJobs.service}</span> <span className="app-color"> {applicants.length ? applicants.length : 0} Applicant ({applicants.length ? applicants.length : 0} Result)</span></h5>
                                         <p className="font-weight-bold">Location : <span>{instantJobs.location}</span></p>
                                     </div>
                                     <div>
@@ -151,28 +150,30 @@ const Applicant = (props) => {
                                 <div className="row">
 
                                     <div className="col-md-4 col-sm-12 highlight-card p-pb-3" >
-                                        {instantJobs && instantJobs.length > 0 && instantJobs.map(job => <div className="card">
-                                            <img src="https://source.unsplash.com/random/100x100" height="150px" className="card-img-top" alt="..." />
-                                            <div className="card-body" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                                <p className="card-title font-weight-bold app-color">Chinedu Michael - <span className="font-weight-bold">Plumber</span> </p>
+                                        {applicants && applicants.length > 0 && applicants.map(applicant =>
+                                            <div key={applicant.applicantId} className="card">
+                                                <img src="https://source.unsplash.com/random/100x100" height="150px" className="card-img-top" alt="..." />
+                                                <div className="card-body" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                    <p className="card-title font-weight-bold d-flex"> Name : <span className="app-color"> {`${applicant.firstName} ${applicant.lastName}`} </span> </p>
 
-                                                <p className="card-text"> <span className="font-weight-bold">Location :</span> 113, Gowan estate, Egbeda.</p>
-                                                <p className="card-text"><span className="font-weight-bold">Phone Nuber:</span> 08065907281</p>
-                                                <p className="card-text"><span className="font-weight-bold">Rating :
-                                                </span> <span className="p-p-0"> <Rating value={rating} disabled={true} cancel={false} onChange={(e) => setRating(e.value)} stars={5} /></span>
-                                                </p>
+                                                    <p className="card-text"> <span className="font-weight-bold">Occupation :</span> <span className="font-weight-bold app-color"> {applicant.service}</span></p>
+                                                    <p className="card-text"> <span className="font-weight-bold">Location :</span> 113, Gowan estate, Egbeda.</p>
+                                                    <p className="card-text"><span className="font-weight-bold">Phone Number :</span> 08065907281</p>
+                                                    <p className="card-text"><span className="font-weight-bold">Rating :
+                                                    </span> <span className="p-p-0"> <Rating value={rating} disabled={true} cancel={false} onChange={(e) => setRating(e.value)} stars={5} /></span>
+                                                    </p>
 
-                                            </div>
-                                            <div className="p-grid p-pl-5 p-pb-2">
-                                                <div className="p-pr-2">
-                                                    <Button icon="pi pi-check" iconPos="left" label="Accept" id="saveButton" className="p-button-sm" />
                                                 </div>
-                                                <div className="">
-                                                    <Button label="Reject" icon="pi pi-times" iconPos="left" id="reject" className="p-button-sm" />
-                                                </div>
+                                                <div className="p-grid p-pl-5 p-pb-2">
+                                                    <div className="p-pr-2">
+                                                        <Button icon="pi pi-check" iconPos="left" label="Accept" id="saveButton" className="p-button-sm" />
+                                                    </div>
+                                                    <div className="">
+                                                        <Button label="Reject" icon="pi pi-times" iconPos="left" id="reject" className="p-button-sm" />
+                                                    </div>
 
-                                            </div>
-                                        </div>)}
+                                                </div>
+                                            </div>)}
                                         {instantJobs.length === 0 && <strong className="mx-auto text-secondary">There are no applicants for this job</strong>}
 
                                     </div>

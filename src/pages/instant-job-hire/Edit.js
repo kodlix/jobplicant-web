@@ -20,6 +20,8 @@ const Categories = [
     { name: 'Tailor', code: 'Tai' },
     { name: 'chef', code: 'chef' },
     { name: 'Dry-cleaners', code: 'Lan' },
+    { name: 'Painter', code: 'Pai' },
+    { name: 'Janitor', code: 'Jan' },
 ];
 
 const Edit = (props) => {
@@ -84,10 +86,10 @@ const Edit = (props) => {
     // const toggleJobDate = (e) => {
     //     if (e.target.checked) {
     //         let period = new Date();
-    //         let instaceJobDate = period.getUTCFullYear() + "/" + (period.getUTCMonth() + 1) + "/" + period.getUTCDate() + " " + period.getUTCHours() + ":" + period.getUTCMinutes() + ":" + period.getUTCSeconds();
-    //         setValue("jobDate", instaceJobDate, { shouldValidate: true })
+    //         let instantJobDate = period.getUTCFullYear() + "/" + (period.getUTCMonth() + 1) + "/" + period.getUTCDate() + " " + period.getUTCHours() + ":" + period.getUTCMinutes() + ":" + period.getUTCSeconds();
+    //         setValue("jobDate", instantJobDate, { shouldValidate: true })
     //         setJobDateNow(true);
-    //         console.log({ instaceJobDate });
+    //         console.log({ instantJobDate });
 
     //     } else {
     //         setValue("jobDate", " ", { shouldValidate: true })
@@ -97,14 +99,14 @@ const Edit = (props) => {
 
 
     let period = new Date();
-    let instaceJobDate = period.getUTCFullYear() + "/" + (period.getUTCMonth() + 1) + "/" + period.getUTCDate() + " " + period.getUTCHours() + ":" + period.getUTCMinutes() + ":" + period.getUTCSeconds();
+    let instantJobDate = period.getUTCFullYear() + "/" + (period.getUTCMonth() + 1) + "/" + period.getUTCDate() + " " + period.getUTCHours() + ":" + period.getUTCMinutes() + ":" + period.getUTCSeconds();
 
     const toggleJobDate = (e) => {
         if (e.target.checked) {
-            setValue("startDate", instaceJobDate, { shouldValidate: true })
+            setValue("startDate", instantJobDate, { shouldValidate: true })
             setValue("time", new Date().toLocaleTimeString(), { shouldValidate: false })
 
-            console.log("instant job => ", instaceJobDate)
+            console.log("instant job => ", instantJobDate)
             setIsJobDateNow(true);
         } else {
             setValue("startDate", "", { shouldValidate: true })
@@ -212,7 +214,7 @@ const Edit = (props) => {
                                                     <label htmlFor="startDate">  Start Date * &nbsp;
                                                         ( <input type="checkbox" onClick={toggleJobDate} name="instance" defaultChecked={isJobDateNow}
                                                             className="align-text-bottom" />
-                                                        <small className="font-weight-bold"> NOW </small>  )  &nbsp; {isJobDateNow && (<span className="appcolor text-white px-3"> {instaceJobDate}</span>)}
+                                                        <small className="font-weight-bold"> NOW </small>  )  &nbsp; {isJobDateNow && (<span className="appcolor text-white px-3"> {instantJobDate}</span>)}
                                                     </label>
                                                     <Calendar
                                                         id="startDate"

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import InstantHeader from 'pages/instant-job-hire/instant-header';
 import Job from 'pages/instant-job-hire/Job';
 import { Button } from 'primereact/button';
-import { applyInstantJob, loadInstantJobs } from 'store/modules/instantJob';
+import { applyInstantJob, fetchAllInstantJobs } from 'store/modules/instantJob';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { confirmDialog } from 'primereact/confirmdialog';
@@ -15,11 +15,14 @@ const InstantJobs = () => {
     const dispatch = useDispatch();
 
     const [visible, setVisible] = useState(false);
+    const [page, setPage] = useState(1);
+    const [take, setTake] = useState(10);
     const toast = useRef(null);
-    const instantJobs = useSelector(state => state.instantJob.instantjobs);
+    const allInstantJobs = useSelector(state => state.instantJob.instantjobs);
+    console.log("All instant job =>", allInstantJobs);
 
     useEffect(() => {
-        dispatch(loadInstantJobs())
+        dispatch(fetchAllInstantJobs(page, take))
     }, [dispatch])
 
 
@@ -47,9 +50,9 @@ const InstantJobs = () => {
                                 <InstantHeader
                                     title="All Instant Jobs"
                                     showCreateButton={false}
-                                    count={instantJobs?.length}
+                                    count={allInstantJobs?.length}
                                 />
-                                {instantJobs && instantJobs.length > 0 && instantJobs.map(instantjob =>
+                                {allInstantJobs && allInstantJobs.length > 0 && allInstantJobs.map(instantjob =>
                                     <div className="">
                                         <div className="panel-login text-center"></div>
                                         <div className="highlight-card p-p-2">
