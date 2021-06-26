@@ -14,6 +14,7 @@ import education from './education';
 import util from './util';
 import instantJob from './instantJob';
 import job from './job';
+import admin from './admin'
 
 const appReducer = (history) => combineReducers({
   router: connectRouter(history),
@@ -31,6 +32,7 @@ const appReducer = (history) => combineReducers({
   userSkill,
   util,
   instantJob,
+  admin
 });
 
 export default appReducer;
