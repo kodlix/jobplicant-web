@@ -49,6 +49,7 @@ const CompanyEditForm = () => {
 
   useEffect(() => {
     dispatch(loadCountry());
+    dispatch(loadStates(profileInfo.stateId))
     setCompanyInfo({
       ...companyInfo,
       yearOfEstablishment: new Date(profileInfo.yearOfEstablishment),

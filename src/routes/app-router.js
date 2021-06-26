@@ -9,9 +9,9 @@ import CompanyProfile from 'pages/company/CompanyProfile';
 import CreateJob from 'pages/job/CreateJob';
 import AdminDashboard from 'pages/admin/dashboard/AdminDashboard';
 import ProtectedAdminRoute from './protected-admin-route';
-import AdminServices from 'pages/admin/dashboard/AdminServices';
-import AdminSkill from 'pages/admin/skills/AdminSkills';
-import AdminContractType from 'pages/admin/contract-type/AdminContractType';
+import AdminSkill from 'pages/admin/dashboard/AdminSkills';
+import AdminContractType from 'pages/admin/dashboard/AdminContractType';
+import AdminQualification from 'pages/admin/dashboard/AdminQualification';
 
 const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard'));
 const UserProfile = React.lazy(() => import('pages/profile/UserProfile'));
@@ -89,9 +89,9 @@ const AppRouter = () => {
 
         {/* admin routes */}
         <ProtectedAdminRoute path="/admin" component={AdminDashboard} />
-        <ProtectedAdminRoute path="/admin-services" component={AdminServices} />
-        <ProtectedAdminRoute path={`/admin/skills`} component={AdminSkill} />
-        <ProtectedAdminRoute path={`/admin/contractType`} component={AdminContractType} />
+        <ProtectedAdminRoute path="/admin-qualification" component={AdminQualification} />
+        <ProtectedAdminRoute path={`/admin-skills`} component={AdminSkill} />
+        <ProtectedAdminRoute path="/admin-contractType" component={AdminContractType} />
         <Redirect to="/login" />
       </Switch>
     </React.Suspense>
