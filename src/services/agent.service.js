@@ -248,9 +248,31 @@ const InstantJob = {
   view: (id) => requests.get(`/instant-job/${id}`),
   edit: (id, instantJob) => requests.put(`/instant-job/${id}`, instantJob),
   delete: (id) => requests.del(`/instant-job/${id}`),
-
-
 };
+
+const ContractType = {
+  save: (data) => requests.post("/contract-type", data),
+  load: () => requests.get("/contract-type", ),
+  view: (id) => requests.get(`/contract-type/${id}`),
+  edit: (id, data) => requests.put(`/contract-type/${id}`, data),
+  delete: (id) => requests.del(`/contract-type/${id}`),
+}
+
+const Qualification = {
+  save: (data) => requests.post("/qualification", data),
+  load: () => requests.get("/qualification", ),
+  view: (id) => requests.get(`/qualification/${id}`),
+  edit: (id, data) => requests.put(`/qualification/${id}`, data),
+  delete: (id) => requests.del(`/qualification/${id}`),
+}
+
+const Skill = {
+  save: (data) => requests.post("/skill", data),
+  load: () => requests.get("/skill", ),
+  view: (id) => requests.get(`/skill/${id}`),
+  edit: (id, data) => requests.put(`/skill/${id}`, data),
+  delete: (id) => requests.del(`/skill/${id}`),
+}
 
 export default {
   Auth,
@@ -273,4 +295,8 @@ export default {
   setToken: (_accessToken) => {
     accessToken = _accessToken;
   },
+
+  ContractType,
+  Qualification,
+  Skill
 };
