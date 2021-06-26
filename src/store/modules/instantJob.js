@@ -111,6 +111,36 @@ export function fetchAllInstantJobs(page, take) {
     }
 }
 
+export function acceptApplicant(id) {
+    return dispatch => {
+        return agent.InstantJob.accept(id).then(
+            response => {
+                //handle success
+                dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "You've acepted this Applicant, the individual has be notified", title: 'Request accepted Successful' }));
+                dispatch(onLoadInstantJobApplicants(response));
+            },
+            error => {
+                dispatch(showMessage({ type: "error", message: error, title: "Failed to load Instant jobs" }));
+            }
+        )
+    }
+}
+
+export function rejectApplicant(id) {
+    return dispatch => {
+        return agent.InstantJob.reject(id).then(
+            response => {
+                //handle success
+                dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "You rejected this applicant's request", title: 'Request rejected Successful' }));
+                dispatch(onLoadInstantJobApplicants(response));
+            },
+            error => {
+                dispatch(showMessage({ type: "error", message: error, title: "Failed to load Instant jobs" }));
+            }
+        )
+    }
+}
+
 export function loadInstantJob(id) {
     return dispatch => {
         return agent.InstantJob.view(id).then(
@@ -131,7 +161,7 @@ export function applyInstantJob(id) {
             response => {
                 //handle success
                 dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "You have successfully applied for this job", title: 'Applied successfully' }));
-                dispatch(push("/instant-hires"));
+                dispatch(push("/instant-jobs"));
             },
             error => {
                 dispatch(showMessage({ type: "error", message: error, title: "Failed to load Instant jobs" }));

@@ -19,7 +19,7 @@ const Job = ({ openCreate, openEdit, profileInfo }) => {
                 <div className="p-card">
                     <SectionHeader
                         icon="briefcase"
-                        sectionTitle="Jobs"
+                        sectionTitle="Instant Jobs"
                         id="portfolioEdit"
                         // showAddButton="false"
                         showEditButton="false"

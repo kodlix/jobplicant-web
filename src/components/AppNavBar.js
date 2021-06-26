@@ -46,10 +46,10 @@ const AppNavBar = ({ displaySearBar = false }) => {
                                             <li className="nav-item">
                                                 <Link to="#">messages</Link>
                                             </li>
-                                            <li className="nav-item">
+                                            {/* <li className="nav-item">
                                                 <Link to="/contact">Contact
                                                 </Link>
-                                            </li>
+                                            </li> */}
                                             <li className="nav-item">
                                                 <Link to="#">notifications</Link>
                                                 <ul className="sub-menu">
