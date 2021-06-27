@@ -66,7 +66,7 @@ const New = ({ mode }) => {
     const toggleJobDate = (e) => {
         if (e.target.checked) {
             setValue("startDate", instantJobDate, { shouldValidate: true })
-            setValue("time", new Date().toLocaleTimeString(), { shouldValidate: false })
+            // setValue("time", new Date().toLocaleTimeString(), { shouldValidate: false })
 
             console.log("instant job => ", instantJobDate)
             setIsJobDateNow(true);
@@ -83,18 +83,14 @@ const New = ({ mode }) => {
             header: 'Confirmation',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                console.log({ data });
                 if (isJobDateNow) {
                     data.startDate = new Date().toISOString()
                     data.now = true;
                 } else {
                     data.now = false;
                 }
-
                 data.service = data.service.name;
                 dispatch(createInstantJob(data));
-                console.log("Data value =>", data)
-
             },
             reject: () => {
                 return;
@@ -244,7 +240,7 @@ const New = ({ mode }) => {
                                             </div>
                                         </div>
 
-                                        {!isJobDateNow && <div className="p-fluid p-md-6 p-sm-12">
+                                        {/* {!isJobDateNow && <div className="p-fluid p-md-6 p-sm-12">
                                             <div className="p-field">
                                                 <label htmlFor="lastname"> Time *</label>
                                                 <InputText type="time"
@@ -255,7 +251,7 @@ const New = ({ mode }) => {
                                                 {errors.time && <span className="text-danger font-weight-bold "> <p>{errors.time.message}</p>
                                                 </span>}
                                             </div>
-                                        </div>}
+                                        </div>} */}
                                         <div className="p-fluid p-md-12 p-sm-12">
                                             <div className="p-field">
                                                 <label htmlFor="lastname"> Description *</label>

@@ -14,6 +14,7 @@ const Applicant = (props) => {
 
     const [rating, setRating] = useState(4);
     const [modalDisplay, setModalDisplay] = useState(false);
+    const [applicantList, setApplicantList] = useState({});
 
     const instantJobs = useSelector(state => state.instantJob.instantjobs);
     const instantJobId = props.match.params.id;
@@ -24,7 +25,11 @@ const Applicant = (props) => {
 
     useEffect(() => {
         dispatch(loadApplicants(instantJobId))
-    }, [dispatch])
+    }, [dispatch,])
+
+    useEffect(() => {
+        setApplicantList(applicants)
+    }, [applicants])
 
     useEffect(() => {
         dispatch(loadInstantJob(instantJobId))
@@ -32,6 +37,14 @@ const Applicant = (props) => {
 
     const acceptHandler = (id) => {
         dispatch(acceptApplicant(id));
+        accetedApplicanrHandler(id);
+    }
+
+    const accetedApplicanrHandler = (applicantId) => {
+        const acceptedUser = applicants.filter(function (item) {
+            return item.applicantId !== applicantId;
+        })
+        setApplicantList(acceptedUser);
     }
 
     const rejectHandler = (id) => {
@@ -143,7 +156,7 @@ const Applicant = (props) => {
                                 <div className="d-flex justify-content-between p-mb-1">
                                     <div>
                                         <h5> <span className="font-weight-bold text-secondary">{instantJobs.service}</span> <span className="app-color">
-                                            {applicants.length ? applicants.length : 0} Applicant ({applicants.length ? applicants?.length : 0} Result)</span></h5>
+                                            {applicantList?.length ? applicantList?.length : 0} Applicant ({applicantList?.length ? applicantList?.length : 0} Result)</span></h5>
                                         <p className="font-weight-bold">Location : <span>{instantJobs.location}</span></p>
                                     </div>
                                     <div>
@@ -157,7 +170,7 @@ const Applicant = (props) => {
 
                                 </div>
                                 <div className="row">
-                                    {applicants && applicants.length > 0 && applicants.map(applicant =>
+                                    {applicantList && applicantList?.length > 0 && applicantList.map(applicant =>
 
                                         <div className="col-md-4 col-sm-12 highlight-card p-pb-3" >
                                             <div key={applicant.applicantId} className="card">
@@ -188,7 +201,7 @@ const Applicant = (props) => {
                                                 </div>
                                             </div>
                                         </div>)}
-                                    {applicants.length === 0 && <strong className="mx-auto text-secondary"><i>There are no applicants for this job </i> </strong>}
+                                    {applicants?.length === 0 && <strong className="mx-auto text-secondary"><i>There are no applicants for this job </i> </strong>}
 
                                 </div>
                             </div>

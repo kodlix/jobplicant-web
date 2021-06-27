@@ -43,7 +43,6 @@ const Edit = (props) => {
     const instantjob = useSelector(state => state.instantJob.instantjobs);
     console.log({ instantjob });
 
-    // const { service, description, time, location, address } = instantjob;
     const instantJobId = props.match.params.id;
     console.log({ itemToEdit })
 
@@ -104,7 +103,7 @@ const Edit = (props) => {
     const toggleJobDate = (e) => {
         if (e.target.checked) {
             setValue("startDate", instantJobDate, { shouldValidate: true })
-            setValue("time", new Date().toLocaleTimeString(), { shouldValidate: false })
+            // setValue("time", new Date().toLocaleTimeString(), { shouldValidate: false })
 
             console.log("instant job => ", instantJobDate)
             setIsJobDateNow(true);
@@ -117,9 +116,11 @@ const Edit = (props) => {
     const onSubmit = (data) => {
         if (isJobDateNow) {
             data.startDate = new Date().toISOString()
+            data.now = true;
+        } else {
+            data.now = false;
         }
         data.service = data.service.name;
-        data.endDate = (itemToEdit.endDate).toISOString();
         dispatch(editInstantJob(instantJobId, data));
     }
     return (
@@ -228,12 +229,10 @@ const Edit = (props) => {
                                                         onSelect={(e) => {
                                                             const inputName = "startDate";
                                                             const value = new Date(e.value).toISOString();
-
-                                                            setStartDate(value);
                                                             setValue(inputName, value, { shouldValidate: true });
                                                         }}
                                                         name="startDate"
-                                                        {...register("startDate", { required: `* Start date is required`, })}
+                                                        {...register("startDate", { required: `* Start date is required` })}
                                                     />
                                                     {errors.startDate && <span className="text-danger font-weight-bold "> <p>{errors.startDate.message}</p>
                                                     </span>}
@@ -242,7 +241,7 @@ const Edit = (props) => {
 
                                             <div className="p-fluid p-md-6 p-sm-12">
                                                 <div className="p-field">
-                                                    <label htmlFor="endDate">{" "}End Date * </label>
+                                                    <label htmlFor="endDate">End Date * </label>
                                                     <Calendar
                                                         id="endDate"
                                                         type="date"
@@ -253,20 +252,16 @@ const Edit = (props) => {
                                                         })}
                                                         onSelect={(e) => {
                                                             const inputName = "endDate";
-                                                            const value = e.value.toISOString();
-                                                            setEndDate(value);
+                                                            const value = new Date(e.value).toISOString();
                                                             setValue(inputName, value, { shouldValidate: true });
                                                         }}
-                                                        name="endDate"
-                                                        {...register("endDate", {
-                                                            required: `* End date is required`,
-                                                        })}
+                                                        name="endDate"{...register("endDate", { required: `* End date is required` })}
                                                     />
                                                     {errors.endDate && (<span className="text-danger font-weight-bold">&nbsp; {errors.endDate.message}</span>)}
                                                 </div>
                                             </div>
 
-                                            {!isJobDateNow && <div className="p-fluid p-md-6 p-sm-12">
+                                            {/* {!isJobDateNow && <div className="p-fluid p-md-6 p-sm-12">
                                                 <div className="p-field">
                                                     <label htmlFor="lastname"> Time *</label>
                                                     <InputText type="time"
@@ -279,7 +274,7 @@ const Edit = (props) => {
                                                     {errors.time && <span className="text-danger font-weight-bold "> <p>{errors.time.message}</p>
                                                     </span>}
                                                 </div>
-                                            </div>}
+                                            </div>} */}
                                             <div className="p-fluid p-md-12 p-sm-12">
                                                 <div className="p-field">
                                                     <label htmlFor="description"> Description *</label>
