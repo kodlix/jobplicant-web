@@ -61,7 +61,7 @@ const AdminContractType = () => {
     const onSubmit = e => {
         const obj = { name: contractType.name, description: contractType.description };
         if (contractType.id) {
-            dispatch(updateContractType(obj))
+            dispatch(updateContractType(obj, contractType.id))
         } else {
             dispatch(createContractType(obj))
         }

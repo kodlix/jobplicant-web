@@ -21,7 +21,7 @@ const Portfolio = ({ openCreate, openEdit }) => {
         <div className="p-card">
           <SectionHeader
             icon="images"
-            sectionTitle="Portfolio"
+            sectionTitle="Work samples"
             id="portfolioEdit"
             showAddButton="true"
             showEditButton="true"

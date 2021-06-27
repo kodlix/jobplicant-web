@@ -48,7 +48,6 @@ const AdminQualification = () => {
         setQualification({ ...qualification, id, name: data.name, description: data.description })
         setValue('name', qualification.name);
         setValue('description', qualification.description)
-        console.log(qualification)
     }
 
     const handleDelete = (id) => {

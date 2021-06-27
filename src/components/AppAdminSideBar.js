@@ -22,16 +22,19 @@ const AppAdminSideBar = (props) => {
             // icon: 'pi pi-bell',
             items: [
                 {
-                    label: 'Services',
-                    icon: 'pi pi-fw pi-align-left'
+                    label: 'Qualifications',
+                    icon: 'pi pi-fw pi-align-left',
+                    url: '/admin-qualification'
                 },
                 {
                     label: 'Skills',
-                    icon: 'pi pi-fw pi-align-right'
+                    icon: 'pi pi-fw pi-align-right',
+                    url: '/admin-skills'
                 },
                 {
                     label: 'Contract Types',
-                    icon: 'pi pi-fw pi-align-center'
+                    icon: 'pi pi-fw pi-align-center',
+                    url: '/admin-contractType'
                 },
                 {
                     label: 'Countries',
@@ -74,9 +77,7 @@ const AppAdminSideBar = (props) => {
                                 </a>
                             </li>
                             <li>
-                                <Link to="/dashboard">
                                     <PanelMenu model={setups} />
-                                </Link>
                             </li>
                             <li className='li-border'>
                                 <a href="manage-applications.html">

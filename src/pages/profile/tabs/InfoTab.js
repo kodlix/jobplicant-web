@@ -13,11 +13,15 @@ import ProfessionsOfInterest from "../ProfessionsOfInterest";
 import LocationOfInterest from "../LocationOfInterest";
 import ContactInformation from "../ContactInformation";
 import ModalForm from '../ModalForm';
+import agentService from 'services/agent.service';
 
 const InfoTab = () =>{ 
   
   const dispatch = useDispatch();
   const profileInfo = useSelector((state) => state.account.profileInfo);
+  const accountType = agentService.Auth.current().accountType;
+
+  console.log('accountType', accountType);
   /**
    * This state allows keep track of the changes in state either updating or deleting a data in the education
    * redux file, in other to update the UI accordingly
@@ -100,17 +104,17 @@ const InfoTab = () =>{
           profileInfo={profileInfo}
         />
         {/* hobbies */}
-        <Hobbies
+        {accountType !== "Artisan" && <Hobbies
           openCreate={openCreate}
           openEdit={openEdit}
           profileInfo={profileInfo}
-        />
+        />}
         {/* profession of interest */}
-        <ProfessionsOfInterest
+        {accountType !== "Artisan" &&<ProfessionsOfInterest
           openCreate={openCreate}
           openEdit={openEdit}
           profileInfo={profileInfo}
-        />
+        />}
         {/* location of interest */}
         <LocationOfInterest
           openCreate={openCreate}

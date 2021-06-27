@@ -77,13 +77,10 @@ export default function reducer(state = admin, action = {}) {
     case UPDATE_CONTRACT_TYPE:
     case UPDATE_SKILLS:
     case UPDATE_QUALIFICATION:
-      {
-        return {
-          ...state,
-          loading: false,
-          message: "updated"
-
-        }
+      return {
+        ...state,
+        loading: false,
+        message: "updated"
       }
     case DELETE_CONTRACT_TYPE:
     case DELETE_SKILLS:
