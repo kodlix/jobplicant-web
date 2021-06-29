@@ -5,6 +5,7 @@ import { Carousel } from 'primereact/carousel';
 
 import "../profile/UserProfile.css";
 import SectionHeader from "pages/profile/SectionHeader";
+import RecentInstantJobs from "pages/instant-jobs/Recent_instant_Jobs";
 
 const Job = ({ openCreate, openEdit, profileInfo }) => {
     const [portfolios, setPortfolios] = useState([]);
@@ -26,8 +27,7 @@ const Job = ({ openCreate, openEdit, profileInfo }) => {
 
                     />
                     <div className="p-card-body p-grid p-mt-2">
-
-
+                        {/* <RecentInstantJobs /> */}
                     </div>
                 </div>
             </div>

@@ -116,7 +116,7 @@ export function acceptApplicant(id) {
         return agent.InstantJob.accept(id).then(
             response => {
                 //handle success
-                dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "You've acepted this Applicant, the individual has be notified", title: 'Request accepted Successful' }));
+                dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "The applicant will be notified", title: 'Request accepted Successful' }));
                 // dispatch(onLoadInstantJobApplicants(response));
             },
             error => {
@@ -131,7 +131,7 @@ export function rejectApplicant(id) {
         return agent.InstantJob.reject(id).then(
             response => {
                 //handle success
-                dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "You rejected this applicant's request", title: 'Request rejected Successful' }));
+                dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "Applicant's request rejected", title: 'Request rejected Successful' }));
                 // dispatch(onLoadInstantJobApplicants(response));
             },
             error => {
