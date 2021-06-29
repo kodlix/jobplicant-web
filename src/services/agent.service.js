@@ -253,6 +253,13 @@ const Post = {
   delete: (id) => requests.del(`/post/${id}`)
 };
 
+const Comment = {
+  save: (id, data) => requests.post(`/comment/${id}`, data),
+  like: (id) => requests.put(`/comment/like/${id}`),
+  dislike: (id) => requests.put(`/comment/dislike/${id}`),
+  delete: (id) => requests.del(`/comment/${id}`)
+}
+
 export default {
   Auth,
   User,
@@ -271,6 +278,7 @@ export default {
   Education,
   UserSkill,
   Post,
+  Comment,
   setToken: (_accessToken) => {
     accessToken = _accessToken;
   },

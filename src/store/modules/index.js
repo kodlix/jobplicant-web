@@ -12,6 +12,7 @@ import modal from './modal';
 import userSkill from './userSkill';
 import education from './education';
 import timeline from './timeline';
+import comment from './comment';
 import util from './util';
 import job from './job';
 
@@ -30,6 +31,7 @@ const appReducer = (history) => combineReducers({
   modal,
   userSkill,
   timeline,
+  comment,
   util
 });
 

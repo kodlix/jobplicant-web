@@ -5,9 +5,15 @@
 }
 
 .timeline-content {
-  width: 84%;
+  width: 88%;
   margin: auto;
 }
+
+/* .timeline-postsContainer {
+  overflow-y: overlay;
+  overflow-x: hidden;
+  height: 70em;
+} */
 
 .profile-picture {
   border: 3px #5A2846 solid;  
@@ -87,12 +93,16 @@
   font-weight: 500 !important;
 }
 
-.cardtitle-posttime {
+.timeline-cardtitle-posttime {
   color: gray;
   display: flex;
   align-items: flex-end;
   font-size: 0.8rem !important;
-} 
+}
+
+.timeline-cardtitle-posttime > .pi-clock {
+  padding-bottom: 0.05rem;
+}
 
 /* Recent Jobs sidepanel */
 a .cardsubtitle-timeline {
@@ -278,6 +288,11 @@ a .cardsubtitle-timeline {
   object-fit: contain;
 }
 
+.timeline-postImage {
+  object-fit: contain;
+  height: 17rem;
+  background-color: #5A2846;
+}
 
 @media screen and (max-width: 1200px) {
   .timeline-content {

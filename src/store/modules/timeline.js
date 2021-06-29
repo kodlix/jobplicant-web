@@ -3,10 +3,10 @@ import { showMessage } from "./notification";
 import agent from "../../services/agent.service";
 import { MESSAGE_TYPE } from "../constant";
 import { closeModal } from "./modal";
-import { loadProfileInfo } from "./account";
 
 // initial values
 const timeline = {
+  loading: "",
   posts: [],
   post: {},
   postsByUserId: [],
@@ -16,7 +16,7 @@ const timeline = {
 };
 
 // Action types
-const CREATE_POST = "CREATE_POST";
+const LOADING = "LOADING";
 const LOAD_POST = "LOAD_POST";
 const LOAD_POSTS = "LOAD_POSTS";
 const LOAD_POST_BY_POSTID = "LOAD_POST_BY_POSTID";
@@ -32,6 +32,11 @@ const LOAD_USER_POST_COUNT = "LOAD_USER_POST_COUNT";
 // Reducer
 export default function reducer(state = timeline, action = {}) {
   switch (action.type) {
+    case LOADING:
+      return {
+        ...state,
+        loading: action.payload,
+      };
     case LOAD_POST:
       return {
         ...state,
@@ -41,6 +46,7 @@ export default function reducer(state = timeline, action = {}) {
       return {
         ...state,
         posts: action.payload,
+        loading: ""
       };
     case LOAD_POST_BY_POSTID:
       return {
@@ -76,6 +82,15 @@ export const postByPostIdLoaded = (data) => ({
   type: LOAD_POST_BY_POSTID,
   payload: data,
 });
+export const totalPostCountLoaded = (data) => ({
+  type: LOAD_TOTAL_POST_COUNT,
+  payload: data,
+});
+export const loading = (data) => ({
+  type: LOADING,
+  payload: data
+});
+
 
 
 // Actions
@@ -92,8 +107,8 @@ export function createPost(post) {
             message: "New post created successfully",
           })
         );
-        dispatch(loadPosts(1, 10));
         dispatch(closeModal());
+        dispatch(loadPosts(1, 10));
       },
       (error) => {
         dispatch(showMessage({ type: "error", message: error }));
@@ -125,12 +140,13 @@ export function editPost(id, post) {
   }
 }
 
-export function loadPosts(page, take) {
+export function loadPosts(page, take, loadingType) {
   return dispatch => {
-    // dispatch(isLoading());
+    dispatch(loading());
     return agent.Post.load(page, take).then(
       response => {
         //handle success
+        dispatch(loading(loadingType));
         dispatch(
           showMessage({
             type: MESSAGE_TYPE.SUCCESS,
@@ -139,6 +155,21 @@ export function loadPosts(page, take) {
           })
         );
         dispatch(postsLoaded(response));
+      },
+      (error) => {
+        // handle error
+        dispatch(showMessage({ type: "error", message: error }));
+      }
+    );
+  }
+}
+
+export function loadTotalPostCount() {
+  return dispatch => {
+    // dispatch(isLoading());
+    return agent.Post.postCount().then(
+      response => {
+        dispatch(totalPostCountLoaded(response));
       },
       (error) => {
         // handle error
