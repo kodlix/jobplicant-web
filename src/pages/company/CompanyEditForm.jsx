@@ -1,4 +1,5 @@
 import InputField from "components/InputField";
+import moment from "moment";
 import ModeFooter from "pages/profile/ModeFooter";
 import { Button } from "primereact/button";
 import { Calendar } from "primereact/calendar";
@@ -25,6 +26,7 @@ const CompanyEditForm = () => {
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [editMode, setEditMode] = useState(true);
 
   console.log('company info', profileInfo);
 
@@ -152,7 +154,11 @@ const CompanyEditForm = () => {
         <div className="container">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="p-4">
-              <h4>Edit Profile</h4>
+             <div className="d-flex justify-content-between">
+             <h4>Edit Profile</h4>
+             {editMode && <i className="pi pi-pencil" onClick={() => setEditMode(false)}></i>}
+             {!editMode && <i className="pi pi-times" onClick={() => setEditMode(true)}></i>}
+             </div>
               <div className="p-2"></div>
               <div className="row">
                 <div className="col-md-9">
@@ -166,14 +172,14 @@ const CompanyEditForm = () => {
                           </span>
                         )}
                       </label>
-                      <InputField
+                     {editMode ? <p className="pi-text">{profileInfo.companyName}</p> : <InputField
                         id="companyName"
                         name="name"
                         inputLabel="Company Name"
                         register={register}
                         inputChange={handleChange}
                         className="form-control"
-                      />
+                      />}
                     </div>
 
                     <div className="p-field p-col-6 p-md-6">
@@ -193,7 +199,7 @@ const CompanyEditForm = () => {
                         inputChange={handleChange}
                         className="form-control"
                       /> */}
-                      <Calendar
+                      {editMode ? <p className="pi-text">{moment(profileInfo.yearOfEstablishment).format('yyyy')}</p> : <Calendar
                         id="yearOfEstablishment"
                         view="month"
                         dateFormat="yy"
@@ -216,7 +222,7 @@ const CompanyEditForm = () => {
                           required: `* Year of establishment is required`,
                         })}
                         style={{ width: "100%" }}
-                      />
+                      />}
                     </div>
                   </div>
                   <div className="row">
@@ -229,14 +235,14 @@ const CompanyEditForm = () => {
                           </span>
                         )}
                       </label>
-                      <InputField
+                      {editMode ? <p className="pi-text">{profileInfo.contactPhoneNumber}</p> : <InputField
                         id="phoneNumber"
                         name="phoneNumber"
                         inputLabel="phoneNumber"
                         register={register}
                         inputChange={handleChange}
                         className="form-control"
-                      />
+                      />}
                     </div>
 
                     <div className="p-field p-col-6 p-md-6">
@@ -248,14 +254,14 @@ const CompanyEditForm = () => {
                           </span>
                         )}
                       </label>
-                      <InputField
+                     {editMode ? <p className="pi-text">{profileInfo.website}</p> : <InputField
                         id="website"
                         name="website"
                         inputLabel="website"
                         register={register}
                         inputChange={handleChange}
                         className="form-control"
-                      />
+                      />}
                     </div>
                   </div>
                 </div>
@@ -277,7 +283,7 @@ const CompanyEditForm = () => {
                         className="profile-picture"
                       />)
                     }
-                    <label className="profilePic-label" htmlFor="upload-button">
+                    {!editMode && <label className="profilePic-label" htmlFor="upload-button">
                       {uploading ? (
                         <i className="pi pi-spin pi-spinner" style={{ color: "black" }}>
                           {" "}
@@ -285,7 +291,7 @@ const CompanyEditForm = () => {
                       ) : (
                         <i className="pi pi-camera"></i>
                       )}
-                    </label>
+                    </label>}
                   </span>
                   <input
                     type="file"
@@ -301,14 +307,14 @@ const CompanyEditForm = () => {
                 <div className="p-field p-col-6 p-md-6">
                   <label className="inputLabel" htmlFor="course">
                     Country<span className="text-red">*</span>
-                    {errors.phoneNumber && (
+                    {errors.country && (
                       <span className="text-danger font-weight-bold">
-                        &nbsp; {errors.phoneNumber.message}
+                        &nbsp; {errors.country.message}
                       </span>
                     )}
                   </label>
 
-                  <Dropdown
+                  {editMode ? <p className="pi-text">TODO COUNTRY</p> : <Dropdown
                     options={countries}
                     optionLabel="name"
                     filter
@@ -328,7 +334,7 @@ const CompanyEditForm = () => {
                       handleCountryChange(e);
                     }}
                     className="form-control"
-                  />
+                  />}
                 </div>
                 <div className="p-field p-col-6 p-md-6">
                   <label className="inputLabel" htmlFor="course">
@@ -340,7 +346,7 @@ const CompanyEditForm = () => {
                     )}
                   </label>
 
-                  <Dropdown
+                  {editMode ? <p className="pi-text">TODO STATE</p> : <Dropdown
                     options={states}
                     optionLabel="name"
                     filter
@@ -360,7 +366,7 @@ const CompanyEditForm = () => {
                       handleStateChange(e);
                     }}
                     className="form-control"
-                  />
+                  />}
                 </div>
               </div>
               <div className="row">
@@ -374,7 +380,7 @@ const CompanyEditForm = () => {
                     )}
                   </label>
 
-                  <Dropdown
+                  {editMode ? <p className="pi-text">TODO LGA</p> : <Dropdown
                     options={lgas}
                     optionLabel="name"
                     filter
@@ -394,7 +400,7 @@ const CompanyEditForm = () => {
                       handleChange(e)
                     }}
                     className="form-control"
-                  />
+                  />}
                 </div>
                 <div className="p-field p-col-6 p-md-6">
                   <label className="inputLabel" htmlFor="course">
@@ -405,14 +411,14 @@ const CompanyEditForm = () => {
                       </span>
                     )}
                   </label>
-                  <InputField
+                  {editMode ? <p className="pi pi-text">{profileInfo.city}</p> : <InputField
                     id="city"
                     name="city"
                     inputLabel="city"
                     register={register}
                     inputChange={handleChange}
                     className="form-control"
-                  />
+                  />}
                 </div>
               </div>
               <div className="row">
@@ -425,7 +431,7 @@ const CompanyEditForm = () => {
                       </span>
                     )}
                   </label>
-                  <textarea
+                  {editMode ? <p classname="pi pi-text">{profileInfo.address}</p> : <textarea
                     id="address"
                     name="address"
                     onChange={(e) => {
@@ -434,7 +440,7 @@ const CompanyEditForm = () => {
                     }}
                     className="form-control" 
                     defaultValue={companyInfo.address}
-                  ></textarea>
+                  ></textarea>}
                 </div>
                 <div className="p-field p-col-6 p-md-6">
                   <label className="inputLabel" htmlFor="course">
@@ -445,7 +451,7 @@ const CompanyEditForm = () => {
                       </span>
                     )}
                   </label>
-                  <InputField
+                  {editMode ? <p className="pi pi-text">{profileInfo.noOfEmployees}</p> : <InputField
                     id="noOfEmployees"
                     name="noOfEmployees"
                     inputLabel="noOfEmployees"
@@ -453,7 +459,7 @@ const CompanyEditForm = () => {
                     inputChange={handleChange}
                     className="form-control"
                     type="number"
-                  />
+                  />}
                 </div>
               </div>
             </div>
