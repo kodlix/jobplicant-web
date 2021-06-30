@@ -11,6 +11,7 @@ import moment from 'moment';
 import Job from './Job';
 
 import './InstantJobHire.css'
+import RecentInstantJobs from 'pages/instant-jobs/Recent_instant_Jobs';
 
 const InstantHires = (props) => {
     const dispatch = useDispatch();
@@ -82,7 +83,7 @@ const InstantHires = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <Job />
+                        <RecentInstantJobs />
                     </div>
                 </div>
             </div>

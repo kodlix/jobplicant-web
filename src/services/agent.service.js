@@ -4,8 +4,8 @@ import superagentPromise from "superagent-promise";
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-// export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api.herokuapp.com";
-export const API_ROOT = "https://jobplicant-api.herokuapp.com";
+export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api.herokuapp.com";
+// export const API_ROOT = "https://jobplicant-api.herokuapp.com";
 
 console.log('API_ROOT', API_ROOT);
 console.log("environmental variables", process.env);
@@ -281,6 +281,27 @@ const Skill = {
   delete: (id) => requests.del(`/skill/${id}`),
 }
 
+const Post = {
+  save: (data) => requests.post("/post", data),
+  edit: (id, data) => requests.put(`/post/${id}`, data),
+  load: (page, take) => requests.get("/post", page, take),
+  loadByUserId: (id, page, take) => requests.get(`/post/user/${id}`, page, take),
+  view: (id) => requests.get(`/post/${id}`),
+  search: (page, search) => requests.get("/post/search", page, search),
+  like: (id) => requests.put(`/post/like/${id}`),
+  dislike: (id) => requests.put(`/post/dislike/${id}`),
+  postCount: () => requests.get("/post/count"),
+  postCountByUser: (userId) => requests.get(`/post/user/${userId}/count`),
+  delete: (id) => requests.del(`/post/${id}`)
+};
+
+const Comment = {
+  save: (id, data) => requests.post(`/comment/${id}`, data),
+  like: (id) => requests.put(`/comment/like/${id}`),
+  dislike: (id) => requests.put(`/comment/dislike/${id}`),
+  delete: (id) => requests.del(`/comment/${id}`)
+}
+
 export default {
   Auth,
   User,
@@ -299,6 +320,8 @@ export default {
   Education,
   UserSkill,
   InstantJob,
+  Post,
+  Comment,
   setToken: (_accessToken) => {
     accessToken = _accessToken;
   },

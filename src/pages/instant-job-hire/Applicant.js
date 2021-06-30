@@ -8,6 +8,7 @@ import Job from './Job';
 
 import './InstantJobHire.css'
 import { useSelector, useDispatch } from 'react-redux';
+import { Tag } from 'primereact/tag';
 
 const Applicant = (props) => {
     const dispatch = useDispatch()
@@ -37,10 +38,10 @@ const Applicant = (props) => {
 
     const acceptHandler = (id) => {
         dispatch(acceptApplicant(id));
-        accetedApplicanrHandler(id);
+        accetedApplicantHandler(id);
     }
 
-    const accetedApplicanrHandler = (applicantId) => {
+    const accetedApplicantHandler = (applicantId) => {
         const acceptedUser = applicants.filter(function (item) {
             return item.applicantId !== applicantId;
         })
@@ -188,7 +189,7 @@ const Applicant = (props) => {
                                                         onChange={(e) => setRating(e.value)} stars={5} /></span>
                                                     </p>
                                                 </div>
-                                                <div className="p-grid p-pl-5 p-pb-2">
+                                                {!applicant.accepted && !applicant.rejected && <div className="p-grid p-pl-5 p-pb-2">
                                                     <div className="p-pr-2">
                                                         <Button icon="pi pi-check" iconPos="left" label="Accept" id="saveButton" className="p-button-sm"
                                                             onClick={() => acceptHandler(applicant.applicantId)} />
@@ -198,7 +199,19 @@ const Applicant = (props) => {
                                                             onClick={() => rejectHandler(applicant.applicantId)} />
                                                     </div>
 
-                                                </div>
+                                                </div>}
+
+                                                {applicant.accepted && <div className="p-grid p-pl-5 p-pb-2">
+                                                    <div className="p-pr-2">
+                                                        <Tag> <span >Accepted</span></Tag>
+                                                    </div>
+                                                </div>}
+
+                                                {applicant.rejected && <div className="p-grid p-pl-5 p-pb-2">
+                                                    <div className="p-pr-2">
+                                                        <Tag> <span >Rejected</span></Tag>
+                                                    </div>
+                                                </div>}
                                             </div>
                                         </div>)}
                                     {applicants?.length === 0 && <strong className="mx-auto text-secondary"><i>There are no applicants for this job </i> </strong>}

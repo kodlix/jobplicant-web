@@ -1,8 +1,37 @@
 .commentForm {
   width: 100%;
-  margin-left: 18px;
   background-color: #5a284625;
   border-radius: 10px;
+  padding-bottom: 3rem;
+  margin-left: 0.5rem;
+}
+
+.timeline-commentInputContainer {
+  width: 100%;
+  position: relative;
+}
+
+.timeline-commentButton {
+  /* width: fit-content; */
+  position: absolute;
+  font-size: 0.8rem;
+  height: 35px;
+  bottom: 1rem;
+  right: 0;
+}
+
+
+.timeline-commentListTitle {
+  color: #5A2846;
+}
+
+.timeline-commentListTitle:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.timeline-commentContainer {
+  border-bottom: 1px rgba(128, 128, 128, 0.432) solid;
 }
 
 .reply-button {

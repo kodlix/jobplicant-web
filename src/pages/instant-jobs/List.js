@@ -9,6 +9,7 @@ import moment from 'moment';
 import { confirmDialog } from 'primereact/confirmdialog';
 
 import './Instant-Jobs.css';
+import RecentInstantJobs from './Recent_instant_Jobs';
 
 
 const InstantJobs = () => {
@@ -94,7 +95,7 @@ const InstantJobs = () => {
                                     </div>)}
                             </div>
                         </div>
-                        <Job />
+                        <RecentInstantJobs />
                         {/* <CorporateJob /> */}
                     </div>
 

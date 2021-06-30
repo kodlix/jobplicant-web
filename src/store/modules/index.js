@@ -11,6 +11,8 @@ import error from './error';
 import modal from './modal';
 import userSkill from './userSkill';
 import education from './education';
+import timeline from './timeline';
+import comment from './comment';
 import util from './util';
 import instantJob from './instantJob';
 import job from './job';
@@ -32,7 +34,9 @@ const appReducer = (history) => combineReducers({
   userSkill,
   util,
   instantJob,
-  admin
+  admin,
+  timeline,
+  comment,
 });
 
 export default appReducer;

@@ -5,24 +5,25 @@ import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Dropdown } from 'primereact/dropdown';
 import InstantHeader from './instant-header';
-import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import { confirmDialog } from 'primereact/confirmdialog';
 import { useDispatch } from 'react-redux';
 import { createInstantJob } from 'store/modules/instantJob';
 import { Calendar } from 'primereact/calendar';
-import Job from './Job';
+import RecentInstantJobs from 'pages/instant-jobs/Recent_instant_Jobs';
 
 import './InstantJobHire.css'
-
-
 
 const New = ({ mode }) => {
     const dispatch = useDispatch();
     const toast = useRef(null);
 
-    const { register, handleSubmit, formState: { errors }, setValue } = useForm({
+    const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm({
         mode: "onChange",
         reValidateMode: "onChange"
     });
+
+    const { startdate, enddate } = watch(["startDate", "endDate"]);
+
 
     const [desc, setDesc] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("");
@@ -40,7 +41,6 @@ const New = ({ mode }) => {
         { name: 'Janitor', code: 'Jan' },
 
     ];
-
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -193,6 +193,7 @@ const New = ({ mode }) => {
                                                     type="date"
                                                     value={startDate}
                                                     disabled={isJobDateNow}
+                                                    // maxDate={endDate}
                                                     name="startDate"
                                                     {...register("startDate", {
                                                         required: `* Start Date is required`,
@@ -221,6 +222,7 @@ const New = ({ mode }) => {
                                                     id="endDate"
                                                     type="date"
                                                     value={endDate}
+                                                    // minDate={startDate || null}
                                                     name="endDate"
                                                     {...register("endDate", {
                                                         required: `* End Date is required`,
@@ -234,6 +236,7 @@ const New = ({ mode }) => {
                                                     name="endDate"
                                                     {...register("endDate", {
                                                         required: `* End date is required`,
+                                                        validate: value => !value || !startdate || value > startdate || "End date cannot be less than Start date"
                                                     })}
                                                 />
                                                 {errors.endDate && (<span className="text-danger font-weight-bold">&nbsp; {errors.endDate.message}</span>)}
@@ -277,7 +280,7 @@ const New = ({ mode }) => {
             <Button onClick={() => setVisible(true)} icon="pi pi-check" label="Confirm" /> */}
                             </div>
                         </div>
-                        <Job />
+                        <RecentInstantJobs />
                     </div>
                 </div>
             </div>
