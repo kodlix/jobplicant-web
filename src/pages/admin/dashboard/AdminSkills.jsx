@@ -5,6 +5,9 @@ import { useDispatch, useSelector } from "react-redux"
 import CustomInputField from "components/CustomInputField";
 import { createSkills, deleteSkills, getSkills, updateSkills } from "store/modules/admin";
 import { Tag } from "primereact/tag";
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+
 const AdminSkill = () => {
     const dispatch = useDispatch();
     const skillList = useSelector((state) => state.admin.skills);
@@ -28,10 +31,9 @@ const AdminSkill = () => {
     useEffect(() => {
         dispatch(getSkills())
         if (message !== null) {
-           if(message === 'created'){
-                setSkills({name: '', description: ''})
-                reset({name: '', description:''})
-           }
+            if (message === 'created') {
+                setSkills({ name: '', description: '' })
+            }
         }
 
     }, [message])
@@ -44,10 +46,10 @@ const AdminSkill = () => {
     }
 
     const handleEdit = (data, id) => {
+
         setSkills({ ...skills, id, name: data.name, description: data.description })
         setValue('name', skills.name);
         setValue('description', skills.description)
-        console.log(skills)
     }
 
     const handleDelete = (id) => {
@@ -72,12 +74,53 @@ const AdminSkill = () => {
             dispatch(createSkills(obj))
         }
     }
+
+    const actionTemplate = (rowData) => <div>
+        <i className="pi pi-pencil" onClick={() => handleEdit(rowData, rowData.id)}></i>&nbsp;&nbsp;
+        <i className="pi pi-trash" onClick={() => handleDelete(rowData.id)}></i>
+    </div>
+
+    const getTableData = (skills) => {
+        return (
+            <DataTable value={skills}>
+                <Column field="name" header="Name"></Column>
+                <Column field="description" header="Description"></Column>
+                <Column header="Action" body={actionTemplate}>
+                   
+                </Column>
+            </DataTable>
+        )
+    }
+
     return (<div className="background-dashboard container">
         <div className="background-top"></div>
         <div className="background-bottom" >
 
             <h3 className="p-pb-2"><i className="pi pi-chart-line p-pr-2"></i>Skills</h3>
             <div className="p-grid p-mx-lg-0 grid-margin p-py-1">
+                <div className="p-col-12 p-lg-8 p-p-lg-1 p-py-0">
+                    <div className="p-card h-100 p-mt-2">
+                        <div className="p-card-body pt-4">
+                            {getTableData(skillList)}
+                            {/* {skillList.map((skill, index) => (<span key={index}>
+                                <Tag >
+                                    <span 
+                                        className="btn" 
+                                        style={{ color: 'white' }} 
+                                        onClick={() => handleEdit(skill, skill.id)}>
+                                            {skill.name} 
+                                    </span>&nbsp;
+                                    <button 
+                                        className="btn" 
+                                        style={{ color: 'white' }} 
+                                        onClick={() => handleDelete(skill.id)}>
+                                            &times;
+                                    </button>
+                                </Tag>&nbsp;&nbsp;
+                            </span>))} */}
+                        </div>
+                    </div>
+                </div>
                 <div className="p-col-12 p-lg-4 p-p-lg-1">
                     <div className="p-card h-100 p-mt-2 text-center">
                         <div className="p-card-title p-px-3 p-pt-4">
@@ -126,41 +169,20 @@ const AdminSkill = () => {
                                     </div>
                                 </div>
                                 <div className="buttons">
-                                <Button
-                                    iconPos="left"
-                                    label={loading ? "Please wait..." : skills.id ? "Update" : "Create"}
-                                    id="saveButton"
-                                    type="submit"
-                                    disabled={loading}
-                                />
-                                {skills.id && <Button label="Add New" type="button" onClick={handleCreateNew} />}
+                                    <Button
+                                        iconPos="left"
+                                        label={loading ? "Please wait..." : skills.id ? "Update" : "Create"}
+                                        id="saveButton"
+                                        type="submit"
+                                        disabled={loading}
+                                    />
+                                    {skills.id && <Button label="Add New" type="button" onClick={handleCreateNew} />}
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-                <div className="p-col-12 p-lg-8 p-p-lg-1 p-py-0">
-                    <div className="p-card h-100 p-mt-2">
-                        <div className="p-card-body pt-4">
-                            {skillList.map((skill, index) => (<span key={index}>
-                                <Tag >
-                                    <span 
-                                        className="btn" 
-                                        style={{ color: 'white' }} 
-                                        onClick={() => handleEdit(skill, skill.id)}>
-                                            {skill.name} 
-                                    </span>&nbsp;
-                                    <button 
-                                        className="btn" 
-                                        style={{ color: 'white' }} 
-                                        onClick={() => handleDelete(skill.id)}>
-                                            &times;
-                                    </button>
-                                </Tag>&nbsp;&nbsp;
-                            </span>))}
-                        </div>
-                    </div>
-                </div>
+
             </div>
 
         </div>
