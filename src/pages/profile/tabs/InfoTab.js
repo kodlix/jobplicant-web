@@ -21,7 +21,6 @@ const InfoTab = () =>{
   const profileInfo = useSelector((state) => state.account.profileInfo);
   const accountType = agentService.Auth.current().accountType;
 
-  console.log('accountType', accountType);
   /**
    * This state allows keep track of the changes in state either updating or deleting a data in the education
    * redux file, in other to update the UI accordingly
