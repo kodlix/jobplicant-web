@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { openModal } from "store/modules/modal";
 import PersonalInfo from "./PersonalInfo";
 import CustomBreadCrumb from "helpers/BreadCrumb";
+import agentService from "services/agent.service";
 // import BreadCrumbPane from 'helpers/BreadCrumb';
 
 
@@ -20,7 +21,7 @@ const UserProfile = ({ match }) => {
   const dispatch = useDispatch();
   const [, setMode] = useState("");
   const [] = useState({});
-
+  const accountType = agentService.Auth.current().accountType;
 
   const openCreate = (name) => {
     setMode("create");
@@ -65,7 +66,7 @@ const UserProfile = ({ match }) => {
                 </div>
               </div>
               {/* portfolio */}
-              <Portfolio openCreate={openCreate} openEdit={openEdit} />
+              {accountType !== "Artisan" && <Portfolio openCreate={openCreate} openEdit={openEdit} />}
             </div>
           </div>
         </div>

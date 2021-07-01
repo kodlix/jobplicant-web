@@ -84,7 +84,6 @@ export function loadStates(countryid) {
         if (countryid) {
             return agent.State.loadByCountry(countryid).then(
                 response => {
-                    console.log(response);
                     dispatch(onLoadState(response));
                 },
                 () => {

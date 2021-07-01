@@ -28,8 +28,6 @@ const CompanyEditForm = () => {
   const [preview, setPreview] = useState(null);
   const [editMode, setEditMode] = useState(true);
 
-  console.log('company info', profileInfo);
-
   const {
     register,
     handleSubmit,
@@ -51,13 +49,15 @@ const CompanyEditForm = () => {
 
   useEffect(() => {
     dispatch(loadCountry());
-    dispatch(loadStates(profileInfo.stateId))
+    dispatch(loadStates(1));
+    dispatch(loadLga(1))
     setCompanyInfo({
       ...companyInfo,
       yearOfEstablishment: new Date(profileInfo.yearOfEstablishment),
       companyName: profileInfo.companyName,
+
       // country: companyInfo.country,
-      // stateName: companyInfo.state.name,
+      // state: companyInfo.state.name,
       // lga: companyInfo.lga,
       // lgaId: companyInfo.lga.id,
       // lgaName: companyInfo.lga.name,
@@ -90,6 +90,17 @@ const CompanyEditForm = () => {
 
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFile, uploading]);
+
+  useEffect(() => {
+    if (countries) {
+      setCompanyInfo({
+        ...companyInfo, 
+        country: countries.find(country => country.id === 1),
+        state: states.find(state => state.id === 1),
+        lga: lgas.find(lga => lga.id === 1),
+      })
+    }
+  }, [countries])
 
   const uploadProfilePicture = e => {
     if (!e.target.files || e.target.files.length === 0) {
@@ -148,17 +159,19 @@ const CompanyEditForm = () => {
     dispatch(updateCompanyInfo(obj))
   };
 
+  
+
   return (
     <>
       <div className="card bg-white">
         <div className="container">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="p-4">
-             <div className="d-flex justify-content-between">
-             <h4>Edit Profile</h4>
-             {editMode && <i className="pi pi-pencil" onClick={() => setEditMode(false)}></i>}
-             {!editMode && <i className="pi pi-times" onClick={() => setEditMode(true)}></i>}
-             </div>
+              <div className="d-flex justify-content-between">
+                <h4>Edit Profile</h4>
+                {editMode && <i className="pi pi-pencil" onClick={() => setEditMode(false)}></i>}
+                {!editMode && <i className="pi pi-times" onClick={() => setEditMode(true)}></i>}
+              </div>
               <div className="p-2"></div>
               <div className="row">
                 <div className="col-md-9">
@@ -172,7 +185,7 @@ const CompanyEditForm = () => {
                           </span>
                         )}
                       </label>
-                     {editMode ? <p className="pi-text">{profileInfo.companyName}</p> : <InputField
+                      {editMode ? <p className="pi-text">{profileInfo.companyName}</p> : <InputField
                         id="companyName"
                         name="name"
                         inputLabel="Company Name"
@@ -254,7 +267,7 @@ const CompanyEditForm = () => {
                           </span>
                         )}
                       </label>
-                     {editMode ? <p className="pi-text">{profileInfo.website}</p> : <InputField
+                      {editMode ? <p className="pi-text">{profileInfo.website}</p> : <InputField
                         id="website"
                         name="website"
                         inputLabel="website"
@@ -314,7 +327,7 @@ const CompanyEditForm = () => {
                     )}
                   </label>
 
-                  {editMode ? <p className="pi-text">TODO COUNTRY</p> : <Dropdown
+                  {editMode ? <p className="pi-text">{companyInfo.country && companyInfo.country.name}</p> : <Dropdown
                     options={countries}
                     optionLabel="name"
                     filter
@@ -346,7 +359,7 @@ const CompanyEditForm = () => {
                     )}
                   </label>
 
-                  {editMode ? <p className="pi-text">TODO STATE</p> : <Dropdown
+                  {editMode ? <p className="pi-text">{companyInfo.state && companyInfo.state.name}</p> : <Dropdown
                     options={states}
                     optionLabel="name"
                     filter
@@ -380,7 +393,7 @@ const CompanyEditForm = () => {
                     )}
                   </label>
 
-                  {editMode ? <p className="pi-text">TODO LGA</p> : <Dropdown
+                  {editMode ? <p className="pi-text">{companyInfo.lga && companyInfo.lga.name}</p> : <Dropdown
                     options={lgas}
                     optionLabel="name"
                     filter
@@ -438,7 +451,7 @@ const CompanyEditForm = () => {
                       register("address");
                       handleChange(e);
                     }}
-                    className="form-control" 
+                    className="form-control"
                     defaultValue={companyInfo.address}
                   ></textarea>}
                 </div>
@@ -464,7 +477,7 @@ const CompanyEditForm = () => {
               </div>
             </div>
             <div id="personalProfileForm" className="editMode-footer p-d-flex align-item-end flex-row-reverse">
-              <Button disabled={loading} icon="pi pi-check" iconPos="left" label={loading ? 'please wait...' : 'Save'} id="saveButton" type='submit' />
+              {!editMode && <Button disabled={loading} icon="pi pi-check" iconPos="left" label={loading ? 'please wait...' : 'Save'} id="saveButton" type='submit' />}
             </div>
             <div className="pb-4"></div>
           </form>
