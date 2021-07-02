@@ -302,6 +302,14 @@ const Comment = {
   delete: (id) => requests.del(`/comment/${id}`)
 }
 
+const Contact = {
+  load: (page, take, search = null) => requests.get(`/contact/free?${new URLSearchParams({ page: page, take: take, search: search }).toString()}`),
+  save: (id, data) => requests.post(`/comment/${id}`, data),
+  like: (id) => requests.put(`/comment/like/${id}`),
+  dislike: (id) => requests.put(`/comment/dislike/${id}`),
+  delete: (id) => requests.del(`/comment/${id}`)
+}
+
 export default {
   Auth,
   User,
@@ -322,6 +330,7 @@ export default {
   InstantJob,
   Post,
   Comment,
+  Contact,
   setToken: (_accessToken) => {
     accessToken = _accessToken;
   },

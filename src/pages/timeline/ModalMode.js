@@ -1,31 +1,53 @@
 import React, { useState } from 'react';
+import { Dialog } from 'primereact/dialog';
+import { ToggleButton } from 'primereact/togglebutton';
+import { useSelector } from "react-redux";
+import { TIMELINE } from "constants/timeline";
 import PostForm from './PostForm';
 import PostJobModal from './PostJobModal';
-import { Dialog } from 'primereact/dialog';
-import { Button } from 'primereact/button';
-import { ToggleButton } from 'primereact/togglebutton';
 
-const ModalMode = ({ onHide, displayModal, postId }) => {
-  const [displayCreatePostModal, setCreatePostModalDisplay] = useState(true);
+const ModalMode = ({ onHide, displayModal, postId, imageUrl }) => {
+  const modalName = useSelector(state => state.modal.name);
+  const [toggle, setToggle] = useState(true)
   const createPost_Title = "Create a Post";
   const EditPost_Title = "Edit your Post";
-  const dialogTitle = postId ? EditPost_Title : displayModal ? createPost_Title : "";
-  
+  const dialogTitle = modalName === TIMELINE.EDITPOST ? EditPost_Title : modalName === TIMELINE.CREATEPOST ? createPost_Title : "";
+
+  const toggleModal = () => {
+    const displayPostForm = toggle === true ? false : true;
+    setToggle(displayPostForm);
+  }
+
   return (
     <>
       <Dialog header={dialogTitle} visible={displayModal} onHide={onHide} breakpoints={{ '960px': '100vw' }} style={{ width: '45vw' }}>
-        <ToggleButton onLabel="I confirm" offLabel="I reject" onIcon="pi pi-check" offIcon="pi pi-times" checked={displayCreatePostModal} onChange={(e) => setCreatePostModalDisplay(e.value)} />
         {
-          displayCreatePostModal &&
+          (modalName === TIMELINE.CREATEPOST || modalName === TIMELINE.CREATEJOB) &&
+          < ToggleButton
+            checked={toggle}
+            onLabel="I confirm"
+            offLabel="I reject"
+            onIcon="pi pi-check"
+            offIcon="pi pi-times"
+            onChange={toggleModal} />
+        }
+        {
+          (modalName === TIMELINE.CREATEPOST || modalName === TIMELINE.EDITPOST) && toggle &&
           <PostForm
             postId={postId}
             clearModalInput={!displayModal}
           />
         }
         {
-          !displayCreatePostModal &&
+          !toggle &&
           <PostJobModal
           />
+        }
+        {
+          imageUrl && (modalName === TIMELINE.ACTIVEUSERPICTURE || modalName === TIMELINE.POSTIMAGE) &&
+          <div>
+            <img src={imageUrl} className="timeline-profilepic-expanded" />
+          </div>
         }
       </Dialog>
     </>

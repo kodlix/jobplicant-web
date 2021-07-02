@@ -6,7 +6,7 @@ import agent from "../../services/agent.service";
 import CommentForm from './CommentForm';
 import './CommentSection.css';
 
-const Comment = ({ comment }) => {
+const Comment = ({ comment, key }) => {
   const dispatch = useDispatch();
   const [displayCommentForm, setDisplayCommentForm] = useState(false);
 
@@ -24,7 +24,7 @@ const Comment = ({ comment }) => {
     setDisplayCommentForm(true);
   }
   return (
-    <div className="timeline-commentContainer">
+    <div className="timeline-commentContainer" id={key}>
       <div className="d-flex p-pl-3 p-pt-3 w-100">
         <img src="../../assets/logo.png" width="40" height="40" className="rounded-circle profile-picture p-mr-2" />
         <div className="w-100">

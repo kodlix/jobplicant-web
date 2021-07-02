@@ -6,9 +6,12 @@ import ModalMode from './ModalMode';
 import CommentList from './CommentList';
 import CommentForm from './CommentForm';
 import { openModal, closeModal } from "store/modules/modal";
+import { loadProfileInfo } from "store/modules/account";
 import { loadPosts, loadTotalPostCount, deletePost, likePost, dislikePost } from "../../store/modules/timeline";
 import { loadJobs } from "store/modules/job";
+import { TIMELINE } from "constants/timeline";
 import agent, { API_ROOT } from "../../services/agent.service";
+import { formatter } from 'helpers/converter';
 import moment from "moment";
 import "./Timeline.css";
 
@@ -22,20 +25,32 @@ const Timeline = () => {
   const profileInfo = useSelector((state) => state.account.profileInfo);
   const [postId, setPostId] = useState("");
   const [pageNumber, setpageNumber] = useState(1);
+  const [imageToDisplay, setImageToDisplay] = useState("");
   const [postsLoaded, setPostsLoaded] = useState([]);
 
   const onShow = (id) => {
     if (id) {
       setPostId(id);
-      dispatch(openModal("displayEditPost"));
+      dispatch(openModal(TIMELINE.EDITPOST));
     }
     else {
-      dispatch(openModal("displayCreatePost"));
+      dispatch(openModal(TIMELINE.CREATEPOST));
     }
+  }
+
+  const expandProfileImage = (e) => {
+    setImageToDisplay(e.target.src)
+    dispatch(openModal(TIMELINE.ACTIVEUSERPICTURE));
+  }
+
+  const expandPostImage = (e) => {
+    setImageToDisplay(e.target.src);
+    dispatch(openModal(TIMELINE.POSTIMAGE));
   }
 
   const onHide = (name) => {
     dispatch(closeModal(name));
+    setImageToDisplay("");
     setPostId("");
   }
 
@@ -61,6 +76,7 @@ const Timeline = () => {
   }
 
   useEffect(() => {
+    dispatch(loadProfileInfo());
     dispatch(loadTotalPostCount());
     dispatch(loadJobs());
     dispatch(loadPosts(1, 1, "loadPosts"));
@@ -84,19 +100,73 @@ const Timeline = () => {
               <div className="p-card">
                 <div className="leftpanel-top-container-timeline"></div>
                 <div className="leftpanel-bottom-container-timeline">
-                  <img src="../../assets/images/hero/hero-image.png" width="80" height="80" className="rounded-circle profile-picture" />
-                  {/* {
-                    profileInfo?.firstName &&
-                    <h4 className="p-mt-2">
-                      {`${capitalizeFirstLetter(profileInfo?.firstName)} ${capitalizeFirstLetter(profileInfo?.lastName)}`}
-                    </h4>
-                  } */}
-                  <h4 className="p-mt-2">
-                    Jane Doe
-                  </h4>
-                  <p className="p-mb-3">
-                    Graphic Designer at Self Employed
-                  </p>
+                  {
+                    profileInfo.imageUrl &&
+                    <img src={profileInfo?.imageUrl} width="80" height="80" className="rounded-circle timeline-profilePicture" onClick={expandProfileImage} />
+                  }
+                  {
+                    !profileInfo.imageUrl &&
+                    <div className="">
+                      <i className="pi pi-user timeline-emptyProfilePic"></i>
+                    </div>
+                  }
+                  {
+                    profileInfo?.firstName && profileInfo?.accountType !== "Corporate" &&
+                    <>
+                      <h4 className="p-mt-2">
+                        {`${capitalizeFirstLetter(profileInfo?.firstName)} ${capitalizeFirstLetter(profileInfo?.lastName)}`}
+                      </h4>
+                      <p className="p-mb-4 ">
+                        <p className="p-mt-1">
+                          Graphic Designer at Self Employed
+                          </p>
+                        <span className="p-mt-1">
+                          {
+                            (profileInfo.city || profileInfo.country) &&
+                            <i class="pi pi-map-marker p-pr-1"></i>
+                          }
+                          {
+                            profileInfo.city &&
+                            <span>{profileInfo?.city}, &nbsp;</span>
+                          }
+                          {
+                            profileInfo.country &&
+                            // <span>{profileInfo?.country}</span>
+                            <span>Nigeria</span>
+                          }
+                        </span>
+                      </p>
+                    </>
+                  }
+                  {
+                    profileInfo?.firstName && profileInfo?.accountType === "Corporate" &&
+                    <>
+                      <h4 className="p-my-1 timeline-companyName">
+                        {capitalizeFirstLetter(profileInfo?.companyName)}
+                      </h4>
+                      <p className="p-mb-4">
+                        {
+                          (profileInfo.city || profileInfo.country) &&
+                          <i class="pi pi-map-marker p-pr-1"></i>
+                        }
+                        <span className="p-mt-1">
+                          {
+                            profileInfo.city &&
+                            <span>{profileInfo?.city}</span>
+                          }
+                          {
+                            profileInfo.city && profileInfo.country &&
+                            <span>, &nbsp;</span>
+                          }
+                          {
+                            profileInfo.country &&
+                            // <span>{profileInfo?.country}</span>
+                            <span>Nigeria</span>
+                          }
+                        </span>
+                      </p>
+                    </>
+                  }
                   <div className="timeline-leftpanel-connection">
                     <h5>
                       Following
@@ -213,11 +283,20 @@ const Timeline = () => {
             <div className="p-col-12 p-md-6 p-px-0">
               <div className="p-card p-grid p-mb-2 p-mt-0 p-mx-0 p-p-3 align-items-center">
                 <div className="p-col-2 text-center">
-                  <img src="../../assets/logo.png" width="80" height="80" className="rounded-circle profile-picture" />
+                  {
+                    profileInfo.imageUrl &&
+                    <img src={profileInfo?.imageUrl} width="80" height="80" className="rounded-circle timeline-profilePicture" onClick={expandProfileImage} />
+                  }
+                  {
+                    !profileInfo.imageUrl &&
+                    <div className="">
+                      <i className="pi pi-user timeline-emptyProfilePic"></i>
+                    </div>
+                  }
                 </div>
                 <div className="p-col-10">
                   <Button label="Start a Post" className="postInputButton" onClick={() => onShow()} />
-                  <ModalMode onHide={onHide} displayModal={(modalOpen.name === "displayCreatePost" || modalOpen.name === "displayEditPost")} postId={postId} />
+                  <ModalMode onHide={onHide} displayModal={(modalOpen.name === "displayCreatePost" || modalOpen.name === "displayEditPost") || modalOpen.name === "displayProfilePicture"} postId={postId} imageUrl={imageToDisplay} />
                 </div>
               </div>
               {loading === "loadPosts" && postsLoaded.length === 0 &&
@@ -227,86 +306,6 @@ const Timeline = () => {
               }
               {postsLoaded.length > 0 &&
                 <div className="timeline-postsContainer">
-                  {/* <div className="p-card p-p-5 p-mb-2">
-                <span className="d-flex justify-content-between">
-                  <span>
-                    <img src="../../assets/logo.png" width="70" height="70" className="rounded-circle p-mb-2 p-mr-3 profile-picture" />
-                    <span>
-                      <div className="p-card-title cardtitle-posts p-mb-0">Jane Doe
-                        <span className="poster-description">
-                          <i className="pi pi-briefcase p-pr-1"></i>
-                          <span>Software Engineer</span>
-                          <i className="pi pi-map-marker p-pl-2 p-pr-1"></i>
-                          <span>Nigeria</span>
-                        </span>
-                      </div>
-                      <div className="cardtitle-posttime"><i className="pi pi-clock p-pr-1"></i>
-                        <span>
-                          3 min ago
-                        </span>
-                      </div>
-                    </span>
-                  </span>
-                  <div className="dropdown font-weight-bold ml-2">
-                    <i type="button" className="pi pi-ellipsis-v" role="button" id="dropdownMenuLink"
-                      data-bs-toggle="dropdown" aria-expanded="false"></i>
-                    <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <li className="dropdown-item">
-                        Edit
-                      </li>
-                      <li className="dropdown-item">
-                        Delete
-                      </li>
-                    </ul>
-                  </div>
-                </span>
-                <h6 className="p-my-3">Senior Web Developer</h6>
-                <Tag value="Full Time" className="p-mr-3"></Tag>
-                <span>$30/hr</span>
-                <p className="p-my-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lacus urna, fermentum eu eros vel, hendrerit elementum ex. Integer augue sem, ornare id consectetur in, lobortis mattis sapien. Ut metus augue, pharetra et dui et, accumsan vulputate nulla. Aliquam aliquam vestibulum arcu tincidunt pellentesque. Fusce mollis sodales laoreet. Quisque pellentesque pellentesque eros. Sed at dui non magna facilisis euismod. Donec maximus tortor in lacus vehicula lacinia. Curabitur et dignissim purus. Aliquam pellentesque lectus id libero lacinia aliquet. In vel arcu in ipsum posuere laoreet sit amet eu justo. Vivamus nisl felis, maximus sit amet dui id, suscipit porttitor enim. Curabitur consequat ligula non varius placerat.
-
-                  Aliquam laoreet hendrerit ligula vitae laoreet. Curabitur placerat, mauris non maximus dapibus, dolor sem cursus purus, accumsan iaculis velit arcu ac ex. Maecenas at leo sagittis, euismod arcu et, molestie dui. Morbi ipsum nisl, consequat in velit luctus, tempus sollicitudin ex. Pellentesque lacus metus, iaculis vel ligula eget, convallis ultricies magna. Suspendisse potenti. Etiam porta lobortis ex. Cras nisl tellus, pulvinar non blandit sed, ultrices non sapien.
-                </p>
-                <Tag value="CSS" className="p-mr-3 skilltag-timeline"></Tag>
-                <Tag value="HTML" className="p-mr-3 skilltag-timeline"></Tag>
-                <Tag value="NodeJS" className="p-mr-3 skilltag-timeline"></Tag>
-                <Tag value="ReactJS" className="p-mr-3 skilltag-timeline"></Tag>
-                <div className="cardtitle-statusbar p-my-3 p-py-3">
-                  <span className="d-flex">
-                    <span className="post-statusbar-content">
-                      <i className="pi pi-heart p-pr-1"></i>
-                      <span>
-                        Like
-                    </span>
-                    </span>
-                    <span className="post-statusbar-content">
-                      <img src="../../assets/logo.png" width="30" height="30" className="rounded-circle" />
-                      <img src="../../assets/images/hero/hero-image.png" width="30" height="30" className="rounded-circle likers-picture" />
-                      <img src="../../assets/images/hero/job-searcher.jpg" width="30" height="30" className="rounded-circle likers-picture" />
-                      <img src="../../assets/images/hero/hero-image.png" width="30" height="30" className="rounded-circle likers-picture" />
-                      <img src="../../assets/images/hero/hero-image.png" width="30" height="30" className="rounded-circle likers-picture" />
-                      <img src="../../assets/logo.png" width="30" height="30" className="rounded-circle likers-picture" />
-                    </span>
-                    <span className="post-statusbar-content">
-                      <i className="pi pi-comment p-ml-3 p-pr-1"></i>
-                      <span>
-                        Comments (15)
-                     </span>
-                    </span>
-                  </span>
-                  <span className="post-statusbar-content">
-                    <i className="pi pi-eye p-ml-3 p-pr-1"></i>
-                    <span>
-                      Views (15)
-                  </span>
-                  </span>
-                </div>
-                <CommentForm />
-                <CommentList />
-              </div>
- */}
-
                   {postsLoaded.map((post) => (
                     <div className="p-card p-py-5 p-pl-5 p-pr-6 p-mb-2" key={post.id}>
                       <span className="d-flex justify-content-between">
@@ -345,7 +344,7 @@ const Timeline = () => {
                       <h6 className="p-my-3"><u>{post.title}</u></h6>
                       <div className="p-my-4 w-100 h-100">
                         <div dangerouslySetInnerHTML={{ __html: post.body }} className="p-mb-3" />
-                        <img src={`${API_ROOT}/${post.postImage}`} className="timeline-postImage" width="100%" />
+                        <img src={`${API_ROOT}/${post.postImage}`} className="timeline-postImage" width="100%" onClick={expandPostImage} />
                         {/* <img src="../../assets/images/hero/hero-image.png" height="100%" width="100%" /> */}
                       </div>
                       <div className="cardtitle-statusbar-timeline p-my-3 p-py-3">
@@ -369,20 +368,14 @@ const Timeline = () => {
                             }
                           </span>
                           <span className="post-statusbar-content">
-                            {/* <img src="../../assets/logo.png" width="30" height="30" className="rounded-circle" />
-                        <img src="../../assets/images/hero/hero-image.png" width="30" height="30" className="rounded-circle likers-picture" />
-                        <img src="../../assets/images/hero/job-searcher.jpg" width="30" height="30" className="rounded-circle likers-picture" />
-                        <img src="../../assets/images/hero/hero-image.png" width="30" height="30" className="rounded-circle likers-picture" />
-                        <img src="../../assets/images/hero/hero-image.png" width="30" height="30" className="rounded-circle likers-picture" />
-                        <img src="../../assets/logo.png" width="30" height="30" className="rounded-circle likers-picture" /> */}
                           </span>
                         </span>
-                        <span className="post-statusbar-content">
+                        {/* <span className="post-statusbar-content">
                           <i className="pi pi-eye p-ml-3 p-pr-1"></i>
                           <span>
                             Views (15)
-                  </span>
-                        </span>
+                          </span>
+                        </span> */}
                       </div>
                       <CommentForm postId={post.id} />
                       <CommentList id={post.id} comments={post.comments} />
@@ -402,33 +395,18 @@ const Timeline = () => {
                   Recent Jobs
                 </div>
                 <div className="p-pb-2">
-                  <Link to="/timeline" className="p-card-body p-card-body-timeline p-px-3 p-pt-1 p-pb-3">
-                    <div className="p-card-title cardsubtitle-timeline">
-                      <div>Senior Product Designer</div>
-                      <div>$25/hr</div>
-                    </div>
-                    <div className="p-card-body p-px-0 p-py-0 jobDescription-timeline">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,Lorem ipsum dolor sit amet, consectetur adipiscing elit,Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </div>
-                  </Link>
-                  <Link to="/timeline" className="p-card-body p-card-body-timeline p-px-3 p-pt-1 p-pb-3">
-                    <div className="p-card-title cardsubtitle-timeline">
-                      <div>Senior Product Designer</div>
-                      <div>$25/hr</div>
-                    </div>
-                    <div className="p-card-body p-px-0 p-py-0 jobDescription-timeline">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,Lorem ipsum dolor sit amet, consectetur adipiscing elit,Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </div>
-                  </Link>
-                  <Link to="/timeline" className="p-card-body p-card-body-timeline p-px-3 p-pt-1 p-pb-3">
-                    <div className="p-card-title cardsubtitle-timeline">
-                      <div>Senior Product Designer</div>
-                      <div>$25/hr</div>
-                    </div>
-                    <div className="p-card-body p-px-0 p-py-0 jobDescription-timeline">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,Lorem ipsum dolor sit amet, consectetur adipiscing elit,Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                    </div>
-                  </Link>
+                  {
+                    jobs && jobs.map((job) =>
+                      <Link to={`/jobs/view/${job.id}`} className="p-card-body p-card-body-timeline p-px-3 p-pt-1 p-pb-3" id={job.id}>
+                        <div className="p-card-title cardsubtitle-timeline">
+                          <div> {job.title} </div>
+                          <div>{`~${formatter.toMoney((job.minSalary + job.maxSalary) / 2)}`}</div>
+                        </div>
+                        <div className="p-card-body p-px-0 p-py-0 p-mb-2 jobDescription-timeline" dangerouslySetInnerHTML={{ __html: job.description }} />
+                        <small className="timeline-seemore">See more...</small>
+                      </Link>
+                    )
+                  }
                 </div>
               </div>
             </div>

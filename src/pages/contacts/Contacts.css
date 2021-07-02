@@ -1,0 +1,107 @@
+.contacts-container {
+  background-color: #5a28461f;
+  padding-top: 3rem;
+}
+
+.contacts-content {
+  width: 86%;
+  margin: auto;
+}
+
+.contact-cardtitle {
+  color: #2ca55e;
+  padding: 0.8rem;
+  font-size: 1.1rem !important;
+}
+
+.contact-sidepanel-cardtitle {
+  border-bottom: 1px solid #5a284657;
+  font-size: 1rem !important;
+  padding: 0.7rem 1rem;
+}
+
+.contacts-contactHeader {
+  vertical-align: top;
+  font-size: 1.1rem !important;
+}
+
+.contacts-actionIcons .pi{
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  font-weight: 500;
+  color: #5A2846;  
+}
+
+.contact-requestspicture {
+  border: 3px solid #5A2846;
+}
+
+.contacts-cardsubtitle,.contacts-cardsubtitle .p-dropdown-label {
+  font-size: 0.8rem !important;
+}
+
+.contact-emptyProfilePic {
+  border: 5px #5A2846 solid;
+  width: fit-content;
+  margin: auto;
+  font-size: 3rem;
+  border-radius: 50%;
+  padding: 0.8rem;
+  color: #5A2846;
+  font-weight: 700;
+  background-color: white;
+  margin-bottom: 0.5rem;
+}
+
+.contact-profilePicture {
+  border: 3px #5A2846 solid; 
+  object-fit: cover;
+  background-color: white;
+  cursor: pointer; 
+}
+
+.contacts-jobDescription {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.616);
+}
+
+.contacts-accept-button {
+  color: #00000070;
+  background: #5a284600;
+  border: 2px #00000070 solid;
+  width: 2rem !important;
+  height: 2rem;
+}
+
+/* rating */
+:root {
+  --star-size: 25px;
+  --star-color: rgb(180, 175, 175);
+  --star-background: #2ca55e;
+}
+
+.stars {
+  --percent: calc(var(--rating) / 5 * 100%);
+  display: inline-block;
+  font-size: var(--star-size);
+  /* font-family: Times; */
+  line-height: 1;
+}
+
+.stars:before {
+  content: '★★★★★';
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+  background-clip: content-box;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+/* rating */
+
+@media screen and (max-width: 1150px) {
+  .contacts-content {
+    width:100%;
+  }
+}
