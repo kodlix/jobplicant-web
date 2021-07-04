@@ -10,13 +10,6 @@ import { Dropdown } from "primereact/dropdown";
 import { Calendar } from "primereact/calendar";
 import { loadCountry, loadLga, loadStates } from "store/modules/location";
 
-const countryList = [
-  { name: "Nigeria", id: "NG" },
-  { name: "Ghana", id: "GH" },
-  { name: "Germany", id: "GER" },
-  { name: "Canada", id: "CND" },
-  { name: "USA", id: "USA" },
-];
 
 const PersonalInfoForm = ({ data, closeEditMode }) => {
   const [personalProfile, setPersonalProfile] = useState({
@@ -45,6 +38,12 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
   } = useForm({ mode: "onChange", reValidateMode: "onChange" });
 
   useEffect(() => {
+    dispatch(loadCountry());
+    dispatch(loadStates(1));
+    dispatch(loadLga(1))
+  }, []);
+
+  useEffect(() => {
     if (data) {
       setPersonalProfile({
         ...personalProfile,
@@ -53,13 +52,12 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
         otherName: data.otherName,
         dateOfBirth: new Date(data.dateOfBirth),
         city: data.city,
-        state: data.state,
-        country: data.country,
-        lga: data.lga,
+        country: countries.find(country => country.id === 1),
+        state: states.find(state => state.id === 1),
+        lga: lgas.find(lga => lga.id === 1),
         address: data.address,
       });
 
-      console.log('data', data)
       
       setValue("firstName", data.firstName);
       setValue("lastName", data.lastName);
@@ -74,9 +72,7 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
     }
   }, [data]);
 
-  useEffect(() => {
-    dispatch(loadCountry());
-  }, [dispatch]);
+  
 
   const handleCountryChange = (e) => {
     let conuntryId = e.target.value.id;
@@ -360,7 +356,8 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
                   })}
                   name="address"
                   onChange={handleChange}
-                  value={personalProfile.address}
+                  value={personalProfile.address} 
+                  
                 />
               </div>
             </div>
