@@ -17,6 +17,7 @@ const InstantHires = (props) => {
     const dispatch = useDispatch();
 
     const instantJobs = useSelector(state => state.instantJob.instantjobs);
+    console.log("jobs", instantJobs)
 
     useEffect(() => {
         dispatch(loadInstantJobs())
@@ -64,7 +65,7 @@ const InstantHires = (props) => {
                                                     <small className="p-text-secondary">
                                                         <p className="font-weight-bold app-color ">Job Service : {instantjob.service} </p>
                                                         <p><span className="font-weight-bold app-color">Job Location : </span> {instantjob.location}</p>
-                                                        <p><span className="font-weight-bold app-color">Time : </span>{instantjob.time} </p>
+                                                        {/* <p><span className="font-weight-bold app-color">Time : </span>{instantjob.time} </p> */}
                                                         <p><span className="font-weight-bold app-color">Address : </span>{instantjob.address} </p>
                                                         <p><span className="font-weight-bold app-color">Phone Number : </span>{instantjob.phoneNumber} </p>
                                                         <p><span className="font-weight-bold app-color">Job Description : </span> {instantjob.description} </p>
