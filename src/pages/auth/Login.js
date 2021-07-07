@@ -123,7 +123,7 @@ const Login = ({ props }) => {
                                                     {...register("password", { required: "Please enter your password." })}
                                                 /> */}
                                                 <Password
-                                                    value={pass} onChange={(e) => setPass(e.target.value)}
+                                                    // value={pass} onChange={(e) => setPass(e.target.value)}
                                                     toggleMask
                                                     name="password"
                                                     placeholder="Password"
