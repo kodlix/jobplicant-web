@@ -35,7 +35,7 @@ const ModalMode = ({ onHide, displayModal, postId, imageUrl }) => {
           (modalName === TIMELINE.CREATEPOST || modalName === TIMELINE.EDITPOST) && toggle &&
           <PostForm
             postId={postId}
-            clearModalInput={!displayModal}
+            clearModalInput={onHide}
           />
         }
         {

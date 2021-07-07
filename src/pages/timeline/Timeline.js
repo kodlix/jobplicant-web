@@ -19,32 +19,36 @@ const Timeline = () => {
   const dispatch = useDispatch();
   const postsByPage = useSelector(state => state.timeline.posts);
   const loading = useSelector(state => state.timeline.loading);
-  const modalOpen = useSelector(state => state.modal);
   const totalPostCount = useSelector(state => state.timeline.totalPostCount);
   const jobs = useSelector(state => state.job.jobs);
   const profileInfo = useSelector((state) => state.account.profileInfo);
   const [postId, setPostId] = useState("");
-  const [pageNumber, setpageNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState(1);
   const [imageToDisplay, setImageToDisplay] = useState("");
+  const [displayModal, setDisplayModal] = useState(false);
   const [postsLoaded, setPostsLoaded] = useState([]);
 
   const onShow = (id) => {
     if (id) {
       setPostId(id);
       dispatch(openModal(TIMELINE.EDITPOST));
+      setDisplayModal(true);
     }
     else {
       dispatch(openModal(TIMELINE.CREATEPOST));
+      setDisplayModal(true);
     }
   }
 
   const expandProfileImage = (e) => {
     setImageToDisplay(e.target.src)
+    setDisplayModal(true);
     dispatch(openModal(TIMELINE.ACTIVEUSERPICTURE));
   }
 
   const expandPostImage = (e) => {
     setImageToDisplay(e.target.src);
+    setDisplayModal(true);
     dispatch(openModal(TIMELINE.POSTIMAGE));
   }
 
@@ -52,6 +56,7 @@ const Timeline = () => {
     dispatch(closeModal(name));
     setImageToDisplay("");
     setPostId("");
+    setDisplayModal(false);
   }
 
   const capitalizeFirstLetter = (name) => {
@@ -71,15 +76,15 @@ const Timeline = () => {
   }
 
   const loadmorePosts = () => {
-    setpageNumber(pageNumber + 1)
-    dispatch(loadPosts(pageNumber + 1, 2, "loadMore"));
+    setPageNumber(pageNumber + 1)
+    dispatch(loadPosts(pageNumber + 1, 10, "loadMore"));
   }
 
   useEffect(() => {
     dispatch(loadProfileInfo());
     dispatch(loadTotalPostCount());
     dispatch(loadJobs());
-    dispatch(loadPosts(1, 1, "loadPosts"));
+    dispatch(loadPosts(1, 10, "loadPosts"));
   }, [dispatch]);
 
   useEffect(() => {
@@ -296,7 +301,7 @@ const Timeline = () => {
                 </div>
                 <div className="p-col-10">
                   <Button label="Start a Post" className="postInputButton" onClick={() => onShow()} />
-                  <ModalMode onHide={onHide} displayModal={(modalOpen.name === "displayCreatePost" || modalOpen.name === "displayEditPost") || modalOpen.name === "displayProfilePicture"} postId={postId} imageUrl={imageToDisplay} />
+                  <ModalMode onHide={onHide} displayModal={displayModal} postId={postId} imageUrl={imageToDisplay} />
                 </div>
               </div>
               {loading === "loadPosts" && postsLoaded.length === 0 &&

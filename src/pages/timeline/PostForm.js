@@ -147,6 +147,7 @@ const CreatePostModal = ({ postId, clearModalInput }) => {
     else {
       dispatch(createPost(formData));
     }
+    clearModalInput();
   }
 
   return (

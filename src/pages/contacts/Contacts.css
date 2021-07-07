@@ -25,11 +25,24 @@
   font-size: 1.1rem !important;
 }
 
-.contacts-actionIcons .pi{
+.contacts-actionIcons .pi {
+  font-size: 1.3rem;
+  padding: 0.5rem;
+  font-weight: 600;
+  color: #5A2846;
+  cursor: pointer; 
+}
+
+.contacts-actionIcons .pi-trash:hover {
+  color: red;
+}
+
+.contacts-spinner {
+  color: white !important;  
   font-size: 1.2rem;
   padding: 0.5rem;
   font-weight: 500;
-  color: #5A2846;  
+  color: #5A2846;
 }
 
 .contact-requestspicture {
@@ -38,6 +51,14 @@
 
 .contacts-cardsubtitle,.contacts-cardsubtitle .p-dropdown-label {
   font-size: 0.8rem !important;
+}
+
+.contact-searchInput {
+  font-size: 0.8rem;
+}
+
+.contact-sortDropdown {
+  max-height: 37.2px;
 }
 
 .contact-emptyProfilePic {
@@ -65,13 +86,21 @@
   color: rgba(0, 0, 0, 0.616);
 }
 
-.contacts-accept-button {
-  color: #00000070;
-  background: #5a284600;
-  border: 2px #00000070 solid;
+.contacts-accept-button, .contacts-reject-button {
   width: 2rem !important;
-  height: 2rem;
+  height: 2rem !important;
+  padding: 0;
 }
+
+.contacts-accept-button {
+  background: green !important;
+}
+
+.contacts-accept-button .pi, .contacts-reject-button .pi {
+  font-weight: 700;
+  margin: auto;
+}
+
 
 /* rating */
 :root {

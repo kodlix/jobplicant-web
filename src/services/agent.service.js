@@ -284,8 +284,8 @@ const Skill = {
 const Post = {
   save: (data) => requests.post("/post", data),
   edit: (id, data) => requests.put(`/post/${id}`, data),
-  load: (page, take) => requests.get("/post", page, take),
-  loadByUserId: (id, page, take) => requests.get(`/post/user/${id}`, page, take),
+  load: (page, take) => requests.get(`/post?${new URLSearchParams({ page: page, take: take }).toString()}`),
+  loadByUserId: (id, page, take) => requests.get(`/post/user/${id}?${new URLSearchParams({ page: page, take: take }).toString()}`),
   view: (id) => requests.get(`/post/${id}`),
   search: (page, search) => requests.get("/post/search", page, search),
   like: (id) => requests.put(`/post/like/${id}`),
@@ -303,11 +303,13 @@ const Comment = {
 }
 
 const Contact = {
-  load: (page, take, search = null) => requests.get(`/contact/free?${new URLSearchParams({ page: page, take: take, search: search }).toString()}`),
-  save: (id, data) => requests.post(`/comment/${id}`, data),
-  like: (id) => requests.put(`/comment/like/${id}`),
-  dislike: (id) => requests.put(`/comment/dislike/${id}`),
-  delete: (id) => requests.del(`/comment/${id}`)
+  load: (page, take, search = "") => requests.get(`/contact/free?${new URLSearchParams({ page: page, take: take, search: search }).toString()}`),
+  loadContacts: (page, take) => requests.get(`/contact?${new URLSearchParams({ page: page, take: take }).toString()}`),
+  loadRequests: (page, take) => requests.get(`/contact/request/pending?${new URLSearchParams({ page: page, take: take }).toString()}`),
+  add: (id) => requests.post("/contact", id),
+  delete: (id) => requests.del(`/contact/${id}`),
+  accept: (data) => requests.post("/contact/accept", data),
+  reject: (id) => requests.del(`/contact/reject/${id}`)
 }
 
 export default {
