@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { useDispatch, useSelector } from "react-redux";
 import ModalMode from './ModalMode';
@@ -11,8 +10,8 @@ import { loadPosts, loadTotalPostCount, deletePost, likePost, dislikePost } from
 import { loadJobs } from "store/modules/job";
 import { TIMELINE } from "constants/timeline";
 import agent, { API_ROOT } from "../../services/agent.service";
-import { formatter } from 'helpers/converter';
 import moment from "moment";
+import JobSidePanel from "../../components/JobSidePanel"
 import "./Timeline.css";
 
 const Timeline = () => {
@@ -394,12 +393,20 @@ const Timeline = () => {
                 </div>
               }
             </div>
-            <div className="p-col-12 p-md-3 p-pr-0 p-py-md-2 p-pl-md-2">
+            {/* <div className="p-col-12 p-md-3 p-pr-0 p-py-md-2 p-pl-md-2">
               <div className="p-card">
                 <div className="p-card-title cardtitle-timeline">
                   Recent Jobs
                 </div>
                 <div className="p-pb-2">
+                  <Link to={`/jobs/view/$`} className="p-card-body p-card-body-timeline p-px-3 p-pt-1 p-pb-3">
+                    <div className="p-card-title cardsubtitle-timeline">
+                      <div> Front developer </div>
+                      <div>{`~${formatter.toMoney((100000 + 120000) / 2)}`}</div>
+                    </div>
+                    <div className="p-card-body p-px-0 p-py-0 p-mb-2 jobDescription-timeline" dangerouslySetInnerHTML={{ __html: "job.description" }} />
+                    <small className="timeline-seemore">See more...</small>
+                  </Link>
                   {
                     jobs && jobs.map((job) =>
                       <Link to={`/jobs/view/${job.id}`} className="p-card-body p-card-body-timeline p-px-3 p-pt-1 p-pb-3" id={job.id}>
@@ -414,7 +421,8 @@ const Timeline = () => {
                   }
                 </div>
               </div>
-            </div>
+            </div> */}
+            <JobSidePanel data={jobs} />
           </div>
         </div>
       </div>
