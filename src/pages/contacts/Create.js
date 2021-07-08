@@ -215,7 +215,7 @@ const Create = () => {
           </div>
           <div className="p-col-12 p-md-3 p-p-2">
             <div className="p-card">
-              <div className="p-card-title contact-sidepanel-cardtitle p-mb-0">
+              <div className="p-card-title contact-sidepanel-cardtitle p-mb-3">
                 Connection Requests
                   </div>
               {

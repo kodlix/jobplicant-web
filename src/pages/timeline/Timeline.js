@@ -195,7 +195,7 @@ const Timeline = () => {
                 </div>
               </div>
               <div className="p-card p-mt-2">
-                <div className="p-card-title cardtitle-timeline p-mb-0">
+                <div className="p-card-title cardtitle-timeline p-mb-3">
                   Suggestions
                   </div>
                 <div className="p-card-body d-flex justify-content-between">
