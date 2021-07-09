@@ -8,6 +8,8 @@ import BackgroundImage from '../../assets/bg.png'
 
 import './ListJob.css'
 import FilterPanel from './FilterPanel'
+import JobSidePanel from "../../components/JobSidePanel";
+import  "../../components/JobSidePanel.css";
 import { useDispatch, useSelector } from 'react-redux'
 import { loadJobs } from 'store/modules/job'
 import Spinner from 'components/spinner/spinner.component'
@@ -90,7 +92,7 @@ const ListJob = () => {
                             </div>
                         </>)}
                     </div>
-                    <div className="p-md-3"></div>
+                    <JobSidePanel data={jobs} />
                 </div>
             </div>
 
