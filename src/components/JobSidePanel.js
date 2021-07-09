@@ -8,7 +8,7 @@ import "./JobSidePanel.css";
 const JobSidePanel = ({ data }) => {
   return (
     <>
-      <div className="p-col-12 p-md-3 p-pr-0 p-py-md-2 p-pl-md-2">
+      <div className="p-col-12 p-md-3 p-pr-0 p-py-md-2 p-pl-md-2 p-pl-0 p-pt-0">
         <div className="p-card">
           <div className="p-card-title cardtitle-JobPanelComponent">
             Recent Jobs

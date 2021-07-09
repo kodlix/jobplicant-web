@@ -8,11 +8,11 @@
   margin: auto;
 }
 
-.profile-picture {
+.profile-picture-timeline {
   border: 3px #5A2846 solid;  
 }
 
-.timeline-profilePicture {
+.timeline-profilePicture, .profilepic-startpost-timeline > img {
   border: 3px #5A2846 solid; 
   object-fit: cover;
   background-color: white;
@@ -311,6 +311,7 @@ a .cardsubtitle-timeline {
   height: 17rem;
   background-color: #5A2846;
 }
+/* Modals */
 
 @media screen and (max-width: 1200px) {
   .timeline-content {
@@ -319,9 +320,27 @@ a .cardsubtitle-timeline {
 }
 
 @media screen and (max-width: 800px) {
-  .profile-picture {
+  .profile-picture-timeline{
     width: 50px;
+    margin-right: 0.5rem !important;
     height: 50px;
   }
 }
-/* Modals */
+
+@media only screen and (min-width: 768px) and (max-width: 1168px) {
+  .profilepic-startpost-timeline > i {
+    font-size: 20px;
+  }  
+
+  .profilepic-startpost-timeline > img {
+    width: 50px;
+    height: 50px;
+  }  
+}
+
+@media only screen and (max-width: 550px) {
+  .profilepic-startpost-timeline > img {
+    width: 50px;
+    height: 50px;
+  }  
+}

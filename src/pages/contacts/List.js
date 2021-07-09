@@ -157,7 +157,7 @@ const List = () => {
                       <span className="p-mr-2">
                         {contact.name}
                       </span>
-                      <div className="stars" style={{ "--rating": contact.rating }}></div>
+                      <div className="stars" style={{ "--rating": contact.rating }} />
                     </span>
                     <p>
                       photographer at photostat
@@ -177,9 +177,9 @@ const List = () => {
               <Button label={loading === "loadMoreContacts" ? 'Loading...' : 'Load More'} onClick={loadMoreContacts} className="p-mr-2 w-100" />
             }
           </div>
-          <div className="p-col-12 p-md-3 p-p-2">
+          <div className="p-col-12 p-md-3 p-p-md-2 p-pt-0">
             <div className="p-card">
-              <div className="p-card-title contact-sidepanel-cardtitle p-mb-0">
+              <div className="p-card-title contact-sidepanel-cardtitle p-mb-3">
                 Connection Requests
                   </div>
               {

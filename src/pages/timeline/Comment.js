@@ -26,7 +26,7 @@ const Comment = ({ comment, key }) => {
   return (
     <div className="timeline-commentContainer" id={key}>
       <div className="d-flex p-pl-3 p-pt-3 w-100">
-        <img src="../../assets/logo.png" width="40" height="40" className="rounded-circle profile-picture p-mr-2" />
+        <img src="../../assets/logo.png" width="40" height="40" className="rounded-circle profile-picture-timeline p-mr-2" />
         <div className="w-100">
           <span className=" d-flex justify-content-between">
             <div>
@@ -68,7 +68,7 @@ const Comment = ({ comment, key }) => {
       }
       <div className="p-mb-3">
         <b>
-          <small className="d-flex align-center justify-content-end">
+          <small className="d-flex align-center justify-content-end p-mt-3">
             <span className="post-statusbar-content p-pr-3" onClick={(e) => handleLike(e)} data-id={comment.id}>
               <i className="pi pi-arrow-up p-pr-1"></i>
               {

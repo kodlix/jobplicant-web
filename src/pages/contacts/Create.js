@@ -18,6 +18,7 @@ const Create = () => {
   const [usersLoaded, setUsersLoaded] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [searchValue, setSearchValue] = useState("");
+  const contactContainerClassName = usersLoaded.length === 0 ? "containerHeight-contact" : "";
 
   const sortOptions = [
     { name: 'Name (Ascending)', code: 'NY' },
@@ -135,21 +136,21 @@ const Create = () => {
 
   return (
     <>
-      <div className="contacts-container">
+      <div className={`contacts-container ${contactContainerClassName}`}>
         <div className="p-grid contacts-content">
           <div className="p-col-12 p-md-9">
             <div className="p-card p-p-1 p-mb-2">
-              <div className="p-card-title d-flex justify-content-between align-items-center p-mb-0">
+              <div className="p-card-title d-flex justify-content-between align-items-center p-mb-0 pageTitle-contact">
                 <div className="contact-cardtitle">
                   <i className="pi pi-user-plus p-pr-2" />
                    Add User to Contact List
                 </div>
-                <span className="d-flex align-items-baseline">
-                  <span className="p-input-icon-right">
-                    <span className="p-input-icon-left">
+                <div className="d-flex align-items-baseline">
+                  <div className="p-input-icon-right searchInput-container-contact">
+                    <div className="p-input-icon-left">
                       <i className="pi pi-search" />
                       <InputText className="p-mr-2 p-pr-5 contact-searchInput" placeholder="Search all users" value={searchValue} onChange={handleSearchInputChange} />
-                    </span>
+                    </div>
                     {
                       loading === "searchUsers" &&
                       <i className="pi pi-spin pi-spinner p-mr-2" />
@@ -158,9 +159,9 @@ const Create = () => {
                       searchValue && loading !== "searchUsers" &&
                       <i className="pi pi-times p-mr-2" onClick={(e) => handleSearchInputChange(e)} name="clear" />
                     }
-                  </span>
+                  </div>
                   {/* <Dropdown value={sortBy} options={sortOptions} onChange={(e) => setSortBy(e.value)} optionLabel="name" placeholder="Sorty By" className="p-mr-2 contacts-cardsubtitle contact-sortDropdown" panelClassName="contacts-cardsubtitle" /> */}
-                </span>
+                </div>
               </div>
             </div>
             {usersLoaded.map((user) => (
@@ -211,6 +212,14 @@ const Create = () => {
             {
               usersLoaded.length > 0 &&
               <Button label={loading === "loadMore" ? 'Loading...' : 'Load More'} onClick={loadMoreUsers} className="p-mr-2 w-100" />
+            }
+            {
+              usersLoaded.length === 0 &&
+              <div className="p-card p-p-3">
+                <div className="p-card-title">
+                  No new User to add
+                </div>
+              </div>
             }
           </div>
           <div className="p-col-12 p-md-3 p-p-2">

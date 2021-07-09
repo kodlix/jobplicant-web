@@ -154,7 +154,7 @@ const CreatePostModal = ({ postId, clearModalInput }) => {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="d-flex align-items-center">
-          <img src="../../assets/images/hero/hero-image.png" width="50" height="50" className="rounded-circle profile-picture" />
+          <img src="../../assets/images/hero/hero-image.png" width="50" height="50" className="rounded-circle profile-picture-timeline" />
           <span className="p-ml-2">
             <h6>Jane Doe</h6>
             <div>

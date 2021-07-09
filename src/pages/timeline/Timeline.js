@@ -100,7 +100,7 @@ const Timeline = () => {
       <div className="timeline-container">
         <div className="timeline-content">
           <div className="p-grid p-mt-2 p-m-0">
-            <div className="p-col-12 p-md-3 p-pl-0 p-py-md-2 p-pr-md-2">
+            <div className="p-col-12 p-md-3 p-pl-0 p-py-md-2 p-pr-md-2 p-pb-0 p-pr-0">
               <div className="p-card">
                 <div className="leftpanel-top-container-timeline"></div>
                 <div className="leftpanel-bottom-container-timeline">
@@ -200,7 +200,7 @@ const Timeline = () => {
                   </div>
                 <div className="p-card-body d-flex justify-content-between">
                   <span className="d-flex align-items-end">
-                    <img src="../../assets/logo.png" width="40" height="40" className="rounded-circle profile-picture p-mr-2" />
+                    <img src="../../assets/logo.png" width="40" height="40" className="rounded-circle profile-picture-timeline p-mr-2" />
                     <span>
                       <div className="p-card-title cardsubtitle-timeline p-mb-0">
                         Jane Doe
@@ -214,7 +214,7 @@ const Timeline = () => {
                 </div>
                 <div className="p-card-body d-flex justify-content-between">
                   <span className="d-flex align-items-end">
-                    <img src="../../assets/logo.png" width="40" height="40" className="rounded-circle profile-picture p-mr-2" />
+                    <img src="../../assets/logo.png" width="40" height="40" className="rounded-circle profile-picture-timeline p-mr-2" />
                     <span>
                       <div className="p-card-title cardsubtitle-timeline p-mb-0">
                         Jane Doe
@@ -228,7 +228,7 @@ const Timeline = () => {
                 </div>
                 <div className="p-card-body d-flex justify-content-between">
                   <span className="d-flex align-items-end">
-                    <img src="../../assets/logo.png" width="40" height="40" className="rounded-circle profile-picture p-mr-2" />
+                    <img src="../../assets/logo.png" width="40" height="40" className="rounded-circle profile-picture-timeline p-mr-2" />
                     <span>
                       <div className="p-card-title cardsubtitle-timeline p-mb-0">
                         Jane Doe
@@ -242,7 +242,7 @@ const Timeline = () => {
                 </div>
                 <div className="p-card-body d-flex justify-content-between">
                   <span className="d-flex align-items-end">
-                    <img src="../../assets/logo.png" width="40" height="40" className="rounded-circle profile-picture p-mr-2" />
+                    <img src="../../assets/logo.png" width="40" height="40" className="rounded-circle profile-picture-timeline p-mr-2" />
                     <span>
                       <div className="p-card-title cardsubtitle-timeline p-mb-0">
                         Jane Doe
@@ -256,7 +256,7 @@ const Timeline = () => {
                 </div>
                 <div className="p-card-body d-flex justify-content-between">
                   <span className="d-flex align-items-end">
-                    <img src="../../assets/logo.png" width="40" height="40" className="rounded-circle profile-picture p-mr-2" />
+                    <img src="../../assets/logo.png" width="40" height="40" className="rounded-circle profile-picture-timeline p-mr-2" />
                     <span>
                       <div className="p-card-title cardsubtitle-timeline p-mb-0">
                         Jane Doe
@@ -270,7 +270,7 @@ const Timeline = () => {
                 </div>
                 <div className="p-card-body d-flex justify-content-between">
                   <span className="d-flex align-items-end">
-                    <img src="../../assets/logo.png" width="40" height="40" className="rounded-circle profile-picture p-mr-2" />
+                    <img src="../../assets/logo.png" width="40" height="40" className="rounded-circle profile-picture-timeline p-mr-2" />
                     <span>
                       <div className="p-card-title cardsubtitle-timeline p-mb-0">
                         Jane Doe
@@ -286,16 +286,14 @@ const Timeline = () => {
             </div>
             <div className="p-col-12 p-md-6 p-px-0">
               <div className="p-card p-grid p-mb-2 p-mt-0 p-mx-0 p-p-3 align-items-center">
-                <div className="p-col-2 text-center">
+                <div className="p-col-2 text-center profilepic-startpost-timeline">
                   {
                     profileInfo.imageUrl &&
-                    <img src={profileInfo?.imageUrl} width="80" height="80" className="rounded-circle timeline-profilePicture" onClick={expandProfileImage} />
+                    <img src={profileInfo?.imageUrl} width="70" height="70" className="rounded-circle" onClick={expandProfileImage} />
                   }
                   {
                     !profileInfo.imageUrl &&
-                    <div className="">
-                      <i className="pi pi-user timeline-emptyProfilePic"></i>
-                    </div>
+                    <i className="pi pi-user timeline-emptyProfilePic"></i>
                   }
                 </div>
                 <div className="p-col-10">
@@ -311,10 +309,10 @@ const Timeline = () => {
               {postsLoaded.length > 0 &&
                 <div className="timeline-postsContainer">
                   {postsLoaded.map((post) => (
-                    <div className="p-card p-py-5 p-pl-5 p-pr-6 p-mb-2" key={post.id}>
+                    <div className="p-card p-py-3 p-py-sm-5 p-pl-3 p-pl-sm-5 p-pr-4 p-pr-sm-6 p-mb-2 timeline-posts" key={post.id}>
                       <span className="d-flex justify-content-between">
                         <span className="d-flex">
-                          <img src="../../assets/logo.png" width="70" height="70" className="rounded-circle p-mt-2 p-mb-2 p-mr-sm-3 p-mr-0 profile-picture" />
+                          <img src="../../assets/logo.png" width="70" height="70" className="rounded-circle p-mt-2 p-mb-2 p-mr-sm-3 p-mr-0 profile-picture-timeline" />
                           <span>
                             <div className="p-card-title cardtitle-posts p-mb-0">Jane Doe</div>
                             <div className="poster-description">
@@ -393,35 +391,6 @@ const Timeline = () => {
                 </div>
               }
             </div>
-            {/* <div className="p-col-12 p-md-3 p-pr-0 p-py-md-2 p-pl-md-2">
-              <div className="p-card">
-                <div className="p-card-title cardtitle-timeline">
-                  Recent Jobs
-                </div>
-                <div className="p-pb-2">
-                  <Link to={`/jobs/view/$`} className="p-card-body p-card-body-timeline p-px-3 p-pt-1 p-pb-3">
-                    <div className="p-card-title cardsubtitle-timeline">
-                      <div> Front developer </div>
-                      <div>{`~${formatter.toMoney((100000 + 120000) / 2)}`}</div>
-                    </div>
-                    <div className="p-card-body p-px-0 p-py-0 p-mb-2 jobDescription-timeline" dangerouslySetInnerHTML={{ __html: "job.description" }} />
-                    <small className="timeline-seemore">See more...</small>
-                  </Link>
-                  {
-                    jobs && jobs.map((job) =>
-                      <Link to={`/jobs/view/${job.id}`} className="p-card-body p-card-body-timeline p-px-3 p-pt-1 p-pb-3" id={job.id}>
-                        <div className="p-card-title cardsubtitle-timeline">
-                          <div> {job.title} </div>
-                          <div>{`~${formatter.toMoney((job.minSalary + job.maxSalary) / 2)}`}</div>
-                        </div>
-                        <div className="p-card-body p-px-0 p-py-0 p-mb-2 jobDescription-timeline" dangerouslySetInnerHTML={{ __html: job.description }} />
-                        <small className="timeline-seemore">See more...</small>
-                      </Link>
-                    )
-                  }
-                </div>
-              </div>
-            </div> */}
             <JobSidePanel data={jobs} />
           </div>
         </div>

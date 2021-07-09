@@ -3,6 +3,10 @@
   padding-top: 3rem;
 }
 
+.containerHeight-contact {
+  height: 91vh;
+}
+
 .contacts-content {
   width: 86%;
   margin: auto;
@@ -132,5 +136,27 @@
 @media screen and (max-width: 1150px) {
   .contacts-content {
     width:100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .contacts-actionIcons i {
+    font-size: 0.8rem !important;
+  }  
+}
+
+@media screen and (max-width: 530px) {
+  .pageTitle-contact {
+    display: block !important;
+  }
+
+  .searchInput-container-contact {
+    margin-left: 0.5rem;
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+
+  .searchInput-container-contact > div, .searchInput-container-contact > div > input {
+    width: 100%;
   }
 }
