@@ -5,18 +5,30 @@ import agent from "../../services/agent.service";
 const initialState = {
     loading: false,
     jobs: [],
+    jobDetail: null,
+    applicants: [],
+    jobApplicationResponse: null,
+    jobApplicationRequest: false,
 }
 
 const LOADING = "LOADING";
 const LOAD_JOBS = "LOAD_JOBS";
 const LOAD_SINGLE_JOB = "LOAD_SINGLE_JOB";
+const GET_JOB_DETAIL = "GET_JOB_DETAIL";
+const APPLY_JOB_REQUEST = 'APPLY_JOB_REQUEST';
+const APPLY_JOB = 'APPLY_JOB';
+const GET_JOB_APPLICANTS = 'GET_JOB_APPLICANTS'
 const LOAD_JOBS_ERROR = "LOAD_JOBS_ERROR";
 
 // Reducer
 export default function reducer(state = initialState, action = {}) {
     switch (action.type) {
         case LOADING:
-            return { ...state, loading: true };
+            return { ...state, 
+                loading: true, 
+                jobs: [],
+                jobDetail: null 
+            };
         case LOAD_JOBS:
             return {
                 ...state,
@@ -28,7 +40,30 @@ export default function reducer(state = initialState, action = {}) {
             return {
                 ...state,
                 loading: false,
-                jobs: [...state.jobs, action.payload]
+                jobs: [...state.jobs, action.payload],
+            }
+        case GET_JOB_DETAIL:
+            return { 
+                ...state,
+                loading: false,
+                jobDetail: action.payload
+            }
+        case APPLY_JOB_REQUEST:
+            return {
+                ...state,
+                jobApplicationRequest: true
+            }
+        case APPLY_JOB:
+            return {
+                ...state,
+                jobApplicationRequest: false,
+                jobApplicationResponse: action.payload
+            }
+        case GET_JOB_APPLICANTS:
+            return {
+                ...state,
+                loading: false,
+                applicants: action.payload
             }
         case LOAD_JOBS_ERROR:
             return {
@@ -50,12 +85,28 @@ export const jobsLoadedError = () => ({
 export const jobSingleLoaded = data => {
     return { type: LOAD_SINGLE_JOB, payload: data}
 }
+export const getJobDetail = data => ({
+    type: GET_JOB_DETAIL,
+    payload: data
+})
+export const applyJobRequest = () => ({
+    type: APPLY_JOB_REQUEST
+})
+export const applyJob = response => ({
+    type: APPLY_JOB,
+    payload: response
+})
+export const actionGetApplicant = response => ({
+    type: GET_JOB_APPLICANTS,
+    payload: response
+})
 export const loading = () => ({
     type: LOADING,
 });
 
 // Actions
 export const loadJobs = () => (dispatch) => {
+    dispatch(loading())
     return agent.Job.load().then((response) => {
         dispatch(jobsLoaded(response));
         dispatch(
@@ -67,6 +118,22 @@ export const loadJobs = () => (dispatch) => {
         );
     });
 };
+
+export function viewJob(jobId) {
+    return (dispatch) => {
+        dispatch(loading());
+        return agent.Job.view(jobId).then(
+            (response) => {
+                dispatch(getJobDetail(response));
+            },
+            (error) => {
+                // handle error
+                dispatch(jobsLoadedError());
+                dispatch(showMessage({ type: "error", message: error }));
+            }
+        );
+    };
+}
 
 export function createJob(data) {
     return (dispatch) => {
@@ -81,6 +148,45 @@ export function createJob(data) {
                         message: "Job created successfully",
                     })
                 );
+            },
+            (error) => {
+                // handle error
+                dispatch(jobsLoadedError());
+                dispatch(showMessage({ type: "error", message: error }));
+            }
+        );
+    };
+}
+
+export function apply(jobId, data) {
+    return (dispatch) => {
+        dispatch(applyJobRequest());
+        return agent.Job.apply(jobId, data).then(
+            (response) => {
+                dispatch(applyJob(response));
+                dispatch(
+                    showMessage({
+                        type: MESSAGE_TYPE.SUCCESS,
+                        title: "Job Application",
+                        message: "Job applied successfully",
+                    })
+                );
+            },
+            (error) => {
+                // handle error
+                dispatch(jobsLoadedError());
+                dispatch(showMessage({ type: "error", message: error }));
+            }
+        );
+    };
+}
+
+export function viewApplicant(jobId){
+    return (dispatch) => {
+        dispatch(loading());
+        return agent.Job.applicants(jobId).then(
+            (response) => {
+                dispatch(actionGetApplicant(response));
             },
             (error) => {
                 // handle error

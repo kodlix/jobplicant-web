@@ -159,7 +159,12 @@ const JobExperience = {
 
 const Job = {
   save: (data) => requests.post("/job", data),
-  load: () => requests.get("/job")
+  load: () => requests.get("/job"),
+  view: (id) => requests.get(`/job/${id}`),
+  apply: (id, data) => requests.post(`/job/${id}/apply`, data),
+  applicants: (id) => requests.get(`/job/${id}/applicants`),
+  acceptApplication: (applicationId, data) => requests.put(`/job/${applicationId}/application/accept`, data),
+  suspendApplication: (applicationId, data) => requests.put(`/job/${applicationId}/application/suspend`, data)
 }
 
 //education service api

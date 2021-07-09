@@ -13,7 +13,7 @@ const SectionHeader = ({
   showDeleteButton = false,
 }) => {
   return (
-    <>
+    <div className="sectionHeader">
       <div className="p-card-title">
         <span>
           <i className={`pi pi-${icon}`}></i>
@@ -31,7 +31,7 @@ const SectionHeader = ({
           )}
         </span>
       </div>
-    </>
+    </div>
   );
 };
 

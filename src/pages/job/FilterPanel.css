@@ -1,0 +1,46 @@
+.cardTitle-filterpanel {
+  font-size: 1.2rem;
+}
+
+.card-header-filterpanel {
+  border-bottom: 1px solid rgb(206, 206, 206);
+  background-color: white;
+  align-items: center;
+}
+
+.cardSubtitle-filterpanel {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-sidetitle-filterpanel {
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.card-sidetitle-filterpanel:hover {
+  color: rgb(194, 38, 38);
+}
+
+.card-sideButton {
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.cardContent-filterpanel {
+  padding: 1.5rem 1rem;
+  border-bottom: 1px solid rgb(206, 206, 206);
+}
+
+.formElements-filterPanel, .formElements-filterPanel .p-dropdown-label, .formElements-filterPanel .p-inputnumber-input {
+  background-color: rgb(235, 235, 235);
+  border: none;
+  font-size: 0.85rem;
+}
+
+.salaryRange-filterPanel > .p-inputnumber-input{
+  width: 47%;
+}

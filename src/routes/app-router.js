@@ -13,6 +13,7 @@ import AdminSkill from 'pages/admin/dashboard/AdminSkills';
 import AdminContractType from 'pages/admin/dashboard/AdminContractType';
 import AdminQualification from 'pages/admin/dashboard/AdminQualification';
 
+
 const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard'));
 const UserProfile = React.lazy(() => import('pages/profile/UserProfile'));
 // const CompanyProfile = React.lazy(() => import('../pages/profile/companyProfile/CompanyProfile'));
@@ -45,6 +46,8 @@ const Timeline = React.lazy(() => import('../pages/timeline/Timeline'));
 
 const Artisan = React.lazy(() => import('../pages/artisans/List'));
 
+const ListJob = React.lazy(() => import('../pages/job/ListJob'));
+const ListJobDetail = React.lazy(() => import('pages/job/ListJobDetail'));
 
 
 
@@ -78,6 +81,8 @@ const AppRouter = () => {
         <ProtectedRoute path="/profile" component={UserProfile} />
         <ProtectedRoute path="/company" component={CompanyProfile} />
         <ProtectedRoute path="/jobs/create" component={CreateJob} />
+        <ProtectedRoute path="/jobs/list" exact component={ListJob} />
+        <ProtectedRoute path="/jobs/list/:jobListId" component={ListJobDetail} />
 
         {/* <ProtectedRoute path="/companyprofile" component={CompanyProfile} /> */}
         <ProtectedRoute path="/dashboard" component={Dashboard} />

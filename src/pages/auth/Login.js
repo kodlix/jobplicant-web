@@ -25,8 +25,10 @@ const Login = ({ props }) => {
     const [pass, setPass] = useState('');
     // console.log(props.accountType);
 
-
-    console.log({ checked })
+   useEffect(() => {
+    console.log(pass)
+   }, [pass])
+    // console.log({ checked })
 
 
     const onSubmit = (user) => {
@@ -53,7 +55,7 @@ const Login = ({ props }) => {
                             <div><h1 className="p-mb-0 p-text-center title">Joplicant Home for all</h1></div>
                             <div>
                                 <div>
-                                    <p> <h2 className="p-text-center sub-title"> Job seekers, Artisan, Employer</h2></p>
+                                  <h2 className="p-text-center sub-title"> Job seekers, Artisan, Employer</h2>
                                 </div>
                                 <section className="about p-mt-4 p-mb-4">
                                     <ul>
@@ -123,7 +125,8 @@ const Login = ({ props }) => {
                                                     {...register("password", { required: "Please enter your password." })}
                                                 /> */}
                                                 <Password
-                                                    value={pass} onChange={(e) => setPass(e.target.value)}
+                                                    // value={pass} 
+                                                    // onChange={(e) => setPass(e.target.value)}
                                                     toggleMask
                                                     name="password"
                                                     placeholder="Password"
