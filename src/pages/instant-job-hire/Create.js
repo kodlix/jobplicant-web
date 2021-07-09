@@ -76,6 +76,43 @@ const New = ({ mode }) => {
         }
     }
 
+    const locateUserHandler = () => {
+        if (!navigator.geolocation) {
+            alert('location feature is not available in your browser, please use another browser');
+            return;
+        }
+        navigator.geolocation.getCurrentPosition(successResult => {
+            const coordinates = {
+                lat: successResult.coords.latitude,
+                lng: successResult.coords.longitude,
+            }
+            console.log("user location -", coordinates)
+
+            fetch(`https://api.opencagedata.com/geocode/v1/json?q=${coordinates.lat}+${coordinates.lng}&key=684dc29e6b4748bab86ee02452867930`)
+                .then(response => response.json())
+                .then(console.log())
+            console.log(response => response.json())
+        },
+            error => {
+                alert('Could not locate your address unforturnately, Please enter your address manually')
+            })
+
+
+
+    }
+
+    navigator.geolocation.getCurrentPosition(console.log, console.log)
+
+
+    const succefulLookUp = (position) => {
+        const { latitude, longitude } = position.coords;
+
+        fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=684dc29e6b4748bab86ee02452867930`)
+            .then(response => response.json())
+            .then(console.log())
+    }
+
+    navigator.geolocation.getCurrentPosition(succefulLookUp, console.log)
 
     const onSubmit = (data) => {
         confirmDialog({
@@ -91,6 +128,7 @@ const New = ({ mode }) => {
                 }
                 data.service = data.service.name;
                 dispatch(createInstantJob(data));
+                locateUserHandler();
             },
             reject: () => {
                 return;
