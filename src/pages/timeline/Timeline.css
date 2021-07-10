@@ -1,22 +1,35 @@
 .timeline-container {
   background-color: #5a28461f;
-  /* 5a28461f */
   padding-top: 5rem;
 }
 
 .timeline-content {
-  width: 88%;
+  width: 90%;
   margin: auto;
 }
 
-/* .timeline-postsContainer {
-  overflow-y: overlay;
-  overflow-x: hidden;
-  height: 70em;
-} */
-
-.profile-picture {
+.profile-picture-timeline {
   border: 3px #5A2846 solid;  
+}
+
+.timeline-profilePicture, .profilepic-startpost-timeline > img {
+  border: 3px #5A2846 solid; 
+  object-fit: cover;
+  background-color: white;
+  cursor: pointer; 
+}
+
+.timeline-emptyProfilePic {
+  border: 5px #5A2846 solid;
+  width: fit-content;
+  margin: auto;
+  font-size: 3rem;
+  border-radius: 50%;
+  padding: 0.8rem;
+  color: #5A2846;
+  font-weight: 700;
+  background-color: white;
+  margin-bottom: 0.5rem;
 }
 
 .timeline-dropdownItem {
@@ -60,6 +73,11 @@
   padding: 1rem 0;
   border-top: 1px rgba(128, 128, 128, 0.432) solid;
   border-bottom: 1px rgba(128, 128, 128, 0.432) solid;
+}
+
+.timeline-companyName {
+  color: #5A2846;
+  font-weight: 700;
 }
 
 .suggestion-button-timeline {
@@ -120,10 +138,14 @@ a .cardsubtitle-timeline {
   background-color: #5A2846;
 }
 
- .p-card-body-timeline:hover > .jobDescription-timeline, .p-card-body-timeline:hover > .cardsubtitle-timeline {
+ .p-card-body-timeline:hover > .jobDescription-timeline, .p-card-body-timeline:hover > .cardsubtitle-timeline, .p-card-body-timeline:hover .timeline-seemore {
   color: white;
 }
 /* Recent Jobs sidepanel on hover */
+.timeline-seemore {
+  color: #5A2846;
+  font-weight: 600;
+}
 
 .poster-description {
   color: gray;
@@ -135,8 +157,8 @@ a .cardsubtitle-timeline {
 .jobDescription-timeline {
   font-size: 0.8rem;
   color: rgba(0, 0, 0, 0.616);
-  /* overflow: hidden;
-  max-height: 45px; */
+  overflow: hidden;
+  max-height: 80px;
 }
 
 .skilltag-timeline {
@@ -199,15 +221,13 @@ a .cardsubtitle-timeline {
   width: 1rem;
 }
 
-/* .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
-  font-size: 0.8rem !important;
-  padding: 0.3rem 0.5rem;
+.timeline-profilepic-expanded {
+  max-height: 20rem;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: #5A2846;
 }
-
-.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
-    color: white;
-    background: #5a2846;
-} */
 
 .postInputArea:hover {
   border-color: transparent !important;
@@ -230,7 +250,6 @@ a .cardsubtitle-timeline {
 .postInputArea {
   width: 100%;
   background-color: inherit;
-  /* border-radius: 15px; */
   border-color: transparent;
 }
 
@@ -283,7 +302,6 @@ a .cardsubtitle-timeline {
 
 .timelineMediaItem {
   height: 9rem;
-  /* height: 100%; */
   width: 100%;
   object-fit: contain;
 }
@@ -293,6 +311,7 @@ a .cardsubtitle-timeline {
   height: 17rem;
   background-color: #5A2846;
 }
+/* Modals */
 
 @media screen and (max-width: 1200px) {
   .timeline-content {
@@ -301,13 +320,27 @@ a .cardsubtitle-timeline {
 }
 
 @media screen and (max-width: 800px) {
-  .profile-picture {
+  .profile-picture-timeline{
     width: 50px;
+    margin-right: 0.5rem !important;
     height: 50px;
   }
 }
 
-/* .modalInputArea-container .p-inputtext:enabled:focus {
-  margin-top: 1rem;
-} */
-/* Modals */
+@media only screen and (min-width: 768px) and (max-width: 1168px) {
+  .profilepic-startpost-timeline > i {
+    font-size: 20px;
+  }  
+
+  .profilepic-startpost-timeline > img {
+    width: 50px;
+    height: 50px;
+  }  
+}
+
+@media only screen and (max-width: 550px) {
+  .profilepic-startpost-timeline > img {
+    width: 50px;
+    height: 50px;
+  }  
+}

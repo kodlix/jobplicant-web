@@ -30,7 +30,7 @@ const CorporateJob = ({ jobs }) => {
     return (<>
         {jobs && jobs.map((job, index) => (
             <div className="p-card p-4 mt-2 p-d-flex justify-content-between" key={index}>
-               {/* <p>{JSON.stringify(job)}</p> */}
+                {/* <p>{JSON.stringify(job)}</p> */}
                 <div className="d-flex">
                     <img
                         src="https://source.unsplash.com/random/100x100"
@@ -38,7 +38,21 @@ const CorporateJob = ({ jobs }) => {
                         alt="image"
                     />
                     <div className="p-2" ></div>
-                    <div>
+                    <div className="p-col-10">
+                        {/* <small className="p-text-secondary">
+                            <p className="font-weight-bold app-color">Job title : <span> {job.title}</span></p>
+                            <p className="font-weight-bold app-color">Job Location : <span> {job.location}</span></p>
+                            <p className="font-weight-bold app-color">Job State : <span> {job.state}</span></p>
+                            <p className="font-weight-bold app-color">Job title : <span> {job.title}</span></p>
+                            <p className="font-weight-bold app-color">Job title : <span> {job.title}</span></p>
+                            <div className="p-grid">
+                                <div className="p-col-4"><span className="font-weight-bold app-color">Start Date: </span> {moment(job.startDate).format('MMMM DD, YYYY')} </div>
+                                <div className="p-col-6"><span className="font-weight-bold app-color">End Date: </span> {moment(job.endDate).format('MMMM DD, YYYY')}</div>
+                            </div>
+
+
+
+                        </small> */}
                         <ul>
                             <li className="p-d-flex p-ai-center p-as-center"><h4>{job.title}</h4> <Badge severity="success"></Badge></li>
                             <li>{job.companyName} | <span>Salary <strong>&#x20A6;{formatValue(job.minSalary)}</strong> - <strong>&#x20A6;{formatValue(job.maxSalary)}</strong></span></li>
