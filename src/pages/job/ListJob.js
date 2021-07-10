@@ -11,6 +11,7 @@ import FilterPanel from './FilterPanel'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadAllJobs } from 'store/modules/job'
 import Spinner from 'components/spinner/spinner.component'
+import JobSidePanel from 'components/JobSidePanel'
 
 const ListJob = () => {
     const dispatch = useDispatch();
@@ -90,7 +91,7 @@ const ListJob = () => {
                             </div>
                         </>)}
                     </div>
-                    <div className="p-md-3"></div>
+                    <JobSidePanel data={jobs} />
                 </div>
             </div>
 
