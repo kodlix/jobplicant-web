@@ -90,6 +90,7 @@ export function updateCompanyInfo(data) {
 export function loadCompanyInfo() {
     return (dispatch) => {
       return agent.Company.load().then((response) => {
+        console.log('company info', response);
         dispatch(companyInfoLoaded(response));
         dispatch(
           showMessage({

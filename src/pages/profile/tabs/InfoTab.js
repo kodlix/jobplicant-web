@@ -14,10 +14,12 @@ import LocationOfInterest from "../LocationOfInterest";
 import ContactInformation from "../ContactInformation";
 import ModalForm from '../ModalForm';
 import agentService from 'services/agent.service';
+import Spinner from 'components/spinner/spinner.component';
 
 const InfoTab = () =>{ 
   
   const dispatch = useDispatch();
+  const loading = useSelector(state => state.account.loading);
   const profileInfo = useSelector((state) => state.account.profileInfo);
   const accountType = agentService.Auth.current().accountType;
 
@@ -71,6 +73,9 @@ const InfoTab = () =>{
 
     return year + "/" + month + "/" + day;
   };
+  console.log('loading', loading)
+  if(loading)
+    return <Spinner />
 
   return (
   <>

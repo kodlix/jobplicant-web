@@ -23,6 +23,7 @@ const UserProfile = ({ match }) => {
   const [] = useState({});
   const accountType = agentService.Auth.current().accountType;
 
+
   const openCreate = (name) => {
     setMode("create");
     dispatch(openModal(name));

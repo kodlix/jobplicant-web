@@ -4,6 +4,8 @@ import agent from "../../services/agent.service";
 
 const initialState = {
     loading: false,
+    loadingApplicants: false,
+    allJobs: [],
     jobs: [],
     jobDetail: null,
     applicants: [],
@@ -12,12 +14,14 @@ const initialState = {
 }
 
 const LOADING = "LOADING";
+const LOAD_ALL_JOBS = "LOAD_ALL_JOBS";
 const LOAD_JOBS = "LOAD_JOBS";
 const LOAD_SINGLE_JOB = "LOAD_SINGLE_JOB";
 const GET_JOB_DETAIL = "GET_JOB_DETAIL";
 const APPLY_JOB_REQUEST = 'APPLY_JOB_REQUEST';
 const APPLY_JOB = 'APPLY_JOB';
-const GET_JOB_APPLICANTS = 'GET_JOB_APPLICANTS'
+const LOADING_APPLICANTS = 'LOADING_APPLICANTS';
+const GET_JOB_APPLICANTS = 'GET_JOB_APPLICANTS';
 const LOAD_JOBS_ERROR = "LOAD_JOBS_ERROR";
 
 // Reducer
@@ -27,13 +31,25 @@ export default function reducer(state = initialState, action = {}) {
             return { ...state, 
                 loading: true, 
                 jobs: [],
+                allJobs: [],
                 jobDetail: null 
             };
+        case LOADING_APPLICANTS:
+            return {
+                ...state,
+                loadingApplicants: true
+            }
+        case LOAD_ALL_JOBS:
+            return {
+                ...state,
+                loading: false,
+                allJobs: action.payload.data
+            }
         case LOAD_JOBS:
             return {
                 ...state,
                 loading: false,
-                jobs: action.payload,
+                jobs: action.payload.data,
 
             };
         case LOAD_SINGLE_JOB: 
@@ -62,7 +78,7 @@ export default function reducer(state = initialState, action = {}) {
         case GET_JOB_APPLICANTS:
             return {
                 ...state,
-                loading: false,
+                loadingApplicants: false,
                 applicants: action.payload
             }
         case LOAD_JOBS_ERROR:
@@ -76,6 +92,10 @@ export default function reducer(state = initialState, action = {}) {
 }
 
 // Action Creators
+export const allJobsLoaded = data => ({
+    type: LOAD_ALL_JOBS,
+    payload: data
+})
 export function jobsLoaded(data) {
     return { type: LOAD_JOBS, payload: data };
 }
@@ -96,6 +116,9 @@ export const applyJob = response => ({
     type: APPLY_JOB,
     payload: response
 })
+export const actionLoadingApplicants = () => ({
+    type: LOADING_APPLICANTS
+})
 export const actionGetApplicant = response => ({
     type: GET_JOB_APPLICANTS,
     payload: response
@@ -105,17 +128,16 @@ export const loading = () => ({
 });
 
 // Actions
+export const loadAllJobs = () => dispatch => {
+    dispatch(loading());
+    return agent.Job.loadAll().then((response) => {
+        dispatch(allJobsLoaded(response));
+    });
+}
 export const loadJobs = () => (dispatch) => {
     dispatch(loading())
     return agent.Job.load().then((response) => {
         dispatch(jobsLoaded(response));
-        dispatch(
-            showMessage({
-                type: MESSAGE_TYPE.SUCCESS,
-                title: "Jobs",
-                message: "Jobs loaded successfully",
-            })
-        );
     });
 };
 
@@ -183,7 +205,7 @@ export function apply(jobId, data) {
 
 export function viewApplicant(jobId){
     return (dispatch) => {
-        dispatch(loading());
+        dispatch(actionLoadingApplicants());
         return agent.Job.applicants(jobId).then(
             (response) => {
                 dispatch(actionGetApplicant(response));

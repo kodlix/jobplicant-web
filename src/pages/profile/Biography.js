@@ -6,6 +6,7 @@ import { PROFILE } from "constants/profile";
 import "./UserProfile.css";
 
 const Biography = ({ openCreate, openEdit, profileInfo }) => {
+  
   return (
     <>
       <div className="p-card p-mt-2">

@@ -28,6 +28,8 @@ const CompanyEditForm = () => {
   const [preview, setPreview] = useState(null);
   const [editMode, setEditMode] = useState(true);
 
+  console.log('company button loading', loading)
+
   const {
     register,
     handleSubmit,
@@ -444,7 +446,7 @@ const CompanyEditForm = () => {
                       </span>
                     )}
                   </label>
-                  {editMode ? <p classname="pi pi-text">{profileInfo.address}</p> : <textarea
+                  {editMode ? <p className="pi pi-text">{profileInfo.address}</p> : <textarea
                     id="address"
                     name="address"
                     onChange={(e) => {

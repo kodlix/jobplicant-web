@@ -9,17 +9,17 @@ import BackgroundImage from '../../assets/bg.png'
 import './ListJob.css'
 import FilterPanel from './FilterPanel'
 import { useDispatch, useSelector } from 'react-redux'
-import { loadJobs } from 'store/modules/job'
+import { loadAllJobs } from 'store/modules/job'
 import Spinner from 'components/spinner/spinner.component'
 
 const ListJob = () => {
     const dispatch = useDispatch();
 
-    const jobs = useSelector(state => state.job.jobs);
+    const jobs = useSelector(state => state.job.allJobs);
     const loading = useSelector(state => state.job.loading)
 
     useEffect(() => {
-        dispatch(loadJobs())
+        dispatch(loadAllJobs())
     }, [])
 
     const formatValue = value => new Intl.NumberFormat('en-US', {}).format(value);
@@ -83,7 +83,7 @@ const ListJob = () => {
                                             </ul>
                                         </div>
                                     </div>
-                                    <span className="p-mr-2 p-as-end"> <Link to={`/jobs/list/${job.id}`} class="btn btn-teal" style={styles.viewLinkStyle}>View <i className="pi pi-arrow-right"></i></Link> </span>
+                                    <span className="p-mr-2 p-as-end"> <Link to={`/jobs/view/${job.id}`} class="btn btn-teal" style={styles.viewLinkStyle}>View <i className="pi pi-arrow-right"></i></Link> </span>
                                 </div>)
                                 )}
 
