@@ -160,6 +160,7 @@ const JobExperience = {
 const Job = {
   loadAll: () => requests.get(`/job/all`),
   save: (data) => requests.post("/job", data),
+  edit: (id, data) => requests.put(`/job/${id}`, data),
   load: () => requests.get("/job"),
   view: (id) => requests.get(`/job/${id}`),
   apply: (id, data) => requests.post(`/job/${id}/apply`, data),

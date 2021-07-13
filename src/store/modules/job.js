@@ -3,6 +3,7 @@ import { showMessage } from "./notification";
 import agent from "../../services/agent.service";
 
 const initialState = {
+    editingJob: false,
     loading: false,
     loadingApplicants: false,
     allJobs: [],
@@ -14,6 +15,8 @@ const initialState = {
 }
 
 const LOADING = "LOADING";
+const EDITING_JOB = "EDITING_JOB";
+const EDIT_JOB_SUCCESS = 'EDIT_JOB_SUCCESS';
 const LOAD_ALL_JOBS = "LOAD_ALL_JOBS";
 const LOAD_JOBS = "LOAD_JOBS";
 const LOAD_SINGLE_JOB = "LOAD_SINGLE_JOB";
@@ -34,6 +37,16 @@ export default function reducer(state = initialState, action = {}) {
                 allJobs: [],
                 jobDetail: null 
             };
+        case EDITING_JOB: 
+            return {
+                ...state,
+                editingJob: true
+            }
+        case EDIT_JOB_SUCCESS: 
+            return {
+                ...state,
+                editingJob: false
+            }
         case LOADING_APPLICANTS:
             return {
                 ...state,
@@ -123,6 +136,12 @@ export const actionGetApplicant = response => ({
     type: GET_JOB_APPLICANTS,
     payload: response
 })
+export const editJobSuccess = () => ({
+    type: EDIT_JOB_SUCCESS
+})
+export const editingJob = () => ({
+    type: EDITING_JOB
+})
 export const loading = () => ({
     type: LOADING,
 });
@@ -179,6 +198,28 @@ export function createJob(data) {
         );
     };
 }
+export function editJob(id, data) {
+    return (dispatch) => {
+        dispatch(editingJob())
+        return agent.Job.edit(id, data).then(
+            (response) => {
+                dispatch(editJobSuccess());
+                dispatch(
+                    showMessage({
+                        type: MESSAGE_TYPE.SUCCESS,
+                        title: "Job Information",
+                        message: "Job updated successfully",
+                    })
+                );
+            },
+            (error) => {
+                // handle error
+                dispatch(jobsLoadedError());
+                dispatch(showMessage({ type: "error", message: error }));
+            }
+        );
+    };
+}
 
 export function apply(jobId, data) {
     return (dispatch) => {
@@ -217,4 +258,23 @@ export function viewApplicant(jobId){
             }
         );
     };
+}
+
+export function acceptApplicant(applicationId, data) {
+    return dispatch => {
+        return agent.Job.acceptApplication(applicationId, data).then(
+            response => {
+                dispatch(
+                    showMessage({
+                        type: MESSAGE_TYPE.SUCCESS,
+                        title: "Applicant status",
+                        message: "Applicant accepted!",
+                    })
+                );
+            },
+            error => {
+                dispatch(showMessage({ type: "error", message: error }));
+            }
+        )
+    }
 }

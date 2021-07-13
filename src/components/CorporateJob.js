@@ -1,8 +1,9 @@
 import moment from 'moment';
 import ViewAspirantModal from 'pages/company/ViewAspirantModal';
+import EditJobModal from 'pages/company/EditJobModal';
 import { Badge } from 'primereact/badge';
 import { Tag } from 'primereact/tag';
-import {  useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { viewApplicant } from 'store/modules/job';
 
@@ -10,9 +11,12 @@ import { viewApplicant } from 'store/modules/job';
 const CorporateJob = ({ jobs }) => {
     const dispatch = useDispatch();
     const [showModal, setShowModal] = useState(false);
+    const [showEditJobModal, setShowEditJobModal] = useState(false);
     const [selectedJobId, setSelectedJobId] = useState('')
+    const [selectedJob, setSelectedJob] = useState(null);
 
     const onHide = () => setShowModal(false);
+    const onHideEditJobModal = () => setShowEditJobModal(false);
 
     const formatValue = value => new Intl.NumberFormat('en-US', {}).format(value);
 
@@ -20,6 +24,11 @@ const CorporateJob = ({ jobs }) => {
         setShowModal(true)
         setSelectedJobId(jobId)
         // dispatch(viewApplicant(jobId));
+    }
+
+    const handleEditJob = (job) => {
+        setShowEditJobModal(true);
+        setSelectedJob(job);
     }
 
     if (jobs && !jobs.length)
@@ -54,25 +63,32 @@ const CorporateJob = ({ jobs }) => {
 
                         </small> */}
                         <ul>
-                            <li className="p-d-flex p-ai-center p-as-center"><h4>{job.title}</h4> <Badge severity="success"></Badge></li>
+                            <li className="p-d-flex p-ai-center p-as-center"><h4>{job.title}</h4> <Badge severity="success" value={job.contactType}></Badge></li>
                             <li>{job.companyName} | <span>Salary <strong>&#x20A6;{formatValue(job.minSalary)}</strong> - <strong>&#x20A6;{formatValue(job.maxSalary)}</strong></span></li>
                             <li>
                                 <a target="_blank" href={job.jobUrl}>{job.jobUrl}</a> <span>Industry: {job.industry}</span>
                             </li>
-                            <li style={{display: 'flex', alignItems: 'center'}}>
+                            <li style={{ display: 'flex', alignItems: 'center' }}>
                                 From <Tag>{moment(job.startDate).format("MMM d, yyyy")}</Tag>{" - "} To <Tag>{moment(job.endDate).format("MMM d, yyyy")}</Tag>
                             </li>
                             <li><span>Location: <strong>{job.location}</strong></span></li>
                         </ul>
                     </div>
                 </div>
-                <span className="p-mr-2 p-as-end"> <a href="#" onClick={(e) => {
-                    e.preventDefault(); 
+                <span className="p-mr-2 p-as-end"> 
+                    <i className="pi pi-eye" style={{ 'fontSize': '2em', color: 'black' }} onClick={(e) => {
+                    e.preventDefault();
                     handleShowApplicants(job.id);
-                    }}><i className="pi pi-eye" style={{ 'fontSize': '2em', color: 'black' }}></i></a> </span>
+                }}></i> {"   "}
+                    <i className="pi pi-pencil" style={{ 'fontSize': '2em', color: 'black' }}  onClick={(e) => {
+                        e.preventDefault();
+                        handleEditJob(job);
+                    }}></i>
+                </span>
             </div>
         ))}
-        <ViewAspirantModal showModal={showModal} onHide={onHide} jobId={selectedJobId} />
+        {showModal && <ViewAspirantModal showModal={showModal} onHide={onHide} jobId={selectedJobId} />}
+        {showEditJobModal && <EditJobModal showModal={showEditJobModal} onHide={onHideEditJobModal} job={selectedJob} />}
     </>)
 }
 
