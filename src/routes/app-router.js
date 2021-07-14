@@ -12,6 +12,7 @@ import ProtectedAdminRoute from './protected-admin-route';
 import AdminSkill from 'pages/admin/dashboard/AdminSkills';
 import AdminContractType from 'pages/admin/dashboard/AdminContractType';
 import AdminQualification from 'pages/admin/dashboard/AdminQualification';
+import AdminServices from 'pages/admin/dashboard/AdminServices';
 
 const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard'));
 const UserProfile = React.lazy(() => import('pages/profile/UserProfile'));
@@ -99,6 +100,8 @@ const AppRouter = () => {
         <ProtectedAdminRoute path="/admin-qualification" component={AdminQualification} />
         <ProtectedAdminRoute path={`/admin-skills`} component={AdminSkill} />
         <ProtectedAdminRoute path="/admin-contractType" component={AdminContractType} />
+        <ProtectedAdminRoute path="/admin-services" component={AdminServices} />
+
         <Redirect to="/login" />
       </Switch>
     </React.Suspense>

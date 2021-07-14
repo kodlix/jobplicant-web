@@ -281,6 +281,22 @@ const Skill = {
   delete: (id) => requests.del(`/skill/${id}`),
 }
 
+const ServiceGroup = {
+  save: (data) => requests.post("/service-group", data),
+  load: () => requests.get("/service-group",),
+  view: (id) => requests.get(`/service-group/${id}`),
+  edit: (id, data) => requests.put(`/service-group/${id}`, data),
+  delete: (id) => requests.del(`/service-group/${id}`),
+}
+
+const Service = {
+  save: (data) => requests.post("/service", data),
+  load: () => requests.get("/service",),
+  view: (id) => requests.get(`/service/${id}`),
+  edit: (id, data) => requests.put(`/service/${id}`, data),
+  delete: (id) => requests.del(`/service/${id}`),
+}
+
 const Post = {
   save: (data) => requests.post("/post", data),
   edit: (id, data) => requests.put(`/post/${id}`, data),
@@ -328,5 +344,7 @@ export default {
 
   ContractType,
   Qualification,
-  Skill
+  Skill,
+  ServiceGroup,
+  Service
 };

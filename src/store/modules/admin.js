@@ -12,6 +12,8 @@ const admin = {
   contractTypes: [],
   skills: [],
   qualifications: [],
+  serviceGroups: [],
+  services: [],
   message: null
 };
 
@@ -24,6 +26,8 @@ const LOAD_ADMIN_ERROR = "LOAD_ADMIN_ERROR";
 const LOAD_CONTRACT_TYPES = "LOAD_CONTRACT_TYPES";
 const LOAD_SKILLS = "LOAD_SKILLS";
 const LOAD_QUALIFICATIONS = "LOAD_QUALIFICATIONS";
+const LOAD_SERVICES = "LOAD_SERVICE";
+const LOAD_SERVICE_GROUPS = "LOAD_SERVICE_GROUP";
 
 const CREATE_CONTRACT_TYPE = "CREATE_CONTRACT_TYPE";
 const UPDATE_CONTRACT_TYPE = "UPDATE_CONTRACT_TYPE";
@@ -36,6 +40,14 @@ const DELETE_SKILLS = "DELETE_SKILLS";
 const CREATE_QUALIFICATION = "CREATE_QUALIFICATION";
 const UPDATE_QUALIFICATION = "UPDATE_QUALFICATION";
 const DELETE_QUALIFICATION = "DELETE_QUALIFICATION";
+
+const CREATE_SERVICE_GROUP = "CREATE_SERVICE_GROUP";
+const UPDATE_SERVICE_GROUP = "UPDATE_SERVICE_GROUP";
+const DELETE_SERVICE_GROUP = "DELETE_SERVICE_GROUP";
+
+const CREATE_SERVICE = "CREATE_SERVICE";
+const UPDATE_SERVICE = "UPDATE_SERVICE";
+const DELETE_SERVICE = "DELETE_SERVICE";
 
 // Reducer
 export default function reducer(state = admin, action = {}) {
@@ -65,9 +77,13 @@ export default function reducer(state = admin, action = {}) {
       return { ...state, loading: false, contractTypes: action.payload, message: null }
     case LOAD_SKILLS: return { ...state, loading: false, skills: action.payload, message: null }
     case LOAD_QUALIFICATIONS: return { ...state, loading: false, qualifications: action.payload, message: null }
+    case LOAD_SERVICE_GROUPS: return { ...state, loading: false, serviceGroups: action.payload, message: null }
+    case LOAD_SERVICES: return { ...state, loading: false, services: action.payload, message: null }
 
     case CREATE_CONTRACT_TYPE:
     case CREATE_SKILLS:
+    case CREATE_SERVICE_GROUP:
+    case CREATE_SERVICE:
     case CREATE_QUALIFICATION:
       return {
         ...state,
@@ -77,6 +93,8 @@ export default function reducer(state = admin, action = {}) {
     case UPDATE_CONTRACT_TYPE:
     case UPDATE_SKILLS:
     case UPDATE_QUALIFICATION:
+    case UPDATE_SERVICE_GROUP:
+    case UPDATE_SERVICE:
       return {
         ...state,
         loading: false,
@@ -85,6 +103,8 @@ export default function reducer(state = admin, action = {}) {
     case DELETE_CONTRACT_TYPE:
     case DELETE_SKILLS:
     case DELETE_QUALIFICATION:
+    case DELETE_SERVICE_GROUP:
+    case DELETE_SERVICE:
       return {
         ...state,
         message: 'deleted',
@@ -145,6 +165,34 @@ export const actionUpdateQualification = (response) => ({
 })
 export const actionDeleteQualification = (response) => ({
   type: DELETE_SKILLS
+})
+export const actionLoadServiceGroups = (response) => ({
+  type: LOAD_SERVICE_GROUPS,
+  payload: response
+})
+export const actionCreateServiceGroup = (response) => ({
+  type: CREATE_SERVICE_GROUP,
+  payload: response
+})
+export const actionUpdateServiceGroup = (response) => ({
+  type: UPDATE_SERVICE_GROUP
+})
+export const actionDeleteServiceGroup = (response) => ({
+  type: DELETE_SERVICE_GROUP
+})
+export const actionLoadServices = (response) => ({
+  type: LOAD_SERVICES,
+  payload: response
+})
+export const actionCreateService = (response) => ({
+  type: CREATE_SERVICE,
+  payload: response
+})
+export const actionUpdateService = (response) => ({
+  type: UPDATE_SERVICE
+})
+export const actionDeleteService = (response) => ({
+  type: DELETE_SERVICE
 })
 
 export const getContractTypes = () => (dispatch) => {
@@ -352,6 +400,151 @@ export const deleteQualification = (id) => dispatch => {
         type: MESSAGE_TYPE.SUCCESS,
         title: "Delete Qualification Information",
         message: "Qualification deleted successfully",
+      })
+    );
+  },
+    (error) => {
+      // handle error
+      dispatch(adminLoadedError());
+      dispatch(showMessage({ type: "error", message: error }));
+    })
+}
+
+//SERVICE GROUPS
+export const loadServiceGroups = () => (dispatch) => {
+  return agent.ServiceGroup.load().then((response) => {
+    dispatch(actionLoadServiceGroups(response));
+    dispatch(
+      showMessage({
+        type: MESSAGE_TYPE.SUCCESS,
+        title: "Service Groups Information",
+        message: "Service Groups loaded successfully",
+      })
+    );
+  });
+};
+
+export const createServiceGroup = data => dispatch => {
+  dispatch(loading());
+  return agent.ServiceGroup.save(data).then(
+    (response) => {
+      dispatch(actionCreateServiceGroup(response));
+      dispatch(
+        showMessage({
+          type: MESSAGE_TYPE.SUCCESS,
+          title: "Create Service Group",
+          message: "Service Group created successfully",
+        })
+      );
+    },
+    (error) => {
+      // handle error
+      dispatch(adminLoadedError());
+      dispatch(showMessage({ type: "error", message: error }));
+    }
+  );
+};
+
+export const updateServiceGroup = (data, id) => dispatch => {
+  dispatch(loading());
+  return agent.ServiceGroup.edit(id, data).then(
+    response => {
+      //handle success
+      dispatch(
+        showMessage({
+          type: MESSAGE_TYPE.SUCCESS,
+          title: "Update Service Group Information",
+          message: "Service Group updated successfully",
+        })
+      );
+    },
+    (error) => {
+      // handle error
+      dispatch(adminLoadedError());
+      dispatch(showMessage({ type: "error", message: error }));
+    })
+}
+
+export const deleteServiceGroup = (id) => dispatch => {
+  return agent.ServiceGroup.delete(id).then(c => (response) => {
+    dispatch(actionDeleteServiceGroup(response));
+    dispatch(
+      showMessage({
+        type: MESSAGE_TYPE.SUCCESS,
+        title: "Delete Service Group Information",
+        message: "Service Group deleted successfully",
+      })
+    );
+  },
+    (error) => {
+      // handle error
+      dispatch(adminLoadedError());
+      dispatch(showMessage({ type: "error", message: error }));
+    })
+}
+
+//SERVICES
+export const loadServices = () => (dispatch) => {
+  return agent.Service.load().then((response) => {
+    dispatch(actionLoadServices(response));
+    dispatch(
+      showMessage({
+        type: MESSAGE_TYPE.SUCCESS,
+        title: "Services Information",
+        message: "Services loaded successfully",
+      })
+    );
+  });
+};
+
+export const createService = data => dispatch => {
+  dispatch(loading());
+  return agent.Service.save(data).then(
+    (response) => {
+      dispatch(actionCreateService(response));
+      dispatch(
+        showMessage({
+          type: MESSAGE_TYPE.SUCCESS,
+          title: "Update Service Information",
+          message: "Service created successfully",
+        })
+      );
+    },
+    (error) => {
+      // handle error
+      dispatch(adminLoadedError());
+      dispatch(showMessage({ type: "error", message: error }));
+    }
+  );
+};
+
+export const updateService = (data, id) => dispatch => {
+  dispatch(loading());
+  return agent.Service.edit(id, data).then(c => (response) => {
+    dispatch(actionUpdateService(response));
+    dispatch(
+      showMessage({
+        type: MESSAGE_TYPE.SUCCESS,
+        title: "Update skill Information",
+        message: "Service updated successfully",
+      })
+    );
+  },
+    (error) => {
+      // handle error
+      dispatch(adminLoadedError());
+      dispatch(showMessage({ type: "error", message: error }));
+    })
+}
+
+export const deleteService = (id) => dispatch => {
+  return agent.Service.delete(id).then(c => (response) => {
+    dispatch(actionDeleteService(response));
+    dispatch(
+      showMessage({
+        type: MESSAGE_TYPE.SUCCESS,
+        title: "Delete Service Information",
+        message: "Service deleted successfully",
       })
     );
   },

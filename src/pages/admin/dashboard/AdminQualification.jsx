@@ -96,7 +96,7 @@ const AdminQualification = () => {
                 <div className="p-col-12 p-lg-8 p-p-lg-1 p-py-0">
                     <div className="p-card h-100 p-mt-2">
                         <div className="p-card-body pt-4">
-                            {getTableData(qualifictions)}
+                            {getTableData(qualifictions.data)}
                             {/* {qualifictions.map((q, index) => (<span key={index}>
                                 <Tag >
                                     <span 
