@@ -44,10 +44,12 @@ const RecentInstantJobs = () => {
                                 <div className="panel-login text-center"></div>
                                 <div className="highlight-card p-p-2 ">
                                     <div className="row " style={{ flexWrap: "nowrap !important" }}>
-                                        <div className="p-card-title d-flex justify-content-around">
-                                            <div>{instantjob.service}</div>
+                                        <div className="p-card-title d-flex justify-content-around" style={{ fontSize: 15 }}>
+                                            <div >{instantjob.service}</div>
                                             <div><i className="pi pi-share-alt"></i></div>
                                         </div>
+                                        <hr />
+
                                         <div className="col-2 rounded-circle">
                                             <img
                                                 src="https://source.unsplash.com/random/100x100"

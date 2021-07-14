@@ -1,0 +1,39 @@
+.cardtitle-JobPanelComponent {
+  border-bottom: 1px solid #5a284657;
+  font-size: 1rem !important;
+  padding: 0.7rem 1rem;
+}
+
+.cardsubtitle-JobPanelComponent {
+  font-size: 0.8rem !important;
+  display: flex;
+  justify-content: space-between;
+}
+
+.p-card-body-JobPanelComponent {
+  color: rgba(0, 0, 0, 0.616);
+}
+
+a .cardsubtitle-JobPanelComponent {
+  color: black;
+}
+
+.p-card-body-JobPanelComponent:hover > .jobDescription-JobPanelComponent, .p-card-body-JobPanelComponent:hover > .cardsubtitle-JobPanelComponent, .p-card-body-JobPanelComponent:hover .seemore-JobPanelComponent {
+  color: white;
+}
+
+.p-card-body-JobPanelComponent:hover {
+  background-color: #5A2846;
+}
+
+.jobDescription-JobPanelComponent {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.616);
+  overflow: hidden;
+  max-height: 80px;
+}
+
+.seemore-JobPanelComponent {
+  color: #5A2846;
+  font-weight: 600;
+}

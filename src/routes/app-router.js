@@ -13,6 +13,7 @@ import AdminSkill from 'pages/admin/dashboard/AdminSkills';
 import AdminContractType from 'pages/admin/dashboard/AdminContractType';
 import AdminQualification from 'pages/admin/dashboard/AdminQualification';
 
+
 const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard'));
 const UserProfile = React.lazy(() => import('pages/profile/UserProfile'));
 // const CompanyProfile = React.lazy(() => import('../pages/profile/companyProfile/CompanyProfile'));
@@ -41,10 +42,14 @@ const EditInstantJobHire = React.lazy(() => import('../pages/instant-job-hire/Ed
 const Applicant = React.lazy(() => import('../pages/instant-job-hire/Applicant'));
 const InstantJobs = React.lazy(() => import('../pages/instant-jobs/List'));
 const Timeline = React.lazy(() => import('../pages/timeline/Timeline'));
+const CreateContacts = React.lazy(() => import('../pages/contacts/Create'));
+const ListContacts = React.lazy(() => import('../pages/contacts/List'));
 
 
 const Artisan = React.lazy(() => import('../pages/artisans/List'));
 
+const ListJob = React.lazy(() => import('../pages/job/ListJob'));
+const ListJobDetail = React.lazy(() => import('pages/job/ListJobDetail'));
 
 
 
@@ -78,6 +83,8 @@ const AppRouter = () => {
         <ProtectedRoute path="/profile" component={UserProfile} />
         <ProtectedRoute path="/company" component={CompanyProfile} />
         <ProtectedRoute path="/jobs/create" component={CreateJob} />
+        <ProtectedRoute path="/jobs" exact component={ListJob} />
+        <ProtectedRoute path="/jobs/view/:jobListId" component={ListJobDetail} />
 
         {/* <ProtectedRoute path="/companyprofile" component={CompanyProfile} /> */}
         <ProtectedRoute path="/dashboard" component={Dashboard} />
@@ -89,6 +96,9 @@ const AppRouter = () => {
 
         <ProtectedRoute path="/instant-jobs" component={InstantJobs} />
         <ProtectedRoute path="/timeline" exact component={Timeline} />
+        <ProtectedRoute path="/contacts" exact component={ListContacts} />
+        <ProtectedRoute path="/contacts/create" exact component={CreateContacts} />
+
 
 
         <ProtectedRoute path="/artisans" exact component={Artisan} />

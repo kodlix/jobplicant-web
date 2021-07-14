@@ -132,15 +132,16 @@ export function updatePersonalProfile(data) {
 }
 export function loadProfileInfo() {
   return (dispatch) => {
+    dispatch(loading())
     return agent.Account.getProfileInfo().then((response) => {
       dispatch(profileInfoLoaded(response));
-      dispatch(
-        showMessage({
-          type: MESSAGE_TYPE.SUCCESS,
-          title: "Profile Information",
-          message: "Profile info loaded successfully",
-        })
-      );
+      // dispatch(
+      //   showMessage({
+      //     type: MESSAGE_TYPE.SUCCESS,
+      //     title: "Profile Information",
+      //     message: "Profile info loaded successfully",
+      //   })
+      // );
     });
   };
 }

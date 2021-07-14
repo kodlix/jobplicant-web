@@ -1,0 +1,13 @@
+
+.list-job-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    
+}
+
+.list-job-search-box {
+    border: '2px solid #55B2B0';
+    height: 50px
+}

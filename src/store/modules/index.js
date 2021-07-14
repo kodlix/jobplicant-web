@@ -17,6 +17,7 @@ import util from './util';
 import instantJob from './instantJob';
 import job from './job';
 import admin from './admin'
+import contact from './contact'
 
 const appReducer = (history) => combineReducers({
   router: connectRouter(history),
@@ -37,6 +38,7 @@ const appReducer = (history) => combineReducers({
   admin,
   timeline,
   comment,
+  contact
 });
 
 export default appReducer;

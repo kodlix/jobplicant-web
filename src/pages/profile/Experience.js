@@ -20,30 +20,32 @@ const Experience = ({ openCreate, openEdit, profileInfo, formatDate }) => {
           openModalOnEdit={() => openEdit(PROFILE.EXPERIENCE)}
         />
         {profileInfo.experiences.map((item, index) => (
-          <span key={index}>
+          <div key={index}>
             <div className="p-card-subtitle p-ml-3 p-mb-0 mainTitle">
               <span>
                 <b>{item.jobTitle}</b>&nbsp; at &nbsp;
                 <b className="experienceCompany">{item.company}</b>
               </span>
-              <i
-                className="pi pi-pencil icon-edit"
-                onClick={() => openEdit(PROFILE.EXPERIENCE, item)}
-                id="experienceEdit"
-              ></i>
-              <i
-                    style={{ cursor: "pointer" }}
-                    className="pi pi-times"
-                    onClick={() => {
-                      var confirmation = window.confirm(
-                        "Action is irreversible, are you sure you want to delete?"
-                      );
-                      if (confirmation) {
-                        dispatch(deleteExperience(item.id));
-                      }
-                    }}
-                    id="educationEdit"
-                  ></i>
+              <span>
+                <i
+                  className="pi pi-pencil icon-edit"
+                  onClick={() => openEdit(PROFILE.EXPERIENCE, item)}
+                  id="experienceEdit"
+                ></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                <i
+                  style={{ cursor: "pointer" }}
+                  className="pi pi-times"
+                  onClick={() => {
+                    var confirmation = window.confirm(
+                      "Action is irreversible, are you sure you want to delete?"
+                    );
+                    if (confirmation) {
+                      dispatch(deleteExperience(item.id));
+                    }
+                  }}
+                  id="educationEdit"
+                ></i>
+              </span>
             </div>
             <div className="p-card-subtitle p-ml-3">
               <b>
@@ -56,7 +58,7 @@ const Experience = ({ openCreate, openEdit, profileInfo, formatDate }) => {
             <div className="p-card-body p-text-secondary">
               {item.description}
             </div>
-          </span>
+          </div>
         ))}
       </div>
     </>

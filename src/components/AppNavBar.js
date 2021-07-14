@@ -40,7 +40,7 @@ const AppNavBar = ({ displaySearBar = false }) => {
                                                 <Link to="#">Hire</Link>
                                             </li>
                                             <li className="nav-item">
-                                                <Link to="#">Contacts
+                                                <Link to="/contacts">Contacts
                                                 </Link>
                                             </li>
                                             <li className="nav-item">

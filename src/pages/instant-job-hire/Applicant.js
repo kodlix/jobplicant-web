@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { Rating } from 'primereact/rating';
 import { Button } from 'primereact/button';
 import { acceptApplicant, loadApplicants, loadInstantJob, rejectApplicant, } from 'store/modules/instantJob';
+import Spinner from 'components/spinner/spinner.component'
+
 
 import Job from './Job';
 
@@ -51,7 +53,6 @@ const Applicant = (props) => {
     const rejectHandler = (id) => {
         dispatch(rejectApplicant(id))
     }
-
 
     return (
         <>

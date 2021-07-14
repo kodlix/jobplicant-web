@@ -1,4 +1,3 @@
-import { push } from "connected-react-router";
 import { showMessage } from "./notification";
 import agent from "../../services/agent.service";
 import { MESSAGE_TYPE } from "../constant";
@@ -11,8 +10,8 @@ const timeline = {
   post: {},
   postsByUserId: [],
   postByPostId: {},
-  totalPostCount: "",
-  PostCountByUser: ""
+  totalPostCount: 0,
+  PostCountByUser: 0
 };
 
 // Action types
@@ -23,11 +22,6 @@ const LOAD_POST_BY_POSTID = "LOAD_POST_BY_POSTID";
 const LOAD_POSTS_BY_USERID = "LOAD_POSTS_BY_USERID";
 const LOAD_TOTAL_POST_COUNT = "LOAD_TOTAL_POST_COUNT";
 const LOAD_USER_POST_COUNT = "LOAD_USER_POST_COUNT";
-
-// export function isLoading(){
-//     return {type: LOADING}
-// }
-
 
 // Reducer
 export default function reducer(state = timeline, action = {}) {
@@ -142,11 +136,11 @@ export function editPost(id, post) {
 
 export function loadPosts(page, take, loadingType) {
   return dispatch => {
-    dispatch(loading());
+    dispatch(loading(loadingType));
     return agent.Post.load(page, take).then(
       response => {
         //handle success
-        dispatch(loading(loadingType));
+        dispatch(loading(""));
         dispatch(
           showMessage({
             type: MESSAGE_TYPE.SUCCESS,

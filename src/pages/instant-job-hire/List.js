@@ -8,17 +8,19 @@ import moment from 'moment';
 
 import './InstantJobHire.css'
 import RecentInstantJobs from 'pages/instant-jobs/Recent_instant_Jobs';
+import Spinner from 'components/spinner/spinner.component'
 
-const InstantHires = (props) => {
+
+const InstantHires = () => {
     const dispatch = useDispatch();
     const instantJobs = useSelector(state => state.instantJob.instantjobs);
 
     useEffect(() => {
         dispatch(loadInstantJobs())
-    }, [dispatch])
+    }, [])
 
     const deleteRequest = (id) => {
-        confirmDialog({
+        return confirmDialog({
             message: 'Do you want to delete this record?',
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
@@ -33,6 +35,8 @@ const InstantHires = (props) => {
         });
     }
 
+    if (instantJobs && !instantJobs.length)
+        return <Spinner />
 
     return (
         <div>

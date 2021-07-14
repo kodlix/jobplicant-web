@@ -1,16 +1,15 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import Comment from './Comment';
 import './CommentSection.css';
 
 
-const CommentList = ({ id, comments }) => {
+const CommentList = ({ comments }) => {
   return (
     <div className='p-card-body p-pt-1 p-px-0'>
       {
         comments.map((comment) => (
           <>
-            <Comment comment={comment} />
+            <Comment comment={comment} key={comment.id} />
           </>
         ))
       }

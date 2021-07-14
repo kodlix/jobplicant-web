@@ -30,7 +30,7 @@ const CommentForm = ({ postId }) => {
 
   return (
     <div className='p-card-title d-flex p-mt-2 w-100'>
-      <img src="../../assets/logo.png" width="40" height="40" className="rounded-circle profile-picture" />
+      <img src="../../assets/logo.png" width="40" height="40" className="rounded-circle profile-picture-timeline" />
       <form onSubmit={handleSubmit(onSubmit)} className='timeline-commentInputContainer'>
         <InputTextarea rows={1} cols={30} autoResize className="commentForm" name="message" placeholder="Write your comment..." {...register("message", { required: true })}
           onChange={(e) => { inputChange(e) }} />
