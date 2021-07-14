@@ -1,23 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
-import { Toast } from 'primereact/toast';
+import { confirmDialog } from 'primereact/confirmdialog';
 import InstantHeader from './instant-header';
 import { useDispatch, useSelector } from 'react-redux';
-import InstantJobs from 'pages/instant-jobs/List';
-import { search } from 'superagent';
 import { deleteInstantJob, loadInstantJobs } from '../../store/modules/instantJob'
 import moment from 'moment';
-import Job from './Job';
 
 import './InstantJobHire.css'
 import RecentInstantJobs from 'pages/instant-jobs/Recent_instant_Jobs';
 
 const InstantHires = (props) => {
     const dispatch = useDispatch();
-
     const instantJobs = useSelector(state => state.instantJob.instantjobs);
-    console.log("jobs", instantJobs)
 
     useEffect(() => {
         dispatch(loadInstantJobs())
@@ -37,7 +31,7 @@ const InstantHires = (props) => {
                 return;
             }
         });
-    };
+    }
 
 
     return (

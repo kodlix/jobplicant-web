@@ -178,15 +178,15 @@ const Applicant = (props) => {
                                                 <img src="https://source.unsplash.com/random/100x100" height="150px" className="card-img-top" alt="..." />
                                                 <div className="card-body" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                                     <p className="card-title font-weight-bold d-flex"> Name : &nbsp; <span className="app-color">
-                                                        {`${applicant.firstName} ${applicant.lastName}`} </span> </p>
+                                                        {applicant.name} </span> </p>
 
                                                     <p className="card-text"> <span className="font-weight-bold">Occupation :</span> <span className="font-weight-bold app-color">
-                                                        {applicant.service}</span></p>
-                                                    <p className="card-text"> <span className="font-weight-bold">Location :</span>{applicant.location}</p>
+                                                        {applicant.occupation}</span></p>
+                                                    <p className="card-text"> <span className="font-weight-bold">Location :</span>{applicant.address}</p>
                                                     <p className="card-text"><span className="font-weight-bold">Phone Number :</span> {applicant.phoneNumber}</p>
                                                     <p className="card-text"><span className="font-weight-bold">Rating :
                                                     </span> <span className="p-p-0"> <Rating value={rating} disabled={true} cancel={false}
-                                                        onChange={(e) => setRating(e.value)} stars={5} /></span>
+                                                        onChange={(e) => setRating(applicant.rating)} stars={5} /></span>
                                                     </p>
                                                 </div>
                                                 {!applicant.accepted && !applicant.rejected && <div className="p-grid p-pl-5 p-pb-2">
