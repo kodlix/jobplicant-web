@@ -94,7 +94,7 @@ const New = ({ mode }) => {
                 .then(response => response.json())
                 .then(data => {
                     let requester_location = data.results[0].formatted_address;
-                    console.log("requester's location => ", requester_location)
+                    console.log("requester's location => ", data)
 
                 })
         },

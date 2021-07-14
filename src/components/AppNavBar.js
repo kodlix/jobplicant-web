@@ -1,8 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
+import agentService from 'services/agent.service';
+
 import './AppNavBar.css';
 
 const AppNavBar = ({ displaySearBar = false }) => {
+
+
+
+    const userAccountType = agentService.Auth.current().accountType;
 
     return (
         <div className="header-container">
@@ -26,19 +33,12 @@ const AppNavBar = ({ displaySearBar = false }) => {
                                                 <Link className="active text-light" to="/timeline">Home</Link>
                                             </li>
                                             <li className="nav-item">
-                                                <Link to="#">Jobs</Link>
-                                                <ul className="sub-menu">
-                                                    <li>
-                                                        <Link to="/blog-grid-sidebar">Artisan</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link to="/jobs/create">Corporate </Link>
-                                                    </li>
-                                                </ul>
+                                                {userAccountType === "Artisan" ?
+                                                    <Link to="/instant-jobs">Jobs</Link> : <Link to="/jobs">Jobs</Link>}
                                             </li>
-                                            <li className="nav-item">
+                                            {/* <li className="nav-item">
                                                 <Link to="#">Hire</Link>
-                                            </li>
+                                            </li> */}
                                             <li className="nav-item">
                                                 <Link to="/contacts">Contacts
                                                 </Link>
@@ -46,17 +46,13 @@ const AppNavBar = ({ displaySearBar = false }) => {
                                             <li className="nav-item">
                                                 <Link to="#">messages</Link>
                                             </li>
-                                            {/* <li className="nav-item">
-                                                <Link to="/contact">Contact
-                                                </Link>
-                                            </li> */}
                                             <li className="nav-item">
                                                 <Link to="#">notifications</Link>
-                                                <ul className="sub-menu">
+                                                {/* <ul className="sub-menu">
                                                     <li>
                                                         <Link to="/instant-jobs">Instant Jobs</Link>
                                                     </li>
-                                                </ul>
+                                                </ul> */}
                                             </li>
                                         </ul>
                                     </div>

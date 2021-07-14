@@ -17,10 +17,7 @@ const AppSideBar = (props) => {
         dispatch(OnLogout());
     };
 
-    const userLogedin = agentService.Auth.current();
-    let userAccountType = userLogedin.accountType;
-    console.log({ userAccountType });
-
+    const userAccountType = agentService.Auth.current().accountType;
     const items = [
         {
             label: 'Notifications',

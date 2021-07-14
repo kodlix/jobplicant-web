@@ -5,6 +5,7 @@ import { MESSAGE_TYPE } from "store/constant";
 
 // initial values
 const Initial_State = {
+    instantjob: {},
     instantjobs: [],
     applicants: [],
 };
@@ -13,6 +14,7 @@ const Initial_State = {
 // Action types
 const CREATE_INSTANT_JOB = 'app/instantJob/CREATE_INSTANT_JOB';
 const LOAD_INSTANT_JOBS = 'app/instantJob/LOAD_INSTANT_JOBS';
+const LOAD_INSTANT_JOB = 'app/instantJob/LOAD_INSTANT_JOB';
 const LOAD_ALL_INSTANT_JOBS = 'app/instantJob/LOAD_ALL_INSTANT_JOBS';
 const LOAD_INSTANT_APPLICANTS = 'app/instantJob/LOAD_INSTANT_APPLICANT';
 
@@ -32,6 +34,13 @@ export default function reducer(state = Initial_State, action = {}) {
                 error: null,
                 fetching: false,
                 instantjobs: action.payload.data
+            };
+        case LOAD_INSTANT_JOB:
+            return {
+                ...state,
+                error: null,
+                fetching: false,
+                instantjob: action.payload
             };
         case LOAD_ALL_INSTANT_JOBS:
             return {
@@ -63,6 +72,12 @@ export function onCreateInstantJob(data) {
 export function onLoadInstantJobs(data) {
     return {
         type: LOAD_INSTANT_JOBS,
+        payload: data
+    };
+}
+export function onLoadInstantJob(data) {
+    return {
+        type: LOAD_INSTANT_JOB,
         payload: data
     };
 }
@@ -160,7 +175,7 @@ export function loadInstantJob(id) {
         return agent.InstantJob.view(id).then(
             response => {
                 //handle success
-                dispatch(onLoadInstantJobs(response));
+                dispatch(onLoadInstantJob(response));
             },
             error => {
                 dispatch(showMessage({ type: "error", message: error, title: "Failed to load Instant jobs" }));

@@ -53,9 +53,9 @@ const CreateJob = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if(jobs.length){
+    if (jobs.length) {
       history.push('/company/jobs')
-    } 
+    }
   }, [jobs.length])
 
 
@@ -139,7 +139,7 @@ const CreateJob = () => {
                           <div className="d-flex justify-content-between">
                             <h5>Company Information</h5>
                             <div className="app-color">
-                              <Link to="/profile/jobs" className="bk-btn p-pt-2 app-color"><i className="pi pi-arrow-left">Back</i></Link>
+                              <Link to="/jobs" className="bk-btn p-pt-2 app-color"><i className="pi pi-arrow-left">Back</i></Link>
                               {/* <i className="pi pi-back-arrow"></i> Back */}
                             </div>
                           </div>

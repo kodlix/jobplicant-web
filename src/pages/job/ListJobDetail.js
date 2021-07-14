@@ -136,8 +136,9 @@ const styles = {
         position: "relative",
 
     },
-    topBarContainer: { 
-        width: '600px', marginTop: '30px' }
+    topBarContainer: {
+        width: '600px', marginTop: '30px'
+    }
     ,
     topBarTextContainer: {
         alignSelf: 'center'
