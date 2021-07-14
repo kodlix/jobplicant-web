@@ -166,7 +166,7 @@
 
 /* content-body */
 
-.p-card-title {
+.sectionHeader .p-card-title {
     padding-left: 1rem;
     padding-top: 1rem;
     color: #2ca55e;
@@ -179,7 +179,7 @@
     padding-right: 0.7rem;
 }
 
-.p-card-title .pi {
+.sectionHeader .p-card-title .pi {
     padding-right: 0.5rem;
     font-weight: 600;
 }

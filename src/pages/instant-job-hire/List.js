@@ -1,30 +1,26 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
-import { Toast } from 'primereact/toast';
+import { confirmDialog } from 'primereact/confirmdialog';
 import InstantHeader from './instant-header';
 import { useDispatch, useSelector } from 'react-redux';
-import InstantJobs from 'pages/instant-jobs/List';
-import { search } from 'superagent';
 import { deleteInstantJob, loadInstantJobs } from '../../store/modules/instantJob'
 import moment from 'moment';
-import Job from './Job';
 
 import './InstantJobHire.css'
 import RecentInstantJobs from 'pages/instant-jobs/Recent_instant_Jobs';
+import Spinner from 'components/spinner/spinner.component'
 
-const InstantHires = (props) => {
+
+const InstantHires = () => {
     const dispatch = useDispatch();
-
     const instantJobs = useSelector(state => state.instantJob.instantjobs);
-    console.log("jobs", instantJobs)
 
     useEffect(() => {
         dispatch(loadInstantJobs())
-    }, [dispatch])
+    }, [])
 
     const deleteRequest = (id) => {
-        confirmDialog({
+        return confirmDialog({
             message: 'Do you want to delete this record?',
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
@@ -37,8 +33,10 @@ const InstantHires = (props) => {
                 return;
             }
         });
-    };
+    }
 
+    if (instantJobs && !instantJobs.length)
+        return <Spinner />
 
     return (
         <div>

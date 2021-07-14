@@ -30,6 +30,7 @@ const New = ({ mode }) => {
     const [isJobDateNow, setIsJobDateNow] = useState(false);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
+    const API_KEY = "AIzaSyDxaC_Q4OI6Kx84VPT4W4k6N6FYLEVfcw0";
 
     const Categories = [
         { name: 'Mechanic', code: 'Mec' },
@@ -88,31 +89,20 @@ const New = ({ mode }) => {
             }
             console.log("user location -", coordinates)
 
-            fetch(`https://api.opencagedata.com/geocode/v1/json?q=${coordinates.lat}+${coordinates.lng}&key=684dc29e6b4748bab86ee02452867930`)
+            fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${coordinates.lat},${coordinates.lng}&key=${API_KEY}`)
+
                 .then(response => response.json())
-                .then(console.log())
-            console.log(response => response.json())
+                .then(data => {
+                    let requester_location = data.results[0].formatted_address;
+                    console.log("requester's location => ", requester_location)
+
+                })
         },
             error => {
-                alert('Could not locate your address unforturnately, Please enter your address manually')
+                alert('Could not locate your address unforturnately')
             })
-
-
-
     }
 
-    navigator.geolocation.getCurrentPosition(console.log, console.log)
-
-
-    const succefulLookUp = (position) => {
-        const { latitude, longitude } = position.coords;
-
-        fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=684dc29e6b4748bab86ee02452867930`)
-            .then(response => response.json())
-            .then(console.log())
-    }
-
-    navigator.geolocation.getCurrentPosition(succefulLookUp, console.log)
 
     const onSubmit = (data) => {
         confirmDialog({
@@ -127,8 +117,8 @@ const New = ({ mode }) => {
                     data.now = false;
                 }
                 data.service = data.service.name;
-                dispatch(createInstantJob(data));
                 locateUserHandler();
+                dispatch(createInstantJob(data));
             },
             reject: () => {
                 return;

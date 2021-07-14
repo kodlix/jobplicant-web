@@ -32,7 +32,7 @@ const InstantJobs = () => {
 
     useEffect(() => {
         dispatch(loadApplicants())
-    }, [dispatch,])
+    }, [dispatch])
 
 
     const handleApply = (id, i) => {
@@ -120,7 +120,6 @@ const InstantJobs = () => {
                             </div>
                         </div>
                         <RecentInstantJobs />
-                        {/* <CorporateJob /> */}
                     </div>
 
 

@@ -4,8 +4,8 @@ import superagentPromise from "superagent-promise";
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api.herokuapp.com";
-// export const API_ROOT = "https://jobplicant-api.herokuapp.com";
+// export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api.herokuapp.com";
+export const API_ROOT = "https://jobplicant-api.herokuapp.com";
 
 console.log('API_ROOT', API_ROOT);
 console.log("environmental variables", process.env);
@@ -158,8 +158,15 @@ const JobExperience = {
 };
 
 const Job = {
+  loadAll: () => requests.get(`/job/all`),
   save: (data) => requests.post("/job", data),
-  load: () => requests.get("/job")
+  edit: (id, data) => requests.put(`/job/${id}`, data),
+  load: () => requests.get("/job"),
+  view: (id) => requests.get(`/job/${id}`),
+  apply: (id, data) => requests.post(`/job/${id}/apply`, data),
+  applicants: (id) => requests.get(`/job/${id}/applicants`),
+  acceptApplication: (applicationId, data) => requests.put(`/job/${applicationId}/application/accept`, data),
+  suspendApplication: (applicationId, data) => requests.put(`/job/${applicationId}/application/suspend`, data)
 }
 
 //education service api
@@ -300,8 +307,8 @@ const Service = {
 const Post = {
   save: (data) => requests.post("/post", data),
   edit: (id, data) => requests.put(`/post/${id}`, data),
-  load: (page, take) => requests.get("/post", page, take),
-  loadByUserId: (id, page, take) => requests.get(`/post/user/${id}`, page, take),
+  load: (page, take) => requests.get(`/post?${new URLSearchParams({ page: page, take: take }).toString()}`),
+  loadByUserId: (id, page, take) => requests.get(`/post/user/${id}?${new URLSearchParams({ page: page, take: take }).toString()}`),
   view: (id) => requests.get(`/post/${id}`),
   search: (page, search) => requests.get("/post/search", page, search),
   like: (id) => requests.put(`/post/like/${id}`),
@@ -316,6 +323,16 @@ const Comment = {
   like: (id) => requests.put(`/comment/like/${id}`),
   dislike: (id) => requests.put(`/comment/dislike/${id}`),
   delete: (id) => requests.del(`/comment/${id}`)
+}
+
+const Contact = {
+  load: (page, take, search = "") => requests.get(`/contact/free?${new URLSearchParams({ page: page, take: take, search: search }).toString()}`),
+  loadContacts: (page, take) => requests.get(`/contact?${new URLSearchParams({ page: page, take: take }).toString()}`),
+  loadRequests: (page, take) => requests.get(`/contact/request/pending?${new URLSearchParams({ page: page, take: take }).toString()}`),
+  add: (id) => requests.post("/contact", id),
+  delete: (id) => requests.del(`/contact/${id}`),
+  accept: (data) => requests.post("/contact/accept", data),
+  reject: (id) => requests.del(`/contact/reject/${id}`)
 }
 
 export default {
@@ -338,6 +355,7 @@ export default {
   InstantJob,
   Post,
   Comment,
+  Contact,
   setToken: (_accessToken) => {
     accessToken = _accessToken;
   },

@@ -12,15 +12,15 @@ const CustomBreadCrumb = () => {
     const size = paths.length;
 
     return (
-        <div className="breadcrumb">
-            <div>
+        <div className="breadcrumb" >
+            <div className="d-flex" style={{alignItems: 'center'}}>
                 {
                     paths.map((path, index) => {
 
                         return path === ""
-                            ? <span><Link to="/"><i className="pi pi-home"></i></Link> {' '}{(index + 1) <= size ? <i className="pi pi-arrow-right"></i> : ""}</span>
-                            : <span>{' '}
-                                <Link to={`/${path}`}>{path}</Link>{' '}{(index + 1) !== size ? <span><i className="pi pi-arrow-right"></i></span> : ""}</span>
+                            ? <span key={index} className="d-flex"><Link to="/"><i className="pi pi-home" style={{fontSize: '18px', color: '#000'}}></i></Link> {' '}{(index + 1) <= size ? <span style={{fontSize: '15px', marginLeft: '10px', marginRight: '10px'}}>/</span> : ""}</span>
+                            : <span key={index}>{' '}
+                                <Link to={`/${path}`}  style={{fontSize: '18px', color: '#000'}}>{path}</Link>{' '}{(index + 1) !== size ? <span><i className="pi pi-arrow-right"></i></span> : ""}</span>
                     })
                 }
             </div>
