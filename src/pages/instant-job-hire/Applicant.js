@@ -157,9 +157,9 @@ const Applicant = (props) => {
                             <div className="p-4">
                                 <div className="d-flex justify-content-between p-mb-1">
                                     <div>
-                                        <h5> <span className="font-weight-bold text-secondary">{instantJobs.service}</span> <span className="app-color">
+                                        <h5> <span className="font-weight-bold text-secondary">{instantJobs?.service}</span> <span className="app-color">
                                             {applicantList?.length ? applicantList?.length : 0} Applicant ({applicantList?.length ? applicantList?.length : 0} Result)</span></h5>
-                                        <p className="font-weight-bold">Location : <span>{instantJobs.location}</span></p>
+                                        <p className="font-weight-bold">Location : <span>{instantJobs?.location}</span></p>
                                     </div>
                                     <div>
                                         <Link to="/instant-hires" className="bk-btn p-pt-2 app-color">
@@ -178,11 +178,9 @@ const Applicant = (props) => {
                                             <div key={applicant.applicantId} className="card">
                                                 <img src="https://source.unsplash.com/random/100x100" height="150px" className="card-img-top" alt="..." />
                                                 <div className="card-body" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                                    <p className="card-title font-weight-bold d-flex"> Name : &nbsp; <span className="app-color">
-                                                        {applicant.name} </span> </p>
-
                                                     <p className="card-text"> <span className="font-weight-bold">Occupation :</span> <span className="font-weight-bold app-color">
                                                         {applicant.occupation}</span></p>
+                                                    <p className="card-title"><span className="font-weight-bold">Name : </span>{applicant.name} </p>
                                                     <p className="card-text"> <span className="font-weight-bold">Location :</span>{applicant.address}</p>
                                                     <p className="card-text"><span className="font-weight-bold">Phone Number :</span> {applicant.phoneNumber}</p>
                                                     <p className="card-text"><span className="font-weight-bold">Rating :
@@ -236,17 +234,17 @@ const Applicant = (props) => {
             </div>
             <div className="modal fade p-mt-6" id="staticBackdrop" modalDisplay={modalDisplay} data-backdrop="static" data-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog">
-                    <div className="modal-content">
+                    {applicantList && applicantList?.length > 0 && applicantList.map(applicant => <div className="modal-content">
                         <div className="modal-header">
                             <img src="../../assets/user-icon.png " width="10px" height="200px" className="card-img-top" alt="..." />
 
                         </div>
                         <div className="modal-body">
-                            <p><span className="font-weight-bold">Funll Name:</span> <span > Chinedu Michael</span></p>
-                            <p><span className="font-weight-bold">Location:</span> <span>Egbeda</span></p>
-                            <p><span className="font-weight-bold">Address:</span> <span > 113, Gowan Estate</span></p>
-                            <p><span className="font-weight-bold"> phone Number: </span><span > 08098765432</span></p>
-                            <p ><span className="font-weight-bold">Bio:</span> <span classNam="p-p-0">I'm a mad ass professional at what i do, Also striving to improve</span></p>
+                            <p><span className="font-weight-bold">Full Name:</span> <span > {applicant.name}</span></p>
+                            <p><span className="font-weight-bold">Location:</span> <span>{applicant.address}</span></p>
+                            <p><span className="font-weight-bold">Address:</span> <span > {applicant.address}</span></p>
+                            <p><span className="font-weight-bold"> phone Number: </span><span > {applicant.phoneNumber}</span></p>
+                            <p ><span className="font-weight-bold">Bio:</span> <span classNam="p-p-0">{applicant.bio}</span></p>
                             <p className="card-text"><span className="font-weight-bold">Rating :
                             </span> <span className="p-p-0"> <Rating value={rating} disabled={true} cancel={false} onChange={(e) => setRating(e.value)} stars={5} /></span>
                             </p>
@@ -254,7 +252,7 @@ const Applicant = (props) => {
                         <div className="modal-footer py-2">
                             <button type="button" className="btn appcolor text-white" data-bs-dismiss="modal">Close</button>
                         </div>
-                    </div>
+                    </div>)}
                 </div>
             </div>
         </>
