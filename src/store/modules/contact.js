@@ -15,13 +15,13 @@ const contact = {
 const LOAD_FREE_USERS = "LOAD_FREE_USERS";
 const LOAD_CONTACTS = "LOAD_CONTACTS";
 const LOAD_PENDING_REQUESTS = "LOAD_PENDING_REQUESTS";
-const LOADING = "LOADING";
+const LOADING_CONTACT = "LOADING";
 const ERROR = "ERROR";
 
 //Reducer
 export default function reducer(state = contact, action = {}) {
   switch (action.type) {
-    case LOADING:
+    case LOADING_CONTACT:
       return {
         ...state,
         loadingContact: action.payload,
@@ -58,8 +58,8 @@ export const freeUsersLoaded = (data) => ({
   type: LOAD_FREE_USERS,
   payload: data,
 });
-export const loading = (data) => ({
-  type: LOADING,
+export const loadingContact = (data) => ({
+  type: LOADING_CONTACT,
   payload: data
 });
 export const isError = (data) => ({
@@ -79,11 +79,11 @@ export const pendingRequestsLoaded = (data) => ({
 //Actions
 export function loadFreeUsers(page, take, loadingType, search) {
   return dispatch => {
-    dispatch(loading(loadingType));
+    dispatch(loadingContact(loadingType));
     return agent.Contact.load(page, take, search).then(
       response => {
         //handle success
-        dispatch(loading(""));
+        dispatch(loadingContact(""));
         dispatch(
           showMessage({
             type: MESSAGE_TYPE.SUCCESS,
@@ -103,11 +103,11 @@ export function loadFreeUsers(page, take, loadingType, search) {
 
 export function loadContacts(page, take, loadingType) {
   return dispatch => {
-    dispatch(loading(loadingType));
+    dispatch(loadingContact(loadingType));
     return agent.Contact.loadContacts(page, take).then(
       response => {
         //handle success
-        dispatch(loading(""));
+        dispatch(loadingContact(""));
         dispatch(
           showMessage({
             type: MESSAGE_TYPE.SUCCESS,
@@ -120,7 +120,7 @@ export function loadContacts(page, take, loadingType) {
       (error) => {
         // handle error
         dispatch(showMessage({ type: "error", message: error }));
-        dispatch(loading(""));
+        dispatch(loadingContact(""));
       }
     );
   }
@@ -128,11 +128,11 @@ export function loadContacts(page, take, loadingType) {
 
 export function loadPendingRequests(page, take, loadingType) {
   return dispatch => {
-    dispatch(loading(loadingType));
+    dispatch(loadingContact(loadingType));
     return agent.Contact.loadRequests(page, take).then(
       response => {
         //handle success
-        dispatch(loading(""));
+        dispatch(loadingContact(""));
         dispatch(
           showMessage({
             type: MESSAGE_TYPE.SUCCESS,
@@ -145,7 +145,7 @@ export function loadPendingRequests(page, take, loadingType) {
       (error) => {
         // handle error
         dispatch(showMessage({ type: "error", message: error }));
-        dispatch(loading(""));
+        dispatch(loadingContact(""));
       }
     );
   }
@@ -153,12 +153,12 @@ export function loadPendingRequests(page, take, loadingType) {
 
 export function sendContactRequest(id) {
   return dispatch => {
-    dispatch(loading("sendContactRequest"));
+    dispatch(loadingContact("sendContactRequest"));
     dispatch(isError(null));
     return agent.Contact.add(id).then(
       response => {
         //handle success
-        dispatch(loading(""));
+        dispatch(loadingContact(""));
         dispatch(
           showMessage({
             type: MESSAGE_TYPE.SUCCESS,
@@ -171,7 +171,7 @@ export function sendContactRequest(id) {
       (error) => {
         // handle error
         dispatch(showMessage({ type: "error", message: error }));
-        dispatch(loading(""));
+        dispatch(loadingContact(""));
         dispatch(isError("requestFail"));
       }
     );
@@ -203,7 +203,7 @@ export function removeContact(id) {
 export function acceptRequest(id, loadingType) {
   return dispatch => {
     dispatch(isError(null));
-    dispatch(loading(loadingType));
+    dispatch(loadingContact(loadingType));
     return agent.Contact.accept(id).then(
       response => {
         //handle success
@@ -217,7 +217,7 @@ export function acceptRequest(id, loadingType) {
       },
       (error) => {
         // handle error
-        dispatch(loading(null))
+        dispatch(loadingContact(null))
         dispatch(showMessage({ type: "error", message: error }));
         dispatch(isError("acceptFail"));
       }
@@ -228,7 +228,7 @@ export function acceptRequest(id, loadingType) {
 export function rejectRequest(id, loadingType) {
   return dispatch => {
     dispatch(isError(null));
-    dispatch(loading(loadingType));
+    dispatch(loadingContact(loadingType));
     return agent.Contact.reject(id).then(
       response => {
         //handle success
@@ -242,7 +242,7 @@ export function rejectRequest(id, loadingType) {
       },
       (error) => {
         // handle error
-        dispatch(loading(""))
+        dispatch(loadingContact(""))
         dispatch(isError("rejectFail"));
         dispatch(showMessage({ type: "error", message: error }));
       }
