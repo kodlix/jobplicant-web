@@ -65,6 +65,8 @@ const InstantJobs = () => {
                                     title="All Instant Jobs"
                                     showCreateButton={false}
                                     count={allInstantJobs?.length}
+                                    showSearchBar={true}
+
                                 />
                                 {allInstantJobs && allInstantJobs.length > 0 && allInstantJobs.map((instantjob, i) =>
                                     <div className="">
