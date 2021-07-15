@@ -27,7 +27,7 @@ const PersonalInfo = ({ openCreate, openEdit }) => {
     const objectUrl = URL.createObjectURL(selectedFile);
     setPreview(objectUrl);
 
-   
+
 
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFile, loading]);
@@ -71,14 +71,14 @@ const PersonalInfo = ({ openCreate, openEdit }) => {
           width="130"
           height="130"
           className="profile-picture"
-        />) : 
-        (<img src={profileInfo.imageUrl} 
-          alt="User Image"
-          width="130"
-          height="130"
-          className="profile-picture"
+        />) :
+          (<img src={profileInfo.imageUrl}
+            alt="User Image"
+            width="130"
+            height="130"
+            className="profile-picture"
           />)
-          }
+        }
         <label className="profilePic-label" htmlFor="upload-button">
           {loading ? (
             <i className="pi pi-spin pi-spinner" style={{ color: "black" }}>
@@ -106,7 +106,7 @@ const PersonalInfo = ({ openCreate, openEdit }) => {
         >
           &nbsp;<u>(Edit Personal Info)</u>
         </i>
-        <div>Photographer at UNICEF</div>
+        <div>Bind User occupation and company's name here</div>
         <span>
           <div className="stars" style={{ "--rating": rating }}></div>
         </span>

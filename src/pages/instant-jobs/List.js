@@ -85,7 +85,6 @@ const InstantJobs = () => {
 
                                                             <p className="font-weight-bold ">Job Services : <span className="app-color" style={{ fontSize: 15 }}> {instantjob.service}</span></p>
                                                             <p><span className="font-weight-bold">Job Location : </span><span>{instantjob.location}</span> </p>
-                                                            {/* <p><span className="font-weight-bold">Time : </span> {instantjob.time}</p> */}
                                                             <p><span className="font-weight-bold">Job Description : </span> {instantjob.description}</p>
                                                             <p><span className="font-weight-bold">Phone Number : </span> {instantjob.phoneNumber}</p>
                                                             <div className="p-grid">
@@ -98,7 +97,10 @@ const InstantJobs = () => {
                                                                 <p> <span className="font-weight-bold app-color p-mt-2"> Interested ? &nbsp; </span> </p>
                                                                 <Button label="Yes" id="saveButton" className="p-button-sm" onClick={() => handleApply(instantjob.id, i)} /></div>
                                                             <div className="p-pr-1"> <Link to={`/instant-hire/view/${instantjob.id}`}><Button label="View" id="reject" className="p-button-sm" /> </Link></div>
+
                                                         </div>
+                                                        <p className="p-pt-2 float-right"> {moment(instantjob.createdAt).fromNow()} </p>
+
 
                                                         <div className="p-grid p-pt-2" id={`${i}`} hidden={true}>
                                                             <Tag> <span >Waiting to be accepted...</span></Tag>
