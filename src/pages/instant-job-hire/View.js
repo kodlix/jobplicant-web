@@ -1,10 +1,8 @@
 import Spinner from 'components/spinner/spinner.component'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useHistory, useParams } from 'react-router-dom'
-import { apply, applyJob, viewJob } from 'store/modules/job'
+import { useHistory, useParams } from 'react-router-dom'
 import BackgroundImage from '../../assets/bg.png'
-import parser from 'html-react-parser'
 import { applyInstantJob, loadInstantJob } from 'store/modules/instantJob'
 import moment from 'moment'
 import { confirmDialog } from 'primereact/confirmdialog'
@@ -17,7 +15,6 @@ const View = () => {
 
     const instantJobDetail = useSelector(state => state.instantJob.instantjob)
     const jobApplicationRequest = useSelector(state => state.job.jobApplicationRequest)
-    // const jobApplicationResponse = useSelector(state => state.job.jobApplicationResponse)
     const loading = useSelector(state => state.job.loading)
     console.log("details", instantJobDetail);
 
@@ -38,9 +35,7 @@ const View = () => {
             },
         });
     }
-    const formatValue = value => new Intl.NumberFormat('en-US', {}).format(value);
 
-    const handleApplyForJob = (id) => dispatch(apply(id, { "jobId": instantJobDetail.id }))
     if (instantJobDetail === null)
         return <Spinner />
 
