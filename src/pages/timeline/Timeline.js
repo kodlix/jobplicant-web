@@ -7,7 +7,7 @@ import CommentForm from './CommentForm';
 import { openModal, closeModal } from "store/modules/modal";
 import { loadProfileInfo } from "store/modules/account";
 import { loadPosts, loadTotalPostCount, deletePost, likePost, dislikePost } from "../../store/modules/timeline";
-import { loadJobs } from "store/modules/job";
+import { loadAllJobs } from "store/modules/job";
 import { TIMELINE } from "constants/timeline";
 import agent, { API_ROOT } from "../../services/agent.service";
 import moment from "moment";
@@ -17,16 +17,15 @@ import "./Timeline.css";
 const Timeline = () => {
   const dispatch = useDispatch();
   const postsByPage = useSelector(state => state.timeline.posts);
-  const loading = useSelector(state => state.timeline.loading);
+  const loading = useSelector(state => state.timeline.loadingPosts);
   const totalPostCount = useSelector(state => state.timeline.totalPostCount);
-  const jobs = useSelector(state => state.job.jobs);
+  const allJobs = useSelector(state => state.job.allJobs);
   const profileInfo = useSelector((state) => state.account.profileInfo);
   const [postId, setPostId] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
   const [imageToDisplay, setImageToDisplay] = useState("");
   const [displayModal, setDisplayModal] = useState(false);
   const [postsLoaded, setPostsLoaded] = useState([]);
-
   const onShow = (id) => {
     if (id) {
       setPostId(id);
@@ -82,8 +81,8 @@ const Timeline = () => {
   useEffect(() => {
     dispatch(loadProfileInfo());
     dispatch(loadTotalPostCount());
-    dispatch(loadJobs());
     dispatch(loadPosts(1, 10, "loadPosts"));
+    dispatch(loadAllJobs());
   }, [dispatch]);
 
   useEffect(() => {
@@ -391,7 +390,7 @@ const Timeline = () => {
                 </div>
               }
             </div>
-            <JobSidePanel data={jobs} />
+            <JobSidePanel data={allJobs} />
           </div>
         </div>
       </div>
