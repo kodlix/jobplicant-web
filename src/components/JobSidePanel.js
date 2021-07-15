@@ -15,7 +15,7 @@ const JobSidePanel = ({ data }) => {
                 </div>
           <div className="p-pb-2">
             {
-              data && data.map((job) =>
+              data?.data && data?.data.map((job) =>
                 <Link to={`/jobs/view/${job.id}`} className="p-card-body p-card-body-JobPanelComponent p-px-3 p-pt-1 p-pb-3" id={job.id}>
                   <div className="p-card-title cardsubtitle-JobPanelComponent">
                     <div> {job.title} </div>
