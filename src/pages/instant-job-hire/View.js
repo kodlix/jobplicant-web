@@ -5,8 +5,9 @@ import { Link, useHistory, useParams } from 'react-router-dom'
 import { apply, applyJob, viewJob } from 'store/modules/job'
 import BackgroundImage from '../../assets/bg.png'
 import parser from 'html-react-parser'
-import { loadInstantJob } from 'store/modules/instantJob'
+import { applyInstantJob, loadInstantJob } from 'store/modules/instantJob'
 import moment from 'moment'
+import { confirmDialog } from 'primereact/confirmdialog'
 
 const View = () => {
     const dispatch = useDispatch()
@@ -24,6 +25,19 @@ const View = () => {
         dispatch(loadInstantJob(param.id))
     }, []);
 
+    const handleApply = (id) => {
+        confirmDialog({
+            message: 'You are about to apply for this job?',
+            header: 'Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => {
+                dispatch(applyInstantJob(id))
+            },
+            reject: () => {
+                return;
+            },
+        });
+    }
     const formatValue = value => new Intl.NumberFormat('en-US', {}).format(value);
 
     const handleApplyForJob = (id) => dispatch(apply(id, { "jobId": instantJobDetail.id }))
@@ -76,7 +90,7 @@ const View = () => {
                             </div>
                         </div>
 
-                        <button onClick={() => handleApplyForJob(instantJobDetail.id)} className="btn btn-block" style={styles.btnApply}>{jobApplicationRequest ? <span><i className="pi pi-spin pi-spinner"></i> Please wait...</span> : `Apply For This Job`}</button>
+                        <button onClick={() => handleApply(instantJobDetail.id)} className="btn btn-block" style={styles.btnApply}>{jobApplicationRequest ? <span><i className="pi pi-spin pi-spinner"></i> Please wait...</span> : `Apply For This Job`}</button>
                     </div>
                     <div className="col-md-3">
                         {/* <div className="p-card p-4 mt-3">
