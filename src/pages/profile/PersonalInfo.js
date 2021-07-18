@@ -106,7 +106,8 @@ const PersonalInfo = ({ openCreate, openEdit }) => {
         >
           &nbsp;<u>(Edit Personal Info)</u>
         </i>
-        <div>Bind User occupation and company's name here</div>
+        {profileInfo.experiences.length && <div>{profileInfo.experiences[0].jobTitle} at {profileInfo.experiences[0].company}</div>}
+
         <span>
           <div className="stars" style={{ "--rating": rating }}></div>
         </span>

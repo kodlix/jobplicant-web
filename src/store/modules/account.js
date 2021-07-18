@@ -9,6 +9,7 @@ import { loadError } from "./experience";
 // initial values
 const account = {
   loading: false,
+  submitting: false,
   profileInfo: {
     id: "",
     email: "",
@@ -42,22 +43,26 @@ const LOAD_PROFILE_INFO = "app/account/LOAD_PROFILE_INFO";
 const LOAD_PROFILE_INFO_ERROR = "LOAD_PROFILE_INFO_ERROR";
 const DELETE_EXPERIENCE = "DELETE_EXPERIENCE";
 const DELETE_EDUCATION = "DELETE_EDUCATION";
-
+const SUBMITTING = "SUBMITTING";
 // Reducer
 export default function reducer(state = account, action = {}) {
   switch (action.type) {
     case LOADING:
       return { ...state, loading: true };
+    case SUBMITTING: 
+      return {...state, submitting: true }
     case LOAD_PROFILE_INFO:
       return {
         ...state,
         loading: false,
+        submitting: false,
         profileInfo: action.payload,
       };
     case LOAD_PROFILE_INFO_ERROR:
       return {
         ...state,
         loading: false,
+        submitting: false
       };
     case DELETE_EDUCATION: 
       const newEducations =  state.profileInfo.educations.filter(edu => edu.id !== action.payload);
@@ -94,7 +99,9 @@ export const profileInfoLoadedError = () => ({
 export const loading = () => ({
   type: LOADING,
 });
-
+export const submitting = () => ({
+  type: SUBMITTING
+})
 //delete education action creator
 export const deleteProfileEducation = id => ({
   type: DELETE_EDUCATION,
@@ -109,10 +116,12 @@ export const deleteProfileExperience = id => ({
 // Actions
 export function updatePersonalProfile(data) {
   return (dispatch) => {
-    dispatch(loading());
+    dispatch(submitting());
+    console.log('dispatch is called to update profile')
     return agent.Account.updateProfile(data).then(
       (response) => {
-        dispatch(profileInfoLoaded(response));
+        // dispatch(profileInfoLoaded(response));
+        dispatch(loadProfileInfo())
         dispatch(closeModal());
         dispatch(
           showMessage({
@@ -225,7 +234,7 @@ export function updateExperience(experience) {
 
 export function updateContactInfo(data) {
   return (dispatch) => {
-    dispatch(loading());
+    dispatch(submitting());
     return agent.Account.updateContactInfo(data).then(
       (response) => {
         dispatch(profileInfoLoaded(response));

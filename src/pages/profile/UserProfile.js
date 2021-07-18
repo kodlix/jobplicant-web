@@ -13,6 +13,8 @@ import { openModal } from "store/modules/modal";
 import PersonalInfo from "./PersonalInfo";
 import CustomBreadCrumb from "helpers/BreadCrumb";
 import agentService from "services/agent.service";
+import ChatFloatingButton from "components/chat/ChatFloatingButton";
+import ChatDialogBox from "components/chat/ChatDialogBox";
 // import BreadCrumbPane from 'helpers/BreadCrumb';
 
 
@@ -23,6 +25,7 @@ const UserProfile = ({ match }) => {
   const [] = useState({});
   const accountType = agentService.Auth.current().accountType;
 
+  console.log('account type' ,accountType)
 
   const openCreate = (name) => {
     setMode("create");
@@ -67,10 +70,12 @@ const UserProfile = ({ match }) => {
                 </div>
               </div>
               {/* portfolio */}
-              {accountType !== "Artisan" && <Portfolio openCreate={openCreate} openEdit={openEdit} />}
+              {accountType === "Artisan" && <Portfolio openCreate={openCreate} openEdit={openEdit} />}
             </div>
           </div>
         </div>
+        <ChatFloatingButton />
+        <ChatDialogBox />
     </>
   );
 };

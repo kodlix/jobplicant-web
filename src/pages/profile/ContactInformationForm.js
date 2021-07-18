@@ -20,7 +20,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
   
   const [contactInfo, setContactInfo] = useState({});
   const profileInfo = useSelector(state => state.account.profileInfo);
-  const loading = useSelector(state => state.account.loading);
+  const loading = useSelector(state => state.account.submitting);
   const [selectCountry, setSelectedCountry] = useState("null");
 
 

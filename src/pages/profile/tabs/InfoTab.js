@@ -15,6 +15,7 @@ import ContactInformation from "../ContactInformation";
 import ModalForm from '../ModalForm';
 import agentService from 'services/agent.service';
 import Spinner from 'components/spinner/spinner.component';
+import { loadCountry } from 'store/modules/location';
 
 const InfoTab = () => {
 
@@ -45,6 +46,7 @@ const InfoTab = () => {
   useEffect(() => {
     console.log("change must happen");
     dispatch(loadProfileInfo());
+    dispatch(loadCountry());
   }, [educationUpdatedOrDeleted, userSkillUpdatedOrDeleted, experienceUpdatedOrDeleted]);
 
   const expandImage = () => { };
