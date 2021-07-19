@@ -1,28 +1,29 @@
-import React from 'react'
-import { InputText } from 'primereact/inputtext'
-import { Button } from 'primereact/button'
+import React from 'react';
+import "./ChatContent.css"
 
-const ChatInputMessage = () => {
-    const [value, setValue] = React.useState('');
-
+const ChatContent = ({setContact, contact}) => {
+    const handleClose = () => setContact(null);
+    console.log(contact)
     return (
-        <div style={{display: 'flex',flexDirection: 'row'}}>
-            <div style={{flex: 1}}>
-            <InputText id="in" value={value} onChange={(e) => setValue(e.target.value)} />
+        <div className={`chat-content-container`}>
+            <div className="chat-content-header">
+                <div className="left">
+                <img className="rounded-image" src="https://source.unsplash.com/random/50x50" />
+                <h4>{contact.name}</h4>
+                </div>
+                <div className="right">
+                    <i onClick={handleClose} className="pi pi-times"></i>
+                </div>
             </div>
-            <Button label="Send" icon="pi pi-send" />
+            <div className="chat-content-body">
+                <div className="chat-content-messages"></div>
+                <div className="chat-content-input">
+                    <input type="text" />
+                    <button>Send</button>
+                </div>
+            </div>
         </div>
     )
 }
 
-const ChatContent = () => {
-    return (
-        <div style={{backgroundColor: '#ddd', height: '400px', position: 'relative'}}>
-            <div style={{position: 'absolute', bottom: '10px'}}>
-            <ChatInputMessage />
-            </div>
-        </div>
-    )
-}
-
-export default ChatContent
+export default ChatContent;
