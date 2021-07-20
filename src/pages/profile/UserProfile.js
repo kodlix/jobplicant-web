@@ -13,12 +13,14 @@ import { openModal } from "store/modules/modal";
 import PersonalInfo from "./PersonalInfo";
 import CustomBreadCrumb from "helpers/BreadCrumb";
 import agentService from "services/agent.service";
-import ChatFloatingButton from "components/chat/ChatFloatingButton";
-import ChatDialogBox from "components/chat/ChatDialogBox";
+import ChatContainer from "components/chat/ChatContainer";
+import ChatContent from "components/chat/ChatContent";
+
 // import BreadCrumbPane from 'helpers/BreadCrumb';
 
 
 const UserProfile = ({ match }) => {
+  const [contact, setContact] = React.useState(null)
 
   const dispatch = useDispatch();
   const [, setMode] = useState("");
@@ -73,9 +75,10 @@ const UserProfile = ({ match }) => {
               {accountType === "Artisan" && <Portfolio openCreate={openCreate} openEdit={openEdit} />}
             </div>
           </div>
+        <ChatContainer setContact={setContact} selectedContact={contact} />
+        {contact !== null && <ChatContent setContact={setContact} contact={contact} />}
         </div>
-        <ChatFloatingButton />
-        <ChatDialogBox />
+        
     </>
   );
 };
