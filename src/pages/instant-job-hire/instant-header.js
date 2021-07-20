@@ -6,6 +6,7 @@ import { InputText } from 'primereact/inputtext';
 
 import './InstantJobHire.css'
 import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllInstantJobs } from 'store/modules/instantJob';
 
 
 const InstantHeader = ({ title, showCreateButton = false, showBack = false, count, showSearchBar = false }) => {

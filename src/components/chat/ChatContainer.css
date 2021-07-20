@@ -1,4 +1,4 @@
-.chat-container{
+.chat-container {
     position: fixed;
     bottom: 0;
     right: 10px;
@@ -12,26 +12,27 @@
 }
 
 .chat-container.show {
-    height: 750px;
+    height: 500px;
 }
 
-.chat-header{
+.chat-header {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     border-bottom: 2px solid #eee;
-
     padding-left: 16px;
     padding-top: 8px;
     padding-bottom: 8px;
     padding-right: 10px;
 }
+
 .chat-header .left {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
+
 .chat-header img {
     height: 30px;
     margin-right: 10px;
@@ -41,16 +42,18 @@
 .chat-header h4 {
     font-size: 18px;
 }
-.chat-header .right-caret{
+
+.chat-header .right-caret {
     cursor: pointer;
 }
-.chat-header .right i{
+
+.chat-header .right i {
     padding: 10px;
     color: black;
     font-size: 14px;
 }
 
-.chat-body{
+.chat-body {
     padding: 12px 0;
 }
 
@@ -68,6 +71,7 @@
 .chat-body .contact-list {
     margin-top: 16px;
 }
+
 .chat-body .contact-list .contact-item {
     display: flex;
     transition: .4s all ease-in-out;
@@ -75,15 +79,15 @@
 }
 
 .chat-body .contact-item:hover {
-   background-color: #eee;
-   cursor: pointer;
+    background-color: #eee;
+    cursor: pointer;
 }
 
 .chat-body .contact-item.selected {
     background-color: #ddd;
 }
 
-.chat-body .contact-item img{
+.chat-body .contact-item img {
     border-radius: 50px;
     height: 45px;
 }
@@ -92,7 +96,6 @@
     margin-left: 10px;
     flex: 1;
     align-self: center;
-
 }
 
 .chat-body .contact-item .contact-detail h4 {
