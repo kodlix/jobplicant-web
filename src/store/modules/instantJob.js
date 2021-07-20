@@ -111,7 +111,7 @@ export function createInstantJob(instantjob) {
     }
 }
 
-// This function loads all instant jobs created by a perticular user.
+// This function loads all instant jobs created by a particular user.
 export function loadInstantJobs() {
     return dispatch => {
         return agent.InstantJob.load().then(
@@ -125,7 +125,7 @@ export function loadInstantJobs() {
         )
     }
 }
-// This function loads all instant jobs that have been created by different users.
+// This function loads all instant jobs that created by different users.
 export function fetchAllInstantJobs(page, take) {
     return dispatch => {
         return agent.InstantJob.loadAllInstantJobs(page, take).then(

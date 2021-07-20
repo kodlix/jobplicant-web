@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 const InstantHeader = ({ title, showCreateButton = false, showBack = false, count, showSearchBar = false }) => {
     const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState("");
+    const [page, setPage] = useState(1)
+    const [take, setTake] = useState(10)
     const loading = useSelector(state => state.contact.loadingContact);
 
 
@@ -20,7 +22,7 @@ const InstantHeader = ({ title, showCreateButton = false, showBack = false, coun
         const inputValue = e.target.name === "clear" ? "" : e.currentTarget.value;
         if (inputValue) {
             setSearchValue(inputValue);
-            // dispatch(loadFreeUsers(1, 10, "searchUsers", inputValue));
+            dispatch(fetchAllInstantJobs(page, take));
         }
         else {
             setSearchValue("");

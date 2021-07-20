@@ -151,7 +151,7 @@ const Edit = (props) => {
                                                         id="service"
                                                         name="service"
                                                         value={selectedCategory}
-                                                        {...register("service", { required: `* Please Select a service` })}
+                                                        {...register("service", { required: `Please Select a service` })}
                                                         onChange={handleChange}
                                                     />
                                                     {errors.service && <span className="text-danger font-weight-bold "> <p>{errors.service.message}</p>
@@ -224,7 +224,7 @@ const Edit = (props) => {
                                                         disabled={isJobDateNow}
                                                         name="startDate"
                                                         {...register("startDate", {
-                                                            required: `* Start Date is required`,
+                                                            required: `Start Date is required`,
                                                         })}
                                                         onSelect={(e) => {
                                                             const inputName = "startDate";
@@ -232,7 +232,7 @@ const Edit = (props) => {
                                                             setValue(inputName, value, { shouldValidate: true });
                                                         }}
                                                         name="startDate"
-                                                        {...register("startDate", { required: `* Start date is required` })}
+                                                        {...register("startDate", { required: `Start date is required` })}
                                                     />
                                                     {errors.startDate && <span className="text-danger font-weight-bold "> <p>{errors.startDate.message}</p>
                                                     </span>}
@@ -248,7 +248,7 @@ const Edit = (props) => {
                                                         value={itemToEdit?.endDate}
                                                         name="endDate"
                                                         {...register("endDate", {
-                                                            required: `* End Date is required`,
+                                                            required: `End Date is required`,
                                                         })}
                                                         onSelect={(e) => {
                                                             const inputName = "endDate";
