@@ -1,0 +1,31 @@
+/* Table */
+.p-datatable-header-admin > .p-datatable-header > .table-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.p-datatable-header-admin .p-datatable-thead>tr>th  {
+  background: white;
+}
+
+.p-datatable-header-admin .p-datatable-wrapper {
+  padding: 1rem;
+}
+/* Table */
+
+/* globalSearch */
+.contact-searchInput {
+  font-size: 0.8rem;
+}
+/* globalSearch */
+
+.selectedServiceGroup-admin {
+  font-size: 0.9rem;
+}
+
+/* submit button */
+.submitButton-admin {
+  background-color: #2ca55e;
+  border-color: transparent;
+}
+/* submit button */

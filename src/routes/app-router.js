@@ -44,7 +44,7 @@ const InstantJobs = React.lazy(() => import('../pages/instant-jobs/List'));
 const Timeline = React.lazy(() => import('../pages/timeline/Timeline'));
 const CreateContacts = React.lazy(() => import('../pages/contacts/Create'));
 const ListContacts = React.lazy(() => import('../pages/contacts/List'));
-const AdminServices = React.lazy(() => import('pages/admin/dashboard/AdminServices'));
+const AdminServicesAndServiceGroups = React.lazy(() => import('pages/admin/dashboard/AdminServicesAndServiceGroups'));
 
 
 
@@ -111,7 +111,7 @@ const AppRouter = () => {
         <ProtectedAdminRoute path="/admin-qualification" component={AdminQualification} />
         <ProtectedAdminRoute path={`/admin-skills`} component={AdminSkill} />
         <ProtectedAdminRoute path="/admin-contractType" component={AdminContractType} />
-        <ProtectedAdminRoute path="/admin-services" component={AdminServices} />
+        <ProtectedAdminRoute path="/admin-services" component={AdminServicesAndServiceGroups} />
         <Redirect to="/login" />
       </Switch>
     </React.Suspense>

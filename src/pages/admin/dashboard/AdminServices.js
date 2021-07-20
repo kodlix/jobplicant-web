@@ -1,358 +1,266 @@
 import { Button } from "primereact/button"
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux"
 import CustomInputField from "components/CustomInputField";
-import { createServiceGroup, deleteServiceGroup, loadServiceGroups, updateServiceGroup } from "store/modules/admin";
-import { createService, deleteService, loadServices, updateService } from "store/modules/admin";
-import { RadioButton } from 'primereact/radiobutton';
-import { Tag } from "primereact/tag";
+import { Paginator } from 'primereact/paginator';
+import { createService, deleteService, loadServices, updateService, loadServiceGroupsForServiceComponent } from "store/modules/admin";
 import { Dropdown } from 'primereact/dropdown';
-
-import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import { DataTable } from 'primereact/datatable';
+import { InputText } from 'primereact/inputtext';
+import "./Admin.css";
 
-const AdminService = () => {
+const AdminServices = () => {
   const dispatch = useDispatch();
-  const serviceGroups = useSelector((state) => state.admin.serviceGroups);
-  const services = useSelector((state) => state.admin.services);
-  const loading = useSelector(state => state.admin.loading);
-
-  const [serviceGroup, setServiceGroup] = useState({});
+  const [page, setPage] = useState(0);
+  const [serviceGroupPage, setServiceGroupPage] = useState(1);
   const [service, setService] = useState({});
+  const [pageLimit, setPageLimit] = useState(10);
+  const [globalFilter, setGlobalFilter] = useState("");
+  const loading = useSelector(state => state.admin.adminLoading);
+  const services = useSelector((state) => state.admin.services);
   const [serviceGroupOptions, setServiceGroupOptions] = useState([]);
+  const [selectedServiceGroupOption, setSelectedServiceGroupOption] = useState({});
+  const serviceGroupOptionsByPage = useSelector((state) => state.admin.serviceGroupsForServiceComponent);
 
+  const onPaginationChange = (event) => {
+    setPage(event.first);
+    setPageLimit(event.rows);
+    dispatch(loadServices(event.page + 1, event.rows, "loadServices", globalFilter));
+  }
+
+  // React hook form
   const {
     register: serviceRegister,
     handleSubmit: handleServiceSubmit,
     setValue: setServiceValue,
     formState: { errors: serviceErrors },
     clearErrors: clearServiceErrors,
-    setValue
   } = useForm({ mode: "onChange", reValidateMode: "onChange" });
-
-  const {
-    register: serviceGroupRegister,
-    handleSubmit: handleServiceGroupSubmit,
-    setValue: setServiceGroupValue,
-    formState: { errors: serviceGroupErrors },
-    clearErrors: clearServiceGroupErrors
-  } = useForm({ mode: "onChange", reValidateMode: "onChange" });
-
+  // React hook form
 
   useEffect(() => {
-    dispatch(loadServiceGroups());
-    dispatch(loadServices());
-  }, [])
-
-  // useEffect(() => {
-  //   // {...serviceRegister("serviceGroupId", {
-  //   //   required: "* is required",
-  //   //   validate: value => value || "yh"
-  //   // })}
-  //   serviceRegister("serviceGroupId", { validate: value => value || "value" });
-  // }, [serviceRegister])
+    dispatch(loadServiceGroupsForServiceComponent());
+    dispatch(loadServices(1, pageLimit, "loadServices", globalFilter));
+  }, [dispatch]);
 
 
   useEffect(() => {
     const newArray = [];
-    if (serviceGroups?.data?.length) {
-      serviceGroups.data.map((serviceGroup) => { newArray.push({ name: serviceGroup.name, id: serviceGroup.id }) })
+    if (serviceGroupOptionsByPage?.data?.length) {
+      serviceGroupOptionsByPage.data.map((serviceGroup) => { newArray.push({ serviceGroupName: serviceGroup.name, serviceGroupId: serviceGroup.id }) })
     }
-    setServiceGroupOptions(newArray);
-  }, [serviceGroups])
-
-  const handleServiceChange = e => {
-    setService({ ...service, [e.target.name]: e.target.value })
-  }
-
-  const handleServiceGroupChange = e => {
-    setServiceGroup({ ...serviceGroup, [e.target.name]: e.target.value })
-  }
-
-  const handleServiceGroupEdit = (data, id) => {
-    clearServiceGroupErrors("serviceGroup",)
-    setServiceGroup({ ...serviceGroup, id, SGName: data.name, SGDescription: data.description })
-    setServiceGroupValue('serviceGroup.name', data.name);
-    setServiceGroupValue('serviceGroup.description', data.description);
-  }
-
-  const handleServiceGroupDelete = (id) => {
-    var confirm = window.confirm('do you want to remove?')
-    if (confirm) {
-      dispatch(deleteServiceGroup(id));
+    if (serviceGroupPage === 1) {
+      setServiceGroupOptions(newArray);
     }
-  }
+    else {
+      setServiceGroupOptions([...serviceGroupOptions, ...newArray]);
+      setServiceGroupPage(serviceGroupPage + 1);
+    }
+  }, [serviceGroupOptionsByPage]);
 
-  // useEffect(() => {
-  //   serviceRegister("serviceGroupId", { required: "Gender is required" })
-  // }, [serviceRegister])
-  const handleServiceGroupCreate = () => {
-    // setContractType({ ...contractType, name: '', description: "" });
-    // setValue('name', '');
-    // setValue('description', '')
-  }
-
+  // onClick Functions
   const handleServiceEdit = (data, id) => {
     clearServiceErrors();
-    setService({ ...service, id, name: data.name, description: data.description, serviceGroupId: "3dc9de10-e7b3-490b-bc96-4372fa1ddfb4" });
+    setService({ ...service, name: data.name, id: id, description: data.description, serviceGroup: { serviceGroupName: "service Group 20", serviceGroupId: "9a71b183-80c2-4876-b949-5ad85890e3d7" } });
+    setSelectedServiceGroupOption({ serviceGroupName: "service Group 20", serviceGroupId: "9a71b183-80c2-4876-b949-5ad85890e3d7" })
     setServiceValue('name', data.name);
     setServiceValue('description', data.description);
-    setServiceValue('serviceGroupId', "Legal");
+    setServiceValue('serviceGroupId', data.groupId);
+  }
+
+  const onSearch = () => {
+    dispatch(loadServices(1, pageLimit, "searchServices", globalFilter));
   }
 
   const handleServiceDelete = (id) => {
-    var confirm = window.confirm('do you want to remove?')
+    var confirm = window.confirm('Do you want to delete this service?')
     if (confirm && id) {
       dispatch(deleteService(id));
     }
   }
 
-  const handleServiceCreate = () => {
-    // setContractType({ ...contractType, name: '', description: "" });
-    // setValue('name', '');
-    // setValue('description', '')
+  const cancelUpdateMode = () => {
+    setService({ ...service, id: null });
   }
-  console.log(services);
+  // onClick Functions
 
-  const onServiceSubmit = data => {
+  const handleServiceChange = e => {
+    if (e.target.name === "serviceGroupId") {
+      setSelectedServiceGroupOption(e.value);
+      setServiceValue(e.target.name, e.value, { shouldValidate: true });
+    }
+    else {
+      setService({ ...service, [e.target.name]: e.target.value });
+      setServiceValue(e.target.name, e.target.value, { shouldValidate: true });
+    }
+  }
+  const onServiceSubmit = (data) => {
+    data.serviceGroupId = selectedServiceGroupOption.serviceGroupId;
     if (service.id) {
-      dispatch(updateService(data, service.id))
+      dispatch(updateService(data, service.id, "updateService"))
     } else {
-      dispatch(createService(data));
+      dispatch(createService(data, "createService"));
     }
   }
 
-  const onServiceGroupSubmit = e => {
-    const obj = { name: serviceGroup.SGName, description: serviceGroup.SGDescription };
-    if (serviceGroup.id) {
-      dispatch(updateServiceGroup(obj, serviceGroup.id))
-    } else {
-      dispatch(createServiceGroup(obj))
-      setServiceGroupValue('SGName', '');
-      setServiceGroupValue('SGDescription', '');
-    }
+  // Table Header
+  const renderHeader = () => {
+    return (
+      <div className="table-header">
+        <span>
+          List of Services
+        {/* <span className="contact-searchInput p-pl-2">
+            (Showing {page + 1} to {page + services?.meta?.itemCount} of {services?.meta?.total})
+          </span> */}
+        </span>
+        <div className="d-flex align-items-baseline">
+          <div className="p-input-icon-right searchInput-container-contact">
+            <InputText className="p-mr-2 p-pr-5 contact-searchInput" placeholder="Search all services" value={globalFilter} onChange={(e) => setGlobalFilter(e.currentTarget.value)} />
+            {
+              globalFilter && loading !== "searchServices" &&
+              <i className="pi pi-times p-mr-2" onClick={() => { setGlobalFilter(""); dispatch(loadServices(1, pageLimit, "loadServices", "")) }} name="clear" />
+            }
+          </div>
+          <Button onClick={onSearch} type="button" icon="pi pi-search" className="p-px-1 p-pt-1 p-pb-2" loading={loading === "searchServices"} />
+        </div>
+      </div>
+    );
   }
+  // Table Header
+
+  // Table Body
+  const header = renderHeader();
 
   const SActionTemplate = (rowData) =>
     <div>
-      <i className="pi pi-pencil" onClick={() => handleServiceEdit(rowData, rowData.id)}></i>  <i className="pi pi-trash" onClick={() => handleServiceDelete(rowData.id)}></i>
+      <i className="pi pi-pencil p-pr-2" onClick={() => handleServiceEdit(rowData, rowData.groupId)} />
+      <i className="pi pi-trash" onClick={() => handleServiceDelete(rowData.groupId)} />
     </div>
-
-  const SGActionTemplate = (rowData) =>
-    <div>
-      <i className="pi pi-pencil" onClick={() => handleServiceGroupEdit(rowData, rowData.id)}></i>      <i className="pi pi-trash" onClick={() => handleServiceGroupDelete(rowData.id)}></i>
-    </div>
-
 
   const getSTableData = (data) => {
     return (
-      <DataTable value={data}>
-        <Column field="name" header="Name"></Column>
-        <Column field="description" header="Description"></Column>
-        <Column header="Actions" body={SActionTemplate}></Column>
-      </DataTable>
+      <>
+        <DataTable value={data}
+          header={header} className="p-datatable-header-admin" dataKey="groupId" rowHover
+        >
+          <Column field="name" header="Name"></Column>
+          <Column field="description" header="Description"></Column>
+          <Column header="Actions" body={SActionTemplate}></Column>
+        </DataTable>
+        <Paginator first={page} rows={pageLimit} totalRecords={services?.meta?.total} rowsPerPageOptions={[10, 20, 50]} onPageChange={onPaginationChange}></Paginator>
+      </>
     )
   }
+  // Table Body
 
-  const getSGTableData = (data) => {
-    return (
-      <DataTable value={data}>
-        <Column field="name" header="Name"></Column>
-        <Column field="description" header="Description"></Column>
-        <Column header="Actions" body={SGActionTemplate}></Column>
-      </DataTable>
-    )
-  }
-
-
+  console.log(services)
 
   return (
-    <div className="background-dashboard container">
-      <div className="background-top">
+    <>
+      <div className="p-grid p-mx-lg-0 grid-margin p-py-1">
+        <div className="p-col-12 p-lg-8 p-p-lg-1 p-py-0">
+          <div className="p-card h-100 p-mt-2">
+            <div className="p-card-body p-p-0">
+              {getSTableData(services.data)}
+            </div>
+          </div>
+        </div>
+        <div className="p-col-12 p-lg-4 p-p-lg-1">
+          <div className="p-card h-100 p-mt-2 text-center">
+            <div className="p-card-title p-px-10 p-pt-4">
+              <div className="d-flex justify-content-end">
+              </div>
+            </div>
+            <div className="p-card-body svgimage p-pt-0">
+              <form onSubmit={handleServiceSubmit(onServiceSubmit)}>
+                <div className="p-fluid p-formgrid p-grid">
+                  <div className="p-field p-col-12 p-md-12 ">
+                    <label className="inputLabel" htmlFor="name">
+                      Service Name
+                          <span className="text-danger p-ml-2 font-weight-bold">
+                        {serviceErrors?.name?.message}
+                      </span>
+                    </label>
+                    <CustomInputField
+                      id="name"
+                      name="name"
+                      inputLabel="Service"
+                      register={serviceRegister}
+                      inputChange={handleServiceChange}
+                      value={service.name}
+                    />
+                  </div>
+                  <div className="p-field p-col-12 p-md-12">
+                    <label className="inputLabel" htmlFor="description">
+                      Service Description
+                        <span className="text-danger p-ml-2 font-weight-bold">
+                        {serviceErrors?.description?.message}
+                      </span>
+                    </label>
+                    <CustomInputField
+                      id="description"
+                      name="description"
+                      inputLabel="Description"
+                      register={serviceRegister}
+                      inputChange={handleServiceChange}
+                      value={service.description}
+                    />
+                  </div>
+                  <div className="p-field p-col-12 p-md-12">
+                    <label className="inputLabel" htmlFor="serviceGroupId">
+                      Service Group
+                        <span className="text-danger p-ml-2 font-weight-bold">
+                        {serviceErrors?.serviceGroupId?.message}
+                      </span>
+                    </label>
+                    <div className="p-grid p-mt-1 text-left">
+                      <p className="p-pl-2 p-pb-2 selectedServiceGroup-admin"><b>Selected:</b> {selectedServiceGroupOption?.serviceGroupName || "none"}</p>
+                      <Dropdown
+                        filter
+                        showClear
+                        className="w-100 p-mx-2"
+                        filterBy="serviceGroupName"
+                        options={serviceGroupOptions}
+                        value={selectedServiceGroupOption}
+                        optionLabel="serviceGroupName"
+                        placeholder="Select a Service Group"
+                        name="serviceGroupId"
+                        {...serviceRegister("serviceGroupId", {
+                          required: " * Service Group is required",
+                        })}
+                        onChange={handleServiceChange}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <Button
+                  type="submit"
+                  iconPos="left"
+                  className="submitButton-admin p-py-1"
+                  label={service.id ? "Update" : "Create"}
+                  loading={loading === "updateService" || loading === "createService"}
+                />
+                {
+                  service.id &&
+                  <Button
+                    type="button"
+                    iconPos="left"
+                    label="Cancel"
+                    disabled={loading === "updateService" || loading === "createService"}
+                    className="p-ml-2 p-py-1"
+                    onClick={() => cancelUpdateMode()}
+                  />
+                }
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      </div>
-      <div className="background-bottom">
-        <h3 className="p-pb-2">
-          <i className="pi pi-chart-line p-pr-2"></i>Services & Service Groups
-          </h3>
-        <h5 className="p-pb-2 p-mt-5">
-          <i className="pi pi-chart-line p-pr-2" />
-            Services
-          </h5>
-        <div className="p-grid p-mx-lg-0 grid-margin p-py-1">
-          <div className="p-col-12 p-lg-8 p-p-lg-1 p-py-0">
-            <div className="p-card h-100 p-mt-2">
-              <div className="p-card-body pt-4">
-                {getSTableData(services.data)}
-              </div>
-            </div>
-          </div>
-          <div className="p-col-12 p-lg-4 p-p-lg-1">
-            <div className="p-card h-100 p-mt-2 text-center">
-              <div className="p-card-title p-px-3 p-pt-4">
-                <div className="d-flex justify-content-end">
-                </div>
-              </div>
-              <div className="p-card-body svgimage p-pt-0">
-                <form onSubmit={handleServiceSubmit(onServiceSubmit)}>
-                  <div className="p-fluid p-formgrid p-grid">
-                    <div className="p-field p-col-12 p-md-12 ">
-                      <label className="inputLabel" htmlFor="course">
-                        Service Name
-                          <span className="text-danger p-ml-2 font-weight-bold">
-                          {serviceErrors?.name?.message}
-                        </span>
-                      </label>
-                      <CustomInputField
-                        id="name"
-                        name="Service"
-                        inputLabel="Service"
-                        register={serviceRegister}
-                        inputChange={handleServiceChange}
-                        value={service.name}
-                      />
-                    </div>
-                    <div className="p-field p-col-12 p-md-12">
-                      <label className="inputLabel" htmlFor="service.description">
-                        Service Description
-                        <span className="text-danger p-ml-2 font-weight-bold">
-                          {serviceErrors?.description?.message}
-                        </span>
-                      </label>
-                      <CustomInputField
-                        id="description"
-                        name="Description"
-                        inputLabel="Description"
-                        register={serviceRegister}
-                        inputChange={handleServiceChange}
-                        value={service.description}
-                      />
-                    </div>
-                    <div className="p-field p-col-12 p-md-12">
-                      <label className="inputLabel" htmlFor="serviceGroup">
-                        Service Group
-                        <span className="text-danger p-ml-2 font-weight-bold">
-                          {serviceErrors?.serviceGroupId?.message}
-                        </span>
-                      </label>
-                      <div className="p-grid p-mt-1 text-left">
-                        {serviceGroupOptions.map((serviceGroupOption) => (
-                          <div className="p-col-12 p-md-6 p-py-1">
-                            <RadioButton
-                              className="p-mr-1"
-                              name="serviceGroupId"
-                              value={serviceGroupOption.id}
-                              inputId={serviceGroupOption.id}
-                              checked={service?.serviceGroupId === serviceGroupOption.id}
-                              {...serviceRegister("serviceGroupId", {
-                                required: " * Service Group is required",
-                              })}
-                              onChange={(e) => {
-                                setService({ ...service, serviceGroupId: e.value })
-                                setServiceValue('serviceGroupId', e.value, { shouldValidate: true })
-                              }
-                              }
-                            />
-                            {/* <RadioButton
-                              inputId={serviceGroupOption.id} type="radio"
-                              name="serviceGroupId"
-                              value={serviceGroupOption.id}
-                              onChange={(e) => { setService({ ...service, serviceGroupId: e.value }); setValue('service.serviceGroupId', e.value, { shouldValidate: true }) }}
-                              checked={service?.serviceGroupId === serviceGroupOption.id}
-                            /> */}
-                            <label htmlFor="service.serviceGroupId">
-                              {serviceGroupOption.name}
-                            </label>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="buttons">
-                    <Button
-                      type="submit"
-                      iconPos="left"
-                      id="saveButton"
-                      disabled={loading}
-                      label={loading ? "Please wait..." : service.id ? "Update" : "Create"}
-                    />
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-        <h5 className="p-pb-2 p-mt-5">
-          <i className="pi pi-chart-line p-pr-2" />
-          Service Groups
-        </h5>
-        <div className="p-grid p-mx-lg-0 grid-margin p-py-1">
-          <div className="p-col-12 p-lg-8 p-p-lg-1 p-py-0">
-            <div className="p-card h-100 p-mt-2">
-              <div className="p-card-body pt-4">
-                {getSGTableData(serviceGroups.data)}
-              </div>
-            </div>
-          </div>
-          <div className="p-col-12 p-lg-4 p-p-lg-1">
-            <div className="p-card h-100 p-mt-2 text-center">
-              <div className="p-card-title p-px-3 p-pt-4">
-                <div className="d-flex justify-content-end">
-                </div>
-              </div>
-              <div className="p-card-body svgimage p-pt-0">
-                <form onSubmit={handleServiceGroupSubmit(onServiceGroupSubmit)}>
-                  <div className="p-fluid p-formgrid p-grid">
-                    <div className="p-field p-col-12 p-md-12 ">
-                      <label className="inputLabel" htmlFor="serviceGroup.name">
-                        Service Group Name
-                          <span className="text-danger p-ml-2 font-weight-bold">
-                          {serviceGroupErrors?.serviceGroup?.name?.message}
-                        </span>
-                      </label>
-                      <CustomInputField
-                        id="serviceGroup.name"
-                        name="Service Group"
-                        inputLabel="Service Group"
-                        register={serviceGroupRegister}
-                        inputChange={handleServiceGroupChange}
-                        value={serviceGroup.name}
-                      />
-                    </div>
-                    <div className="p-field p-col-12 p-md-12">
-                      <label className="inputLabel" htmlFor="serviceGroup.description">
-                        Service Group Description
-                          <span className="text-danger p-ml-2 font-weight-bold">
-                          {serviceGroupErrors?.serviceGroup?.description?.message}
-                        </span>
-                      </label>
-                      <CustomInputField
-                        id="serviceGroup.description"
-                        name="Description"
-                        inputLabel="Description"
-                        register={serviceGroupRegister}
-                        inputChange={handleServiceGroupChange}
-                        value={serviceGroup.description}
-                      />
-                    </div>
-                  </div>
-                  <div className="buttons">
-                    <Button
-                      type="submit"
-                      iconPos="left"
-                      id="saveButton"
-                      disabled={loading}
-                      label={loading ? "Please wait..." : serviceGroup.id ? "Update" : "Create"}
-                    />
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>)
+    </>
+  );
 }
 
-export default AdminService;
+export default AdminServices;

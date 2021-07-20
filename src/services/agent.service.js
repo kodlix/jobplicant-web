@@ -290,7 +290,8 @@ const Skill = {
 
 const ServiceGroup = {
   save: (data) => requests.post("/service-group", data),
-  load: () => requests.get("/service-group",),
+  load: (page, limit, search) => requests.get(`/service-group?${new URLSearchParams({ page: page, limit: limit, search: search }).toString()}`),
+  loadForService: (page, limit, search) => requests.get(`/service-group?${new URLSearchParams({ page: page, limit: limit, search: search }).toString()}`),
   view: (id) => requests.get(`/service-group/${id}`),
   edit: (id, data) => requests.put(`/service-group/${id}`, data),
   delete: (id) => requests.del(`/service-group/${id}`),
@@ -298,7 +299,7 @@ const ServiceGroup = {
 
 const Service = {
   save: (data) => requests.post("/service", data),
-  load: () => requests.get("/service",),
+  load: (page, limit, search) => requests.get(`/service?${new URLSearchParams({ page: page, limit: limit, search: search }).toString()}`),
   view: (id) => requests.get(`/service/${id}`),
   edit: (id, data) => requests.put(`/service/${id}`, data),
   delete: (id) => requests.del(`/service/${id}`),
