@@ -25,7 +25,7 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
 
   console.log('mode', mode)
 
-  const loading = useSelector((state) => state.education.loading);
+  const loading = useSelector((state) => state.education.submitting);
   const dispatch = useDispatch();
   const [yearOfGraduation, setYearOfGraduation] = useState(null);
   const [education, setEducation] = useState({
@@ -206,11 +206,13 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
                   yearRange="2010:2030"
                   value={yearOfGraduation}
                   onSelect={(e) => {
-                    const inputName = "yearOfGraduation";
-                    const value = new Date(e.value).toISOString();
+                    if (e.value) {
+                      const inputName = "yearOfGraduation";
+                      const value = new Date(e.value).toISOString();
 
-                    setYearOfGraduation(value);
-                    setValue(inputName, value, { shouldValidate: true });
+                      setYearOfGraduation(e.value);
+                      setValue(inputName, value, { shouldValidate: true });
+                    }
                   }}
                   name="yearOfGraduation"
                   {...register("yearOfGraduation", {

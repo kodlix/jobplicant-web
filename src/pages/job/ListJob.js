@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { loadAllJobs } from 'store/modules/job'
 import Spinner from 'components/spinner/spinner.component'
 import JobSidePanel from 'components/JobSidePanel'
+import { Button } from 'primereact/button'
 
 const ListJob = () => {
     const dispatch = useDispatch();
@@ -44,7 +45,14 @@ const ListJob = () => {
                         <button style={styles.btnFind}>Find Jobs</button>
                     </div>
                 </div>
+                <div className="p-pl-3">
+                    <Link to={"/jobs/create"}>
+                        <Button label="Post job" className="p-button-rounded p-button" />
+                    </Link>
+
+                </div>
             </div>
+
 
             {/* {jobs && <p>{JSON.stringify(jobs)}</p>} */}
 

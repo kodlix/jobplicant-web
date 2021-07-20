@@ -5,7 +5,7 @@ import { closeModal } from "./modal";
 
 // initial values
 const timeline = {
-  loading: "",
+  loadingPosts: "",
   posts: [],
   post: {},
   postsByUserId: [],
@@ -15,7 +15,7 @@ const timeline = {
 };
 
 // Action types
-const LOADING = "LOADING";
+const LOADING_POSTS = "LOADING_POSTS";
 const LOAD_POST = "LOAD_POST";
 const LOAD_POSTS = "LOAD_POSTS";
 const LOAD_POST_BY_POSTID = "LOAD_POST_BY_POSTID";
@@ -26,10 +26,10 @@ const LOAD_USER_POST_COUNT = "LOAD_USER_POST_COUNT";
 // Reducer
 export default function reducer(state = timeline, action = {}) {
   switch (action.type) {
-    case LOADING:
+    case LOADING_POSTS:
       return {
         ...state,
-        loading: action.payload,
+        loadingPosts: action.payload,
       };
     case LOAD_POST:
       return {
@@ -81,7 +81,7 @@ export const totalPostCountLoaded = (data) => ({
   payload: data,
 });
 export const loading = (data) => ({
-  type: LOADING,
+  type: LOADING_POSTS,
   payload: data
 });
 
@@ -140,7 +140,7 @@ export function loadPosts(page, take, loadingType) {
     return agent.Post.load(page, take).then(
       response => {
         //handle success
-        dispatch(loading(""));
+        dispatch(loading(loadingType));
         dispatch(
           showMessage({
             type: MESSAGE_TYPE.SUCCESS,

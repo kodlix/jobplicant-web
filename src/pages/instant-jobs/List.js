@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import InstantHeader from 'pages/instant-job-hire/instant-header';
 import Job from 'pages/instant-job-hire/Job';
 import { Button } from 'primereact/button';
@@ -65,6 +65,8 @@ const InstantJobs = () => {
                                     title="All Instant Jobs"
                                     showCreateButton={false}
                                     count={allInstantJobs?.length}
+                                    showSearchBar={true}
+
                                 />
                                 {allInstantJobs && allInstantJobs.length > 0 && allInstantJobs.map((instantjob, i) =>
                                     <div className="">
@@ -85,9 +87,8 @@ const InstantJobs = () => {
 
                                                             <p className="font-weight-bold ">Job Services : <span className="app-color" style={{ fontSize: 15 }}> {instantjob.service}</span></p>
                                                             <p><span className="font-weight-bold">Job Location : </span><span>{instantjob.location}</span> </p>
-                                                            {/* <p><span className="font-weight-bold">Time : </span> {instantjob.time}</p> */}
                                                             <p><span className="font-weight-bold">Job Description : </span> {instantjob.description}</p>
-                                                            <p><span className="font-weight-bold">Phone Nuber : </span> {instantjob.phoneNumber}</p>
+                                                            <p><span className="font-weight-bold">Phone Number : </span> {instantjob.phoneNumber}</p>
                                                             <div className="p-grid">
                                                                 <div className="p-col-4"><span className="font-weight-bold">Start Date: </span> {moment(instantjob.startDate).format('MMMM DD, YYYY')} </div>
                                                                 <div className="p-col-6"><span className="font-weight-bold">End Date: </span> {moment(instantjob.endDate).format('MMMM DD, YYYY')}</div>
@@ -97,8 +98,11 @@ const InstantJobs = () => {
                                                             <div className="offset-md-5 p-pr-2 d-flex">
                                                                 <p> <span className="font-weight-bold app-color p-mt-2"> Interested ? &nbsp; </span> </p>
                                                                 <Button label="Yes" id="saveButton" className="p-button-sm" onClick={() => handleApply(instantjob.id, i)} /></div>
-                                                            <div className="p-pr-1"> <Button label="View" id="reject" className="p-button-sm" /></div>
+                                                            <div className="p-pr-1"> <Link to={`/instant-hire/view/${instantjob.id}`}><Button label="View" id="reject" className="p-button-sm" /> </Link></div>
+
                                                         </div>
+                                                        <p className="p-pt-2 float-right"> {moment(instantjob.createdAt).fromNow()} </p>
+
 
                                                         <div className="p-grid p-pt-2" id={`${i}`} hidden={true}>
                                                             <Tag> <span >Waiting to be accepted...</span></Tag>

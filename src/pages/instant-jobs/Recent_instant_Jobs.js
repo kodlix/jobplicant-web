@@ -59,10 +59,10 @@ const RecentInstantJobs = () => {
                                         </div>
                                         <div className="col-10">
                                             <small >
-                                                <Link className="p-text-secondary" to={'#'}>
-                                                    <p className="font-weight-bold">Services : <span className="app-color" style={{ fontSize: 15 }}> {instantjob.service}</span></p>
-                                                    <p><span className="font-weight-bold">Location : </span> {instantjob.location} </p>
-                                                    <p><span className="font-weight-bold">Description : </span> {`${truncate(instantjob.description, 20)} ${'...'}`}</p>
+                                                <Link className="p-text-secondary" to={`/instant-hire/view/${instantjob.id}`}>
+                                                    <p className="font-weight-bold"> <span className="app-color" style={{ fontSize: 15 }}> {instantjob.service}</span></p>
+                                                    <p><span className="font-weight-bold"> </span> {instantjob.location} </p>
+                                                    <p><span className="font-weight-bold"> </span> {`${truncate(instantjob.description, 20)} ${'...'}`}</p>
                                                     <p className="p-pt-2 float-right"> {moment(instantjob.createdAt).fromNow()} </p>
                                                 </Link>
                                             </small >
