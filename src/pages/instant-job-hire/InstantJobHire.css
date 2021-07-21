@@ -121,6 +121,18 @@
     margin-left: "35vw"
 }
 
+.applicant-actionIcons .pi {
+    font-size: 1.3rem;
+    padding: 0.5rem;
+    font-weight: 600;
+    color: #5A2846;
+    cursor: pointer;
+}
+
+.applicants-display {
+    padding: 1em;
+}
+
 
 /* Media Query Section */
 
@@ -143,5 +155,8 @@
     }
     .bk-btn {
         margin-left: 1px;
+    }
+    .applicants-display {
+        padding: 1em 0 0 0;
     }
 }

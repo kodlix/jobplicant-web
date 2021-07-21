@@ -148,6 +148,7 @@ export function acceptApplicant(id) {
                 //handle success
                 dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "The applicant will be notified", title: 'Request accepted Successful' }));
                 // dispatch(onLoadInstantJobApplicants(response));
+                window.location.reload();
             },
             error => {
                 dispatch(showMessage({ type: "error", message: error, title: "Failed to load Instant jobs" }));
@@ -163,6 +164,8 @@ export function rejectApplicant(id) {
                 //handle success
                 dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "Applicant's request rejected", title: 'Request rejected Successful' }));
                 // dispatch(onLoadInstantJobApplicants(response));
+                window.location.reload();
+
             },
             error => {
                 dispatch(showMessage({ type: "error", message: error, title: "Failed to load Instant jobs" }));

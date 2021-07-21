@@ -18,16 +18,18 @@ const Applicant = (props) => {
     const [modalDisplay, setModalDisplay] = useState(false);
     const [applicantList, setApplicantList] = useState({});
 
-    const instantJobs = useSelector(state => state.instantJob.instantjobs);
+    const instantJob = useSelector(state => state.instantJob.instantjob);
     const instantJobId = props.match.params.id;
 
     const applicants = useSelector(state => state.instantJob.applicants);
     console.log("Applicant => ", applicants);
+    console.log("instant-job => ", instantJob);
 
 
     useEffect(() => {
         dispatch(loadApplicants(instantJobId))
     }, [dispatch,])
+
 
     useEffect(() => {
         setApplicantList(applicants)
@@ -39,6 +41,8 @@ const Applicant = (props) => {
 
     const acceptHandler = (id) => {
         dispatch(acceptApplicant(id));
+        // window.location.reload();
+
         // accetedApplicantHandler(id);
     }
 
@@ -164,14 +168,15 @@ const Applicant = (props) => {
                         <hr />
                     </div> */}
 
-                    <div className="card card-size mt-2">
+                    <div className="card card-size mt-2 p-col-sm-12">
                         <div className="card-body p-pt-0">
-                            <div className="p-4">
+                            <div className="applicants-display">
                                 <div className="d-flex justify-content-between p-mb-1">
                                     <div>
-                                        <h5> <span className="font-weight-bold text-secondary">{instantJobs?.service}</span> <span className="app-color">
+                                        <h5> <span className="font-weight-bold text-secondary">{instantJob?.service}</span> <span className="app-color">
                                             {applicantList?.length ? applicantList?.length : 0} Applicant ({applicantList?.length ? applicantList?.length : 0} Result)</span></h5>
-                                        <p className="font-weight-bold">Location : <span>{instantJobs?.location}</span></p>
+                                        <p className="font-weight-bold">Location : <span>{instantJob?.location}</span></p>
+                                        <p className="font-weight-bold">Address : <span>{instantJob?.address}</span></p>
                                     </div>
                                     <div>
                                         <Link to="/instant-hires" className="bk-btn p-pt-2 app-color">
@@ -189,7 +194,12 @@ const Applicant = (props) => {
                                         <div className="col-md-4 col-sm-12 highlight-card p-pb-3" >
                                             <div key={applicant.applicantId} className="card">
                                                 <img src="https://source.unsplash.com/random/100x100" height="150px" className="card-img-top" alt="..." />
-                                                <div className="card-body" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                <div className="card-body">
+                                                    <div className="applicant-actionIcons float-right">
+                                                        <i className="pi pi-video p-pr-2" />
+                                                        <i className="pi pi-comments p-pr-2" />
+                                                    </div> <hr />
+                                                    {/* <div className="card-body" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> */}
                                                     <p className="card-text"> <span className="font-weight-bold">Occupation :</span> <span className="font-weight-bold app-color">
                                                         {applicant.occupation}</span></p>
                                                     <p className="card-title"><span className="font-weight-bold">Name : </span>{applicant.name} </p>
@@ -211,12 +221,19 @@ const Applicant = (props) => {
                                                     </div>
 
                                                 </div>}
-
-                                                {applicant.accepted && <div className="p-grid p-pl-5 p-pb-2">
-                                                    <div className="p-pr-2">
-                                                        <Tag className="header-color"> <span >Accepted</span></Tag>
-                                                    </div>
-                                                </div>}
+                                                <div className="p-grid p-pb-2">
+                                                    {applicant.accepted && <div className="p-grid p-pl-5 p-pb-2">
+                                                        <div className="p-pr-2">
+                                                            <Tag className="header-color"> <span >Accepted</span></Tag>
+                                                        </div>
+                                                    </div>}
+                                                    {applicant.accepted && <div className="p-grid p-pl-5 p-pb-2">
+                                                        <div className="p-pr-2 p-pt-2">
+                                                            {/* <Button label="Review" id="reject" className="p-button-sm" /> */}
+                                                            <Link to=""><u className="app-color font-weight-bold">Leave a Review</u> </Link>
+                                                        </div>
+                                                    </div>}
+                                                </div>
 
                                                 {applicant.rejected && <div className="p-grid p-pl-5 p-pb-2">
                                                     <div className="p-pr-2">

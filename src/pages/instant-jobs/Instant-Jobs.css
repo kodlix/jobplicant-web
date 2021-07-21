@@ -139,7 +139,8 @@
         display: none;
     }
     .card-size {
-        width: 90%;
+        /* updated width from 90 to 100% for mobile responsiveness sake */
+        width: 96%;
         margin: auto;
     }
     .card-size-list {
