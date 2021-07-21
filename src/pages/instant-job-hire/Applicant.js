@@ -5,12 +5,11 @@ import { Button } from 'primereact/button';
 import { acceptApplicant, loadApplicants, loadInstantJob, rejectApplicant, } from 'store/modules/instantJob';
 import Spinner from 'components/spinner/spinner.component'
 
-
-import Job from './Job';
-
 import './InstantJobHire.css'
 import { useSelector, useDispatch } from 'react-redux';
 import { Tag } from 'primereact/tag';
+import { confirmDialog } from 'primereact/confirmdialog';
+import RecentInstantJobs from 'pages/instant-jobs/Recent_instant_Jobs';
 
 const Applicant = (props) => {
     const dispatch = useDispatch()
@@ -40,18 +39,31 @@ const Applicant = (props) => {
 
     const acceptHandler = (id) => {
         dispatch(acceptApplicant(id));
-        accetedApplicantHandler(id);
+        // accetedApplicantHandler(id);
     }
 
-    const accetedApplicantHandler = (applicantId) => {
-        const acceptedUser = applicants.filter(function (item) {
-            return item.applicantId !== applicantId;
-        })
-        setApplicantList(acceptedUser);
-    }
+    // const accetedApplicantHandler = (applicationId) => {
+    //     const acceptedUser = applicants.filter(function (item) {
+    //         return item.applicationId !== applicationId;
+    //     })
+    //     setApplicantList(acceptedUser);
+    // }
 
     const rejectHandler = (id) => {
-        dispatch(rejectApplicant(id))
+        return confirmDialog({
+            message: 'You are about to REJECT this Applicant!',
+            header: 'Reject Applicant Confirmation',
+            icon: 'pi pi-info-circle',
+            acceptClassName: 'p-button-danger',
+            accept: () => {
+                dispatch(rejectApplicant(id))
+                dispatch(loadApplicants(instantJobId))
+            },
+            reject: () => {
+                return;
+            }
+        });
+
     }
 
     return (
@@ -191,18 +203,18 @@ const Applicant = (props) => {
                                                 {!applicant.accepted && !applicant.rejected && <div className="p-grid p-pl-5 p-pb-2">
                                                     <div className="p-pr-2">
                                                         <Button icon="pi pi-check" iconPos="left" label="Accept" id="saveButton" className="p-button-sm"
-                                                            onClick={() => acceptHandler(applicant.applicantId)} />
+                                                            onClick={() => acceptHandler(applicant.applicationId)} />
                                                     </div>
                                                     <div className="">
                                                         <Button label="Reject" icon="pi pi-times" iconPos="left" id="reject" className="p-button-sm"
-                                                            onClick={() => rejectHandler(applicant.applicantId)} />
+                                                            onClick={() => rejectHandler(applicant.applicationId)} />
                                                     </div>
 
                                                 </div>}
 
                                                 {applicant.accepted && <div className="p-grid p-pl-5 p-pb-2">
                                                     <div className="p-pr-2">
-                                                        <Tag> <span >Accepted</span></Tag>
+                                                        <Tag className="header-color"> <span >Accepted</span></Tag>
                                                     </div>
                                                 </div>}
 
@@ -221,7 +233,7 @@ const Applicant = (props) => {
 
                     </div>
                     {/* Job Component*/}
-                    <Job />
+                    <RecentInstantJobs />
                 </div>
                 <div className="p-grid">
                     <div className="col-12">
