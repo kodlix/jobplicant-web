@@ -15,7 +15,7 @@ const RecentInstantJobs = () => {
     const [visible, setVisible] = useState(false);
     const [page, setPage] = useState(1);
     const [take, setTake] = useState(10);
-    const allCurrentInstantJobs = useSelector(state => state.instantJob.instantjobs);
+    const allCurrentInstantJobs = useSelector(state => state.instantJob.allCurrentInstantJobs);
     console.log("allcurrentjob", allCurrentInstantJobs)
 
     useEffect(() => {

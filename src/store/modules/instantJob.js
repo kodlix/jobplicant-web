@@ -7,6 +7,7 @@ import { MESSAGE_TYPE } from "store/constant";
 const Initial_State = {
     instantjob: {},
     instantjobs: [],
+    allCurrentInstantJobs: [],
     applicants: [],
 };
 
@@ -47,7 +48,7 @@ export default function reducer(state = Initial_State, action = {}) {
                 ...state,
                 error: null,
                 fetching: false,
-                instantjobs: action.payload
+                allCurrentInstantJobs: action.payload
             };
         case LOAD_INSTANT_APPLICANTS:
             return {
