@@ -46,6 +46,8 @@ const CreateContacts = React.lazy(() => import('../pages/contacts/Create'));
 const ListContacts = React.lazy(() => import('../pages/contacts/List'));
 const AdminServicesAndServiceGroups = React.lazy(() => import('pages/admin/dashboard/AdminServicesAndServiceGroups'));
 
+const HOWTOSTART = React.lazy(() => import('../pages/generate-CV/HowToStart'));
+const CVTEMPLATE = React.lazy(() => import('../pages/generate-CV/CV-Template'));
 
 
 const Artisan = React.lazy(() => import('../pages/artisans/List'));
@@ -101,7 +103,8 @@ const AppRouter = () => {
         <ProtectedRoute path="/contacts" exact component={ListContacts} />
         <ProtectedRoute path="/contacts/create" exact component={CreateContacts} />
 
-
+        <ProtectedRoute path="/howtostart" exact component={HOWTOSTART} />
+        <ProtectedRoute path="/cv-template" exact component={CVTEMPLATE} />
 
         <ProtectedRoute path="/artisans" exact component={Artisan} />
 

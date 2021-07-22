@@ -6,6 +6,7 @@ import BackgroundImage from '../../assets/bg.png'
 import { applyInstantJob, loadInstantJob } from 'store/modules/instantJob'
 import moment from 'moment'
 import { confirmDialog } from 'primereact/confirmdialog'
+import { Tag } from 'primereact/tag'
 
 const View = () => {
     const dispatch = useDispatch()
@@ -49,7 +50,7 @@ const View = () => {
                         </div>
                         <div className="company-caption" style={styles.topBarTextContainer}>
                             <h4 style={styles.topBarHeaderTextStyle}>{instantJobDetail.title}</h4>
-                            <p style={styles.topBarSubHeaderTextStyle}>{instantJobDetail.companyName}</p>
+                            <p style={styles.topBarSubHeaderTextStyle}>{instantJobDetail.createdBy}</p>
                         </div>
                     </div>
                 </div>
@@ -70,8 +71,8 @@ const View = () => {
                             <h4 className="p-title">Instant Job Detail</h4>
                             <div className="mt-3">
                                 <div className="p-text-secondary">
-                                    <p className="font-weight-bold app-color ">Job Service : {instantJobDetail.service} </p>
-                                    <p><span className="font-weight-bold app-color">Job Location : </span> {instantJobDetail.location}</p>
+                                    <p className="font-weight-bold app-color "> Service : <Tag>{instantJobDetail.service}</Tag> </p>
+                                    <p><span className="font-weight-bold app-color"> Location : </span> {instantJobDetail.location}</p>
                                     <p><span className="font-weight-bold app-color">Address : </span>{instantJobDetail.address} </p>
                                     <p><span className="font-weight-bold app-color">Phone Number : </span>{instantJobDetail.phoneNumber} </p>
                                     {/* <p><span className="font-weight-bold app-color">Job Description : </span> {instantJobDetail.description} </p> */}
