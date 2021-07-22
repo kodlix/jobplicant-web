@@ -1,6 +1,7 @@
 /* Table */
 .p-datatable-header-admin > .p-datatable-header > .table-header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 

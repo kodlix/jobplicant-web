@@ -6,18 +6,19 @@ import CustomInputField from "components/CustomInputField";
 import { createServiceGroup, deleteServiceGroup, loadServiceGroups, updateServiceGroup } from "store/modules/admin";
 import { Paginator } from 'primereact/paginator';
 import { DataTable } from 'primereact/datatable';
+import { InputText } from 'primereact/inputtext';
 import { Column } from 'primereact/column';
 
 const AdminServiceGroups = () => {
   const dispatch = useDispatch();
-  const [page, setPage] = useState(0);
-  const [serviceGroup, setServiceGroup] = useState({});
   const loading = useSelector(state => state.admin.adminLoading);
+  const serviceGroups = useSelector((state) => state.admin.serviceGroups);
+  const [page, setPage] = useState(1);
   const [pageLimit, setPageLimit] = useState(10);
   const [globalFilter, setGlobalFilter] = useState("");
-  const serviceGroups = useSelector((state) => state.admin.serviceGroups);
-
-
+  const [serviceGroup, setServiceGroup] = useState({});
+  const [totalCapacity, setTotalCapacity] = useState(0);
+  const [serviceGroupToDelete, setServiceGroupToDelete] = useState("");
   const {
     register: serviceGroupRegister,
     handleSubmit: handleServiceGroupSubmit,
@@ -27,11 +28,25 @@ const AdminServiceGroups = () => {
   } = useForm({ mode: "onChange", reValidateMode: "onChange" });
 
   useEffect(() => {
-    dispatch(loadServiceGroups(1, pageLimit, "loadServiceGroups", globalFilter));
+    dispatch(loadServiceGroups(page, pageLimit, "loadServiceGroups", globalFilter));
   }, [])
 
+  useEffect(() => {
+    //clear serviceGroupToDelete if error deleting service group
+    if (!loading) {
+      setServiceGroupToDelete(null);
+    }
+  }, [loading])
+
+  useEffect(() => {
+    //correct pagination on delete or create of service group
+    setTotalCapacity((serviceGroups?.meta?.page - 1) * serviceGroups?.meta?.limit);
+    setPage(serviceGroups?.meta?.page)
+  }, [serviceGroups])
+
   const onPaginationChange = (event) => {
-    setPage(event.first);
+    setPage(event.page + 1)
+    setTotalCapacity(event.first);
     setPageLimit(event.rows);
     dispatch(loadServiceGroups(event.page + 1, event.rows, "loadServiceGroups", globalFilter));
   }
@@ -41,38 +56,40 @@ const AdminServiceGroups = () => {
     setServiceGroupValue(e.target.name, e.target.value, { shouldValidate: true });
   }
 
-  //onClick
+  const handleServiceGroupSearch = () => {
+    dispatch(loadServiceGroups(page, pageLimit, "searchServiceGroups", globalFilter));
+  }
+
   const handleServiceGroupEdit = (data, id) => {
     clearServiceGroupErrors("serviceGroup",)
     setServiceGroup({ ...serviceGroup, id, name: data.name, description: data.description })
-    setServiceGroupValue('name', data.name);
-    setServiceGroupValue('description', data.description);
+    setServiceGroupValue('serviceGroupName', data.name);
+    setServiceGroupValue('serviceGroupDescription', data.description);
   }
 
-  const handleServiceGroupDelete = (id) => {
-    var confirm = window.confirm('Do you want to delete this service group?')
-    if (confirm) {
-      dispatch(deleteServiceGroup(id));
+  const handleServiceGroupDelete = (id, name) => {
+    var confirm = window.confirm(`Do you want to delete the service group "${name}"?`);
+    if (confirm && id) {
+      setServiceGroupToDelete(id);
+      if (serviceGroup.id === id) {
+        //change update form to create form if update form has service group id of deleted service group
+        setServiceGroup({ ...serviceGroup, id: null });
+      }
+      dispatch(deleteServiceGroup(id, "deleteServiceGroup", globalFilter));
     }
   }
 
   const cancelUpdateMode = () => {
     setServiceGroup({ ...serviceGroup, id: null });
   }
-  //onClick
 
   const onServiceGroupSubmit = data => {
-    console.log(data)
+    const formData = { name: data.serviceGroupName, description: data.serviceGroupDescription }
     if (serviceGroup.id) {
-      dispatch(updateServiceGroup(data, serviceGroup.id, "updateServiceGroup"))
+      dispatch(updateServiceGroup(formData, serviceGroup.id, "updateServiceGroup", globalFilter))
     } else {
-      dispatch(createServiceGroup(data, "createServiceGroup"))
+      dispatch(createServiceGroup(formData, "createServiceGroup", globalFilter))
     }
-  }
-
-
-  const onSearch = () => {
-    dispatch(loadServiceGroups(1, pageLimit, "searchServiceGroupss", globalFilter));
   }
 
   // Table Header
@@ -81,20 +98,17 @@ const AdminServiceGroups = () => {
       <div className="table-header">
         <span>
           List of Service Groups
-      {/* <span className="contact-searchInput p-pl-2">
-          (Showing {page + 1} to {page + services?.meta?.itemCount} of {services?.meta?.total})
-        </span> */}
         </span>
-        {/* <div className="d-flex align-items-baseline">
+        <form className="d-flex align-items-baseline" >
           <div className="p-input-icon-right searchInput-container-contact">
-            <InputText className="p-mr-2 p-pr-5 contact-searchInput" placeholder="Search all services" value={globalFilter} onChange={(e) => setGlobalFilter(e.currentTarget.value)} />
+            <InputText className="p-mr-2 p-pr-5 contact-searchInput" placeholder="Search all service groups" value={globalFilter} onChange={(e) => setGlobalFilter(e.currentTarget.value)} />
             {
-              globalFilter && loading !== "searchServices" &&
-              <i className="pi pi-times p-mr-2" onClick={() => { setGlobalFilter(""); dispatch(loadServiceGroups(1, pageLimit, "loadServices", "")) }} name="clear" />
+              globalFilter && loading !== "searchServiceGroups" &&
+              <i className="pi pi-times p-mr-2" onClick={() => { setGlobalFilter(""); dispatch(loadServiceGroups(page, pageLimit, "loadServiceGroups", "")) }} name="clear" />
             }
           </div>
-          <Button onClick={onSearch} type="button" icon="pi pi-search" className="p-px-1 p-pt-1 p-pb-2" loading={loading === "searchServices"} />
-        </div> */}
+          <Button onClick={handleServiceGroupSearch} type="submit" icon="pi pi-search" className="p-px-1 p-pt-1 p-pb-2" loading={loading === "searchServiceGroups"} />
+        </form>
       </div>
     );
   }
@@ -105,8 +119,15 @@ const AdminServiceGroups = () => {
 
   const SGActionTemplate = (rowData) =>
     <div>
-      <i className="pi pi-pencil p-pr-2" onClick={() => handleServiceGroupEdit(rowData, rowData.id)}></i>
-      <i className="pi pi-trash" onClick={() => handleServiceGroupDelete(rowData.id)}></i>
+      <i className="pi pi-pencil p-pr-3" onClick={() => handleServiceGroupEdit(rowData, rowData.id)} />
+      {
+        serviceGroupToDelete !== rowData.id &&
+        <i className="pi pi-trash" onClick={() => handleServiceGroupDelete(rowData.id, rowData.name)} />
+      }
+      {
+        serviceGroupToDelete === rowData.id &&
+        <i className="pi pi-spinner pi-spin" />
+      }
     </div>
 
   const getSGTableData = (data) => {
@@ -117,7 +138,7 @@ const AdminServiceGroups = () => {
           <Column field="description" header="Description"></Column>
           <Column header="Actions" body={SGActionTemplate}></Column>
         </DataTable>
-        <Paginator first={page} rows={pageLimit} totalRecords={serviceGroups?.meta?.total} rowsPerPageOptions={[10, 20, 50]} onPageChange={onPaginationChange}></Paginator>
+        <Paginator first={totalCapacity} rows={pageLimit} totalRecords={serviceGroups?.meta?.total} rowsPerPageOptions={[10, 20, 50]} onPageChange={onPaginationChange}></Paginator>
       </>
     )
   }
@@ -143,15 +164,15 @@ const AdminServiceGroups = () => {
               <form onSubmit={handleServiceGroupSubmit(onServiceGroupSubmit)}>
                 <div className="p-fluid p-formgrid p-grid">
                   <div className="p-field p-col-12 p-md-12 ">
-                    <label className="inputLabel" htmlFor="name">
+                    <label className="inputLabel" htmlFor="serviceGroupName">
                       Service Group Name
                           <span className="text-danger p-ml-2 font-weight-bold">
                         {serviceGroupErrors?.name?.message}
                       </span>
                     </label>
                     <CustomInputField
-                      id="name"
-                      name="Service Group"
+                      id="serviceGroupName"
+                      name="serviceGroupName"
                       inputLabel="Service Group"
                       register={serviceGroupRegister}
                       inputChange={handleServiceGroupChange}
@@ -159,15 +180,15 @@ const AdminServiceGroups = () => {
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-12">
-                    <label className="inputLabel" htmlFor="description">
+                    <label className="inputLabel" htmlFor="serviceGroupDescription">
                       Service Group Description
                           <span className="text-danger p-ml-2 font-weight-bold">
                         {serviceGroupErrors?.description?.message}
                       </span>
                     </label>
                     <CustomInputField
-                      id="description"
-                      name="Description"
+                      id="serviceGroupDescription"
+                      name="serviceGroupDescription"
                       inputLabel="Description"
                       register={serviceGroupRegister}
                       inputChange={handleServiceGroupChange}

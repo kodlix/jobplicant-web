@@ -101,20 +101,24 @@ export default function reducer(state = admin, action = {}) {
     case UPDATE_SKILLS:
     case UPDATE_QUALIFICATION:
     case UPDATE_SERVICE_GROUP:
-      console.log(state.serviceGroups)
-      const newServiceGroupArray = state.serviceGroups.data.filter(service => service.id !== action.payload.id);
+      const newServiceGroupArray = state.serviceGroups.data.filter(serviceGroup => serviceGroup.id !== action.payload.id);
       newServiceGroupArray.push(action.payload);
+      //check if any service has service group to be updated
+      const servicesWithOldServiceGroupName = state.services.data.filter(service => service.groupId === action.payload.id)
+      if (servicesWithOldServiceGroupName) {
+        servicesWithOldServiceGroupName.map((service1) => (service1.group = action.payload.name, service1.groupId = action.payload.id))
+      }
       return {
         ...state,
         loading: false,
         message: "updated",
         adminLoading: null,
         serviceGroups: { ...state.serviceGroups, data: newServiceGroupArray },
-        serviceGroupsForServiceComponent: { ...state.serviceGroups, data: newServiceGroupArray }
+        serviceGroupsForServiceComponent: { ...state.serviceGroupsForServiceComponent, data: newServiceGroupArray }
       }
     case UPDATE_SERVICE:
-      const newServiceArray = state.services.data.filter(service => service.groupId !== action.payload.id);
-      const updatedService = { name: action.payload.name, groupId: action.payload.id, description: action.payload.description }
+      const newServiceArray = state.services.data.filter(service => service.id !== action.payload.id);
+      const updatedService = { name: action.payload.name, id: action.payload.id, groupId: action.payload.groupId, group: action.payload.group, description: action.payload.description }
       newServiceArray.push(updatedService);
       return {
         ...state,
@@ -446,7 +450,7 @@ export const deleteQualification = (id) => dispatch => {
 
 //SERVICE GROUPS
 export const loadServiceGroups = (page, limit, loadingType, search) => (dispatch) => {
-  dispatch(adminLoading(loadingType))
+  dispatch(adminLoading(loadingType));
   return agent.ServiceGroup.load(page, limit, search).then((response) => {
     dispatch(actionLoadServiceGroups(response));
     dispatch(
@@ -466,16 +470,10 @@ export const loadServiceGroups = (page, limit, loadingType, search) => (dispatch
   );
 };
 
-export const loadServiceGroupsForServiceComponent = (page, limit, search) => (dispatch) => {
+export const loadServiceGroupsForServiceComponent = (page, limit, loadingType, search) => (dispatch) => {
+  dispatch(adminLoading(loadingType));
   return agent.ServiceGroup.loadForService(page, limit, search).then((response) => {
     dispatch(actionLoadServiceGroupsForService(response));
-    dispatch(
-      showMessage({
-        type: MESSAGE_TYPE.SUCCESS,
-        title: "Service Groups for service Information",
-        message: "Service Groups loaded for service successfully",
-      })
-    );
   },
     (error) => {
       // handle error
@@ -486,13 +484,13 @@ export const loadServiceGroupsForServiceComponent = (page, limit, search) => (di
   );
 };
 
-export const createServiceGroup = (data, loadingType) => dispatch => {
+export const createServiceGroup = (data, loadingType, search) => dispatch => {
   dispatch(adminLoading(loadingType));
   return agent.ServiceGroup.save(data).then(
     (response) => {
       dispatch(actionCreateServiceGroup(response));
-      dispatch(loadServiceGroups());
-      dispatch(loadServiceGroupsForServiceComponent());
+      dispatch(loadServiceGroups(1, 10, "loadServiceGroups", search));
+      dispatch(loadServiceGroupsForServiceComponent(1, 10, "loadServiceGroupsForService", ""));
       dispatch(
         showMessage({
           type: MESSAGE_TYPE.SUCCESS,
@@ -510,12 +508,19 @@ export const createServiceGroup = (data, loadingType) => dispatch => {
   );
 };
 
-export const updateServiceGroup = (data, id, loadingType) => dispatch => {
+export const updateServiceGroup = (data, id, loadingType, globalFilter) => dispatch => {
   dispatch(adminLoading(loadingType));
   return agent.ServiceGroup.edit(id, data).then(
     response => {
       //handle success
-      dispatch(actionUpdateServiceGroup(response));
+      if (data.description.includes(globalFilter) || data.name.includes(globalFilter)) {
+        dispatch(actionUpdateServiceGroup(response));
+      }
+      else {
+        dispatch(loadServiceGroups(1, 10, "loadServiceGroups", globalFilter));
+        dispatch(loadServiceGroupsForServiceComponent(1, 10, "loadServiceGroupsForService", globalFilter));
+        dispatch(loadServices(1, 10, "loadServices", ""))
+      }
       dispatch(
         showMessage({
           type: MESSAGE_TYPE.SUCCESS,
@@ -532,12 +537,14 @@ export const updateServiceGroup = (data, id, loadingType) => dispatch => {
     })
 }
 
-export const deleteServiceGroup = (id) => dispatch => {
+export const deleteServiceGroup = (id, loadingType, globalFilter) => dispatch => {
+  dispatch(adminLoading(loadingType));
   return agent.ServiceGroup.delete(id).then(
     (response) => {
-      dispatch(loadServiceGroups());
+      dispatch(adminLoading(null));
       dispatch(loading());
-      dispatch(loadServiceGroupsForServiceComponent());
+      dispatch(loadServiceGroups(1, 10, "loadServiceGroup", globalFilter));
+      dispatch(loadServiceGroupsForServiceComponent(1, 10, "loadServiceGroupForService", ""));
       dispatch(
         showMessage({
           type: MESSAGE_TYPE.SUCCESS,
@@ -549,6 +556,7 @@ export const deleteServiceGroup = (id) => dispatch => {
     (error) => {
       // handle error
       dispatch(adminLoadedError());
+      dispatch(adminLoading(null));
       dispatch(showMessage({ type: "error", message: error }));
     }
   );
@@ -581,7 +589,7 @@ export const createService = (data, loadingType) => dispatch => {
   return agent.Service.save(data).then(
     (response) => {
       dispatch(actionCreateService(response));
-      dispatch(loadServices(1, 10, ""))
+      dispatch(loadServices(1, 10, "loadServices", ""))
       dispatch(
         showMessage({
           type: MESSAGE_TYPE.SUCCESS,
@@ -599,11 +607,16 @@ export const createService = (data, loadingType) => dispatch => {
   );
 };
 
-export const updateService = (data, id, loadingType) => dispatch => {
+export const updateService = (data, id, loadingType, globalFilter) => dispatch => {
   dispatch(adminLoading(loadingType));
   return agent.Service.edit(id, data).then(response => {
     dispatch(adminLoading())
-    dispatch(actionUpdateService(response));
+    if (data.description.includes(globalFilter) || data.name.includes(globalFilter)) {
+      dispatch(actionUpdateService(response));
+    }
+    else {
+      dispatch(loadServices(1, 10, "loadServices", globalFilter));
+    }
     dispatch(
       showMessage({
         type: MESSAGE_TYPE.SUCCESS,
@@ -623,7 +636,7 @@ export const updateService = (data, id, loadingType) => dispatch => {
 export const deleteService = (id) => dispatch => {
   return agent.Service.delete(id).then(
     (response) => {
-      dispatch(loadServices(1, 10, ""))
+      dispatch(loadServices(1, 10, "loadServices", ""))
       dispatch(
         showMessage({
           type: MESSAGE_TYPE.SUCCESS,

@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux"
 import CustomInputField from "components/CustomInputField";
 import { Paginator } from 'primereact/paginator';
+import { AutoComplete } from 'primereact/autocomplete';
 import { createService, deleteService, loadServices, updateService, loadServiceGroupsForServiceComponent } from "store/modules/admin";
-import { Dropdown } from 'primereact/dropdown';
 import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 import { InputText } from 'primereact/inputtext';
@@ -13,22 +13,17 @@ import "./Admin.css";
 
 const AdminServices = () => {
   const dispatch = useDispatch();
-  const [page, setPage] = useState(0);
-  const [serviceGroupPage, setServiceGroupPage] = useState(1);
+  const services = useSelector((state) => state.admin.services);
+  const loading = useSelector(state => state.admin.adminLoading);
+  const serviceGroupOptionsByPage = useSelector((state) => state.admin.serviceGroupsForServiceComponent);
+  const [page, setPage] = useState(1);
   const [service, setService] = useState({});
   const [pageLimit, setPageLimit] = useState(10);
   const [globalFilter, setGlobalFilter] = useState("");
-  const loading = useSelector(state => state.admin.adminLoading);
-  const services = useSelector((state) => state.admin.services);
+  const [totalCapacity, setTotalCapacity] = useState(0);
+  const [serviceToDelete, setServiceToDelete] = useState("");
   const [serviceGroupOptions, setServiceGroupOptions] = useState([]);
-  const [selectedServiceGroupOption, setSelectedServiceGroupOption] = useState({});
-  const serviceGroupOptionsByPage = useSelector((state) => state.admin.serviceGroupsForServiceComponent);
-
-  const onPaginationChange = (event) => {
-    setPage(event.first);
-    setPageLimit(event.rows);
-    dispatch(loadServices(event.page + 1, event.rows, "loadServices", globalFilter));
-  }
+  const [selectedServiceGroupOption, setSelectedServiceGroupOption] = useState(null);
 
   // React hook form
   const {
@@ -37,46 +32,69 @@ const AdminServices = () => {
     setValue: setServiceValue,
     formState: { errors: serviceErrors },
     clearErrors: clearServiceErrors,
+    setError
   } = useForm({ mode: "onChange", reValidateMode: "onChange" });
   // React hook form
 
+  const onPaginationChange = (event) => {
+    setTotalCapacity(event.first);
+    setPageLimit(event.rows);
+    dispatch(loadServices(event.page + 1, event.rows, "loadServices", globalFilter));
+  }
+
+
   useEffect(() => {
-    dispatch(loadServiceGroupsForServiceComponent());
-    dispatch(loadServices(1, pageLimit, "loadServices", globalFilter));
+    // clear service group if a service group has been created or updated
+    if (loading === "createServiceGroup" || loading === "updateServiceGroup") {
+      setSelectedServiceGroupOption(null);
+      setServiceValue('groupId', "");
+    }
+    //clear serviceToDelete if error deleting service
+    if (!loading) {
+      setServiceToDelete(null);
+    }
+  }, [loading]);
+
+  useEffect(() => {
+    dispatch(loadServices(page, pageLimit, "loadServices", globalFilter));
   }, [dispatch]);
 
+  useEffect(() => {
+    //correct pagination on delete or create of service
+    setTotalCapacity((services?.meta?.page - 1) * services?.meta?.limit);
+    setPage(services?.meta?.page)
+  }, [services])
 
   useEffect(() => {
+    // create array for service group autocomplete dropdown
     const newArray = [];
-    if (serviceGroupOptionsByPage?.data?.length) {
-      serviceGroupOptionsByPage.data.map((serviceGroup) => { newArray.push({ serviceGroupName: serviceGroup.name, serviceGroupId: serviceGroup.id }) })
-    }
-    if (serviceGroupPage === 1) {
-      setServiceGroupOptions(newArray);
-    }
-    else {
-      setServiceGroupOptions([...serviceGroupOptions, ...newArray]);
-      setServiceGroupPage(serviceGroupPage + 1);
-    }
+    serviceGroupOptionsByPage?.data?.map((serviceGroup) => { newArray.push({ group: serviceGroup.name, groupId: serviceGroup.id }) })
+    setServiceGroupOptions(newArray);
   }, [serviceGroupOptionsByPage]);
 
-  // onClick Functions
   const handleServiceEdit = (data, id) => {
     clearServiceErrors();
-    setService({ ...service, name: data.name, id: id, description: data.description, serviceGroup: { serviceGroupName: "service Group 20", serviceGroupId: "9a71b183-80c2-4876-b949-5ad85890e3d7" } });
-    setSelectedServiceGroupOption({ serviceGroupName: "service Group 20", serviceGroupId: "9a71b183-80c2-4876-b949-5ad85890e3d7" })
+    setService({ ...service, name: data.name, id: id, description: data.description, serviceGroup: { group: data.groupName, groupId: data.groupId } });
+    setSelectedServiceGroupOption({ group: data.group, groupId: data.groupId })
+
+    //set values in react hook
     setServiceValue('name', data.name);
     setServiceValue('description', data.description);
-    setServiceValue('serviceGroupId', data.groupId);
+    setServiceValue('groupId', data.groupId);
   }
 
-  const onSearch = () => {
-    dispatch(loadServices(1, pageLimit, "searchServices", globalFilter));
+  const handleServiceSearch = () => {
+    dispatch(loadServices(page, pageLimit, "searchServices", globalFilter));
   }
 
-  const handleServiceDelete = (id) => {
-    var confirm = window.confirm('Do you want to delete this service?')
+  const handleServiceDelete = (id, name) => {
+    var confirm = window.confirm(`Do you want to delete the service "${name}"?`)
     if (confirm && id) {
+      setServiceToDelete(id);
+      if (service.id === id) {
+        //change update form to create form if update form has service id of deleted service
+        setService({ ...service, id: null });
+      }
       dispatch(deleteService(id));
     }
   }
@@ -84,22 +102,26 @@ const AdminServices = () => {
   const cancelUpdateMode = () => {
     setService({ ...service, id: null });
   }
-  // onClick Functions
+
+  const searchServiceGroups = (e) => {
+    const searchValue = e.query ? e.query : "";
+    dispatch(loadServiceGroupsForServiceComponent(1, 10, "searchServiceGroupsForService", searchValue))
+  }
 
   const handleServiceChange = e => {
-    if (e.target.name === "serviceGroupId") {
-      setSelectedServiceGroupOption(e.value);
-      setServiceValue(e.target.name, e.value, { shouldValidate: true });
-    }
-    else {
-      setService({ ...service, [e.target.name]: e.target.value });
-      setServiceValue(e.target.name, e.target.value, { shouldValidate: true });
-    }
+    setService({ ...service, [e.target.name]: e.target.value });
+    setServiceValue(e.target.name, e.target.value, { shouldValidate: true });
   }
+
+  const handleServiceGroupChange = e => {
+    setSelectedServiceGroupOption(e.value);
+    setServiceValue(e.target.name, e.value, { shouldValidate: true });
+  }
+
   const onServiceSubmit = (data) => {
-    data.serviceGroupId = selectedServiceGroupOption.serviceGroupId;
+    data.groupId = selectedServiceGroupOption.groupId;
     if (service.id) {
-      dispatch(updateService(data, service.id, "updateService"))
+      dispatch(updateService(data, service.id, "updateService", globalFilter));
     } else {
       dispatch(createService(data, "createService"));
     }
@@ -111,20 +133,17 @@ const AdminServices = () => {
       <div className="table-header">
         <span>
           List of Services
-        {/* <span className="contact-searchInput p-pl-2">
-            (Showing {page + 1} to {page + services?.meta?.itemCount} of {services?.meta?.total})
-          </span> */}
         </span>
-        <div className="d-flex align-items-baseline">
+        <form className="d-flex align-items-baseline">
           <div className="p-input-icon-right searchInput-container-contact">
             <InputText className="p-mr-2 p-pr-5 contact-searchInput" placeholder="Search all services" value={globalFilter} onChange={(e) => setGlobalFilter(e.currentTarget.value)} />
             {
               globalFilter && loading !== "searchServices" &&
-              <i className="pi pi-times p-mr-2" onClick={() => { setGlobalFilter(""); dispatch(loadServices(1, pageLimit, "loadServices", "")) }} name="clear" />
+              <i className="pi pi-times p-mr-2" onClick={() => { setGlobalFilter(""); dispatch(loadServices(page, pageLimit, "loadServices", "")) }} name="clear" />
             }
           </div>
-          <Button onClick={onSearch} type="button" icon="pi pi-search" className="p-px-1 p-pt-1 p-pb-2" loading={loading === "searchServices"} />
-        </div>
+          <Button onClick={handleServiceSearch} type="submit" icon="pi pi-search" className="p-px-1 p-pt-1 p-pb-2" loading={loading === "searchServices"} />
+        </form>
       </div>
     );
   }
@@ -135,27 +154,33 @@ const AdminServices = () => {
 
   const SActionTemplate = (rowData) =>
     <div>
-      <i className="pi pi-pencil p-pr-2" onClick={() => handleServiceEdit(rowData, rowData.groupId)} />
-      <i className="pi pi-trash" onClick={() => handleServiceDelete(rowData.groupId)} />
+      <i className="pi pi-pencil p-pr-3" onClick={() => handleServiceEdit(rowData, rowData.id)} />
+      {
+        serviceToDelete !== rowData.id &&
+        <i className="pi pi-trash" onClick={() => handleServiceDelete(rowData.id, rowData.name)} />
+      }
+      {
+        serviceToDelete === rowData.id &&
+        <i className="pi pi-spinner pi-spin" />
+      }
     </div>
 
   const getSTableData = (data) => {
     return (
       <>
         <DataTable value={data}
-          header={header} className="p-datatable-header-admin" dataKey="groupId" rowHover
+          header={header} className="p-datatable-header-admin" dataKey="id" rowHover
         >
           <Column field="name" header="Name"></Column>
           <Column field="description" header="Description"></Column>
+          <Column field="group" header="Service Group"></Column>
           <Column header="Actions" body={SActionTemplate}></Column>
         </DataTable>
-        <Paginator first={page} rows={pageLimit} totalRecords={services?.meta?.total} rowsPerPageOptions={[10, 20, 50]} onPageChange={onPaginationChange}></Paginator>
+        <Paginator first={totalCapacity} rows={pageLimit} totalRecords={services?.meta?.total} rowsPerPageOptions={[10, 20, 50]} onPageChange={onPaginationChange}></Paginator>
       </>
     )
   }
   // Table Body
-
-  console.log(services)
 
   return (
     <>
@@ -209,28 +234,29 @@ const AdminServices = () => {
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-12">
-                    <label className="inputLabel" htmlFor="serviceGroupId">
+                    <label className="inputLabel" htmlFor="groupId">
                       Service Group
                         <span className="text-danger p-ml-2 font-weight-bold">
-                        {serviceErrors?.serviceGroupId?.message}
+                        {serviceErrors?.groupId?.message}
                       </span>
                     </label>
-                    <div className="p-grid p-mt-1 text-left">
-                      <p className="p-pl-2 p-pb-2 selectedServiceGroup-admin"><b>Selected:</b> {selectedServiceGroupOption?.serviceGroupName || "none"}</p>
-                      <Dropdown
-                        filter
-                        showClear
-                        className="w-100 p-mx-2"
-                        filterBy="serviceGroupName"
-                        options={serviceGroupOptions}
+                    <div className="p-mt-1 text-left">
+                      <AutoComplete
+                        field="group"
+                        dropdown
+                        forceSelection
+                        dropdownMode="current"
+                        suggestions={serviceGroupOptions}
                         value={selectedServiceGroupOption}
-                        optionLabel="serviceGroupName"
-                        placeholder="Select a Service Group"
-                        name="serviceGroupId"
-                        {...serviceRegister("serviceGroupId", {
-                          required: " * Service Group is required",
-                        })}
-                        onChange={handleServiceChange}
+                        placeholder="Search and select a service group"
+                        {
+                        ...serviceRegister
+                          ("groupId", {
+                            required: " * Service Group is required",
+                          })
+                        }
+                        onChange={handleServiceGroupChange}
+                        completeMethod={searchServiceGroups}
                       />
                     </div>
                   </div>
