@@ -4,7 +4,7 @@ import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { useDispatch, useSelector } from "react-redux";
 import ModeFooter from 'pages/profile/ModeFooter';
-import { loadCountry} from 'store/modules/location';
+import { loadCountry } from 'store/modules/location';
 import { updateContactInfo } from 'store/modules/account';
 import SectionHeader from './SectionHeader';
 
@@ -16,12 +16,14 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
   const dispatch = useDispatch();
   const countries = useSelector(state => state.location.countries);
   const states = useSelector(state => state.location.states);
- 
-  
+
+
   const [contactInfo, setContactInfo] = useState({});
   const profileInfo = useSelector(state => state.account.profileInfo);
-  const loading = useSelector(state => state.account.loading);
+  const loading = useSelector(state => state.account.submitting);
   const [selectCountry, setSelectedCountry] = useState("null");
+
+  console.log("countries details", countries)
 
 
 
@@ -112,7 +114,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
               <div className="p-field p-col-12 p-md-6">
                 <label htmlFor="email" className="inputLabel p-pr-3">Email Address
                   {errors.email && <small className="text-danger font-weight-bold">&nbsp;
-                  {errors?.email?.message}</small>}
+                    {errors?.email?.message}</small>}
                 </label>
                 <InputText name="email" id="email" type="email"
                   {...register("email",
@@ -134,7 +136,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                 <select id="country"
                   className="form-control"
                   name="country"
-                  value={country}
+                  value={country?.id}
                   // onChange={(e) => handleOnChange(e)}
                   onChange={handleChange}
                   {...register("country")}
@@ -142,7 +144,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                 >
                   <option value="">Select Country</option>
                   {countries.map(country =>
-                    <option key={country.name} value={country.name}>{country.name}
+                    <option key={country.name} value={country.id}>{country.name}
                     </option>)}
 
                 </select>
@@ -191,7 +193,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                   value={address}
                   {...register("address")}
                   onChange={e => {
-                    setContactInfo({ ...contactInfo, address: e.target.value});
+                    setContactInfo({ ...contactInfo, address: e.target.value });
                     setValue('address', e.target.value);
                   }} />
               </div>

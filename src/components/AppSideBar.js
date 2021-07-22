@@ -65,9 +65,9 @@ const AppSideBar = (props) => {
                             </li>}
 
                             <li className='li-border'>
-                                <Link to="/dashboard">
+                                <Link to="/howtostart">
                                     <i className="li-icon lni lni-clipboard"></i>
-                                    <span className="li-title">My Resume</span>
+                                    <span className="li-title">CV Service</span>
                                 </Link>
                             </li>
                             <li className='li-border'>

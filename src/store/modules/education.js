@@ -7,6 +7,7 @@ import { MESSAGE_TYPE } from "../constant";
 //INITIAL STATE
 const INITIAL_STATE = {
   loading: false,
+  submitting: false,
   data: {
     institution: "",
     qualification: "",
@@ -25,10 +26,16 @@ const UPDATE_EDUCATION = "UPDATE_EDUCATION";
 const LOAD_EDUCATION = "LOAD_EDUCATION";
 const LOADING_EDUCATION = "LOADING_EDUCATION";
 const LOAD_EDUCATION_ERROR = "LOAD_EDUCATION_ERROR";
+const SUBMITTING = "SUBMITTING"
 
 //REDUCER
 export default function reducer(state = INITIAL_STATE, action = {}) {
   switch (action.type) {
+    case SUBMITTING:
+      return {
+        ...state,
+        submitting: true
+      }
     case LOADING_EDUCATION:
       return {
         ...state,
@@ -39,6 +46,7 @@ export default function reducer(state = INITIAL_STATE, action = {}) {
       return {
         ...state,
         loading: false,
+        submitting: false,
         data: action.payload,
         updatedOrDeleted: true,
       };
@@ -46,11 +54,12 @@ export default function reducer(state = INITIAL_STATE, action = {}) {
       return {
         ...state,
         loading: false,
+        submitting: false,
         data: action.payload,
         updatedOrDeleted: false,
       };
     case LOAD_EDUCATION_ERROR:
-      return { ...state, loading: false, updatedOrDeleted: false };
+      return { ...state, loading: false,submitting: false, updatedOrDeleted: false };
     default:
       return state;
   }
@@ -60,6 +69,9 @@ export default function reducer(state = INITIAL_STATE, action = {}) {
 export const isLoading = () => ({
   type: LOADING_EDUCATION,
 });
+export const isSubmitting = () => ({
+  type: SUBMITTING
+})
 export const educationLoaded = (data) => ({
   type: LOAD_EDUCATION,
   payload: data,

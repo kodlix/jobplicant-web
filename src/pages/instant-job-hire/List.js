@@ -35,8 +35,8 @@ const InstantHires = () => {
         });
     }
 
-    if (instantJobs && !instantJobs.length)
-        return <Spinner />
+    // if (instantJobs && !instantJobs.length)
+    //     return <Spinner />
 
     return (
         <div>
@@ -50,6 +50,7 @@ const InstantHires = () => {
                                         title="All Created instant hires"
                                         showCreateButton={true}
                                         count={instantJobs?.length}
+                                        showSearchBar={true}
                                     />
                                     {instantJobs && instantJobs.length > 0 && instantJobs.map(instantjob =>
                                         <div key={instantjob.id}>

@@ -7,6 +7,7 @@ import { MESSAGE_TYPE } from "store/constant";
 const Initial_State = {
     instantjob: {},
     instantjobs: [],
+    allCurrentInstantJobs: [],
     applicants: [],
 };
 
@@ -47,7 +48,7 @@ export default function reducer(state = Initial_State, action = {}) {
                 ...state,
                 error: null,
                 fetching: false,
-                instantjobs: action.payload
+                allCurrentInstantJobs: action.payload
             };
         case LOAD_INSTANT_APPLICANTS:
             return {
@@ -111,7 +112,7 @@ export function createInstantJob(instantjob) {
     }
 }
 
-// This function loads all instant jobs created by a perticular user.
+// This function loads all instant jobs created by a particular user.
 export function loadInstantJobs() {
     return dispatch => {
         return agent.InstantJob.load().then(
@@ -125,7 +126,7 @@ export function loadInstantJobs() {
         )
     }
 }
-// This function loads all instant jobs that have been created by different users.
+// This function loads all instant jobs that created by different users.
 export function fetchAllInstantJobs(page, take) {
     return dispatch => {
         return agent.InstantJob.loadAllInstantJobs(page, take).then(
@@ -147,6 +148,7 @@ export function acceptApplicant(id) {
                 //handle success
                 dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "The applicant will be notified", title: 'Request accepted Successful' }));
                 // dispatch(onLoadInstantJobApplicants(response));
+                window.location.reload();
             },
             error => {
                 dispatch(showMessage({ type: "error", message: error, title: "Failed to load Instant jobs" }));
@@ -162,6 +164,8 @@ export function rejectApplicant(id) {
                 //handle success
                 dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "Applicant's request rejected", title: 'Request rejected Successful' }));
                 // dispatch(onLoadInstantJobApplicants(response));
+                window.location.reload();
+
             },
             error => {
                 dispatch(showMessage({ type: "error", message: error, title: "Failed to load Instant jobs" }));

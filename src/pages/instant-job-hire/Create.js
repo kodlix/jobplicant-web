@@ -156,7 +156,7 @@ const New = ({ mode }) => {
                                                     id="service"
                                                     name="service"
                                                     value={selectedCategory}
-                                                    {...register("service", { required: `* Please Select a service` })}
+                                                    {...register("service", { required: ` Please Select a service` })}
                                                     onChange={handleChange}
                                                 />
 
@@ -224,7 +224,7 @@ const New = ({ mode }) => {
                                                     // maxDate={endDate}
                                                     name="startDate"
                                                     {...register("startDate", {
-                                                        required: `* Start Date is required`,
+                                                        required: ` Start Date is required`,
                                                     })}
                                                     onSelect={(e) => {
                                                         const inputName = "startDate";
@@ -235,7 +235,7 @@ const New = ({ mode }) => {
                                                     }}
                                                     name="startDate"
                                                     {...register("startDate", {
-                                                        required: `* Start date is required`,
+                                                        required: `Start date is required`,
                                                     })}
                                                 />
                                                 {errors.startDate && <span className="text-danger font-weight-bold "> <p>{errors.startDate.message}</p>
@@ -253,7 +253,7 @@ const New = ({ mode }) => {
                                                     // minDate={startDate || null}
                                                     name="endDate"
                                                     {...register("endDate", {
-                                                        required: `* End Date is required`,
+                                                        required: `End Date is required`,
                                                     })}
                                                     onSelect={(e) => {
                                                         const inputName = "endDate";
@@ -263,7 +263,7 @@ const New = ({ mode }) => {
                                                     }}
                                                     name="endDate"
                                                     {...register("endDate", {
-                                                        required: `* End date is required`,
+                                                        required: ` End date is required`,
                                                         validate: value => !value || !startdate || value > startdate || "End date cannot be less than Start date"
                                                     })}
                                                 />

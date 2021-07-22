@@ -13,16 +13,21 @@ import { openModal } from "store/modules/modal";
 import PersonalInfo from "./PersonalInfo";
 import CustomBreadCrumb from "helpers/BreadCrumb";
 import agentService from "services/agent.service";
+import ChatContainer from "components/chat/ChatContainer";
+import ChatContent from "components/chat/ChatContent";
+
 // import BreadCrumbPane from 'helpers/BreadCrumb';
 
 
 const UserProfile = ({ match }) => {
+  const [contact, setContact] = React.useState(null)
 
   const dispatch = useDispatch();
   const [, setMode] = useState("");
   const [] = useState({});
   const accountType = agentService.Auth.current().accountType;
 
+  console.log('account type' ,accountType)
 
   const openCreate = (name) => {
     setMode("create");
@@ -67,10 +72,13 @@ const UserProfile = ({ match }) => {
                 </div>
               </div>
               {/* portfolio */}
-              {accountType !== "Artisan" && <Portfolio openCreate={openCreate} openEdit={openEdit} />}
+              {accountType === "Artisan" && <Portfolio openCreate={openCreate} openEdit={openEdit} />}
             </div>
           </div>
+        <ChatContainer setContact={setContact} selectedContact={contact} />
+        {contact !== null && <ChatContent setContact={setContact} contact={contact} />}
         </div>
+        
     </>
   );
 };

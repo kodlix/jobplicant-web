@@ -21,6 +21,7 @@ const experience = {
     jobCategoryId: "",
   },
   loading: false,
+  submitting: false,
   updatedOrDeleted: false,
 };
 
@@ -28,6 +29,7 @@ const experience = {
 const UPDATE_PROFILE = "app/experience/UPDATE_PROFILE ";
 const LOAD_EXPERIENCE = "app/experience/LOAD_EXPERIENCE";
 const LOADING = "LOADING";
+const SUBMITTING = "SUBMITTING";
 const LOADING_ERROR = "LOADING_ERROR";
 
 // Reducer
@@ -35,7 +37,9 @@ export default function reducer(state = experience, action = {}) {
   switch (action.type) {
     case LOADING:
       return { ...state, loading: true, updatedOrDeleted: false };
-
+    case SUBMITTING: {
+      return {...state, submitting: true}
+    }
     case LOAD_EXPERIENCE:
       return {
         ...state,
@@ -67,6 +71,9 @@ export function loadError() {
 export function isLoading() {
   return { type: LOADING }
 }
+export function isSubmitting(){
+  return {type: SUBMITTING}
+}
 // Actions
 export function loadExperience(id) {
   return (dispatch) => {
@@ -78,7 +85,7 @@ export function loadExperience(id) {
 
 export function createExperience(data) {
   return (dispatch) => {
-    dispatch(isLoading());
+    dispatch(isSubmitting());
     return agent.JobExperience.save(data).then(
       (response) => {
         dispatch(experienceLoaded(response));
@@ -103,7 +110,7 @@ export function createExperience(data) {
 
 export function updateExperience(id, data) {
   return (dispatch) => {
-    dispatch(isLoading())
+    dispatch(isSubmitting())
     return agent.JobExperience.edit(id, data).then(
       (response) => {
         dispatch(experienceLoaded(response));

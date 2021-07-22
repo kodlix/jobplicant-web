@@ -24,7 +24,7 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
     city: "",
     lga: "",
   });
-  const loading = useSelector((state) => state.account.loading);
+  const loading = useSelector((state) => state.account.submitting);
   const countries = useSelector(state => state.location.countries);
   const states = useSelector(state => state.location.states);
   const lgas = useSelector(state => state.location.lgas);
@@ -37,51 +37,92 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
     formState: { errors },
   } = useForm({ mode: "onChange", reValidateMode: "onChange" });
 
+  const [countryObj, setCountryObj] = useState(null)
+  const [stateObj, setStateObj] = useState(null)
+  const [lgaObj, setLgaObj] = useState(null)
+
+
   useEffect(() => {
-    dispatch(loadCountry());
-    dispatch(loadStates(1));
-    dispatch(loadLga(1))
+    dispatch(loadCountry())
+    const countryObj = countries.find(country => country.name === data.country);
+    dispatch(loadStates(countryObj?.id));
+    setPersonalProfile({
+      ...personalProfile,
+      country: countryObj
+    })
+    setValue("country", countryObj?.name);
+    setCountryObj(countryObj)
+
+    
+    // setCountryId(countryId)
+    
+    console.log('come on', data, countryObj)
   }, []);
 
   useEffect(() => {
-    if (data) {
+    if (states) {
+      
+      const stateObj = states.find(state => state.name === data.state)
+      setPersonalProfile({
+        ...personalProfile,
+        state: stateObj
+      })
+      setValue("state", stateObj?.name)
+      setStateObj(stateObj)
+      dispatch(loadLga(stateObj?.id))
+    }
+  }, [ states])
+
+  useEffect(() => {
+    if (lgas) {
+
+      const lgaObj = lgas.find(lga => lga.name === data.lga);
+      setPersonalProfile({ ...personalProfile, lga: lgaObj });
+      setValue('lga', lgaObj?.name);
+      setLgaObj(lgaObj)
+    }
+  }, [lgas])
+
+  useEffect(() => {
+    if (data !== null) {
       setPersonalProfile({
         ...personalProfile,
         firstName: data.firstName,
         lastName: data.lastName,
-        otherName: data.otherName,
+        otherName: data.otherName || "Berner" ,
         dateOfBirth: new Date(data.dateOfBirth),
         city: data.city,
-        country: countries.find(country => country.id === 1),
-        state: states.find(state => state.id === 1),
-        lga: lgas.find(lga => lga.id === 1),
+        country: countries.find(country => country.name === data.country),
+        state: states.find(state => state.name === data.state),
+        lga: lgas.find(lga => lga.name === data.lga),
         address: data.address,
       });
 
-      
       setValue("firstName", data.firstName);
       setValue("lastName", data.lastName);
-      setValue("otherName", data.lastName);
+      setValue("otherName", data.otherName|| "Berner");
       setValue("dateOfBirth", data.dateOfBirth);
       setValue("city", data.city);
       setValue("state", data.state);
       setValue("country", data.country);
       setValue("lga", data.country);
-      setValue("address", data.address);
+      setValue("address", data.address || '');
 
     }
   }, [data]);
 
-  
-
   const handleCountryChange = (e) => {
-    let conuntryId = e.target.value.id;
-    dispatch(loadStates(conuntryId));
+    if (e.target.value) {
+      let conuntryId = e.target.value.id;
+      dispatch(loadStates(conuntryId));
+    }
   }
 
   const handleStateChange = (e) => {
-    let stateId = e.target.value.id;
-    dispatch(loadLga(stateId));
+    if (e.target.value) {
+      let stateId = e.target.value.id;
+      dispatch(loadLga(stateId));
+    }
   }
 
 
@@ -96,10 +137,7 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
     console.log(e.target.id);
   };
 
-  const personalInfoSubmit = (personal) => {
-    console.log(personalProfile)
-    dispatch(updatePersonalProfile(personalProfile));
-  };
+  const personalInfoSubmit = (personal) => dispatch(updatePersonalProfile(personalProfile));
 
   return (
     <>
@@ -116,13 +154,13 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
             <div className="row">
               <div className="col-md-6">
                 <label htmlFor="firstName" className="inputLabel p-mb-2">
-                  First Name
+                  First Name *
                 </label>
                 <label htmlFor="biographyInput" className="">
                   {errors?.firstName?.type === "required" && (
                     <span className="text-danger font-weight-bold">
                       {" "}
-                      <p> &nbsp;(*{errors.firstName.message})</p>
+                      <p>{errors.firstName.message}</p>
                     </span>
                   )}
                 </label>
@@ -135,19 +173,19 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
                   inputLabel="First Name"
                   className="inputField"
                   placeholder="First Name"
-                  value={personalProfile.firstName} 
-                  inputChange={ handleChange}
+                  value={personalProfile.firstName}
+                  inputChange={handleChange}
                 />
               </div>
               <div className="col-md-6">
                 <label htmlFor="lastName" className="inputLabel p-mb-2">
-                  Last Name
+                  Last Name *
                 </label>
                 <label htmlFor="biographyInput" className="">
                   {errors?.lastName?.type === "required" && (
                     <span className="text-danger font-weight-bold">
                       {" "}
-                      <p> &nbsp;(*{errors.lastName.message})</p>
+                      <p>{errors.lastName.message})</p>
                     </span>
                   )}
                 </label>
@@ -160,20 +198,20 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
                   inputLabel="Last Name"
                   className="inputField"
                   placeholder="Last Name"
-                  value={personalProfile.lastName} 
+                  value={personalProfile.lastName}
                   inputChange={handleChange}
                   register={register}
                 />
               </div>
               <div className="p-field p-col-12 p-md-6">
                 <label htmlFor="otherName" className="inputLabel p-mb-2">
-                  Other Name
+                  Other Name *
                 </label>
                 <label htmlFor="biographyInput" className="">
                   {errors?.otherName?.type === "required" && (
                     <span className="text-danger font-weight-bold">
                       {" "}
-                      <p> &nbsp;(*{errors.otherName.message})</p>
+                      <p>{errors.otherName.message})</p>
                     </span>
                   )}
                 </label>
@@ -186,14 +224,14 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
                   inputLabel="Other Name"
                   className="inputField"
                   placeholder="Other Name"
-                  value={personalProfile.otherName} 
+                  value={personalProfile.otherName}
                   register={register}
                   inputChange={handleChange}
                 />
               </div>
               <div className="p-field p-col-12 p-md-6">
                 <label className="inputLabel" htmlFor="startDate">
-                  Date Of Birth
+                  Date Of Birth *
                   {errors.dateOfBirth && (
                     <span className="text-danger font-weight-bold">
                       &nbsp; {errors.dateOfBirth.message}
@@ -205,14 +243,14 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
                   type="date"
                   value={personalProfile.dateOfBirth}
                   className="inputField"
-                  dateFormat='dd/mm/yy' 
+                  dateFormat='dd/mm/yy'
                   name="dateOfBirth"
                   {...register("dateOfBirth", {
-                    required: `* Date of birth is required`,
+                    required: `Date of birth is required`,
                   })}
                   onSelect={(e) => {
                     const inputName = "dateOfBirth";
-             
+
                     const value = new Date(e.value).toISOString();
 
                     setPersonalProfile({
@@ -225,105 +263,105 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
               </div>
               <div className="p-field p-col-12 p-md-6">
                 <label className="inputLabel" htmlFor="city">
-                  Country
+                  Country *
                   {errors.country && (
                     <span className="text-danger font-weight-bold">
                       &nbsp; {errors.country.message}
                     </span>
                   )}
                 </label>
-                
+
                 <Dropdown
-                    options={countries}
-                    optionLabel="name"
-                    filter
-                    showClear
-                    filterBy="name"
-                    icon="pi pi-plus"
-                    id="country"
-                    name="country"
-                    value={personalProfile.country}
-                    {...register("country",
-                      {
-                        required: ` Country is required`
-                      }
-                    )}
-                    onChange={(e) => {
-                      handleChange(e)
-                      handleCountryChange(e);
-                    }} 
-                    className="form-control"
-                  />
+                  options={countries}
+                  optionLabel="name"
+                  filter
+                  showClear
+                  filterBy="name"
+                  icon="pi pi-plus"
+                  id="country"
+                  name="country"
+                  value={personalProfile.country}
+                  {...register("country",
+                    {
+                      required: `Country is required`
+                    }
+                  )}
+                  onChange={(e) => {
+                    handleChange(e)
+                    handleCountryChange(e);
+                  }}
+                  className="form-control"
+                />
               </div>
               <div className="p-field p-col-12 p-md-6">
                 <label className="inputLabel" htmlFor="city">
-                  State
+                  State *
                   {errors.state && (
                     <span className="text-danger font-weight-bold">
                       &nbsp; {errors.state.message}
                     </span>
                   )}
                 </label>
-               
+
                 <Dropdown
-                    options={states}
-                    optionLabel="name"
-                    filter
-                    showClear
-                    filterBy="name"
-                    icon="pi pi-plus"
-                    id="stateList"
-                    name="state"
-                    value={personalProfile.state}
-                    {...register("state",
-                      {
-                        required: ` State is required`
-                      }
-                    )}
-                    onChange={(e) => {
-                      handleChange(e);
-                      handleStateChange(e);
-                    }} 
-                    className="form-control"
-                  />
+                  options={states}
+                  optionLabel="name"
+                  filter
+                  showClear
+                  filterBy="name"
+                  icon="pi pi-plus"
+                  id="stateList"
+                  name="state"
+                  value={personalProfile.state}
+                  {...register("state",
+                    {
+                      required: `State is required`
+                    }
+                  )}
+                  onChange={(e) => {
+                    handleChange(e);
+                    handleStateChange(e);
+                  }}
+                  className="form-control"
+                />
               </div>
               <div className="p-field p-col-12 p-md-6">
                 <label className="inputLabel" htmlFor="state">
-                  LGA
+                  LGA *
                   {errors.lga && (
                     <span className="text-danger font-weight-bold">
                       &nbsp; {errors.lga.message}
                     </span>
                   )}
                 </label>
-               
+
                 <Dropdown
-                    options={lgas}
-                    optionLabel="name"
-                    filter
-                    showClear
-                    filterBy="name"
-                    icon="pi pi-plus"
-                    id="lgaList"
-                    name="lga"
-                    value={personalProfile.lga}
-                    {...register("lga",
-                      {
-                        required: ` LGA is required`
-                      }
-                    )}
-                    onChange={(e) => {
-                      handleChange(e)
-                    }} 
-                    className="form-control"
-                  />
+                  options={lgas}
+                  optionLabel="name"
+                  filter
+                  showClear
+                  filterBy="name"
+                  icon="pi pi-plus"
+                  id="lgaList"
+                  name="lga"
+                  value={personalProfile.lga}
+                  {...register("lga",
+                    {
+                      required: `LGA is required`
+                    }
+                  )}
+                  onChange={(e) => {
+                    handleChange(e)
+                  }}
+                  className="form-control"
+                />
               </div>
               <div className="p-field p-col-12 p-md-6">
                 <label className="inputLabel" htmlFor="country">
-                  City
+                  City *
                   {errors.city && (
                     <span className="text-danger font-weight-bold">
-                      &nbsp; {errors.city.message}
+                      {errors.city.message}
                     </span>
                   )}
                 </label>
@@ -333,16 +371,16 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
                   register={register}
                   name="city"
                   inputChange={handleChange}
-                  className="inputField" 
+                  className="inputField"
                   defaultValue={personalProfile.city}
                 />
               </div>
               <div className="col-md-12">
                 <label className="inputLabel" htmlFor="address">
-                  Address
+                  Address *
                   {errors.address && (
                     <span className="text-danger font-weight-bold">
-                      &nbsp; {errors.address.message}
+                      {errors.address.message}
                     </span>
                   )}
                 </label>
@@ -352,12 +390,11 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
                   rows="4"
                   className="inputField"
                   {...register("address", {
-                    required: `* Address is required`,
+                    required: `Address is required`,
                   })}
                   name="address"
                   onChange={handleChange}
-                  value={personalProfile.address} 
-                  
+                  value={personalProfile.address || ''}
                 />
               </div>
             </div>

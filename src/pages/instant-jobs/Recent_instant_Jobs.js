@@ -15,7 +15,7 @@ const RecentInstantJobs = () => {
     const [visible, setVisible] = useState(false);
     const [page, setPage] = useState(1);
     const [take, setTake] = useState(10);
-    const allCurrentInstantJobs = useSelector(state => state.instantJob.instantjobs);
+    const allCurrentInstantJobs = useSelector(state => state.instantJob.allCurrentInstantJobs);
     console.log("allcurrentjob", allCurrentInstantJobs)
 
     useEffect(() => {
@@ -60,9 +60,9 @@ const RecentInstantJobs = () => {
                                         <div className="col-10">
                                             <small >
                                                 <Link className="p-text-secondary" to={`/instant-hire/view/${instantjob.id}`}>
-                                                    <p className="font-weight-bold">Services : <span className="app-color" style={{ fontSize: 15 }}> {instantjob.service}</span></p>
-                                                    <p><span className="font-weight-bold">Location : </span> {instantjob.location} </p>
-                                                    <p><span className="font-weight-bold">Description : </span> {`${truncate(instantjob.description, 20)} ${'...'}`}</p>
+                                                    <p className="font-weight-bold"> <span className="app-color" style={{ fontSize: 15 }}> {instantjob.service}</span></p>
+                                                    <p><span className="font-weight-bold"> </span> {instantjob.location} </p>
+                                                    <p><span className="font-weight-bold"> </span> {`${truncate(instantjob.description, 20)} ${'...'}`}</p>
                                                     <p className="p-pt-2 float-right"> {moment(instantjob.createdAt).fromNow()} </p>
                                                 </Link>
                                             </small >
