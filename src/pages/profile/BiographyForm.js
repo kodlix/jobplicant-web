@@ -16,7 +16,7 @@ const BiographyForm = ({ data }) => {
     reValidateMode: "onChange",
   });
   const dispatch = useDispatch();
-  const loading = useSelector(state => state.account.loading);
+  const loading = useSelector(state => state.account.submitting);
   const [biography, setBiography] = useState("");
   const handleDelete = (e) => {
     console.log(e.target.id);

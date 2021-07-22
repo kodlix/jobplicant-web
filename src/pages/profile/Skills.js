@@ -15,7 +15,7 @@ const Skills = ({ openEdit, openCreate, profileInfo }) => {
     console.log(skills);
     const skillTemp =
       skills.length > 0
-        ? skills.map(skill => <span><Tag>{skill}</Tag>&nbsp;&nbsp;</span>)
+        ? skills.map((skill, i) => <span key={i}><Tag>{skill}</Tag>&nbsp;&nbsp;</span>)
         : "";
     return skillTemp;
   };

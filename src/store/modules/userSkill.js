@@ -30,7 +30,7 @@ export default function reducer(state = userSkill, action = {}) {
     case LOAD_USER_SKILL:
       return {
         ...state,
-        userSkill: action.payload,
+        userSkill: action.payload.data,
       };
     case DELETE_USER_SKILL:
       return {
@@ -90,6 +90,7 @@ export function loadUserSkills() {
 
 export function createSkill(userskill) {
   return (dispatch) => {
+    dispatch(loading())
     return agent.UserSkill.save(userskill).then(
       (response) => {
         dispatch(createUserSkill(response));

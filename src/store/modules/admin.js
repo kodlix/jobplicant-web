@@ -62,9 +62,9 @@ export default function reducer(state = admin, action = {}) {
         loading: false,
       }
     case LOAD_CONTRACT_TYPES:
-      return { ...state, loading: false, contractTypes: action.payload, message: null }
-    case LOAD_SKILLS: return { ...state, loading: false, skills: action.payload, message: null }
-    case LOAD_QUALIFICATIONS: return { ...state, loading: false, qualifications: action.payload, message: null }
+      return { ...state, loading: false, contractTypes: action.payload.data, message: null }
+    case LOAD_SKILLS: return { ...state, loading: false, skills: action.payload.data, message: null }
+    case LOAD_QUALIFICATIONS: return { ...state, loading: false, qualifications: action.payload.data, message: null }
 
     case CREATE_CONTRACT_TYPE:
     case CREATE_SKILLS:

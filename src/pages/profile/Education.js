@@ -30,10 +30,10 @@ const Education = ({ openCreate, openEdit, profileInfo, formatDate }) => {
                 </span>
                 <span>
                   <i
-                    className="pi pi-pencil"
+                    className="pi pi-pencil mr-3"
                     onClick={() => openEdit(PROFILE.EDUCATION, education)}
                     id="educationEdit"
-                  ></i>{" "}
+                  ></i>
                   <i
                     style={{ cursor: "pointer" }}
                     className="pi pi-times"
