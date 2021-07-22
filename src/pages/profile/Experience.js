@@ -28,10 +28,10 @@ const Experience = ({ openCreate, openEdit, profileInfo, formatDate }) => {
               </span>
               <span>
                 <i
-                  className="pi pi-pencil icon-edit"
+                  className="pi pi-pencil icon-edit mr-3"
                   onClick={() => openEdit(PROFILE.EXPERIENCE, item)}
                   id="experienceEdit"
-                ></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                ></i>
                 <i
                   style={{ cursor: "pointer" }}
                   className="pi pi-times"

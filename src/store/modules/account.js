@@ -157,7 +157,7 @@ export function loadProfileInfo() {
 
 export function updateBiography(biography) {
   return (dispatch) => {
-    dispatch(loading());
+    dispatch(submitting());
     return agent.Account.updateBiography(biography).then(
       (response) => {
         dispatch(profileInfoLoaded(response));
@@ -203,34 +203,35 @@ export function updateLOI(loi) {
   };
 }
 
-export function updateExperience(experience) {
-  return (dispatch) => {
-    return agent.Account.updateExperience(experience).then(
-      (response) => {
-        dispatch(profileInfoLoaded(response));
-        dispatch(closeModal());
-        dispatch(
-          showMessage({
-            type: MESSAGE_TYPE.SUCCESS,
-            title: "Update Profile Information",
-            message: "Job experience saved successfully",
-          })
-        );
-        dispatch(
-          showMessage({
-            type: MESSAGE_TYPE.SUCCESS,
-            title: "Update Profile Information",
-            message: "Biography updated successfully",
-          })
-        );
-      },
-      (error) => {
-        // handle error
-        dispatch(showMessage({ type: "error", message: error }));
-      }
-    );
-  };
-}
+// export function updateExperience(experience) {
+//   return (dispatch) => {
+//     dispatch(submitting())
+//     return agent.Account.updateExperience(experience).then(
+//       (response) => {
+//         dispatch(profileInfoLoaded(response));
+//         dispatch(closeModal());
+//         dispatch(
+//           showMessage({
+//             type: MESSAGE_TYPE.SUCCESS,
+//             title: "Update Profile Information",
+//             message: "Job experience saved successfully",
+//           })
+//         );
+//         dispatch(
+//           showMessage({
+//             type: MESSAGE_TYPE.SUCCESS,
+//             title: "Update Profile Information",
+//             message: "Biography updated successfully",
+//           })
+//         );
+//       },
+//       (error) => {
+//         // handle error
+//         dispatch(showMessage({ type: "error", message: error }));
+//       }
+//     );
+//   };
+// }
 
 export function updateContactInfo(data) {
   return (dispatch) => {
@@ -368,7 +369,7 @@ export function loadAccountByUser(id) {
 
 //to delete education
 export const deleteExperience = (id) => (dispatch) => {
-  dispatch(loading());
+  // dispatch(loading());
   return agent.JobExperience.delete(id).then(
     (response) => {
       dispatch(deleteProfileExperience(id));
@@ -390,25 +391,24 @@ export const deleteExperience = (id) => (dispatch) => {
 };
 //to delete education
 export const deleteEducation = (id) => (dispatch) => {
-  dispatch(deleteProfileEducation(id));
   
   // dispatch(loading());
-  // return agent.Education.delete(id).then(
-  //   (response) => {
-  //     dispatch(deleteProfileEducation(id))
-  //     dispatch(
-  //       showMessage({
-  //         type: MESSAGE_TYPE.SUCCESS,
-  //         title: "Delete Information",
-  //         message: "Education deleted successfully",
-  //       })
-  //     );
-  //     dispatch(loadError());
-  //   },
-  //   (error) => {
-  //     // handle error
-  //     dispatch(loadError());
-  //     dispatch(showMessage({ type: "error", message: error }));
-  //   }
-  // );
+  return agent.Education.delete(id).then(
+    (response) => {
+      dispatch(deleteProfileEducation(id))
+      dispatch(
+        showMessage({
+          type: MESSAGE_TYPE.SUCCESS,
+          title: "Delete Information",
+          message: "Education deleted successfully",
+        })
+      );
+      dispatch(loadError());
+    },
+    (error) => {
+      // handle error
+      dispatch(loadError());
+      dispatch(showMessage({ type: "error", message: error }));
+    }
+  );
 };

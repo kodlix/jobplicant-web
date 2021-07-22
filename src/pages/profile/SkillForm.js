@@ -6,25 +6,23 @@ import { Dropdown } from "primereact/dropdown";
 import ModeFooter from "pages/profile/ModeFooter";
 import { useDispatch, useSelector } from "react-redux";
 import { createSkill, deleteSkill } from "store/modules/userSkill";
+import { getSkills } from "store/modules/admin";
 
-const skillsList = ["Java", "Javascript", "Python", "Database", "Graphic Design", "Web Design", "Software Analysis"];
+// const skillsList = ["Java", "Javascript", "Python", "Database", "Graphic Design", "Web Design", "Software Analysis"];
 
 const SkillForm = ({ data, closeEditMode }) => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.userSkill.loading);
+  const skillsList = useSelector((state) => state.admin.skills);
   const { register, handleSubmit, setValue } = useForm();
 
   const [currentSkill, setCurrentSkill] = useState("");
   const [skills, setSkills] = useState([]);
 
-  const searchObjectArrayValues = (array, value) => {
-    const skillExists = array.filter((skill) => skill.id === value);
-    return !Boolean(skillExists.length > 0);
-  };
+  useEffect(() => {
+    dispatch(getSkills())
+  }, [])
 
-  const handleSkillChange = (e) => {
-    setCurrentSkill(e.value);
-  };
 
   useEffect(() => {
     if (data?.length > 0) {
@@ -36,6 +34,17 @@ const SkillForm = ({ data, closeEditMode }) => {
     }
   }, [data]);
 
+  const searchObjectArrayValues = (array, object) => {
+    const skillExists = array.filter((skill) => skill.id === object.id);
+    return !Boolean(skillExists.length > 0);
+  };
+
+  const handleSkillChange = (e) => {
+    setCurrentSkill(e.value);
+  };
+
+
+
   const handleSkillAdd = () => {
     if (skills.length === 10) {
       setCurrentSkill("");
@@ -44,23 +53,21 @@ const SkillForm = ({ data, closeEditMode }) => {
 
     if (currentSkill) {
       if (searchObjectArrayValues(skills, currentSkill)) {
-        setSkills([...skills, currentSkill]);
+        setSkills([...skills, currentSkill.name]);
         setValue("skills", skills);
         setCurrentSkill("");
       }
     }
-  };
+  }
 
   const handleSkillDelete = (skillToDelete) => {
-    // if (e.target.className === "p-tag-icon pi pi-times") {
 
-    // dispatch(deleteSkill(skillToDelete.id));
     const newSkillArray = skills.filter(
-      (skill) => skill.id !== skillToDelete.id
+      (skill) => skill !== skillToDelete
     );
+
     setSkills(newSkillArray);
     setValue("skills", newSkillArray);
-    // }
   };
 
   const skillSubmit = (skill) => {
@@ -110,7 +117,7 @@ const SkillForm = ({ data, closeEditMode }) => {
                 value={currentSkill}
                 options={skillsList}
                 onChange={handleSkillChange}
-                optionLabel=""
+                optionLabel="name"
                 filter
                 showClear
                 filterBy="name"
