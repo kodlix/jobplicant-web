@@ -29,7 +29,7 @@ const LOAD_ADMIN_ERROR = "LOAD_ADMIN_ERROR";
 const LOAD_CONTRACT_TYPES = "LOAD_CONTRACT_TYPES";
 const LOAD_SKILLS = "LOAD_SKILLS";
 const LOAD_QUALIFICATIONS = "LOAD_QUALIFICATIONS";
-const LOAD_SERVICES = "LOAD_SERVICE";
+const LOAD_SERVICES = "LOAD_SERVICES";
 const LOAD_SERVICE_GROUPS = "LOAD_SERVICE_GROUPS";
 const LOAD_SERVICE_GROUPS_FOR_SERVICE = "LOAD_SERVICE_GROUPS_FOR_SERVICE";
 
@@ -101,18 +101,31 @@ export default function reducer(state = admin, action = {}) {
     case UPDATE_SKILLS:
     case UPDATE_QUALIFICATION:
     case UPDATE_SERVICE_GROUP:
+      //update service group array
       const newServiceGroupArray = state.serviceGroups.data.filter(serviceGroup => serviceGroup.id !== action.payload.id);
       newServiceGroupArray.push(action.payload);
+
       //check if any service has service group to be updated
-      const servicesWithOldServiceGroupName = state.services.data.filter(service => service.groupId === action.payload.id)
-      if (servicesWithOldServiceGroupName) {
-        servicesWithOldServiceGroupName.map((service1) => (service1.group = action.payload.name, service1.groupId = action.payload.id))
+      let serviceArray = [...state.services.data];
+      if (state.services.data.length > 0) {
+        serviceArray = state.services.data.map(function (item) {
+          if (item.groupId === action.payload.id) {
+            return { ...item, group: action.payload.name }
+          }
+          return item;
+        })
       }
+      console.log(serviceArray)
+
       return {
         ...state,
         loading: false,
         message: "updated",
         adminLoading: null,
+        services: {
+          ...state.services,
+          data: serviceArray
+        },
         serviceGroups: { ...state.serviceGroups, data: newServiceGroupArray },
         serviceGroupsForServiceComponent: { ...state.serviceGroupsForServiceComponent, data: newServiceGroupArray }
       }

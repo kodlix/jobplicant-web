@@ -32,7 +32,6 @@ const AdminServices = () => {
     setValue: setServiceValue,
     formState: { errors: serviceErrors },
     clearErrors: clearServiceErrors,
-    setError
   } = useForm({ mode: "onChange", reValidateMode: "onChange" });
   // React hook form
 
