@@ -50,7 +50,7 @@ const View = () => {
                         </div>
                         <div className="company-caption" style={styles.topBarTextContainer}>
                             <h4 style={styles.topBarHeaderTextStyle}>{instantJobDetail.title}</h4>
-                            <p style={styles.topBarSubHeaderTextStyle}>{instantJobDetail.createdBy}</p>
+                            {/* <p style={styles.topBarSubHeaderTextStyle}>{instantJobDetail.createdBy}</p> */}
                         </div>
                     </div>
                 </div>

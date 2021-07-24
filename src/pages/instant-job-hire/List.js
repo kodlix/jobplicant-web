@@ -62,12 +62,12 @@ const InstantHires = () => {
                                                 </div>
                                                 <Link to={`/instant-hire-applicants/${instantjob.id}`}>
                                                     <small className="p-text-secondary">
-                                                        <p className="font-weight-bold app-color ">Job Service : {instantjob.service} </p>
-                                                        <p><span className="font-weight-bold app-color">Job Location : </span> {instantjob.location}</p>
+                                                        <p className="font-weight-bold app-color ">Service : {instantjob.service} </p>
+                                                        <p><span className="font-weight-bold app-color">Location : </span> {instantjob.location}</p>
                                                         {/* <p><span className="font-weight-bold app-color">Time : </span>{instantjob.time} </p> */}
                                                         <p><span className="font-weight-bold app-color">Address : </span>{instantjob.address} </p>
                                                         <p><span className="font-weight-bold app-color">Phone Number : </span>{instantjob.phoneNumber} </p>
-                                                        <p><span className="font-weight-bold app-color">Job Description : </span> {instantjob.description} </p>
+                                                        <p><span className="font-weight-bold app-color">Description : </span> {instantjob.description} </p>
                                                         <div className="p-grid">
                                                             <div className="p-col-4"><span className="font-weight-bold app-color">Start Date: </span> {moment(instantjob.startDate).format('MMMM DD, YYYY')} </div>
                                                             <div className="p-col-6"><span className="font-weight-bold app-color">End Date: </span> {moment(instantjob.endDate).format('MMMM DD, YYYY')}</div>
