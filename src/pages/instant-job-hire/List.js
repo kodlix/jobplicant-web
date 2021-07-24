@@ -57,8 +57,8 @@ const InstantHires = () => {
                                             <div className="panel-login text-center"></div>
                                             <div className="highlight-card p-p-2">
                                                 <div className="float-right d-flex">
-                                                    <Link to={`/instant-hire/edit/${instantjob.id}`}> <span><i className="pi pi-pencil" ></i></span></Link>
-                                                    <i className="pi pi-trash" style={{ fontSize: '0.8rem', padding: '.2rem' }} onClick={() => deleteRequest(instantjob.id)}></i>
+                                                    <Link to={`/instant-hire/edit/${instantjob.id}`}> <span><i className="pi pi-pencil" data-toggle="tooltip" data-placement="top" title="Edit"  ></i></span></Link>
+                                                    <i className="pi pi-trash" data-toggle="tooltip" data-placement="top" title="Delete" style={{ fontSize: '0.8rem', padding: '.2rem' }} onClick={() => deleteRequest(instantjob.id)}></i>
                                                 </div>
                                                 <Link to={`/instant-hire-applicants/${instantjob.id}`}>
                                                     <small className="p-text-secondary">
