@@ -70,7 +70,7 @@ const Review = (props) => {
                             <form onSubmit={handleSubmit(onSubmit)} className="applicants-display">
                                 <div>
                                     <h5> <span className="font-weight-bold text-secondary"></span> <span className="app-color">
-                                        Leave feedback about this applicant</span></h5>
+                                        Leave feedback about this artisan</span></h5>
                                 </div>
 
                                 <div className="row p-mt-4">

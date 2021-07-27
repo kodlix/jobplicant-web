@@ -86,7 +86,7 @@ const View = () => {
                             </div>
                         </div>
 
-                        <button onClick={() => handleApply(instantJobDetail.id)} className="btn btn-block" style={styles.btnApply}>{jobApplicationRequest ? <span><i className="pi pi-spin pi-spinner"></i> Please wait...</span> : `Apply For This Job`}</button>
+                        <button onClick={() => handleApply(instantJobDetail.id)} className="btn btn-block" style={styles.btnApply}>{jobApplicationRequest ? <span><i className="pi pi-spin pi-spinner"></i> Please wait...</span> : `Apply`}</button>
                     </div>
                     <div className="col-md-3">
                         {/* <div className="p-card p-4 mt-3">
