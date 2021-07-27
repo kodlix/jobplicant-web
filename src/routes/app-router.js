@@ -41,6 +41,7 @@ const ViewInstantJobHire = React.lazy(() => import('../pages/instant-job-hire/Vi
 const EditInstantJobHire = React.lazy(() => import('../pages/instant-job-hire/Edit'));
 const Applicant = React.lazy(() => import('../pages/instant-job-hire/Applicant'));
 const InstantJobs = React.lazy(() => import('../pages/instant-jobs/List'));
+const Review = React.lazy(() => import('../pages/instant-job-hire/Review'));
 const Timeline = React.lazy(() => import('../pages/timeline/Timeline'));
 const CreateContacts = React.lazy(() => import('../pages/contacts/Create'));
 const ListContacts = React.lazy(() => import('../pages/contacts/List'));
@@ -92,22 +93,23 @@ const AppRouter = () => {
 
         {/* <ProtectedRoute path="/companyprofile" component={CompanyProfile} /> */}
         <ProtectedRoute path="/dashboard" component={Dashboard} />
+
+        {/* INSTANT HIRE ROUTE */}
         <ProtectedRoute path="/create-instant-hire" component={CreateInstantJobHire} />
         <ProtectedRoute path="/instant-hires" component={ListInstantJobHire} />
         <ProtectedRoute path="/instant-hire/view/:id" component={ViewInstantJobHire} />
         <ProtectedRoute path="/instant-hire/edit/:id" component={EditInstantJobHire} />
         <ProtectedRoute path="/instant-hire-applicants/:id" component={Applicant} />
-
         <ProtectedRoute path="/instant-jobs" component={InstantJobs} />
+        <ProtectedRoute path="/artisans" exact component={Artisan} />
+        <ProtectedRoute path="/review" exact component={Review} />
+
         <ProtectedRoute path="/timeline" exact component={Timeline} />
         <ProtectedRoute path="/contacts" exact component={ListContacts} />
         <ProtectedRoute path="/contacts/create" exact component={CreateContacts} />
 
         <ProtectedRoute path="/howtostart" exact component={HOWTOSTART} />
         <ProtectedRoute path="/cv-template" exact component={CVTEMPLATE} />
-
-        <ProtectedRoute path="/artisans" exact component={Artisan} />
-
 
         {/* admin routes */}
         <ProtectedAdminRoute path="/admin" component={AdminDashboard} />

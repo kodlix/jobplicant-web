@@ -230,7 +230,7 @@ const Applicant = (props) => {
                                                     {applicant.accepted && <div className="p-grid p-pl-5 p-pb-2">
                                                         <div className="p-pr-2 p-pt-2">
                                                             {/* <Button label="Review" id="reject" className="p-button-sm" /> */}
-                                                            <Link to=""><u className="app-color font-weight-bold">Leave a Review</u> </Link>
+                                                            <Link to="/review"><u className="app-color font-weight-bold">Leave a Review</u> </Link>
                                                         </div>
                                                     </div>}
                                                 </div>
