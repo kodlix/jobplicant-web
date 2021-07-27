@@ -32,16 +32,13 @@ const LOIForm = ({ data, closeEditMode }) => {
 
   const handleLOIChange = (e) => {
     const value = e.target.value;
-
     setCurrentLOI(value);
   };
 
   const handleLOIAdd = () => {
     if (LOIs.length > 2) {
-      setCurrentLOI("");
-      return;
-    }
-    if (currentLOI) {
+      console.log('loi is greater than 2');
+    }else{
       const { id } = currentLOI;
   
       if (searchObjectArrayValues(LOIs, id)) {
@@ -93,7 +90,7 @@ const LOIForm = ({ data, closeEditMode }) => {
                   id={LOI.id}
                 >
                   <Tag
-                    value={LOI.name}
+                    value={LOI}
                     icon="pi pi-times"
                     className="p-p-2"
                   ></Tag>

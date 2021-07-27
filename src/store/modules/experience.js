@@ -4,7 +4,7 @@ import agent from "../../services/agent.service";
 import { MESSAGE_TYPE } from "../constant";
 import { loadLga, loadStates } from "./location";
 import { closeModal } from "./modal";
-import { deleteProfileExperience, loadProfileInfo } from "./account";
+import { deleteProfileExperience, loadProfileInfo, submitting } from "./account";
 
 // initial values
 const experience = {
@@ -45,12 +45,14 @@ export default function reducer(state = experience, action = {}) {
         ...state,
         experience: action.payload,
         loading: false,
+        submitting: false,
         updatedOrDeleted: true,
       };
     case LOADING_ERROR:
       return {
         ...state,
         loading: false,
+        submitting: false,
         updatedOrDeleted: false,
       };
     default:
@@ -131,4 +133,5 @@ export function updateExperience(id, data) {
     );
   };
 }
+
 

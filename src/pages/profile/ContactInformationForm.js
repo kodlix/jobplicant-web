@@ -7,6 +7,7 @@ import ModeFooter from 'pages/profile/ModeFooter';
 import { loadCountry } from 'store/modules/location';
 import { updateContactInfo } from 'store/modules/account';
 import SectionHeader from './SectionHeader';
+import { Dropdown } from 'primereact/dropdown';
 
 const ContactInfoForm = ({ closeEditMode, data }) => {
   const { register, handleSubmit, setValue, trigger, clearErrors, formState: { errors } } = useForm({
@@ -18,41 +19,37 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
   const states = useSelector(state => state.location.states);
 
 
-  const [contactInfo, setContactInfo] = useState({});
+  const [contactInfo, setContactInfo] = useState({
+    phoneNumber: ''
+  });
   const profileInfo = useSelector(state => state.account.profileInfo);
   const loading = useSelector(state => state.account.submitting);
-  const [selectCountry, setSelectedCountry] = useState("null");
-
-  console.log("countries details", countries)
-
-
+  const [selectCountry, setSelectedCountry] = useState(null);
 
   useEffect(() => {
     dispatch(loadCountry());
   }, [dispatch]);
 
-  // const handleOnChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setSelectedCountry({ ...selectCountry, [name]: value ?? JSON.parse(value) });
-  // }
-
   useEffect(() => {
     if (profileInfo) {
-      setContactInfo({ ...profileInfo, country: profileInfo.country });
+      console.log(profileInfo)
+      setContactInfo({
+        ...profileInfo,
+        country: countries.find(c => c.name === profileInfo.country),
+        phoneNumber: profileInfo.contactPhoneNumber === null ? '' : profileInfo.contactPhoneNumber,
+        email: profileInfo.email,
+        city: profileInfo.city,
+        postalCode: profileInfo.postalCode,
+        address: profileInfo.address
+      });
 
       for (const [key, value] of Object.entries(profileInfo)) {
         setValue(key, value);
-        setValue('phoneNumber', profileInfo.contactPhoneNumber);
-        setValue('country', profileInfo.country);
       }
+      setValue('phoneNumber', profileInfo.contactPhoneNumber); //`contactPhoneNumber` is variable to bind to `phoneNumber`
+      setValue('country', profileInfo.country);
     }
-    else {
-      for (const [key] of Object.entries(contactInfo)) {
-        setValue(key, null);
-      }
-      setContactInfo({})
-    }
-    clearErrors();
+   
   }, [profileInfo]);
 
   const { phoneNumber, email, country, city, postalCode, address } = contactInfo;
@@ -64,35 +61,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
     setContactInfo(contactData);
   }
 
-  // const inputChange = (e, inputId) => {
-  //   const inputName = inputId && (inputId === "pend") ? inputId : e.target.name;
-  //   const inputValue = inputId && (inputId === "pend") ? e.value : e.target.value;
-  //   setValue(inputName, inputValue,
-  //     { shouldValidate: true }
-  //   )
-  //   if (inputName === "country" && e.target.value.id) {
-  //     //check if country is empty to empty states array in redux
-  //     dispatch(loadCountry(e.target.value.id));
-  //   }
-  //   if (inputName === "phoneNumber" && !inputValue) {
-  //     trigger("phoneNumber");
-  //   }
-  //   else if (inputName === "email" && !inputValue) {
-  //     trigger("email");
-  //   }
-  //   else if (inputName === "phoneNumber" || "email") {
-  //     trigger();
-  //   }
-  //   const updatedContactInfoObject = Object.assign({}, contactInfo);
-  //   updatedContactInfoObject[inputName] = inputValue;
-  //   setContactInfo(updatedContactInfoObject);
-  // }
-
-
-  const contactInfoSubmit = (data) => {
-
-    dispatch(updateContactInfo(data))
-  }
+  const contactInfoSubmit = (data) => dispatch(updateContactInfo(contactInfo));
 
   return (
     <>
@@ -105,18 +74,25 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                 <label htmlFor="phoneNumber" className="inputLabel p-pr-3">Phone Number
                   {errors.phoneNumber && <small className="text-danger font-weight-bold">&nbsp; {errors.phoneNumber.message}</small>}
                 </label>
-                <InputText name="phoneNumber" id="phoneNumber" type="number"
+                <InputText
+                  id="phoneNumber"
+                  name="phoneNumber"
                   {...register("phoneNumber",
                     { validate: value => value?.length > 0 || email?.length > 0 || "* Phone Number is required" }
                   )}
-                  onChange={handleChange} />
+                  onChange={handleChange}
+                  value={phoneNumber}
+                />
               </div>
               <div className="p-field p-col-12 p-md-6">
                 <label htmlFor="email" className="inputLabel p-pr-3">Email Address
                   {errors.email && <small className="text-danger font-weight-bold">&nbsp;
                     {errors?.email?.message}</small>}
                 </label>
-                <InputText name="email" id="email" type="email"
+                <InputText
+                  name="email"
+                  id="email"
+                  type="email"
                   {...register("email",
                     {
                       validate: value => value?.length > 0 || phoneNumber?.length > 0 || "* Email is required",
@@ -125,7 +101,9 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                         message: "* Entered value does not match email format"
                       }
                     })}
-                  onChange={handleChange} />
+                  onChange={handleChange}
+                  value={email}
+                />
               </div>
 
               <div className="p-field p-col-12 p-md-4 p-py-0 p-pl-2 p-pr-2">
@@ -133,50 +111,48 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                   {errors.country && <small className="text-danger font-weight-bold">&nbsp; {errors.country.message}</small>}
                 </label>
 
-                <select id="country"
-                  className="form-control"
+                <Dropdown
+                  options={countries}
+                  optionLabel="name"
+                  filter
+                  showClear
+                  filterBy="name"
+                  icon="pi pi-plus"
+                  id="country"
                   name="country"
-                  value={country?.id}
-                  // onChange={(e) => handleOnChange(e)}
+                  value={country}
                   onChange={handleChange}
                   {...register("country")}
-
-                >
-                  <option value="">Select Country</option>
-                  {countries.map(country =>
-                    <option key={country.name} value={country.id}>{country.name}
-                    </option>)}
-
-                </select>
-
-                {/* {countries.length > 0 ? <Dropdown options={countries}
-                  optionLabel="name" filter showClear filterBy="name"
-                  icon="pi pi-plus" id="country" name="country" value={country}
-                  defaultValue={country} selected={country}
-                  {...register("country", { required: ` Country is required` })}
-                  onChange={handleChange} /> : <div>Loading countries</div>} */}
+                />
               </div>
-
-
 
               <div className="p-field p-col-12 p-md-4 p-py-0 p-pl-2 p-pr-2">
                 <label htmlFor="city" className="inputLabel p-pr-3">City *
                   {errors.city && <small className="text-danger font-weight-bold">&nbsp; {errors.city.message}</small>}
                 </label>
                 <InputText
-                  optionLabel="name"
-                  icon="pi pi-plus" id="city" name="city" value={city}
+                  icon="pi pi-plus"
+                  id="city"
+                  name="city"
                   placeholder="City"
                   {...register("city", { required: ` City is required` })}
-                  onChange={handleChange} />
+                  value={city}
+                  onChange={handleChange}
+                />
               </div>
 
               <div className="p-field p-col-12 p-md-4 p-py-0 p-pl-2 p-pr-2" >
                 <label htmlFor="postalCode" className="inputLabel p-pr-3">Postal Code *
                   {errors.postalCode && <span className="text-danger font-weight-bold">&nbsp; {errors.postalCode.message}</span>}
                 </label>
-                <InputText id="postalCode" type="text" placeholder="Postal Code"
-                  {...register("postalCode", {})} onChange={handleChange} />
+                <InputText
+                  id="postalCode"
+                  name="postalCode"
+                  placeholder="Postal Code"
+                  {...register("postalCode", {})}
+                  onChange={handleChange}
+                  value={postalCode}
+                />
               </div>
 
               <div className="p-field p-col-12 p-md-12">
@@ -185,17 +161,18 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                 </label>
                 <InputTextarea
                   id="address"
+                  name="address"
                   type="text"
                   rows="2"
                   className="inputField"
                   placeholder="Address"
-                  name="address"
-                  value={address}
                   {...register("address")}
+                  value={address}
                   onChange={e => {
                     setContactInfo({ ...contactInfo, address: e.target.value });
                     setValue('address', e.target.value);
-                  }} />
+                  }}
+                />
               </div>
             </span>
             <div>

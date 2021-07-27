@@ -9,6 +9,7 @@ import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
 import { updateEducation, createEducation } from "store/modules/education";
 import { fetchCountries } from "store/modules/util";
+import { getQualifications } from "store/modules/admin";
 
 const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemToEdit, mode }) => {
   const {
@@ -22,8 +23,6 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
     mode: "onChange",
     reValidateMode: "all",
   });
-
-  console.log('mode', mode)
 
   const loading = useSelector((state) => state.education.submitting);
   const dispatch = useDispatch();
@@ -39,37 +38,13 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
   });
 
   let todayDate = new Date();
-
-  const qualificationList = [
-    { name: "Bsc", id: "bsc" },
-    { name: "Msc", id: "Msc" },
-    { name: "Phd", id: "Phd" },
-    { name: "OND", id: "OND" },
-    { name: "HND", id: "HND" },
-  ];
   const countryList = useSelector(state => state.util.countries);
+  const qualificationList = useSelector(state => state.admin.qualifications);
 
   useEffect(() => {
     dispatch(fetchCountries());
-  }, [fetchCountries]);
-
-  // useEffect(() => {
-  //   if (educationObject) {
-  //     for (const [key, value] of Object.entries(educationObject)) {
-  //       if (key !== "id") {
-  //         if (key === "yearOfGraduation") {
-  //           setValue(key, new Date(value));
-  //         }
-  //         setValue(key, value);
-  //       }
-  //     }
-  //     const educationFromDb = Object.assign({}, educationObject);
-  //     educationFromDb.yearOfGraduation = new Date(
-  //       educationFromDb.yearOfGraduation
-  //     );
-  //     setEducation(educationFromDb);
-  //   }
-  // }, [componentStatus?.educationEdit]);
+    dispatch(getQualifications())
+  }, []);
 
   useEffect(() => {
     if (Object.values(itemToEdit).length >= 1) {
@@ -124,6 +99,8 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
   const educationSubmit = (data) => {
     console.log(data);
     data.qualification = data.qualification.name;
+    data.yearOfGraduation = yearOfGraduation.toISOString();
+
     if (mode === 'create') {
       dispatch(createEducation(data));
     } else {
@@ -131,6 +108,15 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
     }
 
   };
+
+  const monthNavigatorTemplate = (e) => {
+    return <Dropdown value={e.value} options={e.options} onChange={(event) => e.onChange(event.originalEvent, event.value)} style={{ lineHeight: 1 }} />;
+}
+
+const yearNavigatorTemplate = (e) => {
+    return <Dropdown value={e.value} options={e.options} onChange={(event) => e.onChange(event.originalEvent, event.value)} className="p-ml-2" style={{ lineHeight: 1 }} />;
+}
+
 
   return (
     <>
@@ -198,28 +184,19 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
                     </span>
                   )}
                 </label>
-                <Calendar
-                  id="yearOfGraduation"
-                  view="month"
-                  dateFormat="yy"
-                  yearNavigator
+                
+                <Calendar 
+                  id="navigatorstemplate" 
+                  value={yearOfGraduation} 
+                  onChange={(e) => setYearOfGraduation(e.value)} 
+                  monthNavigator 
+                  yearNavigator 
                   yearRange="2010:2030"
-                  value={yearOfGraduation}
-                  onSelect={(e) => {
-                    if (e.value) {
-                      const inputName = "yearOfGraduation";
-                      const value = new Date(e.value).toISOString();
-
-                      setYearOfGraduation(e.value);
-                      setValue(inputName, value, { shouldValidate: true });
-                    }
-                  }}
-                  name="yearOfGraduation"
-                  {...register("yearOfGraduation", {
-                    required: `* Year of Graduation is required`,
-                  })}
-                  maxDate={todayDate}
+                  monthNavigatorTemplate={monthNavigatorTemplate} 
+                  yearNavigatorTemplate={yearNavigatorTemplate} 
+                  dateFormat="yy" 
                 />
+              
               </div>
               <div className="p-field p-col-12 p-md-12">
                 <label className="inputLabel" htmlFor="institution">

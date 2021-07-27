@@ -196,8 +196,8 @@ const Applicant = (props) => {
                                                 <img src="https://source.unsplash.com/random/100x100" height="150px" className="card-img-top" alt="..." />
                                                 <div className="card-body">
                                                     <div className="applicant-actionIcons float-right">
-                                                        <i className="pi pi-video p-pr-2" />
-                                                        <i className="pi pi-comments p-pr-2" />
+                                                        <i className="pi pi-video p-pr-2" data-toggle="tooltip" data-placement="top" title="Video Call" />
+                                                        <i className="pi pi-comments p-pr-2" data-toggle="tooltip" data-placement="top" title="Message" />
                                                     </div> <hr />
                                                     {/* <div className="card-body" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> */}
                                                     <p className="card-text"> <span className="font-weight-bold">Occupation :</span> <span className="font-weight-bold app-color">

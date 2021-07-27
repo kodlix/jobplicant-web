@@ -30,7 +30,7 @@ const LocationOfInterest = ({
         />
         <div className="p-card-body p-text-secondary">
           {profileInfo?.locations && profileInfo?.locations.length 
-            ? profileInfo?.locations.map(location => <span><Tag>{location}</Tag>&nbsp;&nbsp;</span>)
+            ? profileInfo?.locations.map((location, i) => <span key={i}><Tag>{location}</Tag>&nbsp;&nbsp;</span>)
             : "locations"}
         </div>
       </div>
