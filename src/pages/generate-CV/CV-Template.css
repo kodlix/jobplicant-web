@@ -1,0 +1,21 @@
+.cv-header {
+    font-size: 25px;
+    font-weight: 500;
+}
+.cv-header h4 {
+    font-size: x-large;
+}
+.bottom-container{
+}
+.bottom-container Button {
+    width: 100%;
+    height: 40px;
+}
+.template-card {
+    cursor: pointer;
+
+}
+
+.template-card.selected {
+    border: 4px solid red;
+}
