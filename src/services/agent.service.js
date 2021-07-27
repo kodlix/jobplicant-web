@@ -304,6 +304,7 @@ const Post = {
 
 const Comment = {
   save: (id, data) => requests.post(`/comment/${id}`, data),
+  load: (id, page, take) => requests.get(`/comment/post/${id}?${new URLSearchParams({ page: page, take: take }).toString()}`),
   like: (id) => requests.put(`/comment/like/${id}`),
   dislike: (id) => requests.put(`/comment/dislike/${id}`),
   delete: (id) => requests.del(`/comment/${id}`)

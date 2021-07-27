@@ -282,6 +282,33 @@ a .cardsubtitle-timeline {
   background-color: inherit;
 }
 
+/* text editor picker */
+.TextEditor-actions-emoji-picker-timeline {
+  display: none;
+}
+
+.TextEditor-actions-emoji-picker-timeline--open {
+  display: block;
+  position: absolute;
+  top:25px;
+  right: -20px;
+  z-index: 1;
+}
+
+.text-editor-timeline {
+  position: relative;
+}
+
+.TextEditor-container-timeline .ql-snow.ql-toolbar button.ql-active .ql-stroke, .p-editor-container .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke, .p-editor-container .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke {
+  stroke: #6FCF97;
+}
+/* text editor picker */
+#TextEditor-actions-emoji-button {
+  cursor: pointer;
+  vertical-align: sub;
+  float: left;
+}
+
 .timelineMediaItem-container {
   background-color: #5a2846;
   border-radius: 10px;
@@ -310,6 +337,7 @@ a .cardsubtitle-timeline {
   object-fit: contain;
   height: 17rem;
   background-color: #5A2846;
+  cursor: pointer;
 }
 /* Modals */
 
@@ -344,3 +372,28 @@ a .cardsubtitle-timeline {
     height: 50px;
   }  
 }
+
+@media only screen and (max-width: 1190px) {
+  .dialogModal-timeline .p-dialog-content {
+    padding: 0 0.5rem 1.5rem 0.5rem;
+  }
+}
+
+@media only screen and (max-width: 803px) {
+   .TextEditor-actions-emoji-picker-timeline--open {
+    top: 50px;
+    left:15px;
+  }
+}
+
+@media only screen and (max-width: 456px) {
+  .TextEditor-actions-emoji-picker-timeline--open {
+   top: 75px;
+   left:-15px;
+ }
+
+ .TextEditor-actions-emoji-picker-timeline--open > .emoji-mart {
+   width: 300px !important;
+ }
+}
+

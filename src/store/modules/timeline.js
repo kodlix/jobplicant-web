@@ -103,6 +103,7 @@ export function createPost(post) {
         );
         dispatch(closeModal());
         dispatch(loadPosts(1, 10));
+        dispatch(loading("postSuccess"));
       },
       (error) => {
         dispatch(showMessage({ type: "error", message: error }));
@@ -125,6 +126,7 @@ export function editPost(id, post) {
           })
         );
         dispatch(loadPosts(1, 10));
+        dispatch(loading("postSuccess"));
         dispatch(closeModal());
       },
       (error) => {
@@ -152,6 +154,7 @@ export function loadPosts(page, take, loadingType) {
       },
       (error) => {
         // handle error
+        dispatch(loading(null));
         dispatch(showMessage({ type: "error", message: error }));
       }
     );

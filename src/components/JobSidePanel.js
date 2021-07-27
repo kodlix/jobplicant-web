@@ -13,10 +13,10 @@ const JobSidePanel = ({ data }) => {
           <div className="p-card-title cardtitle-JobPanelComponent">
             Recent Jobs
                 </div>
-          <div className="p-pb-2">
+          <div className="p-pb-4">
             {
                data?.map((job) =>
-                <Link to={`/jobs/view/${job.id}`} className="p-card-body p-card-body-JobPanelComponent p-px-3 p-pt-1 p-pb-3" id={job.id}>
+                <Link to={`/jobs/view/${job.id}`} className="p-card-body p-card-body-JobPanelComponent p-px-3 p-pb-3" key={job.id} id={job.id}>
                   <div className="p-card-title cardsubtitle-JobPanelComponent">
                     <div> {job.title} </div>
                     <div>{`~${formatter.toMoney((job.minSalary + job.maxSalary) / 2)}`}</div>
