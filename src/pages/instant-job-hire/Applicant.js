@@ -249,7 +249,6 @@ const Applicant = (props) => {
                         </div>
 
                     </div>
-                    {/* Job Component*/}
                     <RecentInstantJobs />
                 </div>
                 <div className="p-grid">
