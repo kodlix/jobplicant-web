@@ -18,6 +18,7 @@ import instantJob from './instantJob';
 import job from './job';
 import admin from './admin'
 import contact from './contact'
+import emojiPicker from './emojiPicker'
 import chat from './chat'
 
 const appReducer = (history) => combineReducers({
@@ -40,7 +41,7 @@ const appReducer = (history) => combineReducers({
   timeline,
   comment,
   contact,
-
+  emojiPicker,
   chat
 });
 

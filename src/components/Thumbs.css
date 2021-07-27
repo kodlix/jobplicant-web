@@ -1,0 +1,7 @@
+.thumbUp-component:hover {
+  fill: rgba(0, 128, 0, 0.55);
+}
+
+.thumbDown-component:hover {
+  fill: rgba(255, 0, 0, 0.55);
+}

@@ -12,20 +12,27 @@
 }
 
 .timeline-commentButton {
-  position: absolute;
   font-size: 0.8rem;
+}
+
+.timeline-commentButtons-container {
+  position: absolute;
   height: 35px;
   bottom: 1rem;
   right: 0;
 }
 
-
 .timeline-commentListTitle {
-  color: #5A2846;
+  background-color: white !important;
+  color: #5A2846 !important;
+  font-weight: 500;
+  border: none;
 }
 
 .timeline-commentListTitle:hover {
   text-decoration: underline;
+  background-color: white;
+  color: #5A2846;
   cursor: pointer;
 }
 
