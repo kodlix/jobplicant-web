@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import agent, { API_ROOT } from "../../services/agent.service"
+import { API_ROOT } from "../../services/agent.service"
 import { Button } from 'primereact/button';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { InputTextarea } from 'primereact/inputtextarea';
-import { OverlayPanel } from 'primereact/overlaypanel';
+import { formatter } from '../../helpers/converter';
 import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
 import { Emoji } from 'emoji-mart'
@@ -17,8 +17,7 @@ const CreatePostModal = ({ postId, clearModalInput }) => {
   const dispatch = useDispatch();
   const post = useSelector(state => state.timeline.postByPostId);
   const postActionStatus = useSelector(state => state.timeline.loadingPosts);
-  const ref = useRef({});
-  const [mediaArray, setMediaArray] = useState([]);
+  const profileInfo = useSelector((state) => state.account.profileInfo);
   const [postObject, setPostObject] = useState({});
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
   const [_quill, setQuill] = useState(null);
@@ -58,11 +57,13 @@ const CreatePostModal = ({ postId, clearModalInput }) => {
     if (postId) {
       setValue("title", post.title);
       setValue("body", post.body);
-      const imageurl = API_ROOT + "/" + post.postImage
-      setImage({
-        preview: imageurl,
-        raw: post.postImage
-      });
+      if (post.postImage) {
+        const imageurl = API_ROOT + "/" + post.postImage
+        setImage({
+          preview: imageurl,
+          raw: post.postImage
+        });
+      }
       setPostObject({ title: post.title, body: post.body });
     }
     else {
@@ -146,8 +147,7 @@ const CreatePostModal = ({ postId, clearModalInput }) => {
   // EmojiPicker
 
   const deleteMediaItem = (e) => {
-    const filteredMediaArray = mediaArray.filter(item => item.id !== e.target.id);
-    setMediaArray(filteredMediaArray);
+    setImage({ preview: "", raw: "" });
   };
 
   const inputChange = (e, inputName) => {
@@ -245,13 +245,23 @@ const CreatePostModal = ({ postId, clearModalInput }) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="d-flex align-items-center">
           <img
-            src="../../assets/images/hero/hero-image.png"
             width="50"
             height="50"
+            alt="Profile"
+            src={profileInfo?.imageUrl}
             className="rounded-circle profile-picture-timeline"
           />
           <span className="p-ml-2">
-            <h6>Jane Doe</h6>
+            {
+              profileInfo?.accountType === "Corporate" ?
+                <h6>
+                  {formatter.capitalizeFirstLetter(profileInfo?.companyName)}
+                </h6>
+                :
+                <h6>
+                  {`${formatter.capitalizeFirstLetter(profileInfo?.firstName)} ${formatter.capitalizeFirstLetter(profileInfo?.lastName)}`}
+                </h6>
+            }
             <div>
               <Dropdown
                 value={selectedViewerGroup}
@@ -343,6 +353,28 @@ const CreatePostModal = ({ postId, clearModalInput }) => {
               {
                 image.preview &&
                 <div className="timelineMediaItem-container">
+                  <div className="dropdown font-weight-bold ml-2 portfolioItem-icons">
+                    <Button type="button" role="button"
+                      data-bs-toggle="dropdown"
+                      id="postFormMediaItem"
+                      aria-expanded="false"
+                      className="timeline-postMediaItem-actionButton"
+                    >
+                      <i className="pi pi-ellipsis-h text-white" />
+                    </Button>
+                    <ul
+                      className="dropdown-menu timeline-postForm-actionDropdown"
+                      aria-labelledby="postFormMediaItem"
+                    >
+                      <li
+                        className="dropdown-item"
+                        onClick={deleteMediaItem}
+                      >
+                        <i className="pi pi-trash" />
+                        Delete Image
+                      </li>
+                    </ul>
+                  </div>
                   <img
                     src={image.preview}
                     alt="Preview"
@@ -352,19 +384,6 @@ const CreatePostModal = ({ postId, clearModalInput }) => {
                   />
                 </div>
               }
-              <span className="portfolioItem-icons">
-                <OverlayPanel
-                  ref={element => (ref.current[image] = element)}
-                >
-                  <div
-                    onClick={deleteMediaItem}
-                    id={image}
-                  >
-                    <i className="pi pi-trash p-pr-2" />
-                    Delete Image
-                  </div>
-                </OverlayPanel>
-              </span>
             </div>
           </div>
         </div>

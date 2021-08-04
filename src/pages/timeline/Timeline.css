@@ -9,13 +9,17 @@
 }
 
 .profile-picture-timeline {
-  border: 3px #5A2846 solid;  
+  border: 4px #5A2846 solid;  
+  object-fit: contain;
+  background-color: #5A2846;
+  color: white;
 }
 
 .timeline-profilePicture, .profilepic-startpost-timeline > img {
-  border: 3px #5A2846 solid; 
-  object-fit: cover;
-  background-color: white;
+  border: 4px #5A2846 solid; 
+  color: white;
+  object-fit: contain;
+  background-color: #5A2846;
   cursor: pointer; 
 }
 
@@ -31,6 +35,46 @@
   background-color: white;
   margin-bottom: 0.5rem;
 }
+
+.timeline-emptyProfilePic-medium {
+  border: 4px #5A2846 solid;
+  width: fit-content;
+  margin: auto;
+  font-size: 1.87rem;
+  border-radius: 50%;
+  padding: 1rem;
+  color: #5A2846;
+  font-weight: 700;
+  background-color: white;
+  margin-bottom: 0.5rem;
+}
+
+/* rating */
+:root {
+  --star-size: 25px;
+  --star-color: rgb(180, 175, 175);
+  --star-background: #2ca55e;
+}
+
+.stars {
+  --percent: calc(var(--rating) / 5 * 100%);
+  display: inline-block;
+  font-size: var(--star-size);
+  /* font-family: Times; */
+  line-height: 1;
+}
+
+.stars:before {
+  content: '★★★★★';
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+  background-clip: content-box;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+/* rating */
 
 .timeline-dropdownItem {
   font-size: 0.8rem;
@@ -175,6 +219,7 @@ a .cardsubtitle-timeline {
 }
 
 .cardtitle-statusbar-timeline {
+  position: relative;
   color: gray;
   display: flex;
   align-items: center;
@@ -195,12 +240,41 @@ a .cardsubtitle-timeline {
   transition: none;
 }
 
-.post-statusbar-content .pi-arrow-down, .post-statusbar-content .pi-arrow-up {
-  font-weight: 700;
+.timeline-postShare-button {
+  background-color: white;
+  border: none;
+  color: #5A2846;
+  font-weight: 600;
 }
 
-.post-statusbar-content:hover .pi-arrow-down {
-  color: red;
+.timeline-copyModalAlert {
+  z-index: 1;
+  position: absolute;
+  background-color: #5A2846;
+  right: -25px;
+  top: 45px;
+  padding: 7px;
+  border-radius: 8px;
+  color: white;
+  opacity: 0;
+}
+
+.timeline-copyModalAlert--active {
+  z-index: 1;
+  position: absolute;
+  background-color: #5A2846;
+  right: -25px;
+  top: 45px;
+  padding: 7px;
+  border-radius: 8px;
+  color: white;
+  transition: opacity 0.4s ease-in-out;
+  opacity: 1;
+}
+
+.timeline-postShare-button > .p-button-label:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 /* Modals */
@@ -318,14 +392,19 @@ a .cardsubtitle-timeline {
   position: relative;
 }
 
-.timelineMediaItem-container > button {
+.timeline-postMediaItem-actionButton {
   position: absolute;
   right: 0;
   top: 0;
   z-index: 1;
-  background-color: green;
+  background-color: green !important;
   border: none;
 }
+
+.timeline-postForm-actionDropdown .pi-trash {
+  color: red !important;
+}
+
 
 .timelineMediaItem {
   height: 9rem;

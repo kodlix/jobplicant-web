@@ -16,7 +16,6 @@ const timeline = {
 
 // Action types
 const LOADING_POSTS = "LOADING_POSTS";
-const LOAD_POST = "LOAD_POST";
 const LOAD_POSTS = "LOAD_POSTS";
 const LOAD_POST_BY_POSTID = "LOAD_POST_BY_POSTID";
 const LOAD_POSTS_BY_USERID = "LOAD_POSTS_BY_USERID";
@@ -30,11 +29,6 @@ export default function reducer(state = timeline, action = {}) {
       return {
         ...state,
         loadingPosts: action.payload,
-      };
-    case LOAD_POST:
-      return {
-        ...state,
-        post: action.payload,
       };
     case LOAD_POSTS:
       return {
@@ -142,7 +136,7 @@ export function loadPosts(page, take, loadingType) {
     return agent.Post.load(page, take).then(
       response => {
         //handle success
-        dispatch(loading(loadingType));
+        dispatch(loading(null));
         dispatch(
           showMessage({
             type: MESSAGE_TYPE.SUCCESS,

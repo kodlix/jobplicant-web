@@ -27,7 +27,7 @@ const ModalMode = ({ onHide, postId, imageUrl }) => {
 
   return (
     <>
-      <Dialog header={dialogTitle} visible={modalVisible} onHide={onModalClose} style={{width:"60rem"}} className='dialogModal-timeline'>
+      <Dialog header={dialogTitle} visible={modalVisible} onHide={onModalClose} style={{ width: "60rem" }} className='dialogModal-timeline'>
         {
           (modalName === TIMELINE.CREATEPOST || modalName === TIMELINE.CREATEJOB) &&
           < ToggleButton
@@ -51,9 +51,11 @@ const ModalMode = ({ onHide, postId, imageUrl }) => {
           />
         }
         {
-          imageUrl && (modalName === TIMELINE.ACTIVEUSERPICTURE || modalName === TIMELINE.POSTIMAGE) &&
+          imageUrl &&
+          (modalName === TIMELINE.ACTIVEUSERPICTURE || modalName === TIMELINE.POSTIMAGE) &&
           <div>
-            <img src={imageUrl} className="timeline-profilepic-expanded" />
+            <img src={imageUrl} className="timeline-profilepic-expanded"
+            />
           </div>
         }
       </Dialog>

@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import ModalMode from './ModalMode';
 import CommentList from './CommentList';
 import CommentForm from './CommentForm';
+import { useParams } from 'react-router-dom'
+import { formatter } from '../../helpers/converter';
 import { openModal, closeModal } from "store/modules/modal";
 import { loadProfileInfo } from "store/modules/account";
 import { closeEmojiPicker } from "store/modules/emojiPicker";
-import { loadPosts, loadTotalPostCount, deletePost, likePost, dislikePost } from "../../store/modules/timeline";
+import { deletePost, likePost, dislikePost, viewPost } from "../../store/modules/timeline";
 import { loadComments } from "../../store/modules/comment";
 import { loadAllJobs } from "store/modules/job";
 import { TIMELINE } from "constants/timeline";
@@ -18,19 +20,18 @@ import ThumbsDown from "../../components/ThumbDown";
 import ThumbsUp from "../../components/ThumbUp";
 import "./Timeline.css";
 
-const Timeline = () => {
+const ViewPost = () => {
   const dispatch = useDispatch();
-  const postsByPage = useSelector(state => state.timeline.posts);
+  const post = useSelector(state => state.timeline.postByPostId);
   const loading = useSelector(state => state.timeline.loadingPosts);
   const allJobs = useSelector(state => state.job.allJobs);
   const profileInfo = useSelector((state) => state.account.profileInfo);
   const [postId, setPostId] = useState("");
-  const [pageNumber, setPageNumber] = useState(1);
   const [imageToDisplay, setImageToDisplay] = useState("");
   const [copyAlert, setCopyAlert] = useState(false);
-  const [postsLoaded, setPostsLoaded] = useState({});
   const commentsByPage = useSelector(state => state.comment.comments);
-  const copyModalClassname = copyAlert ? "timeline-copyModalAlert--active" : "timeline-copyModalAlert"
+  const params = useParams();
+  const copyModalClassname = copyAlert ? "timeline-copyModalAlert--active" : "timeline-copyModalAlert";
 
   const onShow = (id) => {
     if (id) {
@@ -41,6 +42,14 @@ const Timeline = () => {
       dispatch(openModal(TIMELINE.CREATEPOST));
     }
   }
+
+  useEffect(() => {
+    if (params) {
+      dispatch(loadProfileInfo());
+      dispatch(viewPost(params.id));
+      dispatch(loadAllJobs());
+    }
+  }, [dispatch]);
 
   const expandProfileImage = (e) => {
     setImageToDisplay(e.target.src)
@@ -57,12 +66,6 @@ const Timeline = () => {
     dispatch(closeEmojiPicker());
     setImageToDisplay("");
     setPostId("");
-  }
-
-  const capitalizeFirstLetter = (name) => {
-    if (name) {
-      return name[0].toUpperCase() + name.slice(1);
-    }
   }
 
   const handleLike = (e) => {
@@ -87,33 +90,9 @@ const Timeline = () => {
     setTimeout(function () { setCopyAlert(false); }, 1000);
   }
 
-  const handleViewComments = (postId, commentPage, loadingType) => {
-    dispatch(loadComments(postId, commentPage, 1, loadingType));
+  const handleViewComments = (commentPage, loadingType) => {
+    dispatch(loadComments(params.id, commentPage, 1, loadingType));
   }
-
-  const loadmorePosts = () => {
-    setPageNumber(pageNumber + 1)
-    dispatch(loadPosts(pageNumber + 1, 10, "loadMore"));
-  }
-
-  useEffect(() => {
-    dispatch(loadProfileInfo());
-    dispatch(loadTotalPostCount());
-    dispatch(loadPosts(1, 10, "loadPosts"));
-    dispatch(loadAllJobs());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (loading === "loadPosts") {
-      dispatch(closeEmojiPicker());
-    }
-    if (pageNumber === 1) {
-      setPostsLoaded(postsByPage);
-    }
-    else {
-      setPostsLoaded({ data: [...postsLoaded.data, ...postsByPage.data], meta: postsByPage.meta });
-    }
-  }, [postsByPage]);
 
   return (
     <>
@@ -144,7 +123,7 @@ const Timeline = () => {
                     profileInfo?.firstName && profileInfo?.accountType !== "Corporate" &&
                     <>
                       <h4 className="p-mt-2">
-                        {`${capitalizeFirstLetter(profileInfo?.firstName)} ${capitalizeFirstLetter(profileInfo?.lastName)}`}
+                        {`${formatter.capitalizeFirstLetter(profileInfo?.firstName)} ${formatter.capitalizeFirstLetter(profileInfo?.lastName)}`}
                       </h4>
                       <p className="p-mb-4 ">
                         <p className="p-mt-1">
@@ -171,7 +150,7 @@ const Timeline = () => {
                     profileInfo?.firstName && profileInfo?.accountType === "Corporate" &&
                     <>
                       <h4 className="p-my-1 timeline-companyName">
-                        {capitalizeFirstLetter(profileInfo?.companyName)}
+                        {formatter.capitalizeFirstLetter(profileInfo?.companyName)}
                       </h4>
                       <p className="p-mb-4">
                         {
@@ -366,40 +345,14 @@ const Timeline = () => {
               </div>
             </div>
             <div className="p-col-12 p-md-6 p-px-0">
-              <div className="p-card p-grid p-mb-2 p-mt-0 p-mx-0 p-p-3 align-items-center">
-                <div className="p-col-2 text-center profilepic-startpost-timeline">
-                  {
-                    profileInfo.imageUrl &&
-                    <img
-                      width="70"
-                      height="70"
-                      alt="Profile"
-                      className="rounded-circle"
-                      src={profileInfo?.imageUrl}
-                      onClick={expandProfileImage}
-                    />
-                  }
-                  {
-                    !profileInfo.imageUrl &&
-                    <i className="pi pi-user timeline-emptyProfilePic" />
-                  }
-                </div>
-                <div className="p-col-10">
-                  <Button
-                    label="Start a Post"
-                    className="postInputButton"
-                    onClick={() => onShow()}
-                  />
-                  <ModalMode
-                    onHide={onHide}
-                    postId={postId}
-                    imageUrl={imageToDisplay}
-                  />
-                </div>
-              </div>
+              <ModalMode
+                onHide={onHide}
+                postId={postId}
+                imageUrl={imageToDisplay}
+              />
               {
-                loading === "loadPosts" &&
-                postsLoaded.length === 0 &&
+                loading === "viewPost" &&
+                post &&
                 <div className="p-p-5 d-flex justify-content-center">
                   <i
                     className="pi pi-spin pi-spinner"
@@ -407,183 +360,171 @@ const Timeline = () => {
                 </div>
               }
               {
-                postsLoaded?.data?.length > 0 &&
+                Object.keys(post).length > 0 &&
                 <div className="timeline-postsContainer">
-                  {
-                    postsLoaded.data.map((post) => (
-                      <div className="p-card p-py-3 p-py-sm-5 p-pl-3 p-pl-sm-5 p-pr-4 p-pr-sm-6 p-mb-2 timeline-posts" key={post.id}>
-                        <span className="d-flex justify-content-between">
-                          <span className="d-flex">
-                            {
-                              post?.author?.imageUrl ?
-                                <img
-                                  width="70"
-                                  height="70"
-                                  src={`${API_ROOT}/${post.author.imageUrl}`}
-                                  alt={`${capitalizeFirstLetter(post.author.firstName)}`}
-                                  className="rounded-circle p-mt-2 p-mb-2 p-mr-sm-3 p-mr-0 profile-picture-timeline text-white"
-                                />
-                                :
-                                <i className="pi pi-user  p-mt-2 p-mb-2 p-mr-sm-3 p-mr-0 timeline-emptyProfilePic-medium"></i>
-                            }
-                            <span>
-                              {
-                                post?.author?.accountType !== "Corporate" &&
-                                <span className="p-card-title cardtitle-posts p-mb-0">
-                                  {`${capitalizeFirstLetter(post?.author?.firstName)} ${capitalizeFirstLetter(post?.author?.lastName)}`}
-                                </span>
-                              }
-                              {
-                                post?.author?.accountType === "Corporate" &&
-                                <span className="p-card-title cardtitle-posts p-mb-0">
-                                  {capitalizeFirstLetter(post?.author?.companyName)}
-                                </span>
-                              }
-                              {
-                                post.author.accountType === "Artisan" &&
-                                <span className="stars p-ml-1 align-text-bottom" style={{ "--rating": post.author.rating }} />
-                              }
-                              <div className="poster-description">
-                                <p>
-                                </p>
-                                <i className="pi pi-briefcase p-pr-1" />
-                                <span>Software Engineer</span>
-                                <i className="pi pi-map-marker p-pl-2 p-pr-1" />
-                                <span>Nigeria</span>
-                              </div>
-                              <div className="timeline-cardtitle-posttime">
-                                <i className="pi pi-clock p-pr-1 p-mt-2" />
-                                <span>
-                                  {moment(post.createdAt).fromNow('MMMM Do YYYY')} ago
-                                </span>
-                              </div>
-                            </span>
-                          </span>
+                  <div className="p-card p-py-3 p-py-sm-5 p-pl-3 p-pl-sm-5 p-pr-4 p-pr-sm-6 p-mb-2 timeline-posts" key={post.id}>
+                    <span className="d-flex justify-content-between">
+                      <span className="d-flex">
+                        {
+                          post?.author?.imageUrl ?
+                            <img
+                              width="70"
+                              height="70"
+                              src={`${API_ROOT}/${post.author.imageUrl}`}
+                              alt={`${formatter.capitalizeFirstLetter(post.author.firstName)}`}
+                              className="rounded-circle p-mt-2 p-mb-2 p-mr-sm-3 p-mr-0 profile-picture-timeline text-white"
+                            />
+                            :
+                            <i className="pi pi-user  p-mt-2 p-mb-2 p-mr-sm-3 p-mr-0 timeline-emptyProfilePic-medium"></i>
+                        }
+                        <span>
                           {
-                            post.createdBy === agent.Auth.current()?.email &&
-                            <div className="dropdown font-weight-bold ml-2">
-                              <i
-                                type="button"
-                                className="pi pi-ellipsis-v"
-                                role="button"
-                                data-bs-toggle="dropdown"
-                                id="dropdownMenuLink"
-                                aria-expanded="false"
-                              />
-                              <ul
-                                className="dropdown-menu"
-                                aria-labelledby="dropdownMenuLink"
-                              >
-                                <li
-                                  className="dropdown-item timeline-dropdownItem"
-                                  onClick={() => onShow(post.id)}
-                                >
-                                  Edit
-                                </li>
-                                <li
-                                  className="dropdown-item timeline-dropdownItem"
-                                  data-id={post.id}
-                                  onClick={(e) => dispatch(deletePost(e.currentTarget.dataset.id))}
-                                >
-                                  Delete
-                                </li>
-                              </ul>
-                            </div>
+                            post?.author?.accountType !== "Corporate" &&
+                            <span className="p-card-title cardtitle-posts p-mb-0">
+                              {`${formatter.capitalizeFirstLetter(post?.author?.firstName)} ${formatter.capitalizeFirstLetter(post?.author?.lastName)}`}
+                            </span>
                           }
+                          {
+                            post?.author?.accountType === "Corporate" &&
+                            <span className="p-card-title cardtitle-posts p-mb-0">
+                              {formatter.capitalizeFirstLetter(post?.author?.companyName)}
+                            </span>
+                          }
+                          {
+                            post.author.accountType === "Artisan" &&
+                            <span className="stars p-ml-1 align-text-bottom" style={{ "--rating": post.author.rating }} />
+                          }
+                          <div className="poster-description">
+                            <p>
+                            </p>
+                            <i className="pi pi-briefcase p-pr-1" />
+                            <span>Software Engineer</span>
+                            <i className="pi pi-map-marker p-pl-2 p-pr-1" />
+                            <span>Nigeria</span>
+                          </div>
+                          <div className="timeline-cardtitle-posttime">
+                            <i className="pi pi-clock p-pr-1 p-mt-2" />
+                            <span>
+                              {moment(post.createdAt).fromNow('MMMM Do YYYY')} ago
+                            </span>
+                          </div>
                         </span>
-                        <h6 className="p-my-3">
-                          <u>
-                            {post.title}
-                          </u>
-                        </h6>
-                        <div className="p-my-4 w-100 h-100">
-                          <div
-                            className="p-mb-3"
-                            dangerouslySetInnerHTML={{ __html: post.body }}
+                      </span>
+                      {
+                        post.createdBy === agent.Auth.current()?.email &&
+                        <div className="dropdown font-weight-bold ml-2">
+                          <i
+                            type="button"
+                            className="pi pi-ellipsis-v"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            id="dropdownMenuLink"
+                            aria-expanded="false"
+                          />
+                          <ul
+                            className="dropdown-menu"
+                            aria-labelledby="dropdownMenuLink"
+                          >
+                            <li
+                              className="dropdown-item timeline-dropdownItem"
+                              onClick={() => onShow(post.id)}
+                            >
+                              Edit
+                            </li>
+                            <li
+                              className="dropdown-item timeline-dropdownItem"
+                              data-id={post.id}
+                              onClick={(e) => dispatch(deletePost(e.currentTarget.dataset.id))}
+                            >
+                              Delete
+                            </li>
+                          </ul>
+                        </div>
+                      }
+                    </span>
+                    <h6 className="p-my-3">
+                      <u>
+                        {post.title}
+                      </u>
+                    </h6>
+                    <div className="p-my-4 w-100 h-100">
+                      <div
+                        className="p-mb-3"
+                        dangerouslySetInnerHTML={{ __html: post.body }}
+                      />
+                      {
+                        post?.postImage &&
+                        <img
+                          width="100%"
+                          alt={post.title}
+                          onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80" }}
+                          className="timeline-postImage text-white"
+                          src={`${API_ROOT}/${post.postImage}`}
+                          onClick={expandPostImage} />
+                      }
+                    </div>
+                    <div className="cardtitle-statusbar-timeline p-my-3 p-py-3">
+                      <div className="d-flex">
+                        <span
+                          data-id={post.id}
+                          onClick={(e) => handleLike(e)}
+                          className="post-statusbar-content p-pr-2 align-items-start"
+                        >
+                          <ThumbsUp
+                            width="23"
+                            height="23"
+                            liked={false}
+                            className="p-mr-1"
                           />
                           {
-                            post?.postImage &&
-                            <img
-                              width="100%"
-                              alt={post.title}
-                              className="timeline-postImage text-white"
-                              src={`${API_ROOT}/${post.postImage}`}
-                              onClick={expandPostImage} />
+                            post.likes > 0 &&
+                            <h5 className="p-pr-1">
+                              {post.likes}
+                            </h5>
                           }
-                        </div>
-                        <div className="cardtitle-statusbar-timeline p-my-3 p-py-3">
-                          <div className="d-flex">
-                            <span
-                              data-id={post.id}
-                              onClick={(e) => handleLike(e)}
-                              className="post-statusbar-content p-pr-2 align-items-start"
-                            >
-                              <ThumbsUp
-                                width="23"
-                                height="23"
-                                liked={false}
-                                className="p-mr-1"
-                              />
-                              {
-                                post.likes > 0 &&
-                                <h5 className="p-pr-1">
-                                  {post.likes}
-                                </h5>
-                              }
-                            </span>
-                            <span
-                              data-id={post.id}
-                              onClick={(e) => handleDislike(e)}
-                              className="post-statusbar-content align-items-start"
-                            >
-                              <ThumbsDown
-                                width="23"
-                                height="23"
-                                disliked={false}
-                                className="p-mr-1" />
-                              {
-                                post.dislikes > 0 &&
-                                <h5 className="p-pr-1">
-                                  {post.dislikes}
-                                </h5>
-                              }
-                            </span>
-                          </div>
-                          <div
-                            className="timeline-postShare-button"
-                            data-id={post.id}
-                            onClick={handleShareButton}
-                          >
-                            <span className="p-button-label">
-                              <i className="pi pi-share-alt p-mr-1" />
-                              Share
-                            </span>
-                          </div>
-                          <span className={copyModalClassname}>
-                            Link copied
-                          </span>
-                        </div>
-                        <CommentForm
-                          postId={post.id}
-                          imageUrl={profileInfo?.imageUrl}
-                        />
-                        <CommentList
-                          postId={post.id}
-                          comments={commentsByPage}
-                          onViewComments={handleViewComments}
-                        />
+                        </span>
+                        <span
+                          data-id={post.id}
+                          onClick={(e) => handleDislike(e)}
+                          className="post-statusbar-content align-items-start"
+                        >
+                          <ThumbsDown
+                            width="23"
+                            height="23"
+                            disliked={false}
+                            className="p-mr-1" />
+                          {
+                            post.dislikes > 0 &&
+                            <h5 className="p-pr-1">
+                              {post.dislikes}
+                            </h5>
+                          }
+                        </span>
                       </div>
-
-                    ))}
-                  {
-                    postsLoaded.data.length > 0 &&
-                    postsLoaded.meta.total > postsLoaded.data.length &&
-                    <Button
-                      onClick={loadmorePosts}
-                      className="p-mr-2 w-100"
-                      label={loading === "loadMore" ? 'please wait...' : 'Load More'}
+                      <div
+                        className="timeline-postShare-button"
+                        data-id={post.id}
+                        onClick={handleShareButton}
+                      >
+                        <span className="p-button-label">
+                          <i className="pi pi-share-alt p-mr-1" />
+                          Share
+                        </span>
+                      </div>
+                      <span className={copyModalClassname}>
+                        Link copied
+                      </span>
+                    </div>
+                    <CommentForm
+                      postId={post.id}
+                      imageUrl={profileInfo?.imageUrl}
                     />
-                  }
+                    <CommentList
+                      postId={post.id}
+                      comments={commentsByPage}
+                      onViewComments={handleViewComments}
+                    />
+                  </div>
                 </div>
               }
             </div>
@@ -595,4 +536,4 @@ const Timeline = () => {
   );
 }
 
-export default Timeline;
+export default ViewPost;

@@ -42,6 +42,7 @@ const EditInstantJobHire = React.lazy(() => import('../pages/instant-job-hire/Ed
 const Applicant = React.lazy(() => import('../pages/instant-job-hire/Applicant'));
 const InstantJobs = React.lazy(() => import('../pages/instant-jobs/List'));
 const Timeline = React.lazy(() => import('../pages/timeline/Timeline'));
+const ViewPost = React.lazy(() => import('../pages/timeline/ViewPost'));
 const CreateContacts = React.lazy(() => import('../pages/contacts/Create'));
 const ListContacts = React.lazy(() => import('../pages/contacts/List'));
 const AdminServicesAndServiceGroups = React.lazy(() => import('pages/admin/dashboard/AdminServicesAndServiceGroups'));
@@ -100,6 +101,7 @@ const AppRouter = () => {
 
         <ProtectedRoute path="/instant-jobs" component={InstantJobs} />
         <ProtectedRoute path="/timeline" exact component={Timeline} />
+        <ProtectedRoute path="/post/:id" exact component={ViewPost} />
         <ProtectedRoute path="/contacts" exact component={ListContacts} />
         <ProtectedRoute path="/contacts/create" exact component={CreateContacts} />
 

@@ -9,6 +9,11 @@ export const formatter = {
         currency: "NGN",
       })
       .replace("NGN", ""),
-  toDate: (date) => moment(date).format('DD-MM-YYYY')
+  toDate: (date) => moment(date).format('DD-MM-YYYY'),
+  capitalizeFirstLetter: (name) => {
+    if (name) {
+      return name[0].toUpperCase() + name.slice(1);
+    }
+  }
 };
 
