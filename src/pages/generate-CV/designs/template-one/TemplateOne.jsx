@@ -1,8 +1,8 @@
 import moment from 'moment';
 import { ProgressBar } from 'primereact/progressbar';
 import { Dropdown } from 'primereact/dropdown'
-import "./TemplateOne.css";
 import { useState } from 'react';
+import "./TemplateOne.css";
 
 const SkillLevel = ({editMode}) => {
     const skills = [
