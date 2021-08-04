@@ -35,7 +35,6 @@ const RecentInstantJobs = () => {
                         icon="briefcase"
                         sectionTitle="Recent Instant Jobs"
                         id="portfolioEdit"
-                        // showAddButton="false"
                         showEditButton="false"
                     />
                     <div className="p-card-body p-grid p-mt-2 overflow-auto" style={{ height: 500 }}>

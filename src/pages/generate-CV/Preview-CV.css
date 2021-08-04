@@ -1,0 +1,28 @@
+
+
+.preview-pane header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.preview-pane header i{
+    font-size: xx-large;
+    cursor: pointer;
+    color: black;
+}
+
+.preview-pane section {
+    padding: 24px;
+    height: 90vh;
+    overflow: auto;
+}
+/* 
+.header{
+    position: absolute; 
+    top: 10; 
+    right: 0; 
+    left: 0;
+    z-index: 900;
+} */

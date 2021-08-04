@@ -42,7 +42,7 @@ const InstantHeader = ({ title, showCreateButton = false, showBack = false, coun
                     <div className="p-input-icon-right searchInput-container-contact">
                         <div className="p-input-icon-left">
                             <i className="pi pi-search" />
-                            <InputText className="p-mr-2 p-pr-5 contact-searchInput" placeholder="Search jobs" value={searchValue} onChange={handleSearchInputChange} />
+                            <InputText className="p-mr-2 p-pr-5 contact-searchInput" placeholder="Search instant jobs" value={searchValue} onChange={handleSearchInputChange} />
                         </div>
                         {
                             loading === "searchUsers" &&

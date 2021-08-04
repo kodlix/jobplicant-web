@@ -48,7 +48,7 @@ export default function reducer(state = Initial_State, action = {}) {
                 ...state,
                 error: null,
                 fetching: false,
-                allCurrentInstantJobs: action.payload
+                allCurrentInstantJobs: action.payload.data
             };
         case LOAD_INSTANT_APPLICANTS:
             return {
