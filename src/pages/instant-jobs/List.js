@@ -76,7 +76,7 @@ const InstantJobs = () => {
                                                 <div className="col-2">
                                                     <img
                                                         src="https://source.unsplash.com/random/100x100"
-                                                        className="rounded circle"
+                                                        className="rounded circle img-fluid"
                                                         alt="user-image"
                                                     />
                                                 </div>
@@ -96,9 +96,9 @@ const InstantJobs = () => {
                                                         {/* </Link> */}
                                                         <div className="p-grid p-pt-2" id={`${i}_int`} hidden={false}>
                                                             <div className="offset-md-5 p-pr-2 d-flex">
-                                                                <p> <span className="font-weight-bold app-color p-mt-2"> Interested ? &nbsp; </span> </p>
-                                                                <Button label="Yes" id="saveButton" className="p-button-sm" onClick={() => handleApply(instantjob.id, i)} /></div>
-                                                            <div className="p-pr-1"> <Link to={`/instant-hire/view/${instantjob.id}`}><Button label="View" id="reject" className="p-button-sm" /> </Link></div>
+                                                                <p> <span className="font-weight-bold app-color p-mt-2 interest-tx"> Interested ? &nbsp; </span> </p></div>
+                                                            <div><Button label="Yes" id="saveButton" className="p-button-sm" onClick={() => handleApply(instantjob.id, i)} /></div>
+                                                            <div className="p-pr-1 px-2"> <Link to={`/instant-hire/view/${instantjob.id}`}><Button label="View" id="reject" className="p-button-sm" /> </Link></div>
 
                                                         </div>
                                                         <p className="p-pt-2 float-right"> {moment(instantjob.createdAt).fromNow()} </p>
