@@ -47,12 +47,7 @@ const Review = (props) => {
                                 <div className="d-flex justify-content-between p-mb-1">
                                     <div>
                                         <h5> <span className="font-weight-bold text-secondary"></span> <span className="app-color">
-                                            Job Information</span></h5>
-                                        <div className="d-flex d-row p-mt-3">
-                                            <p className="p-mr-5"> <span className="font-weight-bold" >Job Id : </span> 0905901</p>
-                                            <p className="p-mr-5"> <span className="font-weight-bold">Job Closed : </span><span>31 July, 2001</span></p>
-                                            <p className="p-mr-5">  <span className="font-weight-bold">Applicant :</span> <span>Mr Jonathan Ebele</span></p>
-                                        </div>
+                                            Rate & Review </span></h5>
                                     </div>
                                     <div className="bk-btn p-pt-2 app-color" onClick={() => history.goBack()}>
                                         {/* <Link to="/instant-hires" className="bk-btn p-pt-2 app-color"> */}
@@ -60,6 +55,13 @@ const Review = (props) => {
                                         {/* </Link> */}
                                     </div>
                                 </div>
+
+                                <div className="d-flex d-row p-mt-3">
+                                    <p className="p-mr-5"> <span className="font-weight-bold" >Job Id : </span> 0905901</p>
+                                    <p className="p-mr-5"> <span className="font-weight-bold">Job Closed : </span><span>31 July, 2001</span></p>
+                                    <p className="p-mr-5">  <span className="font-weight-bold">Applicant :</span> <span>Mr Jonathan Ebele</span></p>
+                                </div>
+
                                 {/* <hr className="appcolor" /> */}
                             </div>
                         </div>
@@ -77,7 +79,7 @@ const Review = (props) => {
                                     <div className="col-2">
                                         <img
                                             src="https://source.unsplash.com/random/100x100"
-                                            className="rounded circle"
+                                            className="rounded circle img-fluid"
                                             alt="user-image" height="100" width="100"
                                         />
                                     </div>

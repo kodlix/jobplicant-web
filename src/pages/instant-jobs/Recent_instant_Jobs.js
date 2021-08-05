@@ -50,14 +50,14 @@ const RecentInstantJobs = () => {
                                         </div>
                                         <hr />
 
-                                        <div className="col-2 rounded-circle">
+                                        <div className="col-3 rounded-circle">
                                             <img
-                                                src="https://source.unsplash.com/random/100x100"
-                                                className="rounded circle recent-job-image"
+                                                src="https://source.unsplash.com/random/150x100"
+                                                className="rounded circle recent-job-image img-fluid"
                                                 alt="user-image"
                                             />
                                         </div>
-                                        <div className="col-10">
+                                        <div className="col-9">
                                             <small >
                                                 <Link className="p-text-secondary" to={`/instant-hire/view/${instantjob.id}`}>
                                                     <p className="font-weight-bold"> <span className="app-color" style={{ fontSize: 15 }}> {instantjob.service}</span></p>
