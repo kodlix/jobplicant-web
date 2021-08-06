@@ -22,7 +22,7 @@ import "./Timeline.css";
 
 const ViewPost = () => {
   const dispatch = useDispatch();
-  const post = useSelector(state => state.timeline.postByPostId);
+  const posts = useSelector(state => state.timeline.posts);
   const loading = useSelector(state => state.timeline.loadingPosts);
   const allJobs = useSelector(state => state.job.allJobs);
   const profileInfo = useSelector((state) => state.account.profileInfo);
@@ -46,7 +46,7 @@ const ViewPost = () => {
   useEffect(() => {
     if (params) {
       dispatch(loadProfileInfo());
-      dispatch(viewPost(params.id));
+      dispatch(viewPost(params.id, "viewPost"));
       dispatch(loadAllJobs());
     }
   }, [dispatch]);
@@ -348,11 +348,12 @@ const ViewPost = () => {
               <ModalMode
                 onHide={onHide}
                 postId={postId}
+                post={posts?.data[0]}
                 imageUrl={imageToDisplay}
               />
               {
                 loading === "viewPost" &&
-                post &&
+                posts &&
                 <div className="p-p-5 d-flex justify-content-center">
                   <i
                     className="pi pi-spin pi-spinner"
@@ -360,18 +361,18 @@ const ViewPost = () => {
                 </div>
               }
               {
-                Object.keys(post).length > 0 &&
+                posts.data.length > 0 &&
                 <div className="timeline-postsContainer">
-                  <div className="p-card p-py-3 p-py-sm-5 p-pl-3 p-pl-sm-5 p-pr-4 p-pr-sm-6 p-mb-2 timeline-posts" key={post.id}>
+                  <div className="p-card p-py-3 p-py-sm-5 p-pl-3 p-pl-sm-5 p-pr-4 p-pr-sm-6 p-mb-2 timeline-posts" key={posts?.data[0].id}>
                     <span className="d-flex justify-content-between">
                       <span className="d-flex">
                         {
-                          post?.author?.imageUrl ?
+                          posts?.data[0]?.author?.imageUrl ?
                             <img
                               width="70"
                               height="70"
-                              src={`${API_ROOT}/${post.author.imageUrl}`}
-                              alt={`${formatter.capitalizeFirstLetter(post.author.firstName)}`}
+                              src={`${API_ROOT}/${posts?.data[0].author.imageUrl}`}
+                              alt={`${formatter.capitalizeFirstLetter(posts?.data[0].author.firstName)}`}
                               className="rounded-circle p-mt-2 p-mb-2 p-mr-sm-3 p-mr-0 profile-picture-timeline text-white"
                             />
                             :
@@ -379,20 +380,20 @@ const ViewPost = () => {
                         }
                         <span>
                           {
-                            post?.author?.accountType !== "Corporate" &&
+                            posts?.data[0]?.author?.accountType !== "Corporate" &&
                             <span className="p-card-title cardtitle-posts p-mb-0">
-                              {`${formatter.capitalizeFirstLetter(post?.author?.firstName)} ${formatter.capitalizeFirstLetter(post?.author?.lastName)}`}
+                              {`${formatter.capitalizeFirstLetter(posts?.data[0]?.author?.firstName)} ${formatter.capitalizeFirstLetter(posts?.data[0]?.author?.lastName)}`}
                             </span>
                           }
                           {
-                            post?.author?.accountType === "Corporate" &&
+                            posts?.data[0]?.author?.accountType === "Corporate" &&
                             <span className="p-card-title cardtitle-posts p-mb-0">
-                              {formatter.capitalizeFirstLetter(post?.author?.companyName)}
+                              {formatter.capitalizeFirstLetter(posts?.data[0]?.author?.companyName)}
                             </span>
                           }
                           {
-                            post.author.accountType === "Artisan" &&
-                            <span className="stars p-ml-1 align-text-bottom" style={{ "--rating": post.author.rating }} />
+                            posts?.data[0].author.accountType === "Artisan" &&
+                            <span className="stars p-ml-1 align-text-bottom" style={{ "--rating": posts?.data[0].author.rating }} />
                           }
                           <div className="poster-description">
                             <p>
@@ -405,13 +406,13 @@ const ViewPost = () => {
                           <div className="timeline-cardtitle-posttime">
                             <i className="pi pi-clock p-pr-1 p-mt-2" />
                             <span>
-                              {moment(post.createdAt).fromNow('MMMM Do YYYY')} ago
+                              {moment(posts?.data[0].createdAt).fromNow('MMMM Do YYYY')} ago
                             </span>
                           </div>
                         </span>
                       </span>
                       {
-                        post.createdBy === agent.Auth.current()?.email &&
+                        posts?.data[0].createdBy === agent.Auth.current()?.email &&
                         <div className="dropdown font-weight-bold ml-2">
                           <i
                             type="button"
@@ -427,14 +428,13 @@ const ViewPost = () => {
                           >
                             <li
                               className="dropdown-item timeline-dropdownItem"
-                              onClick={() => onShow(post.id)}
+                              onClick={() => onShow(posts?.data[0].id)}
                             >
                               Edit
                             </li>
                             <li
                               className="dropdown-item timeline-dropdownItem"
-                              data-id={post.id}
-                              onClick={(e) => dispatch(deletePost(e.currentTarget.dataset.id))}
+                              onClick={() => dispatch(deletePost(posts.data[0].id, "fromViewPost"))}
                             >
                               Delete
                             </li>
@@ -444,29 +444,29 @@ const ViewPost = () => {
                     </span>
                     <h6 className="p-my-3">
                       <u>
-                        {post.title}
+                        {posts?.data[0].title}
                       </u>
                     </h6>
                     <div className="p-my-4 w-100 h-100">
                       <div
                         className="p-mb-3"
-                        dangerouslySetInnerHTML={{ __html: post.body }}
+                        dangerouslySetInnerHTML={{ __html: posts?.data[0].body }}
                       />
                       {
-                        post?.postImage &&
+                        posts?.data[0]?.postImage &&
                         <img
                           width="100%"
-                          alt={post.title}
+                          alt={posts?.data[0].title}
                           onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80" }}
                           className="timeline-postImage text-white"
-                          src={`${API_ROOT}/${post.postImage}`}
+                          src={`${API_ROOT}/${posts?.data[0].postImage}`}
                           onClick={expandPostImage} />
                       }
                     </div>
                     <div className="cardtitle-statusbar-timeline p-my-3 p-py-3">
                       <div className="d-flex">
                         <span
-                          data-id={post.id}
+                          data-id={posts?.data[0].id}
                           onClick={(e) => handleLike(e)}
                           className="post-statusbar-content p-pr-2 align-items-start"
                         >
@@ -477,14 +477,14 @@ const ViewPost = () => {
                             className="p-mr-1"
                           />
                           {
-                            post.likes > 0 &&
+                            posts?.data[0].likes > 0 &&
                             <h5 className="p-pr-1">
-                              {post.likes}
+                              {posts?.data[0].likes}
                             </h5>
                           }
                         </span>
                         <span
-                          data-id={post.id}
+                          data-id={posts?.data[0].id}
                           onClick={(e) => handleDislike(e)}
                           className="post-statusbar-content align-items-start"
                         >
@@ -494,16 +494,16 @@ const ViewPost = () => {
                             disliked={false}
                             className="p-mr-1" />
                           {
-                            post.dislikes > 0 &&
+                            posts?.data[0].dislikes > 0 &&
                             <h5 className="p-pr-1">
-                              {post.dislikes}
+                              {posts?.data[0].dislikes}
                             </h5>
                           }
                         </span>
                       </div>
                       <div
                         className="timeline-postShare-button"
-                        data-id={post.id}
+                        data-id={posts?.data[0].id}
                         onClick={handleShareButton}
                       >
                         <span className="p-button-label">
@@ -516,11 +516,11 @@ const ViewPost = () => {
                       </span>
                     </div>
                     <CommentForm
-                      postId={post.id}
+                      postId={posts?.data[0].id}
                       imageUrl={profileInfo?.imageUrl}
                     />
                     <CommentList
-                      postId={post.id}
+                      postId={posts?.data[0].id}
                       comments={commentsByPage}
                       onViewComments={handleViewComments}
                     />

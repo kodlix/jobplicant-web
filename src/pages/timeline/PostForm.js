@@ -13,9 +13,9 @@ import { Editor } from 'primereact/editor';
 import { createPost, editPost, viewPost } from "store/modules/timeline";
 import "./Timeline.css";
 
-const CreatePostModal = ({ postId, clearModalInput }) => {
+const CreatePostModal = ({ post, clearModalInput }) => {
   const dispatch = useDispatch();
-  const post = useSelector(state => state.timeline.postByPostId);
+  // const post = useSelector(state => state.timeline.postByPostId);
   const postActionStatus = useSelector(state => state.timeline.loadingPosts);
   const profileInfo = useSelector((state) => state.account.profileInfo);
   const [postObject, setPostObject] = useState({});
@@ -35,15 +35,6 @@ const CreatePostModal = ({ postId, clearModalInput }) => {
   };
 
   useEffect(() => {
-    if (postId) {
-      dispatch(viewPost(postId));
-    }
-    else {
-      setPostObject({});
-    }
-  }, [dispatch]);
-
-  useEffect(() => {
     window.addEventListener('click', _handleClickEvent);
   }, [])
 
@@ -54,7 +45,7 @@ const CreatePostModal = ({ postId, clearModalInput }) => {
   }, [postActionStatus])
 
   useEffect(() => {
-    if (postId) {
+    if (Object.keys(post).length > 0) {
       setValue("title", post.title);
       setValue("body", post.body);
       if (post.postImage) {
@@ -126,7 +117,6 @@ const CreatePostModal = ({ postId, clearModalInput }) => {
 
 
   const handleEmojiSelect = (e) => {
-
     const range = _quill.getSelection({ focus: false });
     let sym = e.unified.split('-')
     let codesArray = []
@@ -168,8 +158,8 @@ const CreatePostModal = ({ postId, clearModalInput }) => {
     if (image.raw) {
       formData.append("postImage", image.raw)
     };
-    if (postId) {
-      dispatch(editPost(postId, formData));
+    if (Object.keys(post).length > 0) {
+      dispatch(editPost(post.id, formData));
     }
     else {
       dispatch(createPost(formData));

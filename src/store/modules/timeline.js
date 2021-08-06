@@ -1,12 +1,13 @@
 import { showMessage } from "./notification";
 import agent from "../../services/agent.service";
+import { push } from "connected-react-router";
 import { MESSAGE_TYPE } from "../constant";
 import { closeModal } from "./modal";
 
 // initial values
 const timeline = {
   loadingPosts: "",
-  posts: [],
+  posts: { data: [], meta: {} },
   post: {},
   postsByUserId: [],
   postByPostId: {},
@@ -21,6 +22,8 @@ const LOAD_POST_BY_POSTID = "LOAD_POST_BY_POSTID";
 const LOAD_POSTS_BY_USERID = "LOAD_POSTS_BY_USERID";
 const LOAD_TOTAL_POST_COUNT = "LOAD_TOTAL_POST_COUNT";
 const LOAD_USER_POST_COUNT = "LOAD_USER_POST_COUNT";
+const POSTS_EDITED = "POSTS_EDITED";
+const EMPTY_POSTS = "EMPTY_POSTS";
 
 // Reducer
 export default function reducer(state = timeline, action = {}) {
@@ -39,7 +42,7 @@ export default function reducer(state = timeline, action = {}) {
     case LOAD_POST_BY_POSTID:
       return {
         ...state,
-        postByPostId: action.payload,
+        posts: { data: [action.payload], meta: {} },
       };
     case LOAD_POSTS_BY_USERID:
       return {
@@ -55,6 +58,22 @@ export default function reducer(state = timeline, action = {}) {
       return {
         ...state,
         PostCountByUser: action.payload,
+      };
+    case EMPTY_POSTS:
+      return {
+        ...state,
+        posts: { data: [], meta: {} }
+      };
+    case POSTS_EDITED:
+      const newPostArray = state.posts.data.map(function (item) {
+        if (item.id === action.payload.id) {
+          return { ...item, title: action.payload.title, body: action.payload.body, postImage: action.payload.postImage }
+        }
+        return item;
+      })
+      return {
+        ...state,
+        posts: { ...state.posts, data: newPostArray }
       };
     default:
       return state;
@@ -78,6 +97,13 @@ export const loading = (data) => ({
   type: LOADING_POSTS,
   payload: data
 });
+export const postEdited = (data) => ({
+  type: POSTS_EDITED,
+  payload: data
+});
+export const emptyPostArray = () => ({
+  type: EMPTY_POSTS,
+});
 
 
 
@@ -98,6 +124,7 @@ export function createPost(post) {
         dispatch(closeModal());
         dispatch(loadPosts(1, 10));
         dispatch(loading("postSuccess"));
+        dispatch(loading(null));
       },
       (error) => {
         dispatch(showMessage({ type: "error", message: error }));
@@ -119,9 +146,9 @@ export function editPost(id, post) {
             message: "Post edited successfully",
           })
         );
-        dispatch(loadPosts(1, 10));
+        dispatch(postEdited(response));
         dispatch(loading("postSuccess"));
-        dispatch(closeModal());
+        dispatch(loading(null));
       },
       (error) => {
         dispatch(showMessage({ type: "error", message: error }));
@@ -192,9 +219,9 @@ export function loadPostsByUserId(page, take) {
   }
 }
 
-export function viewPost(id) {
+export function viewPost(id, loadingType) {
   return dispatch => {
-    // dispatch(isLoading());
+    dispatch(loading(loadingType));
     return agent.Post.view(id).then(
       response => {
         //handle success
@@ -206,16 +233,19 @@ export function viewPost(id) {
           })
         );
         dispatch(postByPostIdLoaded(response));
+        dispatch(loading(null));
       },
       (error) => {
         // handle error
         dispatch(showMessage({ type: "error", message: error }));
+        dispatch(emptyPostArray());
+        dispatch(loading(null));
       }
     );
   }
 }
 
-export function deletePost(id) {
+export function deletePost(id, deleteType) {
   return dispatch => {
     // dispatch(isLoading());
     return agent.Post.delete(id).then(
@@ -228,7 +258,12 @@ export function deletePost(id) {
             message: "Post deleted successfully",
           })
         );
-        dispatch(loadPosts(1, 10));
+        if (deleteType === "fromViewPost") {
+          dispatch(push("/timeline"));
+        }
+        else {
+          dispatch(loadPosts(1, 10));
+        }
       },
       (error) => {
         // handle error

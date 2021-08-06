@@ -24,17 +24,18 @@ const Timeline = () => {
   const loading = useSelector(state => state.timeline.loadingPosts);
   const allJobs = useSelector(state => state.job.allJobs);
   const profileInfo = useSelector((state) => state.account.profileInfo);
-  const [postId, setPostId] = useState("");
+  const [post, setPost] = useState({});
   const [pageNumber, setPageNumber] = useState(1);
   const [imageToDisplay, setImageToDisplay] = useState("");
-  const [copyAlert, setCopyAlert] = useState(false);
+  const [copyAlert, setCopyAlert] = useState(null);
   const [postsLoaded, setPostsLoaded] = useState({});
   const commentsByPage = useSelector(state => state.comment.comments);
   const copyModalClassname = copyAlert ? "timeline-copyModalAlert--active" : "timeline-copyModalAlert"
 
   const onShow = (id) => {
     if (id) {
-      setPostId(id);
+      let postObject = postsLoaded.data.filter((post) => post.id === id);
+      setPost(postObject[0]);
       dispatch(openModal(TIMELINE.EDITPOST));
     }
     else {
@@ -56,7 +57,7 @@ const Timeline = () => {
     dispatch(closeModal(name));
     dispatch(closeEmojiPicker());
     setImageToDisplay("");
-    setPostId("");
+    setPost({});
   }
 
   const capitalizeFirstLetter = (name) => {
@@ -83,7 +84,7 @@ const Timeline = () => {
     el.select();
     document.execCommand('copy');
     document.body.removeChild(el);
-    setCopyAlert(true);
+    setCopyAlert(postId);
     setTimeout(function () { setCopyAlert(false); }, 1000);
   }
 
@@ -392,7 +393,7 @@ const Timeline = () => {
                   />
                   <ModalMode
                     onHide={onHide}
-                    postId={postId}
+                    post={post}
                     imageUrl={imageToDisplay}
                   />
                 </div>
@@ -559,7 +560,7 @@ const Timeline = () => {
                               Share
                             </span>
                           </div>
-                          <span className={copyModalClassname}>
+                          <span className={copyAlert === post.id ? "timeline-copyModalAlert--active" : "timeline-copyModalAlert"}>
                             Link copied
                           </span>
                         </div>

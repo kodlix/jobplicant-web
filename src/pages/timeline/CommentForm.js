@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { InputTextarea } from 'primereact/inputtextarea';
-import { API_ROOT } from "../../services/agent.service";
 import { useForm } from 'react-hook-form';
 import { Button } from 'primereact/button';
 import 'emoji-mart/css/emoji-mart.css';
