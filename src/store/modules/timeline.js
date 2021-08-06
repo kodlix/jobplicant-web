@@ -7,7 +7,7 @@ import { closeModal } from "./modal";
 // initial values
 const timeline = {
   loadingPosts: "",
-  posts: { data: [], meta: {} },
+  posts: { data: {}, meta: {}, ids: [] },
   post: {},
   postsByUserId: [],
   postByPostId: {},
@@ -34,15 +34,30 @@ export default function reducer(state = timeline, action = {}) {
         loadingPosts: action.payload,
       };
     case LOAD_POSTS:
+      const { data, meta } = action.payload;
+      const uniquePostIds = Array.from(new Set([
+        ...state.posts.ids,
+        ...data.map(({ id }) => id),
+      ]));
+
+      const normalizedPosts = data.reduce((acc, post) => {
+        acc[post.id] = post;
+        return acc;
+      }, {});
+
       return {
         ...state,
-        posts: action.payload,
+        posts: {
+          ids: uniquePostIds,
+          data: { ...state.posts.data, ...normalizedPosts },
+          meta: { ...meta, page: Math.max(meta.page, state.posts.meta.page || 1) },
+        },
         loading: ""
       };
     case LOAD_POST_BY_POSTID:
       return {
         ...state,
-        posts: { data: [action.payload], meta: {} },
+        posts: { data: [action.payload], meta: {}, ids: [action.payload.id] },
       };
     case LOAD_POSTS_BY_USERID:
       return {
@@ -285,7 +300,7 @@ export function likePost(id) {
             message: "Post liked!!",
           })
         );
-        dispatch(loadPosts(1, 10));
+        dispatch(loadPosts(1, 1));
       },
       (error) => {
         // handle error
@@ -307,7 +322,7 @@ export function dislikePost(id) {
             message: "Post disliked!!",
           })
         );
-        dispatch(loadPosts(1, 10));
+        dispatch(loadPosts(1, 1));
       },
       (error) => {
         // handle error
