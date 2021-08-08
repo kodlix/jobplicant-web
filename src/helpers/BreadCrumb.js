@@ -20,7 +20,7 @@ const CustomBreadCrumb = () => {
                         return path === ""
                             ? <span key={index} className="d-flex"><Link to="/"><i className="pi pi-home" style={{fontSize: '18px', color: '#000'}}></i></Link> {' '}{(index + 1) <= size ? <span style={{fontSize: '15px', marginLeft: '10px', marginRight: '10px'}}>/</span> : ""}</span>
                             : <span key={index}>{' '}
-                                <Link to={`/${path}`}  style={{fontSize: '18px', color: '#000'}}>{path}</Link>{' '}{(index + 1) !== size ? <span><i className="pi pi-arrow-right"></i></span> : ""}</span>
+                                <Link to={`/${path}`}  style={{fontSize: '18px', color: '#000'}}>{path}</Link>{' '}{(index + 1) !== size ? "  " : ""}</span>
                     })
                 }
             </div>

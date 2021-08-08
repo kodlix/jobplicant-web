@@ -3,7 +3,7 @@ import React from 'react';
 import {useDispatch}  from 'react-redux';
 import { Button } from 'primereact/button';
 
-import { closeModal } from 'store/modules/modal';
+import { closeModal } from '../../store/modules/modal';
 
 
 const ModeFooter = ({ id, loading }) => {

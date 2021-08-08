@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 
 import { Toast } from "primereact/toast";
 import SectionHeader from "./SectionHeader";
-import ModeFooter from "pages/profile/ModeFooter";
+import ModeFooter from "./ModeFooter";
 import { Carousel } from "primereact/carousel";
 import { useSelector } from "react-redux";
 

@@ -17,7 +17,7 @@ import agentService from 'services/agent.service';
 import Spinner from 'components/spinner/spinner.component';
 import { loadCountry } from 'store/modules/location';
 
-const InfoTab = () => {
+const ApplicantProfile = () => {
 
   const dispatch = useDispatch();
   const loading = useSelector(state => state.account.loading);
@@ -45,8 +45,9 @@ const InfoTab = () => {
 
   useEffect(() => {
     console.log("change must happen");
-    dispatch(loadProfileInfo());
     dispatch(loadCountry());
+    // dispatch(loadProfileInfo());
+    // dispatch(loadApplicantInfo());
   }, [educationUpdatedOrDeleted, userSkillUpdatedOrDeleted, experienceUpdatedOrDeleted]);
 
   const expandImage = () => { };
@@ -136,13 +137,9 @@ const InfoTab = () => {
 
         </div>
       </div>
-      <ModalForm 
-        data={profileInfo} 
-        mode={mode} 
-        itemToEdit={itemToEdit} 
-      />
+      <ModalForm data={profileInfo} mode={mode} itemToEdit={itemToEdit} />
     </>
   );
 }
 
-export default InfoTab;
+export default ApplicantProfile;

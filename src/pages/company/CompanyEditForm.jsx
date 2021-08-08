@@ -1,6 +1,6 @@
 import InputField from "components/InputField";
 import moment from "moment";
-import ModeFooter from "pages/profile/ModeFooter";
+import ModeFooter from "components/profile/ModeFooter";
 import { Button } from "primereact/button";
 import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";

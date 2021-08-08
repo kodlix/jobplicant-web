@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import AppNavBar from "components/AppNavBar";
 
-import Portfolio from "./Portfolio";
-import ProfileTab from "./ProfileTab";
+import Portfolio from "components/profile/Portfolio";
+import ProfileTab from "components/profile/ProfileTab";
 import InfoTab from "./tabs/InfoTab";
 import { Route } from "react-router";
 import JobsTab from "./tabs/JobsTab";
@@ -10,7 +10,7 @@ import ContactsTab from "./tabs/ContactsTab";
 import GroupsTab from "./tabs/GroupsTab";
 import { useDispatch } from "react-redux";
 import { openModal } from "store/modules/modal";
-import PersonalInfo from "./PersonalInfo";
+import PersonalInfo from "components/profile/PersonalInfo";
 import CustomBreadCrumb from "helpers/BreadCrumb";
 import agentService from "services/agent.service";
 import ChatContainer from "components/chat/ChatContainer";

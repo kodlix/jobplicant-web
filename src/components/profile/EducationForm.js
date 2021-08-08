@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import ModeFooter from "pages/profile/ModeFooter";
-import SectionHeader from "pages/profile/SectionHeader";
+import ModeFooter from "./ModeFooter";
+import SectionHeader from "./SectionHeader";
 import { InputTextarea } from "primereact/inputtextarea";
 import { InputText } from "primereact/inputtext";
 import { Calendar } from "primereact/calendar";
@@ -10,6 +10,8 @@ import { Dropdown } from "primereact/dropdown";
 import { updateEducation, createEducation } from "store/modules/education";
 import { fetchCountries } from "store/modules/util";
 import { getQualifications } from "store/modules/admin";
+
+
 
 const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemToEdit, mode }) => {
   const {
@@ -26,6 +28,7 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
 
   const loading = useSelector((state) => state.education.submitting);
   const dispatch = useDispatch();
+  
   const [yearOfGraduation, setYearOfGraduation] = useState(null);
   const [education, setEducation] = useState({
     institution: "",
@@ -282,6 +285,7 @@ const yearNavigatorTemplate = (e) => {
                   value={education.address}
                 />
               </div>
+              
             </div>
             <ModeFooter
               loading={loading}

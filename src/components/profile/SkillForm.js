@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import SectionHeader from "./SectionHeader";
 import { Tag } from "primereact/tag";
 import { Dropdown } from "primereact/dropdown";
-import ModeFooter from "pages/profile/ModeFooter";
+import ModeFooter from "./ModeFooter";
 import { useDispatch, useSelector } from "react-redux";
 import { createSkill, deleteSkill } from "store/modules/userSkill";
 import { getSkills } from "store/modules/admin";

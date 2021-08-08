@@ -5,6 +5,7 @@ import { MESSAGE_TYPE } from "store/constant";
 
 // initial values
 const authData = {
+  loading: false,
   currentUser: {
     // email: "",
     // password: "",
@@ -22,6 +23,7 @@ const LOGGED_IN = 'app/auth/LOGGED_IN';
 const LOGGED_OUT = 'app/auth/LOGGED_OUT';
 const FORGOT_PASSWORD = 'app/auth/FORGOT_PASSWORD';
 const UPDATE_PASSWORD = 'app/auth/UPDATE_PASSWORD';
+const LOADING = 'app/auth/LOADING';
 
 // Reducer
 export default function reducer(state = authData, action = {}) {
@@ -52,6 +54,10 @@ export default function reducer(state = authData, action = {}) {
       fetching: false,
       currentUser: null
     };
+    case LOADING: return {
+      ...state,
+      loading: action.payload
+    }
     default:
       return state;
   }
@@ -77,6 +83,12 @@ export function userUpdatePassword() {
   return { type: UPDATE_PASSWORD }
 }
 
+export function isRequestLoading(payload) {
+  return {
+    type: LOADING,
+    payload
+  }
+}
 
 // Actions
 export function registerUser(user) {
@@ -107,6 +119,7 @@ export function verifyAccount(code) {
 
 export function loginUser({ email, password, type }) {
   return dispatch => {
+    dispatch(isRequestLoading(true))
     return agent.Auth.login(email, password, type).then(
       response => {
         // handle success
@@ -118,7 +131,7 @@ export function loginUser({ email, password, type }) {
           dispatch(push('/admin'));
           return;
         }
-        
+
         if (response.accountType === "Corporate") {
           onLogin(dispatch, response);
           console.log({ response });
@@ -132,7 +145,7 @@ export function loginUser({ email, password, type }) {
           onLogin(dispatch, response);
           dispatch(push("/profile"));
         }
-
+        dispatch(isRequestLoading(false))
       }, error => {
         // handle error
         dispatch(showMessage({ type: "error", message: error }));

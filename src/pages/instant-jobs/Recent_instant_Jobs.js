@@ -4,7 +4,7 @@ import { fetchAllInstantJobs } from 'store/modules/instantJob';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import "../profile/UserProfile.css";
-import SectionHeader from "pages/profile/SectionHeader";
+import SectionHeader from "components/profile/SectionHeader";
 
 import './Instant-Jobs.css';
 
