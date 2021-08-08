@@ -9,6 +9,7 @@ const Initial_State = {
     instantjobs: [],
     allCurrentInstantJobs: [],
     applicants: [],
+    applicantProfile: null
 };
 
 
@@ -18,6 +19,7 @@ const LOAD_INSTANT_JOBS = 'app/instantJob/LOAD_INSTANT_JOBS';
 const LOAD_INSTANT_JOB = 'app/instantJob/LOAD_INSTANT_JOB';
 const LOAD_ALL_INSTANT_JOBS = 'app/instantJob/LOAD_ALL_INSTANT_JOBS';
 const LOAD_INSTANT_APPLICANTS = 'app/instantJob/LOAD_INSTANT_APPLICANT';
+const LOAD_APPLICANT_INFO = 'app/instantJob/LOAD_APPLICANT_INFO';
 
 // Reducer
 export default function reducer(state = Initial_State, action = {}) {
@@ -57,6 +59,11 @@ export default function reducer(state = Initial_State, action = {}) {
                 fetching: false,
                 applicants: action.payload
             };
+        case LOAD_APPLICANT_INFO:
+            return {
+                ...state,
+                applicantProfile: action.payload
+            }
         default:
             return state;
 
@@ -96,6 +103,12 @@ export function onLoadInstantJobApplicants(data) {
     };
 }
 
+export function onLoadApplicantProfile(data){
+    return {
+        type: LOAD_APPLICANT_INFO,
+        payload: data
+    }
+}
 
 // Actions
 export function createInstantJob(instantjob) {
@@ -214,6 +227,12 @@ export function loadApplicants(id) {
                 dispatch(showMessage({ type: "error", message: error, title: "Failed to load Instant jobs applicant" }));
             }
         )
+    }
+}
+
+export function loadApplicantProfile(id){
+    return dispatch => {
+        return
     }
 }
 

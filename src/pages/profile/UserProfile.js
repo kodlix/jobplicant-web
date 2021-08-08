@@ -8,7 +8,7 @@ import { Route } from "react-router";
 import JobsTab from "./tabs/JobsTab";
 import ContactsTab from "./tabs/ContactsTab";
 import GroupsTab from "./tabs/GroupsTab";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "store/modules/modal";
 import PersonalInfo from "components/profile/PersonalInfo";
 import CustomBreadCrumb from "helpers/BreadCrumb";
@@ -21,6 +21,7 @@ import ChatContent from "components/chat/ChatContent";
 
 const UserProfile = ({ match }) => {
   const [contact, setContact] = React.useState(null)
+  const profileInfo = useSelector((state) => state.account.profileInfo);
 
   const dispatch = useDispatch();
   const [, setMode] = useState("");
@@ -52,7 +53,7 @@ const UserProfile = ({ match }) => {
             <PersonalInfo
               openCreate={openCreate}
               openEdit={openEdit} 
-              
+              data={profileInfo}
             />
 
             <div className="p-grid">

@@ -208,7 +208,7 @@ const Applicant = (props) => {
                                                 </div>
                                                 {!applicant.accepted && !applicant.rejected && <div className="p-grid p-pl-5 p-pb-2">
                                                     <div className=" applicant-actionIcons p-pr-2">
-                                                        <Link to={`/profile/${applicant.applicantId}`}><a className="pi pi-user" title="View Applicant Profile"></a></Link>
+                                                        <Link to={`/applicant/${applicant.applicantId}`}><a className="pi pi-user" title="View Applicant Profile"></a></Link>
                                                     </div>
                                                     <div className="p-pr-2">
                                                         <Button label="Accept" id="saveButton" className="p-button-sm"
