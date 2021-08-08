@@ -139,7 +139,8 @@
         display: none;
     }
     .card-size {
-        width: 90%;
+        /* updated width from 90 to 100% for mobile responsiveness sake */
+        width: 96%;
         margin: auto;
     }
     .card-size-list {
@@ -153,5 +154,11 @@
     }
     .bk-btn {
         margin-left: 1px;
+    }
+    .instant .interest-tx {
+        margin-right: 3em;
+        margin-left: 6em;
+        /* font-size: medium; */
+        padding-bottom: 0.2em;
     }
 }

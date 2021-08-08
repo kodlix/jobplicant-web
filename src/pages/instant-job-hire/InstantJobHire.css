@@ -40,6 +40,11 @@
     margin: auto;
 }
 
+.review-card-size {
+    width: 80%;
+    margin: auto;
+}
+
 .nav-tabs {
     border-bottom: none !important;
 }
@@ -118,13 +123,26 @@
 }
 
 .bk-btn {
-    margin-left: "35vw"
+    margin-left: "35vw";
+    cursor: pointer;
+}
+
+.applicant-actionIcons .pi {
+    font-size: 1.3rem;
+    padding: 0.5rem;
+    font-weight: 600;
+    color: #5A2846;
+    cursor: pointer;
+}
+
+.applicants-display {
+    padding: 1em;
 }
 
 
 /* Media Query Section */
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
     .small-screen {
         display: none;
     }
@@ -144,4 +162,19 @@
     .bk-btn {
         margin-left: 1px;
     }
+    .applicants-display {
+        padding: 1em 0 0 0;
+    }
+    .review-card-size {
+        width: 100%;
+    }
+    .instant header {
+        flex-wrap: wrap;
+    }
+    .instant .create-btn {
+        margin-left: 9em;
+        margin-top: 0.5em;
+    }
 }
+
+@media only screen and (min-width: 768px) {}

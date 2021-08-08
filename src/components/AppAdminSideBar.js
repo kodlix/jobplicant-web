@@ -65,7 +65,7 @@ const AppAdminSideBar = (props) => {
                             <li className="heading">Jobplicant Admin Management</li>
                            
                             <li className='li-border'>
-                                <Link to="/dashboard">
+                                <Link to="/admin-services">
                                     <i className="li-icon lni lni-clipboard"></i>
                                     <span className="li-title">Services</span>
                                 </Link>

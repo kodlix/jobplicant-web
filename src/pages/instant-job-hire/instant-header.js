@@ -33,16 +33,16 @@ const InstantHeader = ({ title, showCreateButton = false, showBack = false, coun
 
     return (
         <>
-            <header className="d-flex">
+            <header className="instant d-flex">
                 <div className="title-container w-100"   >
-                    <h2 className="title sm-screen ">{title} ({count}) </h2>
+                    <h2 className="title sm-screen ">{title} {count > 0 && `(${count})`} </h2>
                 </div>
 
                 {showSearchBar && <div className="d-flex align-items-baseline">
                     <div className="p-input-icon-right searchInput-container-contact">
                         <div className="p-input-icon-left">
                             <i className="pi pi-search" />
-                            <InputText className="p-mr-2 p-pr-5 contact-searchInput" placeholder="Search jobs" value={searchValue} onChange={handleSearchInputChange} />
+                            <InputText className="p-mr-2 p-pr-5 contact-searchInput" placeholder="Search instant jobs" value={searchValue} onChange={handleSearchInputChange} />
                         </div>
                         {
                             loading === "searchUsers" &&
@@ -55,7 +55,7 @@ const InstantHeader = ({ title, showCreateButton = false, showBack = false, coun
                     </div>
                 </div>}
                 <div className="flex-shrink-0">
-                    {showCreateButton && <Link to="/create-instant-hire"> <Button iconPos="left" label="Create" id="saveButton" type="button" /></Link>}
+                    {showCreateButton && <Link to="/create-instant-hire"> <Button iconPos="left" label="Create" className="create-btn" id="saveButton" type="button" /></Link>}
                     {showBack && <Link to="/instant-hires" className="bk-btn p-pt-2 app-color"><i className="pi pi-arrow-left">Back</i></Link>}
                 </div>
             </header >

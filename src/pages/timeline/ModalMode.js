@@ -4,10 +4,12 @@ import { ToggleButton } from 'primereact/togglebutton';
 import { useSelector } from "react-redux";
 import { TIMELINE } from "constants/timeline";
 import PostForm from './PostForm';
+import { closeModal } from "store/modules/modal";
 import PostJobModal from './PostJobModal';
 
-const ModalMode = ({ onHide, displayModal, postId, imageUrl }) => {
+const ModalMode = ({ onHide, postId, imageUrl }) => {
   const modalName = useSelector(state => state.modal.name);
+  const modalVisible = modalName === TIMELINE.EDITPOST || modalName === TIMELINE.CREATEPOST || modalName === TIMELINE.ACTIVEUSERPICTURE || modalName === TIMELINE.POSTIMAGE;
   const [toggle, setToggle] = useState(true)
   const createPost_Title = "Create a Post";
   const EditPost_Title = "Edit your Post";
@@ -18,9 +20,14 @@ const ModalMode = ({ onHide, displayModal, postId, imageUrl }) => {
     setToggle(displayPostForm);
   }
 
+  const onModalClose = () => {
+    closeModal();
+    onHide();
+  }
+
   return (
     <>
-      <Dialog header={dialogTitle} visible={displayModal} onHide={onHide} breakpoints={{ '960px': '100vw' }} style={{ width: '45vw' }}>
+      <Dialog header={dialogTitle} visible={modalVisible} onHide={onModalClose} style={{width:"60rem"}} className='dialogModal-timeline'>
         {
           (modalName === TIMELINE.CREATEPOST || modalName === TIMELINE.CREATEJOB) &&
           < ToggleButton
