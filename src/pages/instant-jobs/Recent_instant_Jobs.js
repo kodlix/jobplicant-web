@@ -52,8 +52,8 @@ const RecentInstantJobs = () => {
 
                                         <div className="col-3 rounded-circle">
                                             <img
-                                                src="https://source.unsplash.com/random/150x100"
-                                                className="rounded circle recent-job-image img-fluid"
+                                                src="https://source.unsplash.com/random/100x100" style={{ borderRadius: "50%" }}
+                                                className="img-fluid"
                                                 alt="user-image"
                                             />
                                         </div>

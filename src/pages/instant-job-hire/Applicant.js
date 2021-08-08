@@ -144,19 +144,15 @@ const Applicant = (props) => {
                                 <li><a className="dropdown-item" href="#">Something else here</a></li> */}
                                         <li className="dropdown-item">
                                             <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
-                                            Option 1
+                                            My Location
                                         </li>
                                         <li className="dropdown-item">
                                             <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
-                                            Option 2
+                                            Top Rated
                                         </li>
                                         <li className="dropdown-item">
                                             <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />
-                                            &nbsp; Option 3
-                                        </li>
-                                        <li className="dropdown-item pr-1">
-                                            <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />
-                                            &nbsp; Option 4
+                                            &nbsp; Reliability
                                         </li>
                                     </ul>
                                 </div>
@@ -211,12 +207,15 @@ const Applicant = (props) => {
                                                     </p>
                                                 </div>
                                                 {!applicant.accepted && !applicant.rejected && <div className="p-grid p-pl-5 p-pb-2">
+                                                    <div className=" applicant-actionIcons p-pr-2">
+                                                        <Link to={`/profile/${applicant.applicantId}`}><a className="pi pi-user" title="View Applicant Profile"></a></Link>
+                                                    </div>
                                                     <div className="p-pr-2">
-                                                        <Button icon="pi pi-check" iconPos="left" label="Accept" id="saveButton" className="p-button-sm"
+                                                        <Button label="Accept" id="saveButton" className="p-button-sm"
                                                             onClick={() => acceptHandler(applicant.applicationId)} />
                                                     </div>
                                                     <div className="">
-                                                        <Button label="Reject" icon="pi pi-times" iconPos="left" id="reject" className="p-button-sm"
+                                                        <Button label="Reject" id="reject" className="p-button-sm"
                                                             onClick={() => rejectHandler(applicant.applicationId)} />
                                                     </div>
 

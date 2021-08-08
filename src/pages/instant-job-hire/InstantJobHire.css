@@ -142,7 +142,7 @@
 
 /* Media Query Section */
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
     .small-screen {
         display: none;
     }
@@ -176,3 +176,5 @@
         margin-top: 0.5em;
     }
 }
+
+@media only screen and (min-width: 768px) {}
