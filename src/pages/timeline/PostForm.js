@@ -141,7 +141,6 @@ const CreatePostModal = ({ post, clearModalInput }) => {
   };
 
   const inputChange = (e, inputName) => {
-    //  console.log(_quill.getText().trim().length)
     const inputValue =
       inputName && (inputName === "body")
         ? e.htmlValue

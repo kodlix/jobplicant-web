@@ -29,11 +29,9 @@ const Timeline = () => {
   const [imageToDisplay, setImageToDisplay] = useState("");
   const [copyAlert, setCopyAlert] = useState(null);
   const commentsByPage = useSelector(state => state.comment.comments);
-  console.log(posts)
 
   const onShow = (id) => {
     if (id) {
-      // const [postObject] = posts.data.filter((post) => post.id === id);
       setPost(posts.data[id]);
       dispatch(openModal(TIMELINE.EDITPOST));
     }
