@@ -4,12 +4,19 @@
 }
 
 .containerHeight-contact {
-  height: 91vh;
+  height: 100vh;
 }
 
 .contacts-content {
   width: 86%;
   margin: auto;
+}
+
+.contact-individualContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .contact-cardtitle {
@@ -78,6 +85,18 @@
   margin-bottom: 0.5rem;
 }
 
+.contact-emptyProfilePic-small {
+  border: 3px #5A2846 solid;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-size: 1.1rem;
+  border-radius: 50%;
+  padding: 0.4rem;
+  color: #5A2846;
+  font-weight: 700;
+  margin-right: 0.5rem;
+}
+
 .contact-profilePicture {
   border: 3px #5A2846 solid; 
   object-fit: cover;
@@ -142,7 +161,7 @@
 @media screen and (max-width: 768px) {
   .contacts-actionIcons i {
     font-size: 0.8rem !important;
-  }  
+  }
 }
 
 @media screen and (max-width: 530px) {
@@ -158,5 +177,15 @@
 
   .searchInput-container-contact > div, .searchInput-container-contact > div > input {
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 562px) {
+  .contact-individualContainer {
+    display: block;
+  }
+
+  .contacts-actionIcons .pi {
+    padding: 0;
   }
 }

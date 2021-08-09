@@ -10,7 +10,7 @@ import { postComment } from "../../store/modules/comment";
 import { openEmojiPicker, closeEmojiPicker } from "store/modules/emojiPicker";
 import './CommentSection.css';
 
-const CommentForm = ({ postId }) => {
+const CommentForm = ({ postId, imageUrl }) => {
   const dispatch = useDispatch();
   const emojiPickerId = useSelector(state => state.emojiPicker.name);
   const loadingTypeCommentModule = useSelector(state => state.comment.loadingType);
@@ -62,10 +62,10 @@ const CommentForm = ({ postId }) => {
   const _handleClickEvent = (e) => {
     const { target } = e;
     const parentIds = ['TextEditor-comment-emoji-button', 'TextEditor-comment-emoji-picker'];
-    
+
     // Check if the target element is a decendant of any of the above parent IDs
     const isDescendant = parentIds.some((parentId) => isDescendantElement(target, parentId));
-    
+
     // If element is not a descendant, then close the picker
     if (!isDescendant) {
       _handleEmojiToggle(false);
@@ -103,11 +103,29 @@ const CommentForm = ({ postId }) => {
   }
 
   return (
-    <div className='p-card-title d-flex p-mt-2 w-100'>
-      <img src="../../assets/logo.png" width="40" height="40" className="rounded-circle profile-picture-timeline" />
-      <form onSubmit={handleSubmit(onSubmit)} className='timeline-commentInputContainer'>
-        <InputTextarea rows={1} cols={30} value={comment} autoResize className="commentForm" name="message" placeholder="Write your comment..." {...register("message", { required: true })}
-          onChange={(e) => { inputChange(e) }} />
+    <div className='d-flex p-mt-2 w-100'>
+      <img
+        alt="Profile"
+        src={imageUrl}
+        width="55"
+        height="55"
+        className="rounded-circle profile-picture-timeline"
+      />
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className='timeline-commentInputContainer'
+      >
+        <InputTextarea
+          rows={1}
+          cols={30}
+          autoResize
+          name="message"
+          value={comment}
+          className="commentForm"
+          placeholder="Write your comment..."
+          {...register("message", { required: true })}
+          onChange={(e) => { inputChange(e) }}
+        />
         <span className="timeline-commentButtons-container">
           {
             emojiPickerId === postId &&
@@ -131,7 +149,11 @@ const CommentForm = ({ postId }) => {
               size={23}
             />
           </span>
-          <Button type="submit" className="p-px-1 p-ml-2 timeline-commentButton" label="Comment" />
+          <Button
+            type="submit"
+            label="Comment"
+            className="p-px-1 p-ml-2 timeline-commentButton"
+          />
         </span>
       </form>
     </div>
