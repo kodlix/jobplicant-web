@@ -29,11 +29,12 @@ const Timeline = () => {
   const [imageToDisplay, setImageToDisplay] = useState("");
   const [copyAlert, setCopyAlert] = useState(null);
   const commentsByPage = useSelector(state => state.comment.comments);
+  console.log(posts)
 
   const onShow = (id) => {
     if (id) {
-      const [postObject] = posts.data.filter((post) => post.id === id);
-      setPost(postObject);
+      // const [postObject] = posts.data.filter((post) => post.id === id);
+      setPost(posts.data[id]);
       dispatch(openModal(TIMELINE.EDITPOST));
     }
     else {
@@ -106,12 +107,6 @@ const Timeline = () => {
     if (loading === "loadPosts") {
       dispatch(closeEmojiPicker());
     }
-    // if (pageNumber === 1) {
-    //   setPostsLoaded(postsByPage);
-    // }
-    // else {
-    //   setPostsLoaded({ data: [...postsLoaded.data, ...postsByPage.data], meta: postsByPage.meta });
-    // }
   }, [posts]);
 
   return (
@@ -414,7 +409,7 @@ const Timeline = () => {
                       if (!post) {
                         return null;
                       }
-                      return  (
+                      return (
                         <div className="p-card p-py-3 p-py-sm-5 p-pl-3 p-pl-sm-5 p-pr-4 p-pr-sm-6 p-mb-2 timeline-posts" key={post.id}>
                           <span className="d-flex justify-content-between">
                             <span className="d-flex">
@@ -577,8 +572,8 @@ const Timeline = () => {
                             onViewComments={handleViewComments}
                           />
                         </div>
-
-                      )}
+                      )
+                    }
                     )}
                   {
                     posts.ids.length > 0 &&

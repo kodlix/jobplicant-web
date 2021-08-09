@@ -3,6 +3,7 @@ import agent from "../../services/agent.service";
 import { push } from "connected-react-router";
 import { MESSAGE_TYPE } from "../constant";
 import { closeModal } from "./modal";
+import { loadStates } from "./location";
 
 // initial values
 const timeline = {
@@ -12,7 +13,8 @@ const timeline = {
   postsByUserId: [],
   postByPostId: {},
   totalPostCount: 0,
-  PostCountByUser: 0
+  PostCountByUser: 0,
+  error: null
 };
 
 // Action types
@@ -23,7 +25,11 @@ const LOAD_POSTS_BY_USERID = "LOAD_POSTS_BY_USERID";
 const LOAD_TOTAL_POST_COUNT = "LOAD_TOTAL_POST_COUNT";
 const LOAD_USER_POST_COUNT = "LOAD_USER_POST_COUNT";
 const POSTS_EDITED = "POSTS_EDITED";
-const EMPTY_POSTS = "EMPTY_POSTS";
+const CREATE_POST = "CREATE_POST";
+const DELETE_POST = "DELETE_POST";
+const DISLIKE_POST = "DISLIKE_POST";
+const LIKE_POST = "LIKE_POST";
+const ERROR = "ERROR";
 
 // Reducer
 export default function reducer(state = timeline, action = {}) {
@@ -32,6 +38,7 @@ export default function reducer(state = timeline, action = {}) {
       return {
         ...state,
         loadingPosts: action.payload,
+        error: null
       };
     case LOAD_POSTS:
       const { data, meta } = action.payload;
@@ -49,47 +56,129 @@ export default function reducer(state = timeline, action = {}) {
         ...state,
         posts: {
           ids: uniquePostIds,
-          data: { ...state.posts.data, ...normalizedPosts },
-          meta: { ...meta, page: Math.max(meta.page, state.posts.meta.page || 1) },
+          data: {
+            ...state.posts.data,
+            ...normalizedPosts
+          },
+          meta: {
+            ...meta,
+            page: Math.max(meta.page, state.posts.meta.page || 1)
+          },
         },
-        loading: ""
+        loading: "",
+        error: null
       };
     case LOAD_POST_BY_POSTID:
       return {
         ...state,
-        posts: { data: [action.payload], meta: {}, ids: [action.payload.id] },
+        error: null,
+        posts: {
+          data: {
+            [action.payload.id]: action.payload
+          },
+          meta: {},
+          ids: [action.payload.id]
+        },
+      };
+    case LIKE_POST:
+      const likedPostId = action.payload.id;
+      const likedPost = {
+        ...state.posts.data[likedPostId],
+        likes: action.payload.likes,
+        dislikes: action.payload.dislikes
+      }
+      return {
+        ...state,
+        error: null,
+        posts: {
+          data: {
+            ...state.posts.data,
+            [likedPostId]: { ...likedPost }
+          }
+        },
+      };
+    case DISLIKE_POST:
+      const dislikedPostId = action.payload.id;
+      const dislikedPost = {
+        ...state.posts.data[dislikedPostId],
+        likes: action.payload.likes,
+        dislikes: action.payload.dislikes
+      }
+      return {
+        ...state,
+        error: null,
+        posts: {
+          ...state.posts,
+          data: {
+            ...state.posts.data,
+            [dislikedPostId]: { ...dislikedPost }
+          },
+        },
       };
     case LOAD_POSTS_BY_USERID:
       return {
         ...state,
+        error: null,
         postsByUserId: action.payload,
       };
     case LOAD_TOTAL_POST_COUNT:
       return {
         ...state,
+        error: null,
         totalPostCount: action.payload,
       };
     case LOAD_USER_POST_COUNT:
       return {
         ...state,
+        error: null,
         PostCountByUser: action.payload,
       };
-    case EMPTY_POSTS:
-      return {
-        ...state,
-        posts: { data: [], meta: {} }
-      };
     case POSTS_EDITED:
-      const newPostArray = state.posts.data.map(function (item) {
-        if (item.id === action.payload.id) {
-          return { ...item, title: action.payload.title, body: action.payload.body, postImage: action.payload.postImage }
-        }
-        return item;
-      })
+      const updatedPost = Object.assign({}, state.posts.data[action.payload.id]);
+      updatedPost.title = action.payload.title;
+      updatedPost.body = action.payload.body;
+      updatedPost.postImage = action.payload.postImage;
       return {
         ...state,
-        posts: { ...state.posts, data: newPostArray }
+        error: null,
+        posts: {
+          ids: [...state.posts.ids],
+          data: {
+            ...state.posts.data,
+            [action.payload.id]: updatedPost
+          },
+          meta: { ...state.posts.meta },
+        },
       };
+    case CREATE_POST:
+      return {
+        ...state,
+        error: null,
+        posts: {
+          ids: [action.payload.id, ...state.posts.ids],
+          data: { [action.payload.id]: action.payload, ...state.posts.data },
+          meta: { ...state.posts.meta, total: state.posts.meta.total + 1 },
+        }
+      }
+    case DELETE_POST:
+      const deletedId = action.id;
+      const updatedIdArray = [...state.posts.ids]
+      updatedIdArray.splice(state.posts.ids.indexOf(deletedId), 1)
+      return {
+        ...state,
+        error: null,
+        posts: {
+          ids: updatedIdArray,
+          data: { ...state.posts.data },
+          meta: { ...state.posts.meta, total: state.posts.meta.total - 1 },
+        }
+      }
+    case ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        posts: { data: [], meta: {}, ids: [] }
+      }
     default:
       return state;
   }
@@ -116,8 +205,25 @@ export const postEdited = (data) => ({
   type: POSTS_EDITED,
   payload: data
 });
-export const emptyPostArray = () => ({
-  type: EMPTY_POSTS,
+export const postCreated = (data) => ({
+  type: CREATE_POST,
+  payload: data
+});
+export const postDeleted = (data) => ({
+  type: DELETE_POST,
+  id: data
+});
+export const postDisliked = (data) => ({
+  type: DISLIKE_POST,
+  payload: data
+});
+export const postLiked = (data) => ({
+  type: LIKE_POST,
+  payload: data
+});
+export const errorCode = (data) => ({
+  type: ERROR,
+  payload: data
 });
 
 
@@ -137,7 +243,7 @@ export function createPost(post) {
           })
         );
         dispatch(closeModal());
-        dispatch(loadPosts(1, 10));
+        dispatch(postCreated(response));
         dispatch(loading("postSuccess"));
         dispatch(loading(null));
       },
@@ -253,8 +359,8 @@ export function viewPost(id, loadingType) {
       (error) => {
         // handle error
         dispatch(showMessage({ type: "error", message: error }));
-        dispatch(emptyPostArray());
         dispatch(loading(null));
+        dispatch(errorCode(error.response));
       }
     );
   }
@@ -277,7 +383,7 @@ export function deletePost(id, deleteType) {
           dispatch(push("/timeline"));
         }
         else {
-          dispatch(loadPosts(1, 10));
+          dispatch(postDeleted(id));
         }
       },
       (error) => {
@@ -300,7 +406,7 @@ export function likePost(id) {
             message: "Post liked!!",
           })
         );
-        dispatch(loadPosts(1, 1));
+        dispatch(postLiked(response));
       },
       (error) => {
         // handle error
@@ -322,7 +428,7 @@ export function dislikePost(id) {
             message: "Post disliked!!",
           })
         );
-        dispatch(loadPosts(1, 1));
+        dispatch(postDisliked(response));
       },
       (error) => {
         // handle error

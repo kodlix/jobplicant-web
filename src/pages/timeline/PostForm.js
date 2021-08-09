@@ -141,6 +141,7 @@ const CreatePostModal = ({ post, clearModalInput }) => {
   };
 
   const inputChange = (e, inputName) => {
+    //  console.log(_quill.getText().trim().length)
     const inputValue =
       inputName && (inputName === "body")
         ? e.htmlValue
@@ -282,8 +283,13 @@ const CreatePostModal = ({ post, clearModalInput }) => {
           autoResize id="title"
           defaultValue={postObject.title}
           className="timelineModal-Input w-50"
-          {...register("title", { required: " Title is required" })}
-          onChange={(e) => { inputChange(e, "title") }}
+          {...register("title",
+            {
+              validate: (value) => !!value.trim() || " Title is required"
+            }
+          )}
+          onChange={(e) => { inputChange(e, "title") }
+          }
         />
         <div>
           <label htmlFor="body">
@@ -307,7 +313,7 @@ const CreatePostModal = ({ post, clearModalInput }) => {
             className="TextEditor-container-timeline"
             onTextChange={(e) => { inputChange(e, "body") }}
             {...register("body", {
-              required: " Post content is required"
+              validate: value => _quill.getText().trim().length ||" Post content is required"
             })}
             id="body"
             name="body"

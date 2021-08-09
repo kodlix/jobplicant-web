@@ -3,6 +3,11 @@
   padding-top: 5rem;
 }
 
+.timeline-postsContainer--empty h1,
+.timeline-postsContainer--empty h5 {
+  color: #5A2846;
+}
+
 .timeline-content {
   width: 90%;
   margin: auto;

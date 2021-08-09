@@ -24,6 +24,7 @@ const ViewPost = () => {
   const dispatch = useDispatch();
   const posts = useSelector(state => state.timeline.posts);
   const loading = useSelector(state => state.timeline.loadingPosts);
+  const error = useSelector(state => state.timeline.error);
   const allJobs = useSelector(state => state.job.allJobs);
   const profileInfo = useSelector((state) => state.account.profileInfo);
   const [postId, setPostId] = useState("");
@@ -31,8 +32,6 @@ const ViewPost = () => {
   const [copyAlert, setCopyAlert] = useState(false);
   const commentsByPage = useSelector(state => state.comment.comments);
   const params = useParams();
-  const copyModalClassname = copyAlert ? "timeline-copyModalAlert--active" : "timeline-copyModalAlert";
-
   const onShow = (id) => {
     if (id) {
       setPostId(id);
@@ -348,12 +347,12 @@ const ViewPost = () => {
               <ModalMode
                 onHide={onHide}
                 postId={postId}
-                post={posts?.data[0]}
+                post={posts?.data[params.id]}
                 imageUrl={imageToDisplay}
               />
               {
                 loading === "viewPost" &&
-                posts &&
+                posts?.ids.length === 0 &&
                 <div className="p-p-5 d-flex justify-content-center">
                   <i
                     className="pi pi-spin pi-spinner"
@@ -361,18 +360,31 @@ const ViewPost = () => {
                 </div>
               }
               {
-                posts.data.length > 0 &&
+                error?.status &&
+                <div className="p-card p-py-3 p-py-sm-5 p-pl-3 p-pl-sm-5 p-pr-4 p-pr-sm-6 timeline-posts timeline-postsContainer--empty">
+                  <h1>
+                    <u>
+                      404
+                    </u>
+                  </h1>
+                  <h5 className="p-mt-4">
+                    This post no longer exists
+                  </h5>
+                </div>
+              }
+              {
+                posts?.ids?.length > 0 &&
                 <div className="timeline-postsContainer">
-                  <div className="p-card p-py-3 p-py-sm-5 p-pl-3 p-pl-sm-5 p-pr-4 p-pr-sm-6 p-mb-2 timeline-posts" key={posts?.data[0].id}>
+                  <div className="p-card p-py-3 p-py-sm-5 p-pl-3 p-pl-sm-5 p-pr-4 p-pr-sm-6 p-mb-2 timeline-posts">
                     <span className="d-flex justify-content-between">
                       <span className="d-flex">
                         {
-                          posts?.data[0]?.author?.imageUrl ?
+                          posts?.data[params.id]?.author?.imageUrl ?
                             <img
                               width="70"
                               height="70"
-                              src={`${API_ROOT}/${posts?.data[0].author.imageUrl}`}
-                              alt={`${formatter.capitalizeFirstLetter(posts?.data[0].author.firstName)}`}
+                              src={`${API_ROOT}/${posts?.data[params.id].author.imageUrl}`}
+                              alt={`${formatter.capitalizeFirstLetter(posts?.data[params.id].author.firstName)}`}
                               className="rounded-circle p-mt-2 p-mb-2 p-mr-sm-3 p-mr-0 profile-picture-timeline text-white"
                             />
                             :
@@ -380,20 +392,20 @@ const ViewPost = () => {
                         }
                         <span>
                           {
-                            posts?.data[0]?.author?.accountType !== "Corporate" &&
+                            posts?.data[params.id]?.author?.accountType !== "Corporate" &&
                             <span className="p-card-title cardtitle-posts p-mb-0">
-                              {`${formatter.capitalizeFirstLetter(posts?.data[0]?.author?.firstName)} ${formatter.capitalizeFirstLetter(posts?.data[0]?.author?.lastName)}`}
+                              {`${formatter.capitalizeFirstLetter(posts?.data[params.id]?.author?.firstName)} ${formatter.capitalizeFirstLetter(posts?.data[params.id]?.author?.lastName)}`}
                             </span>
                           }
                           {
-                            posts?.data[0]?.author?.accountType === "Corporate" &&
+                            posts?.data[params.id]?.author?.accountType === "Corporate" &&
                             <span className="p-card-title cardtitle-posts p-mb-0">
-                              {formatter.capitalizeFirstLetter(posts?.data[0]?.author?.companyName)}
+                              {formatter.capitalizeFirstLetter(posts?.data[params.id]?.author?.companyName)}
                             </span>
                           }
                           {
-                            posts?.data[0].author.accountType === "Artisan" &&
-                            <span className="stars p-ml-1 align-text-bottom" style={{ "--rating": posts?.data[0].author.rating }} />
+                            posts?.data[params.id].author.accountType === "Artisan" &&
+                            <span className="stars p-ml-1 align-text-bottom" style={{ "--rating": posts?.data[params.id].author.rating }} />
                           }
                           <div className="poster-description">
                             <p>
@@ -406,13 +418,13 @@ const ViewPost = () => {
                           <div className="timeline-cardtitle-posttime">
                             <i className="pi pi-clock p-pr-1 p-mt-2" />
                             <span>
-                              {moment(posts?.data[0].createdAt).fromNow('MMMM Do YYYY')} ago
+                              {moment(posts?.data[params.id].createdAt).fromNow('MMMM Do YYYY')} ago
                             </span>
                           </div>
                         </span>
                       </span>
                       {
-                        posts?.data[0].createdBy === agent.Auth.current()?.email &&
+                        posts?.data[params.id].createdBy === agent.Auth.current()?.email &&
                         <div className="dropdown font-weight-bold ml-2">
                           <i
                             type="button"
@@ -428,13 +440,13 @@ const ViewPost = () => {
                           >
                             <li
                               className="dropdown-item timeline-dropdownItem"
-                              onClick={() => onShow(posts?.data[0].id)}
+                              onClick={() => onShow(posts?.data[params.id].id)}
                             >
                               Edit
                             </li>
                             <li
                               className="dropdown-item timeline-dropdownItem"
-                              onClick={() => dispatch(deletePost(posts.data[0].id, "fromViewPost"))}
+                              onClick={() => dispatch(deletePost(posts.data[params.id].id, "fromViewPost"))}
                             >
                               Delete
                             </li>
@@ -444,29 +456,28 @@ const ViewPost = () => {
                     </span>
                     <h6 className="p-my-3">
                       <u>
-                        {posts?.data[0].title}
+                        {posts?.data[params.id].title}
                       </u>
                     </h6>
                     <div className="p-my-4 w-100 h-100">
                       <div
                         className="p-mb-3"
-                        dangerouslySetInnerHTML={{ __html: posts?.data[0].body }}
+                        dangerouslySetInnerHTML={{ __html: posts?.data[params.id].body }}
                       />
                       {
-                        posts?.data[0]?.postImage &&
+                        posts?.data[params.id]?.postImage &&
                         <img
                           width="100%"
-                          alt={posts?.data[0].title}
-                          onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80" }}
+                          alt={posts?.data[params.id].title}
                           className="timeline-postImage text-white"
-                          src={`${API_ROOT}/${posts?.data[0].postImage}`}
+                          src={`${API_ROOT}/${posts?.data[params.id].postImage}`}
                           onClick={expandPostImage} />
                       }
                     </div>
                     <div className="cardtitle-statusbar-timeline p-my-3 p-py-3">
                       <div className="d-flex">
                         <span
-                          data-id={posts?.data[0].id}
+                          data-id={posts?.data[params.id].id}
                           onClick={(e) => handleLike(e)}
                           className="post-statusbar-content p-pr-2 align-items-start"
                         >
@@ -477,14 +488,14 @@ const ViewPost = () => {
                             className="p-mr-1"
                           />
                           {
-                            posts?.data[0].likes > 0 &&
+                            posts?.data[params.id].likes > 0 &&
                             <h5 className="p-pr-1">
-                              {posts?.data[0].likes}
+                              {posts?.data[params.id].likes}
                             </h5>
                           }
                         </span>
                         <span
-                          data-id={posts?.data[0].id}
+                          data-id={posts?.data[params.id].id}
                           onClick={(e) => handleDislike(e)}
                           className="post-statusbar-content align-items-start"
                         >
@@ -494,16 +505,16 @@ const ViewPost = () => {
                             disliked={false}
                             className="p-mr-1" />
                           {
-                            posts?.data[0].dislikes > 0 &&
+                            posts?.data[params.id].dislikes > 0 &&
                             <h5 className="p-pr-1">
-                              {posts?.data[0].dislikes}
+                              {posts?.data[params.id].dislikes}
                             </h5>
                           }
                         </span>
                       </div>
                       <div
                         className="timeline-postShare-button"
-                        data-id={posts?.data[0].id}
+                        data-id={posts?.data[params.id].id}
                         onClick={handleShareButton}
                       >
                         <span className="p-button-label">
@@ -511,16 +522,16 @@ const ViewPost = () => {
                           Share
                         </span>
                       </div>
-                      <span className={copyModalClassname}>
+                      <span className={copyAlert === params.id ? "timeline-copyModalAlert--active" : "timeline-copyModalAlert"}>
                         Link copied
                       </span>
                     </div>
                     <CommentForm
-                      postId={posts?.data[0].id}
+                      postId={posts?.data[params.id].id}
                       imageUrl={profileInfo?.imageUrl}
                     />
                     <CommentList
-                      postId={posts?.data[0].id}
+                      postId={posts?.data[params.id].id}
                       comments={commentsByPage}
                       onViewComments={handleViewComments}
                     />
