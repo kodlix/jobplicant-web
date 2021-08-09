@@ -13,6 +13,8 @@ import Job from './Job';
 
 import './InstantJobHire.css'
 import moment from 'moment';
+import { Redirect } from 'react-router';
+import agentService from 'services/agent.service';
 
 const Categories = [
     { name: 'Machine', code: 'Mec' },
@@ -42,6 +44,9 @@ const Edit = (props) => {
 
     const instantjob = useSelector(state => state.instantJob.instantjobs);
     console.log({ instantjob });
+
+    const loggedInUserId = agentService.Auth.current().id
+    console.log("loggedInUserId", loggedInUserId);
 
     const instantJobId = props.match.params.id;
     console.log({ itemToEdit })
@@ -123,7 +128,11 @@ const Edit = (props) => {
         data.service = data.service.name;
         dispatch(editInstantJob(instantJobId, data));
     }
+    if (instantjob.accountId !== loggedInUserId) {
+        return <Redirect to={"/instant-jobs"} />
+    }
     return (
+
         <>
             <div className="background instant" >
                 <div className="content-container">

@@ -109,7 +109,7 @@
 }
 
 .content-container {
-    width: 85%;
+    width: 83%;
     margin: auto;
     padding-top: 30px;
 }
@@ -160,5 +160,10 @@
         margin-left: 6em;
         /* font-size: medium; */
         padding-bottom: 0.2em;
+    }
+    .content-container {
+        width: 95%;
+        margin: auto;
+        padding-top: 30px;
     }
 }

@@ -169,10 +169,10 @@ const Applicant = (props) => {
                             <div className="applicants-display">
                                 <div className="d-flex justify-content-between p-mb-1">
                                     <div>
-                                        <h5> <span className="font-weight-bold text-secondary">{instantJob?.service}</span> <span className="app-color">
+                                        <h5> <span className="font-weight-bold text-secondary text-capitalize">{instantJob?.service}</span> <span className="app-color">
                                             {applicantList?.length ? applicantList?.length : 0} Applicant ({applicantList?.length ? applicantList?.length : 0} Result)</span></h5>
-                                        <p className="font-weight-bold">Location : <span>{instantJob?.location}</span></p>
-                                        <p className="font-weight-bold">Address : <span>{instantJob?.address}</span></p>
+                                        <p className="font-weight-bold text-capitalize">Location : <span>{instantJob?.location}</span></p>
+                                        <p className="font-weight-bold text-capitalize">Address : <span>{instantJob?.address}</span></p>
                                     </div>
                                     <div>
                                         <Link to="/instant-hires" className="bk-btn p-pt-2 app-color">
@@ -196,12 +196,12 @@ const Applicant = (props) => {
                                                         <i className="pi pi-comments p-pr-2" data-toggle="tooltip" data-placement="top" title="Message" />
                                                     </div> <hr />
                                                     {/* <div className="card-body" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> */}
-                                                    <p className="card-text"> <span className="font-weight-bold">Occupation :</span> <span className="font-weight-bold app-color">
+                                                    <p className="card-text"> <span className="font-weight-bold text-capitalize">Occupation :</span> <span className="font-weight-bold app-color">
                                                         {applicant.occupation}</span></p>
-                                                    <p className="card-title"><span className="font-weight-bold">Name : </span>{applicant.name} </p>
-                                                    <p className="card-text"> <span className="font-weight-bold">Location :</span>{applicant.address}</p>
-                                                    <p className="card-text"><span className="font-weight-bold">Phone Number :</span> {applicant.phoneNumber}</p>
-                                                    <p className="card-text"><span className="font-weight-bold">Rating :
+                                                    <p className="card-title"><span className="font-weight-bold text-capitalize">Name : </span>{applicant.name} </p>
+                                                    <p className="card-text"> <span className="font-weight-bold text-capitalize">Location :</span>{applicant.address}</p>
+                                                    <p className="card-text"><span className="font-weight-bold text-capitalize">Phone Number :</span> {applicant.phoneNumber}</p>
+                                                    <p className="card-text"><span className="font-weight-bold text-capitalize">Rating :
                                                     </span> <span className="p-p-0"> <Rating value={rating} disabled={true} cancel={false}
                                                         onChange={(e) => setRating(applicant.rating)} stars={5} /></span>
                                                     </p>

@@ -43,6 +43,18 @@ const New = ({ mode }) => {
 
     ];
 
+
+    // const minDate = () => {
+    //     let mindate = new Date();
+    //     console.log("mindate", mindate)
+    //     let fomatDate = mindate.split(" ")
+    //     return mindate
+    // }
+
+    // let mindate = new Date();
+    // console.log("mindate", mindate)
+
+
     const handleChange = (e) => {
         const { name, value } = e.target;
 
@@ -250,7 +262,7 @@ const New = ({ mode }) => {
                                                     id="endDate"
                                                     type="date"
                                                     value={endDate}
-                                                    // minDate={startDate || null}
+                                                    // minDate={minDate}
                                                     name="endDate"
                                                     {...register("endDate", {
                                                         required: `End Date is required`,

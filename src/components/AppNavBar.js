@@ -21,10 +21,10 @@ const AppNavBar = ({ displaySearBar = false }) => {
                                     <img className="logo1" src="/assets/logo.png" alt="Logo" />
                                 </Link>
                             </Navbar.Brand>
-                            <Navbar.Toggle aria-controls="responsive-navbar-nav" className="bg-white"  />
+                            <Navbar.Toggle aria-controls="responsive-navbar-nav" className="bg-white" />
                         </div>
-                        <Navbar.Collapse id="responsive-navbar-nav" className="brown-color">
-                            <Nav className="me-auto">
+                        <Navbar.Collapse id="responsive-navbar-nav" className="brown-color text-center">
+                            <Nav className="me-auto text-align-sm-center">
                                 <Nav.Link className="text-white" href="/timeline">Home</Nav.Link>
                                 {userAccountType === "Artisan" ?
                                     <Nav.Link className="text-white" href="/instant-jobs">Jobs</Nav.Link>
@@ -35,9 +35,9 @@ const AppNavBar = ({ displaySearBar = false }) => {
                                 <Nav.Link className="text-white d-lg-none" href="/instant-hires">Request Instant Job</Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
-                    <Link to={"/instant-hires"} className="button btn bg-light text-muted font-weight-bold request-instant-job d-none d-lg-block" >
-                        Request Instant Job
-                    </Link>
+                        <Link to={"/instant-hires"} className="button btn bg-light text-muted font-weight-bold request-instant-job d-none d-lg-block" >
+                            Request Instant Job
+                        </Link>
                     </Container>
                 </Navbar>
             </header>

@@ -91,9 +91,9 @@ const InstantJobs = () => {
                                                     <small className="p-text-secondary">
                                                         {/* <Link className="p-text-secondary" to={'#'}> */}
 
-                                                        <p className="font-weight-bold ">Services : <span className="app-color" style={{ fontSize: 15 }}> {instantjob.service}</span></p>
-                                                        <p><span className="font-weight-bold">Location : </span><span>{instantjob.location}</span> </p>
-                                                        <p><span className="font-weight-bold">Description : </span> {instantjob.description}</p>
+                                                        <p className="font-weight-bold ">Services : <span className="app-color text-capitalize" style={{ fontSize: 15 }}> {instantjob.service}</span></p>
+                                                        <p><span className="font-weight-bold text-capitalize">Location : </span><span>{instantjob.location}</span> </p>
+                                                        <p><span className="font-weight-bold text-capitalize">Description : </span> {instantjob.description}</p>
                                                         <p><span className="font-weight-bold">Phone Number : </span> {instantjob.phoneNumber}</p>
                                                         <div className="p-grid">
                                                             <div className="p-col-4"><span className="font-weight-bold">Start Date: </span> {moment(instantjob.startDate).format('MMMM DD, YYYY')} </div>
