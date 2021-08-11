@@ -71,9 +71,9 @@ const LOIForm = ({ data, closeEditMode }) => {
 
   return (
     <>
-      <div className="p-card p-mt-2">
+      <div className="p-mt-2">
         <SectionHeader icon="briefcase" sectionTitle="Locations of Interest" />
-        <div className="p-card-body">
+        <div className="">
           <form onSubmit={handleSubmit(LOISubmit)}>
             <span className="skillInput p-mb-4">
               <label htmlFor="LOIInput" className="inputLabel p-pr-3">

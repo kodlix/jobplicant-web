@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { loadProfileInfo } from "store/modules/account";
 import Spinner from "components/spinner/spinner.component";
 import TemplatePDFOne from "./pdf/templates/TemplatePDFOne";
-import { PDFDownloadLink, renderToFile, usePDF } from "@react-pdf/renderer";
+import { PDFDownloadLink, PDFViewer, renderToFile, usePDF } from "@react-pdf/renderer";
 
 const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected }) => {
     const [editMode, setEditMode] = useState(true)
@@ -35,7 +35,7 @@ const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected 
             <div className="generate-cv" >
                 <div className="content-container">
                     <div className="p-grid justify-content-center">
-                        <div className="p-col-12 p-md-9 p-lg-9 preview-pane" style={{ position: 'relative' }}>
+                        <div className="p-col-12 p-md-12 p-lg-12 preview-pane" style={{ position: 'relative' }}>
                             <header className="header" >
                                 <i className="pi pi-arrow-left" onClick={() => setShowPreview(false)}></i>
 
@@ -44,20 +44,18 @@ const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected 
                             <section>
                                 <div className="card cv-preview-box">
                                     <div className="card-body">
-                                        {/* <PDFDownloadLink document={<TemplatePDFOne />} fileName="somename.pdf">
-                                            {({ blob, url, loading, error }) =>
-                                                loading ? 'Loading document...' : 'Download now!'
-                                            }
-                                        </PDFDownloadLink> */}
-                                        {/* {instance.error && <p>Something went wrong.</p>}
-                                        {instance.loading ? <p>loading</p> : <a href={instance.url} download="test-template.pdf">Download PDF</a>} */}
                                         {loading
                                             ? <Spinner />
-                                            : <TemplatePDFOne
-                                                editMode={editMode}
-                                                setEditMode={setEditMode}
-                                                profileInfo={profileInfo}
-                                            />}
+                                            : <div>
+                                                <div className="d-sm-block d-md-none">
+                                                    <h5>PDF not supported on mobile view, please view on desktop.</h5>
+                                                </div>
+                                                <PDFViewer className="col-12" height="740px">
+                                                    <TemplatePDFOne profileInfo={profileInfo} />
+                                                </PDFViewer>
+                                            </div>
+
+                                        }
                                     </div>
                                 </div>
                             </section>

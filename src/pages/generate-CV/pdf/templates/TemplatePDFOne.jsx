@@ -7,17 +7,13 @@ import { useState } from 'react';
 import '../../designs/template-one/TemplateOne.css'
 
 import { Document, Page, View, Text, StyleSheet } from '@react-pdf/renderer'
+import TemplateOneSidebar from './components/TemplateOneSidebar';
+import TemplateOneContent from './components/TemplateOneContent';
 
 const styles = StyleSheet.create({
     page: {
         flexDirection: 'row',
         backgroundColor: '#e4e4e4',
-        justifyContent: 'flex-start'
-    },
-    section: {
-        width: 100,
-        borderWidth: 1,
-        borderColor: '#000'
     }
 })
 
@@ -49,8 +45,9 @@ const TemplatePDFOne = ({ profileInfo, editMode, setEditMode }) => {
     return (
         <Document>
             <Page size="A4" style={styles.page}>
-                <View style={styles.section}>
-                    <div className="template-container">
+                    <TemplateOneSidebar profileInfo={profileInfo} />
+                    <TemplateOneContent profileInfo={profileInfo} />
+                    {/* <div className="template-container">
                         <div className="p-grid">
                             <div className="p-col-4">
                                 <div className="sidebar-content">
@@ -60,7 +57,6 @@ const TemplatePDFOne = ({ profileInfo, editMode, setEditMode }) => {
                                             <p className="heading-3">Sales Representative</p>
                                         </div>
                                     </header>
-                                    {/* Personal Info */}
                                     <div className="section personal-info">
                                         <header>Personal Info</header>
                                         <div className="info">
@@ -76,7 +72,6 @@ const TemplatePDFOne = ({ profileInfo, editMode, setEditMode }) => {
                                             <p className="info-text">linkedIn.com/in/jillmorganzety</p>
                                         </div>
                                     </div>
-                                    {/* Skills */}
                                     <div className="section skill">
                                         <header>Skills {editMode ? <i className="pi pi-times" style={{ color: 'white', fontSize: '16px' }} onClick={() => setEditMode(false)}></i> : <i className="pi pi-pencil" style={{ color: 'white', fontSize: '16px' }} onClick={() => setEditMode(true)}></i>} </header>
                                         {profileInfo?.skills.map((skill, i) => (<div key={i} className="info">
@@ -85,7 +80,6 @@ const TemplatePDFOne = ({ profileInfo, editMode, setEditMode }) => {
                                         </div>))}
 
                                     </div>
-                                    {/* Language */}
                                     <div className="section language">
                                         <header>Language</header>
                                         <div className="info">
@@ -141,8 +135,7 @@ const TemplatePDFOne = ({ profileInfo, editMode, setEditMode }) => {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </View>
+                    </div> */}
             </Page>
         </Document>
     )

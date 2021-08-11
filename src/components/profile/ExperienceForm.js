@@ -100,7 +100,7 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
   };
   return (
     <>
-      <div className="p-card p-mt-2">
+      <div className="p-mt-2">
         <SectionHeader
           deleteButton="true"
           onDelete={handleDelete}
@@ -108,7 +108,7 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
           sectionTitle="Job Experience"
           id={experience.id}
         />
-        <div className="p-card-body">
+        <div className="">
           <form onSubmit={handleSubmit(experienceSubmit)}>
             <div className="p-fluid p-formgrid p-grid">
               <div className="p-field p-col-12 p-md-6">

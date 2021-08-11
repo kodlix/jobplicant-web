@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 
-import "./ProfileTab.css";
+// import "./ProfileTab.css";
 
 const ProfileTab = () => {
   const match = useRouteMatch();
@@ -9,7 +9,7 @@ const ProfileTab = () => {
 
   return (
     <>
-      <div className="profileNav">
+      <div className="p-d-inline-flex">
         <Link to={`${match.path}/info`} onClick={() => setActiveTab("info")}>
           <i
             className={`pi pi-info-circle ${
