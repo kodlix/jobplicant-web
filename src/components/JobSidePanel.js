@@ -1,7 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { formatter } from 'helpers/converter';
+<<<<<<< HEAD
 import { Skeleton } from 'primereact/skeleton'
+=======
+import { Tag } from 'primereact/tag';
+
+>>>>>>> c51cf8b0a633ed244a30f87e4298c4feebdbd33c
 
 import "./JobSidePanel.css";
 
@@ -13,23 +18,46 @@ const JobSidePanel = ({ data }) => {
         <div className="p-card">
           <div className="p-card-title cardtitle-JobPanelComponent">
             Recent Jobs
-                </div>
+          </div>
           <div className="p-pb-4">
             {
-               data?.map((job) =>
+              data?.map((job) =>
                 <Link to={`/jobs/view/${job.id}`} className="p-card-body p-card-body-JobPanelComponent p-px-3 p-pb-3" key={job.id} id={job.id}>
-                  <div className="p-card-title cardsubtitle-JobPanelComponent">
-                    <div> {job.title} </div>
-                    <div>{`~${formatter.toMoney((job.minSalary + job.maxSalary) / 2)}`}</div>
+                  <div className="p-card-title cardbody-JobPanelComponent">
+                    <div className="d-flex justify-content-between">
+                      <div className="cardsubtitle-JobPanelComponent">{job.title}</div>
+                      <Tag className="p-mr-2" severity="success" value={job.contactType}></Tag>
+                    </div>
+                    {
+                      !job.hideCompanyName &&
+                      <div>
+                        <i className="align-text-bottom pi  pi-briefcase p-mr-1" />
+                        <b className="p-pr-1">Company:</b>
+                        <span className="jobdetails-JobPanelComponent">{job.companyName}</span>
+                      </div>
+                    }
+                    <div>
+                      <i className="align-text-bottom pi pi-map-marker p-mr-1" />
+                      <b className="p-pr-1">Location:</b>
+                      <span className="jobdetails-JobPanelComponent">
+                        {job.location}
+                      </span>
+                    </div>
+                    <div>
+                      <i className="align-text-bottom pi pi-money-bill p-mr-1" />
+                      <b className="p-pr-1">Salary:</b>
+                      <span className="jobdetails-JobPanelComponent">
+                        {`~${formatter.toMoney((job.minSalary + job.maxSalary) / 2)}`}
+                      </span>
+                    </div>
                   </div>
-                  <div className="p-card-body p-px-0 p-py-0 p-mb-2 jobDescription-JobPanelComponent" dangerouslySetInnerHTML={{ __html: job.description }} />
-                  <small className="seemore-JobPanelComponent">See more...</small>
+                  <div className="seemore-JobPanelComponent">See more...</div>
                 </Link>
               )
             }
             {
               !data &&
-              <h6 className="p-px-3 p-pt-3 p-mb-6 p-pb-6">
+              <h6 className="p-px-3 p-pt-3 p-mb-6 p-pb-6 cardsubtitle-JobPanelComponent">
                 No Recent Jobs available at the moment
               </h6>
             }

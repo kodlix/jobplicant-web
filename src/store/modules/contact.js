@@ -77,10 +77,10 @@ export const pendingRequestsLoaded = (data) => ({
 
 
 //Actions
-export function loadFreeUsers(page, take, loadingType, search) {
+export function loadFreeUsers(page, limit, loadingType, search) {
   return dispatch => {
     dispatch(loadingContact(loadingType));
-    return agent.Contact.load(page, take, search).then(
+    return agent.Contact.load(page, limit, search).then(
       response => {
         //handle success
         dispatch(loadingContact(""));
@@ -190,6 +190,7 @@ export function removeContact(id) {
             message: "Contact removed successfully",
           })
         );
+        dispatch(loadContacts(1, 10))
       },
       (error) => {
         // handle error
@@ -214,6 +215,7 @@ export function acceptRequest(id, loadingType) {
             message: "Added to contact successfully",
           })
         );
+        dispatch(loadingContact(null))
       },
       (error) => {
         // handle error

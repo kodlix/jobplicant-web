@@ -328,7 +328,7 @@ const Comment = {
 }
 
 const Contact = {
-  load: (page, take, search = "") => requests.get(`/contact/free?${new URLSearchParams({ page: page, take: take, search: search }).toString()}`),
+  load: (page, limit, search = "") => requests.get(`/contact/free?${new URLSearchParams({ page: page, limit: limit, search: search }).toString()}`),
   loadContacts: (page, take) => requests.get(`/contact?${new URLSearchParams({ page: page, take: take }).toString()}`),
   loadRequests: (page, take) => requests.get(`/contact/request/pending?${new URLSearchParams({ page: page, take: take }).toString()}`),
   add: (id) => requests.post("/contact", id),
