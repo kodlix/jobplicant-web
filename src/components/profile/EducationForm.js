@@ -124,7 +124,7 @@ const yearNavigatorTemplate = (e) => {
   return (
     <>
       {/* {componentStatus?.educationEdit?.length > 0 && */}
-      <div className="p-card p-mt-2">
+      <div className="p-mt-2">
         <SectionHeader
           componentStatus={componentStatus}
           deleteButton="true"
@@ -133,7 +133,7 @@ const yearNavigatorTemplate = (e) => {
           sectionTitle="Education"
           id={education.id}
         />
-        <div className="p-card-body">
+        <div className="">
           <form onSubmit={handleSubmit(educationSubmit)}>
             <div className="p-fluid p-formgrid p-grid">
               <div className="p-field p-col-12 p-md-6">

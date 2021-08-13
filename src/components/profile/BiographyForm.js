@@ -32,7 +32,7 @@ const BiographyForm = ({ data }) => {
 
   return (
     <>
-      <div className="p-card p-mt-2">
+      <div className=" p-mt-2">
         <SectionHeader
           id="biography"
           icon="bookmark"
@@ -40,7 +40,7 @@ const BiographyForm = ({ data }) => {
           onDelete={handleDelete}
         />
 
-        <div className="p-card-body">
+        <div className="">
           <form onSubmit={handleSubmit(biographySubmit)}>
             <label htmlFor="biographyInput" className="inputLabel p-mb-2">
               Give a short descripiton of your career history

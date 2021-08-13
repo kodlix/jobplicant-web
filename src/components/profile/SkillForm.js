@@ -81,13 +81,13 @@ const SkillForm = ({ data, closeEditMode }) => {
 
   return (
     <>
-      <div className="p-card p-mt-2">
+      <div className="p-mt-2">
         <SectionHeader
           componentStatus={componentStatus}
           icon="tag"
           sectionTitle="Skills"
         />
-        <div className="p-card-body">
+        <div className="">
           <form onSubmit={handleSubmit(skillSubmit)}>
             <label htmlFor="skillInput" className="inputLabel p-pr-3">
               Add up to 10 skills
