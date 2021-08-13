@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import InstantHeader from 'pages/instant-job-hire/instant-header';
-import Job from 'pages/instant-job-hire/Job';
 import { Button } from 'primereact/button';
-import { applyInstantJob, fetchAllInstantJobs, loadApplicants } from 'store/modules/instantJob';
+import { applyInstantJob, fetchAllInstantJobs } from 'store/modules/instantJob';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { confirmDialog } from 'primereact/confirmdialog';
@@ -17,7 +16,6 @@ import agent from "../../services/agent.service";
 const InstantJobs = () => {
     const dispatch = useDispatch();
 
-    const [visible, setVisible] = useState(false);
     const [page, setPage] = useState(1);
     const [take, setTake] = useState(10);
     const toast = useRef(null);

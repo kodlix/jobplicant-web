@@ -42,14 +42,18 @@ const Edit = (props) => {
     const [endDate, setEndDate] = useState(null);
     const [itemToEdit, setItemToEdit] = useState({});
 
-    const instantjob = useSelector(state => state.instantJob.instantjobs);
-    console.log({ instantjob });
+    const instantjob = useSelector(state => state.instantJob.instantjob);
+    console.log("instantjob =>", instantjob);
 
     const loggedInUserId = agentService.Auth.current().id
     console.log("loggedInUserId", loggedInUserId);
 
     const instantJobId = props.match.params.id;
     console.log({ itemToEdit })
+
+    useEffect(() => {
+        dispatch(loadInstantJob(instantJobId))
+    }, [dispatch])
 
     useEffect(() => {
         setItemToEdit(instantjob)
@@ -70,9 +74,7 @@ const Edit = (props) => {
         }
     }, [instantjob, itemToEdit])
 
-    useEffect(() => {
-        dispatch(loadInstantJob(instantJobId))
-    }, [dispatch])
+
 
     const handleOnChange = (e) => {
         const { name, value } = e.target;

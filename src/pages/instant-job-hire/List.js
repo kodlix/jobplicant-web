@@ -14,6 +14,7 @@ import Spinner from 'components/spinner/spinner.component'
 const InstantHires = () => {
     const dispatch = useDispatch();
     const instantJobs = useSelector(state => state.instantJob.instantjobs);
+    console.log("instantJobs", instantJobs);
 
     useEffect(() => {
         dispatch(loadInstantJobs())

@@ -12,7 +12,6 @@ import './Instant-Jobs.css';
 const RecentInstantJobs = () => {
     const dispatch = useDispatch();
 
-    const [visible, setVisible] = useState(false);
     const [page, setPage] = useState(1);
     const [take, setTake] = useState(10);
     const allCurrentInstantJobs = useSelector(state => state.instantJob.allCurrentInstantJobs);

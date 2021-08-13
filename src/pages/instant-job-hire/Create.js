@@ -6,7 +6,7 @@ import { InputTextarea } from 'primereact/inputtextarea';
 import { Dropdown } from 'primereact/dropdown';
 import InstantHeader from './instant-header';
 import { confirmDialog } from 'primereact/confirmdialog';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createInstantJob } from 'store/modules/instantJob';
 import { Calendar } from 'primereact/calendar';
 import RecentInstantJobs from 'pages/instant-jobs/Recent_instant_Jobs';
@@ -32,6 +32,9 @@ const New = ({ mode }) => {
     const [endDate, setEndDate] = useState(null);
     const API_KEY = "AIzaSyDxaC_Q4OI6Kx84VPT4W4k6N6FYLEVfcw0";
 
+    const loading = useSelector(state => state.instantJob.loading);
+
+
     const Categories = [
         { name: 'Mechanic', code: 'Mec' },
         { name: 'Plumber', code: 'Plu' },
@@ -40,6 +43,7 @@ const New = ({ mode }) => {
         { name: 'Dry-cleaners', code: 'Lan' },
         { name: 'Painter', code: 'Pai' },
         { name: 'Janitor', code: 'Jan' },
+        { name: 'Massage', code: 'Mas' },
 
     ];
 
@@ -130,7 +134,7 @@ const New = ({ mode }) => {
                 }
                 data.service = data.service.name;
                 locateUserHandler();
-                dispatch(createInstantJob(data));
+                dispatch(createInstantJob(data, "loading"));
             },
             reject: () => {
                 return;
@@ -312,7 +316,12 @@ const New = ({ mode }) => {
                                             </div>
                                         </div>
                                     </div>
-                                    <Button icon="pi pi-check" iconPos="left" label="Submit" id="saveButton" type="submit" className="float-right" />
+                                    <Button icon="pi pi-check"
+                                        iconPos="left"
+                                        label={loading === "loading" ? "Please wait..." : "Submit"}
+                                        id="saveButton"
+                                        type="submit"
+                                        className="float-right" />
                                 </form>
 
                                 {/* <ConfirmDialog visible={visible} onHide={() => setVisible(false)} message="Are you sure you want to proceed?"

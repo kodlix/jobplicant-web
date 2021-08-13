@@ -9,7 +9,8 @@ const Initial_State = {
     instantjobs: [],
     allCurrentInstantJobs: [],
     applicants: [],
-    applicantProfile: null
+    applicantProfile: null,
+    loading: ""
 };
 
 
@@ -20,6 +21,8 @@ const LOAD_INSTANT_JOB = 'app/instantJob/LOAD_INSTANT_JOB';
 const LOAD_ALL_INSTANT_JOBS = 'app/instantJob/LOAD_ALL_INSTANT_JOBS';
 const LOAD_INSTANT_APPLICANTS = 'app/instantJob/LOAD_INSTANT_APPLICANT';
 const LOAD_APPLICANT_INFO = 'app/instantJob/LOAD_APPLICANT_INFO';
+const LOADING = "LOADING";
+
 
 // Reducer
 export default function reducer(state = Initial_State, action = {}) {
@@ -36,7 +39,7 @@ export default function reducer(state = Initial_State, action = {}) {
                 ...state,
                 error: null,
                 fetching: false,
-                instantjobs: action.payload.data
+                instantjobs: action.payload?.data
             };
         case LOAD_INSTANT_JOB:
             return {
@@ -63,7 +66,13 @@ export default function reducer(state = Initial_State, action = {}) {
             return {
                 ...state,
                 applicantProfile: action.payload
-            }
+            };
+        case LOADING:
+            return {
+                ...state,
+                loading: action.payload,
+                error: null
+            };
         default:
             return state;
 
@@ -103,16 +112,24 @@ export function onLoadInstantJobApplicants(data) {
     };
 }
 
-export function onLoadApplicantProfile(data){
+export function onLoadApplicantProfile(data) {
     return {
         type: LOAD_APPLICANT_INFO,
         payload: data
     }
 }
 
+export function loading(data) {
+    return {
+        type: LOADING,
+        payload: data
+    }
+}
+
 // Actions
-export function createInstantJob(instantjob) {
+export function createInstantJob(instantjob, loadingType) {
     return dispatch => {
+        dispatch(loading(loadingType))
         return agent.InstantJob.save(instantjob).then(
             response => {
                 // handle success
@@ -230,7 +247,7 @@ export function loadApplicants(id) {
     }
 }
 
-export function loadApplicantProfile(id){
+export function loadApplicantProfile(id) {
     return dispatch => {
         return
     }
