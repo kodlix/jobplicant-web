@@ -8,10 +8,7 @@ const styles = StyleSheet.create({
         paddingLeft: '12px',
         fontSize: '12px',
         fontWeight: 500,
-        color: '#f4f4f4',
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between'
+        color: '#f4f4f4'
     }
 })
 

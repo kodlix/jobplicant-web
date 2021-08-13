@@ -3,12 +3,12 @@ import { View, Text, StyleSheet } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: '8px',
-        paddingLeft: '12px'
+        padding: '8px 12px'
     },
     titleStyle: {
         fontSize: '12px',
-        color: '#aaa'
+        color: '#aaa',
+        marginBottom: "5px"
     },
     textStyle: {
         fontSize: '12px',

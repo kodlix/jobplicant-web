@@ -4,22 +4,25 @@ import moment from 'moment'
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        paddingTop: "10px",
+        textAlign: 'justify',
+        whiteSpace: 'nowrap'
     },
     momentContainer: {
         width: '20%',
-        padding: '8px'
+        paddingHorizontal: '8px'
     },
     momentStyle: {
         fontSize: '11px'
     },
     bodyContainer: {
-     
         width: '80%',
-        padding: '4px'
+        paddingHorizontal: '25px',
+        paddingBottom: '4px'
     },
     bodyText: {
-        fontSize: '10px'
+        fontSize: '10px',
     },
     bodyHeaderStyle: {
   
@@ -40,7 +43,7 @@ const styles = StyleSheet.create({
 
 const Experience = ({ experience }) => {
     return (
-        <View style={styles.container}>
+        <View style={styles.container} wrap={false}>
             <View style={styles.momentContainer}>
                 <Text style={styles.momentStyle}>{moment(experience.startDate).format("YYYY-MM")} - </Text>
                 <Text style={styles.momentStyle}>{moment(experience.endDate).format("YYYY-MM")}</Text>
@@ -52,16 +55,15 @@ const Experience = ({ experience }) => {
                 </View>
                 <View style={styles.space}></View>
                 <View style={styles.bodyText}>
-                    <Text>Managed organizational sales and group of sales Representative</Text>
-                    <Text>Curabitur in efficitur ex, ac rutrum purus. Quisque pellentesque iaculis orci</Text>
-                    <Text>Proin vulputate varius est, ut dictum neque aliquet sit amet. Curabitur blandit nunc in</Text>
-                    <Text>Curabitur in efficitur ex, ac rutrum purus. Quisque pellentesque iaculis orci</Text>
+                   <Text>
+                       {experience.description}
+                   </Text>
                 </View>
-                <View style={styles.space}></View>
-                <View style={[styles.bodyText]}>
+                {/* <View style={styles.space}></View> */}
+                {/* <View style={[styles.bodyText]}>
                     <Text>Key Achievement</Text>
                     <Text>Achieved over $500,000 in sales in each fiscal quarter from 2019.</Text>
-                </View>
+                </View> */}
             </View>
         </View>
     )

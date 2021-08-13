@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from '@react-pdf/renderer'
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: '8px',
+        paddingVertical: '4px',
         paddingLeft: '12px'
     },
     titleStyle: {

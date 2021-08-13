@@ -12,8 +12,20 @@ import TemplateOneContent from './components/TemplateOneContent';
 
 const styles = StyleSheet.create({
     page: {
-        flexDirection: 'row',
         backgroundColor: '#e4e4e4',
+        paddingVertical: '20px',
+        position: 'relative',
+    },
+    sidePanelBackground: {
+        backgroundColor: '#333',
+        width: '180px',
+        height: '100vh',
+        position: 'absolute', 
+        zIndex: -1
+    },
+    contents: {
+        flexDirection: "row",
+        justifyContent: "space-between",
     }
 })
 
@@ -45,8 +57,11 @@ const TemplatePDFOne = ({ profileInfo, editMode, setEditMode }) => {
     return (
         <Document>
             <Page size="A4" style={styles.page}>
+                <View style={styles.contents}>
                     <TemplateOneSidebar profileInfo={profileInfo} />
                     <TemplateOneContent profileInfo={profileInfo} />
+                </View>
+                <View style={styles.sidePanelBackground} fixed />
                     {/* <div className="template-container">
                         <div className="p-grid">
                             <div className="p-col-4">

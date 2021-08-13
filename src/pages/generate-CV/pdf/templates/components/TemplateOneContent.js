@@ -1,19 +1,24 @@
 import React from 'react';
-import { View, Text, StyleSheet } from '@react-pdf/renderer'
+import { View, Text, StyleSheet, Font } from '@react-pdf/renderer'
 
 import Experience from './Experience';
+
+//Disable word hyphenation
+Font.registerHyphenationCallback(word => [word]);
 
 const styles = StyleSheet.create({
     container: {
         width: '70%',
-        paddingTop: '7px',
-        paddingHorizontal: '8px'
+        paddingHorizontal: '12px',
     },
     bioStyle: {
         fontSize: '12px',
         fontWeight: 500,
         lineHeight: '1.2',
-        marginBottom: '20px'
+        marginBottom: '20px',
+        textAlign: 'justify',
+        paddingRight: '15px',
+        width: '100%',
     },
     headerStyle: {
         borderTopWidth: '2px',
@@ -36,7 +41,7 @@ const TemplateOneContent = ({ profileInfo }) => {
                 <Text>{profileInfo.profile}</Text>
             </View>
             <View style={styles.headerStyle}>
-                <Text style={styles.headerTitleStyle}>Experiences</Text>
+                <Text style={styles.headerTitleStyle}>Experience</Text>
             </View>
             <View>
                 {profileInfo.experiences.map((experience, i) => <Experience key={i} experience={experience} />)}
