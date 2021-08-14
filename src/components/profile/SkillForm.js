@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import SectionHeader from "./SectionHeader";
 import { Tag } from "primereact/tag";
 import { Dropdown } from "primereact/dropdown";
-import ModeFooter from "pages/profile/ModeFooter";
+import ModeFooter from "./ModeFooter";
 import { useDispatch, useSelector } from "react-redux";
 import { createSkill, deleteSkill } from "store/modules/userSkill";
 import { getSkills } from "store/modules/admin";
@@ -81,13 +81,13 @@ const SkillForm = ({ data, closeEditMode }) => {
 
   return (
     <>
-      <div className="p-card p-mt-2">
+      <div className="p-mt-2">
         <SectionHeader
           componentStatus={componentStatus}
           icon="tag"
           sectionTitle="Skills"
         />
-        <div className="p-card-body">
+        <div className="">
           <form onSubmit={handleSubmit(skillSubmit)}>
             <label htmlFor="skillInput" className="inputLabel p-pr-3">
               Add up to 10 skills

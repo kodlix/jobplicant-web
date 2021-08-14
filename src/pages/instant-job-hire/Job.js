@@ -4,8 +4,8 @@ import { PROFILE } from "constants/profile";
 import { Carousel } from 'primereact/carousel';
 
 import "../profile/UserProfile.css";
-import SectionHeader from "pages/profile/SectionHeader";
-import RecentInstantJobs from "pages/instant-jobs/Recent_instant_Jobs";
+import SectionHeader from "components/profile/SectionHeader";
+import RecentInstantJobs from "../instant-jobs/Recent_instant_Jobs";
 
 const Job = ({ openCreate, openEdit, profileInfo }) => {
     const [portfolios, setPortfolios] = useState([]);

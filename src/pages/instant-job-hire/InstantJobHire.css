@@ -13,11 +13,12 @@
     padding: .5rem 0;
 }
 
-.instant button {
+
+/* .instant button {
     width: 6rem !important;
     padding: .4rem;
     border-radius: 5%;
-}
+} */
 
 .appcolor {
     background-color: #5A2846 !important;
@@ -109,7 +110,7 @@
 }
 
 .content-container {
-    width: 85%;
+    width: 83%;
     margin: auto;
     padding-top: 30px;
 }
@@ -142,7 +143,7 @@
 
 /* Media Query Section */
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
     .small-screen {
         display: none;
     }
@@ -175,4 +176,11 @@
         margin-left: 9em;
         margin-top: 0.5em;
     }
+    .content-container {
+        width: 95%;
+        margin: auto;
+        padding-top: 30px;
+    }
 }
+
+@media only screen and (min-width: 768px) {}

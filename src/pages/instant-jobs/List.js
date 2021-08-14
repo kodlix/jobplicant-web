@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import InstantHeader from 'pages/instant-job-hire/instant-header';
-import Job from 'pages/instant-job-hire/Job';
 import { Button } from 'primereact/button';
-import { applyInstantJob, fetchAllInstantJobs, loadApplicants } from 'store/modules/instantJob';
+import { applyInstantJob, fetchAllInstantJobs } from 'store/modules/instantJob';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { confirmDialog } from 'primereact/confirmdialog';
@@ -11,12 +10,12 @@ import { confirmDialog } from 'primereact/confirmdialog';
 import './Instant-Jobs.css';
 import RecentInstantJobs from './Recent_instant_Jobs';
 import { Tag } from 'primereact/tag';
+import agent from "../../services/agent.service";
 
 
 const InstantJobs = () => {
     const dispatch = useDispatch();
 
-    const [visible, setVisible] = useState(false);
     const [page, setPage] = useState(1);
     const [take, setTake] = useState(10);
     const toast = useRef(null);
@@ -25,6 +24,11 @@ const InstantJobs = () => {
     const applicants = useSelector(state => state.instantJob.applicants);
 
     console.log("All instant job =>", allInstantJobs);
+
+    const requestedId = agent.Auth.current().id;
+    console.log("requestedId", requestedId);
+
+
 
     useEffect(() => {
         dispatch(fetchAllInstantJobs(page, take))
@@ -75,8 +79,8 @@ const InstantJobs = () => {
                                             <div className="row" style={{ flexWrap: "nowrap !important" }}>
                                                 <div className="col-2">
                                                     <img
-                                                        src="https://source.unsplash.com/random/100x100"
-                                                        className="rounded circle img-fluid"
+                                                        src="https://source.unsplash.com/random/100x100" style={{ borderRadius: "50%" }}
+                                                        className="img-fluid"
                                                         alt="user-image"
                                                     />
                                                 </div>
@@ -85,9 +89,9 @@ const InstantJobs = () => {
                                                     <small className="p-text-secondary">
                                                         {/* <Link className="p-text-secondary" to={'#'}> */}
 
-                                                        <p className="font-weight-bold ">Services : <span className="app-color" style={{ fontSize: 15 }}> {instantjob.service}</span></p>
-                                                        <p><span className="font-weight-bold">Location : </span><span>{instantjob.location}</span> </p>
-                                                        <p><span className="font-weight-bold">Description : </span> {instantjob.description}</p>
+                                                        <p className="font-weight-bold ">Services : <span className="app-color text-capitalize" style={{ fontSize: 15 }}> {instantjob.service}</span></p>
+                                                        <p><span className="font-weight-bold text-capitalize">Location : </span><span>{instantjob.location}</span> </p>
+                                                        <p><span className="font-weight-bold text-capitalize">Description : </span> {instantjob.description}</p>
                                                         <p><span className="font-weight-bold">Phone Number : </span> {instantjob.phoneNumber}</p>
                                                         <div className="p-grid">
                                                             <div className="p-col-4"><span className="font-weight-bold">Start Date: </span> {moment(instantjob.startDate).format('MMMM DD, YYYY')} </div>
@@ -96,8 +100,8 @@ const InstantJobs = () => {
                                                         {/* </Link> */}
                                                         <div className="p-grid p-pt-2" id={`${i}_int`} hidden={false}>
                                                             <div className="offset-md-5 p-pr-2 d-flex">
-                                                                <p> <span className="font-weight-bold app-color p-mt-2 interest-tx"> Interested ? &nbsp; </span> </p></div>
-                                                            <div><Button label="Yes" id="saveButton" className="p-button-sm" onClick={() => handleApply(instantjob.id, i)} /></div>
+                                                                {requestedId !== instantjob.accountId && <p> <span className="font-weight-bold app-color p-mt-2 interest-tx"> Interested ? &nbsp; </span> </p>}</div>
+                                                            {requestedId !== instantjob.accountId && <div><Button label="Yes" id="saveButton" className="p-button-sm" onClick={() => handleApply(instantjob.id, i)} /></div>}
                                                             <div className="p-pr-1 px-2"> <Link to={`/instant-hire/view/${instantjob.id}`}><Button label="View" id="reject" className="p-button-sm" /> </Link></div>
 
                                                         </div>

@@ -4,15 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadProfileInfo } from "store/modules/account";
 import { openModal } from "store/modules/modal";
 
-import Biography from "../Biography";
-import Experience from "../Experience";
-import Education from "../Education";
-import Skills from "../Skills";
-import Hobbies from "../Hobbies";
-import ProfessionsOfInterest from "../ProfessionsOfInterest";
-import LocationOfInterest from "../LocationOfInterest";
-import ContactInformation from "../ContactInformation";
-import ModalForm from '../ModalForm';
+import Biography from "components/profile/Biography";
+import Experience from "components/profile/Experience";
+import Education from "components/profile/Education";
+import Skills from "components/profile/Skills";
+import Hobbies from "components/profile/Hobbies";
+import ProfessionsOfInterest from "components/profile/ProfessionsOfInterest";
+import LocationOfInterest from "components/profile/LocationOfInterest";
+import ContactInformation from "components/profile/ContactInformation";
+import ModalForm from 'components/profile/ModalForm';
 import agentService from 'services/agent.service';
 import Spinner from 'components/spinner/spinner.component';
 import { loadCountry } from 'store/modules/location';
@@ -136,7 +136,11 @@ const InfoTab = () => {
 
         </div>
       </div>
-      <ModalForm data={profileInfo} mode={mode} itemToEdit={itemToEdit} />
+      <ModalForm 
+        data={profileInfo} 
+        mode={mode} 
+        itemToEdit={itemToEdit} 
+      />
     </>
   );
 }

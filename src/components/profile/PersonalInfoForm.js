@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { InputTextarea } from "primereact/inputtextarea";
 import InputField from "components/InputField";
-import ModeFooter from "pages/profile/ModeFooter";
+import ModeFooter from "./ModeFooter";
 import { updatePersonalProfile } from "store/modules/account";
 import SectionHeader from "./SectionHeader";
 import { Dropdown } from "primereact/dropdown";

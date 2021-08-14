@@ -35,7 +35,7 @@ const InstantHeader = ({ title, showCreateButton = false, showBack = false, coun
         <>
             <header className="instant d-flex">
                 <div className="title-container w-100"   >
-                    <h2 className="title sm-screen ">{title} ({count}) </h2>
+                    <h2 className="title sm-screen ">{title} {count > 0 && `(${count})`} </h2>
                 </div>
 
                 {showSearchBar && <div className="d-flex align-items-baseline">

@@ -25,7 +25,7 @@ const FilterPanel = () => {
 
   return (
     <>
-        <div className="p-card p-md-3 p-p-0">
+        <div className="p-card p-md-3 p-col-12 p-p-0">
           <div className="p-card-title d-flex justify-content-between card-header-filterpanel p-p-3">
             <span className="cardTitle-filterpanel">
               Filters

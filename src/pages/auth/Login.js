@@ -4,7 +4,7 @@ import { Checkbox } from 'primereact/checkbox';
 import { Link } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { loginUser } from 'store/modules/auth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Toast } from 'primereact/toast';
 import { Password } from 'primereact/password';
@@ -12,7 +12,7 @@ import { Password } from 'primereact/password';
 import './Login.css'
 
 const Login = ({ props }) => {
-
+    const isRequestLoading = useSelector(state => state.auth.loading);
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: "onChange",
         reValidateMode: "onChange"
@@ -144,24 +144,31 @@ const Login = ({ props }) => {
                                             <span className="fa fa-eye-slash pwd-toggle"></span> */}
                                             </div>
 
-                                            <div className="row">
-                                                <div className="col-6 col-xs-3 ">
-                                                    <div className="p-field-checkbox">
-                                                        <Checkbox inputId="rememberMe"
-                                                            name="rememberme"
-                                                            id="rememberMe"
-                                                            checked={checked}
-                                                            onChange={e => setChecked(e.checked)}
-                                                        /> <label htmlFor="rememberMe"><span className="label-text p-ml-1">Remember me</span></label>
-                                                    </div>
+                                            <div className="p-d-flex p-jc-between">
+                                                <div className="p-field-checkbox">
+                                                    <Checkbox inputId="rememberMe"
+                                                        name="rememberme"
+                                                        id="rememberMe"
+                                                        checked={checked}
+                                                        onChange={e => setChecked(e.checked)}
+                                                    /> <label htmlFor="rememberMe"><span className="label-text p-ml-1">Remember me</span></label>
                                                 </div>
-                                                <div className="col-6 col-xs-3 p-mb-1 ">
-                                                    <p className="col-xs-2 appcolor">
-                                                        <Link className="font-weight-bold forgot-pwd" to="/forgotpassword">Forgot password?</Link>
+                                                <div>
+                                                    <Link className="font-weight-bold forgot-pwd" to="/forgotpassword">Forgot password?</Link>
+                                                </div>
+                                                {/* <div className="col-6 col-xs-3">
+                                                </div> */}
+                                                {/* <div className="col-6 col-xs-3 p-mb-1">
+                                                    <p className="col-xs-2 appcolor ">
                                                     </p>
-                                                </div>
+                                                </div> */}
                                             </div>
-                                            <Button label="Login" type="submit" className="form-group" />
+                                            <Button
+                                                label="Login"
+                                                type="submit"
+                                                className="form-group"
+                                                loading={isRequestLoading}
+                                            />
 
                                         </div>
                                         {/* <div className="p-grid"> */}

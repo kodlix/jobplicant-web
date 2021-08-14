@@ -1,6 +1,6 @@
 import AppNavBar from "components/AppNavBar";
-import PersonalInfo from "pages/profile/PersonalInfo";
-import ProfileTab from "pages/profile/ProfileTab";
+import PersonalInfo from "components/profile/PersonalInfo";
+import ProfileTab from "components/profile/ProfileTab";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, useRouteMatch } from "react-router";

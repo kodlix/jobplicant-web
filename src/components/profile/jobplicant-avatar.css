@@ -1,0 +1,49 @@
+/* user header */
+
+.userProfile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.profile-picture {
+    border-radius: 100%;
+    margin-right: 20px;
+}
+
+.avatar-container {
+    background-color: green;
+
+}
+
+.avatar-title {
+    font-weight: bold;
+    font-size: 36px;
+    padding: 45px;
+    color: white;
+}
+
+.username {
+    display: inline;
+}
+
+.profilePic-container {
+    position: relative;
+}
+
+.profilePic-label {
+    position: absolute;
+    cursor: pointer;
+}
+
+.profilePic-label .pi-camera {
+    font-size: 14px;
+    border: 1px solid #5a2846;
+    background-color: #5a2846;
+    border-radius: 100%;
+    padding: 7px;
+    color: white;
+}
+.pi-active {
+  color: #55B3B1;
+}

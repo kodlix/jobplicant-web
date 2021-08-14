@@ -13,6 +13,8 @@ import Job from './Job';
 
 import './InstantJobHire.css'
 import moment from 'moment';
+import { Redirect } from 'react-router';
+import agentService from 'services/agent.service';
 
 const Categories = [
     { name: 'Machine', code: 'Mec' },
@@ -22,6 +24,8 @@ const Categories = [
     { name: 'Dry-cleaners', code: 'Lan' },
     { name: 'Painter', code: 'Pai' },
     { name: 'Janitor', code: 'Jan' },
+    { name: 'Massage', code: 'Mas' },
+
 ];
 
 const Edit = (props) => {
@@ -40,11 +44,19 @@ const Edit = (props) => {
     const [endDate, setEndDate] = useState(null);
     const [itemToEdit, setItemToEdit] = useState({});
 
-    const instantjob = useSelector(state => state.instantJob.instantjobs);
-    console.log({ instantjob });
+    const instantjob = useSelector(state => state.instantJob.instantjob);
+    const loading = useSelector(state => state.instantJob.loading);
+    console.log("instantjob =>", instantjob);
+
+    const loggedInUserId = agentService.Auth.current().id
+    console.log("loggedInUserId", loggedInUserId);
 
     const instantJobId = props.match.params.id;
     console.log({ itemToEdit })
+
+    useEffect(() => {
+        dispatch(loadInstantJob(instantJobId))
+    }, [dispatch])
 
     useEffect(() => {
         setItemToEdit(instantjob)
@@ -55,19 +67,17 @@ const Edit = (props) => {
             setSelectedCategory(category)
             console.log("category", category)
 
-            // setValue("service", itemToEdit.service);
-            // setValue("location", itemToEdit.location);
-            // setValue("address", itemToEdit.address);
-            // setValue("phoneNumber", itemToEdit.phoneNumber);
-            // setValue("endDate", itemToEdit.endDate);
-            // setValue("startDate", itemToEdit.startDate);
-            // setValue("description", itemToEdit.description);
+            setValue("service", itemToEdit.service);
+            setValue("location", itemToEdit.location);
+            setValue("address", itemToEdit.address);
+            setValue("phoneNumber", itemToEdit.phoneNumber);
+            setValue("endDate", itemToEdit.endDate);
+            setValue("startDate", itemToEdit.startDate);
+            setValue("description", itemToEdit.description);
         }
     }, [instantjob, itemToEdit])
 
-    useEffect(() => {
-        dispatch(loadInstantJob(instantJobId))
-    }, [dispatch])
+
 
     const handleOnChange = (e) => {
         const { name, value } = e.target;
@@ -121,9 +131,14 @@ const Edit = (props) => {
             data.now = false;
         }
         data.service = data.service.name;
-        dispatch(editInstantJob(instantJobId, data));
+        dispatch(editInstantJob(instantJobId, data, "loading"));
     }
+    // if (instantjob.accountId !== loggedInUserId) {
+    //     return <Redirect to={"/instant-jobs"} />
+    // }
+
     return (
+
         <>
             <div className="background instant" >
                 <div className="content-container">
@@ -294,7 +309,13 @@ const Edit = (props) => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <Button icon="pi pi-check" iconPos="left" label="Submit" id="saveButton" type="submit" className="float-right" />
+                                        <Button icon="pi pi-check"
+                                            iconPos="left"
+                                            // label="Submit"
+                                            label={loading === "loading" ? "Please wait..." : "Update"}
+                                            id="saveButton"
+                                            type="submit"
+                                            className="float-right" />
                                     </form>
 
                                 </div>

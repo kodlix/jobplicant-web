@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { InputText } from "primereact/inputtext";
 import { Tag } from "primereact/tag";
-import ModeFooter from "pages/profile/ModeFooter";
+import ModeFooter from "./ModeFooter";
 import SectionHeader from "./SectionHeader";
 import { updateUserHobies } from "store/modules/account";
 import { useDispatch, useSelector } from "react-redux";

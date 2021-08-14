@@ -14,14 +14,15 @@
 }
 
 .preview-pane section {
-    padding: 24px;
-    height: 90vh;
-    overflow: auto;
+    padding: 0px;
+    /* height: 90vh;
+    overflow: auto; */
 }
-/* 
-.header{
+
+
+/* .preview-pane > .header{
     position: absolute; 
-    top: 10; 
+    top: 0; 
     right: 0; 
     left: 0;
     z-index: 900;

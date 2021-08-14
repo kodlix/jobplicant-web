@@ -144,19 +144,15 @@ const Applicant = (props) => {
                                 <li><a className="dropdown-item" href="#">Something else here</a></li> */}
                                         <li className="dropdown-item">
                                             <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
-                                            Option 1
+                                            My Location
                                         </li>
                                         <li className="dropdown-item">
                                             <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />&nbsp;
-                                            Option 2
+                                            Top Rated
                                         </li>
                                         <li className="dropdown-item">
                                             <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />
-                                            &nbsp; Option 3
-                                        </li>
-                                        <li className="dropdown-item pr-1">
-                                            <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />
-                                            &nbsp; Option 4
+                                            &nbsp; Reliability
                                         </li>
                                     </ul>
                                 </div>
@@ -173,10 +169,10 @@ const Applicant = (props) => {
                             <div className="applicants-display">
                                 <div className="d-flex justify-content-between p-mb-1">
                                     <div>
-                                        <h5> <span className="font-weight-bold text-secondary">{instantJob?.service}</span> <span className="app-color">
+                                        <h5> <span className="font-weight-bold text-secondary text-capitalize">{instantJob?.service}</span> <span className="app-color">
                                             {applicantList?.length ? applicantList?.length : 0} Applicant ({applicantList?.length ? applicantList?.length : 0} Result)</span></h5>
-                                        <p className="font-weight-bold">Location : <span>{instantJob?.location}</span></p>
-                                        <p className="font-weight-bold">Address : <span>{instantJob?.address}</span></p>
+                                        <p className="font-weight-bold text-capitalize">Location : <span>{instantJob?.location}</span></p>
+                                        <p className="font-weight-bold text-capitalize">Address : <span>{instantJob?.address}</span></p>
                                     </div>
                                     <div>
                                         <Link to="/instant-hires" className="bk-btn p-pt-2 app-color">
@@ -200,23 +196,26 @@ const Applicant = (props) => {
                                                         <i className="pi pi-comments p-pr-2" data-toggle="tooltip" data-placement="top" title="Message" />
                                                     </div> <hr />
                                                     {/* <div className="card-body" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> */}
-                                                    <p className="card-text"> <span className="font-weight-bold">Occupation :</span> <span className="font-weight-bold app-color">
+                                                    <p className="card-text"> <span className="font-weight-bold text-capitalize">Occupation :</span> <span className="font-weight-bold app-color">
                                                         {applicant.occupation}</span></p>
-                                                    <p className="card-title"><span className="font-weight-bold">Name : </span>{applicant.name} </p>
-                                                    <p className="card-text"> <span className="font-weight-bold">Location :</span>{applicant.address}</p>
-                                                    <p className="card-text"><span className="font-weight-bold">Phone Number :</span> {applicant.phoneNumber}</p>
-                                                    <p className="card-text"><span className="font-weight-bold">Rating :
+                                                    <p className="card-title"><span className="font-weight-bold text-capitalize">Name : </span>{applicant.name} </p>
+                                                    <p className="card-text"> <span className="font-weight-bold text-capitalize">Location :</span>{applicant.address}</p>
+                                                    <p className="card-text"><span className="font-weight-bold text-capitalize">Phone Number :</span> {applicant.phoneNumber}</p>
+                                                    <p className="card-text"><span className="font-weight-bold text-capitalize">Rating :
                                                     </span> <span className="p-p-0"> <Rating value={rating} disabled={true} cancel={false}
                                                         onChange={(e) => setRating(applicant.rating)} stars={5} /></span>
                                                     </p>
                                                 </div>
                                                 {!applicant.accepted && !applicant.rejected && <div className="p-grid p-pl-5 p-pb-2">
+                                                    <div className=" applicant-actionIcons p-pr-2">
+                                                        <Link to={`/applicant/${applicant.applicantId}`}><a className="pi pi-user" title="View Applicant Profile"></a></Link>
+                                                    </div>
                                                     <div className="p-pr-2">
-                                                        <Button icon="pi pi-check" iconPos="left" label="Accept" id="saveButton" className="p-button-sm"
+                                                        <Button label="Accept" id="saveButton" className="p-button-sm"
                                                             onClick={() => acceptHandler(applicant.applicationId)} />
                                                     </div>
                                                     <div className="">
-                                                        <Button label="Reject" icon="pi pi-times" iconPos="left" id="reject" className="p-button-sm"
+                                                        <Button label="Reject" id="reject" className="p-button-sm"
                                                             onClick={() => rejectHandler(applicant.applicationId)} />
                                                     </div>
 
@@ -272,7 +271,7 @@ const Applicant = (props) => {
                             <p><span className="font-weight-bold">Location:</span> <span>{applicant.address}</span></p>
                             <p><span className="font-weight-bold">Address:</span> <span > {applicant.address}</span></p>
                             <p><span className="font-weight-bold"> phone Number: </span><span > {applicant.phoneNumber}</span></p>
-                            <p ><span className="font-weight-bold">Bio:</span> <span classNam="p-p-0">{applicant.bio}</span></p>
+                            <p ><span className="font-weight-bold">Bio:</span> <span className="p-p-0">{applicant.bio}</span></p>
                             <p className="card-text"><span className="font-weight-bold">Rating :
                             </span> <span className="p-p-0"> <Rating value={rating} disabled={true} cancel={false} onChange={(e) => setRating(e.value)} stars={5} /></span>
                             </p>

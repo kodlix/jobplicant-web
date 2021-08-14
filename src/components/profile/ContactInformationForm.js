@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { useDispatch, useSelector } from "react-redux";
-import ModeFooter from 'pages/profile/ModeFooter';
+import ModeFooter from './ModeFooter';
 import { loadCountry } from 'store/modules/location';
 import { updateContactInfo } from 'store/modules/account';
 import SectionHeader from './SectionHeader';
@@ -65,9 +65,9 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
 
   return (
     <>
-      <div className="p-card p-mt-2">
+      <div className="p-mt-2">
         <SectionHeader icon="phone" sectionTitle="Contact Information" />
-        <div className="p-card-body">
+        <div className="">
           <form onSubmit={handleSubmit(contactInfoSubmit)}>
             <span className="skillInput p-mb-4 p-fluid p-formgrid p-grid">
               <div className="p-field p-col-12 p-md-6">
