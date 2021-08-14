@@ -40,7 +40,7 @@ const ListInstantJobHire = React.lazy(() => import('../pages/instant-job-hire/Li
 const ViewInstantJobHire = React.lazy(() => import('../pages/instant-job-hire/View'));
 const EditInstantJobHire = React.lazy(() => import('../pages/instant-job-hire/Edit'));
 const Applicant = React.lazy(() => import('../pages/instant-job-hire/Applicant'));
-const ApplicantProfile = React.lazy( () => import('pages/applicant-profile/ApplicantProfile'));
+const ApplicantProfile = React.lazy(() => import('pages/applicant-profile/ApplicantProfile'));
 const InstantJobs = React.lazy(() => import('../pages/instant-jobs/List'));
 const Review = React.lazy(() => import('../pages/instant-job-hire/Review'));
 const Timeline = React.lazy(() => import('../pages/timeline/Timeline'));
@@ -100,7 +100,7 @@ const AppRouter = () => {
         {/* INSTANT HIRE ROUTE */}
         <ProtectedRoute path="/create-instant-hire" component={CreateInstantJobHire} />
         <ProtectedRoute path="/instant-hires" component={ListInstantJobHire} />
-        <ProtectedRoute path="/instant-hire/view/:id" component={ViewInstantJobHire} />
+        <AnonymousRoute path="/instant-hire/view/:id" component={ViewInstantJobHire} />
         <ProtectedRoute path="/instant-hire/edit/:id" component={EditInstantJobHire} />
         <ProtectedRoute path="/instant-hire-applicants/:id" component={Applicant} />
         <ProtectedRoute path="/instant-jobs" component={InstantJobs} />

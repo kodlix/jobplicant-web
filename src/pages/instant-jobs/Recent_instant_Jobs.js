@@ -14,12 +14,26 @@ const RecentInstantJobs = () => {
 
     const [page, setPage] = useState(1);
     const [take, setTake] = useState(10);
+    const [copyAlert, setCopyAlert] = useState(null);
+
     const allCurrentInstantJobs = useSelector(state => state.instantJob.allCurrentInstantJobs);
     console.log("allcurrentjob", allCurrentInstantJobs)
 
     useEffect(() => {
         dispatch(fetchAllInstantJobs(page, take))
     }, [dispatch])
+
+    const handleShareButton = (e,) => {
+        const jobId = e.currentTarget.dataset.id;
+        const el = document.createElement('input');
+        el.value = window.location.host + `/instant-hire/view/${jobId}`;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        setCopyAlert(jobId);
+        setTimeout(function () { setCopyAlert(false); }, 1000);
+    }
 
 
     function truncate(str, no_words) {
@@ -41,13 +55,18 @@ const RecentInstantJobs = () => {
                             <div key={instantjob.id} className="" >
                                 <div className="panel-login text-center"></div>
                                 <div className="highlight-card p-p-2 ">
-                                    <div className="row " style={{ flexWrap: "nowrap !important" }}>
+                                    <div className="row " style={{ flexWrap: "nowrap !important" }} >
                                         <div className="p-card-title d-flex justify-content-around" style={{ fontSize: 15 }}>
-                                            <div >{instantjob.service}</div>
-                                            <div><i className="pi pi-share-alt"></i></div>
+                                            <div>{instantjob.service}</div>
+                                            <div>
+                                                <i className="pi pi-share-alt" data-id={instantjob.id}
+                                                    onClick={handleShareButton}> Share
+                                                </i> </div>
+                                            <span className={copyAlert === instantjob.id ? "job-copyModalAlert--active" : "job-copyModalAlert"}>
+                                                Link copied
+                                            </span>
                                         </div>
                                         <hr />
-
                                         <div className="col-3 rounded-circle">
                                             <img
                                                 src="https://source.unsplash.com/random/100x100" style={{ borderRadius: "50%" }}

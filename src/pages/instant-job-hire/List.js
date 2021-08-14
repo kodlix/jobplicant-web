@@ -9,16 +9,28 @@ import moment from 'moment';
 import './InstantJobHire.css'
 import RecentInstantJobs from 'pages/instant-jobs/Recent_instant_Jobs';
 import Spinner from 'components/spinner/spinner.component'
+import JobSidePanel from 'components/JobSidePanel';
+import agentService from 'services/agent.service';
+import { loadAllJobs } from 'store/modules/job';
 
 
 const InstantHires = () => {
     const dispatch = useDispatch();
     const instantJobs = useSelector(state => state.instantJob.instantjobs);
+    const allJobs = useSelector(state => state.job.allJobs);
+
     console.log("instantJobs", instantJobs);
+
+    const userAccountType = agentService.Auth.current().accountType;
+
 
     useEffect(() => {
         dispatch(loadInstantJobs())
     }, [])
+
+    useEffect(() => {
+        dispatch(loadAllJobs());
+    }, [dispatch]);
 
     const deleteRequest = (id) => {
         return confirmDialog({
@@ -84,7 +96,9 @@ const InstantHires = () => {
                                 </div>
                             </div>
                         </div>
-                        <RecentInstantJobs />
+                        {userAccountType === "Artisan" ? <RecentInstantJobs /> :
+                            <JobSidePanel data={allJobs} />}
+
                     </div>
                 </div>
             </div>

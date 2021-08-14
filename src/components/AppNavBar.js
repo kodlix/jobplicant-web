@@ -7,7 +7,7 @@ import { Navbar, Container, Nav } from 'react-bootstrap'
 // import './AppNavBar.css';
 
 const AppNavBar = ({ displaySearBar = false }) => {
-    const userAccountType = agentService.Auth.current().accountType;
+    const userAccountType = agentService.Auth.current()?.accountType;
 
 
     return (

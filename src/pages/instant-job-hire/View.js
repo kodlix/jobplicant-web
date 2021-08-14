@@ -7,6 +7,7 @@ import { applyInstantJob, loadInstantJob } from 'store/modules/instantJob'
 import moment from 'moment'
 import { confirmDialog } from 'primereact/confirmdialog'
 import { Tag } from 'primereact/tag'
+import AppNavBar from 'components/AppNavBar'
 
 const View = () => {
     const dispatch = useDispatch()
@@ -42,6 +43,7 @@ const View = () => {
 
     return (
         <>
+            <AppNavBar />
             <div style={styles.container}>
                 <div className="container">
                     <div className="d-flex" style={styles.topBarContainer}>
