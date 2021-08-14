@@ -51,7 +51,7 @@ const JobSidePanel = ({ data }) => {
               )
             }
             {
-              !data &&
+              !data.length &&
               <h6 className="p-px-3 p-pt-3 p-mb-6 p-pb-6 cardsubtitle-JobPanelComponent">
                 No Recent Jobs available at the moment
               </h6>

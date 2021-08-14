@@ -10,7 +10,7 @@ import { postComment } from "../../store/modules/comment";
 import { openEmojiPicker, closeEmojiPicker } from "store/modules/emojiPicker";
 import './CommentSection.css';
 
-const CommentForm = ({ postId, imageUrl }) => {
+const CommentForm = ({ postId, imageUrl, expandProfileImage }) => {
   const dispatch = useDispatch();
   const emojiPickerId = useSelector(state => state.emojiPicker.name);
   const loadingTypeCommentModule = useSelector(state => state.comment.loadingType);
@@ -109,7 +109,8 @@ const CommentForm = ({ postId, imageUrl }) => {
         src={imageUrl}
         width="55"
         height="55"
-        className="rounded-circle profile-picture-timeline"
+        className="rounded-circle profile-picture-timeline align-self-center"
+        onClick={expandProfileImage}
       />
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -152,6 +153,7 @@ const CommentForm = ({ postId, imageUrl }) => {
           <Button
             type="submit"
             label="Comment"
+            disabled={loadingTypeCommentModule === "createComment"}
             className="p-px-1 p-ml-2 timeline-commentButton"
           />
         </span>

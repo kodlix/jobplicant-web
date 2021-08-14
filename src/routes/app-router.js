@@ -12,6 +12,7 @@ import ProtectedAdminRoute from './protected-admin-route';
 import AdminSkill from 'pages/admin/dashboard/AdminSkills';
 import AdminContractType from 'pages/admin/dashboard/AdminContractType';
 import AdminQualification from 'pages/admin/dashboard/AdminQualification';
+import AnonymousRouteOrProtectedRoute from './anonymous-or-protected-route';
 
 
 const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard'));
@@ -105,8 +106,8 @@ const AppRouter = () => {
         <ProtectedRoute path="/artisans" exact component={Artisan} />
         <ProtectedRoute path="/review" exact component={Review} />
 
-        <ProtectedRoute path="/timeline" exact component={Timeline} />
-        <ProtectedRoute path="/post/:id" exact component={ViewPost} />
+        <AnonymousRouteOrProtectedRoute path="/timeline" exact component={Timeline} />
+        <AnonymousRouteOrProtectedRoute path="/post/:id" exact component={ViewPost} />
         <ProtectedRoute path="/contacts" exact component={ListContacts} />
         <ProtectedRoute path="/contacts/create" exact component={CreateContacts} />
 

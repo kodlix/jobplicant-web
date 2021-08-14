@@ -11,6 +11,7 @@ import { loadProfileInfo } from "store/modules/account";
 import { closeEmojiPicker } from "store/modules/emojiPicker";
 import { deletePost, likePost, dislikePost, viewPost } from "../../store/modules/timeline";
 import { loadComments } from "../../store/modules/comment";
+import TimelineLeftPanel from "./TimelineLeftPanel";
 import { loadAllJobs } from "store/modules/job";
 import { TIMELINE } from "constants/timeline";
 import agent, { API_ROOT } from "../../services/agent.service";
@@ -32,6 +33,8 @@ const ViewPost = () => {
   const [copyAlert, setCopyAlert] = useState(false);
   const commentsByPage = useSelector(state => state.comment.comments);
   const params = useParams();
+  const isAuthenticated = agent.Auth.isAuth();
+
   const onShow = (id) => {
     if (id) {
       setPostId(id);
@@ -44,9 +47,11 @@ const ViewPost = () => {
 
   useEffect(() => {
     if (params) {
-      dispatch(loadProfileInfo());
       dispatch(viewPost(params.id, "viewPost"));
-      dispatch(loadAllJobs());
+      if (isAuthenticated) {
+        dispatch(loadProfileInfo());
+        dispatch(loadAllJobs());
+      }
     }
   }, [dispatch]);
 
@@ -98,252 +103,12 @@ const ViewPost = () => {
       <div className="timeline-container">
         <div className="timeline-content">
           <div className="p-grid p-mt-2 p-m-0">
-            <div className="p-col-12 p-md-3 p-pl-0 p-py-md-2 p-pr-md-2 p-pb-0 p-pr-0">
-              <div className="p-card">
-                <div className="leftpanel-top-container-timeline"></div>
-                <div className="leftpanel-bottom-container-timeline">
-                  {
-                    profileInfo.imageUrl &&
-                    <img
-                      width="80"
-                      height="80"
-                      alt="Profile"
-                      src={profileInfo?.imageUrl}
-                      className="rounded-circle timeline-profilePicture"
-                      onClick={expandProfileImage} />
-                  }
-                  {
-                    !profileInfo.imageUrl &&
-                    <div className="">
-                      <i className="pi pi-user timeline-emptyProfilePic"></i>
-                    </div>
-                  }
-                  {
-                    profileInfo?.firstName && profileInfo?.accountType !== "Corporate" &&
-                    <>
-                      <h4 className="p-mt-2">
-                        {`${formatter.capitalizeFirstLetter(profileInfo?.firstName)} ${formatter.capitalizeFirstLetter(profileInfo?.lastName)}`}
-                      </h4>
-                      <p className="p-mb-4 ">
-                        <p className="p-mt-1">
-                          Graphic Designer at Self Employed
-                        </p>
-                        <span className="p-mt-1">
-                          {
-                            (profileInfo.city || profileInfo.country) &&
-                            <i className="pi pi-map-marker p-pr-1"></i>
-                          }
-                          {
-                            profileInfo.city &&
-                            <span>{profileInfo?.city}, &nbsp;</span>
-                          }
-                          {
-                            profileInfo.country &&
-                            <span>Nigeria</span>
-                          }
-                        </span>
-                      </p>
-                    </>
-                  }
-                  {
-                    profileInfo?.firstName && profileInfo?.accountType === "Corporate" &&
-                    <>
-                      <h4 className="p-my-1 timeline-companyName">
-                        {formatter.capitalizeFirstLetter(profileInfo?.companyName)}
-                      </h4>
-                      <p className="p-mb-4">
-                        {
-                          (profileInfo.city || profileInfo.country) &&
-                          <i className="pi pi-map-marker p-pr-1"></i>
-                        }
-                        <span className="p-mt-1">
-                          {
-                            profileInfo.city &&
-                            <span>{profileInfo?.city}</span>
-                          }
-                          {
-                            profileInfo.city && profileInfo.country &&
-                            <span>, &nbsp;</span>
-                          }
-                          {
-                            profileInfo.country &&
-                            <span>Nigeria</span>
-                          }
-                        </span>
-                      </p>
-                    </>
-                  }
-                  <div className="timeline-leftpanel-connection">
-                    <h5>
-                      Following
-                    </h5>
-                    <h6>
-                      45
-                    </h6>
-                  </div>
-                  <div className="timeline-leftpanel-connection">
-                    <h5>
-                      Followers
-                    </h5>
-                    <h6>
-                      45
-                    </h6>
-                  </div>
-                  <div className="timeline-leftpanel-connection" >
-                    <h6>
-                      View Profile
-                    </h6>
-                  </div>
-                </div>
-              </div>
-              <div className="p-card p-mt-2">
-                <div className="p-card-title cardtitle-timeline p-mb-3">
-                  Suggestions
-                </div>
-                <div className="p-card-body d-flex justify-content-between">
-                  <span className="d-flex align-items-end">
-                    <img
-                      width="40"
-                      height="40"
-                      src="../../assets/logo.png"
-                      className="rounded-circle profile-picture-timeline p-mr-2"
-                    />
-                    <span>
-                      <div className="p-card-title cardsubtitle-timeline p-mb-0">
-                        Jane Doe
-                      </div>
-                      <p className="jobDescription-timeline">
-                        Graphic Designer
-                      </p>
-                    </span>
-                  </span>
-                  <Button
-                    type="button"
-                    iconPos="left"
-                    icon="pi pi-plus"
-                    className="p-p-0 suggestion-button-timeline"
-                  />
-                </div>
-                <div className="p-card-body d-flex justify-content-between">
-                  <span className="d-flex align-items-end">
-                    <img
-                      src="../../assets/logo.png"
-                      width="40"
-                      height="40"
-                      className="rounded-circle profile-picture-timeline p-mr-2"
-                    />
-                    <span>
-                      <div className="p-card-title cardsubtitle-timeline p-mb-0">
-                        Jane Doe
-                      </div>
-                      <p className="jobDescription-timeline">
-                        Graphic Designer
-                      </p>
-                    </span>
-                  </span>
-                  <Button
-                    type="button"
-                    iconPos="left"
-                    icon="pi pi-plus"
-                    className="p-p-0 suggestion-button-timeline"
-                  />
-                </div>
-                <div className="p-card-body d-flex justify-content-between">
-                  <span className="d-flex align-items-end">
-                    <img
-                      width="40"
-                      height="40"
-                      src="../../assets/logo.png"
-                      className="rounded-circle profile-picture-timeline p-mr-2"
-                    />
-                    <span>
-                      <div className="p-card-title cardsubtitle-timeline p-mb-0">
-                        Jane Doe
-                      </div>
-                      <p className="jobDescription-timeline">
-                        Graphic Designer
-                      </p>
-                    </span>
-                  </span>
-                  <Button
-                    type="button"
-                    iconPos="left"
-                    icon="pi pi-plus"
-                    className="p-p-0 suggestion-button-timeline"
-                  />
-                </div>
-                <div className="p-card-body d-flex justify-content-between">
-                  <span className="d-flex align-items-end">
-                    <img
-                      width="40"
-                      height="40"
-                      src="../../assets/logo.png"
-                      className="rounded-circle profile-picture-timeline p-mr-2" />
-                    <span>
-                      <div className="p-card-title cardsubtitle-timeline p-mb-0">
-                        Jane Doe
-                      </div>
-                      <p className="jobDescription-timeline">
-                        Graphic Designer
-                      </p>
-                    </span>
-                  </span>
-                  <Button
-                    type="button"
-                    iconPos="left"
-                    icon="pi pi-plus"
-                    className="p-p-0 suggestion-button-timeline"
-                  />
-                </div>
-                <div className="p-card-body d-flex justify-content-between">
-                  <span className="d-flex align-items-end">
-                    <img
-                      width="40"
-                      height="40"
-                      src="../../assets/logo.png"
-                      className="rounded-circle profile-picture-timeline p-mr-2"
-                    />
-                    <span>
-                      <div className="p-card-title cardsubtitle-timeline p-mb-0">
-                        Jane Doe
-                      </div>
-                      <p className="jobDescription-timeline">
-                        Graphic Designer
-                      </p>
-                    </span>
-                  </span>
-                  <Button
-                    type="button"
-                    iconPos="left"
-                    icon="pi pi-plus"
-                    className="p-p-0 suggestion-button-timeline"
-                  />
-                </div>
-                <div className="p-card-body d-flex justify-content-between">
-                  <span className="d-flex align-items-end">
-                    <img
-                      width="40"
-                      height="40"
-                      src="../../assets/logo.png"
-                      className="rounded-circle profile-picture-timeline p-mr-2" />
-                    <span>
-                      <div className="p-card-title cardsubtitle-timeline p-mb-0">
-                        Jane Doe
-                      </div>
-                      <p className="jobDescription-timeline">
-                        Graphic Designer
-                      </p>
-                    </span>
-                  </span>
-                  <Button
-                    type="button"
-                    iconPos="left"
-                    icon="pi pi-plus"
-                    className="p-p-0 suggestion-button-timeline" />
-                </div>
-              </div>
-            </div>
-            <div className="p-col-12 p-md-6 p-px-0">
+            {isAuthenticated &&
+              <TimelineLeftPanel
+                profileInfo={profileInfo}
+                expandProfileImage={expandProfileImage}
+              />}
+            <div className={`p-col-12 p-md-6 p-px-0 ${isAuthenticated ? "p-md-6" : "p-md-9"}`}>
               <ModalMode
                 onHide={onHide}
                 postId={postId}
@@ -360,7 +125,7 @@ const ViewPost = () => {
                 </div>
               }
               {
-                error?.status &&
+                error?.statusCode === 404 &&
                 <div className="p-card p-py-3 p-py-sm-5 p-pl-3 p-pl-sm-5 p-pr-4 p-pr-sm-6 timeline-posts timeline-postsContainer--empty">
                   <h1>
                     <u>
@@ -522,7 +287,7 @@ const ViewPost = () => {
                           Share
                         </span>
                       </div>
-                      <span className={copyAlert === params.id ? "timeline-copyModalAlert--active" : "timeline-copyModalAlert"}>
+                      <span className={copyAlert ? "timeline-copyModalAlert--active" : "timeline-copyModalAlert"}>
                         Link copied
                       </span>
                     </div>
