@@ -33,6 +33,7 @@ const New = ({ mode }) => {
     const API_KEY = "AIzaSyDxaC_Q4OI6Kx84VPT4W4k6N6FYLEVfcw0";
 
     const loading = useSelector(state => state.instantJob.loading);
+    // console.log("loading => ", loading);
 
 
     const Categories = [
@@ -134,7 +135,7 @@ const New = ({ mode }) => {
                 }
                 data.service = data.service.name;
                 locateUserHandler();
-                dispatch(createInstantJob(data, "loading"));
+                dispatch(createInstantJob(data));
             },
             reject: () => {
                 return;
@@ -318,7 +319,8 @@ const New = ({ mode }) => {
                                     </div>
                                     <Button icon="pi pi-check"
                                         iconPos="left"
-                                        label={loading === "loading" ? "Please wait..." : "Submit"}
+                                        label={loading ? "Please wait..." : "Submit"}
+                                        disabled={loading}
                                         id="saveButton"
                                         type="submit"
                                         className="float-right" />

@@ -24,6 +24,8 @@ const Categories = [
     { name: 'Dry-cleaners', code: 'Lan' },
     { name: 'Painter', code: 'Pai' },
     { name: 'Janitor', code: 'Jan' },
+    { name: 'Massage', code: 'Mas' },
+
 ];
 
 const Edit = (props) => {
@@ -43,6 +45,7 @@ const Edit = (props) => {
     const [itemToEdit, setItemToEdit] = useState({});
 
     const instantjob = useSelector(state => state.instantJob.instantjob);
+    const loading = useSelector(state => state.instantJob.loading);
     console.log("instantjob =>", instantjob);
 
     const loggedInUserId = agentService.Auth.current().id
@@ -64,13 +67,13 @@ const Edit = (props) => {
             setSelectedCategory(category)
             console.log("category", category)
 
-            // setValue("service", itemToEdit.service);
-            // setValue("location", itemToEdit.location);
-            // setValue("address", itemToEdit.address);
-            // setValue("phoneNumber", itemToEdit.phoneNumber);
-            // setValue("endDate", itemToEdit.endDate);
-            // setValue("startDate", itemToEdit.startDate);
-            // setValue("description", itemToEdit.description);
+            setValue("service", itemToEdit.service);
+            setValue("location", itemToEdit.location);
+            setValue("address", itemToEdit.address);
+            setValue("phoneNumber", itemToEdit.phoneNumber);
+            setValue("endDate", itemToEdit.endDate);
+            setValue("startDate", itemToEdit.startDate);
+            setValue("description", itemToEdit.description);
         }
     }, [instantjob, itemToEdit])
 
@@ -128,11 +131,12 @@ const Edit = (props) => {
             data.now = false;
         }
         data.service = data.service.name;
-        dispatch(editInstantJob(instantJobId, data));
+        dispatch(editInstantJob(instantJobId, data, "loading"));
     }
-    if (instantjob.accountId !== loggedInUserId) {
-        return <Redirect to={"/instant-jobs"} />
-    }
+    // if (instantjob.accountId !== loggedInUserId) {
+    //     return <Redirect to={"/instant-jobs"} />
+    // }
+
     return (
 
         <>
@@ -305,7 +309,13 @@ const Edit = (props) => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <Button icon="pi pi-check" iconPos="left" label="Submit" id="saveButton" type="submit" className="float-right" />
+                                        <Button icon="pi pi-check"
+                                            iconPos="left"
+                                            // label="Submit"
+                                            label={loading === "loading" ? "Please wait..." : "Update"}
+                                            id="saveButton"
+                                            type="submit"
+                                            className="float-right" />
                                     </form>
 
                                 </div>

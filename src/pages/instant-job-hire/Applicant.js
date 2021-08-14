@@ -271,7 +271,7 @@ const Applicant = (props) => {
                             <p><span className="font-weight-bold">Location:</span> <span>{applicant.address}</span></p>
                             <p><span className="font-weight-bold">Address:</span> <span > {applicant.address}</span></p>
                             <p><span className="font-weight-bold"> phone Number: </span><span > {applicant.phoneNumber}</span></p>
-                            <p ><span className="font-weight-bold">Bio:</span> <span classNam="p-p-0">{applicant.bio}</span></p>
+                            <p ><span className="font-weight-bold">Bio:</span> <span className="p-p-0">{applicant.bio}</span></p>
                             <p className="card-text"><span className="font-weight-bold">Rating :
                             </span> <span className="p-p-0"> <Rating value={rating} disabled={true} cancel={false} onChange={(e) => setRating(e.value)} stars={5} /></span>
                             </p>

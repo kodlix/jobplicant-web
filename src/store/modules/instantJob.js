@@ -10,7 +10,7 @@ const Initial_State = {
     allCurrentInstantJobs: [],
     applicants: [],
     applicantProfile: null,
-    loading: ""
+    loading: false
 };
 
 
@@ -127,16 +127,18 @@ export function loading(data) {
 }
 
 // Actions
-export function createInstantJob(instantjob, loadingType) {
+export function createInstantJob(instantjob) {
     return dispatch => {
-        dispatch(loading(loadingType))
+        dispatch(loading(true));
         return agent.InstantJob.save(instantjob).then(
             response => {
+                dispatch(loading(false));
                 // handle success
                 dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "Instant Job successful created", title: 'Instant job create Successful' }));
                 dispatch(push("/instant-hires"));
 
             }, error => { // handle error
+                dispatch(loading(false));
                 dispatch(showMessage({ type: "error", message: error, title: "Failed to create Instant job" }));
             });
     }
@@ -253,15 +255,18 @@ export function loadApplicantProfile(id) {
     }
 }
 
-export function editInstantJob(id, data) {
+export function editInstantJob(id, data, loadingType) {
     return dispatch => {
+        dispatch(loading(loadingType))
         return agent.InstantJob.edit(id, data).then(
             response => {
                 //handle success
+                dispatch(loading(false));
                 dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "Instant Job successfully udated", title: 'Instant job successfully updated ' }));
                 dispatch(push("/instant-hires"));
             },
             error => {
+                dispatch(loading(false));
                 dispatch(showMessage({ type: "error", message: error, title: "Failed to load Instant job" }));
             }
         )
