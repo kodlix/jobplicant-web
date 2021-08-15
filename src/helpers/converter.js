@@ -14,6 +14,11 @@ export const formatter = {
     if (name) {
       return name[0].toUpperCase() + name.slice(1);
     }
+  },
+  getPageToLoad: (itemCount, pageLimit) => {
+    let number = itemCount / pageLimit;
+    let pageToLoad = Number.isInteger(number) ? number + 1 : Math.ceil(number);
+    return pageToLoad;
   }
 };
 

@@ -5,9 +5,9 @@ import { MESSAGE_TYPE } from "../constant";
 // initial values
 const contact = {
   loadingContact: "",
-  pendingRequests: [],
-  freeUsers: [],
-  contacts: [],
+  pendingRequests: { data: {}, meta: {}, ids: [] },
+  freeUsers: { data: {}, meta: {}, ids: [] },
+  contacts: { data: {}, meta: {}, ids: [] },
   error: null
 };
 
@@ -17,6 +17,10 @@ const LOAD_CONTACTS = "LOAD_CONTACTS";
 const LOAD_PENDING_REQUESTS = "LOAD_PENDING_REQUESTS";
 const LOADING_CONTACT = "LOADING";
 const ERROR = "ERROR";
+const CONTACT_ADDED = "CONTACT_ADDED";
+const CONTACT_DELETED = "CONTACT_DELETED";
+const REMOVE_PENDING = "REMOVE_PENDING";
+const REQUEST_SENT = "REQUEST_SENT";
 
 //Reducer
 export default function reducer(state = contact, action = {}) {
@@ -27,31 +31,154 @@ export default function reducer(state = contact, action = {}) {
         loadingContact: action.payload,
       };
     case LOAD_FREE_USERS:
+      const data = action.payload
+      const uniqueFreeIds = [];
+      if (state?.loadingContact === "loadMore") {
+        const idArray = Array.from(new Set([
+          ...state.freeUsers.ids,
+          ...data.map(({ id }) => id),
+        ]));
+        uniqueFreeIds.push(...idArray)
+      }
+      else {
+        const idArray = Array.from(new Set([
+          ...data.map(({ id }) => id),
+        ]));
+        uniqueFreeIds.push(...idArray)
+      }
+      const normalizedFreeUsers = data.reduce((acc, freeUser) => {
+        acc[freeUser.id] = freeUser;
+        return acc;
+      }, {});
       return {
         ...state,
-        freeUsers: action.payload
+        freeUsers: {
+          ids: uniqueFreeIds,
+          data: {
+            ...state.freeUsers.data,
+            ...normalizedFreeUsers
+          },
+          meta: {}
+        },
+        loadingContact: null
       };
     case LOAD_CONTACTS:
+      const contactArray = action.payload
+      const uniqueContactIds = [];
+      if (state?.loadingContact === "loadMoreContacts") {
+        const idArray = Array.from(new Set([
+          ...state.contacts.ids,
+          ...contactArray.map(({ id }) => id),
+        ]));
+        uniqueContactIds.push(...idArray)
+      }
+      else {
+        const idArray = Array.from(new Set([
+          ...contactArray.map(({ id }) => id),
+        ]));
+        uniqueContactIds.push(...idArray)
+      }
+      const normalizedContacts = contactArray.reduce((acc, contact) => {
+        acc[contact.id] = contact;
+        return acc;
+      }, {});
       return {
         ...state,
-        contacts: action.payload
+        contacts: {
+          ids: uniqueContactIds,
+          data: {
+            ...state.contacts.data,
+            ...normalizedContacts
+          },
+          meta: {}
+        },
+        loadingContact: null
+      };
+    case CONTACT_ADDED:
+      console.log("contact added", action.payload)
+      return {
+        ...state,
+        contacts: {
+          ...state.contacts,
+          ids: [action.payload.id, ...state.contacts.ids],
+          data: { [action.payload.id]: action.payload, ...state.contacts.data }
+        }
+      };
+    case REQUEST_SENT:
+      const sentRequestId = action.id;
+      const updatedRequestArray = [...state.freeUsers.ids]
+      updatedRequestArray.splice(updatedRequestArray.indexOf(sentRequestId), 1)
+      console.log("request sent", sentRequestId, updatedRequestArray)
+      return {
+        ...state,
+        freeUsers: {
+          ...state.freeUsers,
+          ids: updatedRequestArray,
+        }
+      };
+    case CONTACT_DELETED:
+      const deletedId = action.id;
+      const updatedIdArray = [...state.contacts.ids]
+      updatedIdArray.splice(state.contacts.ids.indexOf(deletedId), 1)
+      return {
+        ...state,
+        contacts: {
+          ...state.contacts,
+          ids: updatedIdArray
+        }
       };
     case LOAD_PENDING_REQUESTS:
+      const pendingArray = action.payload
+      const uniquePendingIds = [];
+      if (state?.loadingContact === "loadMorePending") {
+        const idArray = Array.from(new Set([
+          ...state.pendingRequests.ids,
+          ...pendingArray.map(({ id }) => id),
+        ]));
+        uniquePendingIds.push(...idArray)
+      }
+      else {
+        const idArray = Array.from(new Set([
+          ...pendingArray.map(({ id }) => id),
+        ]));
+        uniquePendingIds.push(...idArray)
+      }
+      const normalizedPending = pendingArray.reduce((acc, pendingRequest) => {
+        acc[pendingRequest.id] = pendingRequest;
+        return acc;
+      }, {});
       return {
         ...state,
-        pendingRequests: action.payload
+        pendingRequests: {
+          ids: uniquePendingIds,
+          data: {
+            ...state.contacts.data,
+            ...normalizedPending
+          },
+          meta: {}
+        }
+      };
+    case REMOVE_PENDING:
+      const pendingId = action.id;
+      const updatedPendingArray = [...state.pendingRequests.ids]
+      updatedPendingArray.splice(state.pendingRequests.ids.indexOf(pendingId), 1)
+      return {
+        ...state,
+        pendingRequests: {
+          ...state.pendingRequests,
+          ids: updatedPendingArray
+        }
       };
     case ERROR:
       return {
         ...state,
-        error: action.payload
+        error: action.payload,
+        loadingContact: null
       };
     default:
       return state;
   }
 }
-
-
 
 //Action Creators
 export const freeUsersLoaded = (data) => ({
@@ -74,7 +201,22 @@ export const pendingRequestsLoaded = (data) => ({
   type: LOAD_PENDING_REQUESTS,
   payload: data,
 });
-
+export const contactDeleted = (id) => ({
+  type: CONTACT_DELETED,
+  id: id,
+});
+export const addContact = (data) => ({
+  type: CONTACT_ADDED,
+  payload: data
+});
+export const removeFromPending = (id) => ({
+  type: REMOVE_PENDING,
+  id: id
+});
+export const requestSent = (data) => ({
+  type: REQUEST_SENT,
+  id: data.contactId
+});
 
 //Actions
 export function loadFreeUsers(page, limit, loadingType, search) {
@@ -83,7 +225,6 @@ export function loadFreeUsers(page, limit, loadingType, search) {
     return agent.Contact.load(page, limit, search).then(
       response => {
         //handle success
-        dispatch(loadingContact(""));
         dispatch(
           showMessage({
             type: MESSAGE_TYPE.SUCCESS,
@@ -107,12 +248,11 @@ export function loadContacts(page, take, loadingType) {
     return agent.Contact.loadContacts(page, take).then(
       response => {
         //handle success
-        dispatch(loadingContact(""));
         dispatch(
           showMessage({
             type: MESSAGE_TYPE.SUCCESS,
             title: "Load Contacts",
-            message: "Contacts Loaded",
+            message: "Contacts Loaded"
           })
         );
         dispatch(contactsLoaded(response));
@@ -158,15 +298,15 @@ export function sendContactRequest(id) {
     return agent.Contact.add(id).then(
       response => {
         //handle success
-        dispatch(loadingContact(""));
         dispatch(
           showMessage({
             type: MESSAGE_TYPE.SUCCESS,
             title: "Send Connection Request",
             message: "Request sent",
-          })
+          }),
         );
-        dispatch(loadFreeUsers(1, 10));
+        dispatch(requestSent(id));
+        dispatch(loadingContact(""));
       },
       (error) => {
         // handle error
@@ -190,7 +330,7 @@ export function removeContact(id) {
             message: "Contact removed successfully",
           })
         );
-        dispatch(loadContacts(1, 10))
+        dispatch(contactDeleted(id));
       },
       (error) => {
         // handle error
@@ -201,7 +341,7 @@ export function removeContact(id) {
   }
 }
 
-export function acceptRequest(id, loadingType) {
+export function acceptRequest(id, loadingType, accountDetails) {
   return dispatch => {
     dispatch(isError(null));
     dispatch(loadingContact(loadingType));
@@ -213,8 +353,10 @@ export function acceptRequest(id, loadingType) {
             type: MESSAGE_TYPE.SUCCESS,
             title: "Connection Request",
             message: "Added to contact successfully",
-          })
+          }),
         );
+        dispatch(addContact(accountDetails))
+        dispatch(removeFromPending(id))
         dispatch(loadingContact(null))
       },
       (error) => {
@@ -239,8 +381,9 @@ export function rejectRequest(id, loadingType) {
             type: MESSAGE_TYPE.SUCCESS,
             title: "Connection Request",
             message: "Connection request rejected successfully",
-          })
+          }),
         );
+        dispatch(removeFromPending(id))
       },
       (error) => {
         // handle error

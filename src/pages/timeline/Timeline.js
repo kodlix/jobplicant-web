@@ -8,7 +8,7 @@ import { openModal, closeModal } from "store/modules/modal";
 import { loadProfileInfo } from "store/modules/account";
 import { closeEmojiPicker } from "store/modules/emojiPicker";
 import { formatter } from '../../helpers/converter';
-import { loadPosts, loadTotalPostCount, deletePost, likePost, dislikePost } from "../../store/modules/timeline";
+import { loadPosts, deletePost, likePost, dislikePost } from "../../store/modules/timeline";
 import { loadComments } from "../../store/modules/comment";
 import { loadAllJobs } from "store/modules/job";
 import { TIMELINE } from "constants/timeline";
@@ -87,7 +87,7 @@ const Timeline = () => {
 
   const loadmorePosts = () => {
     setPageNumber(pageNumber + 1)
-    dispatch(loadPosts(pageNumber + 1, 3, "loadMore"));
+    dispatch(loadPosts(pageNumber + 1, 10, "loadMore"));
   }
 
   useEffect(() => {
@@ -95,7 +95,7 @@ const Timeline = () => {
       dispatch(loadProfileInfo());
       dispatch(loadAllJobs());
     }
-    dispatch(loadPosts(1, 3, "loadPosts"));
+    dispatch(loadPosts(1, 10, "loadPosts"));
   }, [dispatch]);
 
   useEffect(() => {

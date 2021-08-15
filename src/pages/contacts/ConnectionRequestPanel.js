@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {  loadPendingRequests, acceptRequest, rejectRequest } from "../../store/modules/contact";
+import { loadPendingRequests, acceptRequest, rejectRequest } from "../../store/modules/contact";
 import { Button } from 'primereact/button';
 import { formatter } from '../../helpers/converter';
 import { confirmDialog } from 'primereact/confirmdialog';
@@ -9,33 +9,27 @@ import "./Contacts.css";
 
 const ConnectionRequestPanel = ({ setSelectedId, selectedId }) => {
   const dispatch = useDispatch();
-  const requestsByPage = useSelector(state => state.contact.pendingRequests);
+  const requests = useSelector(state => state.contact.pendingRequests);
   const loading = useSelector(state => state.contact.loadingContact);
   const error = useSelector(state => state.contact.error);
-  const [requestPageNumber, setRequestPageNumber] = useState(1);
-  const [requestsLoaded, setRequestsLoaded] = useState([]);
+  const pageLimit = 10;
+  const pageToLoad = formatter.getPageToLoad(requests?.ids?.length, pageLimit);
+
   useEffect(() => {
-    dispatch(loadPendingRequests(1, 10, "loadingRequests"));
+    dispatch(loadPendingRequests(1, pageLimit, "loadingRequests"));
   }, [dispatch]);
 
-  useEffect(() => {
-    if (requestPageNumber === 1) {
-      setRequestsLoaded(requestsByPage);
-    }
-    else {
-      setRequestsLoaded([...requestsLoaded, ...requestsByPage])
-    }
-  }, [requestsByPage]);
-
   const loadMoreRequests = () => {
-    setRequestPageNumber(requestPageNumber + 1)
-    dispatch(loadPendingRequests(requestPageNumber + 1, 10, "loadMoreRequests"));
+    dispatch(loadPendingRequests(pageToLoad, pageLimit, "loadMoreRequests"));
   };
 
   const handleAcceptRequest = (e) => {
     const contactId = e.currentTarget.dataset.id;
+
+    //since backend is not giving details of contact in response at accept
+    const contactDetails = requests.data[contactId];
     setSelectedId(contactId);
-    dispatch(acceptRequest({ contactId: contactId }, "acceptConnectionRequest"))
+    dispatch(acceptRequest({ contactId: contactId }, "acceptConnectionRequest", contactDetails))
   }
 
   const confirmRequestRejection = (e) => {
@@ -59,69 +53,82 @@ const ConnectionRequestPanel = ({ setSelectedId, selectedId }) => {
           Connection Requests
         </div>
         {
-          requestsLoaded.map((contactRequest) => (
-            <div className="p-card-body d-flex justify-content-between">
-              <span className="d-flex align-items-end">
-                {
-                  contactRequest.imageUrl &&
-                  <img
-                    src={`${API_ROOT}/${contactRequest.imageUrl}`}
-                    width="40"
-                    height="40"
-                    className="rounded-circle contact-requestspicture p-mr-2"
-                    alt={`${contactRequest?.firstName}'s profile`}
-                  />
-                }
-                {
-                  !contactRequest.imageUrl &&
-                  <i className="pi pi-user contact-emptyProfilePic-small"></i>
-                }
-                <span>
-                  <div className="p-card-title contacts-cardsubtitle p-mb-0">
-                    {`${formatter.capitalizeFirstLetter(contactRequest?.firstName)} ${formatter.capitalizeFirstLetter(contactRequest?.lastName)}`}
-                  </div>
-                  <p className="contacts-jobDescription">
-                    Graphic Designer
-                  </p>
-                </span>
-              </span>
-              <span>
-                {
-                  loading === "acceptConnectionRequest"
-                  && contactRequest.id === selectedId &&
-                  <Button className="p-mr-2 contacts-accept-button" >
-                    <i className="pi pi-spin pi-spinner" />
-                  </Button>
-                }
-                {
-                  (error === "acceptFail" || contactRequest.id !== selectedId || loading !== "acceptConnectionRequest") &&
-                  <Button
-                    className="p-mr-2 contacts-accept-button"
-                    data-id={contactRequest.id}
-                    onClick={handleAcceptRequest}>
-                    <i className="pi pi-check" />
-                  </Button>
-                }
-                {
-                  loading === "rejectRequest" && contactRequest.id === selectedId &&
-                  <Button className="contacts-reject-button" >
-                    <i className="pi pi-spin pi-spinner" />
-                  </Button>
-                }
-                {
-                  (error === "requestFail" || contactRequest.id !== selectedId || loading !== "rejectRequest") &&
-                  <Button className="contacts-reject-button" data-id={contactRequest.id} onClick={confirmRequestRejection}>
-                    <i className="pi pi-times" />
-                  </Button>
+          requests.ids.map((requestId) => {
+            const contact = requests.data[requestId];
+            if (!contact) {
+              return null;
+            }
+            return (
+              <div className="p-card-body d-flex justify-content-between">
+                <span className="d-flex align-items-center w-100">
+                  {
+                    contact.imageUrl &&
+                    <img
+                      src={`${API_ROOT}/${contact.imageUrl}`}
+                      width="40"
+                      height="40"
+                      className="rounded-circle contact-requestspicture p-mr-2"
+                      alt={`${contact?.firstName}'s profile`}
+                    />
+                  }
+                  {
+                    !contact.imageUrl &&
+                    <i className="pi pi-user contact-emptyProfilePic-small"></i>
+                  }
+                  <span className="w-100">
+                    <div className="p-card-title contacts-cardsubtitle p-mb-0 d-flex justify-content-between">
+                      <span> {`${formatter.capitalizeFirstLetter(contact?.firstName)} ${formatter.capitalizeFirstLetter(contact?.lastName)}`}
+                      </span>
+                      <span className="text-right">
+                        {
+                          loading === "acceptConnectionRequest"
+                          && contact.id === selectedId &&
+                          <Button className="contacts-accept-button" >
+                            <i className="pi pi-spin pi-spinner" />
+                          </Button>
+                        }
+                        {
+                          (error === "acceptFail" || contact.id !== selectedId || loading !== "acceptConnectionRequest") &&
+                          <Button
+                            className="contacts-accept-button"
+                            data-id={contact.id}
+                            onClick={handleAcceptRequest}>
+                            <i className="pi pi-check" />
+                          </Button>
+                        }
+                        {
+                          loading === "rejectRequest" && contact.id === selectedId &&
+                          <Button className="contacts-reject-button p-ml-2" >
+                            <i className="pi pi-spin pi-spinner" />
+                          </Button>
+                        }
+                        {
+                          (error === "requestFail" || contact.id !== selectedId || loading !== "rejectRequest") &&
+                          <Button className="contacts-reject-button p-ml-2" data-id={contact.id} onClick={confirmRequestRejection}>
+                            <i className="pi pi-times" />
+                          </Button>
 
-                }
-              </span>
-            </div>
-          ))
+                        }
+                      </span>
+
+                    </div>
+                    {
+                      <p>
+                        {contact?.email}
+                      </p>
+                    }
+                    <p className="contacts-jobDescription">
+                      Graphic Designer
+                    </p>
+                  </span>
+                </span>
+              </div>
+            )
+          })
         }
         {
           loading === "loadingRequests" &&
-          requestsLoaded.length === 0 &&
+          requests.ids.length === 0 &&
           <div className="p-px-3 p-pt-3 p-pb-5 d-flex justify-content-center">
             <i
               className="pi pi-spin pi-spinner p-mr-2"
@@ -129,7 +136,11 @@ const ConnectionRequestPanel = ({ setSelectedId, selectedId }) => {
           </div>
         }
         {
-          requestsLoaded.length === 0 &&
+          requests.ids.length > 0 &&
+          <Button label={loading === "loadMoreRequests" ? 'Loading...' : 'Load More'} onClick={loadMoreRequests} className="p-mr-2 w-100" />
+        }
+        {
+          requests.ids.length === 0 &&
           loading !== "loadingRequests" &&
           <div className="p-card-body d-flex justify-content-between">
             No connection request at the moment

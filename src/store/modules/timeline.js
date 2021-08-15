@@ -8,7 +8,7 @@ import { commentsLoaded } from "./comment";
 // initial values
 const timeline = {
   loadingPosts: "",
-  posts: { data: {}, meta: { page: 1 }, ids: [] },
+  posts: { data: {}, meta: {}, ids: [] },
   post: {},
   postsByUserId: [],
   postByPostId: {},
@@ -90,25 +90,7 @@ export default function reducer(state = timeline, action = {}) {
           },
           meta: {},
           ids: [action.payload.id]
-        },
-        // comments: {
-        //   ids: {
-        //     ...state.comments.ids,
-        //     [postId]: uniqueCommentIds
-        //   },
-        //   data: {
-        //     ...state.comments.data,
-        //     ...normalizedComments
-        //   },
-        //   meta: {
-        //     ...state.comments.meta,
-        //     [postId]:
-        //     {
-        //       ...commentMeta,
-        //       page: Math.max(commentMeta.page, state.comments.meta.page || 1)
-        //     }
-        //   },
-        // }
+        }
       };
     case LOAD_COMMENT_IDS_BY_POSTID:
       const commentDataInPost = action.payload
@@ -335,7 +317,6 @@ export const removeCommentId = (postId, commentId) => ({
 // Actions
 export function createPost(post) {
   return dispatch => {
-    // dispatch(isLoading());
     return agent.Post.save(post).then(
       response => {
         //handle success
@@ -464,6 +445,8 @@ export function viewPost(id, loadingType) {
           })
         );
         dispatch(postByPostIdLoaded(response));
+        dispatch(commentsLoaded(id, response.comments, response.commentCount));
+        dispatch(loadCommentIdsByPostId(id, response.comments.data));
         dispatch(loading(null));
       },
       (error) => {
@@ -522,7 +505,6 @@ export function likePost(id) {
       },
       (error) => {
         // handle error
-        console.log(error.response.statusCode)
         if (error.response.statusCode === 404) {
           dispatch(postDeleted(id));
         }

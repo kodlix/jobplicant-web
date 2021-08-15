@@ -98,7 +98,7 @@
 }
 
 .contact-profilePicture {
-  border: 3px #5A2846 solid; 
+  border: 4px #5A2846 solid; 
   object-fit: cover;
   background-color: white;
   cursor: pointer; 
@@ -110,8 +110,8 @@
 }
 
 .contacts-accept-button, .contacts-reject-button {
-  width: 2rem !important;
-  height: 2rem !important;
+  width: 1.5rem !important;
+  height: 1.5rem !important;
   padding: 0;
 }
 

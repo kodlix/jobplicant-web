@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadContacts, removeContact } from "../../store/modules/contact";
+import { API_ROOT } from "../../services/agent.service";
 import { confirmDialog } from 'primereact/confirmdialog';
 import { formatter } from '../../helpers/converter';
 import { Button } from 'primereact/button';
@@ -15,27 +16,17 @@ const List = () => {
   const [selectedId, setSelectedId] = useState(null);
 
   // for contact list
-  const contactsByPage = useSelector(state => state.contact.contacts);
-  const [contactPageNumber, setContactPageNumber] = useState(1);
-  const [contactsLoaded, setContactsLoaded] = useState([]);
-  const contactContainerClassName = contactsLoaded.length < 4 ? "containerHeight-contact" : "";
-
-  useEffect(() => {
-    if (contactPageNumber === 1) {
-      setContactsLoaded(contactsByPage);
-    }
-    else {
-      setContactsLoaded([...contactsLoaded, ...contactsByPage])
-    }
-  }, [contactsByPage]);
+  const pageLimit = 10;
+  const contacts = useSelector(state => state.contact.contacts);
+  const contactContainerClassName = contacts.ids.length < 4 ? "containerHeight-contact" : "";
+  const pageToLoad = formatter.getPageToLoad(contacts?.ids?.length, pageLimit);
 
   const loadMoreContacts = () => {
-    setContactPageNumber(contactPageNumber + 1)
-    dispatch(loadContacts(contactPageNumber + 1, 10, "loadMoreContacts"));
+    dispatch(loadContacts(pageToLoad, pageLimit, "loadMoreContacts"));
   };
 
   useEffect(() => {
-    dispatch(loadContacts(1, 10, "loadingContacts"))
+    dispatch(loadContacts(1, pageLimit, "loadingContacts"))
   }, [dispatch]);
 
   const confirmRemove = (e) => {
@@ -43,7 +34,7 @@ const List = () => {
     let firstName = e.currentTarget.dataset.firstName;
     let lastName = e.currentTarget.dataset.lastName;
     confirmDialog({
-      message: `Are you sure you want to remove   ${formatter.capitalizeFirstLetter(firstName)} ${formatter.capitalizeFirstLetter(lastName)} from your contact list?`,
+      message: `Are you sure you want to remove ${formatter.capitalizeFirstLetter(firstName)} ${formatter.capitalizeFirstLetter(lastName)} from your contact list?`,
       header: 'Remove from Contact List',
       icon: 'pi pi-info-circle',
       acceptClassName: 'p-button-danger',
@@ -75,7 +66,68 @@ const List = () => {
               </div>
             </div>
             {
-              contactsLoaded.length === 0
+              contacts.ids?.map((contactId) => {
+                const contact = contacts.data[contactId];
+                if (!contact) {
+                  return null;
+                }
+                return (
+                  <div className="p-card contact-individualContainer" key={contact.id}>
+                    <span className="d-flex">
+                      {
+                        contact.imageUrl &&
+                        <img
+                          src={`${API_ROOT}/${contact.imageUrl}`}
+                          width="85"
+                          height="85"
+                          alt={`${contact?.firstName}'s profile`}
+                          className="rounded-circle contact-profilePicture p-mr-3"
+                        />
+                      }
+                      {
+                        !contact.imageUrl &&
+                        <i className="pi pi-user contact-emptyProfilePic p-mr-3"></i>
+                      }
+                      <span className="">
+                        <span className="p-card-title contacts-contactHeader p-mb-0">
+                          <span className="p-mr-2">
+                            {`${formatter.capitalizeFirstLetter(contact?.firstName)} ${formatter.capitalizeFirstLetter(contact?.lastName)}`}
+                          </span>
+                          {
+                            contact.accountType === "Artisan" &&
+                            <div className="stars" style={{ "--rating": contact.rating }} />
+                          }
+                        </span>
+                        <p>
+                          photographer at photostat
+                        </p>
+                        <small>
+                          <b>Email:</b> {contact?.email || "Unavailable"}
+                        </small>
+                      </span>
+                    </span>
+                    <div className="contacts-actionIcons">
+                      <i className="pi pi-phone p-pr-2" />
+                      <i className="pi pi-video p-pr-2" />
+                      <i className="pi pi-comments p-pr-2" />
+                      <i
+                        data-id={contact.id}
+                        onClick={confirmRemove}
+                        className="pi pi-trash p-pr-2"
+                        data-last-name={contact.lastName}
+                        data-first-name={contact.firstName}
+                      />
+                    </div>
+                  </div>
+                )
+              })
+            }
+            {
+              contacts.ids.length > 0 &&
+              <Button label={loading === "loadMoreContacts" ? 'Loading...' : 'Load More'} onClick={loadMoreContacts} className="p-mr-2 w-100" />
+            }
+            {
+              contacts.ids.length === 0
               && loading !== "loadingContacts"
               &&
               <div className="p-card p-p-4 p-mb-2 d-flex justify-content-center">
@@ -91,45 +143,13 @@ const List = () => {
               </div>
             }
             {
-              contactsLoaded?.map((contact) => (
-                <div className="p-card contact-individualContainer" key={contact.id}>
-                  <span>
-                    <img
-                      src="https://source.unsplash.com/random/80x80"
-                      className="rounded circle p-mr-3 align-top"
-                      alt={`${contact?.firstName}'s profile`}
-
-                    />
-                    <span className="">
-                      <span className="p-card-title contacts-contactHeader p-mb-0">
-                        <span className="p-mr-2">
-                          {`${formatter.capitalizeFirstLetter(contact?.firstName)} ${formatter.capitalizeFirstLetter(contact?.lastName)}`}
-                        </span>
-                        {
-                          contact.accountType === "Artisan" &&
-                          <div className="stars" style={{ "--rating": contact.rating }} />
-                        }
-                      </span>
-                      <p>
-                        photographer at photostat
-                      </p>
-                      <small>
-                        <b>Email:</b> {contact?.email || "Unavailable"}
-                      </small>
-                    </span>
-                  </span>
-                  <div className="contacts-actionIcons">
-                    <i className="pi pi-phone p-pr-2" />
-                    <i className="pi pi-video p-pr-2" />
-                    <i className="pi pi-comments p-pr-2" />
-                    <i className="pi pi-trash p-pr-2" onClick={confirmRemove} data-id={contact.id} data-first-name={contact.firstName} data-last-name={contact.lastName} />
-                  </div>
-                </div>
-              ))
-            }
-            {
-              contactsLoaded.length > 0 &&
-              <Button label={loading === "loadMoreContacts" ? 'Loading...' : 'Load More'} onClick={loadMoreContacts} className="p-mr-2 w-100" />
+              loading === "loadingContacts" &&
+              contacts.ids.length === 0 &&
+              <div className="p-p-5 d-flex justify-content-center">
+                <i
+                  className="pi pi-spin pi-spinner"
+                  style={{ 'fontSize': '2em', color: "#5A2846" }} />
+              </div>
             }
           </div>
           <ConnectionRequestPanel selectedId={selectedId} setSelectedId={setSelectedId} />
