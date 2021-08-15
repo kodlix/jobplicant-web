@@ -1,0 +1,20 @@
+.header-anonymous .navbar-area {
+  background-color:#5A2846;
+}
+
+.header-anonymous .button .login {
+  color: white;
+}
+
+.header-anonymous .button .login:hover {
+  color: white;
+}
+
+.header-anonymous .button .btn {
+  background-color: white;
+  color: #5A2846;
+}
+
+.header-anonymous a {
+  width: auto;
+}

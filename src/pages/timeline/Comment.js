@@ -8,7 +8,7 @@ import ThumbsUp from "../../components/ThumbUp";
 import CommentForm from './CommentForm';
 import './CommentSection.css';
 
-const Comment = ({ comment, key, postId }) => {
+const Comment = ({ comment, key, postId, expandProfileImage }) => {
   const dispatch = useDispatch();
   const [displayCommentForm, setDisplayCommentForm] = useState(false);
 
@@ -32,7 +32,9 @@ const Comment = ({ comment, key, postId }) => {
           width="40"
           height="40"
           src="../../assets/logo.png"
-          className="rounded-circle profile-picture-timeline p-mr-2" />
+          className="rounded-circle profile-picture-timeline p-mr-2"
+          onClick={expandProfileImage}
+        />
         <div className="w-100">
           <span className=" d-flex justify-content-between">
             <div>
@@ -83,9 +85,9 @@ const Comment = ({ comment, key, postId }) => {
       {
         displayCommentForm &&
         <CommentForm
-        id={comment.id}
-        postId={postId}
-        editMode={displayCommentForm}
+          id={comment.id}
+          postId={postId}
+          editMode={displayCommentForm}
         />
       }
       <div className="p-mb-3">

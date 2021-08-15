@@ -18,6 +18,7 @@
   object-fit: contain;
   background-color: #5A2846;
   color: white;
+  cursor: pointer;
 }
 
 .timeline-profilePicture, .profilepic-startpost-timeline > img {
@@ -42,6 +43,19 @@
 }
 
 .timeline-emptyProfilePic-medium {
+  border: 4px #5A2846 solid;
+  width: fit-content;
+  margin: auto;
+  font-size: 1.87rem;
+  border-radius: 50%;
+  padding: 1rem;
+  color: #5A2846;
+  font-weight: 700;
+  background-color: white;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-emptyProfilePic-small {
   border: 4px #5A2846 solid;
   width: fit-content;
   margin: auto;
@@ -437,6 +451,11 @@ a .cardsubtitle-timeline {
     margin-right: 0.5rem !important;
     height: 50px;
   }
+
+  .timeline-emptyProfilePic-small {
+    font-size: 2rem;
+    padding: 1rem;
+  }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1168px) {
@@ -454,7 +473,13 @@ a .cardsubtitle-timeline {
   .profilepic-startpost-timeline > img {
     width: 50px;
     height: 50px;
-  }  
+  }
+
+  
+  .timeline-emptyProfilePic-small {
+    font-size: 1.2rem;
+    padding: 0.8rem;
+  }
 }
 
 @media only screen and (max-width: 1190px) {
