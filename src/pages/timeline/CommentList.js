@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button } from 'primereact/button';
 import Comment from './Comment';
 import { useSelector } from "react-redux";
+import { formatter } from '../../helpers/converter';
 import './CommentSection.css';
 
 const CommentList = ({ postId, onViewComments, expandProfileImage, commentCount }) => {
@@ -11,8 +12,7 @@ const CommentList = ({ postId, onViewComments, expandProfileImage, commentCount 
   const pageLimit = 10;
 
   const onViewMoreComments = () => {
-    let number = commentIds[postId].length / pageLimit;
-    let pageToLoad = Number.isInteger(number) ? number + 1 : Math.ceil(number)
+    const pageToLoad = formatter.getPageToLoad(commentIds[postId].length, pageLimit);
     onViewComments(postId, pageToLoad, pageLimit, postId + "-loadingMoreComments")
   }
 

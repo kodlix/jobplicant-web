@@ -100,7 +100,7 @@ const ViewPost = () => {
 
   return (
     <>
-      <div className="timeline-container">
+      <div className="timeline-container" style={{ height: "100vh" }}>
         <div className="timeline-content">
           <div className="p-grid p-mt-2 p-m-0">
             {isAuthenticated &&
