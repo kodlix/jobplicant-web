@@ -101,7 +101,7 @@ const AppRouter = () => {
         {/* INSTANT HIRE ROUTE */}
         <ProtectedRoute path="/create-instant-hire" component={CreateInstantJobHire} />
         <ProtectedRoute path="/instant-hires" component={ListInstantJobHire} />
-        <AnonymousRoute path="/instant-hire/view/:id" component={ViewInstantJobHire} />
+        <ProtectedRoute path="/instant-hire/view/:id" component={ViewInstantJobHire} />
         <ProtectedRoute path="/instant-hire/edit/:id" component={EditInstantJobHire} />
         <ProtectedRoute path="/instant-hire-applicants/:id" component={Applicant} />
         <ProtectedRoute path="/instant-jobs" component={InstantJobs} />

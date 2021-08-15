@@ -43,7 +43,7 @@ const View = () => {
 
     return (
         <>
-            <AppNavBar />
+            {/* <AppNavBar /> */}
             <div style={styles.container}>
                 <div className="container">
                     <div className="d-flex" style={styles.topBarContainer}>
