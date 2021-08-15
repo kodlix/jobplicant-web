@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { InputTextarea } from "primereact/inputtextarea";
 import { InputText } from "primereact/inputtext";
-import ModeFooter from "pages/profile/ModeFooter";
+import ModeFooter from "./ModeFooter";
 import SectionHeader from "./SectionHeader";
 import { Dropdown } from "primereact/dropdown";
 import { createExperience, updateExperience } from "store/modules/experience";
 import { Calendar } from "primereact/calendar";
 import InputField from "components/InputField";
+
+import {Checkbox} from 'primereact/checkbox';
 
 const jobCategoryList = [
   { name: "Networking", id: "NY1" },
@@ -31,6 +33,7 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
 
   const loading = useSelector(state => state.experience.submitting);
   const [experience, setExperience] = useState({});
+  const [checkedCurrent, setCheckedCurrent] = useState(false)
 
   useEffect(() => {
     if (itemToEdit !== null) {
@@ -46,14 +49,14 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
         jobTitle: itemToEdit.jobTitle,
         company: itemToEdit.company,
       });
-   
+
       setValue("description", itemToEdit.description);
       setValue("startDate", itemToEdit.startDate);
       setValue("endDate", itemToEdit.endDate);
       setValue("location", itemToEdit.location);
       setValue("description", itemToEdit.description);
       setValue("jobTitle", itemToEdit.jobTitle);
-      setValue("jobCategory",jobCategoryList.find((j) => j.name == itemToEdit.jobCategoryName));
+      setValue("jobCategory", jobCategoryList.find((j) => j.name == itemToEdit.jobCategoryName));
       setValue("company", itemToEdit.company);
     }
   }, [itemToEdit]);
@@ -76,6 +79,7 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
     updatedExperienceObject[inputName] = inputValue;
     setExperience({ ...experience, ...updatedExperienceObject });
     setValue(inputName, inputValue, { shouldValidate: true });
+
   };
 
   const handleDelete = (e) => {
@@ -96,7 +100,7 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
   };
   return (
     <>
-      <div className="p-card p-mt-2">
+      <div className="p-mt-2">
         <SectionHeader
           deleteButton="true"
           onDelete={handleDelete}
@@ -104,7 +108,7 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
           sectionTitle="Job Experience"
           id={experience.id}
         />
-        <div className="p-card-body">
+        <div className="">
           <form onSubmit={handleSubmit(experienceSubmit)}>
             <div className="p-fluid p-formgrid p-grid">
               <div className="p-field p-col-12 p-md-6">
@@ -265,13 +269,26 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
                   value={experience.description}
                 />
               </div>
+              <div className="p-field p-col-12">
+                <label htmlFor="current">
+                  <Checkbox
+                    name="current"
+                    onChange={e => {
+                      setCheckedCurrent(e.checked);
+                      // console.log(e)
+                      setExperience({...experience, [e.target.name]: e.checked});
+                      setValue(e.target.name, e.checked, { shouldValidate: true });
+                    }} checked={checkedCurrent}></Checkbox>
+                  Set as current
+                </label>
+              </div>
             </div>
             {loading && <i className="fa fa-spin fa-spinner"></i>}
             <ModeFooter id="experienceEdit" onCancel={onEditCancel} loading={loading} />
           </form>
         </div>
       </div>
-    </> 
+    </>
   );
 };
 

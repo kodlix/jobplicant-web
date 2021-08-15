@@ -14,6 +14,7 @@ import Spinner from 'components/spinner/spinner.component'
 const InstantHires = () => {
     const dispatch = useDispatch();
     const instantJobs = useSelector(state => state.instantJob.instantjobs);
+    console.log("instantJobs", instantJobs);
 
     useEffect(() => {
         dispatch(loadInstantJobs())
@@ -57,17 +58,17 @@ const InstantHires = () => {
                                             <div className="panel-login text-center"></div>
                                             <div className="highlight-card p-p-2">
                                                 <div className="float-right d-flex">
-                                                    <Link to={`/instant-hire/edit/${instantjob.id}`}> <span><i className="pi pi-pencil" data-toggle="tooltip" data-placement="top" title="Edit"  ></i></span></Link>
-                                                    <i className="pi pi-trash" data-toggle="tooltip" data-placement="top" title="Delete" style={{ fontSize: '0.8rem', padding: '.2rem' }} onClick={() => deleteRequest(instantjob.id)}></i>
+                                                    <Link to={`/instant-hire/edit/${instantjob.id}`}> <span><i className="pi pi-pencil" ></i></span></Link>
+                                                    <i className="pi pi-trash" style={{ fontSize: '0.8rem', padding: '.2rem' }} onClick={() => deleteRequest(instantjob.id)}></i>
                                                 </div>
                                                 <Link to={`/instant-hire-applicants/${instantjob.id}`}>
                                                     <small className="p-text-secondary">
-                                                        <p className="font-weight-bold app-color ">Service : {instantjob.service} </p>
-                                                        <p><span className="font-weight-bold app-color">Location : </span> {instantjob.location}</p>
+                                                        <p className="font-weight-bold app-color text-capitalize">Job Service : {instantjob.service} </p>
+                                                        <p><span className="font-weight-bold app-color text-capitalize">Job Location : </span> {instantjob.location}</p>
                                                         {/* <p><span className="font-weight-bold app-color">Time : </span>{instantjob.time} </p> */}
-                                                        <p><span className="font-weight-bold app-color">Address : </span>{instantjob.address} </p>
-                                                        <p><span className="font-weight-bold app-color">Phone Number : </span>{instantjob.phoneNumber} </p>
-                                                        <p><span className="font-weight-bold app-color">Description : </span> {instantjob.description} </p>
+                                                        <p><span className="font-weight-bold app-color text-capitalize">Address : </span>{instantjob.address} </p>
+                                                        <p><span className="font-weight-bold app-color text-capitalize">Phone Number : </span>{instantjob.phoneNumber} </p>
+                                                        <p><span className="font-weight-bold app-color text-capitalize">Job Description : </span> {instantjob.description} </p>
                                                         <div className="p-grid">
                                                             <div className="p-col-4"><span className="font-weight-bold app-color">Start Date: </span> {moment(instantjob.startDate).format('MMMM DD, YYYY')} </div>
                                                             <div className="p-col-6"><span className="font-weight-bold app-color">End Date: </span> {moment(instantjob.endDate).format('MMMM DD, YYYY')}</div>

@@ -5,7 +5,7 @@ import { updateProfessionOfInterest } from "../../store/modules/account";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import ModeFooter from "pages/profile/ModeFooter";
+import ModeFooter from "./ModeFooter";
 import { InputText } from "primereact/inputtext";
 import { Tag } from "primereact/tag";
 

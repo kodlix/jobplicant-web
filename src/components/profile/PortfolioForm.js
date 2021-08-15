@@ -4,7 +4,7 @@ import { Button } from "primereact/button";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { Toast } from "primereact/toast";
 import SectionHeader from "./SectionHeader";
-import ModeFooter from "pages/profile/ModeFooter";
+import ModeFooter from "./ModeFooter";
 import { updateProfilePortfolio } from "store/modules/account";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";

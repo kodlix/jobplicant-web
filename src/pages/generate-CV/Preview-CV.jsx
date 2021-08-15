@@ -10,64 +10,87 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { loadProfileInfo } from "store/modules/account";
 import Spinner from "components/spinner/spinner.component";
+import TemplatePDFOne from "./pdf/templates/TemplatePDFOne";
+import { PDFDownloadLink, PDFViewer, renderToFile, usePDF } from "@react-pdf/renderer";
 
-const PreviewCV = ({ selected, selectedTemplate,setShowPreview, handleSelected }) => {
+const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected }) => {
     const [editMode, setEditMode] = useState(true)
     const dispatch = useDispatch();
     const profileInfo = useSelector((state) => state.account.profileInfo);
     const loading = useSelector(state => state.account.loading);
+    const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
-       dispatch(loadProfileInfo())
+        dispatch(loadProfileInfo())
     }, []);
 
-        return (
-            <div>
-                <div className="generate-cv" >
-                    <div className="content-container">
-                        <div className="p-grid">
-                            <div className="p-col-2">
-                                <div className="cv-header">
-                                    <h4>Select a CV Template</h4>
+    const [instance, updateInstance] = usePDF({ document: TemplatePDFOne });
+
+    const handleDownloadPDF = async () => {
+        console.log('handle download pdf');
+
+    }
+
+    return (
+        <div>
+            <div className="generate-cv" >
+                <div className="content-container">
+                    <div className="p-grid justify-content-center">
+                        <div className="p-col-12 p-md-12 p-lg-12 preview-pane" style={{ position: 'relative' }}>
+                            <header className="header" >
+                                <i className="pi pi-arrow-left" onClick={() => setShowPreview(false)}></i>
+
+                                {editMode ? <i className="pi pi-times" onClick={() => setEditMode(false)}></i> : <i className="pi pi-pencil" onClick={() => setEditMode(true)}></i>}
+                            </header>
+                            <section>
+                                <div className="card cv-preview-box">
+                                    <div className="card-body">
+                                                <PDFDownloadLink
+                                                    document={<TemplatePDFOne profileInfo={profileInfo} />}
+                                                    fileName="template-one.pdf"
+                                                    style={{
+                                                        textDecoration: "none",
+                                                        padding: "10px",
+                                                        color: "#4a4a4a",
+                                                        backgroundColor: "#f2f2f2",
+                                                        border: "1px solid #4a4a4a",
+                                                        width: "50%",
+                                                        margin: "20px auto",
+                                                        display: "block"
+                                                    }}
+                                                >
+                                                    {({ blob, url, loading, error }) => {
+                                                        if (url) {
+                                                            setLoaded(true)
+                                                        }
+                                                        return (
+                                                            loading ? "Loading document..." : "Download Pdf")
+                                                    }
+                                                    }
+                                                </PDFDownloadLink>
+                                        {loading
+                                            ? <Spinner />
+                                            : <div>
+                                                <div className="d-sm-block d-md-none">
+                                                    <h5>PDF not supported on mobile view, please view on desktop.</h5>
+                                                </div>
+                                                <PDFViewer className="col-12" height="740px">
+                                                    <TemplatePDFOne profileInfo={profileInfo} />
+                                                </PDFViewer>
+                                            </div>
+
+                                        }
+                                    </div>
                                 </div>
-                                <div className="p-grid mt-1" style={{ height: '75vh', overflow: 'auto' }}>
-                                    {DUMMY_TEMPLATES.map((template, index) => (
-                                        <div className="p-col-12">
-                                            <CvCard 
-                                                key={index} 
-                                                onSelected={handleSelected} 
-                                                template={template} 
-                                                selected={selected} 
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className="bottom-container mt-2">
-                                    {!editMode && <Button disabled={selected === -1} label="Download Template" />}
-                                </div>
-    
-                            </div>
-                            <div className="p-col-8 preview-pane" style={{position: 'relative'}}>
-                               <header className="header" >
-                                  
-                                   <i className="pi pi-arrow-left" onClick={() => setShowPreview(false)}></i>
-                                   {editMode ? <i className="pi pi-times" onClick={() => setEditMode(false)}></i> : <i className="pi pi-pencil" onClick={() => setEditMode(true)}></i>}
-                                   
-                               </header>
-                               <section>
-                                   <div className="card cv-preview-box">
-                                       <div className="card-body">
-                                           {loading ? <Spinner /> : <TemplateOne editMode={editMode} setEditMode={setEditMode} profileInfo={profileInfo} />}
-                                       </div>
-                                   </div>
-                               </section>
-                            </div>
+                            </section>
                         </div>
+
                     </div>
                 </div>
-            </div >
-        )
-    
+            </div>
+        </div >
+    )
+
 }
 
 export default PreviewCV

@@ -1,9 +1,10 @@
 .profileNav {
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
 }
-.profileNav a {
+.profileNav Link {
     text-decoration: none;    
-    width: 5vw;
     text-align: center;
+
 }

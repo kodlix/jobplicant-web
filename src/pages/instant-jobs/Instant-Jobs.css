@@ -13,12 +13,6 @@
     padding: .5rem 0;
 }
 
-.instant button {
-    width: 6rem !important;
-    padding: .4rem;
-    border-radius: 5%;
-}
-
 .appcolor {
     background-color: #5A2846 !important;
 }
@@ -109,7 +103,7 @@
 }
 
 .content-container {
-    width: 85%;
+    width: 83%;
     margin: auto;
     padding-top: 30px;
 }
@@ -160,5 +154,10 @@
         margin-left: 6em;
         /* font-size: medium; */
         padding-bottom: 0.2em;
+    }
+    .content-container {
+        width: 95%;
+        margin: auto;
+        padding-top: 30px;
     }
 }

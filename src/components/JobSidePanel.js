@@ -2,9 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { formatter } from 'helpers/converter';
 import { Tag } from 'primereact/tag';
-
+import { Skeleton } from 'primereact/skeleton'
 
 import "./JobSidePanel.css";
+
 
 const JobSidePanel = ({ data }) => {
   return (

@@ -9,6 +9,8 @@ const Initial_State = {
     instantjobs: [],
     allCurrentInstantJobs: [],
     applicants: [],
+    applicantProfile: null,
+    loading: false
 };
 
 
@@ -18,6 +20,9 @@ const LOAD_INSTANT_JOBS = 'app/instantJob/LOAD_INSTANT_JOBS';
 const LOAD_INSTANT_JOB = 'app/instantJob/LOAD_INSTANT_JOB';
 const LOAD_ALL_INSTANT_JOBS = 'app/instantJob/LOAD_ALL_INSTANT_JOBS';
 const LOAD_INSTANT_APPLICANTS = 'app/instantJob/LOAD_INSTANT_APPLICANT';
+const LOAD_APPLICANT_INFO = 'app/instantJob/LOAD_APPLICANT_INFO';
+const LOADING = "LOADING";
+
 
 // Reducer
 export default function reducer(state = Initial_State, action = {}) {
@@ -34,7 +39,7 @@ export default function reducer(state = Initial_State, action = {}) {
                 ...state,
                 error: null,
                 fetching: false,
-                instantjobs: action.payload.data
+                instantjobs: action.payload?.data
             };
         case LOAD_INSTANT_JOB:
             return {
@@ -56,6 +61,17 @@ export default function reducer(state = Initial_State, action = {}) {
                 error: null,
                 fetching: false,
                 applicants: action.payload
+            };
+        case LOAD_APPLICANT_INFO:
+            return {
+                ...state,
+                applicantProfile: action.payload
+            };
+        case LOADING:
+            return {
+                ...state,
+                loading: action.payload,
+                error: null
             };
         default:
             return state;
@@ -96,17 +112,33 @@ export function onLoadInstantJobApplicants(data) {
     };
 }
 
+export function onLoadApplicantProfile(data) {
+    return {
+        type: LOAD_APPLICANT_INFO,
+        payload: data
+    }
+}
+
+export function loading(data) {
+    return {
+        type: LOADING,
+        payload: data
+    }
+}
 
 // Actions
 export function createInstantJob(instantjob) {
     return dispatch => {
+        dispatch(loading(true));
         return agent.InstantJob.save(instantjob).then(
             response => {
+                dispatch(loading(false));
                 // handle success
                 dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "Instant Job successful created", title: 'Instant job create Successful' }));
                 dispatch(push("/instant-hires"));
 
             }, error => { // handle error
+                dispatch(loading(false));
                 dispatch(showMessage({ type: "error", message: error, title: "Failed to create Instant job" }));
             });
     }
@@ -217,15 +249,24 @@ export function loadApplicants(id) {
     }
 }
 
-export function editInstantJob(id, data) {
+export function loadApplicantProfile(id) {
     return dispatch => {
+        return
+    }
+}
+
+export function editInstantJob(id, data, loadingType) {
+    return dispatch => {
+        dispatch(loading(loadingType))
         return agent.InstantJob.edit(id, data).then(
             response => {
                 //handle success
+                dispatch(loading(false));
                 dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "Instant Job successfully udated", title: 'Instant job successfully updated ' }));
                 dispatch(push("/instant-hires"));
             },
             error => {
+                dispatch(loading(false));
                 dispatch(showMessage({ type: "error", message: error, title: "Failed to load Instant job" }));
             }
         )

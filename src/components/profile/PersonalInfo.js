@@ -2,21 +2,18 @@ import { PROFILE } from "constants/profile";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadProfileInfo, updateProfilePicture } from "store/modules/account";
+import JobplicantAvatar from "./jobplicant-avatar";
 
-const PersonalInfo = ({ openCreate, openEdit }) => {
+const PersonalInfo = ({ openCreate, openEdit, data }) => {
   const rating = 4.5;
   const dispatch = useDispatch();
-  const profileInfo = useSelector((state) => state.account.profileInfo);
+  // const profileInfo = useSelector((state) => state.account.profileInfo);
+  const profileInfo = data;
+  console.log('data', data)
   const loading = useSelector((state) => state.account.loading);
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
-
-  console.log('profileInfo', profileInfo.imageUrl)
-
-  useEffect(() => {
-    dispatch(loadProfileInfo());
-  }, []);
 
   useEffect(() => {
     if (!selectedFile) {
@@ -61,43 +58,23 @@ const PersonalInfo = ({ openCreate, openEdit }) => {
   };
 
 
-
   return (
-    <div className="userProfile-header">
-      <span className="profilePic-container">
-        {selectedFile ? (<img
-          src={preview}
-          alt="User Image"
-          width="130"
-          height="130"
-          className="profile-picture"
-        />) :
-          (<img src={profileInfo.imageUrl}
-            alt="User Image"
-            width="130"
-            height="130"
-            className="profile-picture"
-          />)
-        }
-        <label className="profilePic-label" htmlFor="upload-button">
-          {loading ? (
-            <i className="pi pi-spin pi-spinner" style={{ color: "black" }}>
-              {" "}
-            </i>
-          ) : (
-            <i className="pi pi-camera"></i>
-          )}
-        </label>
-      </span>
+    <div className="personal-profile p-d-flex p-jc-start align-items-center">
+      <JobplicantAvatar
+        data={profileInfo}
+        selectedFile={selectedFile}
+        loading={loading}
+        preview={preview}
+      />
       <input
         type="file"
         id="upload-button"
         style={{ display: "none" }}
         onChange={uploadProfilePicture}
       />
-      <div>
+      <div className="ml-3">
         <h3 className="username p-mr-2">
-          {profileInfo?.firstName} {profileInfo?.lastName}
+          {profileInfo?.firstName || 'John'} {profileInfo?.lastName || 'Doe'}
         </h3>
         <i
           className="pi pi-pencil p-pr-3 personalInfo-edit"

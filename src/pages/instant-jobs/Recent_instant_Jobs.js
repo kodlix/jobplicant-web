@@ -4,7 +4,7 @@ import { fetchAllInstantJobs } from 'store/modules/instantJob';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import "../profile/UserProfile.css";
-import SectionHeader from "pages/profile/SectionHeader";
+import SectionHeader from "components/profile/SectionHeader";
 
 import './Instant-Jobs.css';
 
@@ -12,7 +12,6 @@ import './Instant-Jobs.css';
 const RecentInstantJobs = () => {
     const dispatch = useDispatch();
 
-    const [visible, setVisible] = useState(false);
     const [page, setPage] = useState(1);
     const [take, setTake] = useState(10);
     const allCurrentInstantJobs = useSelector(state => state.instantJob.allCurrentInstantJobs);
@@ -51,17 +50,17 @@ const RecentInstantJobs = () => {
 
                                         <div className="col-3 rounded-circle">
                                             <img
-                                                src="https://source.unsplash.com/random/150x100"
-                                                className="rounded circle recent-job-image img-fluid"
+                                                src="https://source.unsplash.com/random/100x100" style={{ borderRadius: "50%" }}
+                                                className="img-fluid"
                                                 alt="user-image"
                                             />
                                         </div>
                                         <div className="col-9">
                                             <small >
                                                 <Link className="p-text-secondary" to={`/instant-hire/view/${instantjob.id}`}>
-                                                    <p className="font-weight-bold"> <span className="app-color" style={{ fontSize: 15 }}> {instantjob.service}</span></p>
-                                                    <p><span className="font-weight-bold"> </span> {instantjob.location} </p>
-                                                    <p><span className="font-weight-bold"> </span> {`${truncate(instantjob.description, 20)} ${'...'}`}</p>
+                                                    <p className="font-weight-bold"> <span className="app-color text-capitalize" style={{ fontSize: 15 }}> {instantjob.service}</span></p>
+                                                    <p className="font-weight-bold text-capitalize">{instantjob.location} </p>
+                                                    <p><span className="font-weight-bold text-capitalize"> </span> {`${truncate(instantjob.description, 20)} ${'...'}`}</p>
                                                     <p className="p-pt-2 float-right"> {moment(instantjob.createdAt).fromNow()} </p>
                                                 </Link>
                                             </small >

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Tag } from "primereact/tag";
-import ModeFooter from "pages/profile/ModeFooter";
+import ModeFooter from "./ModeFooter";
 import SectionHeader from "./SectionHeader";
 import { Dropdown } from "primereact/dropdown";
 import { updateLOI } from "store/modules/account";
@@ -71,9 +71,9 @@ const LOIForm = ({ data, closeEditMode }) => {
 
   return (
     <>
-      <div className="p-card p-mt-2">
+      <div className="p-mt-2">
         <SectionHeader icon="briefcase" sectionTitle="Locations of Interest" />
-        <div className="p-card-body">
+        <div className="">
           <form onSubmit={handleSubmit(LOISubmit)}>
             <span className="skillInput p-mb-4">
               <label htmlFor="LOIInput" className="inputLabel p-pr-3">

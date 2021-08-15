@@ -1,6 +1,6 @@
 import InputField from "components/InputField";
 import moment from "moment";
-import ModeFooter from "pages/profile/ModeFooter";
+import ModeFooter from "components/profile/ModeFooter";
 import { Button } from "primereact/button";
 import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateProfilePicture } from "store/modules/account";
 import { updateCompanyInfo } from "store/modules/company";
 import { loadCountry, loadLga, loadStates } from "store/modules/location";
+import JobplicantAvatar from "components/profile/jobplicant-avatar";
 
 const CompanyEditForm = () => {
   const loading = useSelector((state) => state.company.loading);
@@ -283,7 +284,7 @@ const CompanyEditForm = () => {
                 <div className="col-md-3 text-center p-mt-4">
 
                   <span className="profilePic-container">
-                    {selectedFile ? (<img
+                    {/* {selectedFile ? (<img
                       src={preview}
                       alt="User Image"
                       width="160"
@@ -297,7 +298,13 @@ const CompanyEditForm = () => {
                         height="130"
                         className="profile-picture"
                       />)
-                    }
+                    } */}
+                    <JobplicantAvatar 
+                      width={165} 
+                      height={165} 
+                      preview={preview}
+                      data={profileInfo}
+                    />
                     {!editMode && <label className="profilePic-label" htmlFor="upload-button">
                       {uploading ? (
                         <i className="pi pi-spin pi-spinner" style={{ color: "black" }}>
