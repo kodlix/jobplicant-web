@@ -12,6 +12,9 @@ import { loadProfileInfo } from "store/modules/account";
 import Spinner from "components/spinner/spinner.component";
 import TemplatePDFOne from "./pdf/templates/TemplatePDFOne";
 import { PDFDownloadLink, PDFViewer, renderToFile, usePDF } from "@react-pdf/renderer";
+import TemplatePDFTwo from "./pdf/template_2/TemplatePDFTwo";
+import TemplatePDFThree from "./pdf/template_3/TemplatePDFThree";
+import TemplatePDFFour from "./pdf/template4/TemplatePDFFour";
 
 const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected }) => {
     const [editMode, setEditMode] = useState(true)
@@ -31,6 +34,21 @@ const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected 
 
     }
 
+    const getTemplate = (id) => {
+        switch (id) {
+            case 1:
+                return <TemplatePDFOne profileInfo={profileInfo} />
+            case 2:
+                return <TemplatePDFTwo profileInfo={profileInfo} />
+            case 3: 
+                return <TemplatePDFThree profileInfo={profileInfo} />
+            case 4: 
+                return <TemplatePDFFour profileInfo={profileInfo} />
+            default:
+                return <TemplateOne profileInfo={profileInfo} />
+        }
+    }
+
     return (
         <div>
             <div className="generate-cv" >
@@ -45,29 +63,29 @@ const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected 
                             <section>
                                 <div className="card cv-preview-box">
                                     <div className="card-body">
-                                                <PDFDownloadLink
-                                                    document={<TemplatePDFOne profileInfo={profileInfo} />}
-                                                    fileName="template-one.pdf"
-                                                    style={{
-                                                        textDecoration: "none",
-                                                        padding: "10px",
-                                                        color: "#4a4a4a",
-                                                        backgroundColor: "#f2f2f2",
-                                                        border: "1px solid #4a4a4a",
-                                                        width: "50%",
-                                                        margin: "20px auto",
-                                                        display: "block"
-                                                    }}
-                                                >
-                                                    {({ blob, url, loading, error }) => {
-                                                        if (url) {
-                                                            setLoaded(true)
-                                                        }
-                                                        return (
-                                                            loading ? "Loading document..." : "Download Pdf")
-                                                    }
-                                                    }
-                                                </PDFDownloadLink>
+                                        <PDFDownloadLink
+                                            document={<TemplatePDFOne profileInfo={profileInfo} />}
+                                            fileName="template-one.pdf"
+                                            style={{
+                                                textDecoration: "none",
+                                                padding: "10px",
+                                                color: "#4a4a4a",
+                                                backgroundColor: "#f2f2f2",
+                                                border: "1px solid #4a4a4a",
+                                                width: "50%",
+                                                margin: "20px auto",
+                                                display: "block"
+                                            }}
+                                        >
+                                            {({ blob, url, loading, error }) => {
+                                                if (url) {
+                                                    setLoaded(true)
+                                                }
+                                                return (
+                                                    loading ? "Loading document..." : "Download Pdf")
+                                            }
+                                            }
+                                        </PDFDownloadLink>
                                         {loading
                                             ? <Spinner />
                                             : <div>
@@ -75,7 +93,10 @@ const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected 
                                                     <h5>PDF not supported on mobile view, please view on desktop.</h5>
                                                 </div>
                                                 <PDFViewer className="col-12" height="740px">
-                                                    <TemplatePDFOne profileInfo={profileInfo} />
+                                                    {
+                                                        getTemplate(selected)
+                                                        
+                                                    }
                                                 </PDFViewer>
                                             </div>
 

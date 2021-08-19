@@ -37,19 +37,17 @@ const TemplateOneSidebar = ({ profileInfo }) => {
             </View>
             <Header label="Personal Info" />
             <View style={styles.headerContainerStyle}>
-                <HeaderItem title="Phone" label={profileInfo?.phoneNumber} />
+                <HeaderItem title="Phone" label={profileInfo?.contactPhone} />
                 <HeaderItem title="E-mail" label={profileInfo?.contactEmail} />
-                <HeaderItem title="LinkedIn" label="linkedin.com/in/jilimorganzety"
-                />
+                <HeaderItem title="LinkedIn" label="linkedin.com/in/jilimorganzety" />
             </View>
             <Header label="Skills" />
             <View style={styles.headerContainerStyle}>
                 {profileInfo?.skills.map((skill, i) => <HeaderProgressItem key={i} title={skill} />)}
             </View>
-            <Header label="Languages" />
+            <Header label="Hobbies" />
             <View style={styles.headerContainerStyle}>
-                <HeaderProgressItem title="Spanish" />
-                <HeaderProgressItem title="English" />
+                {profileInfo?.hobbies.map((hobby, i) => <HeaderProgressItem key={i} title={hobby} />)}
             </View>
         </View>
     )

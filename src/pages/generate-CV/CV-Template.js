@@ -14,7 +14,7 @@ const CvTemplateGallery = ({ selected, handleSelected, setShowPreview }) => {
         setShowPreview(true)
     }
 
-
+    console.log(`selected: ${selected}`)
     return (<div className="generate-cv" >
         <div className="content-container">
             <div className="p-grid">

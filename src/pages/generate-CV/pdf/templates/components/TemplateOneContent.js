@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from '@react-pdf/renderer'
 
 import Experience from './Experience';
+import Education from './Education';
 
 const styles = StyleSheet.create({
     container: {
@@ -25,6 +26,9 @@ const styles = StyleSheet.create({
     headerTitleStyle: {
         fontSize: '14px',
         fontWeight: 400,
+    },
+    space: {
+        padding: '16px'
     }
 })
 
@@ -41,7 +45,13 @@ const TemplateOneContent = ({ profileInfo }) => {
             <View>
                 {profileInfo.experiences.map((experience, i) => <Experience key={i} experience={experience} />)}
             </View>
-
+            <View style={styles.space} />
+            <View style={styles.headerStyle}>
+                <Text style={styles.headerTitleStyle}>Education</Text>
+            </View>
+            <View>
+                {profileInfo.educations.map((education, i) => <Education key={i} education={education} />)}
+            </View>
         </View>
     )
 }
