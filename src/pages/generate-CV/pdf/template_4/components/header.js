@@ -3,7 +3,7 @@ import { Document, Page, View, StyleSheet, Text } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'blue',
+        backgroundColor: '#00008B',
         paddingTop: 24,
         justifyContent: 'center',
         alignItems: 'center'
@@ -28,12 +28,13 @@ const styles = StyleSheet.create({
         marginTop: 16,
     }
 })
-const Header = () => {
+const Header = ({profileInfo}) => {
     return <View style={styles.container}>
-        <Text>ANNIE RICHARDS</Text>
+        <Text style={styles.titleStyle}>{profileInfo?.firstName} {profileInfo?.lastName}</Text>
         <View style={styles.spacer} />
-        <Text>MARKETING CONSULTANT</Text>
+        {profileInfo?.experiences[0] && <Text style={styles.subtitle}>{profileInfo?.experiences[0].jobTitle}</Text>}
         <View style={styles.divider} />
+        <View style={styles.spacer} />
     </View>
 }
 

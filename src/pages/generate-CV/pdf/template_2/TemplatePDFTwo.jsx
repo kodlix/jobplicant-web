@@ -8,6 +8,7 @@ import Skill from './components/skill'
 import Experience from './components/experience'
 import Expertise from './components/expertise'
 import Interest from './components/interest'
+import Hobbies from './components/hobbies';
 
 
 const styles = StyleSheet.create({
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
     },
     rowStyle: { 
         flexDirection: 'row', 
-        justifyContent: 'space-between', 
+        justifyContent: 'space-evenly', 
         paddingTop: 12,
     },
 })
@@ -35,14 +36,15 @@ const TemplatePDFTwo = ({ profileInfo, editMode, setEditMode }) => {
                 <Profile profileInfo={profileInfo} />
                 <View style={styles.divider} />
                 <View style={styles.rowStyle}>
-                    <Education />
-                    <Skill />
-                    <Expertise />
+                    <Education  profileInfo={profileInfo} />
+                    <Skill  profileInfo={profileInfo} />
+                    <Expertise  profileInfo={profileInfo} />
                 </View>
-                <Experience />
+                <Experience profileInfo={profileInfo} />
                 <View style={styles.divider} />
                 <View style={styles.rowStyle}>
-                    <Interest />                  
+                    <Interest  profileInfo={profileInfo} />     
+                    <Hobbies profileInfo={profileInfo} />        
                 </View>
             </Page>
         </Document>

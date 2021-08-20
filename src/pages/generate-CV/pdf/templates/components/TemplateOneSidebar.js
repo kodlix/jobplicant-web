@@ -6,7 +6,7 @@ import HeaderProgressItem from './HeaderProgress';
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#333',
+        backgroundColor: '#222',
         width: '30%',
         height: '100%'
     },

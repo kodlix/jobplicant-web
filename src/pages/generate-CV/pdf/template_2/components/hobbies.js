@@ -20,12 +20,12 @@ const styles = StyleSheet.create({
     }
 })
 
-const Interest = ({profileInfo}) => {
+const Hobbies = ({profileInfo}) => {
     return <View style={styles.container}>
-        <Text style={styles.titleStyle}>INTEREST</Text>
+        <Text style={styles.titleStyle}>HOBBIES</Text>
         <View style={styles.space} />
-        {profileInfo?.interests.map((interest, i)=>(<Text key={i} style={styles.itemStyle}>{interest}</Text>))}
+        {profileInfo?.hobbies.map((hobby, i)=>(<Text key={i} style={styles.itemStyle}>{hobby}</Text>))}
     </View>
 }
 
-export default Interest
+export default Hobbies

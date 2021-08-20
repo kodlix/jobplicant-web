@@ -19,15 +19,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     }
 })
-const Skill = () => {
+const Skill = ({ profileInfo }) => {
     return <View style={styles.container}>
     <Text style={styles.titleStyle}>SKILLS</Text>
     <View style={styles.space} />
-    <Text style={styles.itemStyle}>Microsoft Office</Text>
-    <Text style={styles.itemStyle}>Adobe Creative Suite</Text>
-    <Text style={styles.itemStyle}>Social Media</Text>
-    <Text style={styles.itemStyle}>Web Design</Text>
-    <Text style={styles.itemStyle}>Photoshop &amp; Flash</Text>
+    {profileInfo?.skills.map((skill, i) => (<Text key={i} style={styles.itemStyle}>{skill}</Text>))}
 </View>
 }
 

@@ -20,15 +20,18 @@ const styles = StyleSheet.create({
     }
 })
 
-const Education = () => {
+const Education = ({profileInfo}) => {
+    console.log('education', profileInfo);
     return <View style={styles.container}>
         <Text style={styles.titleStyle}>EDUCATION</Text>
         <View style={styles.space} />
-        <Text style={styles.itemStyleBold}>BOSTON UNIVERSITY</Text>
-        <Text style={styles.itemStyleBold}>Boston, MA</Text>
-        <Text style={styles.itemStyle}>Bachelor of Sciences in</Text>
-        <Text style={styles.itemStyle}>Marketing Communications</Text>
-        <Text style={styles.itemStyle}>2006 - 2010</Text>
+        {profileInfo?.educations.map((education, i) => (<View key={i}>
+        <Text style={styles.itemStyleBold}>{education.institution}</Text>
+        <Text style={styles.itemStyleBold}>{education.city}, {education.country}</Text>
+        <Text style={styles.itemStyle}>{education.qualification} in</Text>
+        <Text style={styles.itemStyle}>{education.course}</Text>
+        <Text style={styles.itemStyle}>{education.yearOfGraduation}</Text>
+        </View>))}
     </View>
 }
 

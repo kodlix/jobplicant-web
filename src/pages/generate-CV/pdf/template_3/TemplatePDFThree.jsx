@@ -1,6 +1,6 @@
 import React from 'react';
 import { Document, Page, View, StyleSheet, Text } from '@react-pdf/renderer';
-
+import moment from 'moment'
 import Header from './components/header';
 
 const styles = StyleSheet.create({
@@ -70,65 +70,68 @@ const styles = StyleSheet.create({
 })
 
 const TemplatePDFThree = ({ profileInfo, editMode, setEditMode }) => {
+    console.log('profile info', profileInfo);
     return (
         <Document>
             <Page size="A4" style={styles.page}>
-                <Header profile={profileInfo} />
+                <Header profileInfo={profileInfo} />
                 <View style={styles.divider} />
                 <View style={styles.container}>
                     <Text style={styles.titleStyle}>PROFILE</Text>
-                    <Text style={styles.descriptionStyle}>asjl kfjadifjaoiejrwu0e9r kfjadifjaoiejrwu0e9r kfjadifjaoiejrwu0e9r kfjadifjaoiejrwu0e9r kfjadifjaoiejrwu0e9r kfjadifjaoiejrwu0e9r  kfjadifjaoiejrwu0e9rkfjadifjaoiejrwu0e9r kfjadifjaoiejrwu0e9r uu0w9erwj0dfj9sj9dfjs9djfh w9er9wue09r 9wejrw</Text>
+                    <Text style={styles.descriptionStyle}>{profileInfo?.profile}</Text>
                 </View>
                 <View style={styles.divider} />
                 <View style={styles.container}>
                     <Text style={styles.titleStyle}>EDUCATION</Text>
-                    <View style={styles.contentStyle}>
-                        <Text style={styles.contentTitle}>BOSTON UNIVERSITY, Boston, MA</Text>
-                        <Text style={styles.contentSubtitle}>Bachelor of Science in Marketing Communications, 2006 - 2010</Text>
+                    {profileInfo.educations.map((education, i) => <View key={i} style={styles.contentStyle}>
+                        <Text style={styles.contentTitle}>{education.institution}, {education.city}, {education.country}</Text>
+                        <Text style={styles.contentSubtitle}>{education.qualification} in {education.course}, {moment(education.yearOfGraducation).format("YYYY")}</Text>
                         <View style={styles.space1} />
-                        <Text style={styles.contentDescription}>akdjlfa akdjf iwou3 uei3u sdk jalu 20 kjsdlalisjeoiroqij lj lkjfadf ddfadf</Text>
+                        {/* <Text style={styles.contentDescription}>{akdjlfa akdjf iwou3 uei3u sdk jalu 20 kjsdlalisjeoiroqij lj lkjfadf ddfadf}</Text>
                         <View style={styles.contentListStyle}>
                             <Text style={styles.contentListItemStyle}>{'\u2022 '}skajdfklajdkfj ajldkjf ae oowij eiowejro </Text>
                             <Text style={styles.contentListItemStyle}>{'\u2022 '}skajdfklajdkfj ajldkjf ae oowij eiowejro </Text>
                             <Text style={styles.contentListItemStyle}>{'\u2022 '}skajdfklajdkfj ajldkjf ae oowij eiowejro </Text>
                             <Text style={styles.contentListItemStyle}>{'\u2022 '}skajdfklajdkfj ajldkjf ae oowij eiowejro </Text>
-                        </View>
-                    </View>
+                        </View> */}
+                    </View>)}
                 </View>
                 <View style={styles.divider} />
                 <View style={styles.container}>
                     <Text style={styles.titleStyle}>PROFESSIONAL EXPERIENCE</Text>
-                    <View style={styles.contentStyle}>
-                        <Text style={styles.contentTitle}>ENTER POSITION TITLE HERE</Text>
-                        <Text style={styles.contentSubtitle}>Company Here / 2014 - Present</Text>
-                    </View>
-                    <View>
-                        <View style={styles.space} />
-                        <Text style={styles.contentDescription}>akdjlfa akdjf iwou3 uei3u sdk jalu 20 kjsdlalisjeoiroqij lj lkjfadf ddfadf</Text>
-                        <View style={styles.contentListStyle}>
-                            <Text style={styles.contentListItemStyle}>skajdfklajdkfj ajldkjf ae oowij eiowejro </Text>
-                            <Text style={styles.contentListItemStyle}>skajdfklajdkfj ajldkjf ae oowij eiowejro </Text>
-                            <Text style={styles.contentListItemStyle}>skajdfklajdkfj ajldkjf ae oowij eiowejro </Text>
-                            <Text style={styles.contentListItemStyle}>skajdfklajdkfj ajldkjf ae oowij eiowejro </Text>
+                    {profileInfo?.experiences.map((experience, i) => (<View key={i}>
+                        <View style={styles.contentStyle}>
+                            <Text style={styles.contentTitle}>{experience.jobTitle}</Text>
+                            <Text style={styles.contentSubtitle}>{experience.company} / {moment(experience.startDate).format("YYYY-MM")} - {moment(experience.endDate).format("YYYY-MM")} -</Text>
                         </View>
-                    </View>
+                        <View>
+                            <View style={styles.space} />
+                            <Text style={styles.contentDescription}>{experience.jobDescription}</Text>
+                            {/* <View style={styles.contentListStyle}>
+                                <Text style={styles.contentListItemStyle}>skajdfklajdkfj ajldkjf ae oowij eiowejro </Text>
+                                <Text style={styles.contentListItemStyle}>skajdfklajdkfj ajldkjf ae oowij eiowejro </Text>
+                                <Text style={styles.contentListItemStyle}>skajdfklajdkfj ajldkjf ae oowij eiowejro </Text>
+                                <Text style={styles.contentListItemStyle}>skajdfklajdkfj ajldkjf ae oowij eiowejro </Text>
+                            </View> */}
+                        </View>
+                    </View>))}
                 </View>
                 <View style={styles.divider} />
                 <View style={styles.container}>
                     <Text style={styles.titleStyle}>SKILLS</Text>
                     <View style={styles.skillTextContainer}>
-                        <Text style={styles.skillTextStyleBold}>TECHNICAL-</Text>
-                        <Text style={styles.skillTextStyle}>Microsoft Office / Email Management / Photoshop / Mac &amp; PC System / Enter your skills here / ENTER YOUR SKILLS HERE</Text>
+                        {/* <Text style={styles.skillTextStyleBold}>TECHNICAL-</Text> */}
+                        {profileInfo?.skills.map((skill, i) => <Text key={i} style={styles.skillTextStyle}>{skill}</Text>)}
                     </View>
-                    <View style={styles.skillTextContainer}>
+                    {/* <View style={styles.skillTextContainer}>
                         <Text style={styles.skillTextStyleBold}>PROFESSIONAL-</Text>
                         <Text style={styles.skillTextStyle}>Team Communication / Decision-making / Time Management / Active Listening / Public speaking / Enter your skills here / ENTER YOUR SKILLS HERE</Text>
-                    </View>
+                    </View> */}
                 </View>
                 <View style={styles.divider} />
                 <View style={styles.container}>
-                    <Text style={styles.titleStyle}>PUBLICATIONS</Text>
-                    <Text style={styles.publicationTextStyle}>akajkdj akjd woie jjadja ldkjf wueirjw elkjaldj w0eurjwoiejjnekjwoe woeur woeriwejr ioeqoi wjoijoerhtw rti4 fnslkeorslfkg shaeland nknldskandnl ndl alnakdsaldaldkfla dfaanl sf</Text>
+                    <Text style={styles.titleStyle}>HOBBIES</Text>
+                    {profileInfo?.hobbies.map((hobby, i) => <Text style={styles.publicationTextStyle}>{hobby}</Text>)}
                 </View>
             </Page>
         </Document>

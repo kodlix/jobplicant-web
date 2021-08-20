@@ -25,12 +25,12 @@ const styles = StyleSheet.create({
     }
 })
 
-const Profile = () => {
+const Profile = ({profileInfo}) => {
     return <View style={styles.container}>
         <View style={styles.divider} />
         <View style={styles.profileContainer}>
             <Text style={styles.titleStyle}>PROFILE</Text>
-            <Text style={styles.descriptionStyle}>ajdlkfjaldjfaierqj0e8ru jiqjowiejfqo8 9qhe ijjleijfq osi</Text>
+            <Text style={styles.descriptionStyle}>{profileInfo.profile}</Text>
         </View>
     </View>
 }

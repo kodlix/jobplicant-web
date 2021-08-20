@@ -14,7 +14,7 @@ import TemplatePDFOne from "./pdf/templates/TemplatePDFOne";
 import { PDFDownloadLink, PDFViewer, renderToFile, usePDF } from "@react-pdf/renderer";
 import TemplatePDFTwo from "./pdf/template_2/TemplatePDFTwo";
 import TemplatePDFThree from "./pdf/template_3/TemplatePDFThree";
-import TemplatePDFFour from "./pdf/template4/TemplatePDFFour";
+import TemplatePDFFour from "./pdf/template_4/TemplatePDFFour";
 
 const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected }) => {
     const [editMode, setEditMode] = useState(true)

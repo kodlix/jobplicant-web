@@ -12,8 +12,10 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     titleStyle:{
-        fontSize: 16,
-        fontWeight: 'bold'
+        fontSize: 18,
+        fontWeight: 'bold',
+        paddingTop: 8,
+        paddingBottom: 4,
     },
     subtitleStyle: {
         letterSpacing: 2,
@@ -30,27 +32,27 @@ const styles = StyleSheet.create({
         paddingVertical: 4,
     },
     contactTextStyle: {
-        fontSize: 8
+        fontSize: 10
     },
     contactSpacer: {
         paddingHorizontal: 4
     }
 })
 
-const Header = () => {
+const Header = ({ profileInfo }) => {
 
     return <View style={styles.container}>
         <View style={styles.titleContainer}>
-            <Text style={styles.titleStyle}>Daniel Esteban</Text>
-            <Text style={styles.subtitleStyle}>PROFESSIONAL TITLE HERE</Text>
+            <Text style={styles.titleStyle}>{profileInfo?.firstName} {profileInfo?.lastName}</Text>
+            {profileInfo?.experiences[0] && <Text style={styles.subtitleStyle}>{profileInfo?.experiences[0].jobTitle}</Text>}
         </View>
         <View style={styles.spacer} />
         <View style={styles.contactContainer}>
-            <Text style={styles.contactTextStyle}>867-398-9097</Text>
+            <Text style={styles.contactTextStyle}>{profileInfo?.contactPhoneNumber}</Text>
             <Text style={styles.contactSpacer}>|</Text>
-            <Text style={styles.contactTextStyle}>danielesteban@gmail.com</Text>
+            <Text style={styles.contactTextStyle}>{profileInfo?.contactEmail}</Text>
             <Text style={styles.contactSpacer}>|</Text>
-            <Text style={styles.contactTextStyle}>www.linkedin.com/in/danielesteban</Text>
+            <Text style={styles.contactTextStyle}>{profileInfo?.website}</Text>
         </View>
     </View>
 }
