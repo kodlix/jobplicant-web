@@ -56,19 +56,19 @@ const Header = ({ profileInfo }) => {
         )}
       </View>
       <View style={styles.right}>
-        <View style={styles.rightTextContainer}>
+        {profileInfo?.contactPhoneNumber && <View style={styles.rightTextContainer}>
           <Text style={styles.rightKeyTextBold}>T:</Text>
           <Text style={styles.rightTextStyle}>
             {profileInfo?.contactPhoneNumber}
           </Text>
-        </View>
-        <View style={styles.rightTextContainer}>
+        </View>}
+        {profileInfo?.contactEmail && <View style={styles.rightTextContainer}>
           <Text style={styles.rightKeyTextBold}>E:</Text>
           <Text style={styles.rightTextStyle}>
             {" "}
             {profileInfo?.contactEmail}
           </Text>
-        </View>
+        </View>}
         {profileInfo?.website && (
           <View style={styles.rightTextContainer}>
             <Text style={styles.rightKeyTextBold}>A:</Text>

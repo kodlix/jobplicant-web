@@ -49,9 +49,9 @@ const Header = ({ profileInfo }) => {
         <View style={styles.spacer} />
         <View style={styles.contactContainer}>
             <Text style={styles.contactTextStyle}>{profileInfo?.contactPhoneNumber}</Text>
-            <Text style={styles.contactSpacer}>|</Text>
+           {profileInfo?.contactEmail && <Text style={styles.contactSpacer}>|</Text>}
             <Text style={styles.contactTextStyle}>{profileInfo?.contactEmail}</Text>
-            <Text style={styles.contactSpacer}>|</Text>
+            {profileInfo?.website && <Text style={styles.contactSpacer}>|</Text>}
             <Text style={styles.contactTextStyle}>{profileInfo?.website}</Text>
         </View>
     </View>

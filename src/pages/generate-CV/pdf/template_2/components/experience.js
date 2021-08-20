@@ -57,7 +57,7 @@ const Experience = ({ profileInfo }) => {
       </View>
       <View style={styles.space} />
       {profileInfo?.experiences.map((experience, i) => (
-        <View style={styles.rowStyle}>
+        <View style={styles.rowStyle} wrap={false}>
           <View>
             <Text style={styles.dateStyle}>
               {moment(experience.startDate).format("YYYY-MM")} -{" "}

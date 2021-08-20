@@ -40,7 +40,7 @@ const WorkExperience = ({ profileInfo }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.titleStyle}>WORK EXPERIENCE</Text>
-        {profileInfo.experiences.map((experience, i) => (<View key={i} style={styles.contentStyle}>
+        {profileInfo.experiences.map((experience, i) => (<View wrap={false} key={i} style={styles.contentStyle}>
             <View style={styles.contentHeader}>
                 <Text style={styles.contentHeaderTitleStyle}>{experience.jobTitle}</Text>
                 <Text style={styles.contentHeaderDescriptionStyle}>{experience.company} / {moment(experience.startDate).format("YYYY-MM")} - {moment(experience.endDate).format("YYYY-MM")}</Text>

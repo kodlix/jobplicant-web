@@ -102,7 +102,7 @@ const TemplatePDFThree = ({ profileInfo, editMode, setEditMode }) => {
                     {profileInfo?.experiences.map((experience, i) => (<View key={i}>
                         <View style={styles.contentStyle}>
                             <Text style={styles.contentTitle}>{experience.jobTitle}</Text>
-                            <Text style={styles.contentSubtitle}>{experience.company} / {moment(experience.startDate).format("YYYY-MM")} - {moment(experience.endDate).format("YYYY-MM")} -</Text>
+                            <Text style={styles.contentSubtitle}>{experience.company} / {moment(experience.startDate).format("YYYY-MM")} - {moment(experience.endDate).format("YYYY-MM")} </Text>
                         </View>
                         <View>
                             <View style={styles.space} />

@@ -30,24 +30,24 @@ const ContactSidebar = ({ profileInfo }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.titleStyle}>CONTACT</Text>
-      <View style={styles.contactItem}>
+      {profileInfo?.contactEmail && <View style={styles.contactItem}>
         <View style={styles.ballStyle}>
           <Text>#</Text>
         </View>
         <Text style={styles.contactItemTextStyle}>{profileInfo?.contactEmail}</Text>
-      </View>
-      <View style={styles.contactItem}>
+      </View>}
+     {profileInfo?.contactPhoneNumber && <View style={styles.contactItem}>
         <View style={styles.ballStyle}>
           <Text>#</Text>
         </View>
         <Text style={styles.contactItemTextStyle}>{profileInfo?.contactPhoneNumber}</Text>
-      </View>
-      <View style={styles.contactItem}>
+      </View>}
+      {/* <View style={styles.contactItem}>
         <View style={styles.ballStyle}>
           <Text>#</Text>
         </View>
         <Text style={styles.contactItemTextStyle}>New York, NY 10005</Text>
-      </View>
+      </View> */}
       {profileInfo.website && <View style={styles.contactItem}>
         <View style={styles.ballStyle}>
           <Text>#</Text>
