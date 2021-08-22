@@ -262,6 +262,16 @@ const InstantJob = {
     requests.put(`/instant-job/${id}/application/accept`, null),
   reject: (id) =>
     requests.put(`/instant-job/${id}/application/reject`, null),
+  reject: (id) =>
+    requests.put(`/instant-job/${id}/application/reject`, null),
+};
+
+const Review = {
+  save: (review) => requests.post("/review", review),
+  load: () => requests.get(`/review`),
+  loadByApplicant: (id) => requests.get("​/review​/applicant​/reviews", id),
+  edit: (id) => requests.put(`/review​/disable​/{id}`, id),
+
 };
 
 const ContractType = {
@@ -366,5 +376,6 @@ export default {
   Qualification,
   Skill,
   ServiceGroup,
-  Service
+  Service,
+  Review,
 };

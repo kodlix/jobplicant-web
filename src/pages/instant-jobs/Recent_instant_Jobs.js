@@ -57,7 +57,7 @@ const RecentInstantJobs = () => {
                                 <div className="highlight-card p-p-2 ">
                                     <div className="row " style={{ flexWrap: "nowrap !important" }} >
                                         <div className="p-card-title d-flex justify-content-around" style={{ fontSize: 15 }}>
-                                            <div>{instantjob.service}</div>
+                                            {/* <div>{instantjob.service}</div> */}
                                             <div>
                                                 <i className="pi pi-share-alt" data-id={instantjob.id}
                                                     onClick={handleShareButton}> Share

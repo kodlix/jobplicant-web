@@ -289,3 +289,21 @@ export function deleteInstantJob(id) {
         )
     }
 }
+
+export function review(id) {
+    return dispatch => {
+        return agent.InstantJob.delete(id).then(
+            response => {
+                //handle success
+                dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "Instant Job successfully deleted", title: 'Instant job Successfully deleted ' }));
+                dispatch(onLoadInstantJobs(response));
+                dispatch(push("/instant-hires"));
+                window.location.reload();
+
+            },
+            error => {
+                dispatch(showMessage({ type: "error", message: error, title: "Failed to delete Instant job" }));
+            }
+        )
+    }
+}
