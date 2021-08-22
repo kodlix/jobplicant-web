@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 
 const TemplateOneSidebar = ({ profileInfo }) => {
     return (
-        <View style={styles.container}>
+        <View style={styles.container} fixed wrap={false}>
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>{profileInfo?.firstName} {profileInfo?.lastName}</Text>
                 <Text style={styles.headerText}>Sales Representative</Text>

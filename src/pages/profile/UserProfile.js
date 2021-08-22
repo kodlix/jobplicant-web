@@ -28,7 +28,6 @@ const UserProfile = ({ match }) => {
   const [] = useState({});
   const accountType = agentService.Auth.current().accountType;
 
-  console.log('account type' ,accountType)
 
   const openCreate = (name) => {
     setMode("create");

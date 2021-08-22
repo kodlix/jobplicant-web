@@ -82,7 +82,7 @@ const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected 
                                                     setLoaded(true)
                                                 }
                                                 return (
-                                                    loading ? "Loading document..." : "Download Pdf")
+                                                    loading ? "Loading document..." : "Download & Save Pdf")
                                             }
                                             }
                                         </PDFDownloadLink>

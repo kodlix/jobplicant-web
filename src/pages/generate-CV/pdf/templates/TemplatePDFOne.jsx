@@ -13,14 +13,15 @@ import TemplateOneContent from './components/TemplateOneContent';
 const styles = StyleSheet.create({
     page: {
         backgroundColor: '#e4e4e4',
-        paddingVertical: '20px',
         position: 'relative',
     },
     sidePanelBackground: {
-        backgroundColor: '#333',
+        backgroundColor: '#e4e4e4',
         width: '180px',
         height: '100vh',
         position: 'absolute', 
+        top: 0,
+        bottom: 0,
         zIndex: -1
     },
     contents: {
