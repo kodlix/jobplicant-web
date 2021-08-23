@@ -20,7 +20,7 @@ const HowToStart = () => {
                                         <h4 className="cv-header">How do you want to start?</h4>
                                     </div>
                                     <div className="p-grid p-pt-5" >
-                                        <div className="p-col-12 p-md-6">
+                                        <div className="p-col-12 p-md-12">
                                             <div className="text-center">
                                                 <div ><i className="pi pi-book" style={{ 'fontSize': '4em' }}></i> </div>
                                                 <h5 className="font-weight-bold p-pt-3"> Create New Resume</h5>
@@ -35,7 +35,7 @@ const HowToStart = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="vl d-none "></div>
+                                        {/* <div className="vl d-none "></div>
                                         <div className="p-col-12 p-md-6 pl-md-2">
                                             <div className="text-center">
                                                 <div ><i className="pi pi-upload text-info" style={{ 'fontSize': '4em' }}></i> </div>
@@ -46,7 +46,7 @@ const HowToStart = () => {
                                                     <Button label="UPLOAD RESUME" className="upload-btn" onClick={() => ref.current.click()} />
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>

@@ -47,7 +47,7 @@ const JobplicantAvatar = ({
                     />
                     : avatarContainer(profileInfo?.fullname || "Chike Daniels")} */}
                     {avatarContainer(fullname || "Chike Daniels")}
-                <label className="profilePic-label" htmlFor="upload-button">
+                <label className="profilePic-label" htmlFor="upload-button" style={{marginBottom: '-20px'}}>
                     {loading ? (
                         <i className="pi pi-spin pi-spinner" style={{ color: "black" }}>
                             {" "}

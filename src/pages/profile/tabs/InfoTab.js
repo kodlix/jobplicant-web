@@ -75,7 +75,7 @@ const InfoTab = () => {
 
     return year + "/" + month + "/" + day;
   };
-  console.log('loading', loading)
+
   if (loading)
     return <Spinner />
 
