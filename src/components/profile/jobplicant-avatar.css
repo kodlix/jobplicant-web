@@ -1,21 +1,8 @@
 /* user header */
 
 .userProfile-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 30px;
+    position: relative;
 }
-
-.profile-picture {
-    border-radius: 100%;
-    margin-right: 20px;
-}
-
-.avatar-container {
-    background-color: green;
-
-}
-
 .avatar-title {
     font-weight: bold;
     font-size: 36px;
@@ -23,16 +10,7 @@
     color: white;
 }
 
-.username {
-    display: inline;
-}
-
-.profilePic-container {
-    position: relative;
-}
-
 .profilePic-label {
-    position: absolute;
     cursor: pointer;
 }
 

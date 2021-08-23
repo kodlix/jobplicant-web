@@ -9,7 +9,7 @@ const PersonalInfo = ({ openCreate, openEdit, data }) => {
   const dispatch = useDispatch();
   // const profileInfo = useSelector((state) => state.account.profileInfo);
   const profileInfo = data;
-  console.log('data', data)
+  console.log("data", data);
   const loading = useSelector((state) => state.account.loading);
 
   const [selectedFile, setSelectedFile] = useState(null);
@@ -23,8 +23,6 @@ const PersonalInfo = ({ openCreate, openEdit, data }) => {
 
     const objectUrl = URL.createObjectURL(selectedFile);
     setPreview(objectUrl);
-
-
 
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFile, loading]);
@@ -57,9 +55,8 @@ const PersonalInfo = ({ openCreate, openEdit, data }) => {
     }, 2000);
   };
 
-
   return (
-    <div className="personal-profile p-d-flex p-jc-start align-items-center">
+    <div className="p-d-flex p-jc-start align-items-center">
       <JobplicantAvatar
         data={profileInfo}
         selectedFile={selectedFile}
@@ -74,20 +71,26 @@ const PersonalInfo = ({ openCreate, openEdit, data }) => {
       />
       <div className="ml-3">
         <h3 className="username p-mr-2">
-          {profileInfo?.firstName || 'John'} {profileInfo?.lastName || 'Doe'}
+          {profileInfo?.firstName || ""} {profileInfo?.lastName || ""}
         </h3>
-        <i
-          className="pi pi-pencil p-pr-3 personalInfo-edit"
-          id="personalInfoEdit"
-          onClick={() => openEdit(PROFILE.PERSONAL_INFO, profileInfo)}
-        >
-          &nbsp;<u>(Edit Personal Info)</u>
-        </i>
-        {profileInfo.experiences.length && <div>{profileInfo.experiences[0].jobTitle} at {profileInfo.experiences[0].company}</div>}
 
-        <span>
-          <div className="stars" style={{ "--rating": rating }}></div>
-        </span>
+        {profileInfo.experiences.length ? (
+          <p>
+            {profileInfo.experiences[0].jobTitle || ""} at{" "}
+            {profileInfo.experiences[0].company || ""}
+          </p>
+        ) : <p></p>}
+
+        <p >
+          {/* <div className="stars" style={{ "--rating": rating }}></div> */}
+          <i
+            className="pi pi-pencil p-pr-3 personalInfo-edit"
+            id="personalInfoEdit"
+            onClick={() => openEdit(PROFILE.PERSONAL_INFO, profileInfo)}
+          >
+            &nbsp;<u>(Edit Personal Info)</u>
+          </i>
+        </p>
       </div>
     </div>
   );

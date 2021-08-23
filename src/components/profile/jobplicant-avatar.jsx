@@ -1,64 +1,57 @@
-import React from 'react';
-import { Avatar } from 'primereact/avatar';
-import './jobplicant-avatar.css'
+import React from "react";
+import { Avatar } from "primereact/avatar";
+import "./jobplicant-avatar.css";
 
 const JobplicantAvatar = ({
-    width = 175,
-    height = 175,
-    data,
-    selectedFile,
-    loading,
-    preview,
+  width = 175,
+  height = 175,
+  data,
+  selectedFile,
+  loading,
+  preview,
 }) => {
-    const profileInfo = data;
+  const profileInfo = data;
 
-    const getInitials = (fullname) => {
-        let initial = '';
-        const names = fullname.split(' ');
-        names.forEach(name => {
-          initial += name[0]
-        });
-        return initial;
-      }
-    
-      const avatarContainer = (fullname) => {
-          return <Avatar 
-            label={getInitials(fullname)}
-            size="xlarge" 
-            className="avatar-title"
-            shape="circle" 
-            style={{backgroundColor: 'green'}}
-          />
-        return <div className="avatar-container profile-picture">
-          <h4 className="avatar-title">{getInitials(fullname)}</h4>
-        </div>
-      }
+  const getInitials = (profileInfo) => {
+    if (profileInfo.firstName === "") return "";
+    const fullname = profileInfo?.firstName + " " + profileInfo?.lastName;
+    let initial = "";
+    const names = fullname.split(" ");
+    names.forEach((name) => {
+      initial += name[0];
+    });
+    return initial;
+  };
 
-      const fullname = profileInfo?.firstName + ' ' + profileInfo?.lastName;
+  const avatarContainer = (profileInfo) => {
+   
     return (
-        <div className="userProfile-header">
-            <span className="profilePic-container">
-                {/* {profileInfo.imageUrl ?
-                    <img src={selectedFile ? preview : profileInfo.imageUrl}
-                        alt="User Image"
-                        width="130"
-                        height="130"
-                        className="profile-picture"
-                    />
-                    : avatarContainer(profileInfo?.fullname || "Chike Daniels")} */}
-                    {avatarContainer(fullname || "Chike Daniels")}
-                <label className="profilePic-label" htmlFor="upload-button" style={{marginBottom: '-20px'}}>
-                    {loading ? (
-                        <i className="pi pi-spin pi-spinner" style={{ color: "black" }}>
-                            {" "}
-                        </i>
-                    ) : (
-                        <i className="pi pi-camera"></i>
-                    )}
-                </label>
-            </span>
-        </div>
-    )
-}
+      <Avatar
+        label={getInitials(profileInfo)}
+        size="xlarge"
+        className="avatar-title"
+        shape="circle"
+        style={{ backgroundColor: "green" }}
+      />
+    );
+  };
+
+  return (
+    <div className="userProfile-header">
+      <div className="avatar-container">{avatarContainer(profileInfo)}</div>
+      <div
+        className="profilePic-label"
+      >
+        {loading ? (
+          <i className="pi pi-spin pi-spinner" style={{ color: "black" }}>
+            {" "}
+          </i>
+        ) : (
+          <i className="pi pi-camera"></i>
+        )}
+      </div>
+    </div>
+  );
+};
 
 export default JobplicantAvatar;

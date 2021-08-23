@@ -101,7 +101,7 @@ export const loadEducation = () => (dispatch) => {
 };
 
 export const createEducation = (education) => (dispatch) => {
-  dispatch(isLoading());
+  dispatch(isSubmitting());
   return agent.Education.save(education).then(
     (response) => {
       dispatch(createUserEducation(response));
@@ -123,7 +123,7 @@ export const createEducation = (education) => (dispatch) => {
 };
 
 export const updateEducation = (id, education) => (dispatch) => {
-  dispatch(isLoading());
+  dispatch(isSubmitting());
   return agent.Education.edit(id, education).then(
     (response) => {
       dispatch(createUserEducation(response));

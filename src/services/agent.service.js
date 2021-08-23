@@ -190,10 +190,12 @@ const Country = {
 };
 
 const State = {
+  load: () => requests.get("/state"),
   loadByCountry: (countryid) =>
     requests.get(`/state/getbycountry/${countryid}`),
 };
 const Lga = {
+  load: () => requests.get("/lga"),
   loadByState: (stateid) => requests.get(`/lga/getbystate/${stateid}`),
 };
 
