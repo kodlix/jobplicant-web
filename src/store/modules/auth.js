@@ -149,6 +149,7 @@ export function loginUser({ email, password, type }) {
       }, error => {
         // handle error
         dispatch(showMessage({ type: "error", message: error }));
+        dispatch(isRequestLoading(false))
       });
   }
 }

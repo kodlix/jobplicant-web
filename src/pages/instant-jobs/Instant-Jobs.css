@@ -125,6 +125,31 @@
     height: 38px;
 }
 
+.job-copyModalAlert {
+    z-index: 1;
+    position: absolute;
+    background-color: #5A2846;
+    right: -25px;
+    top: 45px;
+    padding: 7px;
+    border-radius: 8px;
+    color: white;
+    opacity: 0;
+}
+
+.job-copyModalAlert--active {
+    z-index: 1;
+    position: absolute;
+    background-color: #5A2846;
+    right: -10px;
+    top: 30px;
+    padding: 7px;
+    border-radius: 8px;
+    color: white;
+    transition: opacity 0.4s ease-in-out;
+    opacity: 1;
+}
+
 
 /* Media Query Section */
 

@@ -41,7 +41,7 @@ const ListInstantJobHire = React.lazy(() => import('../pages/instant-job-hire/Li
 const ViewInstantJobHire = React.lazy(() => import('../pages/instant-job-hire/View'));
 const EditInstantJobHire = React.lazy(() => import('../pages/instant-job-hire/Edit'));
 const Applicant = React.lazy(() => import('../pages/instant-job-hire/Applicant'));
-const ApplicantProfile = React.lazy( () => import('pages/applicant-profile/ApplicantProfile'));
+const ApplicantProfile = React.lazy(() => import('pages/applicant-profile/ApplicantProfile'));
 const InstantJobs = React.lazy(() => import('../pages/instant-jobs/List'));
 const Review = React.lazy(() => import('../pages/instant-job-hire/Review'));
 const Timeline = React.lazy(() => import('../pages/timeline/Timeline'));

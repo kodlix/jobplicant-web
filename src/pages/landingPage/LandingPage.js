@@ -23,9 +23,9 @@ const LandingPage = () => {
                                     <div className="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent"></div>
 
                                     <div className="button">
-                                        <Link to="/login" className="login"> <i className="lni lni-lock-alt"></i>
-                                            Login</Link>
-                                        <Link to="/register" className="btn">Sign Up</Link>
+                                        <div><Link to="/login" className="login">  <span><i className="lni lni-lock-alt"></i></span>
+                                            Login</Link></div>
+                                        <div> <Link to="/register" className="btn">Sign Up</Link></div>
                                     </div>
                                 </nav>
                             </div>
@@ -46,12 +46,12 @@ const LandingPage = () => {
                                             <div className="hero-text">
                                                 <h1 className="wow fadeInUp prim" data-wow-delay=".3s">Find Your Career
                                                     <br />to Make a
-                                                                                                        Better Life
+                                                    Better Life
                                                 </h1>
                                                 <p className="wow fadeInUp" data-wow-delay=".5s">Creating a beautiful job website is
-                                                not
-                                                easy always. To make your life easier we are introducing Jobcamp template,
-                                                Leverage agile frameworks to high level overviews.
+                                                    not
+                                                    easy always. To make your life easier we are introducing Jobcamp template,
+                                                    Leverage agile frameworks to high level overviews.
                                                 </p>
                                                 <div className="button wow fadeInUp" data-wow-delay=".7s">
                                                     <Link to="#" className="btn">Post a Job</Link>
@@ -76,12 +76,12 @@ const LandingPage = () => {
                                             <div className="hero-text">
                                                 <h1 className="wow fadeInUp" data-wow-delay=".3s">Find Your Career
                                                     <br />to Make a
-                                                                                                        Better Life
+                                                    Better Life
                                                 </h1>
                                                 <p className="wow fadeInUp" data-wow-delay=".5s">Creating a beautiful job website is
-                                                not
-                                                easy always. To make your life easier we are introducing Jobcamp template,
-                                                Leverage agile frameworks to high level overviews.
+                                                    not
+                                                    easy always. To make your life easier we are introducing Jobcamp template,
+                                                    Leverage agile frameworks to high level overviews.
                                                 </p>
                                                 <div className="button wow fadeInUp" data-wow-delay=".7s">
                                                     <Link to="#" className="btn">Post a Job</Link>
@@ -138,7 +138,7 @@ const LandingPage = () => {
                                 <span className="wow fadeInDown" data-wow-delay=".2s">Job Category</span>
                                 <h2 className="wow fadeInUp" data-wow-delay=".4s">Choose Your Desire Category</h2>
                                 <p className="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem
-                                                                        Ipsum available, but the majority have suffered alteration in some form.</p>
+                                    Ipsum available, but the majority have suffered alteration in some form.</p>
                             </div>
                         </div>
                     </div>
@@ -199,10 +199,10 @@ const LandingPage = () => {
                                     <div className="hero-text">
                                         <h1 className="wow fadeInUp" data-wow-delay=".3s">Find the Most Exciting<br />
                                             Jobs to Make a
-                                                                                        Better Life
+                                            Better Life
                                         </h1>
                                         <p className="wow fadeInUp" data-wow-delay=".5s">Creating a beautiful job website is not
-                                                                                        easy always. To make<br />
+                                            easy always. To make<br />
                                             your life easier, we are introducing Jobcamp template,<br />
                                             Leverage agile frameworks to provide a robust<br />
                                             synopsis for high level overviews.
@@ -277,15 +277,15 @@ const LandingPage = () => {
                                 <div className="section-title">
                                     <span className="wow fadeInDown" data-wow-delay=".2s">GETTING STARTED TO WORK</span>
                                     <h2 className="wow fadeInUp" data-wow-delay=".4s">Don’t just find. Be found. Put your
-                                                                                CV in front of great employers</h2>
+                                        CV in front of great employers</h2>
                                     <p className="wow fadeInUp" data-wow-delay=".6s">It helps you to increase your chances of
-                                    finding a suitable job and let recruiters contact you
-                                                                                about jobs that are not needed to pay for advertising.</p>
+                                        finding a suitable job and let recruiters contact you
+                                        about jobs that are not needed to pay for advertising.</p>
                                     <div className="button wow fadeInUp" data-wow-delay=".8s">
                                         <Link to="add-resume.html" className="btn">
                                             <i className="lni lni-upload"></i>
                                             Upload Your
-                                                                                        Resume</Link>
+                                            Resume</Link>
                                     </div>
                                 </div>
                             </div>
@@ -303,7 +303,7 @@ const LandingPage = () => {
                                 <span className="wow fadeInDown" data-wow-delay=".2s">Hot Jobs</span>
                                 <h2 className="wow fadeInUp" data-wow-delay=".4s">Browse Recent Jobs</h2>
                                 <p className="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem
-                                                                        Ipsum available, but the majority have suffered alteration in some form.</p>
+                                    Ipsum available, but the majority have suffered alteration in some form.</p>
                             </div>
                         </div>
                     </div>
@@ -322,7 +322,7 @@ const LandingPage = () => {
                                             <Link to="job-details.html">Ui/Ux Design</Link>
                                         </h4>
                                         <p>We are looking for Enrollment Advisors who are looking to take 30-35 appointments per
-                                        week. All leads are pre-scheduled.
+                                            week. All leads are pre-scheduled.
                                         </p>
                                         <ul>
                                             <li>
@@ -360,7 +360,7 @@ const LandingPage = () => {
                                             <Link to="job-details.html">Web Developer</Link>
                                         </h4>
                                         <p>We are looking for Enrollment Advisors who are looking to take 30-35 appointments per
-                                        week. All leads are pre-scheduled.
+                                            week. All leads are pre-scheduled.
                                         </p>
                                         <ul>
                                             <li>
@@ -401,7 +401,7 @@ const LandingPage = () => {
                                             <Link to="job-details.html">Product Designer</Link>
                                         </h4>
                                         <p>We are looking for Enrollment Advisors who are looking to take 30-35 appointments per
-                                        week. All leads are pre-scheduled.
+                                            week. All leads are pre-scheduled.
                                         </p>
                                         <ul>
                                             <li>
@@ -439,7 +439,7 @@ const LandingPage = () => {
                                             <Link to="job-details.html">Android Developer</Link>
                                         </h4>
                                         <p>We are looking for Enrollment Advisors who are looking to take 30-35 appointments per
-                                        week. All leads are pre-scheduled.
+                                            week. All leads are pre-scheduled.
                                         </p>
                                         <ul>
                                             <li>
@@ -560,11 +560,11 @@ const LandingPage = () => {
                                     <div className="social-login">
                                         <ul>
                                             <li><Link className="linkedin" to="#"><i className="lni lni-linkedin-original"></i>Log in
-                                                                                                    with LinkedIn</Link></li>
+                                                with LinkedIn</Link></li>
                                             <li><Link className="google" to="#"><i className="lni lni-google"></i>Log in with
-                                                                                                    Google</Link></li>
+                                                Google</Link></li>
                                             <li><Link className="facebook" to="#"><i className="lni lni-facebook-original"></i>Log in
-                                                                                                    with Facebook</Link></li>
+                                                with Facebook</Link></li>
                                         </ul>
                                     </div>
                                     <div className="or-devider">
@@ -595,7 +595,7 @@ const LandingPage = () => {
                                         </div>
                                         <p className="text-center create-new-account">Don’t have an account?
                                             <Link to="#">Create a
-                                                                                                free account</Link>
+                                                free account</Link>
                                         </p>
                                     </form>
                                 </div>
@@ -626,11 +626,11 @@ const LandingPage = () => {
                                     <div className="social-login">
                                         <ul>
                                             <li><Link className="linkedin" to="#"><i className="lni lni-linkedin-original"></i>Import
-                                                                                                    from LinkedIn</Link></li>
+                                                from LinkedIn</Link></li>
                                             <li><Link className="google" to="#"><i className="lni lni-google"></i>Import from
-                                                                                                    Google</Link></li>
+                                                Google</Link></li>
                                             <li><Link className="facebook" to="#"><i className="lni lni-facebook-original"></i>Import
-                                                                                                    from Facebook</Link></li>
+                                                from Facebook</Link></li>
                                         </ul>
                                     </div>
                                     <div className="or-devider">
@@ -684,7 +684,7 @@ const LandingPage = () => {
                                     <h3 className="text-white">Download Our Best Apps</h3>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do<br />
                                         eiusmod tempor
-                                                                                incididunt ut labore et dolore</p>
+                                        incididunt ut labore et dolore</p>
                                 </div>
                             </div>
                             <div className="col-lg-6 col-12">

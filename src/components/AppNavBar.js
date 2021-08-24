@@ -7,11 +7,11 @@ import { Navbar, Container, Nav } from 'react-bootstrap'
 // import './AppNavBar.css';
 
 const AppNavBar = ({ displaySearBar = false }) => {
-    const userAccountType = agentService.Auth.current().accountType;
+    const userAccountType = agentService.Auth.current()?.accountType;
 
 
     return (
-        <div className="header-container menubar">
+        <div className="header-container menubar AppNavBar">
             <header className="menu d-flex flex-column-reverse">
                 <Navbar collapseOnSelect expand="lg" className="navbar-area brown-color text-light py-4" style={{ borderRadius: '0px' }} >
                     <Container className="d-flex">
