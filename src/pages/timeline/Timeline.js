@@ -32,6 +32,8 @@ const Timeline = () => {
   const [imageToDisplay, setImageToDisplay] = useState("");
   const [copyAlert, setCopyAlert] = useState(null);
   const isAuthenticated = agent.Auth.isAuth();
+  const pageLimit = 10;
+
   const onShow = (id) => {
     if (id) {
       setPost(posts.data[id]);
@@ -87,7 +89,7 @@ const Timeline = () => {
 
   const loadmorePosts = () => {
     setPageNumber(pageNumber + 1)
-    dispatch(loadPosts(pageNumber + 1, 10, "loadMore"));
+    dispatch(loadPosts(pageNumber + 1, pageLimit, "loadMore"));
   }
 
   useEffect(() => {
@@ -95,7 +97,7 @@ const Timeline = () => {
       dispatch(loadProfileInfo());
       dispatch(loadAllJobs());
     }
-    dispatch(loadPosts(1, 10, "loadPosts"));
+    dispatch(loadPosts(1, pageLimit, "loadPosts"));
   }, [dispatch]);
 
   useEffect(() => {
@@ -158,6 +160,21 @@ const Timeline = () => {
                     style={{ 'fontSize': '2em', color: "#5A2846" }} />
                 </div>
               }
+              {
+                loading !== "loadPosts" &&
+                posts.ids.length === 0 &&
+                <div className="p-card p-p-3 p-mb-1 timeline-posts">
+                  <div className="p-mb-6 p-p-4 text-center">
+                    <h3 className="p-card-title">
+                      Create a post
+                    </h3>
+                    <h6>
+                      Hello there, create your first post.
+                    </h6>
+                  </div>
+                </div>
+              }
+
               {
                 posts?.ids?.length > 0 &&
                 <div className="timeline-postsContainer">
@@ -351,10 +368,21 @@ const Timeline = () => {
                   {
                     posts.ids.length > 0 &&
                     posts.meta.total > posts.ids.length &&
+                    loading !== "loadMore" &&
                     <Button
                       onClick={loadmorePosts}
                       className="p-mr-2 w-100"
-                      label={loading === "loadMore" ? 'please wait...' : 'Load More'}
+                      label='Load More'
+                    />
+                  }
+                  {
+                    posts.ids.length > 0 &&
+                    posts.meta.total > posts.ids.length &&
+                    loading === "loadMore" &&
+                    <Button
+                      className="p-mr-2 w-100"
+                      loading={loading === "loadMore"}
+                      disabled={loading === "loadMore"}
                     />
                   }
                 </div>
