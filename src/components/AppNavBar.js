@@ -16,10 +16,10 @@ const AppNavBar = ({ displaySearBar = false }) => {
                 <Navbar collapseOnSelect expand="lg" className="navbar-area brown-color text-light py-4" style={{ borderRadius: '0px' }} >
                     <Container className="d-flex">
                         <div className="d-flex " style={{ width: `100%` }}>
-                            <Navbar.Brand href="#home">
-                                <Link className="navbar-brand logo" to="/profile-info">
+                            <Navbar.Brand to="/profile-info">
+                                {/* <Link className="navbar-brand logo" > */}
                                     <img className="logo1" src="/assets/logo.png" alt="Logo" height="20" />
-                                </Link>
+                                {/* </Link> */}
                             </Navbar.Brand>
                             <Navbar.Toggle aria-controls="responsive-navbar-nav" className="bg-white" />
                         </div>

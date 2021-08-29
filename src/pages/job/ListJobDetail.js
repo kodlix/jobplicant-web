@@ -106,7 +106,7 @@ const ListJobDetail = () => {
                             loading={jobApplicationRequest} 
                             icon="pi pi-plus" 
                             model={options} 
-                            className="p-mr-2"
+                            className="btn btn-block"
                         ></SplitButton>
                         {/* <button onClick={() => handleApplyForJob(jobDetail.id)} className="btn btn-block" style={styles.btnApply}>{jobApplicationRequest ? <span><i className="pi pi-spin pi-spinner"></i> Please wait...</span> : `Apply`}</button> */}
                     </div>
