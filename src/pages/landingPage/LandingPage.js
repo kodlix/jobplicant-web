@@ -23,7 +23,7 @@ const LandingPage = () => {
                                     <div className="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent"></div>
 
                                     <div className="button">
-                                        <div><Link to="/login" className="login">  <span><i className="lni lni-lock-alt"></i></span>
+                                        <div className="d-flex"><Link to="/login" className="login">  <span><i className="lni lni-lock-alt"></i></span>
                                             Login</Link></div>
                                         <div> <Link to="/register" className="btn">Sign Up</Link></div>
                                     </div>

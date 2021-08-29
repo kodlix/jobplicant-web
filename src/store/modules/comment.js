@@ -110,8 +110,8 @@ export default function reducer(state = comment, action = {}) {
             ...state.comments.meta,
             [postIdToAddTo]: {
               ...state.comments.meta[postIdToAddTo],
-              total: state.comments.meta[postIdToAddTo].total + 1,
-              itemCount: state.comments.meta[postIdToAddTo].itemCount + 1
+              total: state.comments.meta[postIdToAddTo]?.total + 1 || 1,
+              itemCount: state.comments.meta[postIdToAddTo]?.itemCount + 1 || 1
             }
           }
         }

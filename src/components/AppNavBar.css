@@ -1,13 +1,23 @@
-.header-container .header {
-    margin-bottom: 4.5rem;
+.container-appNavbar {
+    position: sticky;
+    z-index: 1;
+    width: 100%;
+    top: 0;
 }
 
-.header-container .nav-item a {
-    color: #fff;
+.appNavbar {
+    background-color: #5A2846;
+    padding: 0.75rem 3rem;
+    display: flex;
+    justify-content: space-between;
 }
 
-.header-container .navbar-nav .nav-item a:hover {
-    color: #cabac4;
+.alert-appNavbar {
+    background-color: #6FCF97;
+    padding: 0.5rem;
+    padding-left: 3rem;
+    color: black;
+    font-weight: 500;
 }
 
 .search-bar {
@@ -17,23 +27,90 @@
     width: 100%;
 }
 
-.app-alert {
-    background: #6FCF97;
-    color: #000;
+.itemContainer-appNavbar {
+    display: flex;
+    width: 30%;
+    justify-content: space-around;
+}
+
+.item-appNavbar {
+    padding: 0 0.5rem;
+    text-align-last: center;
+}
+
+.itemTitle-appNavbar {
+    color: white;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.itemIcon-appNavbar {
     font-size: 1rem;
+    color: white;
+}
+
+.profileMenu-appNavbar,
+.notificationMenu-appNavbar {
+    border: none;
+    font-size: 13px;
+    background-color: #5A2846;
+    padding-top: 1.2rem;
+}
+
+.profileMenu-appNavbar {
+    padding-bottom: 1rem;
+    width: 17rem;
+    inset: auto !important;
+    top: 53.6px !important;
+    right: 0 !important;
+    transform: none !important;
+
+}
+
+.profile-dropdownItem-appNavbar:active,
+.notification-dropdownItem-appNavbar:active {
+    background-color: white;
+}
+
+.profile-dropdownItem-appNavbar ,
+.notification-dropdownItem-appNavbar {
+    padding: .25rem .6rem;
+}
+
+.profile-dropdownItem-appNavbar a,
+.notification-dropdownItem-appNavbar a,
+.profile-dropdownItem-appNavbar span {
+    color: white;
+    width: 100%;
+    transition: none;
+}
+
+.profile-dropdownItem-appNavbar:hover a, 
+.notification-dropdownItem-appNavbar:hover a, 
+.profile-dropdownItem-appNavbar:hover span {
+    color: #5A2846;
+}
+
+.profile-dropdownItem-appNavbar .li-icon {
+    padding-right: 0.25rem;
+}
+
+.requestInstantJob-button-appNavbar{
+    font-size: 0.8rem;
     font-weight: 500;
-    padding: 1rem;
 }
 
-.menu {
-    height: 5rem;
+.empty-profilepic-appNavbar {
+    color: white;
+    border-radius: 100%;
+    padding: .4rem;
+    font-size: 1.3rem;
+    border: 3px solid white;
 }
 
-.navbar-brand img {
-    width: 150px;
-    height: 39px;
-}
-
-.AppNavBar .navbar {
-    position: fixed;
+.profile-image-appNavbar {
+    border-radius: 100%;
+    background-color: white;
+    object-fit: cover;
+    border: 3px solid white;
 }

@@ -23,7 +23,6 @@ const AnonymousRouteOrProtectedRoute = ({ children, ...rest }) => {
         <>
           <div className='d-flex flex-column'>
             <AppNavBar />
-            <AppSideBar />
             <Route {...rest}>{children}</Route>
           </div>
         </>

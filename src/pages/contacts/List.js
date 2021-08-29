@@ -22,7 +22,7 @@ const List = () => {
   const [pageNumber, setPageNumber] = useState(1);
 
   const loadMoreContacts = () => {
-    dispatch(loadContacts(pageNumber, pageLimit, "loadMoreContacts"));
+    dispatch(loadContacts(pageNumber + 1, pageLimit, "loadMoreContacts"));
     setPageNumber(pageNumber + 1);
   };
 
