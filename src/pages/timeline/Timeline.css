@@ -1,6 +1,7 @@
 .timeline-container {
   background-color: #5a28461f;
-  padding-top: 5rem;
+  padding-top: 2rem;
+  min-height: 100vh;
 }
 
 .timeline-postsContainer--empty h1,
@@ -14,8 +15,8 @@
 }
 
 .profile-picture-timeline {
-  border: 4px #5A2846 solid;  
-  object-fit: contain;
+  border: 3px #5A2846 solid;  
+  object-fit: cover;
   background-color: #5A2846;
   color: white;
   cursor: pointer;
@@ -24,7 +25,7 @@
 .timeline-profilePicture, .profilepic-startpost-timeline > img {
   border: 4px #5A2846 solid; 
   color: white;
-  object-fit: contain;
+  object-fit: cover;
   background-color: #5A2846;
   cursor: pointer; 
 }

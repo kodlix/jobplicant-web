@@ -19,10 +19,11 @@ const List = () => {
   const pageLimit = 10;
   const contacts = useSelector(state => state.contact.contacts);
   const contactContainerClassName = contacts.ids.length < 4 ? "containerHeight-contact" : "";
-  const pageToLoad = formatter.getPageToLoad(contacts?.ids?.length, pageLimit);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const loadMoreContacts = () => {
-    dispatch(loadContacts(pageToLoad, pageLimit, "loadMoreContacts"));
+    dispatch(loadContacts(pageNumber + 1, pageLimit, "loadMoreContacts"));
+    setPageNumber(pageNumber + 1);
   };
 
   useEffect(() => {

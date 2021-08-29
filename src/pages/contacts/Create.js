@@ -4,7 +4,6 @@ import { loadFreeUsers, sendContactRequest } from "../../store/modules/contact";
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { API_ROOT } from "../../services/agent.service";
-import { formatter } from '../../helpers/converter';
 import ConnectionRequestPanel from "./ConnectionRequestPanel";
 import "./Contacts.css";
 
@@ -17,8 +16,8 @@ const Create = () => {
   const [searchValue, setSearchValue] = useState("");
   const contactContainerClassName = users.ids.length < 3 ? "containerHeight-contact" : "";
   const pageLimit = 10;
-  const pageToLoad = formatter.getPageToLoad(users?.ids?.length, pageLimit);
-
+  const [pageNumber, setPageNumber] = useState(1); 
+  
   const sortOptions = [
     { name: 'Name (Ascending)', code: 'NY' },
     { name: 'Name (Descending)', code: 'RM' },
@@ -56,7 +55,8 @@ const Create = () => {
   }
 
   const loadMoreUsers = () => {
-    dispatch(loadFreeUsers(pageToLoad, pageLimit, "loadMore", searchValue));
+    dispatch(loadFreeUsers(pageNumber + 1, pageLimit, "loadMore", searchValue));
+    setPageNumber(pageNumber + 1);
   };
 
   useEffect(() => {
@@ -158,7 +158,8 @@ const Create = () => {
             })}
             {
               users.ids.length > 0 &&
-              <Button label={loading === "loadMore" ? 'Loading...' : 'Load More'} onClick={loadMoreUsers} className="p-mr-2 w-100" />
+              loading !== "loadMore" &&
+              <Button label='Load More' onClick={loadMoreUsers} className="p-mr-2 w-100" />
             }
             {
               users.ids.length === 0 && loading !== "loadingFreeUsers" &&
@@ -169,13 +170,14 @@ const Create = () => {
               </div>
             }
             {
-              loading === "loadingFreeUsers" &&
-              users.ids.length === 0 &&
-              <div className="p-p-5 d-flex justify-content-center">
-                <i
-                  className="pi pi-spin pi-spinner"
-                  style={{ 'fontSize': '2em', color: "#5A2846" }} />
-              </div>
+              users.ids.length > 0 &&
+              users.meta.total > users.ids.length &&
+              loading === "loadMore" &&
+              <Button
+                className="p-mr-2 w-100"
+                loading={loading === "loadMore"}
+                disabled={loading === "loadMore"}
+              />
             }
           </div>
           <ConnectionRequestPanel selectedId={selectedId} setSelectedId={setSelectedId} />

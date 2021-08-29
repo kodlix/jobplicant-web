@@ -19,7 +19,6 @@ const AppAdminSideBar = (props) => {
     const setups = [
         {
             label: 'Setups & Configurations',
-            // icon: 'pi pi-bell',
             items: [
                 {
                     label: 'Qualifications',
@@ -56,14 +55,14 @@ const AppAdminSideBar = (props) => {
     ];
 
     return (
-        <>
+        <div className="adminSidebar">
             <Button icon="pi pi-arrow-right" onClick={() => setVisibleLeft(true)} className="p-mr-2 sideBar-button" />
-            <Sidebar visible={visibleLeft} onHide={() => setVisibleLeft(false)}>
+            <Sidebar visible={visibleLeft} onHide={() => setVisibleLeft(false)} className="adminSidebar">
                 <div className="col-12">
                     <div className="dashbord-sidebar">
                         <ul>
                             <li className="heading">Jobplicant Admin Management</li>
-                           
+
                             <li className='li-border'>
                                 <Link to="/admin-services">
                                     <i className="li-icon lni lni-clipboard"></i>
@@ -77,7 +76,7 @@ const AppAdminSideBar = (props) => {
                                 </a>
                             </li>
                             <li>
-                                    <PanelMenu model={setups} />
+                                <PanelMenu model={setups} />
                             </li>
                             <li className='li-border'>
                                 <a href="manage-applications.html">
@@ -113,7 +112,7 @@ const AppAdminSideBar = (props) => {
                     </div>
                 </div>
             </Sidebar>
-        </>
+        </div>
     );
 }
 

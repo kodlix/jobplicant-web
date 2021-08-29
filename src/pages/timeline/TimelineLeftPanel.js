@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from 'primereact/button';
 import { formatter } from '../../helpers/converter';
+import { Link } from 'react-router-dom';
 
 const TimelineLeftPanel = ({ profileInfo, expandProfileImage }) => {
   return (
@@ -16,7 +17,7 @@ const TimelineLeftPanel = ({ profileInfo, expandProfileImage }) => {
               alt="Profile"
               src={profileInfo?.imageUrl}
               className="rounded-circle timeline-profilePicture"
-              onClick={expandProfileImage} />
+              onClick={(e) => expandProfileImage(e.target.src)} />
           }
           {
             !profileInfo.imageUrl &&
@@ -99,11 +100,14 @@ const TimelineLeftPanel = ({ profileInfo, expandProfileImage }) => {
               45
             </h6>
           </div>
-          <div className="timeline-leftpanel-connection" >
+          <Link
+            className="timeline-leftpanel-connection w-100"
+            to={profileInfo.accountType === "Corporate" ? "/company" : "/profile"}
+          >
             <h6>
               View Profile
             </h6>
-          </div>
+          </Link>
         </div>
       </div>
       <div className="p-card p-mt-2">
