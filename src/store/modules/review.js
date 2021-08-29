@@ -14,7 +14,7 @@ const Initial_State = {
 // Action types
 const CREATE_REVIEW = 'app/instantJob/CREATE_REVIEW';
 const LOAD_REVIEWS = 'app/instantJob/LOAD_REVIEWS';
-const LOAD_REVIEW = 'app/instantJob/LOAD_REVIEW';
+const LOAD_APPLICANT_REVIEW = 'app/instantJob/LOAD_APPLICANT_REVIEW';
 const LOADING = "LOADING";
 
 
@@ -35,7 +35,7 @@ export default function reducer(state = Initial_State, action = {}) {
                 fetching: false,
                 reviews: action.payload
             };
-        case LOAD_REVIEW:
+        case LOAD_APPLICANT_REVIEW:
             return {
                 ...state,
                 error: null,
@@ -71,8 +71,8 @@ export const loadReviews = (data) => ({
     payload: data,
 })
 
-export const loadReview = (data) => ({
-    type: LOAD_REVIEW,
+export const loadApplicantReview = (data) => ({
+    type: LOAD_APPLICANT_REVIEW,
     payload: data,
 })
 
@@ -84,12 +84,30 @@ export function createReview(data) {
             response => {
                 //handle success
                 dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "Review successfully created", title: 'Review Successfully created ' }));
-                dispatch(push("/instant-hire-applicants/"));
+                dispatch(push("/instant-hires"));
                 dispatch(isRequestLoading(false));
 
             },
             error => {
-                dispatch(showMessage({ type: "error", message: error, title: "Failed to delete Instant job" }));
+                dispatch(showMessage({ type: "error", message: error, title: "Failed to create review" }));
+                dispatch(isRequestLoading(false));
+
+            }
+        )
+    }
+}
+export function loadApplicantReviews(page, limit) {
+    return dispatch => {
+        dispatch(isRequestLoading(true));
+        return agent.Review.loadByApplicant(page, limit).then(
+            response => {
+                //handle success
+                dispatch(loadApplicantReview(response));
+                dispatch(isRequestLoading(false));
+
+            },
+            error => {
+                dispatch(showMessage({ type: "error", message: error, title: "Failed to load Instant jobs" }));
                 dispatch(isRequestLoading(false));
 
             }
