@@ -114,7 +114,7 @@ const AppRouter = () => {
         <ProtectedRoute path="/contacts/create" exact component={CreateContacts} />
 
         <ProtectedRoute path="/howtostart" exact component={HOWTOSTART} />
-        <ProtectedRoute path="/cv-template" exact component={CVTEMPLATE} />
+        <ProtectedRoute path="/cv-template" component={CVTEMPLATE} />
 
         {/* admin routes */}
         <ProtectedAdminRoute path="/admin" component={AdminDashboard} />

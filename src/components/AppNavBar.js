@@ -37,28 +37,28 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                 <div className="itemContainer-appNavbar">
                     <Link
                         to="/timeline"
-                        className="item-appNavbar"
+                        className="item-appNavbar mx-2"
                     >
-                        <i className="pi pi-home itemIcon-appNavbar" />
+                        <i className="pi pi-home itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
                         <div className="itemTitle-appNavbar">
                             Home
                         </div>
                     </Link>
                     <Link
                         to={userAccountType === "Artisan" ? "/instant-jobs" : "/jobs"}
-                        className="item-appNavbar"
+                        className="item-appNavbar mx-2"
                     >
-                        <i className="pi pi-briefcase itemIcon-appNavbar" />
-                        <div className="itemTitle-appNavbar">
+                        <i className="pi pi-briefcase itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
+                        <div className="itemTitle-appNavbar mx-2">
                             Jobs
                         </div>
                     </Link>
                     <Link
                         to="/howtostart"
-                        className="item-appNavbar"
+                        className="item-appNavbar mx-2"
                     >
-                        <i className="li-icon lni lni-clipboard itemIcon-appNavbar" />
-                        <div className="itemTitle-appNavbar">
+                        <i className="li-icon lni lni-clipboard itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
+                        <div className="itemTitle-appNavbar mx-2">
                             CV Service
                         </div>
                     </Link>
@@ -66,8 +66,8 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                         to="/contacts"
                         className="item-appNavbar"
                     >
-                        <i className="pi pi-users itemIcon-appNavbar" />
-                        <div className="itemTitle-appNavbar">
+                        <i className="pi pi-users itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
+                        <div className="itemTitle-appNavbar mx-2">
                             Contact
                         </div>
                     </Link>
@@ -75,8 +75,8 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                         to="#"
                         className="item-appNavbar"
                     >
-                        <i className="pi pi-envelope itemIcon-appNavbar" />
-                        <div className="itemTitle-appNavbar">
+                        <i className="pi pi-envelope itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
+                        <div className="itemTitle-appNavbar mx-2">
                             Messages
                         </div>
                     </Link>
@@ -87,9 +87,9 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                         aria-expanded="false"
                         className="item-appNavbar"
                     >
-                        <i className="pi pi-bell itemIcon-appNavbar" />
+                        <i className="pi pi-bell itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
 
-                        <div className="itemTitle-appNavbar">
+                        <div className="itemTitle-appNavbar mx-2">
                             Notifications
                         </div>
 
@@ -116,8 +116,8 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                         </li>
                     </ul>
                 </div>
-                <div className="d-flex">
-                    <Link to={"/instant-hires"} >
+                <div className="d-flex ">
+                    <Link to={"/instant-hires"}>
                         <Button className="bg-light text-muted requestInstantJob-button-appNavbar">
                             Request Instant Job
                         </Button>

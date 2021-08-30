@@ -50,7 +50,7 @@ const CardItem = ({ job }) => (
                 <p className="heading-3">Skills</p>
                 {['CSS', 'Photoshop'].map((tag, index) => <span key={index} className="mr-1"><Tag>{tag}</Tag></span>)}
             </div>
-            <div><Link style={styles.viewLinkStyle} className="btn btn-sm">View Job</Link></div>
+            <div><Link to={`/jobs/view/${job.id}`} style={styles.viewLinkStyle} className="btn btn-sm">View Job</Link></div>
         </div>
     </div>
 )

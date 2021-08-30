@@ -1,15 +1,18 @@
 import Spinner from 'components/spinner/spinner.component'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { apply, applyJob, viewJob } from 'store/modules/job'
 import BackgroundImage from '../../assets/bg.png'
 import parser from 'html-react-parser'
+import { SplitButton } from 'primereact/splitbutton';
+
 
 const ListJobDetail = () => {
     const dispatch = useDispatch()
     const history = useHistory();
     const param = useParams();
+    const fileUploadRef = useRef(null);
 
     const jobDetail = useSelector(state => state.job.jobDetail)
     const jobApplicationRequest = useSelector(state => state.job.jobApplicationRequest)
@@ -21,6 +24,21 @@ const ListJobDetail = () => {
     }, []);
 
     const formatValue = value => new Intl.NumberFormat('en-US', {}).format(value);
+
+    const options =  [{
+        label: 'Generate CV from profile',
+        icon: 'pi pi-refresh',
+        command: (e) => {
+            history.push('/howtostart');
+        }
+    },
+    {
+        label: 'Upload CV',
+        icon: 'pi pi-upload',
+        command: (e) => {
+            fileUploadRef.current.click();
+        }
+    },];
 
     const handleApplyForJob = (id) => dispatch(apply(id, { "jobId": jobDetail.id }))
     if (jobDetail === null)
@@ -79,7 +97,18 @@ const ListJobDetail = () => {
                                 </ul>
                             </div>
                         </div> */}
-                        <button onClick={() => handleApplyForJob(jobDetail.id)} className="btn btn-block" style={styles.btnApply}>{jobApplicationRequest ? <span><i className="pi pi-spin pi-spinner"></i> Please wait...</span> : `Apply`}</button>
+                        <input 
+                            type="file" 
+                            style={{display: 'none'}} 
+                            ref={fileUploadRef} />
+                        <SplitButton 
+                            label={`Apply`} 
+                            loading={jobApplicationRequest} 
+                            icon="pi pi-plus" 
+                            model={options} 
+                            className="btn btn-block"
+                        ></SplitButton>
+                        {/* <button onClick={() => handleApplyForJob(jobDetail.id)} className="btn btn-block" style={styles.btnApply}>{jobApplicationRequest ? <span><i className="pi pi-spin pi-spinner"></i> Please wait...</span> : `Apply`}</button> */}
                     </div>
                     <div className="col-md-3">
                         <div className="p-card p-4 mt-3">

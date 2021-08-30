@@ -15,6 +15,7 @@ import { PDFDownloadLink, PDFViewer, renderToFile, usePDF } from "@react-pdf/ren
 import TemplatePDFTwo from "./pdf/template_2/TemplatePDFTwo";
 import TemplatePDFThree from "./pdf/template_3/TemplatePDFThree";
 import TemplatePDFFour from "./pdf/template_4/TemplatePDFFour";
+import { Link } from "react-router-dom";
 
 const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected }) => {
     const [editMode, setEditMode] = useState(true)
@@ -34,15 +35,19 @@ const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected 
 
     }
 
+    const navigateBack = () => {
+        setShowPreview(false);
+    }
+
     const getTemplate = (id) => {
         switch (id) {
             case 1:
                 return <TemplatePDFOne profileInfo={profileInfo} />
             case 2:
                 return <TemplatePDFTwo profileInfo={profileInfo} />
-            case 3: 
+            case 3:
                 return <TemplatePDFThree profileInfo={profileInfo} />
-            case 4: 
+            case 4:
                 return <TemplatePDFFour profileInfo={profileInfo} />
             default:
                 return <TemplateOne profileInfo={profileInfo} />
@@ -53,57 +58,68 @@ const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected 
         <div>
             <div className="generate-cv" >
                 <div className="content-container">
-                    <div className="p-grid justify-content-center">
-                        <div className="p-col-12 p-md-12 p-lg-12 preview-pane" style={{ position: 'relative' }}>
-                            <header className="header" >
+                    <div className="p-card">
+                        <div className="p-card-header">
+                            <div className="p-4">
+                                <Link to="#" onClick={navigateBack} className="bk-btn p-pt-2 app-color ml-auto"><i className="pi pi-arrow-left fs-5">Back</i></Link>
+                            </div>
+                        </div>
+                        <div className="p-card-body">
+                            <div className="p-grid justify-content-center">
+                                <div className="p-col-12 p-md-12 p-lg-12 preview-pane" style={{ position: 'relative' }}>
+                                    {/* <header className="header" >
                                 <i className="pi pi-arrow-left" onClick={() => setShowPreview(false)}></i>
 
                                 {editMode ? <i className="pi pi-times" onClick={() => setEditMode(false)}></i> : <i className="pi pi-pencil" onClick={() => setEditMode(true)}></i>}
-                            </header>
-                            <section>
-                                <div className="card cv-preview-box">
-                                    <div className="card-body">
-                                        <PDFDownloadLink
-                                            document={<TemplatePDFOne profileInfo={profileInfo} />}
-                                            fileName="template-one.pdf"
-                                            style={{
-                                                textDecoration: "none",
-                                                padding: "10px",
-                                                color: "#4a4a4a",
-                                                backgroundColor: "#f2f2f2",
-                                                border: "1px solid #4a4a4a",
-                                                width: "50%",
-                                                margin: "20px auto",
-                                                display: "block"
-                                            }}
-                                        >
-                                            {({ blob, url, loading, error }) => {
-                                                if (url) {
-                                                    setLoaded(true)
-                                                }
-                                                return (
-                                                    loading ? "Loading document..." : "Download & Save Pdf")
-                                            }
-                                            }
-                                        </PDFDownloadLink>
-                                        {loading
-                                            ? <Spinner />
-                                            : <div>
-                                                <div className="d-sm-block d-md-none">
-                                                    <h5>PDF not supported on mobile view, please view on desktop.</h5>
-                                                </div>
-                                                <PDFViewer className="col-12" height="740px">
-                                                    {
-                                                        getTemplate(selected)
-                                                        
-                                                    }
-                                                </PDFViewer>
-                                            </div>
+                            </header> */}
 
-                                        }
-                                    </div>
+                                    <section>
+                                        <div className="cv-preview-box">
+
+                                            {getTemplate(selected) !== null && <PDFDownloadLink
+                                                document={getTemplate(selected)}
+                                                fileName="template-one.pdf"
+                                                style={{
+                                                    textDecoration: "none",
+                                                    padding: "10px",
+                                                    color: "white",
+                                                    backgroundColor: 'var(--primary-color)',
+                                                    borderRadius: '4px',
+                                                    width: "50%",
+                                                    margin: "20px auto",
+                                                    display: "block"
+                                                }}
+                                            >
+                                                {({ blob, url, loading, error }) => {
+                                                    if (url) {
+                                                        setLoaded(true)
+                                                    }
+                                                    return (
+                                                        loading ? "Loading document..." : "Download Pdf")
+                                                }
+                                                }
+                                            </PDFDownloadLink>}
+                                            {loading
+                                                ? <Spinner />
+                                                : <div>
+                                                    <div className="d-sm-block d-md-none">
+                                                        <h5>PDF not supported on mobile view, please view on desktop.</h5>
+                                                    </div>
+                                                    <PDFViewer className="col-12 d-sm-none d-md-block" height="740px">
+                                                        {
+                                                            getTemplate(selected)
+
+                                                        }
+                                                    </PDFViewer>
+                                                </div>
+
+                                            }
+
+                                        </div>
+                                    </section>
                                 </div>
-                            </section>
+
+                            </div>
                         </div>
 
                     </div>
