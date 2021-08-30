@@ -103,6 +103,7 @@ const ViewPost = () => {
                     profileInfo={profileInfo}
                     isAuthenticated={isAuthenticated}
                     expandProfileImage={expandProfileImage}
+                    setImageToDisplay={setImageToDisplay}
                   />
                 </div>
               }

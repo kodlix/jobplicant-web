@@ -158,6 +158,7 @@ const Timeline = () => {
                           isAuthenticated={isAuthenticated}
                           expandProfileImage={expandProfileImage}
                           commentCount={posts.data[postId].commentCount}
+                          setImageToDisplay={setImageToDisplay}
                         />
                       )
                     }
