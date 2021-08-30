@@ -1,5 +1,7 @@
-.header-anonymous .navbar-area {
+.header-anonymous, .header-anonymous .navbar-area {
   background-color:#5A2846;
+  position: sticky;
+  top: 0;
 }
 
 .header-anonymous .button .login {

@@ -236,6 +236,7 @@ export function loadFreeUsers(page, limit, loadingType, search) {
       },
       (error) => {
         // handle error
+        dispatch(loadingContact(null));
         dispatch(showMessage({ type: "error", message: error }));
       }
     );

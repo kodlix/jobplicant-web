@@ -198,7 +198,7 @@ const New = ({ mode }) => {
 
                                         <div className="p-fluid p-md-6 p-sm-12">
                                             <div className="p-field">
-                                                <label htmlFor="address">Address * </label>
+                                                <label htmlFor="address">Meet Up Location * </label>
                                                 <InputText
                                                     type="text"
                                                     placeholder="Address"

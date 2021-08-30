@@ -133,9 +133,6 @@ const Login = ({ props }) => {
                                                     {...register("password", { required: "Please enter your password." })}
 
                                                 />
-
-
-
                                                 <label htmlFor="password" className="">
                                                     {errors?.password?.type === "required" && <span className="text-danger font-weight-bold p-mr-6 error-msg"> <p>{errors.password.message}</p>
                                                     </span>}

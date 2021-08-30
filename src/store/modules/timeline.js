@@ -223,7 +223,7 @@ export default function reducer(state = timeline, action = {}) {
           ...state.commentIds,
           [postIdToAddTo]: [
             commentIdToAdd,
-            ...state.commentIds[postIdToAddTo]
+            ...state.commentIds[postIdToAddTo] || []
           ]
         }
       };

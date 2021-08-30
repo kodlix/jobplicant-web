@@ -20,6 +20,7 @@ import admin from './admin'
 import contact from './contact'
 import emojiPicker from './emojiPicker'
 import chat from './chat'
+import review from './review'
 
 const appReducer = (history) => combineReducers({
   router: connectRouter(history),
@@ -42,7 +43,8 @@ const appReducer = (history) => combineReducers({
   comment,
   contact,
   emojiPicker,
-  chat
+  chat,
+  review
 });
 
 export default appReducer;

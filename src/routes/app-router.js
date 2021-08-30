@@ -106,7 +106,7 @@ const AppRouter = () => {
         <ProtectedRoute path="/instant-hire-applicants/:id" component={Applicant} />
         <ProtectedRoute path="/instant-jobs" component={InstantJobs} />
         <ProtectedRoute path="/artisans" exact component={Artisan} />
-        <ProtectedRoute path="/review" exact component={Review} />
+        <ProtectedRoute path="/review/:jobId/:applicantId" exact component={Review} />
 
         <AnonymousRouteOrProtectedRoute path="/timeline" exact component={Timeline} />
         <AnonymousRouteOrProtectedRoute path="/post/:id" exact component={ViewPost} />

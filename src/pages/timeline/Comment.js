@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import moment from 'moment';
 import { likeComment, dislikeComment, deleteComment } from "../../store/modules/comment";
-import agent from "../../services/agent.service";
+import agent, { API_ROOT } from "../../services/agent.service";
+import { formatter } from '../../helpers/converter';
 import ThumbsDown from "../../components/ThumbDown";
 import ThumbsUp from "../../components/ThumbUp";
 import CommentForm from './CommentForm';
@@ -11,6 +12,7 @@ import './CommentSection.css';
 const Comment = ({ comment, key, postId, expandProfileImage }) => {
   const dispatch = useDispatch();
   const [displayCommentForm, setDisplayCommentForm] = useState(false);
+  const isAuthenticated = agent.Auth.isAuth();
 
   const handleLike = (e) => {
     const commentId = e.currentTarget.dataset.id;
@@ -28,18 +30,31 @@ const Comment = ({ comment, key, postId, expandProfileImage }) => {
   return (
     <div className="timeline-commentContainer" id={key}>
       <div className="d-flex p-pl-3 p-pt-3 w-100">
-        <img
-          width="40"
-          height="40"
-          src="../../assets/logo.png"
-          className="rounded-circle profile-picture-timeline p-mr-2"
-          onClick={expandProfileImage}
-        />
+        {
+          comment.imageUrl
+            ?
+            <img
+              width="40"
+              height="40"
+              src={`${API_ROOT}/${comment.imageUrl}`}
+              className="rounded-circle profile-picture-timeline p-mr-2"
+              onClick={expandProfileImage}
+              alt="profile"
+            />
+            :
+            <i className="pi pi-user timeline-comment-emptyProfilePic-small" />
+        }
         <div className="w-100">
           <span className=" d-flex justify-content-between">
             <div>
               <h6>
-                John Doe
+                {
+                  comment.accountType === "Corporate"
+                    ?
+                    comment.companyName
+                    :
+                    (`${formatter.capitalizeFirstLetter(comment?.firstName)} ${formatter.capitalizeFirstLetter(comment?.lastName)}`)
+                }
               </h6>
               <div className="timeline-cardtitle-posttime p-pt-1 p-pb-3">
                 <i className="pi pi-clock p-pr-1" />
@@ -93,42 +108,69 @@ const Comment = ({ comment, key, postId, expandProfileImage }) => {
       <div className="p-mb-3">
         <b>
           <small className="d-flex align-center justify-content-end p-mt-3">
-            <span
-              data-id={comment.id}
-              className="post-statusbar-content p-pr-2"
-              onClick={(e) => handleLike(e)}
-            >
-              <ThumbsUp
-                width="20"
-                height="20"
-                liked={false}
-                className="p-mr-1"
-              />
-              {
-                comment.likes > 0 &&
-                <h6 className="text-success">
-                  {comment.likes}
-                </h6>
-              }
-            </span>
-            <span
-              className="post-statusbar-content"
-              onClick={(e) => handleDislike(e)}
-              data-id={comment.id}
-            >
-              <ThumbsDown
-                width="20"
-                height="20"
-                disliked={false}
-                className="p-mr-1"
-              />
-              {
-                comment.dislikes > 0 &&
-                <h6>
-                  {comment.dislikes}
-                </h6>
-              }
-            </span>
+            {
+              isAuthenticated ?
+                <span
+                  data-id={comment.id}
+                  className="post-statusbar-content p-pr-2"
+                  onClick={(e) => handleLike(e)}
+                >
+                  <ThumbsUp
+                    width="20"
+                    height="20"
+                    liked={false}
+                    className="p-mr-1"
+                  />
+                  {
+                    comment.likes > 0 &&
+                    <h6 className="text-success">
+                      {comment.likes}
+                    </h6>
+                  }
+                </span>
+                :
+                <p className="p-pr-2">
+                  {
+                    comment.likes > 0 &&
+                    <>
+                      {`${comment.likes} ${comment.likes > 1 ? "likes" : "like"}`}
+                    </>
+                  }
+                </p>
+            }
+            {
+              isAuthenticated ?
+                <span
+                  className="post-statusbar-content"
+                  onClick={(e) => handleDislike(e)}
+                  data-id={comment.id}
+                >
+                  {
+                    isAuthenticated &&
+                    <ThumbsDown
+                      width="20"
+                      height="20"
+                      disliked={false}
+                      className="p-mr-1"
+                    />
+                  }
+                  {
+                    comment.dislikes > 0 &&
+                    <h6>
+                      {comment.dislikes}
+                    </h6>
+                  }
+                </span>
+                :
+                <p className="p-pr-2">
+                  {
+                    comment.dislikes > 0 &&
+                    <>
+                      {`${comment.dislikes} ${comment.dislikes > 1 ? "dislikes" : "dislike"}`}
+                    </>
+                  }
+                </p>
+            }
           </small>
         </b>
       </div>

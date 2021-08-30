@@ -9,9 +9,8 @@ const ProtectedRoute = ({ children, ...rest }) => {
   if (agent.Auth.isAuth() && !agent.Auth.isAdmin()) {
     return (
       <>
-        <div className='d-flex flex-column'>
+        <div>
           <AppNavBar />
-          <AppSideBar />
           <Route {...rest}>{children}</Route>
         </div>
       </>

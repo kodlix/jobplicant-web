@@ -4,7 +4,8 @@ import moment from 'moment'
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginBottom: '8px'
     },
     momentContainer: {
         width: '20%',
@@ -19,7 +20,8 @@ const styles = StyleSheet.create({
         padding: '4px'
     },
     bodyText: {
-        fontSize: '10px'
+        fontSize: '10px',
+        textAlign: "justify"
     },
     bodyHeaderStyle: {
   
@@ -39,11 +41,10 @@ const styles = StyleSheet.create({
 })
 
 const Education = ({ education }) => {
-    console.log('education', education);
     return (
         <View style={styles.container}>
             <View style={styles.momentContainer}>
-                <Text style={styles.momentStyle}>{moment(education.yearOfGraducation).format("YYYY")} - </Text>
+                <Text style={styles.momentStyle}>{moment(education.yearOfGraducation).format("YYYY")}</Text>
             </View>
             <View style={styles.bodyContainer}>
                 <View style={styles.bodyHeaderStyle}>

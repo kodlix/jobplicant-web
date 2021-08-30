@@ -8,6 +8,7 @@ import { Route } from "react-router";
 import JobsTab from "./tabs/JobsTab";
 import ContactsTab from "./tabs/ContactsTab";
 import GroupsTab from "./tabs/GroupsTab";
+import ReviewTab from "./tabs/ReviewTab";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "store/modules/modal";
 import PersonalInfo from "components/profile/PersonalInfo";
@@ -28,7 +29,6 @@ const UserProfile = ({ match }) => {
   const [] = useState({});
   const accountType = agentService.Auth.current().accountType;
 
-  console.log('account type' ,accountType)
 
   const openCreate = (name) => {
     setMode("create");
@@ -43,43 +43,44 @@ const UserProfile = ({ match }) => {
 
   return (
     <>
-        <div className="background">
-          <div className="pl-5">
+      <div className="background">
+        <div className="pl-5">
           <CustomBreadCrumb />
-          </div>
-          <div className="content-container">
-            
-            {/* personal info */}
-            <PersonalInfo
-              openCreate={openCreate}
-              openEdit={openEdit} 
-              data={profileInfo}
-            />
+        </div>
+        <div className="content-container">
 
-            <div className="p-grid">
-              <div className="p-col-12 p-md-9 content-smallscreen">
-                <div className="content-tab">
-                  {/* ProfileTab */}
-                  <ProfileTab />
-                </div>
-                <div className="content-body">
-                  {/* biography */}
+          {/* personal info */}
+          <PersonalInfo
+            openCreate={openCreate}
+            openEdit={openEdit}
+            data={profileInfo}
+          />
 
-                  <Route path={`${match.path}/`} exact component={InfoTab} />
-                  <Route path={`${match.path}/info`} component={InfoTab} />
-                  <Route path={`${match.path}/jobs`} component={JobsTab} />
-                  <Route path={`${match.path}/contacts`} component={ContactsTab} />
-                  <Route path={`${match.path}/groups`} component={GroupsTab} />
-                </div>
+          <div className="p-grid">
+            <div className="p-col-12 p-md-9 content-smallscreen">
+              <div className="content-tab">
+                {/* ProfileTab */}
+                <ProfileTab />
               </div>
-              {/* portfolio */}
-              {accountType === "Artisan" && <Portfolio openCreate={openCreate} openEdit={openEdit} />}
+              <div className="content-body">
+                {/* biography */}
+
+                <Route path={`${match.path}/`} exact component={InfoTab} />
+                <Route path={`${match.path}/info`} component={InfoTab} />
+                <Route path={`${match.path}/jobs`} component={JobsTab} />
+                <Route path={`${match.path}/contacts`} component={ContactsTab} />
+                <Route path={`${match.path}/groups`} component={GroupsTab} />
+                <Route path={`${match.path}/review`} component={ReviewTab} />
+              </div>
             </div>
+            {/* portfolio */}
+            {accountType === "Artisan" && <Portfolio openCreate={openCreate} openEdit={openEdit} />}
           </div>
+        </div>
         <ChatContainer setContact={setContact} selectedContact={contact} />
         {contact !== null && <ChatContent setContact={setContact} contact={contact} />}
-        </div>
-        
+      </div>
+
     </>
   );
 };

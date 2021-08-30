@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from 'primereact/button';
 import Comment from './Comment';
 import { useSelector } from "react-redux";
-import { formatter } from '../../helpers/converter';
 import './CommentSection.css';
 
 const CommentList = ({ postId, onViewComments, expandProfileImage, commentCount }) => {
   const loadingType = useSelector(state => state.comment.loadingType);
   const comments = useSelector(state => state.comment.comments);
   const commentIds = useSelector(state => state.timeline.commentIds);
+  const [pageNumber, setPageNumber] = useState(1);
   const pageLimit = 10;
 
   const onViewMoreComments = () => {
-    const pageToLoad = formatter.getPageToLoad(commentIds[postId].length, pageLimit);
-    onViewComments(postId, pageToLoad, pageLimit, postId + "-loadingMoreComments")
+    onViewComments(postId, pageNumber + 1, pageLimit, postId + "-loadingMoreComments")
+    setPageNumber(pageNumber + 1);
   }
 
   return (

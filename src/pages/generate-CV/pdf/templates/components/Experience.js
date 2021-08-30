@@ -4,7 +4,8 @@ import moment from 'moment'
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        paddingBottom: "8px"
     },
     momentContainer: {
         width: '20%',
@@ -19,7 +20,8 @@ const styles = StyleSheet.create({
         padding: '4px'
     },
     bodyText: {
-        fontSize: '10px'
+        fontSize: '10px',
+        textAlign: "justify"
     },
     bodyHeaderStyle: {
   
@@ -40,7 +42,7 @@ const styles = StyleSheet.create({
 
 const Experience = ({ experience }) => {
     return (
-        <View style={styles.container}>
+        <View style={styles.container} wrap={false}>
             <View style={styles.momentContainer}>
                 <Text style={styles.momentStyle}>{moment(experience.startDate).format("YYYY-MM")} - </Text>
                 <Text style={styles.momentStyle}>{moment(experience.endDate).format("YYYY-MM")}</Text>

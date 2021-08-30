@@ -14,7 +14,10 @@ const styles = StyleSheet.create({
         fontSize: '12px',
         fontWeight: 500,
         lineHeight: '1.2',
-        marginBottom: '20px'
+        marginBottom: '20px',
+    },
+    bioTextStyle: {
+        textAlign: "justify"
     },
     headerStyle: {
         borderTopWidth: '2px',
@@ -37,7 +40,7 @@ const TemplateOneContent = ({ profileInfo }) => {
     return (
         <View style={styles.container}>
             <View style={styles.bioStyle}>
-                <Text>{profileInfo.profile}</Text>
+                <Text style={styles.bioTextStyle}>{profileInfo.profile}</Text>
             </View>
             <View style={styles.headerStyle}>
                 <Text style={styles.headerTitleStyle}>Experiences</Text>
