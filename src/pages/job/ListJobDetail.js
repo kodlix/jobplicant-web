@@ -13,6 +13,7 @@ const ListJobDetail = () => {
     const history = useHistory();
     const param = useParams();
     const fileUploadRef = useRef(null);
+    const splitButtonRef = useRef(null);
 
     const jobDetail = useSelector(state => state.job.jobDetail)
     const jobApplicationRequest = useSelector(state => state.job.jobApplicationRequest)
@@ -102,9 +103,10 @@ const ListJobDetail = () => {
                             style={{display: 'none'}} 
                             ref={fileUploadRef} />
                         <SplitButton 
+                            ref={splitButtonRef}
                             label={`Apply`} 
                             loading={jobApplicationRequest} 
-                            icon="pi pi-plus" 
+                            onClick={() => splitButtonRef.current.onDropdownButtonClick()}
                             model={options} 
                             className="btn btn-block"
                         ></SplitButton>
