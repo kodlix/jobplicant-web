@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { InputTextarea } from "primereact/inputtextarea";
 import { InputText } from "primereact/inputtext";
 import ModeFooter from "./ModeFooter";
 import SectionHeader from "./SectionHeader";
@@ -11,6 +10,7 @@ import { Calendar } from "primereact/calendar";
 import InputField from "components/InputField";
 
 import {Checkbox} from 'primereact/checkbox';
+import LimitedTextarea from "../LimitedTextarea";
 
 const jobCategoryList = [
   { name: "Networking", id: "NY1" },
@@ -49,6 +49,8 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
         jobTitle: itemToEdit.jobTitle,
         company: itemToEdit.company,
       });
+
+      
 
       setValue("description", itemToEdit.description);
       setValue("startDate", itemToEdit.startDate);
@@ -98,6 +100,8 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
       dispatch(updateExperience(itemToEdit.id, formData));
 
   };
+
+  console.log('descrption', experience)
   return (
     <>
       <div className="p-mt-2">
@@ -257,7 +261,13 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
                     </span>
                   )}
                 </label>
-                <InputTextarea
+          
+                <LimitedTextarea 
+                  value={experience?.description } 
+                  limit={500} 
+                  register={register}
+                />
+                {/* <InputTextarea
                   id="address"
                   type="text"
                   rows="4"
@@ -267,7 +277,7 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
                   name="description"
                   onChange={(e) => inputChange(e)}
                   value={experience.description}
-                />
+                /> */}
               </div>
               <div className="p-field p-col-12">
                 <label htmlFor="current">

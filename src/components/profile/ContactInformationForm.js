@@ -20,7 +20,12 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
 
 
   const [contactInfo, setContactInfo] = useState({
-    phoneNumber: ''
+    phoneNumber: '',
+    country: "",
+    email: "",
+    city: "",
+    postalCode: "",
+    address: ""
   });
   const profileInfo = useSelector(state => state.account.profileInfo);
   const loading = useSelector(state => state.account.submitting);
@@ -32,15 +37,15 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
 
   useEffect(() => {
     if (profileInfo) {
-      console.log(profileInfo)
+      console.log('profileinfo',profileInfo)
       setContactInfo({
         ...profileInfo,
-        country: countries.find(c => c.name === profileInfo.country),
-        phoneNumber: profileInfo.contactPhoneNumber === null ? '' : profileInfo.contactPhoneNumber,
-        email: profileInfo.email,
-        city: profileInfo.city,
-        postalCode: profileInfo.postalCode,
-        address: profileInfo.address
+        country: countries.find(c => c.name === profileInfo.country) ||  "",
+        phoneNumber: profileInfo.contactPhoneNumber ||  "",
+        email: profileInfo.email ||  "",
+        city: profileInfo.city||  "",
+        postalCode: profileInfo.postalCode ||  "",
+        address: profileInfo.address ||  ""
       });
 
       for (const [key, value] of Object.entries(profileInfo)) {
@@ -52,17 +57,17 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
    
   }, [profileInfo]);
 
-  const { phoneNumber, email, country, city, postalCode, address } = contactInfo;
-
-
+  
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     const contactData = { ...contactInfo, [name]: value };
     setContactInfo(contactData);
   }
-
+  
   const contactInfoSubmit = (data) => dispatch(updateContactInfo(contactInfo));
-
+  
+  const { phoneNumber, email, country, city, postalCode, address } = contactInfo;
   return (
     <>
       <div className="p-mt-2">
@@ -120,9 +125,10 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                   icon="pi pi-plus"
                   id="country"
                   name="country"
+                  {...register("country")}
                   value={country}
                   onChange={handleChange}
-                  {...register("country")}
+                  
                 />
               </div>
 

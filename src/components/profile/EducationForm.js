@@ -282,13 +282,13 @@ const yearNavigatorTemplate = (e) => {
                   })}
                   name="address"
                   onChange={handleChange}
-                  value={education.address}
+                  value={education.address} 
+                  maxLength={500}
                 />
               </div>
               
             </div>
             <ModeFooter
-              loading={loading}
               id="educationEdit"
               onCancel={onEditCancel}
             />

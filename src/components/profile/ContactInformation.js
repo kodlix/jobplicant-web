@@ -24,11 +24,11 @@ const ContactInformation = ({ openCreate, openEdit, profileInfo }) => {
           <span>
             <b>Phone Number:</b>
             {profileInfo.contactPhoneNumber}
-          </span>
+          </span><br/>
           <span>
             <b>Email: </b>
             {profileInfo.contactEmail}
-          </span>
+          </span><br/>
           <span>
             <b>Location: </b>
             {profileInfo.address}

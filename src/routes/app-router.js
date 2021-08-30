@@ -106,7 +106,7 @@ const AppRouter = () => {
         <ProtectedRoute path="/instant-hire-applicants/:id" component={Applicant} />
         <ProtectedRoute path="/instant-jobs" component={InstantJobs} />
         <ProtectedRoute path="/artisans" exact component={Artisan} />
-        <ProtectedRoute path="/review" exact component={Review} />
+        <ProtectedRoute path="/review/:jobId/:applicantId" exact component={Review} />
 
         <AnonymousRouteOrProtectedRoute path="/timeline" exact component={Timeline} />
         <AnonymousRouteOrProtectedRoute path="/post/:id" exact component={ViewPost} />
@@ -114,7 +114,7 @@ const AppRouter = () => {
         <ProtectedRoute path="/contacts/create" exact component={CreateContacts} />
 
         <ProtectedRoute path="/howtostart" exact component={HOWTOSTART} />
-        <ProtectedRoute path="/cv-template" exact component={CVTEMPLATE} />
+        <ProtectedRoute path="/cv-template" component={CVTEMPLATE} />
 
         {/* admin routes */}
         <ProtectedAdminRoute path="/admin" component={AdminDashboard} />

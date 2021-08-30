@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { Rating } from 'primereact/rating';
 import { Button } from 'primereact/button';
 import { acceptApplicant, loadApplicants, loadInstantJob, rejectApplicant, } from 'store/modules/instantJob';
 import Spinner from 'components/spinner/spinner.component'
 import { Tooltip } from 'primereact/tooltip';
-
+import 'primeflex/primeflex.css';
 
 import './InstantJobHire.css'
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,6 +14,8 @@ import { confirmDialog } from 'primereact/confirmdialog';
 import RecentInstantJobs from 'pages/instant-jobs/Recent_instant_Jobs';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { useForm } from 'react-hook-form';
+import { InputText } from 'primereact/inputtext';
+import { createReview } from 'store/modules/review';
 
 const Review = (props) => {
     const dispatch = useDispatch()
@@ -25,16 +27,35 @@ const Review = (props) => {
         reValidateMode: "onChange"
     });
     const [review, setReview] = useState("")
+    const loading = useSelector(state => state.review.loading);
 
-    const instantJob = useSelector(state => state.instantJob.instantjob);
 
-    const applicants = useSelector(state => state.instantJob.applicants);
-    console.log("Applicant => ", applicants);
-    console.log("instant-job => ", instantJob)
+    // const instantJob = useSelector(state => state.instantJob.instantjob);
+    // const applicants = useSelector(state => state.instantJob.applicants);
+    // console.log("Applicant => ", applicants);
+    // console.log("instant-job => ", instantJob)
 
-    const onSubmit = () => {
+    const applicant = useParams();
+    console.log("applicantid", applicant)
 
+    useEffect(() => {
+        register("rating")
+    }, [register])
+
+    // const handleChange = (e) => {
+    //     const { name, value } = e.target;
+    // };
+
+
+
+    const onSubmit = (data) => {
+        data.applicantId = applicant.applicantId;
+        data.jobId = applicant.jobId;
+        data.rating = rating;
+        dispatch(createReview(data))
     }
+
+
 
     return (
         <>
@@ -57,7 +78,7 @@ const Review = (props) => {
                                 </div>
 
                                 <div className="d-flex d-row p-mt-3">
-                                    <p className="p-mr-5"> <span className="font-weight-bold" >Job Id : </span> 0905901</p>
+                                    <p className="p-mr-5"> <span className="font-weight-bold" >Job Id : </span> {applicant.jobId}</p>
                                     <p className="p-mr-5"> <span className="font-weight-bold">Job Closed : </span><span>31 July, 2001</span></p>
                                     <p className="p-mr-5">  <span className="font-weight-bold">Applicant :</span> <span>Mr Jonathan Ebele</span></p>
                                 </div>
@@ -76,10 +97,10 @@ const Review = (props) => {
                                 </div>
 
                                 <div className="row p-mt-4">
-                                    <div className="col-2">
+                                    <div className="col-2 rounded-circle">
                                         <img
-                                            src="https://source.unsplash.com/random/100x100"
-                                            className="rounded circle img-fluid"
+                                            src="https://source.unsplash.com/random/100x100" style={{ borderRadius: "50%" }}
+                                            className="img-fluid"
                                             alt="user-image" height="100" width="100"
                                         />
                                     </div>
@@ -90,30 +111,78 @@ const Review = (props) => {
                                             <p ><span style={{ fontSize: 15 }}> Drycleaner </span></p>
                                             <div>
                                                 <p className="card-text"><span className="font-weight-bold">Rate this Appliant</span>  </p>
-                                                <div className="p-p-0"> <Rating value={rating} disabled={false} cancel={false}
-                                                    onChange={(e) => setRating(e.value)} stars={5} /></div>
+                                                <div className="p-p-0">
+                                                    <Rating
+                                                        value={rating}
+                                                        cancel={false}
+                                                        onChange={(e) => setRating(e.value)}
+                                                        stars={5}
+                                                        name="rating"
+                                                    />
+                                                </div>
 
                                             </div>
                                             {/* <p> <span></span> </p> */}
-                                            <div className="p-fluid p-md-12 p-sm-12">
-                                                <div className="p-field">
-                                                    {/* <label htmlFor="lastname"> My Feedback</label> */}
-                                                    <InputTextarea
-                                                        defaultValue={review}
-                                                        onChange={(e) => setReview(e.target.value)}
-                                                        rows={3}
-                                                        cols={50}
-                                                        placeholder="Please describe your experience with this applicant."
-                                                        name="review"
-                                                        {...register("review")}
-                                                        style={{ width: "40vw" }}
-                                                    />
-                                                </div>
-                                            </div>
+
                                         </div >
                                     </div>
                                 </div>
-                                <Button icon="pi pi-check" iconPos="left" label="Submit" id="saveButton" type="submit" className="float-right" />
+                                <hr />
+                                <div>
+                                    <div className="p-fluid p-formgrid p-grid">
+                                        <div className="p-field p-col">
+                                            <label htmlFor="title">Review Title *</label>
+                                            <InputText
+                                                id="title"
+                                                name="title"
+                                                type="text"
+                                                placeholder="e.g. I'm impressed / I'm not impressed"
+                                                {...register("title", { required: "Title is required" })}
+                                            />
+                                            {errors.title && <span className="text-danger font-weight-bold "> <p>{errors.title.message}</p>
+                                            </span>}
+                                        </div>
+                                        <div className="p-field p-col">
+                                            <label htmlFor="reviewerDisplayName">Your Name *</label>
+                                            <InputText
+                                                id="reviewerDisplayName"
+                                                name="reviewerDisplayName"
+                                                type="text"
+                                                {...register("reviewerDisplayName", { required: "Enter a Name " })}
+
+                                            />
+                                            {errors.reviewerDisplayName && <span className="text-danger font-weight-bold "> <p>{errors.reviewerDisplayName.message}</p>
+                                            </span>}
+                                        </div>
+                                    </div>
+
+                                    <div className="p-fluid p-md-12 p-pl-0 p-sm-12">
+                                        <div className="p-field">
+                                            <label htmlFor="detail"> Detailed Review *</label>
+                                            <InputTextarea
+                                                defaultValue={review}
+                                                onChange={(e) => setReview(e.target.value)}
+                                                rows={3}
+                                                cols={100}
+                                                placeholder="Please describe your experience with this applicant."
+
+                                                name="detail"
+                                                {...register("detail", { required: "Details about this person service is required" })}
+                                            />
+                                            {errors.detail && <span className="text-danger font-weight-bold "> <p>{errors.detail.message}</p>
+                                            </span>}
+                                        </div>
+                                    </div>
+                                </div>
+                                <Button
+                                    icon={loading ? " " : "pi pi-check"}
+                                    iconPos="left"
+                                    id="saveButton"
+                                    type="submit"
+                                    className="float-right"
+                                    label={loading ? "Please wait..." : "Submit"}
+                                    disabled={loading}
+                                />
 
                             </form>
                         </div>

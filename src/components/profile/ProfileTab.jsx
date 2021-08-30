@@ -12,9 +12,8 @@ const ProfileTab = () => {
       <div className="p-d-inline-flex">
         <Link to={`${match.path}/info`} onClick={() => setActiveTab("info")}>
           <i
-            className={`pi pi-info-circle ${
-              activeTab === "info" && "pi-active"
-            }`}
+            className={`pi pi-info-circle ${activeTab === "info" && "pi-active"
+              }`}
           ></i>
           <div className="tab-titles pi-active">Info</div>
         </Link>
@@ -35,6 +34,12 @@ const ProfileTab = () => {
             className={`pi pi-users ${activeTab === "groups" && "pi-active"}`}
           ></i>
           <div className={`tab-titles`}>Groups</div>
+        </Link>
+        <Link to={`${match.path}/review`} onClick={() => setActiveTab("review")}>
+          <i
+            className={`pi pi-star ${activeTab === "review" && "pi-active"}`}
+          ></i>
+          <div className={`tab-titles`}>Reviews</div>
         </Link>
       </div>
     </>
