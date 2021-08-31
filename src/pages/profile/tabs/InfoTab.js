@@ -16,6 +16,7 @@ import ModalForm from 'components/profile/ModalForm';
 import agentService from 'services/agent.service';
 import Spinner from 'components/spinner/spinner.component';
 import { loadCountry } from 'store/modules/location';
+import { ACCOUNT_TYPE } from 'constants/accountType';
 
 const InfoTab = () => {
 
@@ -116,13 +117,13 @@ const InfoTab = () => {
             profileInfo={profileInfo}
           />
           {/* hobbies */}
-          {accountType !== "Artisan" && <Hobbies
+          {accountType !== ACCOUNT_TYPE.ARTISAN && <Hobbies
             openCreate={openCreate}
             openEdit={openEdit}
             profileInfo={profileInfo}
           />}
           {/* profession of interest */}
-          {accountType !== "Artisan" && <ProfessionsOfInterest
+          {accountType !== ACCOUNT_TYPE.ARTISAN && <ProfessionsOfInterest
             openCreate={openCreate}
             openEdit={openEdit}
             profileInfo={profileInfo}
@@ -136,10 +137,10 @@ const InfoTab = () => {
 
         </div>
       </div>
-      <ModalForm 
-        data={profileInfo} 
-        mode={mode} 
-        itemToEdit={itemToEdit} 
+      <ModalForm
+        data={profileInfo}
+        mode={mode}
+        itemToEdit={itemToEdit}
       />
     </>
   );

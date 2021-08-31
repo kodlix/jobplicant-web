@@ -7,12 +7,13 @@ import { loadProfileInfo } from './../store/modules/account';
 import { OnLogout } from '../store/modules/auth';
 
 import './AppNavBar.css';
+import { ACCOUNT_TYPE } from 'constants/accountType';
 
 const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
     const userAccountType = agentService.Auth.current()?.accountType;
     const profileInfo = useSelector((state) => state.account.profileInfo);
     const dispatch = useDispatch();
-    const isCorporate = profileInfo.accountType === 'Corporate' ? true : false;
+    const isCorporate = profileInfo.accountType === ACCOUNT_TYPE.CORPORATE ? true : false;
     const LogOut = () => {
         dispatch(OnLogout());
     };
@@ -45,7 +46,7 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                         </div>
                     </Link>
                     <Link
-                        to={userAccountType === "Artisan" ? "/instant-jobs" : "/jobs"}
+                        to={userAccountType === ACCOUNT_TYPE.ARTISAN ? "/instant-jobs" : "/jobs"}
                         className="item-appNavbar mx-2"
                     >
                         <i className="pi pi-briefcase itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />

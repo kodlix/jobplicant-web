@@ -18,6 +18,7 @@ import Spinner from 'components/spinner/spinner.component';
 import { loadCountry } from 'store/modules/location';
 import PersonalInfo from 'components/profile/PersonalInfo';
 import { useParams } from 'react-router';
+import { ACCOUNT_TYPE } from 'constants/accountType';
 
 const ApplicantProfile = () => {
     const params = useParams()
@@ -128,13 +129,13 @@ const ApplicantProfile = () => {
                                         profileInfo={profileInfo}
                                     />
                                     {/* hobbies */}
-                                    {accountType !== "Artisan" && <Hobbies
+                                    {accountType !== ACCOUNT_TYPE.ARTISAN && <Hobbies
                                         openCreate={openCreate}
                                         openEdit={openEdit}
                                         profileInfo={profileInfo}
                                     />}
                                     {/* profession of interest */}
-                                    {accountType !== "Artisan" && <ProfessionsOfInterest
+                                    {accountType !== ACCOUNT_TYPE.ARTISAN && <ProfessionsOfInterest
                                         openCreate={openCreate}
                                         openEdit={openEdit}
                                         profileInfo={profileInfo}

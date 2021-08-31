@@ -12,6 +12,7 @@ import Spinner from 'components/spinner/spinner.component'
 import JobSidePanel from 'components/JobSidePanel';
 import agentService from 'services/agent.service';
 import { loadAllJobs } from 'store/modules/job';
+import { ACCOUNT_TYPE } from 'constants/accountType';
 
 
 const InstantHires = () => {
@@ -96,7 +97,7 @@ const InstantHires = () => {
                                 </div>
                             </div>
                         </div>
-                        {userAccountType === "Artisan" ? <RecentInstantJobs /> :
+                        {userAccountType === ACCOUNT_TYPE.ARTISAN ? <RecentInstantJobs /> :
                             <JobSidePanel data={allJobs} />}
 
                     </div>

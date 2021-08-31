@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 // import './AppSideBar.css';
 import agentService from 'services/agent.service';
+import { ACCOUNT_TYPE } from 'constants/accountType';
 
 const AppSideBar = (props) => {
     const dispatch = useDispatch();
@@ -52,7 +53,7 @@ const AppSideBar = (props) => {
                     <div className="dashbord-sidebar">
                         <ul>
                             <li className="heading">Manage Account</li>
-                            {userAccountType === "Corporate" ? <li className='li-border'>
+                            {userAccountType === ACCOUNT_TYPE.CORPORATE ? <li className='li-border'>
                                 <Link to="/company">
                                     <i className="li-icon lni lni-user"></i>
                                     <span className="li-title">My Profile</span>

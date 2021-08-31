@@ -14,11 +14,12 @@ import ThumbsUp from "../../components/ThumbUp";
 import "./Timeline.css";
 
 import "./Timeline.css";
+import { ACCOUNT_TYPE } from 'constants/accountType';
 const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, commentCount, setImageToDisplay }) => {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.timeline.loadingPosts);
   const [copyAlert, setCopyAlert] = useState(null);
-  const isCorporate = profileInfo?.accountType === "Corporate" ? true : false;
+  const isCorporate = profileInfo?.accountType === ACCOUNT_TYPE.CORPORATE ? true : false;
   const postId = post.id;
 
   const expandPostImage = (e) => {
@@ -86,7 +87,7 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
               </span>
             }
             {
-              post.author.accountType === "Artisan" &&
+              post.author.accountType === ACCOUNT_TYPE.ARTISAN &&
               <span className="stars p-ml-1 align-text-bottom" style={{ "--rating": post.author.rating }} />
             }
             <div className="poster-description">

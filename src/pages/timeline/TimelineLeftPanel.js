@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'primereact/button';
 import { formatter } from '../../helpers/converter';
 import { Link } from 'react-router-dom';
+import { ACCOUNT_TYPE } from 'constants/accountType';
 
 const TimelineLeftPanel = ({ profileInfo, expandProfileImage }) => {
   return (
@@ -26,7 +27,7 @@ const TimelineLeftPanel = ({ profileInfo, expandProfileImage }) => {
             </div>
           }
           {
-            profileInfo?.firstName && profileInfo?.accountType !== "Corporate" &&
+            profileInfo?.firstName && profileInfo?.accountType !== ACCOUNT_TYPE.CORPORATE &&
             <>
               <h4 className="p-mt-2">
                 {`${formatter.capitalizeFirstLetter(profileInfo?.firstName)} ${formatter.capitalizeFirstLetter(profileInfo?.lastName)}`}
@@ -57,7 +58,7 @@ const TimelineLeftPanel = ({ profileInfo, expandProfileImage }) => {
             </>
           }
           {
-            profileInfo?.firstName && profileInfo?.accountType === "Corporate" &&
+            profileInfo?.firstName && profileInfo?.accountType === ACCOUNT_TYPE.CORPORATE &&
             <>
               <h4 className="p-my-1 timeline-companyName">
                 {formatter.capitalizeFirstLetter(profileInfo?.companyName)}
@@ -102,7 +103,7 @@ const TimelineLeftPanel = ({ profileInfo, expandProfileImage }) => {
           </div>
           <Link
             className="timeline-leftpanel-connection w-100"
-            to={profileInfo.accountType === "Corporate" ? "/company" : "/profile"}
+            to={profileInfo.accountType === ACCOUNT_TYPE.CORPORATE ? "/company" : "/profile"}
           >
             <h6>
               View Profile
