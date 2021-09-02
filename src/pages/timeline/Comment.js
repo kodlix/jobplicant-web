@@ -31,12 +31,12 @@ const Comment = ({ comment, key, postId, expandProfileImage }) => {
     <div className="timeline-commentContainer" id={key}>
       <div className="d-flex p-pl-3 p-pt-3 w-100">
         {
-          comment.imageUrl
+          comment.author.imageUrl
             ?
             <img
               width="40"
               height="40"
-              src={`${API_ROOT}/${comment.imageUrl}`}
+              src={`${API_ROOT}/${comment.author.imageUrl}`}
               className="rounded-circle profile-picture-timeline p-mr-2"
               onClick={expandProfileImage}
               alt="profile"
@@ -49,11 +49,11 @@ const Comment = ({ comment, key, postId, expandProfileImage }) => {
             <div>
               <h6>
                 {
-                  comment.accountType === "Corporate"
+                  comment.author.accountType === "Corporate"
                     ?
-                    comment.companyName
+                    comment.author.companyName
                     :
-                    (`${formatter.capitalizeFirstLetter(comment?.firstName)} ${formatter.capitalizeFirstLetter(comment?.lastName)}`)
+                    (`${formatter.capitalizeFirstLetter(comment?.author?.firstName)} ${formatter.capitalizeFirstLetter(comment?.author?.lastName)}`)
                 }
               </h6>
               <div className="timeline-cardtitle-posttime p-pt-1 p-pb-3">

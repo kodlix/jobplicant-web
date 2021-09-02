@@ -14,7 +14,7 @@ import ThumbsUp from "../../components/ThumbUp";
 import "./Timeline.css";
 
 import "./Timeline.css";
-const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, commentCount, setImageToDisplay }) => {
+const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, setImageToDisplay }) => {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.timeline.loadingPosts);
   const [copyAlert, setCopyAlert] = useState(null);
@@ -248,7 +248,6 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
         <CommentList
           postId={postId}
           onViewComments={handleViewComments}
-          commentCount={commentCount}
           expandProfileImage={(e) => expandProfileImage(e.target.src)}
         />
       }

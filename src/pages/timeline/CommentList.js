@@ -4,16 +4,19 @@ import Comment from './Comment';
 import { useSelector } from "react-redux";
 import './CommentSection.css';
 
-const CommentList = ({ postId, onViewComments, expandProfileImage, commentCount }) => {
+const CommentList = ({ postId, onViewComments, expandProfileImage }) => {
   const loadingType = useSelector(state => state.comment.loadingType);
   const comments = useSelector(state => state.comment.comments);
   const commentIds = useSelector(state => state.timeline.commentIds);
   const [pageNumber, setPageNumber] = useState(1);
   const pageLimit = 10;
+  const commentTotal = comments.meta[postId]?.total || 0;
 
   const onViewMoreComments = () => {
-    onViewComments(postId, pageNumber + 1, pageLimit, postId + "-loadingMoreComments")
-    setPageNumber(pageNumber + 1);
+    const itemCount = commentIds[postId].length;
+    const pageToLoad = (pageNumber === 1) && itemCount >= pageLimit ? pageNumber + 1 : 1;
+    onViewComments(postId, pageToLoad, pageLimit, postId + "-loadingMoreComments")
+    setPageNumber(pageToLoad);
   }
 
   return (
@@ -35,7 +38,7 @@ const CommentList = ({ postId, onViewComments, expandProfileImage, commentCount 
       }
       {
         !commentIds?.[postId] &&
-        commentCount &&
+        commentTotal &&
         <Button
           label="View comments"
           loading={loadingType === postId + "-loadingComments"}
@@ -45,7 +48,7 @@ const CommentList = ({ postId, onViewComments, expandProfileImage, commentCount 
       }
       {
         commentIds?.[postId] &&
-        commentIds?.[postId]?.length < comments.meta[postId].total &&
+        commentIds?.[postId]?.length < commentTotal &&
         <Button
           label={`View more comments (${(comments.meta[postId].total) - (commentIds?.[postId]?.length)})`}
           loading={loadingType === postId + "-loadingMoreComments"}
