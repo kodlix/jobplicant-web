@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
-import { loadProfileInfo } from "store/modules/account";
+import { loadAccountByUser, LoadProfileDataByUser, loadProfileInfo } from "store/modules/account";
 import { openModal } from "store/modules/modal";
 
 import Biography from "components/profile/Biography";
@@ -17,9 +17,11 @@ import agentService from 'services/agent.service';
 import Spinner from 'components/spinner/spinner.component';
 import { loadCountry } from 'store/modules/location';
 import { ACCOUNT_TYPE } from 'constants/accountType';
+import { useParams } from 'react-router';
 
 const InfoTab = () => {
-
+  // const applicantProfileId = "4caf2d47-2560-4bc1-b926-6d0f76f5ad7a"
+  // useParams().id
   const dispatch = useDispatch();
   const loading = useSelector(state => state.account.loading);
   const profileInfo = useSelector((state) => state.account.profileInfo);
@@ -45,7 +47,12 @@ const InfoTab = () => {
   const [interests, setInterests] = useState(null);
 
   useEffect(() => {
-    console.log("change must happen");
+    // if (applicantProfileId && applicantProfileId !== "") {
+    //   dispatch(loadAccountByUser(applicantProfileId))
+    // }
+    // else {
+    //   dispatch(loadProfileInfo());
+    // }
     dispatch(loadProfileInfo());
     dispatch(loadCountry());
   }, [educationUpdatedOrDeleted, userSkillUpdatedOrDeleted, experienceUpdatedOrDeleted]);

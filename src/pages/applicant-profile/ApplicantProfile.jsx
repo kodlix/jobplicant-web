@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
-import { loadProfileInfo } from "store/modules/account";
+import { loadAccountByUser } from "store/modules/account";
 import { openModal } from "store/modules/modal";
 
 import Biography from "components/profile/Biography";
@@ -19,9 +19,10 @@ import { loadCountry } from 'store/modules/location';
 import PersonalInfo from 'components/profile/PersonalInfo';
 import { useParams } from 'react-router';
 import { ACCOUNT_TYPE } from 'constants/accountType';
+import UserProfile from 'pages/profile/UserProfile';
 
 const ApplicantProfile = () => {
-    const params = useParams()
+    const applicantid = useParams().id;
     const dispatch = useDispatch();
     const loading = useSelector(state => state.account.loading);
     const profileInfo = useSelector((state) => state.account.profileInfo);
@@ -47,11 +48,10 @@ const ApplicantProfile = () => {
     const [interests, setInterests] = useState(null);
 
     useEffect(() => {
-        console.log("change must happen applicant id", params?.id);
         dispatch(loadCountry());
-        // dispatch(loadProfileInfo());
+        dispatch(loadAccountByUser(applicantid));
         // dispatch(loadApplicantInfo(params?.id));
-    }, [educationUpdatedOrDeleted, userSkillUpdatedOrDeleted, experienceUpdatedOrDeleted]);
+    }, [dispatch]);
 
     const expandImage = () => { };
 
@@ -85,6 +85,7 @@ const ApplicantProfile = () => {
 
     return (
         <div className="container">
+            <UserProfile />
             <div className="content-container">
                 <PersonalInfo
                     openCreate={openCreate}

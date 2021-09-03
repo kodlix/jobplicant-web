@@ -58,7 +58,7 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                         to="/howtostart"
                         className="item-appNavbar mx-2"
                     >
-                        <i className="li-icon lni lni-clipboard itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
+                        <i className="pi pi-file itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
                         <div className="itemTitle-appNavbar mx-2">
                             CV Service
                         </div>

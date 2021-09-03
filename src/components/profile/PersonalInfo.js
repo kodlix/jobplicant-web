@@ -1,7 +1,7 @@
 import { PROFILE } from "constants/profile";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadProfileInfo, updateProfilePicture } from "store/modules/account";
+import { updateProfilePicture } from "store/modules/account";
 import JobplicantAvatar from "./jobplicant-avatar";
 
 const PersonalInfo = ({ openCreate, openEdit, data }) => {

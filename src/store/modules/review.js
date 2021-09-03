@@ -96,10 +96,10 @@ export function createReview(data) {
         )
     }
 }
-export function loadApplicantReviews(page, limit) {
+export function loadApplicantReviews(id, page, limit) {
     return dispatch => {
         dispatch(isRequestLoading(true));
-        return agent.Review.loadByApplicant(page, limit).then(
+        return agent.Review.loadByApplicant(id, page, limit).then(
             response => {
                 //handle success
                 dispatch(loadApplicantReview(response));
@@ -107,7 +107,7 @@ export function loadApplicantReviews(page, limit) {
 
             },
             error => {
-                dispatch(showMessage({ type: "error", message: error, title: "Failed to load Instant jobs" }));
+                dispatch(showMessage({ type: "error", message: error, title: "Failed to load applicant reviews" }));
                 dispatch(isRequestLoading(false));
 
             }

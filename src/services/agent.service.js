@@ -4,8 +4,8 @@ import superagentPromise from "superagent-promise";
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-// export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api.herokuapp.com";
-export const API_ROOT = "https://jobplicant-api.herokuapp.com";
+export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api.herokuapp.com";
+// export const API_ROOT = "https://jobplicant-api.herokuapp.com";
 
 console.log('API_ROOT', API_ROOT);
 console.log("environmental variables", process.env);
@@ -144,8 +144,8 @@ const Account = {
   updateProfilePicture: (image) => requests.put("/accounts/upload-avatar", image),
   updateProfilePortfolio: (images) => requests.put("/accounts/upload-portfolios", images),
   load: (email) => requests.get(`/account/getbyemail/${email}`),
-  getByID: (id) => requests.get(`/account/${id}`),
-  verufyAccount: (id) => requests.get(`/account/${id}`),
+  getByID: (id) => requests.get(`/accounts/${id}`),
+  verifyAccount: (id) => requests.get(`/account/${id}`),
 };
 
 const JobExperience = {
@@ -269,8 +269,11 @@ const InstantJob = {
 const Review = {
   save: (review) => requests.post("/review", review),
   load: () => requests.get(`/review`),
-  loadByApplicant: () => requests.get("​/review​/applicant​/reviews"),
-  edit: (id) => requests.put(`/review​/disable​/{id}`, id),
+  loadByApplicant: (applicantId, page, limit) => {
+    const url = `/review/${applicantId}/all?page=${page}&limit=${limit}`;
+    return requests.get(url);
+  },
+  edit: (id) => requests.put(`review/edit/${id}`, id),
 
 };
 

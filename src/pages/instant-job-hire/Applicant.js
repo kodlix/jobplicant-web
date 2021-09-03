@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Tag } from 'primereact/tag';
 import { confirmDialog } from 'primereact/confirmdialog';
 import RecentInstantJobs from 'pages/instant-jobs/Recent_instant_Jobs';
+import { loadAccountByUser } from 'store/modules/account';
 
 const Applicant = (props) => {
     const dispatch = useDispatch()
@@ -24,6 +25,8 @@ const Applicant = (props) => {
     const applicants = useSelector(state => state.instantJob.applicants);
     console.log("Applicant => ", applicants);
     console.log("instant-job => ", instantJob);
+    const individualProfile = useSelector(state => state.account.profileInfo);
+
 
 
     useEffect(() => {
@@ -38,6 +41,9 @@ const Applicant = (props) => {
     useEffect(() => {
         dispatch(loadInstantJob(instantJobId))
     }, [dispatch])
+
+    const getApplicantInfo = userId => dispatch(loadAccountByUser(userId))
+
 
     const acceptHandler = (id) => {
         dispatch(acceptApplicant(id));
@@ -208,7 +214,7 @@ const Applicant = (props) => {
                                                 </div>
                                                 {!applicant.accepted && !applicant.rejected && <div className="p-grid p-pl-5 p-pb-2">
                                                     <div className=" applicant-actionIcons p-pr-2">
-                                                        <Link to={`/applicant/${applicant.applicantId}`}><a className="pi pi-user" title="View Applicant Profile"></a></Link>
+                                                        <Link to={`/applicant/${applicant.applicantId}`} onClick={() => getApplicantInfo(applicant.applicantId)}><a className="pi pi-user" title="View Applicant Profile"></a></Link>
                                                     </div>
                                                     <div className="p-pr-2">
                                                         <Button label="Accept" id="saveButton" className="p-button-sm"
