@@ -17,12 +17,13 @@ import agentService from 'services/agent.service';
 import Spinner from 'components/spinner/spinner.component';
 import { loadCountry } from 'store/modules/location';
 import PersonalInfo from 'components/profile/PersonalInfo';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { ACCOUNT_TYPE } from 'constants/accountType';
 import { Link, } from "react-router-dom";
 import { loadApplicantReviews } from 'store/modules/review';
 import { formatter } from 'helpers/converter';
 import Portfolio from 'components/profile/Portfolio';
+import { Button } from 'primereact/button';
 
 
 const ApplicantProfile = () => {
@@ -42,6 +43,8 @@ const ApplicantProfile = () => {
 
     console.log("applicantReview", applicantReview)
 
+    const history = useHistory();
+
     const handleInfoTab = () => {
         setIsHideReview(true);
         setIsShowInfo(true);
@@ -58,8 +61,8 @@ const ApplicantProfile = () => {
     useEffect(() => {
         dispatch(loadCountry());
         dispatch(loadAccountByUser(applicantid));
-        dispatch(loadApplicantReviews(applicantId, page, limit))
-    }, [dispatch]);
+        dispatch(loadApplicantReviews(applicantId, page, limit));
+    }, [dispatch, applicantid]);
 
     const openCreate = (name) => {
         setMode("create");
@@ -87,11 +90,16 @@ const ApplicantProfile = () => {
     return (
         <div className="container">
             <div className="pt-5">
-                <PersonalInfo
-                    openCreate={openCreate}
-                    openEdit={openEdit}
-                    data={profileInfo}
-                />
+                <div className="d-flex justify-content-lg-between">
+                    <PersonalInfo
+                        openCreate={openCreate}
+                        openEdit={openEdit}
+                        data={profileInfo}
+                    />
+                    <div className="flex-shrink-0">
+                        <Button onClick={() => history.goBack()} className="bk-btn p-pt-2 app-color"><i className="pi pi-arrow-left text-white">  Back</i></Button>
+                    </div>
+                </div>
                 <div className="p-grid">
                     <div className="p-col-9 content-smallscreen">
                         <div className="content-tab">
