@@ -13,7 +13,7 @@ const ReviewTab = () => {
 
     return (
         <>
-            <div className="p-card p-4">
+            <div className="p-card p-4 mt-2">
                 <h3>Reviews</h3>
             </div>
             <div className="mt-1">

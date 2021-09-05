@@ -1,82 +1,83 @@
-const contacts = [
-  {
-    name: "Jane Doe",
-    ratings: 3,
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-  },
-  {
-    name: "Jane Doe",
-    ratings: 5,
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  },
-  {
-    name: "Jane Doe",
-    ratings: 4.5,
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.  ",
-  },
-  {
-    name: "Jane Doe",
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loadContacts } from "store/modules/contact";
 
-    ratings: 3.5,
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.  ",
-  },
-  {
-    name: "Jane Doe",
+const ContactsTab = () => {
 
-    ratings: 4,
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  },
-];
-const ContactsTab = () => (
-  <>
-    <div className="p-card p-4">
-      <h3>Contacts</h3>
-    </div>
-    <div className="mt-3">
-      {contacts.map(({ name, ratings, description }, index) => (
-        <div
-          className="p-card p-4 mt-2 d-flex justify-content-between"
-          key={index}
-        >
-          <div className="d-flex">
-            <img
-              src="https://source.unsplash.com/random/50x50"
-              className="rounded circle"
-              alt="image"
-            />
-            <div className="p-2"></div>
-            <div>
-              <ul>
-                <li className="d-flex">
-                  <h4>{name}</h4> 
-                  <span className="p-1"></span>
-                  <span>
-                    <div
-                      className="stars"
-                      style={{ "--rating": ratings }}
-                    ></div>
-                  </span>
-                </li>
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contact.contacts);
+  const loading = useSelector(state => state.contact.loadingContact);
+  let myContacts = contacts.ids;
 
-                <li className="d-flex">{description}</li>
-              </ul>
+  const pageLimit = 10;
+
+  useEffect(() => {
+    dispatch(loadContacts(1, pageLimit, "loadingContacts"))
+  }, [dispatch]);
+
+  return (
+    <>
+      <div className="p-card p-4 mt-2">
+        <h3>Contacts</h3>
+      </div>
+      <div className="mt-3">
+        {myContacts && myContacts.length > 0 && myContacts.map((contactId, index) => {
+          const contact = contacts.data[contactId];
+          if (!contact) {
+            return null;
+          }
+          return (
+            <div
+              className="p-card p-4 mt-2 d-flex justify-content-between"
+              key={index}
+            >
+              <div className="d-flex">
+                <img
+                  src="https://source.unsplash.com/random/50x50"
+                  className="rounded circle"
+                  alt="image"
+                />
+                <div className="p-2"></div>
+                <div>
+                  <ul>
+                    <li className="d-flex">
+                      <h4>{`${contact.firstName}  ${contact.lastName}`}</h4>
+                      <span className="p-1"></span>
+                      <span>
+                        <div
+                          className="stars"
+                          style={{ "--rating": contact.ratings }}
+                        ></div>
+                      </span>
+                    </li>
+
+                    <li className="d-flex">{contact?.description}</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="">
+                <a href="/" style={{ color: 'black', marginLeft: '5px', }} >Audio Call </a>
+                <a href="/" style={{ color: 'black', marginLeft: '5px', }} >Video Call </a>
+                <a href="/" style={{ color: 'black', marginLeft: '5px', }} >Message </a>
+                <a href="/" style={{ color: 'black', marginLeft: '5px', }} >Delete </a>
+              </div>
             </div>
+          )
+        })}
+
+        {
+          myContacts === 0 && <div className="p-card p-p-4 p-mb-2 d-flex justify-content-center">
+            <div className="text-center">
+              <span className="p-card-title ">
+                Oops. Contact List is Empty
+              </span>
+            </div>
+
           </div>
-          <div className="">
-           <a href="/" style={{color: 'black', marginLeft: '5px',}} >Audio Call </a>
-           <a href="/" style={{color: 'black', marginLeft: '5px',}} >Video Call </a>
-           <a href="/" style={{color: 'black', marginLeft: '5px',}} >Message </a>
-           <a href="/" style={{color: 'black', marginLeft: '5px',}} >Delete </a>
-          </div>
-        </div>
-      ))}
-    </div>
-  </>
-);
+        }
+      </div>
+    </>
+  )
+};
 
 export default ContactsTab;
