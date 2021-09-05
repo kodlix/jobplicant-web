@@ -321,7 +321,6 @@ const New = ({ mode }) => {
                                         iconPos="left"
                                         label={loading ? "Please wait..." : "Submit"}
                                         disabled={loading}
-                                        id="saveButton"
                                         type="submit"
                                         className="float-right" />
                                 </form>
