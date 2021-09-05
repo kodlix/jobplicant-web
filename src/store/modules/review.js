@@ -5,7 +5,7 @@ import { MESSAGE_TYPE } from "store/constant";
 
 // initial values
 const Initial_State = {
-    review: {},
+    review: [],
     reviews: [],
     loading: false
 };
@@ -86,7 +86,6 @@ export function createReview(data) {
                 dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "Review successfully created", title: 'Review Successfully created ' }));
                 dispatch(push("/instant-hires"));
                 dispatch(isRequestLoading(false));
-
             },
             error => {
                 dispatch(showMessage({ type: "error", message: error, title: "Failed to create review" }));

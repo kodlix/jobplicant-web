@@ -1,24 +1,17 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
 import { loadProfileInfo } from "store/modules/account";
-import { loadApplicantReview, loadApplicantReviews } from "store/modules/review";
 
 
 const ReviewTab = () => {
     const dispatch = useDispatch();
-    const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(50);
-
     const applicantReview = useSelector(state => state.account.profileInfo);
-    console.log("reviews", applicantReview);
 
     useEffect(() => {
         dispatch(loadProfileInfo());
     }, [dispatch])
 
     return (
-
         <>
             <div className="p-card p-4">
                 <h3>Reviews</h3>
@@ -60,8 +53,6 @@ const ReviewTab = () => {
                     </div>
                 )}
                 {applicantReview?.reviews.length === 0 && <strong className="mx-auto text-secondary">No review found</strong>}
-
-
             </div>
         </>
     )
