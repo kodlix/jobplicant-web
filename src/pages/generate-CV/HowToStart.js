@@ -11,7 +11,7 @@ const HowToStart = () => {
     return (
         <div className="d-flex p-jc-center">
             <div className="generate-cv" >
-                <div className="content-container">
+                <div className="mt-5">
                     <div className="p-grid">
                         <div className="p-col-12">
                             <div className="card card-size-list">
