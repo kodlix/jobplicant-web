@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'primereact/button';
 import agentService from 'services/agent.service';
@@ -13,6 +13,7 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
     const userAccountType = agentService.Auth.current()?.accountType;
     const profileInfo = useSelector((state) => state.account.profileInfo);
     const dispatch = useDispatch();
+    const history = useHistory();
     const isCorporate = profileInfo.accountType === ACCOUNT_TYPE.CORPORATE ? true : false;
     const LogOut = () => {
         dispatch(OnLogout());
@@ -21,6 +22,8 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
     useEffect(() => {
         dispatch(loadProfileInfo());
     }, [dispatch]);
+
+    const navigateToProfile = () => history.push('/profile')
 
     return (
         <div className="container-appNavbar">
@@ -123,7 +126,8 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                             Request Instant Job
                         </Button>
                     </Link>
-                    <div
+                    <div 
+                        onClick={navigateToProfile}
                         id="profile-dropdown"
                         role="button"
                         data-bs-toggle="dropdown"

@@ -42,6 +42,7 @@ const InfoTab = () => {
   const [interests, setInterests] = useState(null);
 
   useEffect(() => {
+    
     dispatch(loadProfileInfo());
     dispatch(loadCountry());
   }, [educationUpdatedOrDeleted, userSkillUpdatedOrDeleted, experienceUpdatedOrDeleted]);
