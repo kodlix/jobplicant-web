@@ -103,21 +103,21 @@ const ApplicantProfile = () => {
                 <div className="p-grid">
                     <div className="p-col-9 content-smallscreen">
                         <div className="content-tab">
-                            <div className="p-d-inline-flex">
-                                <Link onClick={() => { setActiveTab("info"); handleInfoTab() }}>
+                            <div className="p-d-inline-flex m-2">
+                                <div onClick={() => { setActiveTab("info"); handleInfoTab() }} className="text-center">
                                     <i
                                         className={`pi pi-info-circle ${activeTab === "info" && "pi-active"
                                             }`}
                                     ></i>
                                     <div className="tab-titles pi-active">Info</div>
-                                </Link>
+                                </div>
 
-                                <Link onClick={() => { setActiveTab("review"); handleReviewTab() }}>
+                                <div onClick={() => { setActiveTab("review"); handleReviewTab() }} className="text-center">
                                     <i
                                         className={`pi pi-star ${activeTab === "review" && "pi-active"}`}
                                     ></i>
                                     <div className={`tab-titles`}>Reviews</div>
-                                </Link>
+                                </div>
                             </div>
                         </div>
 
@@ -126,6 +126,7 @@ const ApplicantProfile = () => {
                                 openCreate={openCreate}
                                 openEdit={openEdit}
                                 profileInfo={profileInfo}
+                            // hide={true}
                             />
 
                             <div className="p-grid">

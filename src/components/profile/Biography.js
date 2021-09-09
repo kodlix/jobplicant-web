@@ -6,7 +6,7 @@ import { PROFILE } from "constants/profile";
 import "./UserProfile.css";
 
 const Biography = ({ openCreate, openEdit, profileInfo }) => {
-  
+
   return (
     <>
       <div className="p-card p-mt-2">
@@ -19,6 +19,7 @@ const Biography = ({ openCreate, openEdit, profileInfo }) => {
           openModalOnCreate={() => openEdit(PROFILE.BIOGRAPHY)}
           openModalOnEdit={() => openCreate(PROFILE.BIOGRAPHY)}
           hasData={profileInfo?.profile}
+        // hide="true"
         />
         <div className="p-card-body">{profileInfo?.profile}</div>
       </div>
