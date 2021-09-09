@@ -136,13 +136,8 @@ const CreateJob = () => {
                     <div className="card bg-white">
                       <div className="container">
                         <div className="p-4">
-                          <div className="d-flex justify-content-between">
-                            <h5>Company Information</h5>
-                            <div className="app-color">
-                              <Link to="/jobs" className="bk-btn p-pt-2 app-color"><i className="pi pi-arrow-left">Back</i></Link>
-                              {/* <i className="pi pi-back-arrow"></i> Back */}
-                            </div>
-                          </div>
+                          <h5>Company Information</h5>
+
                           <div className="p-2"></div>
                           <div className="row">
                             <div className="p-field p-col-6 p-md-6 p-sm-12">

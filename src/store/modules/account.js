@@ -49,8 +49,8 @@ export default function reducer(state = account, action = {}) {
   switch (action.type) {
     case LOADING:
       return { ...state, loading: true };
-    case SUBMITTING: 
-      return {...state, submitting: true }
+    case SUBMITTING:
+      return { ...state, submitting: true }
     case LOAD_PROFILE_INFO:
       return {
         ...state,
@@ -64,8 +64,8 @@ export default function reducer(state = account, action = {}) {
         loading: false,
         submitting: false
       };
-    case DELETE_EDUCATION: 
-      const newEducations =  state.profileInfo.educations.filter(edu => edu.id !== action.payload);
+    case DELETE_EDUCATION:
+      const newEducations = state.profileInfo.educations.filter(edu => edu.id !== action.payload);
       console.log('new education', newEducations);
       return {
         ...state,
@@ -74,7 +74,7 @@ export default function reducer(state = account, action = {}) {
           educations: [...newEducations]
         }
       }
-    case DELETE_EXPERIENCE: 
+    case DELETE_EXPERIENCE:
       const newExperiences = state.profileInfo.experiences.filter(exp => exp.id !== action.payload)
       console.log('newExperiences', newExperiences);
       return {
@@ -90,9 +90,11 @@ export default function reducer(state = account, action = {}) {
 }
 
 // Action Creators
-export function profileInfoLoaded(data) {
-  return { type: LOAD_PROFILE_INFO, payload: data };
-}
+export const profileInfoLoaded = (data) => ({
+  type: LOAD_PROFILE_INFO,
+  payload: data
+})
+
 export const profileInfoLoadedError = () => ({
   type: LOAD_PROFILE_INFO_ERROR,
 });
@@ -391,7 +393,7 @@ export const deleteExperience = (id) => (dispatch) => {
 };
 //to delete education
 export const deleteEducation = (id) => (dispatch) => {
-  
+
   // dispatch(loading());
   return agent.Education.delete(id).then(
     (response) => {
