@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-
 import { loadAccountByUser } from "store/modules/account";
 import { openModal } from "store/modules/modal";
-
 import Biography from "components/profile/Biography";
 import Experience from "components/profile/Experience";
 import Education from "components/profile/Education";
@@ -19,12 +17,13 @@ import { loadCountry } from 'store/modules/location';
 import PersonalInfo from 'components/profile/PersonalInfo';
 import { useHistory, useParams } from 'react-router';
 import { ACCOUNT_TYPE } from 'constants/accountType';
-import { Link, } from "react-router-dom";
 import { loadApplicantReviews } from 'store/modules/review';
 import { formatter } from 'helpers/converter';
 import Portfolio from 'components/profile/Portfolio';
 import { Button } from 'primereact/button';
+import "./ApplicantProfile.css"
 
+// const ApplicantContext  = useContext(false);
 
 const ApplicantProfile = () => {
     const applicantId = useParams().id;
@@ -95,6 +94,8 @@ const ApplicantProfile = () => {
                         openCreate={openCreate}
                         openEdit={openEdit}
                         data={profileInfo}
+                        isViewApplicant={true}
+
                     />
                     <div className="flex-shrink-0">
                         <Button onClick={() => history.goBack()} className="bk-btn p-pt-2 app-color"><i className="pi pi-arrow-left text-white">  Back</i></Button>
@@ -104,7 +105,7 @@ const ApplicantProfile = () => {
                     <div className="p-col-9 content-smallscreen">
                         <div className="content-tab">
                             <div className="p-d-inline-flex m-2">
-                                <div onClick={() => { setActiveTab("info"); handleInfoTab() }} className="text-center">
+                                <div onClick={() => { setActiveTab("info"); handleInfoTab() }} className="text-center pointer">
                                     <i
                                         className={`pi pi-info-circle ${activeTab === "info" && "pi-active"
                                             }`}
@@ -112,7 +113,7 @@ const ApplicantProfile = () => {
                                     <div className="tab-titles pi-active">Info</div>
                                 </div>
 
-                                <div onClick={() => { setActiveTab("review"); handleReviewTab() }} className="text-center">
+                                <div onClick={() => { setActiveTab("review"); handleReviewTab() }} className="text-center pointer">
                                     <i
                                         className={`pi pi-star ${activeTab === "review" && "pi-active"}`}
                                     ></i>
@@ -126,7 +127,7 @@ const ApplicantProfile = () => {
                                 openCreate={openCreate}
                                 openEdit={openEdit}
                                 profileInfo={profileInfo}
-                            // hide={true}
+                                isViewApplicant={true}
                             />
 
                             <div className="p-grid">
@@ -136,13 +137,16 @@ const ApplicantProfile = () => {
                                         openEdit={openEdit}
                                         profileInfo={profileInfo}
                                         formatDate={formatDate}
-                                        hide={true}
+                                        isViewApplicant={true}
+
                                     />
                                     <Education
                                         openCreate={openCreate}
                                         openEdit={openEdit}
                                         profileInfo={profileInfo}
                                         formatDate={formatDate}
+                                        isViewApplicant={true}
+
                                     />
                                 </div>
                                 <div className="p-col-12 content-rightPanel p-md-4">
@@ -150,26 +154,32 @@ const ApplicantProfile = () => {
                                         openCreate={openCreate}
                                         openEdit={openEdit}
                                         profileInfo={profileInfo}
+                                        isViewApplicant={true}
+
                                     />
                                     <Skills
                                         openCreate={openCreate}
                                         openEdit={openEdit}
                                         profileInfo={profileInfo}
+                                        isViewApplicant={true}
                                     />
                                     {accountType !== ACCOUNT_TYPE.ARTISAN && <Hobbies
                                         openCreate={openCreate}
                                         openEdit={openEdit}
                                         profileInfo={profileInfo}
+                                        isViewApplicant={true}
                                     />}
                                     {accountType !== ACCOUNT_TYPE.ARTISAN && <ProfessionsOfInterest
                                         openCreate={openCreate}
                                         openEdit={openEdit}
                                         profileInfo={profileInfo}
+                                        isViewApplicant={true}
                                     />}
                                     <LocationOfInterest
                                         openCreate={openCreate}
                                         openEdit={openEdit}
                                         profileInfo={profileInfo}
+                                        isViewApplicant={true}
                                     />
 
                                 </div>
@@ -226,6 +236,7 @@ const ApplicantProfile = () => {
                 </div>
             </div>
         </div>
+
     );
 }
 

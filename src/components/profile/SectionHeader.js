@@ -1,6 +1,4 @@
 import React from "react";
-import { useParams } from "react-router";
-import agentService from "services/agent.service";
 
 const SectionHeader = ({
   openModalOnEdit,
@@ -13,11 +11,9 @@ const SectionHeader = ({
   showAddButton = false,
   showEditButton = false,
   showDeleteButton = false,
-  hide = false
+  isViewApplicant = false
 }) => {
 
-  const loggedInUserId = agentService.Auth.current().id
-  const ApplicantId = useParams().id;
 
   return (
     <div className="sectionHeader">
@@ -26,7 +22,7 @@ const SectionHeader = ({
           <i className={`pi pi-${icon}`}></i>
           {sectionTitle}
         </span>
-        {!hide && <span>
+        {!isViewApplicant && <span>
           {showAddButton && !hasData && (
             <i className="pi pi-plus" onClick={openModalOnCreate}></i>
           )}

@@ -6,7 +6,7 @@ import "./UserProfile.css";
 import { deleteExperience } from "store/modules/account";
 import { useDispatch } from "react-redux";
 
-const Experience = ({ openCreate, openEdit, profileInfo, formatDate }) => {
+const Experience = ({ openCreate, openEdit, profileInfo, formatDate, isViewApplicant }) => {
   const dispatch = useDispatch();
   return (
     <>
@@ -18,6 +18,7 @@ const Experience = ({ openCreate, openEdit, profileInfo, formatDate }) => {
           showAddButton="true"
           openModalOnCreate={() => openCreate(PROFILE.EXPERIENCE)}
           openModalOnEdit={() => openEdit(PROFILE.EXPERIENCE)}
+          isViewApplicant={isViewApplicant}
         />
         {profileInfo.experiences.map((item, index) => (
           <div key={index}>

@@ -5,7 +5,8 @@ import { PROFILE } from "constants/profile";
 
 import "./UserProfile.css";
 
-const Biography = ({ openCreate, openEdit, profileInfo }) => {
+const Biography = ({ openCreate, openEdit, profileInfo, isViewApplicant }) => {
+
 
   return (
     <>
@@ -19,7 +20,7 @@ const Biography = ({ openCreate, openEdit, profileInfo }) => {
           openModalOnCreate={() => openEdit(PROFILE.BIOGRAPHY)}
           openModalOnEdit={() => openCreate(PROFILE.BIOGRAPHY)}
           hasData={profileInfo?.profile}
-        // hide="true"
+          isViewApplicant={isViewApplicant}
         />
         <div className="p-card-body">{profileInfo?.profile}</div>
       </div>

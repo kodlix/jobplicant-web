@@ -5,7 +5,7 @@ import { PROFILE } from "constants/profile";
 import "./UserProfile.css";
 import { useDispatch } from "react-redux";
 
-const Education = ({ openCreate, openEdit, profileInfo, formatDate }) => {
+const Education = ({ openCreate, openEdit, profileInfo, formatDate, isViewApplicant }) => {
   const dispatch = useDispatch();
 
   return (
@@ -19,6 +19,8 @@ const Education = ({ openCreate, openEdit, profileInfo, formatDate }) => {
           showEditButton="true"
           openModalOnCreate={() => openCreate(PROFILE.EDUCATION)}
           openModalOnEdit={() => openEdit(PROFILE.EDUCATION)}
+          isViewApplicant={isViewApplicant}
+
         />
         {profileInfo?.educations.length > 0 ? (
           profileInfo?.educations.map((education, index) => (

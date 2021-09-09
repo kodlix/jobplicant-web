@@ -4,9 +4,9 @@ import { PROFILE } from "constants/profile";
 import "./UserProfile.css";
 import { Tag } from "primereact/tag";
 
-const ProfessionsOfInterest = ({ openCreate, openEdit, profileInfo}) => {
+const ProfessionsOfInterest = ({ openCreate, openEdit, profileInfo, isViewApplicant }) => {
 
-  const formatInterest = (interests) => <strong>{interests.map(interest => <span><Tag>{interest}</Tag>&nbsp;&nbsp;</span>)}</strong>;
+  const formatInterest = (interests) => <strong>{interests.map((interest, i) => <span key={i}><Tag>{interest}</Tag>&nbsp;&nbsp;</span>)}</strong>;
 
   return (
     <>
@@ -20,7 +20,8 @@ const ProfessionsOfInterest = ({ openCreate, openEdit, profileInfo}) => {
           showEditButton="true"
           openModalOnCreate={() => openEdit(PROFILE.PROFESSION)}
           openModalOnEdit={() => openCreate(PROFILE.PROFESSION)}
-          // onClick={mode}
+          isViewApplicant={isViewApplicant}
+        // onClick={mode}
         />
         <div className="p-card-body p-text-secondary">
           <ul className="listStyle">

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateProfilePicture } from "store/modules/account";
 import JobplicantAvatar from "./jobplicant-avatar";
 
-const PersonalInfo = ({ openCreate, openEdit, data }) => {
+const PersonalInfo = ({ openCreate, openEdit, data, isViewApplicant }) => {
   const rating = 4.5;
   const dispatch = useDispatch();
   // const profileInfo = useSelector((state) => state.account.profileInfo);
@@ -65,6 +65,8 @@ const PersonalInfo = ({ openCreate, openEdit, data }) => {
         selectedFile={selectedFile}
         loading={loading}
         preview={preview}
+        isViewApplicant={false}
+
       />
       <input
         type="file"
@@ -76,13 +78,13 @@ const PersonalInfo = ({ openCreate, openEdit, data }) => {
         <h3 className="username p-mr-2">
           {profileInfo?.firstName || 'John'} {profileInfo?.lastName || 'Doe'}
         </h3>
-        <i
+        {!isViewApplicant && <i
           className="pi pi-pencil p-pr-3 personalInfo-edit"
           id="personalInfoEdit"
           onClick={() => openEdit(PROFILE.PERSONAL_INFO, profileInfo)}
         >
           &nbsp;<u>(Edit Personal Info)</u>
-        </i>
+        </i>}
         {profileInfo.experiences.length && <div>{profileInfo.experiences[0].jobTitle} at {profileInfo.experiences[0].company}</div>}
 
         <span>
