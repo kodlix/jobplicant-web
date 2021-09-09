@@ -6,6 +6,7 @@ import { loadProfileInfo } from "store/modules/account";
 const ReviewTab = () => {
     const dispatch = useDispatch();
     const applicantReview = useSelector(state => state.account.profileInfo);
+    console.log("review", applicantReview);
 
     useEffect(() => {
         dispatch(loadProfileInfo());
@@ -17,7 +18,7 @@ const ReviewTab = () => {
                 <h3>Reviews</h3>
             </div>
             <div className="mt-1">
-                {applicantReview?.reviews && applicantReview?.reviews.length > 0 && applicantReview?.reviews.map((review, index) =>
+                {applicantReview?.reviews && applicantReview?.reviews?.length > 0 && applicantReview?.reviews?.map((review, index) =>
                     <div
                         className="p-card p-4 mt-2 d-flex justify-content-between"
                         key={index}
