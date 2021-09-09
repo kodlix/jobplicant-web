@@ -12,6 +12,7 @@ import { Dropdown } from 'primereact/dropdown';
 import { Editor } from 'primereact/editor';
 import { createPost, editPost, viewPost } from "store/modules/timeline";
 import "./Timeline.css";
+import { ACCOUNT_TYPE } from 'constants/accountType';
 
 const CreatePostModal = ({ post, clearModalInput }) => {
   const dispatch = useDispatch();
@@ -243,7 +244,7 @@ const CreatePostModal = ({ post, clearModalInput }) => {
           />
           <span className="p-ml-2">
             {
-              profileInfo?.accountType === "Corporate" ?
+              profileInfo?.accountType === ACCOUNT_TYPE.CORPORATE ?
                 <h6>
                   {formatter.capitalizeFirstLetter(profileInfo?.companyName)}
                 </h6>
@@ -312,7 +313,7 @@ const CreatePostModal = ({ post, clearModalInput }) => {
             className="TextEditor-container-timeline"
             onTextChange={(e) => { inputChange(e, "body") }}
             {...register("body", {
-              validate: value => _quill.getText().trim().length ||" Post content is required"
+              validate: value => _quill.getText().trim().length || " Post content is required"
             })}
             id="body"
             name="body"

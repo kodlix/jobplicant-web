@@ -16,6 +16,7 @@ import CustomBreadCrumb from "helpers/BreadCrumb";
 import agentService from "services/agent.service";
 import ChatContainer from "components/chat/ChatContainer";
 import ChatContent from "components/chat/ChatContent";
+import { ACCOUNT_TYPE } from "constants/accountType";
 
 // import BreadCrumbPane from 'helpers/BreadCrumb';
 
@@ -74,7 +75,7 @@ const UserProfile = ({ match }) => {
               </div>
             </div>
             {/* portfolio */}
-            {accountType === "Artisan" && <Portfolio openCreate={openCreate} openEdit={openEdit} />}
+            {accountType === ACCOUNT_TYPE.ARTISAN && <Portfolio openCreate={openCreate} openEdit={openEdit} />}
           </div>
         </div>
         <ChatContainer setContact={setContact} selectedContact={contact} />

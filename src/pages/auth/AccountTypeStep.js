@@ -1,3 +1,4 @@
+import { ACCOUNT_TYPE } from "constants/accountType";
 import React from "react";
 
 import "./Register.css";
@@ -35,7 +36,7 @@ const AccountTypeStep = ({ goto, setAccountType }) => {
                           type="radio"
                           name="accountType"
                           id="invalidCheck"
-                          onChange={(e) => setSelectedAccountType("artisan", e)}
+                          onChange={(e) => setSelectedAccountType(ACCOUNT_TYPE.ARTISAN, e)}
                           required
                         />
                         <label
@@ -102,7 +103,7 @@ const AccountTypeStep = ({ goto, setAccountType }) => {
                           name="accountType"
                           id="invalidCheck4"
                           onChange={(e) =>
-                            setSelectedAccountType("corporate", e)
+                            setSelectedAccountType(ACCOUNT_TYPE.CORPORATE, e)
                           }
                           required
                         />

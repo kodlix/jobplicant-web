@@ -6,6 +6,7 @@ import { InputText } from 'primereact/inputtext';
 import { API_ROOT } from "../../services/agent.service";
 import ConnectionRequestPanel from "./ConnectionRequestPanel";
 import "./Contacts.css";
+import { ACCOUNT_TYPE } from 'constants/accountType';
 
 const Create = () => {
   const dispatch = useDispatch();
@@ -16,8 +17,8 @@ const Create = () => {
   const [searchValue, setSearchValue] = useState("");
   const contactContainerClassName = users.ids.length < 3 ? "containerHeight-contact" : "";
   const pageLimit = 10;
-  const [pageNumber, setPageNumber] = useState(1); 
-  
+  const [pageNumber, setPageNumber] = useState(1);
+
   const sortOptions = [
     { name: 'Name (Ascending)', code: 'NY' },
     { name: 'Name (Descending)', code: 'RM' },
@@ -122,7 +123,7 @@ const Create = () => {
                           {`${capitalizeFirstLetter(user?.firstName)} ${capitalizeFirstLetter(user?.lastName)}`}
                         </span>
                         {
-                          user.accountType.toLowerCase() === "artisan" &&
+                          user.accountType.toLowerCase() === ACCOUNT_TYPE.ARTISAN &&
                           <div className="stars" style={{ "--rating": user.rating }} />
                         }
                       </span>

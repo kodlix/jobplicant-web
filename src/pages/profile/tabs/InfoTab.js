@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-
 import { loadProfileInfo } from "store/modules/account";
 import { openModal } from "store/modules/modal";
-
 import Biography from "components/profile/Biography";
 import Experience from "components/profile/Experience";
 import Education from "components/profile/Education";
@@ -16,9 +14,9 @@ import ModalForm from 'components/profile/ModalForm';
 import agentService from 'services/agent.service';
 import Spinner from 'components/spinner/spinner.component';
 import { loadCountry } from 'store/modules/location';
+import { ACCOUNT_TYPE } from 'constants/accountType';
 
 const InfoTab = () => {
-
   const dispatch = useDispatch();
   const loading = useSelector(state => state.account.loading);
   const profileInfo = useSelector((state) => state.account.profileInfo);
@@ -44,7 +42,6 @@ const InfoTab = () => {
   const [interests, setInterests] = useState(null);
 
   useEffect(() => {
-    console.log("change must happen");
     dispatch(loadProfileInfo());
     dispatch(loadCountry());
   }, [educationUpdatedOrDeleted, userSkillUpdatedOrDeleted, experienceUpdatedOrDeleted]);
@@ -116,13 +113,13 @@ const InfoTab = () => {
             profileInfo={profileInfo}
           />
           {/* hobbies */}
-          {accountType !== "Artisan" && <Hobbies
+          {accountType !== ACCOUNT_TYPE.ARTISAN && <Hobbies
             openCreate={openCreate}
             openEdit={openEdit}
             profileInfo={profileInfo}
           />}
           {/* profession of interest */}
-          {accountType !== "Artisan" && <ProfessionsOfInterest
+          {accountType !== ACCOUNT_TYPE.ARTISAN && <ProfessionsOfInterest
             openCreate={openCreate}
             openEdit={openEdit}
             profileInfo={profileInfo}
@@ -136,10 +133,10 @@ const InfoTab = () => {
 
         </div>
       </div>
-      <ModalForm 
-        data={profileInfo} 
-        mode={mode} 
-        itemToEdit={itemToEdit} 
+      <ModalForm
+        data={profileInfo}
+        mode={mode}
+        itemToEdit={itemToEdit}
       />
     </>
   );

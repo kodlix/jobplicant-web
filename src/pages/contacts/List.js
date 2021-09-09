@@ -8,6 +8,7 @@ import { formatter } from '../../helpers/converter';
 import { Button } from 'primereact/button';
 import "./Contacts.css"
 import ConnectionRequestPanel from './ConnectionRequestPanel';
+import { ACCOUNT_TYPE } from 'constants/accountType';
 
 const List = () => {
   const dispatch = useDispatch();
@@ -95,7 +96,7 @@ const List = () => {
                             {`${formatter.capitalizeFirstLetter(contact?.firstName)} ${formatter.capitalizeFirstLetter(contact?.lastName)}`}
                           </span>
                           {
-                            contact.accountType === "Artisan" &&
+                            contact.accountType === ACCOUNT_TYPE.ARTISAN &&
                             <div className="stars" style={{ "--rating": contact.rating }} />
                           }
                         </span>

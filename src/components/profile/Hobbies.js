@@ -4,7 +4,7 @@ import { PROFILE } from "constants/profile";
 import "./UserProfile.css";
 import { Tag } from "primereact/tag";
 
-const Hobbies = ({ openCreate, openEdit, profileInfo }) => {
+const Hobbies = ({ openCreate, openEdit, profileInfo, isViewApplicant }) => {
   console.log(profileInfo.hobbies)
 
   return (
@@ -21,10 +21,11 @@ const Hobbies = ({ openCreate, openEdit, profileInfo }) => {
           openModalOnCreate={() => openEdit(PROFILE.HOBBY)}
           openModalOnEdit={() => openCreate(PROFILE.HOBBY)}
           hasData={profileInfo?.profile}
+          isViewApplicant={isViewApplicant}
         />
         <div className="p-card-body p-text-secondary">
           <ul className="listStyle p-grid">
-            {profileInfo.hobbies !== null 
+            {profileInfo.hobbies !== null
               ? (profileInfo?.hobbies.map(hobby => <span><Tag>{hobby}</Tag>&nbsp;&nbsp;</span>))
               : "No hobbies"}
           </ul>

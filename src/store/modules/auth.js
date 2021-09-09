@@ -2,6 +2,7 @@ import { showMessage } from './notification';
 import { push } from "connected-react-router";
 import agent from "../../services/agent.service";
 import { MESSAGE_TYPE } from "store/constant";
+import { ACCOUNT_TYPE } from 'constants/accountType';
 
 // initial values
 const authData = {
@@ -132,12 +133,12 @@ export function loginUser({ email, password, type }) {
           return;
         }
 
-        if (response.accountType === "Corporate") {
+        if (response.accountType === ACCOUNT_TYPE.CORPORATE) {
           onLogin(dispatch, response);
           console.log({ response });
           dispatch(push('/company'));
         }
-        else if (response.accountType === "Instant Hire") {
+        else if (response.accountType === ACCOUNT_TYPE.INSTANT_HIRE) {
           onLogin(dispatch, response);
           dispatch(push('/new-instant-hire'));
         }

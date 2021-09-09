@@ -11,7 +11,10 @@ const SectionHeader = ({
   showAddButton = false,
   showEditButton = false,
   showDeleteButton = false,
+  isViewApplicant = false
 }) => {
+
+
   return (
     <div className="sectionHeader">
       <div className="p-card-title">
@@ -19,7 +22,7 @@ const SectionHeader = ({
           <i className={`pi pi-${icon}`}></i>
           {sectionTitle}
         </span>
-        <span>
+        {!isViewApplicant && <span>
           {showAddButton && !hasData && (
             <i className="pi pi-plus" onClick={openModalOnCreate}></i>
           )}
@@ -29,7 +32,7 @@ const SectionHeader = ({
           {showDeleteButton && (
             <i className="pi pi-trash" onClick={deleteItem} id={id}></i>
           )}
-        </span>
+        </span>}
       </div>
     </div>
   );

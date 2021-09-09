@@ -13,6 +13,7 @@ const ListJobDetail = () => {
     const history = useHistory();
     const param = useParams();
     const fileUploadRef = useRef(null);
+    const splitButtonRef = useRef(null);
 
     const jobDetail = useSelector(state => state.job.jobDetail)
     const jobApplicationRequest = useSelector(state => state.job.jobApplicationRequest)
@@ -25,7 +26,7 @@ const ListJobDetail = () => {
 
     const formatValue = value => new Intl.NumberFormat('en-US', {}).format(value);
 
-    const options =  [{
+    const options = [{
         label: 'Generate CV from profile',
         icon: 'pi pi-refresh',
         command: (e) => {
@@ -97,16 +98,18 @@ const ListJobDetail = () => {
                                 </ul>
                             </div>
                         </div> */}
-                        <input 
-                            type="file" 
-                            style={{display: 'none'}} 
+                        <input
+                            type="file"
+                            style={{ display: 'none' }}
                             ref={fileUploadRef} />
-                        <SplitButton 
-                            label={`Apply`} 
-                            loading={jobApplicationRequest} 
-                            icon="pi pi-plus" 
-                            model={options} 
+                        <SplitButton
+                            ref={splitButtonRef}
+                            label={`Apply`}
+                            loading={jobApplicationRequest}
+                            onClick={() => splitButtonRef.current.onDropdownButtonClick()}
+                            model={options}
                             className="btn btn-block"
+                            style={styles.btn}
                         ></SplitButton>
                         {/* <button onClick={() => handleApplyForJob(jobDetail.id)} className="btn btn-block" style={styles.btnApply}>{jobApplicationRequest ? <span><i className="pi pi-spin pi-spinner"></i> Please wait...</span> : `Apply`}</button> */}
                     </div>
@@ -207,6 +210,9 @@ const styles = {
         marginBottom: '10px',
         fontSize: '16px',
         fontWeight: 500
+    },
+    btn: {
+        padding: ".375rem 0",
     }
 }
 

@@ -1,8 +1,6 @@
-import { push } from "connected-react-router";
 import { showMessage } from "./notification";
 import agent from "../../services/agent.service";
 import { MESSAGE_TYPE } from "../constant";
-import { loadLga, loadStates } from "./location";
 import { closeModal } from "./modal";
 import { loadError } from "./experience";
 
@@ -40,6 +38,7 @@ const account = {
 const LOADING = "LOADING";
 const UPDATE_PROFILE = "app/account/UPDATE_PROFILE ";
 const LOAD_PROFILE_INFO = "app/account/LOAD_PROFILE_INFO";
+const LOAD_PROFILE_INFO_BY_USER = "app/account/LOAD_PROFILE_INFO_BY_USER";
 const LOAD_PROFILE_INFO_ERROR = "LOAD_PROFILE_INFO_ERROR";
 const DELETE_EXPERIENCE = "DELETE_EXPERIENCE";
 const DELETE_EDUCATION = "DELETE_EDUCATION";
@@ -52,6 +51,13 @@ export default function reducer(state = account, action = {}) {
     case SUBMITTING:
       return { ...state, submitting: true }
     case LOAD_PROFILE_INFO:
+      return {
+        ...state,
+        loading: false,
+        submitting: false,
+        profileInfo: action.payload,
+      };
+    case LOAD_PROFILE_INFO_BY_USER:
       return {
         ...state,
         loading: false,
@@ -90,10 +96,12 @@ export default function reducer(state = account, action = {}) {
 }
 
 // Action Creators
-export const profileInfoLoaded = (data) => ({
-  type: LOAD_PROFILE_INFO,
-  payload: data
-})
+export function profileInfoLoaded(data) {
+  return { type: LOAD_PROFILE_INFO, payload: data };
+}
+export function LoadProfileDataByUser(data) {
+  return { type: LOAD_PROFILE_INFO_BY_USER, payload: data };
+}
 
 export const profileInfoLoadedError = () => ({
   type: LOAD_PROFILE_INFO_ERROR,
@@ -359,7 +367,8 @@ export function loadAccountByUser(id) {
     return agent.Account.getByID(id).then(
       (response) => {
         // handle success
-        // dispatch(LoadProfileDataByUser(response))
+        dispatch(LoadProfileDataByUser(response))
+        // dispatch(profileInfoLoaded(response))
       },
       (error) => {
         // handle error

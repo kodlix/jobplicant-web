@@ -10,7 +10,7 @@ import { Tag } from "primereact/tag";
               {skill.name}
             </span>
           )) */
-const Skills = ({ openEdit, openCreate, profileInfo }) => {
+const Skills = ({ openEdit, openCreate, profileInfo, isViewApplicant }) => {
   const formatSkills = (skills) => {
     console.log(skills);
     const skillTemp =
@@ -31,6 +31,7 @@ const Skills = ({ openEdit, openCreate, profileInfo }) => {
           showEditButton="true"
           openModalOnCreate={() => openEdit(PROFILE.SKILL)}
           openModalOnEdit={() => openCreate(PROFILE.SKILL)}
+          isViewApplicant={isViewApplicant}
         // onClick={mode}
         />
         <div className="p-card-body"><strong>{formatSkills(profileInfo?.skills)}</strong></div>

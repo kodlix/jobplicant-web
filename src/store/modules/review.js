@@ -5,7 +5,7 @@ import { MESSAGE_TYPE } from "store/constant";
 
 // initial values
 const Initial_State = {
-    review: {},
+    review: [],
     reviews: [],
     loading: false
 };
@@ -86,7 +86,6 @@ export function createReview(data) {
                 dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "Review successfully created", title: 'Review Successfully created ' }));
                 dispatch(push("/instant-hires"));
                 dispatch(isRequestLoading(false));
-
             },
             error => {
                 dispatch(showMessage({ type: "error", message: error, title: "Failed to create review" }));
@@ -96,10 +95,10 @@ export function createReview(data) {
         )
     }
 }
-export function loadApplicantReviews(page, limit) {
+export function loadApplicantReviews(id, page, limit) {
     return dispatch => {
         dispatch(isRequestLoading(true));
-        return agent.Review.loadByApplicant(page, limit).then(
+        return agent.Review.loadByApplicant(id, page, limit).then(
             response => {
                 //handle success
                 dispatch(loadApplicantReview(response));
@@ -107,7 +106,7 @@ export function loadApplicantReviews(page, limit) {
 
             },
             error => {
-                dispatch(showMessage({ type: "error", message: error, title: "Failed to load Instant jobs" }));
+                dispatch(showMessage({ type: "error", message: error, title: "Failed to load applicant reviews" }));
                 dispatch(isRequestLoading(false));
 
             }

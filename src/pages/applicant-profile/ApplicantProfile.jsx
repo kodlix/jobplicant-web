@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-
-import { loadProfileInfo } from "store/modules/account";
+import { loadAccountByUser } from "store/modules/account";
 import { openModal } from "store/modules/modal";
-
 import Biography from "components/profile/Biography";
 import Experience from "components/profile/Experience";
 import Education from "components/profile/Education";
@@ -17,42 +15,53 @@ import agentService from 'services/agent.service';
 import Spinner from 'components/spinner/spinner.component';
 import { loadCountry } from 'store/modules/location';
 import PersonalInfo from 'components/profile/PersonalInfo';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
+import { ACCOUNT_TYPE } from 'constants/accountType';
+import { loadApplicantReviews } from 'store/modules/review';
+import { formatter } from 'helpers/converter';
+import Portfolio from 'components/profile/Portfolio';
+import { Button } from 'primereact/button';
+import "./ApplicantProfile.css"
+
+// const ApplicantContext  = useContext(false);
 
 const ApplicantProfile = () => {
-    const params = useParams()
+    const applicantId = useParams().id;
+    const [activeTab, setActiveTab] = useState("info");
+    const [limit, setLimit] = useState(50);
+    const [page, setPage] = useState(1);
+    const [isShowInfo, setIsShowInfo] = useState(true);
+    const [isHideReview, setIsHideReview] = useState(true);
+
+    const applicantid = useParams().id;
     const dispatch = useDispatch();
     const loading = useSelector(state => state.account.loading);
     const profileInfo = useSelector((state) => state.account.profileInfo);
+    const applicantReview = useSelector(state => state.review.review);
     const accountType = agentService.Auth.current().accountType;
 
-    /**
-     * This state allows keep track of the changes in state either updating or deleting a data in the education
-     * redux file, in other to update the UI accordingly
-     */
-    const educationUpdatedOrDeleted = useSelector(
-        (state) => state.education.updatedOrDeleted
-    );
-    const userSkillUpdatedOrDeleted = useSelector(
-        (state) => state.userSkill.updatedOrDeleted
-    );
-    const experienceUpdatedOrDeleted = useSelector(state => state.experience.updatedOrDeleted);
+    console.log("applicantReview", applicantReview)
+
+    const history = useHistory();
+
+    const handleInfoTab = () => {
+        setIsHideReview(true);
+        setIsShowInfo(true);
+    }
+
+    const handleReviewTab = () => {
+        setIsHideReview(false);
+        setIsShowInfo(false);
+    }
 
     const [mode, setMode] = useState("create");
     const [itemToEdit, setItemToEdit] = useState({});
 
-    //formatted entries
-    const [LOI, setLOI] = useState(null);
-    const [interests, setInterests] = useState(null);
-
     useEffect(() => {
-        console.log("change must happen applicant id", params?.id);
         dispatch(loadCountry());
-        // dispatch(loadProfileInfo());
-        // dispatch(loadApplicantInfo(params?.id));
-    }, [educationUpdatedOrDeleted, userSkillUpdatedOrDeleted, experienceUpdatedOrDeleted]);
-
-    const expandImage = () => { };
+        dispatch(loadAccountByUser(applicantid));
+        dispatch(loadApplicantReviews(applicantId, page, limit));
+    }, [dispatch, applicantid]);
 
     const openCreate = (name) => {
         setMode("create");
@@ -64,11 +73,6 @@ const ApplicantProfile = () => {
         setMode("edit");
         setItemToEdit(data);
         dispatch(openModal(name));
-    };
-
-    const uploadProfilePicture = (e) => {
-        console.log("files");
-        console.table(e.target.files);
     };
 
     const formatDate = (date) => {
@@ -84,76 +88,155 @@ const ApplicantProfile = () => {
 
     return (
         <div className="container">
-            <div className="content-container">
-                <PersonalInfo
-                    openCreate={openCreate}
-                    openEdit={openEdit}
-                    data={profileInfo}
-                />
+            <div className="pt-5">
+                <div className="d-flex justify-content-lg-between">
+                    <PersonalInfo
+                        openCreate={openCreate}
+                        openEdit={openEdit}
+                        data={profileInfo}
+                        isViewApplicant={true}
+
+                    />
+                    <div className="flex-shrink-0">
+                        <Button onClick={() => history.goBack()} className="bk-btn p-pt-2 app-color"><i className="pi pi-arrow-left text-white">  Back</i></Button>
+                    </div>
+                </div>
                 <div className="p-grid">
-                    <div className="p-col-12 content-smallscreen">
-                        <div className="content-body">
+                    <div className="p-col-9 content-smallscreen">
+                        <div className="content-tab">
+                            <div className="p-d-inline-flex m-2">
+                                <div onClick={() => { setActiveTab("info"); handleInfoTab() }} className="text-center pointer">
+                                    <i
+                                        className={`pi pi-info-circle ${activeTab === "info" && "pi-active"
+                                            }`}
+                                    ></i>
+                                    <div className="tab-titles pi-active">Info</div>
+                                </div>
+
+                                <div onClick={() => { setActiveTab("review"); handleReviewTab() }} className="text-center pointer">
+                                    <i
+                                        className={`pi pi-star ${activeTab === "review" && "pi-active"}`}
+                                    ></i>
+                                    <div className={`tab-titles`}>Reviews</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="content-body" hidden={!isShowInfo}>
                             <Biography
                                 openCreate={openCreate}
                                 openEdit={openEdit}
                                 profileInfo={profileInfo}
+                                isViewApplicant={true}
                             />
+
                             <div className="p-grid">
                                 <div className="p-col-12 p-md-8 content-leftPanel">
-                                    {/* experience */}
                                     <Experience
                                         openCreate={openCreate}
                                         openEdit={openEdit}
                                         profileInfo={profileInfo}
                                         formatDate={formatDate}
+                                        isViewApplicant={true}
+
                                     />
                                     <Education
                                         openCreate={openCreate}
                                         openEdit={openEdit}
                                         profileInfo={profileInfo}
                                         formatDate={formatDate}
+                                        isViewApplicant={true}
+
                                     />
                                 </div>
                                 <div className="p-col-12 content-rightPanel p-md-4">
-                                    {/* contact information */}
                                     <ContactInformation
                                         openCreate={openCreate}
                                         openEdit={openEdit}
                                         profileInfo={profileInfo}
+                                        isViewApplicant={true}
+
                                     />
-                                    {/* skills */}
                                     <Skills
                                         openCreate={openCreate}
                                         openEdit={openEdit}
                                         profileInfo={profileInfo}
+                                        isViewApplicant={true}
                                     />
-                                    {/* hobbies */}
-                                    {accountType !== "Artisan" && <Hobbies
+                                    {accountType !== ACCOUNT_TYPE.ARTISAN && <Hobbies
                                         openCreate={openCreate}
                                         openEdit={openEdit}
                                         profileInfo={profileInfo}
+                                        isViewApplicant={true}
                                     />}
-                                    {/* profession of interest */}
-                                    {accountType !== "Artisan" && <ProfessionsOfInterest
+                                    {accountType !== ACCOUNT_TYPE.ARTISAN && <ProfessionsOfInterest
                                         openCreate={openCreate}
                                         openEdit={openEdit}
                                         profileInfo={profileInfo}
+                                        isViewApplicant={true}
                                     />}
-                                    {/* location of interest */}
                                     <LocationOfInterest
                                         openCreate={openCreate}
                                         openEdit={openEdit}
                                         profileInfo={profileInfo}
+                                        isViewApplicant={true}
                                     />
 
                                 </div>
                             </div>
                             <ModalForm data={profileInfo} mode={mode} itemToEdit={itemToEdit} />
                         </div>
+                        {/* review tab. */}
+                        <div className="pt-2" hidden={isHideReview}>
+                            <div className="p-card p-4 ">
+                                <h3>Reviews</h3>
+                            </div>
+                            <div className="mt-1 mb-3">
+                                {applicantReview.data && applicantReview.data.length > 0 && applicantReview.data.map((review, index) => (
+                                    <div className="p-card p-4 mt-2 d-flex justify-content-between" key={index} >
+                                        <div className="d-flex">
+                                            <div className="d-col text-center">
+                                                <div>
+                                                    <p>{review?.reviewerName}</p>
+                                                </div>
+                                                <img
+                                                    src="https://source.unsplash.com/random/50x50"
+                                                    className="rounded circle"
+                                                    alt="image"
+                                                />
+                                            </div>
+                                            <div className="p-2"></div>
+                                            <div>
+                                                <ul>
+                                                    <li className="d-flex flex-column">
+                                                        <p className="p-1">{ }</p>
+                                                        <span>
+                                                            <div
+                                                                className="stars"
+                                                                style={{ "--rating": review?.rating }}
+                                                            ></div>
+                                                        </span>
+                                                    </li>
+
+                                                    <li className="d-flex">{review?.title}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div className="flex-column-reverse">
+                                            <p>{formatter.toDate(review.createdAt)}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                                {applicantReview.length === 0 && <strong className="mx-auto text-secondary">No review found</strong>}
+                            </div>
+                        </div>
                     </div>
+                    {accountType === ACCOUNT_TYPE.ARTISAN && <Portfolio openCreate={openCreate} openEdit={openEdit} />}
+
                 </div>
             </div>
         </div>
+
     );
 }
 

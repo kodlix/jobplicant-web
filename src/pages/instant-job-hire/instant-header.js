@@ -55,7 +55,7 @@ const InstantHeader = ({ title, showCreateButton = false, showBack = false, coun
                     </div>
                 </div>}
                 <div className="flex-shrink-0">
-                    {showCreateButton && <Link to="/create-instant-hire"> <Button iconPos="left" label="Create" className="create-btn" id="saveButton" type="button" /></Link>}
+                    {showCreateButton && <Link to="/create-instant-hire"> <Button iconPos="left" label="Create" className="create-btn" type="button" /></Link>}
                     {showBack && <Link to="/instant-hires" className="bk-btn p-pt-2 app-color"><i className="pi pi-arrow-left">Back</i></Link>}
                 </div>
             </header >

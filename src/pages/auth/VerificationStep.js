@@ -1,3 +1,4 @@
+import { ACCOUNT_TYPE } from 'constants/accountType';
 import React from 'react';
 
 import './Register.css'
@@ -30,21 +31,21 @@ const VerificationStep = ({ goto, setAccountType }) => {
                                     <ul className="list-group px-4 py-4">
                                         <li className="list-group-item text-left">
                                             <div className="form-check text-dark">
-                                                <input className="form-check-input" type="radio" name="accountType" id="invalidCheck3" onChange={(e) => setSelectedAccountType('Instant Hire ', e)} required />
+                                                <input className="form-check-input" type="radio" name="accountType" id="invalidCheck3" onChange={(e) => setSelectedAccountType(ACCOUNT_TYPE.INSTANT_HIRE, e)} required />
                                                 <label className="form-check-label" htmlFor="invalidCheck3"></label>
                                                 <label htmlFor="invalidCheck3" className="font-weight-bold">To Request for Instant Artisan Services.</label>
                                             </div>
                                         </li>
                                         <li className="list-group-item text-left">
                                             <div className="form-check text-dark">
-                                                <input className="form-check-input" type="radio" name="accountType" id="invalidCheck2" onChange={(e) => setSelectedAccountType('Artisan', e)} required />
+                                                <input className="form-check-input" type="radio" name="accountType" id="invalidCheck2" onChange={(e) => setSelectedAccountType(ACCOUNT_TYPE.ARTISAN, e)} required />
                                                 <label className="form-check-label" htmlFor="invalidCheck2"></label>
                                                 <label htmlFor="invalidCheck2" className="font-weight-bold">To Provide Service as an Artisan.</label>
                                             </div>
                                         </li>
                                         <li className="list-group-item text-left">
                                             <div className="form-check text-dark">
-                                                <input className="form-check-input" type="radio" name="accountType" id="invalidCheck4" onChange={(e) => setSelectedAccountType('Corporate', e)} required />
+                                                <input className="form-check-input" type="radio" name="accountType" id="invalidCheck4" onChange={(e) => setSelectedAccountType(ACCOUNT_TYPE.CORPORATE, e)} required />
                                                 <label className="form-check-label" htmlFor="invalidCheck4"></label>
                                                 <label htmlFor="invalidCheck4" className="font-weight-bold">To Recruit Corporate Jobseekers.</label>
                                             </div>
@@ -54,7 +55,7 @@ const VerificationStep = ({ goto, setAccountType }) => {
                                                 <input className="form-check-input"
                                                     type="radio" name="accountType"
                                                     id="invalidCheck"
-                                                    onChange={(e) => setSelectedAccountType('Job-Seeker', e)} required />
+                                                    onChange={(e) => setSelectedAccountType(ACCOUNT_TYPE.JOB_SEEKER, e)} required />
                                                 <label htmlFor="invalidCheck" className="font-weight-bold">To Look for Corporate Job Opportunities.</label>
                                             </div>
                                         </li>

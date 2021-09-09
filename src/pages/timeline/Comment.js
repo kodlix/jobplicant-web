@@ -8,6 +8,7 @@ import ThumbsDown from "../../components/ThumbDown";
 import ThumbsUp from "../../components/ThumbUp";
 import CommentForm from './CommentForm';
 import './CommentSection.css';
+import { ACCOUNT_TYPE } from 'constants/accountType';
 
 const Comment = ({ comment, key, postId, expandProfileImage }) => {
   const dispatch = useDispatch();
@@ -49,7 +50,7 @@ const Comment = ({ comment, key, postId, expandProfileImage }) => {
             <div>
               <h6>
                 {
-                  comment.accountType === "Corporate"
+                  comment.accountType === ACCOUNT_TYPE.CORPORATE
                     ?
                     comment.companyName
                     :

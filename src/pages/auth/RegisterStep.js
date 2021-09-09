@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { registerUser } from 'store/modules/auth';
 
 import './Register.css'
+import { ACCOUNT_TYPE } from 'constants/accountType';
 
 
 const RegisterStep = ({ accountType }) => {
@@ -160,7 +161,7 @@ const RegisterStep = ({ accountType }) => {
 
                                         </div>
                                         {
-                                            accountType === 'Corporate' &&
+                                            accountType === ACCOUNT_TYPE.CORPORATE &&
                                             <div className="p-field">
                                                 <InputText type="text"
                                                     className="form-control p-mb-4"
