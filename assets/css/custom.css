@@ -1,0 +1,9 @@
+.brown-color{
+    background: #5A2846 !important;
+    color: #fff;
+}
+
+.btn.brown-color:hover{
+    background: #5a2846d8 !important;
+    color: #fff;
+}

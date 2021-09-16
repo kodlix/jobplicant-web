@@ -1,0 +1,1 @@
+{"version":3,"sources":["pages/auth/EmployerAccountType.js"],"names":["EmployerAccountType"],"mappings":"4IASeA,UARa,WACxB,OACI","file":"static/js/48.e575e2dc.chunk.js","sourcesContent":["\r\nconst EmployerAccountType = () => {\r\n    return (\r\n        <>\r\n employeraccounttype\r\n        </>\r\n    );\r\n}\r\n\r\nexport default EmployerAccountType;"],"sourceRoot":""}
