@@ -34,7 +34,7 @@ const JobplicantAvatar = ({
         </div>
       }
 
-      const fullname = profileInfo?.firstName + ' ' + profileInfo?.lastName;
+      const fullname = profileInfo.firstName ? profileInfo?.firstName + ' ' + profileInfo?.lastName : '';
     return (
         <div className="userProfile-header">
             <span className="profilePic-container">
@@ -46,7 +46,7 @@ const JobplicantAvatar = ({
                         className="profile-picture"
                     />
                     : avatarContainer(profileInfo?.fullname || "Chike Daniels")} */}
-                    {avatarContainer(fullname || "Chike Daniels")}
+                    {fullname ? avatarContainer(fullname) : ''}
                 <label className="profilePic-label" htmlFor="upload-button" style={{marginBottom: '-20px'}}>
                     {loading ? (
                         <i className="pi pi-spin pi-spinner" style={{ color: "black" }}>
