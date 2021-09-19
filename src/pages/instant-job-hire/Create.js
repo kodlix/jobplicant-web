@@ -33,7 +33,6 @@ const New = ({ mode }) => {
     const API_KEY = "AIzaSyDxaC_Q4OI6Kx84VPT4W4k6N6FYLEVfcw0";
 
     const loading = useSelector(state => state.instantJob.loading);
-    // console.log("loading => ", loading);
 
 
     const Categories = [
@@ -86,7 +85,6 @@ const New = ({ mode }) => {
             setValue("startDate", instantJobDate, { shouldValidate: true })
             // setValue("time", new Date().toLocaleTimeString(), { shouldValidate: false })
 
-            console.log("instant job => ", instantJobDate)
             setIsJobDateNow(true);
         } else {
             setValue("startDate", "", { shouldValidate: true })
