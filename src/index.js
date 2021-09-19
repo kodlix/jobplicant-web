@@ -8,7 +8,6 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { ConnectedRouter } from "connected-react-router";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import ErrorBoundary from "pages/error-page/error-boundary";
 
 const store = configureStore();
 

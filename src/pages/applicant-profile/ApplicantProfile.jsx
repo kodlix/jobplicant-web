@@ -22,6 +22,7 @@ import { formatter } from 'helpers/converter';
 import Portfolio from 'components/profile/Portfolio';
 import { Button } from 'primereact/button';
 import "./ApplicantProfile.css"
+import moment from 'moment';
 
 // const ApplicantContext  = useContext(false);
 
@@ -82,7 +83,6 @@ const ApplicantProfile = () => {
 
         return year + "/" + month + "/" + day;
     };
-    console.log('loading', loading)
     if (loading)
         return <Spinner />
 
@@ -197,7 +197,7 @@ const ApplicantProfile = () => {
                                         <div className="d-flex">
                                             <div className="d-col text-center">
                                                 <div>
-                                                    <p>{review?.reviewerName}</p>
+                                                    <p>{review?.reviewerDisplayName}</p>
                                                 </div>
                                                 <img
                                                     src="https://source.unsplash.com/random/50x50"
@@ -208,6 +208,7 @@ const ApplicantProfile = () => {
                                             <div className="p-2"></div>
                                             <div>
                                                 <ul>
+                                                    <li className="d-flex text-capitalize text-center app-color font-weight-bold">{review?.title}</li>
                                                     <li className="d-flex flex-column">
                                                         <p className="p-1">{ }</p>
                                                         <span>
@@ -218,12 +219,12 @@ const ApplicantProfile = () => {
                                                         </span>
                                                     </li>
 
-                                                    <li className="d-flex">{review?.title}</li>
+                                                    <li className="d-flex">{review?.detail}</li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div className="flex-column-reverse">
-                                            <p>{formatter.toDate(review.createdAt)}</p>
+                                            <p className="align-right">{moment(review?.createdAt).format('MMMM DD, YYYY')}</p>
                                         </div>
                                     </div>
                                 ))}
