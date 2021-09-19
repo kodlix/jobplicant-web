@@ -30,7 +30,7 @@ const Education = ({ openCreate, openEdit, profileInfo, formatDate, isViewApplic
                   <b>{education.qualification}</b> in{" "}
                   <b className="experienceCompany">{education.course}</b>
                 </span>
-                <span>
+                {!isViewApplicant && <span>
                   <i
                     className="pi pi-pencil mr-3"
                     onClick={() => openEdit(PROFILE.EDUCATION, education)}
@@ -49,7 +49,7 @@ const Education = ({ openCreate, openEdit, profileInfo, formatDate, isViewApplic
                     }}
                     id="educationEdit"
                   ></i>
-                </span>
+                </span>}
               </div>
               <div className="p-card-subtitle p-ml-3 p-mb-0">
                 <b>

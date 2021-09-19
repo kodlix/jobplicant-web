@@ -33,14 +33,15 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
 
   useEffect(() => {
     dispatch(loadCountry());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
+    
     if (profileInfo) {
       console.log('profileinfo',profileInfo)
       setContactInfo({
         ...profileInfo,
-        country: countries.find(c => c.name === profileInfo.country) ||  "",
+        country: profileInfo.country ? countries.find(c => c.name === profileInfo.country) : null,
         phoneNumber: profileInfo.contactPhoneNumber ||  "",
         email: profileInfo.email ||  "",
         city: profileInfo.city||  "",
@@ -53,15 +54,17 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
       }
       setValue('phoneNumber', profileInfo.contactPhoneNumber); //`contactPhoneNumber` is variable to bind to `phoneNumber`
       setValue('country', profileInfo.country);
+      console.log('country in console', profileInfo.country)
     }
-   
-  }, [profileInfo]);
+    
+  }, [profileInfo, countries]);
 
   
   
   const handleChange = (e) => {
     const { name, value } = e.target;
     const contactData = { ...contactInfo, [name]: value };
+    
     setContactInfo(contactData);
   }
   
@@ -77,13 +80,15 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
             <span className="skillInput p-mb-4 p-fluid p-formgrid p-grid">
               <div className="p-field p-col-12 p-md-6">
                 <label htmlFor="phoneNumber" className="inputLabel p-pr-3">Phone Number
-                  {errors.phoneNumber && <small className="text-danger font-weight-bold">&nbsp; {errors.phoneNumber.message}</small>}
+                  {errors?.phoneNumber?.type === 'required' && <small className="text-danger font-weight-bold">&nbsp; {errors.phoneNumber.message}</small>}
                 </label>
                 <InputText
                   id="phoneNumber"
                   name="phoneNumber"
                   {...register("phoneNumber",
-                    { validate: value => value?.length > 0 || email?.length > 0 || "* Phone Number is required" }
+                    { 
+                      required: 'Phone number is required',
+                      validate: value => value?.length > 0 || email?.length > 0 || "* Phone Number is required" }
                   )}
                   onChange={handleChange}
                   value={phoneNumber}
@@ -91,7 +96,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
               </div>
               <div className="p-field p-col-12 p-md-6">
                 <label htmlFor="email" className="inputLabel p-pr-3">Email Address
-                  {errors.email && <small className="text-danger font-weight-bold">&nbsp;
+                  {errors?.email?.type === 'required' && <small className="text-danger font-weight-bold">&nbsp;
                     {errors?.email?.message}</small>}
                 </label>
                 <InputText
@@ -100,6 +105,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                   type="email"
                   {...register("email",
                     {
+                      required: 'email is required',
                       validate: value => value?.length > 0 || phoneNumber?.length > 0 || "* Email is required",
                       pattern: {
                         value: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -113,7 +119,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
 
               <div className="p-field p-col-12 p-md-4 p-py-0 p-pl-2 p-pr-2">
                 <label htmlFor="country" className="inputLabel p-pr-3">Country *
-                  {errors.country && <small className="text-danger font-weight-bold">&nbsp; {errors.country.message}</small>}
+                  {errors?.country?.type === 'required' && <small className="text-danger font-weight-bold">&nbsp; {errors.country.message}</small>}
                 </label>
 
                 <Dropdown
@@ -125,7 +131,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                   icon="pi pi-plus"
                   id="country"
                   name="country"
-                  {...register("country")}
+                  {...register("country", {required: 'Country is required'})}
                   value={country}
                   onChange={handleChange}
                   
@@ -134,7 +140,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
 
               <div className="p-field p-col-12 p-md-4 p-py-0 p-pl-2 p-pr-2">
                 <label htmlFor="city" className="inputLabel p-pr-3">City *
-                  {errors.city && <small className="text-danger font-weight-bold">&nbsp; {errors.city.message}</small>}
+                  {errors?.city?.type === 'required' && <small className="text-danger font-weight-bold">&nbsp; {errors.city.message}</small>}
                 </label>
                 <InputText
                   icon="pi pi-plus"
@@ -149,13 +155,13 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
 
               <div className="p-field p-col-12 p-md-4 p-py-0 p-pl-2 p-pr-2" >
                 <label htmlFor="postalCode" className="inputLabel p-pr-3">Postal Code *
-                  {errors.postalCode && <span className="text-danger font-weight-bold">&nbsp; {errors.postalCode.message}</span>}
+                  {errors?.postalCode?.type === 'required' && <span className="text-danger font-weight-bold">&nbsp; {errors.postalCode.message}</span>}
                 </label>
                 <InputText
                   id="postalCode"
                   name="postalCode"
                   placeholder="Postal Code"
-                  {...register("postalCode", {})}
+                  {...register("postalCode", {required: "Postal code is required"})}
                   onChange={handleChange}
                   value={postalCode}
                 />
@@ -163,7 +169,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
 
               <div className="p-field p-col-12 p-md-12">
                 <label htmlFor="address" className="inputLabel">Address *
-                  {errors.address && <span className="text-danger font-weight-bold">&nbsp; {errors.address.message}</span>}
+                  {errors?.address?.type === "required" && <span className="text-danger font-weight-bold">&nbsp; {errors.address.message}</span>}
                 </label>
                 <InputTextarea
                   id="address"
@@ -172,7 +178,9 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                   rows="2"
                   className="inputField"
                   placeholder="Address"
-                  {...register("address")}
+                  {...register("address",{
+                    required: `Address is required`,
+                  })}
                   value={address}
                   onChange={e => {
                     setContactInfo({ ...contactInfo, address: e.target.value });

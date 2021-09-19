@@ -9,7 +9,7 @@ const PersonalInfo = ({ openCreate, openEdit, data, isViewApplicant }) => {
   const dispatch = useDispatch();
   // const profileInfo = useSelector((state) => state.account.profileInfo);
   const profileInfo = data;
-  console.log('data', data)
+
   const loading = useSelector((state) => state.account.loading);
 
   const [selectedFile, setSelectedFile] = useState(null);
@@ -78,18 +78,18 @@ const PersonalInfo = ({ openCreate, openEdit, data, isViewApplicant }) => {
         <h3 className="username p-mr-2">
           {profileInfo?.firstName || 'John'} {profileInfo?.lastName || 'Doe'}
         </h3>
-        {!isViewApplicant && <i
+        {!isViewApplicant && <span> <i
           className="pi pi-pencil p-pr-3 personalInfo-edit"
           id="personalInfoEdit"
           onClick={() => openEdit(PROFILE.PERSONAL_INFO, profileInfo)}
-        >
-          &nbsp;<u>(Edit Personal Info)</u>
-        </i>}
-        {profileInfo.experiences.length && <div>{profileInfo.experiences[0].jobTitle} at {profileInfo.experiences[0].company}</div>}
-
-        <span>
+        ></i>
+        <u>Edit Personal Info</u>
+        </span>}
+        <br />
+        {profileInfo.experiences.length ? <div>{profileInfo.experiences[0].jobTitle} at {profileInfo.experiences[0].company}</div> : <div></div>}
+        {rating &&  <span>
           <div className="stars" style={{ "--rating": rating }}></div>
-        </span>
+        </span>}
       </div>
     </div>
   );

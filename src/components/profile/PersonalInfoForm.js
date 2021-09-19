@@ -41,28 +41,37 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
   const [stateObj, setStateObj] = useState(null)
   const [lgaObj, setLgaObj] = useState(null)
 
-
   useEffect(() => {
     dispatch(loadCountry())
-    const countryObj = countries.find(country => country.name === data.country);
-    dispatch(loadStates(countryObj?.id));
-    setPersonalProfile({
-      ...personalProfile,
-      country: countryObj
-    })
-    setValue("country", countryObj?.name);
-    setCountryObj(countryObj)
+  }, [])
 
+  useEffect(() => {
     
-    // setCountryId(countryId)
+    if(countries){
+      
+      
+      const countryObj = data.country ? countries.find(country => country.name === data.country) : null;
     
-    console.log('come on', data, countryObj)
-  }, []);
+      dispatch(loadStates(countryObj?.id));
+      setPersonalProfile({
+        ...personalProfile,
+        dateOfBirth: data.dateOfBirth === null ? null : new Date(data.dateOfBirth),
+        country: countryObj
+      })
+      setValue("country", countryObj?.name);
+      // setCountryObj(countryObj)
+  
+      
+      // // setCountryId(countryId)
+      
+      // console.log('come on', data, countryObj)
+    }
+  }, [countries]);
 
   useEffect(() => {
     if (states) {
+      const stateObj = data.state ? states.find(state => state.name === data.state) : null
       
-      const stateObj = states.find(state => state.name === data.state)
       setPersonalProfile({
         ...personalProfile,
         state: stateObj
@@ -75,8 +84,7 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
 
   useEffect(() => {
     if (lgas) {
-
-      const lgaObj = lgas.find(lga => lga.name === data.lga);
+      const lgaObj = data.lga ? lgas.find(lga => lga.name === data.lga) : null;
       setPersonalProfile({ ...personalProfile, lga: lgaObj });
       setValue('lga', lgaObj?.name);
       setLgaObj(lgaObj)

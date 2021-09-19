@@ -27,7 +27,7 @@ const Experience = ({ openCreate, openEdit, profileInfo, formatDate, isViewAppli
                 <b>{item.jobTitle}</b>&nbsp; at &nbsp;
                 <b className="experienceCompany">{item.company}</b>
               </span>
-              <span>
+              {!isViewApplicant && <span>
                 <i
                   className="pi pi-pencil icon-edit mr-3"
                   onClick={() => openEdit(PROFILE.EXPERIENCE, item)}
@@ -46,7 +46,7 @@ const Experience = ({ openCreate, openEdit, profileInfo, formatDate, isViewAppli
                   }}
                   id="educationEdit"
                 ></i>
-              </span>
+              </span>}
             </div>
             <div className="p-card-subtitle p-ml-3">
               <b>

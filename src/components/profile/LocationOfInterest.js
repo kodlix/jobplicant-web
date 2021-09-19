@@ -28,7 +28,7 @@ const LocationOfInterest = ({ openCreate, openEdit, profileInfo, isViewApplicant
         <div className="p-card-body p-text-secondary">
           {profileInfo?.locations && profileInfo?.locations.length
             ? profileInfo?.locations.map((location, i) => <span key={i}><Tag>{location}</Tag>&nbsp;&nbsp;</span>)
-            : "locations"}
+            : ""}
         </div>
       </div>
     </>

@@ -1,0 +1,23 @@
+.nfcontainer {
+    margin: 5% auto;
+}
+
+@media screen and (max-width: 767px) {}
+
+#pnf {
+    height: 101vh;
+    width: 101vw;
+}
+
+.badrequestimg {
+    background-image: url('../../assets/images/badrequest.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 50%;
+}
+
+.backbtn {
+    top: 66vh;
+    margin-right: 41vw;
+}
