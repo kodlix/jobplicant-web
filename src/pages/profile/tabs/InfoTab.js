@@ -16,6 +16,9 @@ import Spinner from 'components/spinner/spinner.component';
 import { loadCountry } from 'store/modules/location';
 import { ACCOUNT_TYPE } from 'constants/accountType';
 
+import CustomError from "pages/error-page/CustomError";
+import { ErrorBoundary } from "react-error-boundary";
+
 const InfoTab = () => {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.account.loading);
@@ -44,6 +47,7 @@ const InfoTab = () => {
   useEffect(() => {
     dispatch(loadProfileInfo());
     dispatch(loadCountry());
+
   }, [educationUpdatedOrDeleted, userSkillUpdatedOrDeleted, experienceUpdatedOrDeleted]);
 
   const expandImage = () => { };
@@ -73,72 +77,80 @@ const InfoTab = () => {
     return year + "/" + month + "/" + day;
   };
 
-  if (loading)
-    return <Spinner />
+  // if (loading)
+  //   return <Spinner />
 
   return (
-    <>
-      <Biography
-        openCreate={openCreate}
-        openEdit={openEdit}
-        profileInfo={profileInfo}
-      />
-      <div className="p-grid">
-        <div className="p-col-12 p-md-8 content-leftPanel">
-          {/* experience */}
-          <Experience
-            openCreate={openCreate}
-            openEdit={openEdit}
-            profileInfo={profileInfo}
-            formatDate={formatDate}
-          />
-          <Education
-            openCreate={openCreate}
-            openEdit={openEdit}
-            profileInfo={profileInfo}
-            formatDate={formatDate}
-          />
-        </div>
-        <div className="p-col-12 content-rightPanel p-md-4">
-          {/* contact information */}
-          <ContactInformation
-            openCreate={openCreate}
-            openEdit={openEdit}
-            profileInfo={profileInfo}
-          />
-          {/* skills */}
-          <Skills
-            openCreate={openCreate}
-            openEdit={openEdit}
-            profileInfo={profileInfo}
-          />
-          {/* hobbies */}
-          {accountType !== ACCOUNT_TYPE.ARTISAN && <Hobbies
-            openCreate={openCreate}
-            openEdit={openEdit}
-            profileInfo={profileInfo}
-          />}
-          {/* profession of interest */}
-          {accountType !== ACCOUNT_TYPE.ARTISAN && <ProfessionsOfInterest
-            openCreate={openCreate}
-            openEdit={openEdit}
-            profileInfo={profileInfo}
-          />}
-          {/* location of interest */}
-          <LocationOfInterest
-            openCreate={openCreate}
-            openEdit={openEdit}
-            profileInfo={profileInfo}
-          />
+    <ErrorBoundary
+      FallbackComponent={CustomError}
+      onReset={() => {
+        //reset the state of your app state
+        console.log('reset the app state')
+      }}
+    >
+      <>
+        <Biography
+          openCreate={openCreate}
+          openEdit={openEdit}
+          profileInfo={profileInfo}
+        />
+        <div className="p-grid">
+          <div className="p-col-12 p-md-8 content-leftPanel">
+            {/* experience */}
+            <Experience
+              openCreate={openCreate}
+              openEdit={openEdit}
+              profileInfo={profileInfo}
+              formatDate={formatDate}
+            />
+            <Education
+              openCreate={openCreate}
+              openEdit={openEdit}
+              profileInfo={profileInfo}
+              formatDate={formatDate}
+            />
+          </div>
+          <div className="p-col-12 content-rightPanel p-md-4">
+            {/* contact information */}
+            <ContactInformation
+              openCreate={openCreate}
+              openEdit={openEdit}
+              profileInfo={profileInfo}
+            />
+            {/* skills */}
+            <Skills
+              openCreate={openCreate}
+              openEdit={openEdit}
+              profileInfo={profileInfo}
+            />
+            {/* hobbies */}
+            {accountType !== ACCOUNT_TYPE.ARTISAN && <Hobbies
+              openCreate={openCreate}
+              openEdit={openEdit}
+              profileInfo={profileInfo}
+            />}
+            {/* profession of interest */}
+            {accountType !== ACCOUNT_TYPE.ARTISAN && <ProfessionsOfInterest
+              openCreate={openCreate}
+              openEdit={openEdit}
+              profileInfo={profileInfo}
+            />}
+            {/* location of interest */}
+            <LocationOfInterest
+              openCreate={openCreate}
+              openEdit={openEdit}
+              profileInfo={profileInfo}
+            />
 
+          </div>
         </div>
-      </div>
-      <ModalForm
-        data={profileInfo}
-        mode={mode}
-        itemToEdit={itemToEdit}
-      />
-    </>
+        <ModalForm
+          data={profileInfo}
+          mode={mode}
+          itemToEdit={itemToEdit}
+        />
+      </>
+    </ErrorBoundary>
   );
 }
 
