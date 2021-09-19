@@ -55,7 +55,7 @@ const LandingPage = () => {
                                                 </p>
                                                 <div className="button wow fadeInUp" data-wow-delay=".7s">
                                                     <Link to="#" className="btn">Post a Job</Link>
-                                                    <Link to="#" className="btn btn-alt green-back">See Our Jobs</Link>
+                                                    <Link to="#" className="btn btn-alt green-back">See latest hires</Link>
                                                 </div>
                                             </div>
                                         </div>
@@ -85,7 +85,7 @@ const LandingPage = () => {
                                                 </p>
                                                 <div className="button wow fadeInUp" data-wow-delay=".7s">
                                                     <Link to="#" className="btn">Post a Job</Link>
-                                                    <Link to="#" className="btn btn-alt">See Our Jobs</Link>
+                                                    <Link to="#" className="btn btn-alt">See latest hires</Link>
                                                 </div>
                                             </div>
                                         </div>
@@ -209,7 +209,7 @@ const LandingPage = () => {
                                         </p>
                                         <div className="button wow fadeInUp" data-wow-delay=".7s">
                                             <Link to="#" className="btn">Post a Job</Link>
-                                            <Link to="#" className="btn btn-alt">See Our Jobs</Link>
+                                            <Link to="#" className="btn btn-alt">See latest hires</Link>
                                         </div>
                                     </div>
                                     <div className="job-search-wrap-two mt-50 wow fadeInUp" data-wow-delay=".9s">
