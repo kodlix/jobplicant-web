@@ -52,7 +52,13 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                                             Jobs
                                         </div>
                                     </Nav.Link>
-                                    : <Nav.Link className="text-white" href="/jobs">Jobs</Nav.Link>}
+                                    : <Nav.Link className="text-white" href="/jobs">
+                                        <i className="pi pi-briefcase itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
+                                        <div className="itemTitle-appNavbar mx-2">
+                                            Jobs
+                                        </div>
+                                    </Nav.Link>}
+
                                 <Nav.Link className="text-white" href="/howtostart">
                                     <i className="pi pi-file itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
                                     <div className="itemTitle-appNavbar mx-2">
