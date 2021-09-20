@@ -114,8 +114,17 @@
     border: 3px solid white;
 }
 
+.alert-badge {
+    bottom: 16px;
+    left: 4.2em;
+}
+
 @media only screen and (max-width: 767px) {
     .navbar-brand img {
         margin-right: 37vw;
+    }
+    .alert-badge {
+        bottom: 16px;
+        left: 17.2em;
     }
 }
