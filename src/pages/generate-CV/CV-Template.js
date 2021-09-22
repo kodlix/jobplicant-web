@@ -73,34 +73,8 @@ const CVTEMPLATE = () => {
         setSelectedTemplate(template);
     }
 
-
-    // return (
-    //     <div className='container'>
-    //         <Link to={`${match.url}/template-1`}>Template 1</Link>
-    //         <Link to={`${match.url}/template-2`}>Template 2</Link>
-
-    //         <div className="component">
-    //             <Route exact path={`${match.path}/`} render={(props) => <TemplateOne {...props} />} />
-    //             <Route path={`${match.path}/:templateId`} render={(props) => <TemplateTwo {...props}  />} />
-    //         </div>
-    //     </div>
-    // )
-
     return (
         <div>
-            {/* <Route exact path={`${match.path}/`} render={props => <CvTemplateGallery {...props}
-                selected={selected}
-                handleSelected={handleSelected}
-                setShowPreview={setShowPreview}
-            />}
-            />
-            <Route path={`${match.path}/:templateId`} render={props => <PreviewCV {...props}
-                selected={selected}
-                handleSelected={handleSelected}
-                setShowPreview={setShowPreview}
-                selectedTemplate={selectedTemplate}
-            />}
-            /> */}
             {!showPreview && <CvTemplateGallery
                 selected={selected}
                 handleSelected={handleSelected}

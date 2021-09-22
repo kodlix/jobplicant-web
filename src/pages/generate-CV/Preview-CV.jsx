@@ -11,11 +11,12 @@ import { useEffect, useState } from "react";
 import { loadProfileInfo } from "store/modules/account";
 import Spinner from "components/spinner/spinner.component";
 import TemplatePDFOne from "./pdf/templates/TemplatePDFOne";
-import { PDFDownloadLink, PDFViewer, renderToFile, usePDF } from "@react-pdf/renderer";
+import { PDFDownloadLink, PDFViewer, renderToFile, pdf } from "@react-pdf/renderer";
 import TemplatePDFTwo from "./pdf/template_2/TemplatePDFTwo";
 import TemplatePDFThree from "./pdf/template_3/TemplatePDFThree";
 import TemplatePDFFour from "./pdf/template_4/TemplatePDFFour";
 import { Link } from "react-router-dom";
+import { createCV } from "store/modules/cv";
 
 const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected }) => {
     const [editMode, setEditMode] = useState(true)
@@ -23,16 +24,31 @@ const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected 
     const profileInfo = useSelector((state) => state.account.profileInfo);
     const loading = useSelector(state => state.account.loading);
     const [loaded, setLoaded] = useState(false);
+    const addingToProfile = useSelector(state => state.cv.loading);
 
     useEffect(() => {
         dispatch(loadProfileInfo())
+        
     }, []);
 
-    const [instance, updateInstance] = usePDF({ document: TemplatePDFOne });
+    // const [instance, updateInstance] = usePDF({ document: getTemplate(selected) });
 
     const handleDownloadPDF = async () => {
         console.log('handle download pdf');
 
+    }
+
+    const handleSaveCv = async () => {
+        const blob = await pdf(getTemplate(selected)).toBlob();
+        console.log(blob)
+        var formdata = new FormData();
+        formdata.append('title', `title ${selected}`)
+        formdata.append('description',  `description ${selected}`)
+        // formdata.append('file', new Blob([blob], {type: 'application/json'}))
+        formdata.append('file', new File([blob], `template-${selected}.pdf`,{type: "application/pdf"}))
+       
+        console.log(formdata)
+        dispatch(createCV(formdata))
     }
 
     const navigateBack = () => {
@@ -74,11 +90,13 @@ const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected 
                             </header> */}
 
                                     <section>
+                                        <p>Adding to profile {addingToProfile.toString()}</p>
                                         <div className="cv-preview-box">
 
                                             {getTemplate(selected) !== null && <PDFDownloadLink
                                                 document={getTemplate(selected)}
-                                                fileName="template-one.pdf"
+                                                fileName="template-one.pdf" 
+
                                                 style={{
                                                     textDecoration: "none",
                                                     padding: "10px",
@@ -99,6 +117,14 @@ const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected 
                                                 }
                                                 }
                                             </PDFDownloadLink>}
+                                            {getTemplate(selected) !== null && (
+                                                <Button 
+                                                    onClick={handleSaveCv} 
+                                                    label="Add to profile" 
+                                                    // disabled={addingToProfile} 
+                                                    // loading={addingToProfile} 
+                                                />)
+                                            }
                                             {loading
                                                 ? <Spinner />
                                                 : <div>

@@ -350,6 +350,13 @@ const Contact = {
   reject: (id) => requests.del(`/contact/reject/${id}`)
 }
 
+const Cv = {
+  create: (data) => requests.post("/cv", data),
+  fetch: (userId) => requests.get(`/cv/${userId}`),
+  update: (id, data) => requests.put(`/cv/${id}`, data),
+  delete: (id) => requests.del(`/cv/${id}`) 
+}
+
 export default {
   Auth,
   User,
@@ -381,4 +388,5 @@ export default {
   ServiceGroup,
   Service,
   Review,
+  Cv
 };

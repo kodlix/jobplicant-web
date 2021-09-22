@@ -3,11 +3,30 @@ import { Button } from 'primereact/button';
 
 import './cv.css';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCV } from 'store/modules/cv';
 
 
 
 const HowToStart = () => {
+    const dispatch = useDispatch()
     const ref = useRef(null);
+    const cvData = useSelector(state => state.cv.data)
+    const profileInfo = useSelector((state) => state.account.profileInfo);
+
+    React.useEffect(() => {
+        if(profileInfo){
+            const id = profileInfo.id;
+        dispatch(fetchCV(id))
+        }
+    }, [profileInfo])
+
+    React.useEffect(() => {
+        if(cvData){
+            console.log('cv data', cvData)
+        }
+    }, [cvData])
+
     return (
         <div className="d-flex p-jc-center">
             <div className="generate-cv" >
