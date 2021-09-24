@@ -3,12 +3,14 @@ import agent from "../../services/agent.service";
 import { MESSAGE_TYPE } from "store/constant";
 
 const initialState = {
-    data: [],
+    data: {},
     loading: false,
     response: null,
     isDeletingCv: false,
+    submitting: false
 }
 
+const SUBMITTING = 'SUBMITTING'
 const LOADING = 'LOADING'
 const IS_DELETING_CV = 'IS_DELETING_CV'
 const CREATE_OR_ADD_CV = 'CREATE_OR_ADD_CV'
@@ -18,6 +20,11 @@ const ERROR_HANDLER = 'ERROR_HANDLER'
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
+        case SUBMITTING: 
+            return {
+                ...state,
+                submitting: true
+            }
         case LOADING:
             return { ...state, 
                 loading: true,
@@ -33,6 +40,7 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
+                submitting: false,
                 response: action.payload
             }
         case FETCH_CV:
@@ -62,6 +70,9 @@ export default function reducer(state = initialState, action) {
 }
 
 //Action creators
+const submitting = () => ({
+    type: SUBMITTING
+})
 const loading = () => ({
     type: LOADING
 })
@@ -89,7 +100,7 @@ export const cvLoadedError = (error) => ({
 // Actions
 export function createCV(data) {
     return (dispatch) => {
-        dispatch(loading());
+        dispatch(submitting());
         return agent.Cv.create(data).then(
             (response) => {
                 dispatch(createOrAddCv(response))

@@ -24,11 +24,11 @@ const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected 
     const profileInfo = useSelector((state) => state.account.profileInfo);
     const loading = useSelector(state => state.account.loading);
     const [loaded, setLoaded] = useState(false);
-    const addingToProfile = useSelector(state => state.cv.loading);
+    const submitting = useSelector(state => state.cv.submitting);
 
     useEffect(() => {
         dispatch(loadProfileInfo())
-        
+
     }, []);
 
     // const [instance, updateInstance] = usePDF({ document: getTemplate(selected) });
@@ -42,11 +42,11 @@ const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected 
         const blob = await pdf(getTemplate(selected)).toBlob();
         console.log(blob)
         var formdata = new FormData();
-        formdata.append('title', `title ${selected}`)
-        formdata.append('description',  `description ${selected}`)
+        formdata.append('title', `template-${selected}`)
+        formdata.append('description', `description ${selected}`)
         // formdata.append('file', new Blob([blob], {type: 'application/json'}))
-        formdata.append('file', new File([blob], `template-${selected}.pdf`,{type: "application/pdf"}))
-       
+        formdata.append('file', new File([blob], `template-${selected}.pdf`, { type: "application/pdf" }))
+
         console.log(formdata)
         dispatch(createCV(formdata))
     }
@@ -90,54 +90,61 @@ const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected 
                             </header> */}
 
                                     <section>
-                                        <p>Adding to profile {addingToProfile.toString()}</p>
+                                        {/* <p>Adding to profile {addingToProfile.toString()}</p> */}
                                         <div className="cv-preview-box">
 
-                                            {getTemplate(selected) !== null && <PDFDownloadLink
-                                                document={getTemplate(selected)}
-                                                fileName="template-one.pdf" 
-
-                                                style={{
-                                                    textDecoration: "none",
-                                                    padding: "10px",
-                                                    color: "white",
-                                                    backgroundColor: 'var(--primary-color)',
-                                                    borderRadius: '4px',
-                                                    width: "50%",
-                                                    margin: "20px auto",
-                                                    display: "block"
-                                                }}
-                                            >
-                                                {({ blob, url, loading, error }) => {
-                                                    if (url) {
-                                                        setLoaded(true)
-                                                    }
-                                                    return (
-                                                        loading ? "Loading document..." : "Download Pdf")
-                                                }
-                                                }
-                                            </PDFDownloadLink>}
-                                            {getTemplate(selected) !== null && (
-                                                <Button 
-                                                    onClick={handleSaveCv} 
-                                                    label="Add to profile" 
-                                                    // disabled={addingToProfile} 
-                                                    // loading={addingToProfile} 
-                                                />)
-                                            }
-                                            {loading
-                                                ? <Spinner />
-                                                : <div>
-                                                    <div className="d-sm-block d-md-none">
-                                                        <h5>PDF not supported on mobile view, please view on desktop.</h5>
-                                                    </div>
-                                                    <PDFViewer className="col-12 d-sm-none d-md-block" height="740px">
-                                                        {
-                                                            getTemplate(selected)
-
+                                            <div className="d-flex justify-content-center">
+                                                {getTemplate(selected) !== null && <PDFDownloadLink
+                                                    document={getTemplate(selected)}
+                                                    fileName={`template-${selected}.pdf`}
+                                                    style={{
+                                                        textDecoration: "none",
+                                                        padding: "10px",
+                                                        color: "white",
+                                                        backgroundColor: 'var(--primary-color)',
+                                                        borderRadius: '4px',
+                                                        width: "50%",
+                                                        margin: "20px ",
+                                                        display: "block"
+                                                    }}
+                                                >
+                                                    {({ blob, url, loading, error }) => {
+                                                        if (url) {
+                                                            setLoaded(true)
                                                         }
-                                                    </PDFViewer>
+                                                        return (
+                                                            loading ? "Loading document..." : "Download Pdf")
+                                                    }
+                                                    }
+                                                </PDFDownloadLink>}
+                                                <Button
+                                                    onClick={handleSaveCv}
+                                                    label={submitting ? "Please wait..." : "Save CV"}
+                                                    disabled={submitting || !loaded}
+                                                    style={{
+                                                        textDecoration: "none",
+                                                        padding: "10px",
+                                                        color: "white",
+                                                        backgroundColor: 'var(--primary-color)',
+                                                        borderRadius: '4px',
+                                                        width: "50%",
+                                                        margin: "20px ",
+                                                        display: "block"
+                                                    }}
+                                                />
+                                            </div>
+
+                                            {<div>
+                                                <div className="d-sm-block d-md-none">
+                                                    <h5>PDF not supported on mobile view, please view on desktop.</h5>
                                                 </div>
+                                                <PDFViewer className="col-12 d-sm-none d-md-block" height="740px">
+                                                    {
+                                                        getTemplate(selected)
+
+                                                    }
+                                                </PDFViewer>
+                                            </div>
 
                                             }
 

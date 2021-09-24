@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'primereact/button';
 import agentService from 'services/agent.service';
@@ -17,6 +17,8 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
     const LogOut = () => {
         dispatch(OnLogout());
     };
+
+    const location = useLocation()
 
     useEffect(() => {
         dispatch(loadProfileInfo());
@@ -73,7 +75,7 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                         </div>
                     </Link>
                     <Link
-                        to="#"
+                        to='/instant-messaging'
                         className="item-appNavbar"
                     >
                         <i className="pi pi-envelope itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
