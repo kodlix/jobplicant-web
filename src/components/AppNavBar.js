@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'primereact/button';
@@ -9,6 +9,9 @@ import { OnLogout } from '../store/modules/auth';
 import './AppNavBar.css';
 import { ACCOUNT_TYPE } from 'constants/accountType';
 import { Container, Nav, Navbar } from 'react-bootstrap';
+import { agent } from 'superagent';
+import { updateNotification, UserNotifications } from 'store/modules/appNotification';
+import { ViewModuleFromNotification } from 'helpers/viewModuleFromNotification';
 
 const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
     const userAccountType = agentService.Auth.current()?.accountType;
@@ -22,6 +25,35 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
     useEffect(() => {
         dispatch(loadProfileInfo());
     }, [dispatch]);
+
+    // notificetion
+    const user = agent.Auth?.current();
+    const [notifications, setNotifications] = useState([]);
+
+
+    const allAdminNotifications = useSelector(state => state.appNotification.navBarNotifications);
+
+    useEffect(() => {
+        if (allAdminNotifications) {
+            setNotifications(allAdminNotifications)
+        }
+    }, [allAdminNotifications]);
+
+    useEffect(() => {
+        dispatch(UserNotifications(user?.accountId));
+    }, [dispatch]);
+
+    const viewNot = (not, viewFrom) => {
+        if (!not.id) return;
+        dispatch(updateNotification(not.id));
+
+        ViewModuleFromNotification(not, viewFrom);
+    }
+
+    const remove = (id) => {
+        if (!id) return;
+        dispatch(updateNotification(id));
+    }
 
     return (
         <div className="container-appNavbar">

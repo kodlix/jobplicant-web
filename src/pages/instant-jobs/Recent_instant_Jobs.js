@@ -76,7 +76,7 @@ const RecentInstantJobs = () => {
                                                     </div>
                                                     <div>
                                                         <div>
-                                                            <i className="pi pi-share-alt p-pt-2" data-id={instantjob.id}
+                                                            <i className="pi pi-share-alt p-pt-2 icon-size" data-id={instantjob.id}
                                                                 onClick={handleShareButton}> Share
                                                             </i>
                                                         </div>

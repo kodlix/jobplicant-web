@@ -150,6 +150,10 @@
     opacity: 1;
 }
 
+.icon-size {
+    font-size: 1em;
+}
+
 
 /* Media Query Section */
 

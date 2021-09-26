@@ -350,6 +350,21 @@ const Contact = {
   reject: (id) => requests.del(`/contact/reject/${id}`)
 }
 
+const Notification = {
+  loadAll: () => requests.get("/notification"),
+  loadById: (id) => requests.get(`/notification/${id}`),
+  loadByAccount: (id) => requests.get(`/notification/byaccount/${id}`),
+  loadAllByAccount: (id, search, page) =>
+    requests.get(
+      `/notification/by_account/all?page=${page}&search=${search}&accountId=${id}`
+    ),
+  updateNot: (id) => requests.put(`/notification/${id}`),
+
+  delete: (id) => requests.del(`/notification/${id}`),
+  clearAll: () => requests.del(`/notification/me/clearall`)
+
+};
+
 export default {
   Auth,
   User,
@@ -371,6 +386,7 @@ export default {
   Post,
   Comment,
   Contact,
+  Notification,
   setToken: (_accessToken) => {
     accessToken = _accessToken;
   },
