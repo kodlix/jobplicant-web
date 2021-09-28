@@ -50,8 +50,7 @@ const HowToStart = () => {
                                     {
                                         !isCvEmpty(cvData) && (<>
                                             <h4 className="mb-2">Recent CV</h4>
-                                            <div className="card p-d-flex justify-content-start p-2">
-                                                <div style={{width: '150px'}}>cvTitle</div>
+                                            <div className="card p-2">
                                                 <div className="w-100">
                                                     <h4>{cvData.title}</h4>
                                                     <p>{cvData.description}</p>

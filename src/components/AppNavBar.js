@@ -8,6 +8,8 @@ import { OnLogout } from '../store/modules/auth';
 
 import './AppNavBar.css';
 import { ACCOUNT_TYPE } from 'constants/accountType';
+import useWindowSize from 'hooks/use-window-size';
+import { toggleChatModal } from 'store/modules/chat';
 
 const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
     const userAccountType = agentService.Auth.current()?.accountType;
@@ -19,6 +21,7 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
     };
 
     const location = useLocation()
+    const [width, height] = useWindowSize()
 
     useEffect(() => {
         dispatch(loadProfileInfo());
@@ -74,7 +77,7 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                             Contact
                         </div>
                     </Link>
-                    <Link
+                   {width <= 800 && <Link
                         to='/instant-messaging'
                         className="item-appNavbar"
                     >
@@ -82,7 +85,18 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                         <div className="itemTitle-appNavbar mx-2">
                             Messages
                         </div>
+                    </Link>}
+                    {width > 800 && (
+                        <Link
+                        onClick={() => dispatch(toggleChatModal())}
+                        className="item-appNavbar"
+                    >
+                        <i className="pi pi-envelope itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
+                        <div className="itemTitle-appNavbar mx-2">
+                            Messages 
+                        </div>
                     </Link>
+                    )}
                     <div
                         id="notification-dropdown"
                         role="button"

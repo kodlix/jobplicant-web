@@ -1,13 +1,18 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleChatModal } from 'store/modules/chat';
 import chatJSON from './chat.json'
 import "./ChatContainer.css"
 
 const ChatContainer = ({setContact, selectedContact}) => {
-    const [show, setShow] = React.useState(false);
+    // const [show, setShow] = React.useState(false);
 
-    const toggleChatShow = () => {
-        setShow(!show);
-    }
+    // const toggleChatShow = () => {
+    //     setShow(!show);
+    // }
+
+    const show = useSelector(state => state.chat.showChatModal)
+    const dispatch = useDispatch()
 
     const handleSelected = (contact) => setContact(contact);
 
@@ -19,7 +24,7 @@ const ChatContainer = ({setContact, selectedContact}) => {
                 <h4>Messaging</h4>
                 </div>
                 <div className="right">
-                <i onClick={toggleChatShow} className={`pi ${!show ? 'pi-chevron-up' : 'pi-chevron-down'} right-caret`}></i>
+                <i onClick={() => dispatch(toggleChatModal())} className={`pi ${!show ? 'pi-chevron-up' : 'pi-chevron-down'} right-caret`}></i>
                 </div>
             </div>
             <div className="chat-body">
