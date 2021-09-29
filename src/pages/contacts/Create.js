@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadFreeUsers, sendContactRequest } from "../../store/modules/contact";
+import { loadFreeUsers, sendContactRequest, cancelContactRequest } from "../../store/modules/contact";
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { API_ROOT } from "../../services/agent.service";
 import ConnectionRequestPanel from "./ConnectionRequestPanel";
 import "./Contacts.css";
 import { ACCOUNT_TYPE } from 'constants/accountType';
+import { CONTACT_STATUS, CONTACT_ACTION_STATUS } from 'constants/contactStatus';
 
 const Create = () => {
   const dispatch = useDispatch();
   const users = useSelector(state => state.contact.freeUsers);
   const loading = useSelector(state => state.contact.loadingContact);
+  const selectedId = useSelector(state => state.contact.selectedId);
   const error = useSelector(state => state.contact.error);
-  const [selectedId, setSelectedId] = useState(null);
   const [searchValue, setSearchValue] = useState("");
   const contactContainerClassName = users.ids.length < 3 ? "containerHeight-contact" : "";
   const pageLimit = 10;
@@ -37,10 +38,14 @@ const Create = () => {
     console.log("yh")
   };
 
-  const handleConnectionRequest = (e) => {
+  const sendConnectionRequest = (e) => {
     let id = e.currentTarget.dataset.id
     dispatch(sendContactRequest({ contactId: id }));
-    setSelectedId(id);
+  }
+
+  const cancelConnectionRequest = (e) => {
+    let id = e.currentTarget.dataset.id
+    dispatch(cancelContactRequest(id));
   }
 
   const handleSearchInputChange = (e) => {
@@ -140,18 +145,29 @@ const Create = () => {
                   </span>
                   <div className="align-self-center">
                     {
-                      loading === "sendContactRequest" && user.id === selectedId &&
+                      loading === CONTACT_ACTION_STATUS.SEND_REQUEST && user.id === selectedId &&
                       <Button className="contacts-cardsubtitle p-p-1 p-mr-3">
                         <i className="pi pi-spin pi-spinner contacts-spinner" />
                       </Button>
                     }
                     {
-                      (error || user.id !== selectedId) &&
-                      <Button className="contacts-cardsubtitle p-p-1 p-mr-3" data-id={user.id} onClick={(e) => handleConnectionRequest(e)}>
-                        <span className="p-m-2">
-                          Send Connection Request
-                        </span>
-                      </Button>
+                      (user.id !== selectedId) &&
+                      <>
+                        {
+                          user.contactRequestStatus === CONTACT_STATUS.PENDING ?
+                            <Button className="contacts-btn-cancelRequest contacts-cardsubtitle p-p-1 p-mr-3" data-id={user.id} onClick={(e) => cancelConnectionRequest(e)}>
+                              <span className="p-m-2">
+                                Cancel Request
+                              </span>
+                            </Button>
+                            :
+                            <Button className="contacts-cardsubtitle p-p-1 p-mr-3" data-id={user.id} onClick={(e) => sendConnectionRequest(e)}>
+                              <span className="p-m-2">
+                                Send Connection Request
+                              </span>
+                            </Button>
+                        }
+                      </>
                     }
                   </div>
                 </div>
@@ -159,6 +175,7 @@ const Create = () => {
             })}
             {
               users.ids.length > 0 &&
+              users.meta.total > users.ids.length &&
               loading !== "loadMore" &&
               <Button label='Load More' onClick={loadMoreUsers} className="p-mr-2 w-100" />
             }
@@ -172,7 +189,6 @@ const Create = () => {
             }
             {
               users.ids.length > 0 &&
-              users.meta.total > users.ids.length &&
               loading === "loadMore" &&
               <Button
                 className="p-mr-2 w-100"
@@ -181,7 +197,7 @@ const Create = () => {
               />
             }
           </div>
-          <ConnectionRequestPanel selectedId={selectedId} setSelectedId={setSelectedId} />
+          <ConnectionRequestPanel />
         </div>
       </div>
     </>

@@ -345,7 +345,10 @@ const Contact = {
   loadContacts: (page, limit) => requests.get(`/contact?${new URLSearchParams({ page: page, limit: limit }).toString()}`),
   loadRequests: (page, take) => requests.get(`/contact/request/pending?${new URLSearchParams({ page: page, take: take }).toString()}`),
   add: (id) => requests.post("/contact", id),
+  cancel: (id) => requests.del(`/contact/cancel/${id}`),
   delete: (id) => requests.del(`/contact/${id}`),
+  block: (id) => requests.put(`/contact/block/${id}`),
+  unblock: (id) => requests.put(`/contact/unblock/${id}`),
   accept: (data) => requests.post("/contact/accept", data),
   reject: (id) => requests.del(`/contact/reject/${id}`)
 }

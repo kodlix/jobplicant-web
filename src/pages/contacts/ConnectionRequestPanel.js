@@ -7,10 +7,11 @@ import { confirmDialog } from 'primereact/confirmdialog';
 import { API_ROOT } from "../../services/agent.service";
 import "./Contacts.css";
 
-const ConnectionRequestPanel = ({ setSelectedId, selectedId }) => {
+const ConnectionRequestPanel = () => {
   const dispatch = useDispatch();
   const requests = useSelector(state => state.contact.pendingRequests);
   const loading = useSelector(state => state.contact.loadingContact);
+  const selectedId = useSelector(state => state.contact.selectedId);
   const error = useSelector(state => state.contact.error);
   const pageLimit = 10;
   const pageToLoad = formatter.getPageToLoad(requests?.ids?.length, pageLimit);
@@ -28,13 +29,11 @@ const ConnectionRequestPanel = ({ setSelectedId, selectedId }) => {
 
     //since backend is not giving details of contact in response at accept
     const contactDetails = requests.data[contactId];
-    setSelectedId(contactId);
     dispatch(acceptRequest({ contactId: contactId }, "acceptConnectionRequest", contactDetails))
   }
 
   const confirmRequestRejection = (e) => {
     let contactId = e.currentTarget.dataset.id;
-    setSelectedId(contactId);
     confirmDialog({
       message: 'Are you sure you want to reject this connection request?',
       header: 'Reject Connection Request',
@@ -137,6 +136,8 @@ const ConnectionRequestPanel = ({ setSelectedId, selectedId }) => {
         }
         {
           requests.ids.length > 0 &&
+          requests.ids.length < requests.meta.total &&
+
           <Button label={loading === "loadMoreRequests" ? 'Loading...' : 'Load More'} onClick={loadMoreRequests} className="p-mr-2 w-100" />
         }
         {

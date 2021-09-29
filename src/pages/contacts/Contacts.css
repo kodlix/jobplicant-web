@@ -44,8 +44,13 @@
   cursor: pointer; 
 }
 
-.contacts-actionIcons .pi-trash:hover {
+.contacts-actionIcons .pi-trash:hover, 
+.contacts-actionIcons .pi-ban:hover {
   color: red;
+}
+
+.contacts-actionIcons .pi-lock-open:hover {
+  color: green;
 }
 
 .contacts-spinner {
@@ -60,7 +65,8 @@
   border: 3px solid #5A2846;
 }
 
-.contacts-cardsubtitle,.contacts-cardsubtitle .p-dropdown-label {
+.contacts-cardsubtitle,
+.contacts-cardsubtitle .p-dropdown-label {
   font-size: 0.8rem !important;
 }
 
@@ -70,6 +76,11 @@
 
 .contact-sortDropdown {
   max-height: 37.2px;
+}
+
+.contacts-blockedContactMessage {
+  font-weight: 600;
+  color: #5a2846;
 }
 
 .contact-emptyProfilePic {
@@ -122,6 +133,10 @@
 .contacts-accept-button .pi, .contacts-reject-button .pi {
   font-weight: 700;
   margin: auto;
+}
+
+.contacts-btn-cancelRequest {
+  background-color: #6c757d;
 }
 
 

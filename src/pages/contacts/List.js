@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadContacts, removeContact } from "../../store/modules/contact";
+import { loadContacts, removeContact, blockContact, unblockContact } from "../../store/modules/contact";
 import { API_ROOT } from "../../services/agent.service";
 import { confirmDialog } from 'primereact/confirmdialog';
 import { formatter } from '../../helpers/converter';
@@ -47,6 +47,21 @@ const List = () => {
     });
   };
 
+  const confirmBlock = (e) => {
+    let contactId = e.currentTarget.dataset.id;
+    let firstName = e.currentTarget.dataset.firstName;
+    let lastName = e.currentTarget.dataset.lastName;
+    confirmDialog({
+      message: `Are you sure you want to block ${formatter.capitalizeFirstLetter(firstName)} ${formatter.capitalizeFirstLetter(lastName)}?`,
+      header: 'Block contact',
+      icon: 'pi pi-info-circle',
+      acceptClassName: 'p-button-danger',
+      accept: () => {
+        dispatch(blockContact(contactId));
+      }
+    });
+  };
+  
   return (
     <>
       <div className={`contacts-container ${contactContainerClassName}`}>
@@ -109,16 +124,46 @@ const List = () => {
                       </span>
                     </span>
                     <div className="contacts-actionIcons">
-                      <i className="pi pi-phone p-pr-2" />
-                      <i className="pi pi-video p-pr-2" />
-                      <i className="pi pi-comments p-pr-2" />
-                      <i
-                        data-id={contact.id}
-                        onClick={confirmRemove}
-                        className="pi pi-trash p-pr-2"
-                        data-last-name={contact.lastName}
-                        data-first-name={contact.firstName}
-                      />
+                      {
+                        contact.isBlocked === false ?
+                          <>
+                            <i className="pi pi-phone p-pr-2" />
+                            <i className="pi pi-video p-pr-2" />
+                            <i className="pi pi-comments p-pr-2" />
+                            <i
+                              data-id={contact.id}
+                              onClick={confirmBlock}
+                              className="pi pi-ban p-pr-2"
+                              data-last-name={contact.lastName}
+                              data-first-name={contact.firstName}
+                            />
+                            <i
+                              data-id={contact.id}
+                              onClick={confirmRemove}
+                              className="pi pi-trash p-pr-2"
+                              data-last-name={contact.lastName}
+                              data-first-name={contact.firstName}
+                            />
+                          </>
+                          :
+                          <div className="contacts-blockedContactMessage text-right">
+                            <p className="p-my-2 contacts-blockedContactMessage">You blocked this contact</p>
+                            <div>
+                              <i
+                                className="pi pi-lock-open"
+                                onClick={() => dispatch(unblockContact(contact.id))}
+                              />
+                              <i
+                                data-id={contact.id}
+                                onClick={confirmRemove}
+                                className="pi pi-trash p-pr-2"
+                                data-last-name={contact.lastName}
+                                data-first-name={contact.firstName}
+                              />
+                            </div>
+                          </div>
+                      }
+
                     </div>
                   </div>
                 )
@@ -126,6 +171,7 @@ const List = () => {
             }
             {
               contacts.ids.length > 0 &&
+              contacts.ids.length < contacts.meta.total &&
               <Button label={loading === "loadMoreContacts" ? 'Loading...' : 'Load More'} onClick={loadMoreContacts} className="p-mr-2 w-100" />
             }
             {

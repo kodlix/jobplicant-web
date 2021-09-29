@@ -1,6 +1,7 @@
 import { showMessage } from "./notification";
 import agent from "../../services/agent.service";
 import { MESSAGE_TYPE } from "../constant";
+import { CONTACT_STATUS } from './../../constants/contactStatus';
 
 // initial values
 const contact = {
@@ -8,7 +9,8 @@ const contact = {
   pendingRequests: { data: {}, meta: {}, ids: [] },
   freeUsers: { data: {}, meta: {}, ids: [] },
   contacts: { data: {}, meta: {}, ids: [] },
-  error: null
+  error: null,
+  selectedId: null
 };
 
 //Action types
@@ -19,8 +21,12 @@ const LOADING_CONTACT = "LOADING";
 const ERROR = "ERROR";
 const CONTACT_ADDED = "CONTACT_ADDED";
 const CONTACT_DELETED = "CONTACT_DELETED";
+const CONTACT_BLOCKED = "CONTACT_BLOCKED";
+const CONTACT_UNBLOCKED = "CONTACT_UNBLOCKED";
 const REMOVE_PENDING = "REMOVE_PENDING";
 const REQUEST_SENT = "REQUEST_SENT";
+const REQUEST_CANCELLED = "REQUEST_CANCELLED";
+const SELECT_ID = "SELECT_ID";
 
 //Reducer
 export default function reducer(state = contact, action = {}) {
@@ -30,8 +36,14 @@ export default function reducer(state = contact, action = {}) {
         ...state,
         loadingContact: action.payload,
       };
+    case SELECT_ID:
+      return {
+        ...state,
+        selectedId: action.id,
+      };
     case LOAD_FREE_USERS:
-      const data = action.payload
+      const data = action.payload.data || [];
+      const meta = action.payload.meta || {};
       const uniqueFreeIds = [];
       if (state?.loadingContact === "loadMore") {
         const idArray = Array.from(new Set([
@@ -58,12 +70,12 @@ export default function reducer(state = contact, action = {}) {
             ...state.freeUsers.data,
             ...normalizedFreeUsers
           },
-          meta: {}
+          meta
         },
         loadingContact: null
       };
     case LOAD_CONTACTS:
-      const contactArray = action.payload
+      const contactArray = action.payload.data || [];
       const uniqueContactIds = [];
       if (state?.loadingContact === "loadMoreContacts") {
         const idArray = Array.from(new Set([
@@ -90,30 +102,59 @@ export default function reducer(state = contact, action = {}) {
             ...state.contacts.data,
             ...normalizedContacts
           },
-          meta: {}
+          meta: {...action.payload.meta}
         },
         loadingContact: null
       };
     case CONTACT_ADDED:
-      console.log("contact added", action.payload)
+      console.log("payload", action.payload)
       return {
         ...state,
         contacts: {
           ...state.contacts,
           ids: [action.payload.id, ...state.contacts.ids],
-          data: { [action.payload.id]: action.payload, ...state.contacts.data }
+          data: {
+            [action.payload.id]: {
+              contactRequestStatus: 'accepted',
+              blockedBy: null,
+              isBlocked: false,
+              ...action.payload
+            },
+            ...state.contacts.data
+          }
         }
       };
     case REQUEST_SENT:
       const sentRequestId = action.id;
-      const updatedRequestArray = [...state.freeUsers.ids]
-      updatedRequestArray.splice(updatedRequestArray.indexOf(sentRequestId), 1)
-      console.log("request sent", sentRequestId, updatedRequestArray)
       return {
         ...state,
+        selectedId: null,
         freeUsers: {
           ...state.freeUsers,
-          ids: updatedRequestArray,
+          data: {
+            ...state.freeUsers.data,
+            [sentRequestId]: {
+              ...state.freeUsers.data[sentRequestId],
+              contactRequestStatus: CONTACT_STATUS.PENDING
+            }
+          }
+        }
+      };
+    case REQUEST_CANCELLED:
+      const cancelledRequestId = action.id;
+      console.log(cancelledRequestId);
+      return {
+        ...state,
+        selectedId: null,
+        freeUsers: {
+          ...state.freeUsers,
+          data: {
+            ...state.freeUsers.data,
+            [cancelledRequestId]: {
+              ...state.freeUsers.data[cancelledRequestId],
+              contactRequestStatus: null
+            }
+          }
         }
       };
     case CONTACT_DELETED:
@@ -125,6 +166,38 @@ export default function reducer(state = contact, action = {}) {
         contacts: {
           ...state.contacts,
           ids: updatedIdArray
+        }
+      };
+    case CONTACT_BLOCKED:
+      const blockedContactId = action.id;
+      return {
+        ...state,
+        contacts: {
+          ...state.contacts,
+          data: {
+            ...state.contacts.data,
+            [blockedContactId]: {
+              ...state.contacts.data[blockedContactId],
+              isBlocked: true,
+              blockedBy: agent.Auth.current().id
+            }
+          }
+        }
+      };
+    case CONTACT_UNBLOCKED:
+      const unblockedContactId = action.id;
+      return {
+        ...state,
+        contacts: {
+          ...state.contacts,
+          data: {
+            ...state.contacts.data,
+            [unblockedContactId]: {
+              ...state.contacts.data[unblockedContactId],
+              isBlocked: false,
+              blockedBy: null
+            }
+          }
         }
       };
     case LOAD_PENDING_REQUESTS:
@@ -189,6 +262,10 @@ export const loadingContact = (data) => ({
   type: LOADING_CONTACT,
   payload: data
 });
+export const selectId = (data) => ({
+  type: SELECT_ID,
+  id: data
+});
 export const isError = (data) => ({
   type: ERROR,
   payload: data
@@ -205,6 +282,14 @@ export const contactDeleted = (id) => ({
   type: CONTACT_DELETED,
   id: id,
 });
+export const contactBlocked = (id) => ({
+  type: CONTACT_BLOCKED,
+  id: id,
+});
+export const contactUnblocked = (id) => ({
+  type: CONTACT_UNBLOCKED,
+  id: id,
+});
 export const addContact = (data) => ({
   type: CONTACT_ADDED,
   payload: data
@@ -216,6 +301,10 @@ export const removeFromPending = (id) => ({
 export const requestSent = (data) => ({
   type: REQUEST_SENT,
   id: data.contactId
+});
+export const requestCanceled = (id) => ({
+  type: REQUEST_CANCELLED,
+  id: id
 });
 
 //Actions
@@ -294,6 +383,7 @@ export function loadPendingRequests(page, take, loadingType) {
 
 export function sendContactRequest(id) {
   return dispatch => {
+    dispatch(selectId(id.contactId));
     dispatch(loadingContact("sendContactRequest"));
     dispatch(isError(null));
     return agent.Contact.add(id).then(
@@ -307,6 +397,33 @@ export function sendContactRequest(id) {
           }),
         );
         dispatch(requestSent(id));
+        dispatch(loadingContact(""));
+      },
+      (error) => {
+        // handle error
+        dispatch(showMessage({ type: "error", message: error }));
+        dispatch(loadingContact(""));
+        dispatch(isError("requestFail"));
+      }
+    );
+  }
+}
+
+export function cancelContactRequest(id) {
+  return dispatch => {
+    dispatch(loadingContact("cancelContactRequest"));
+    dispatch(isError(null));
+    return agent.Contact.cancel(id).then(
+      response => {
+        //handle success
+        dispatch(
+          showMessage({
+            type: MESSAGE_TYPE.SUCCESS,
+            title: "Connection request",
+            message: "Connection request has been cancelled",
+          }),
+        );
+        dispatch(requestCanceled(id));
         dispatch(loadingContact(""));
       },
       (error) => {
@@ -342,10 +459,57 @@ export function removeContact(id) {
   }
 }
 
+export function blockContact(id) {
+  return dispatch => {
+    return agent.Contact.block(id).then(
+      response => {
+        //handle success
+        dispatch(
+          showMessage({
+            type: MESSAGE_TYPE.SUCCESS,
+            title: "Block this contact",
+            message: "Contact blocked successfully",
+          })
+        );
+        dispatch(contactBlocked(id));
+      },
+      (error) => {
+        // handle error
+        dispatch(showMessage({ type: "error", message: error }));
+        dispatch(isError("blockFail"));
+      }
+    );
+  }
+}
+
+export function unblockContact(id) {
+  return dispatch => {
+    return agent.Contact.unblock(id).then(
+      response => {
+        //handle success
+        dispatch(
+          showMessage({
+            type: MESSAGE_TYPE.SUCCESS,
+            title: "Unblock this contact",
+            message: "Contact unblocked successfully",
+          })
+        );
+        dispatch(contactUnblocked(id));
+      },
+      (error) => {
+        // handle error
+        dispatch(showMessage({ type: "error", message: error }));
+        dispatch(isError("unblockFail"));
+      }
+    );
+  }
+}
+
 export function acceptRequest(id, loadingType, accountDetails) {
   return dispatch => {
     dispatch(isError(null));
     dispatch(loadingContact(loadingType));
+    dispatch(selectId(id.contactId));
     return agent.Contact.accept(id).then(
       response => {
         //handle success
@@ -358,7 +522,6 @@ export function acceptRequest(id, loadingType, accountDetails) {
         );
         dispatch(addContact(accountDetails))
         dispatch(removeFromPending(id))
-        dispatch(loadingContact(null))
       },
       (error) => {
         // handle error
@@ -372,6 +535,7 @@ export function acceptRequest(id, loadingType, accountDetails) {
 
 export function rejectRequest(id, loadingType) {
   return dispatch => {
+    dispatch(selectId(id));
     dispatch(isError(null));
     dispatch(loadingContact(loadingType));
     return agent.Contact.reject(id).then(
