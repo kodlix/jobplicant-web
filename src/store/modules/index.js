@@ -22,6 +22,7 @@ import emojiPicker from './emojiPicker'
 import chat from './chat'
 import review from './review'
 import appNotification from './appNotification'
+import cv from './cv'
 
 const appReducer = (history) => combineReducers({
   router: connectRouter(history),
@@ -47,6 +48,7 @@ const appReducer = (history) => combineReducers({
   chat,
   review,
   appNotification,
+  cv
 });
 
 export default appReducer;

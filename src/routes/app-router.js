@@ -1,5 +1,5 @@
 import React, { useEffect, } from 'react'
-import { Switch, Redirect, useLocation } from 'react-router';
+import { Switch, Redirect, useLocation, Route } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { clearMessage } from "../store/modules/notification";
 import AppLoading from '../components/AppLoading';
@@ -13,6 +13,7 @@ import AdminSkill from 'pages/admin/dashboard/AdminSkills';
 import AdminContractType from 'pages/admin/dashboard/AdminContractType';
 import AdminQualification from 'pages/admin/dashboard/AdminQualification';
 import AnonymousRouteOrProtectedRoute from './anonymous-or-protected-route';
+import ModalRoute from 'components/chat/ModalRoute';
 
 
 const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard'));
@@ -53,6 +54,8 @@ const AdminServicesAndServiceGroups = React.lazy(() => import('pages/admin/dashb
 const HOWTOSTART = React.lazy(() => import('../pages/generate-CV/HowToStart'));
 const CVTEMPLATE = React.lazy(() => import('../pages/generate-CV/CV-Template'));
 
+const InstantMessaging = React.lazy(() => import('pages/instant-messaging/InstantMessaging'));
+const InstantMessagingPopup = React.lazy(() => import('pages/instant-messaging/InstantMessagingPopup'))
 
 const Artisan = React.lazy(() => import('../pages/artisans/List'));
 
@@ -63,14 +66,18 @@ const ListJobDetail = React.lazy(() => import('pages/job/ListJobDetail'));
 
 const AppRouter = () => {
   const dispatch = useDispatch();
-  let location = useLocation()
+  const location = useLocation()
+  let previousLocation = location;
+
+  const isModal = location.state
+    && location.state.modal;
 
   useEffect(() => {
     dispatch(clearMessage());
   }, [location, dispatch])
   return (
     <React.Suspense fallback={<AppLoading />}>
-      <Switch>
+      <Switch >
         <AnonymousRoute exact path="/" component={LandingPage} />
         <AnonymousRoute path="/login" exact component={Login} />
         <AnonymousRoute path="/register" exact component={Register} />
@@ -115,7 +122,8 @@ const AppRouter = () => {
 
         <ProtectedRoute path="/howtostart" exact component={HOWTOSTART} />
         <ProtectedRoute path="/cv-template" component={CVTEMPLATE} />
-
+        {/* INSTANT MESSAGING */}
+        <ProtectedRoute path="/instant-messaging" children={<InstantMessaging />} />
         {/* admin routes */}
         <ProtectedAdminRoute path="/admin" component={AdminDashboard} />
         <ProtectedAdminRoute path="/admin-qualification" component={AdminQualification} />
@@ -124,6 +132,12 @@ const AppRouter = () => {
         <ProtectedAdminRoute path="/admin-services" component={AdminServicesAndServiceGroups} />
         <Redirect to="/login" />
       </Switch>
+      {/* {isModal
+        && <ProtectedRoute
+          path="/instant-messaging"
+          component={ModalRoute}
+        />
+      } */}
     </React.Suspense>
   )
 }

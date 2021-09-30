@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'primereact/button';
 import agentService from 'services/agent.service';
@@ -21,6 +21,8 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
     const LogOut = () => {
         dispatch(OnLogout());
     };
+
+    const location = useLocation()
 
     useEffect(() => {
         dispatch(loadProfileInfo());

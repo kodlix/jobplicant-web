@@ -364,6 +364,12 @@ const Notification = {
   clearAll: () => requests.del(`/notification/me/clearall`)
 
 };
+const Cv = {
+  create: (data) => requests.post("/cv", data),
+  fetch: (userId) => requests.get(`/cv/${userId}`),
+  update: (id, data) => requests.put(`/cv/${id}`, data),
+  delete: (id) => requests.del(`/cv/${id}`)
+}
 
 export default {
   Auth,
@@ -397,4 +403,5 @@ export default {
   ServiceGroup,
   Service,
   Review,
+  Cv
 };

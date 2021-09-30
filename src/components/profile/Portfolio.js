@@ -7,7 +7,7 @@ import { Carousel } from "primereact/carousel";
 import "./UserProfile.css";
 import { useSelector } from "react-redux";
 
-const Portfolio = ({ openCreate, openEdit }) => {
+const Portfolio = ({ openCreate, openEdit, isViewApplicant }) => {
   const profileInfo = useSelector((state) => state.account.profileInfo);
 
 
@@ -27,6 +27,7 @@ const Portfolio = ({ openCreate, openEdit }) => {
             showEditButton="true"
             openModalOnCreate={() => openCreate(PROFILE.PORTFOLIO)}
             openModalOnEdit={() => openEdit(PROFILE.PORTFOLIO)}
+            isViewApplicant={isViewApplicant}
           />
           <div className="p-card-body p-grid p-mt-2">
             {profileInfo?.portfolios &&
