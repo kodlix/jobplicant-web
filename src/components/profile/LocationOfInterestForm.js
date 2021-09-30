@@ -18,6 +18,7 @@ const LOIList = [
 ];
 
 const LOIForm = ({ data, closeEditMode }) => {
+  console.log('Loi data', data)
   const { register, handleSubmit, setValue } = useForm();
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.account.loading);
@@ -26,7 +27,8 @@ const LOIForm = ({ data, closeEditMode }) => {
   const [currentLOI, setCurrentLOI] = useState("");
 
   const searchObjectArrayValues = (array, value) => {
-    const LOIExists = array.filter((LOI) => LOI.id === value);
+    console.log('LOIS TEST AGAIN', array)
+    const LOIExists = array.filter((LOI) => LOI.name === value);
     return !Boolean(LOIExists.length > 0);
   };
 
@@ -39,13 +41,13 @@ const LOIForm = ({ data, closeEditMode }) => {
     if (LOIs.length > 2) {
       console.log('loi is greater than 2');
     }else{
-      const { id } = currentLOI;
-  
-      if (searchObjectArrayValues(LOIs, id)) {
-        setLOIs([...LOIs, currentLOI]);
+      const { name } = currentLOI;
+   
+      if (searchObjectArrayValues(LOIs, name)) {
+        setLOIs([...LOIs, name]);
+        setValue("location", LOIs);
+        setCurrentLOI("");
       }
-      setValue("location", LOIs);
-      setCurrentLOI("");
     }
   };
   const handleLOIDelete = (loiToRemove) => {
@@ -80,8 +82,8 @@ const LOIForm = ({ data, closeEditMode }) => {
                 Add up to 2 locations of interest
               </label>
             </span>
-            {LOIs.length > 0 ? (
-              LOIs.map((LOI, index) => (
+        
+            { LOIs.map((LOI, index) => 
                 <button
                   key={index}
                   onClick={(e) => handleLOIDelete(LOI)}
@@ -95,10 +97,8 @@ const LOIForm = ({ data, closeEditMode }) => {
                     className="p-p-2"
                   ></Tag>
                 </button>
-              ))
-            ) : (
-              <div>No tags</div>
-            )}
+              )}
+            
             <span className="skillInput">
               <Dropdown
                 value={currentLOI}

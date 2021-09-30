@@ -1,3 +1,4 @@
+import moment from "moment";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadProfileInfo } from "store/modules/account";
@@ -7,6 +8,8 @@ const ReviewTab = () => {
     const dispatch = useDispatch();
     const applicantReview = useSelector(state => state.account.profileInfo);
     console.log("review", applicantReview);
+
+    console.log("review-details", applicantReview)
 
     useEffect(() => {
         dispatch(loadProfileInfo());
@@ -26,7 +29,7 @@ const ReviewTab = () => {
                         <div className="d-flex">
                             <div className="d-col text-center">
                                 <div>
-                                    <p>{review?.reviewerName}</p>
+                                    <p>{review?.reviewerDisplayName}</p>
                                 </div>
                                 <img
                                     src="https://source.unsplash.com/random/50x50"
@@ -37,6 +40,7 @@ const ReviewTab = () => {
                             <div className="p-2"></div>
                             <div>
                                 <ul>
+                                    <li className="d-flex text-capitalize text-center app-color font-weight-bold">{review?.title}</li>
                                     <li className="d-flex flex-column">
                                         <p className="p-1">{ }</p>
                                         <span>
@@ -47,10 +51,11 @@ const ReviewTab = () => {
                                         </span>
                                     </li>
 
-                                    <li className="d-flex">{review?.title}</li>
+                                    <li className="d-flex">{review?.detail}</li>
                                 </ul>
                             </div>
                         </div>
+                        <p className="align-right">{moment(review?.createdAt).format('MMMM DD, YYYY')}</p>
                     </div>
                 )}
                 {applicantReview?.reviews.length === 0 && <strong className="mx-auto text-secondary">No review found</strong>}
