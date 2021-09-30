@@ -6,9 +6,12 @@ import { apply, applyJob, viewJob } from 'store/modules/job'
 import BackgroundImage from '../../assets/bg.png'
 import parser from 'html-react-parser'
 import { SplitButton } from 'primereact/splitbutton';
+import { fetchCV } from 'store/modules/cv'
+import JobCvModal from './JobCvModal'
 
 
 const ListJobDetail = () => {
+    const [showModal, setShowModal] = React.useState(false)
     const dispatch = useDispatch()
     const history = useHistory();
     const param = useParams();
@@ -23,6 +26,23 @@ const ListJobDetail = () => {
     useEffect(() => {
         dispatch(viewJob(param.jobListId))
     }, []);
+
+    const cvData = useSelector(state => state.cv.data)
+    const profileInfo = useSelector((state) => state.account.profileInfo);
+    const onHide = () => setShowModal(false)
+
+    React.useEffect(() => {
+        if (profileInfo) {
+            const id = profileInfo.id;
+            dispatch(fetchCV(id))
+        }
+    }, [profileInfo])
+
+    React.useEffect(() => {
+        if (cvData) {
+            console.log('cv data', cvData)
+        }
+    }, [cvData])
 
     const formatValue = value => new Intl.NumberFormat('en-US', {}).format(value);
 
@@ -41,12 +61,34 @@ const ListJobDetail = () => {
         }
     },];
 
+    const optionsWithCVData = [
+        {
+            label: 'Use CV to apply',
+            icon: 'pi pi-refresh',
+            command: (e) => {
+                setShowModal(true)
+            }
+        },
+        {
+            label: 'Upload CV',
+            icon: 'pi pi-upload',
+            command: (e) => {
+                fileUploadRef.current.click();
+            }
+        },
+    ]
+
     const handleApplyForJob = (id) => dispatch(apply(id, { "jobId": jobDetail.id }))
     if (jobDetail === null)
         return <Spinner />
 
     return (
         <>
+            <JobCvModal 
+                showModal={showModal} 
+                setShowModal={setShowModal} 
+                cvData={cvData} 
+            />
             <div style={styles.container}>
                 <div className="container">
                     <div className="d-flex" style={styles.topBarContainer}>
@@ -107,7 +149,7 @@ const ListJobDetail = () => {
                             label={`Apply`}
                             loading={jobApplicationRequest}
                             onClick={() => splitButtonRef.current.onDropdownButtonClick()}
-                            model={options}
+                            model={cvData !== null ? optionsWithCVData : options}
                             className="btn btn-block"
                             style={styles.btn}
                         ></SplitButton>
