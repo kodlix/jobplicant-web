@@ -7,7 +7,7 @@ import { API_ROOT } from "../../services/agent.service";
 import ConnectionRequestPanel from "./ConnectionRequestPanel";
 import "./Contacts.css";
 import { ACCOUNT_TYPE } from 'constants/accountType';
-import { CONTACT_STATUS, CONTACT_ACTION_STATUS } from 'constants/contactStatus';
+import { CONTACT_STATUS } from 'constants/contactStatus';
 
 const Create = () => {
   const dispatch = useDispatch();
@@ -145,7 +145,7 @@ const Create = () => {
                   </span>
                   <div className="align-self-center">
                     {
-                      loading === CONTACT_ACTION_STATUS.SEND_REQUEST && user.id === selectedId &&
+                      (loading === CONTACT_STATUS.SEND_REQUEST || loading === CONTACT_STATUS.CANCEL_REQUEST) && user.id === selectedId &&
                       <Button className="contacts-cardsubtitle p-p-1 p-mr-3">
                         <i className="pi pi-spin pi-spinner contacts-spinner" />
                       </Button>
@@ -154,18 +154,22 @@ const Create = () => {
                       (user.id !== selectedId) &&
                       <>
                         {
-                          user.contactRequestStatus === CONTACT_STATUS.PENDING ?
-                            <Button className="contacts-btn-cancelRequest contacts-cardsubtitle p-p-1 p-mr-3" data-id={user.id} onClick={(e) => cancelConnectionRequest(e)}>
-                              <span className="p-m-2">
-                                Cancel Request
-                              </span>
-                            </Button>
-                            :
-                            <Button className="contacts-cardsubtitle p-p-1 p-mr-3" data-id={user.id} onClick={(e) => sendConnectionRequest(e)}>
-                              <span className="p-m-2">
-                                Send Connection Request
-                              </span>
-                            </Button>
+                          user.contactRequestStatus === CONTACT_STATUS.PENDING &&
+                          loading !== CONTACT_STATUS.CANCEL_REQUEST &&
+                          <Button className="contacts-btn-cancelRequest contacts-cardsubtitle p-p-1 p-mr-3" data-id={user.id} onClick={(e) => cancelConnectionRequest(e)}>
+                            <span className="p-m-2">
+                              Cancel Request
+                            </span>
+                          </Button>
+                        }
+                        {
+                          user.contactRequestStatus !== CONTACT_STATUS.PENDING &&
+                          loading !== CONTACT_STATUS.SEND_REQUEST &&
+                          <Button className="contacts-cardsubtitle p-p-1 p-mr-3" data-id={user.id} onClick={(e) => sendConnectionRequest(e)}>
+                            <span className="p-m-2">
+                              Send Connection Request
+                            </span>
+                          </Button>
                         }
                       </>
                     }

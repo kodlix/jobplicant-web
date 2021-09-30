@@ -180,9 +180,9 @@ const List = () => {
               &&
               <div className="p-card p-p-4 p-mb-2 d-flex justify-content-center">
                 <div className="text-center">
-                  <span className="p-card-title ">
-                    Oops. Contact List is Empty
-                  </span>
+                  <div className="p-card-title ">
+                    Oops. Contact list is empty...
+                  </div>
                   <Link to="/contacts/create">
                     Find users to add to contact list
                   </Link>

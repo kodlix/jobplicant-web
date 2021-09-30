@@ -107,7 +107,6 @@ export default function reducer(state = contact, action = {}) {
         loadingContact: null
       };
     case CONTACT_ADDED:
-      console.log("payload", action.payload)
       return {
         ...state,
         contacts: {
@@ -128,6 +127,7 @@ export default function reducer(state = contact, action = {}) {
       const sentRequestId = action.id;
       return {
         ...state,
+        loadingContact: null,
         selectedId: null,
         freeUsers: {
           ...state.freeUsers,
@@ -142,7 +142,6 @@ export default function reducer(state = contact, action = {}) {
       };
     case REQUEST_CANCELLED:
       const cancelledRequestId = action.id;
-      console.log(cancelledRequestId);
       return {
         ...state,
         selectedId: null,
@@ -384,7 +383,7 @@ export function loadPendingRequests(page, take, loadingType) {
 export function sendContactRequest(id) {
   return dispatch => {
     dispatch(selectId(id.contactId));
-    dispatch(loadingContact("sendContactRequest"));
+    dispatch(loadingContact(CONTACT_STATUS.SEND_REQUEST));
     dispatch(isError(null));
     return agent.Contact.add(id).then(
       response => {
@@ -397,7 +396,6 @@ export function sendContactRequest(id) {
           }),
         );
         dispatch(requestSent(id));
-        dispatch(loadingContact(""));
       },
       (error) => {
         // handle error
@@ -411,7 +409,8 @@ export function sendContactRequest(id) {
 
 export function cancelContactRequest(id) {
   return dispatch => {
-    dispatch(loadingContact("cancelContactRequest"));
+    dispatch(selectId(id));
+    dispatch(loadingContact(CONTACT_STATUS.CANCEL_REQUEST));
     dispatch(isError(null));
     return agent.Contact.cancel(id).then(
       response => {
