@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'primereact/button';
 import agentService from 'services/agent.service';
@@ -9,6 +9,11 @@ import { OnLogout } from '../store/modules/auth';
 import './AppNavBar.css';
 import { ACCOUNT_TYPE } from 'constants/accountType';
 import { Container, Nav, Navbar } from 'react-bootstrap';
+import { agent } from 'superagent';
+import { updateNotification, UserNotifications } from 'store/modules/appNotification';
+import { ViewModuleFromNotification } from 'helpers/viewModuleFromNotification';
+import useWindowSize from 'hooks/use-window-size';
+import { toggleChatModal } from 'store/modules/chat';
 
 const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
     const userAccountType = agentService.Auth.current()?.accountType;
@@ -19,9 +24,42 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
         dispatch(OnLogout());
     };
 
+    const location = useLocation()
+    const [width, height] = useWindowSize()
+   
+
     useEffect(() => {
         dispatch(loadProfileInfo());
     }, [dispatch]);
+
+    // notificetion
+    const user = agent.Auth?.current();
+    const [notifications, setNotifications] = useState([]);
+
+
+    const allAdminNotifications = useSelector(state => state.appNotification.navBarNotifications);
+
+    useEffect(() => {
+        if (allAdminNotifications) {
+            setNotifications(allAdminNotifications)
+        }
+    }, [allAdminNotifications]);
+
+    useEffect(() => {
+        dispatch(UserNotifications(user?.accountId));
+    }, [dispatch]);
+
+    const viewNot = (not, viewFrom) => {
+        if (!not.id) return;
+        dispatch(updateNotification(not.id));
+
+        ViewModuleFromNotification(not, viewFrom);
+    }
+
+    const remove = (id) => {
+        if (!id) return;
+        dispatch(updateNotification(id));
+    }
 
     return (
         <div className="container-appNavbar">
@@ -79,7 +117,10 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                                     </div>
                                 </Nav.Link>
                                 <Nav.Link className="text-white" href="#">
-                                    <i className="pi pi-bell itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
+                                    <div className="position-relative">
+                                        {/* <small className="badge bg-danger position-absolute alert-badge" >2</small> */}
+                                        <i className="pi pi-bell itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
+                                    </div>
                                     <div className="itemTitle-appNavbar mx-2">
                                         Notifications
                                     </div>

@@ -24,7 +24,7 @@ import { ErrorBoundary } from "react-error-boundary";
 
 
 const UserProfile = ({ match }) => {
-  const [contact, setContact] = React.useState(null)
+  
   const profileInfo = useSelector((state) => state.account.profileInfo);
 
   const dispatch = useDispatch();
@@ -87,8 +87,7 @@ const UserProfile = ({ match }) => {
               {accountType === ACCOUNT_TYPE.ARTISAN && <Portfolio openCreate={openCreate} openEdit={openEdit} />}
             </div>
           </div>
-          <ChatContainer setContact={setContact} selectedContact={contact} />
-          {contact !== null && <ChatContent setContact={setContact} contact={contact} />}
+          
         </div>
 
       </>
