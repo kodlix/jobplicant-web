@@ -114,7 +114,7 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                                 </Nav.Link>
                                 <Nav.Link className="text-white" href="#">
                                     <div className="position-relative">
-                                        <small className="badge bg-danger position-absolute alert-badge" >2</small>
+                                        {/* <small className="badge bg-danger position-absolute alert-badge" >2</small> */}
                                         <i className="pi pi-bell itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
                                     </div>
                                     <div className="itemTitle-appNavbar mx-2">
