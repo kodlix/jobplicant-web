@@ -12,6 +12,8 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 import { agent } from 'superagent';
 import { updateNotification, UserNotifications } from 'store/modules/appNotification';
 import { ViewModuleFromNotification } from 'helpers/viewModuleFromNotification';
+import useWindowSize from 'hooks/use-window-size';
+import { toggleChatModal } from 'store/modules/chat';
 
 const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
     const userAccountType = agentService.Auth.current()?.accountType;
@@ -23,6 +25,7 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
     };
 
     const location = useLocation()
+    const [width, height] = useWindowSize()
 
     useEffect(() => {
         dispatch(loadProfileInfo());
