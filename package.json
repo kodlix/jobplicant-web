@@ -13,6 +13,7 @@
     "emoji-mart": "^3.0.1",
     "history": "4.10.1",
     "html-react-parser": "^1.2.7",
+    "http-proxy-middleware": "^2.0.1",
     "moment": "^2.29.1",
     "primeflex": "^2.0.0",
     "primeicons": "^4.1.0",
@@ -62,6 +63,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": "https://jobplicant-api.herokuapp.com"
+  }
 }

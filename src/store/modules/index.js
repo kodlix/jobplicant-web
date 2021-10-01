@@ -21,6 +21,7 @@ import contact from './contact'
 import emojiPicker from './emojiPicker'
 import chat from './chat'
 import review from './review'
+import appNotification from './appNotification'
 import cv from './cv'
 
 const appReducer = (history) => combineReducers({
@@ -46,6 +47,7 @@ const appReducer = (history) => combineReducers({
   emojiPicker,
   chat,
   review,
+  appNotification,
   cv
 });
 

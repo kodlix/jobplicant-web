@@ -23,8 +23,6 @@ const Applicant = (props) => {
     const instantJobId = props.match.params.id;
 
     const applicants = useSelector(state => state.instantJob.applicants);
-    console.log("Applicant => ", applicants);
-    console.log("instant-job => ", instantJob);
     const individualProfile = useSelector(state => state.account.profileInfo);
 
 
