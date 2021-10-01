@@ -26,6 +26,7 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
 
     const location = useLocation()
     const [width, height] = useWindowSize()
+   
 
     useEffect(() => {
         dispatch(loadProfileInfo());

@@ -5,12 +5,6 @@ import chatJSON from './chat.json'
 import "./ChatContainer.css"
 
 const ChatContainer = ({setContact, selectedContact}) => {
-    // const [show, setShow] = React.useState(false);
-
-    // const toggleChatShow = () => {
-    //     setShow(!show);
-    // }
-
     const show = useSelector(state => state.chat.showChatModal)
     const dispatch = useDispatch()
 
