@@ -9,6 +9,7 @@ const JobplicantAvatar = ({
     selectedFile,
     loading,
     preview,
+    isProfileView,
 }) => {
     const profileInfo = data;
 
@@ -16,25 +17,25 @@ const JobplicantAvatar = ({
         let initial = '';
         const names = fullname.split(' ');
         names.forEach(name => {
-          initial += name[0]
+            initial += name[0]
         });
         return initial;
-      }
-    
-      const avatarContainer = (fullname) => {
-          return <Avatar 
-            label={getInitials(fullname)}
-            size="xlarge" 
-            className="avatar-title"
-            shape="circle" 
-            style={{backgroundColor: 'green'}}
-          />
-        return <div className="avatar-container profile-picture">
-          <h4 className="avatar-title">{getInitials(fullname)}</h4>
-        </div>
-      }
+    }
 
-      const fullname = profileInfo.firstName ? profileInfo?.firstName + ' ' + profileInfo?.lastName : '';
+    const avatarContainer = (fullname) => {
+        return <Avatar
+            label={getInitials(fullname)}
+            size="xlarge"
+            className="avatar-title"
+            shape="circle"
+            style={{ backgroundColor: 'green' }}
+        />
+        return <div className="avatar-container profile-picture">
+            <h4 className="avatar-title">{getInitials(fullname)}</h4>
+        </div>
+    }
+
+    const fullname = profileInfo.firstName ? profileInfo?.firstName + ' ' + profileInfo?.lastName : '';
     return (
         <div className="userProfile-header">
             <span className="profilePic-container">
@@ -46,8 +47,8 @@ const JobplicantAvatar = ({
                         className="profile-picture"
                     />
                     : avatarContainer(profileInfo?.fullname || "Chike Daniels")} */}
-                    {fullname ? avatarContainer(fullname) : ''}
-                <label className="profilePic-label" htmlFor="upload-button" style={{marginBottom: '-20px'}}>
+                {fullname ? avatarContainer(fullname) : ''}
+                {!isProfileView && <label className="profilePic-label" htmlFor="upload-button" style={{ marginBottom: '-20px' }}>
                     {loading ? (
                         <i className="pi pi-spin pi-spinner" style={{ color: "black" }}>
                             {" "}
@@ -55,7 +56,7 @@ const JobplicantAvatar = ({
                     ) : (
                         <i className="pi pi-camera"></i>
                     )}
-                </label>
+                </label>}
             </span>
         </div>
     )
