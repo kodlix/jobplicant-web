@@ -31,9 +31,21 @@
   padding: 0.7rem 1rem;
 }
 
-.contacts-contactHeader {
+.contacts-contactContainer {
   vertical-align: top;
   font-size: 1.1rem !important;
+  transition: none;
+  cursor: pointer;
+  color: #5A2846;
+  display: flex;
+}
+
+.contacts-contactHeader {
+  color: #5A2846;
+}
+
+.contacts-contactHeader:hover {
+  color: #2ca55e;
 }
 
 .contacts-actionIcons .pi {
@@ -112,7 +124,6 @@
   border: 4px #5A2846 solid; 
   object-fit: cover;
   background-color: white;
-  cursor: pointer; 
 }
 
 .contacts-jobDescription {

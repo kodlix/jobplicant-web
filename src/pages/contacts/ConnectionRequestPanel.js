@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadPendingRequests, acceptRequest, rejectRequest } from "../../store/modules/contact";
 import { Button } from 'primereact/button';
 import { formatter } from '../../helpers/converter';
 import { confirmDialog } from 'primereact/confirmdialog';
 import { API_ROOT } from "../../services/agent.service";
+import { ACCOUNT_TYPE } from './../../constants/accountType';
 import "./Contacts.css";
 
 const ConnectionRequestPanel = () => {
@@ -76,7 +78,16 @@ const ConnectionRequestPanel = () => {
                   }
                   <span className="w-100">
                     <div className="p-card-title contacts-cardsubtitle p-mb-0 d-flex justify-content-between">
-                      <span> {`${formatter.capitalizeFirstLetter(contact?.firstName)} ${formatter.capitalizeFirstLetter(contact?.lastName)}`}
+                      <span> {
+                        contact.accountType === ACCOUNT_TYPE.CORPORATE ?
+                          <Link to={`/applicant/${contact.id}`} className="contacts-contactHeader">
+                            {contact.companyName}
+                          </Link>
+                          :
+                          <Link to={`/applicant/${contact.id}`} className="contacts-contactHeader">
+                            {`${formatter.capitalizeFirstLetter(contact?.firstName)} ${formatter.capitalizeFirstLetter(contact?.lastName)}`}
+                          </Link>
+                      }
                       </span>
                       <span className="text-right">
                         {

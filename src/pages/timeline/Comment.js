@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import moment from 'moment';
 import { likeComment, dislikeComment, deleteComment } from "../../store/modules/comment";
@@ -7,11 +8,12 @@ import { formatter } from '../../helpers/converter';
 import ThumbsDown from "../../components/ThumbDown";
 import ThumbsUp from "../../components/ThumbUp";
 import CommentForm from './CommentForm';
-import './CommentSection.css';
 import { ACCOUNT_TYPE } from 'constants/accountType';
+import './CommentSection.css';
 
 const Comment = ({ comment, key, postId, expandProfileImage }) => {
   const dispatch = useDispatch();
+  const currentUserAccountId = agent.Auth.current()?.id;
   const [displayCommentForm, setDisplayCommentForm] = useState(false);
   const isAuthenticated = agent.Auth.isAuth();
 
@@ -32,12 +34,12 @@ const Comment = ({ comment, key, postId, expandProfileImage }) => {
     <div className="timeline-commentContainer" id={key}>
       <div className="d-flex p-pl-3 p-pt-3 w-100">
         {
-          comment.imageUrl
+          comment.author.imageUrl
             ?
             <img
               width="40"
               height="40"
-              src={`${API_ROOT}/${comment.imageUrl}`}
+              src={`${API_ROOT}/${comment.author.imageUrl}`}
               className="rounded-circle profile-picture-timeline p-mr-2"
               onClick={expandProfileImage}
               alt="profile"
@@ -48,13 +50,28 @@ const Comment = ({ comment, key, postId, expandProfileImage }) => {
         <div className="w-100">
           <span className=" d-flex justify-content-between">
             <div>
-              <h6>
+              <h6 className="comment-header">
                 {
-                  comment.accountType === ACCOUNT_TYPE.CORPORATE
-                    ?
-                    comment.companyName
+                  comment.author.id !== currentUserAccountId &&
+                  (comment.author.accountType !== ACCOUNT_TYPE.CORPORATE ?
+                    <Link to={`/applicant/${comment.author.id}`}>
+                      {`${formatter.capitalizeFirstLetter(comment.author.firstName)} ${formatter.capitalizeFirstLetter(comment.author.lastName)}`}
+                    </Link>
                     :
-                    (`${formatter.capitalizeFirstLetter(comment?.firstName)} ${formatter.capitalizeFirstLetter(comment?.lastName)}`)
+                    <Link to={`/applicant/${comment.author.id}`}>
+                      {comment.author.companyName}
+                    </Link>)
+                }
+                {
+                  comment.author.id === currentUserAccountId &&
+                  (comment.author.accountType !== ACCOUNT_TYPE.CORPORATE ?
+                    <Link to={`/profile`}>
+                      {`${formatter.capitalizeFirstLetter(comment.author.firstName)} ${formatter.capitalizeFirstLetter(comment.author.lastName)}`}
+                    </Link>
+                    :
+                    <Link to={`/company`}>
+                      {comment.author.companyName}
+                    </Link>)
                 }
               </h6>
               <div className="timeline-cardtitle-posttime p-pt-1 p-pb-3">

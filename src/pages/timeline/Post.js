@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
 import CommentList from './CommentList';
 import CommentForm from './CommentForm';
 import { formatter } from '../../helpers/converter';
@@ -11,15 +12,14 @@ import agent, { API_ROOT } from "../../services/agent.service";
 import moment from "moment";
 import ThumbsDown from "../../components/ThumbDown";
 import ThumbsUp from "../../components/ThumbUp";
+import { ACCOUNT_TYPE } from 'constants/accountType';
 import "./Timeline.css";
 
-import "./Timeline.css";
-import { ACCOUNT_TYPE } from 'constants/accountType';
 const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, commentCount, setImageToDisplay }) => {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.timeline.loadingPosts);
   const [copyAlert, setCopyAlert] = useState(null);
-  const isCorporate = profileInfo?.accountType === ACCOUNT_TYPE.CORPORATE ? true : false;
+  const currentUserAccountId = agent.Auth.current()?.id;
   const postId = post.id;
 
   const expandPostImage = (e) => {
@@ -63,7 +63,7 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
                 height="70"
                 src={`${API_ROOT}/${post.author.imageUrl}`}
                 alt={
-                  !isCorporate
+                  post.author.accountType === ACCOUNT_TYPE.CORPORATE
                     ? formatter.capitalizeFirstLetter(post.author.firstName)
                     : formatter.capitalizeFirstLetter(post.author.companyName)
                 }
@@ -74,18 +74,30 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
               <i className="pi pi-user p-mt-2 p-mb-2 p-mr-sm-3 p-mr-2 timeline-emptyProfilePic-medium"></i>
           }
           <span>
-            {
-              !isCorporate &&
-              <span className="p-card-title cardtitle-posts p-mb-0">
-                {`${formatter.capitalizeFirstLetter(post?.author?.firstName)} ${formatter.capitalizeFirstLetter(post?.author?.lastName)}`}
-              </span>
-            }
-            {
-              isCorporate &&
-              <span className="p-card-title cardtitle-posts p-mb-0">
-                {formatter.capitalizeFirstLetter(post?.author?.companyName)}
-              </span>
-            }
+            <span className="p-card-title cardtitle-posts p-mb-0">
+              {
+                post.author.id !== currentUserAccountId &&
+                (post.author.accountType !== ACCOUNT_TYPE.CORPORATE ?
+                  <Link to={`/applicant/${post.author.id}`} className="posts-header">
+                    {`${formatter.capitalizeFirstLetter(post.author.firstName)} ${formatter.capitalizeFirstLetter(post.author.lastName)}`}
+                  </Link>
+                  :
+                  <Link to={`/applicant/${post.author.id}`} className="posts-header">
+                    {post.author.companyName}
+                  </Link>)
+              }
+              {
+                post.author.id === currentUserAccountId &&
+                (post.author.accountType !== ACCOUNT_TYPE.CORPORATE ?
+                  <Link to={`/profile`} className="posts-header">
+                    {`${formatter.capitalizeFirstLetter(post.author.firstName)} ${formatter.capitalizeFirstLetter(post.author.lastName)}`}
+                  </Link>
+                  :
+                  <Link to={`/company`} className="posts-header">
+                    {post.author.companyName}
+                  </Link>)
+              }
+            </span>
             {
               post.author.accountType === ACCOUNT_TYPE.ARTISAN &&
               <span className="stars p-ml-1 align-text-bottom" style={{ "--rating": post.author.rating }} />

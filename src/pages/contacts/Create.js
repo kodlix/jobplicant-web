@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { loadFreeUsers, sendContactRequest, cancelContactRequest } from "../../store/modules/contact";
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
+import { formatter } from '../../helpers/converter';
 import { API_ROOT } from "../../services/agent.service";
 import ConnectionRequestPanel from "./ConnectionRequestPanel";
-import "./Contacts.css";
 import { ACCOUNT_TYPE } from 'constants/accountType';
 import { CONTACT_STATUS } from 'constants/contactStatus';
+import "./Contacts.css";
 
 const Create = () => {
   const dispatch = useDispatch();
@@ -27,16 +29,6 @@ const Create = () => {
     { name: 'Istanbul', code: 'IST' },
     { name: 'Paris', code: 'PRS' }
   ];
-
-  const capitalizeFirstLetter = (name) => {
-    if (name) {
-      return name[0].toUpperCase() + name.slice(1);
-    }
-  }
-
-  const expandProfileImage = () => {
-    console.log("yh")
-  };
 
   const sendConnectionRequest = (e) => {
     let id = e.currentTarget.dataset.id
@@ -114,7 +106,6 @@ const Create = () => {
                         width="85"
                         height="85"
                         className="rounded-circle contact-profilePicture"
-                        onClick={expandProfileImage}
                         alt="profile"
                       />
                     }
@@ -123,12 +114,22 @@ const Create = () => {
                       <i className="pi pi-user contact-emptyProfilePic"></i>
                     }
                     <span className="p-ml-2">
-                      <span className="p-card-title contacts-contactHeader p-mb-0">
+                      <span className="p-card-title contacts-contactContainer p-mb-0">
                         <span className="p-mr-2">
-                          {`${capitalizeFirstLetter(user?.firstName)} ${capitalizeFirstLetter(user?.lastName)}`}
+                          {
+                            user.accountType !== ACCOUNT_TYPE.CORPORATE ?
+                              <Link to={`/applicant/${user.id}`} className="contacts-contactHeader">
+                                {`${formatter.capitalizeFirstLetter(user?.firstName)} ${formatter.capitalizeFirstLetter(user?.lastName)}`}
+                              </Link>
+                              :
+                              <Link to={`/applicant/${user.id}`} className="contacts-contactHeader">
+                                {`${formatter.capitalizeFirstLetter(user?.companyName)}`}
+
+                              </Link>
+                          }
                         </span>
                         {
-                          user.accountType.toLowerCase() === ACCOUNT_TYPE.ARTISAN &&
+                          user.accountType === ACCOUNT_TYPE.ARTISAN &&
                           <div className="stars" style={{ "--rating": user.rating }} />
                         }
                       </span>

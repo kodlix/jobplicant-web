@@ -40,6 +40,10 @@
   border-bottom: 1px rgba(128, 128, 128, 0.432) solid;
 }
 
+.comment-header a:hover {
+  color: #2ca55e;
+}
+
 .reply-button {
   display: flex;
   align-items: center;
@@ -49,4 +53,18 @@
 
 .reply-button:hover {
   color: #6FCF97;
+}
+
+.timeline-comment-emptyProfilePic-small {
+  border: 3px #5A2846 solid;
+  width: fit-content;
+  height: fit-content;
+  border-radius: 50%;
+  padding: 0.5rem;
+  color: #5A2846;
+  font-weight: 700;
+  font-size: 1.25rem;
+  background-color: white;
+  margin-right: 0.5rem;
+  margin-top: 0.5rem;
 }

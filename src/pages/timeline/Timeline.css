@@ -175,6 +175,14 @@
   font-weight: 500 !important;
 }
 
+.posts-header {
+  color: #5A2846;
+}
+
+.posts-header:hover {
+  color: #6FCF97;
+}
+
 .timeline-cardtitle-posttime {
   color: gray;
   display: flex;

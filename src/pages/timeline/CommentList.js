@@ -8,7 +8,7 @@ const CommentList = ({ postId, onViewComments, expandProfileImage, commentCount 
   const loadingType = useSelector(state => state.comment.loadingType);
   const comments = useSelector(state => state.comment.comments);
   const commentIds = useSelector(state => state.timeline.commentIds);
-  const [pageNumber, setPageNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState(0);
   const pageLimit = 10;
 
   const onViewMoreComments = () => {

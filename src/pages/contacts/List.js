@@ -6,14 +6,13 @@ import { API_ROOT } from "../../services/agent.service";
 import { confirmDialog } from 'primereact/confirmdialog';
 import { formatter } from '../../helpers/converter';
 import { Button } from 'primereact/button';
-import "./Contacts.css"
 import ConnectionRequestPanel from './ConnectionRequestPanel';
 import { ACCOUNT_TYPE } from 'constants/accountType';
+import "./Contacts.css"
 
 const List = () => {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.contact.loadingContact);
-  const error = useSelector(state => state.contact.error);
   const [selectedId, setSelectedId] = useState(null);
 
   // for contact list
@@ -61,7 +60,7 @@ const List = () => {
       }
     });
   };
-  
+
   return (
     <>
       <div className={`contacts-container ${contactContainerClassName}`}>
@@ -105,21 +104,33 @@ const List = () => {
                         !contact.imageUrl &&
                         <i className="pi pi-user contact-emptyProfilePic p-mr-3"></i>
                       }
-                      <span className="">
-                        <span className="p-card-title contacts-contactHeader p-mb-0">
+                      <span className="p-ml-2">
+                        <span className="p-card-title contacts-contactContainer p-mb-0">
                           <span className="p-mr-2">
-                            {`${formatter.capitalizeFirstLetter(contact?.firstName)} ${formatter.capitalizeFirstLetter(contact?.lastName)}`}
+                            {
+                              contact.accountType !== ACCOUNT_TYPE.CORPORATE ?
+                                <Link to={`/applicant/${contact.id}`} className="contacts-contactHeader">
+                                  {`${formatter.capitalizeFirstLetter(contact?.firstName)} ${formatter.capitalizeFirstLetter(contact?.lastName)}`}
+                                </Link>
+                                :
+                                <Link to={`/applicant/${contact.id}`} className="contacts-contactHeader">
+                                  {contact?.companyName}
+                                </Link>
+                            }
                           </span>
                           {
                             contact.accountType === ACCOUNT_TYPE.ARTISAN &&
                             <div className="stars" style={{ "--rating": contact.rating }} />
                           }
                         </span>
-                        <p>
-                          photographer at photostat
-                        </p>
                         <small>
-                          <b>Email:</b> {contact?.email || "Unavailable"}
+                          <p>
+                            <b>Email: </b>
+                            {contact.email}
+                          </p>
+                          <p>
+                            photographer at photostat
+                          </p>
                         </small>
                       </span>
                     </span>
