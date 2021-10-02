@@ -232,7 +232,10 @@ const ApplicantProfile = () => {
                             </div>
                         </div>
                     </div>
-                    {accountType === ACCOUNT_TYPE.ARTISAN && <Portfolio openCreate={openCreate} openEdit={openEdit} />}
+                    {accountType === ACCOUNT_TYPE.ARTISAN && <Portfolio openCreate={openCreate}
+                        openEdit={openEdit}
+                        isViewApplicant={true}
+                    />}
 
                 </div>
             </div>

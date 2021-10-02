@@ -1,0 +1,10 @@
+.checkbox{
+    border: 1px solid #aaa;
+    width: 40px;
+    height: 40px;
+    border-radius: 25px;
+}
+.checkbox.active{
+    background-color: dodgerblue;
+    border: none;
+}

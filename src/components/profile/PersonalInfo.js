@@ -1,6 +1,8 @@
+import { ACCOUNT_TYPE } from "constants/accountType";
 import { PROFILE } from "constants/profile";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import agentService from "services/agent.service";
 import { updateProfilePicture } from "store/modules/account";
 import JobplicantAvatar from "./jobplicant-avatar";
 
@@ -11,6 +13,7 @@ const PersonalInfo = ({ openCreate, openEdit, data, isViewApplicant }) => {
   const profileInfo = data;
 
   const loading = useSelector((state) => state.account.loading);
+  const accountType = agentService.Auth.current().accountType;
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -83,11 +86,11 @@ const PersonalInfo = ({ openCreate, openEdit, data, isViewApplicant }) => {
           id="personalInfoEdit"
           onClick={() => openEdit(PROFILE.PERSONAL_INFO, profileInfo)}
         ></i>
-        <u>Edit Personal Info</u>
+          <u>Edit Personal Info</u>
         </span>}
         <br />
         {profileInfo.experiences.length ? <div>{profileInfo.experiences[0].jobTitle} at {profileInfo.experiences[0].company}</div> : <div></div>}
-        {rating &&  <span>
+        {rating && accountType === ACCOUNT_TYPE.ARTISAN && <span>
           <div className="stars" style={{ "--rating": rating }}></div>
         </span>}
       </div>
