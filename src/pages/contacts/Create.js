@@ -122,8 +122,8 @@ const Create = () => {
                                 {`${formatter.capitalizeFirstLetter(user?.firstName)} ${formatter.capitalizeFirstLetter(user?.lastName)}`}
                               </Link>
                               :
-                              <Link to={`/applicant/${user.id}`} className="contacts-contactHeader">
-                                {`${formatter.capitalizeFirstLetter(user?.companyName)}`}
+                              <Link to={`/company/${user.id}`} className="contacts-contactHeader">
+                                {user?.companyName}
 
                               </Link>
                           }

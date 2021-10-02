@@ -82,7 +82,7 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
                     {`${formatter.capitalizeFirstLetter(post.author.firstName)} ${formatter.capitalizeFirstLetter(post.author.lastName)}`}
                   </Link>
                   :
-                  <Link to={`/applicant/${post.author.id}`} className="posts-header">
+                  <Link to={`/company/${post.author.id}`} className="posts-header">
                     {post.author.companyName}
                   </Link>)
               }

@@ -58,7 +58,7 @@ const Comment = ({ comment, key, postId, expandProfileImage }) => {
                       {`${formatter.capitalizeFirstLetter(comment.author.firstName)} ${formatter.capitalizeFirstLetter(comment.author.lastName)}`}
                     </Link>
                     :
-                    <Link to={`/applicant/${comment.author.id}`}>
+                    <Link to={`/company/${comment.author.id}`}>
                       {comment.author.companyName}
                     </Link>)
                 }

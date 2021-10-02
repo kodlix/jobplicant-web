@@ -35,16 +35,17 @@
   vertical-align: top;
   font-size: 1.1rem !important;
   transition: none;
-  cursor: pointer;
   color: #5A2846;
   display: flex;
 }
 
-.contacts-contactHeader {
+.contacts-contactHeader,
+.contacts-contactHeader a {
   color: #5A2846;
 }
 
-.contacts-contactHeader:hover {
+.contacts-contactHeader:hover,
+.contacts-contactHeader a:hover {
   color: #2ca55e;
 }
 

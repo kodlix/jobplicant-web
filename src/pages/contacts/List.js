@@ -106,14 +106,14 @@ const List = () => {
                       }
                       <span className="p-ml-2">
                         <span className="p-card-title contacts-contactContainer p-mb-0">
-                          <span className="p-mr-2">
+                          <span className="p-mr-2 contacts-contactHeader">
                             {
                               contact.accountType !== ACCOUNT_TYPE.CORPORATE ?
-                                <Link to={`/applicant/${contact.id}`} className="contacts-contactHeader">
+                                <Link to={`/applicant/${contact.id}`}>
                                   {`${formatter.capitalizeFirstLetter(contact?.firstName)} ${formatter.capitalizeFirstLetter(contact?.lastName)}`}
                                 </Link>
                                 :
-                                <Link to={`/applicant/${contact.id}`} className="contacts-contactHeader">
+                                <Link to={`/company/${contact.id}`}>
                                   {contact?.companyName}
                                 </Link>
                             }
