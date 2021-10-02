@@ -55,7 +55,6 @@ const HOWTOSTART = React.lazy(() => import('../pages/generate-CV/HowToStart'));
 const CVTEMPLATE = React.lazy(() => import('../pages/generate-CV/CV-Template'));
 
 const InstantMessaging = React.lazy(() => import('pages/instant-messaging/InstantMessaging'));
-const InstantMessagingPopup = React.lazy(() => import('pages/instant-messaging/InstantMessagingPopup'))
 
 const Artisan = React.lazy(() => import('../pages/artisans/List'));
 

@@ -1,29 +1,29 @@
 import React from 'react'
 import {  Avatar } from 'primereact/avatar'
+import chatJSON from './chat.json'
 
-const ChatItem = ({chat}) => {
-    return (
-        <div style={{display: 'flex', flexDirection: 'row', padding: '12px'}}>
-            <div style={{}}>
-            <Avatar image="https://source.unsplash.com/random/150x150" className="p-mr-2" size="large" shape="circle" />
-            </div>
-            <div className="content" style={{flex: 1,alignSelf: 'center'}}>
-                <h4 style={{fontSize: '20px'}}>John Smith</h4>
-                <p style={{fontSize: '13px'}}>Job Title</p>
-            </div>
+const ChatList = ({ selectedContact, setContact }) => {
+    const handleSelected = (contact) => setContact(contact);
+
+    return <>
+        <div className="searchbox">
+            <input type="text" placeholder="search contact" className="search-input" />
         </div>
-    )
-}
+        <div className="contact-list">
 
-const ChatList = () => {
-    return (
-        <div style={{height: '400px',width: '100%'}}>
-            <div style={{backgroundColor: '#eee', padding: '12px'}}>
-                <h4>Contacts</h4>
+            {chatJSON.map(item => (<div key={item.id} onClick={() => handleSelected(item)} className={`contact-item ${selectedContact && item.id === selectedContact.id ? 'selected' : ''}`}>
+                <img src="https://source.unsplash.com/random/70x70" />
+                <div className="contact-detail">
+                    <h4>{item.name}</h4>
+                    <p>{item.lastMessage}</p>
+                </div>
+                <div className="last-seen">
+                    <p>{item.lastSeen}</p>
+                </div>
             </div>
-            {[1,2,,3,4].map((chat, index) => <ChatItem key={index} chat={chat} />)}
-        </div>
-    )
-}
+            ))}
 
+        </div>
+    </>
+}
 export default ChatList
