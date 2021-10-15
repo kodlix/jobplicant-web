@@ -9,6 +9,7 @@ const contact = {
   pendingRequests: { data: {}, meta: {}, ids: [] },
   freeUsers: { data: {}, meta: {}, ids: [] },
   contacts: { data: {}, meta: {}, ids: [] },
+  connectionStatus: {},
   error: null,
   selectedId: null
 };
@@ -26,6 +27,7 @@ const CONTACT_UNBLOCKED = "CONTACT_UNBLOCKED";
 const REMOVE_PENDING = "REMOVE_PENDING";
 const REQUEST_SENT = "REQUEST_SENT";
 const REQUEST_CANCELLED = "REQUEST_CANCELLED";
+const CONNECTION_STATUS_LOADED = "CONNECTION_STATUS_LOADED";
 const SELECT_ID = "SELECT_ID";
 
 //Reducer
@@ -35,6 +37,11 @@ export default function reducer(state = contact, action = {}) {
       return {
         ...state,
         loadingContact: action.payload,
+      };
+    case CONNECTION_STATUS_LOADED:
+      return {
+        ...state,
+        connectionStatus: action.payload,
       };
     case SELECT_ID:
       return {
@@ -102,7 +109,7 @@ export default function reducer(state = contact, action = {}) {
             ...state.contacts.data,
             ...normalizedContacts
           },
-          meta: {...action.payload.meta}
+          meta: { ...action.payload.meta }
         },
         loadingContact: null
       };
@@ -305,6 +312,10 @@ export const requestCanceled = (id) => ({
   type: REQUEST_CANCELLED,
   id: id
 });
+export const connectionStatusLoaded = (data) => ({
+  type: CONNECTION_STATUS_LOADED,
+  payload: data
+});
 
 //Actions
 export function loadFreeUsers(page, limit, loadingType, search) {
@@ -453,6 +464,21 @@ export function removeContact(id) {
         // handle error
         dispatch(showMessage({ type: "error", message: error }));
         dispatch(isError("requestFail"));
+      }
+    );
+  }
+}
+
+export function getConnectionStatus(id) {
+  return dispatch => {
+    return agent.Contact.loadStatus(id).then(
+      response => {
+        //handle success
+        dispatch(connectionStatusLoaded(response));
+      },
+      (error) => {
+        // handle error
+        dispatch(showMessage({ type: "error", message: error }));
       }
     );
   }

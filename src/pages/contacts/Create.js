@@ -8,7 +8,7 @@ import { formatter } from '../../helpers/converter';
 import { API_ROOT } from "../../services/agent.service";
 import ConnectionRequestPanel from "./ConnectionRequestPanel";
 import { ACCOUNT_TYPE } from 'constants/accountType';
-import { CONTACT_STATUS } from 'constants/contactStatus';
+import { CONTACT_STATUS } from '../../constants/contactStatus';
 import "./Contacts.css";
 
 const Create = () => {

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { loadAccountByUser } from "store/modules/account";
 import { openModal } from "store/modules/modal";
+
 import Biography from "components/profile/Biography";
 import Experience from "components/profile/Experience";
 import Education from "components/profile/Education";
@@ -23,6 +24,7 @@ import Portfolio from 'components/profile/Portfolio';
 import { Button } from 'primereact/button';
 import "./ApplicantProfile.css"
 import moment from 'moment';
+import { useRouteMatch } from 'react-router';
 
 // const ApplicantContext  = useContext(false);
 
@@ -63,6 +65,15 @@ const ApplicantProfile = () => {
         dispatch(loadAccountByUser(applicantid));
         dispatch(loadApplicantReviews(applicantId, page, limit));
     }, [dispatch, applicantid]);
+    const match = useRouteMatch();
+
+    useEffect(() => {
+        if (match.params.id === agentService.Auth.current().id) {
+            agentService.Auth.current().accountType === ACCOUNT_TYPE.CORPORATE ? 
+            history.push("/company") :             
+            history.push("/profile")       
+        }
+    },[])
 
     const openCreate = (name) => {
         setMode("create");

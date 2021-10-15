@@ -7,7 +7,7 @@ import { confirmDialog } from 'primereact/confirmdialog';
 import { formatter } from '../../helpers/converter';
 import { Button } from 'primereact/button';
 import ConnectionRequestPanel from './ConnectionRequestPanel';
-import { ACCOUNT_TYPE } from 'constants/accountType';
+import { ACCOUNT_TYPE } from '../../constants/accountType';
 import "./Contacts.css"
 
 const List = () => {
