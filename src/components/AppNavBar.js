@@ -110,7 +110,7 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                                         Contact
                                     </div>
                                 </Nav.Link>
-                                {width <= 800 && <Nav.Link className="text-white" href="#">
+                                {width <= 800 && <Nav.Link className="text-white" href="/instant-messaging">
                                     <i className="pi pi-envelope itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
                                     <div className="itemTitle-appNavbar mx-2">
                                         Messages
