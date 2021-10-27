@@ -28,9 +28,16 @@ export const tokenPlugin = (req) => {
   if (accessToken) {
     req.set("Authorization", `Bearer ${accessToken}`);
   }
-
+  
   req.on("response", function (res) {
     if (res.status === 401) {
+      //Always revert back here to change the production to the *CORRECT URL*
+      console.log("onResponse: This is called when Authorization is hit")
+      localStorage.removeItem("auth")
+      if(process.env.NODE_ENV === 'development')
+        return window.location.href = 'http://localhost:3019/login'
+      else
+        return window.location.href = 'https://jobplicant.ng'
     }
   });
 };

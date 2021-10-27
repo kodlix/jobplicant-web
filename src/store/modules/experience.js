@@ -22,6 +22,7 @@ const experience = {
   },
   loading: false,
   submitting: false,
+  requesting: false,
   updatedOrDeleted: false,
 };
 
@@ -30,6 +31,7 @@ const UPDATE_PROFILE = "app/experience/UPDATE_PROFILE ";
 const LOAD_EXPERIENCE = "app/experience/LOAD_EXPERIENCE";
 const LOADING = "LOADING";
 const SUBMITTING = "SUBMITTING";
+const REQUESTING = "REQUESTING"
 const LOADING_ERROR = "LOADING_ERROR";
 
 // Reducer
@@ -37,15 +39,18 @@ export default function reducer(state = experience, action = {}) {
   switch (action.type) {
     case LOADING:
       return { ...state, loading: true, updatedOrDeleted: false };
-    case SUBMITTING: {
+    case SUBMITTING: 
       return {...state, submitting: true}
-    }
+    
+    case REQUESTING: 
+      return { ...state, requesting: true }
     case LOAD_EXPERIENCE:
       return {
         ...state,
         experience: action.payload,
         loading: false,
         submitting: false,
+        requesting: false,
         updatedOrDeleted: true,
       };
     case LOADING_ERROR:
@@ -53,6 +58,7 @@ export default function reducer(state = experience, action = {}) {
         ...state,
         loading: false,
         submitting: false,
+        requesting: false,
         updatedOrDeleted: false,
       };
     default:
@@ -76,6 +82,9 @@ export function isLoading() {
 export function isSubmitting(){
   return {type: SUBMITTING}
 }
+export function isRequesting() {
+  return { type: REQUESTING }
+}
 // Actions
 export function loadExperience(id) {
   return (dispatch) => {
@@ -87,7 +96,7 @@ export function loadExperience(id) {
 
 export function createExperience(data) {
   return (dispatch) => {
-    dispatch(isSubmitting());
+    dispatch(isRequesting());
     return agent.JobExperience.save(data).then(
       (response) => {
         dispatch(experienceLoaded(response));
@@ -112,7 +121,7 @@ export function createExperience(data) {
 
 export function updateExperience(id, data) {
   return (dispatch) => {
-    dispatch(isSubmitting())
+    dispatch(isRequesting())
     return agent.JobExperience.edit(id, data).then(
       (response) => {
         dispatch(experienceLoaded(response));

@@ -9,6 +9,7 @@ import agent from '../services/agent.service';
 
 const ProtectedRoute = ({ children, ...rest }) => {
   const [contact, setContact] = React.useState(null)
+ 
   if (agent.Auth.isAuth() && !agent.Auth.isAdmin()) {
     return (
       <>

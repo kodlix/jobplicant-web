@@ -9,7 +9,7 @@ import { createExperience, updateExperience } from "store/modules/experience";
 import { Calendar } from "primereact/calendar";
 import InputField from "components/InputField";
 
-import {Checkbox} from 'primereact/checkbox';
+import { Checkbox } from 'primereact/checkbox';
 import LimitedTextarea from "../LimitedTextarea";
 
 const jobCategoryList = [
@@ -31,7 +31,7 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
     formState: { errors },
   } = useForm({ mode: "onChange", reValidateMode: "onChange" });
 
-  const loading = useSelector(state => state.experience.submitting);
+  const loading = useSelector(state => state.experience.requesting);
   const [experience, setExperience] = useState({});
   const [checkedCurrent, setCheckedCurrent] = useState(false)
 
@@ -50,8 +50,6 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
         company: itemToEdit.company,
       });
 
-      
-
       setValue("description", itemToEdit.description);
       setValue("startDate", itemToEdit.startDate);
       setValue("endDate", itemToEdit.endDate);
@@ -60,6 +58,7 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
       setValue("jobTitle", itemToEdit.jobTitle);
       setValue("jobCategory", jobCategoryList.find((j) => j.name == itemToEdit.jobCategoryName));
       setValue("company", itemToEdit.company);
+       
     }
   }, [itemToEdit]);
 
@@ -77,6 +76,7 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
       inputId && (inputId === "startDate" || "endDate")
         ? e.value
         : e.target.value;
+
     const updatedExperienceObject = Object.assign({}, experience);
     updatedExperienceObject[inputName] = inputValue;
     setExperience({ ...experience, ...updatedExperienceObject });
@@ -101,7 +101,6 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
 
   };
 
-  console.log('descrption', experience)
   return (
     <>
       <div className="p-mt-2">
@@ -261,23 +260,12 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
                     </span>
                   )}
                 </label>
-          
-                <LimitedTextarea 
-                  value={experience?.description } 
-                  limit={500} 
+
+                <LimitedTextarea
+                  value={experience?.description}
+                  limit={500}
                   register={register}
                 />
-                {/* <InputTextarea
-                  id="address"
-                  type="text"
-                  rows="4"
-                  {...register("description", {
-                    required: `* Description is required`,
-                  })}
-                  name="description"
-                  onChange={(e) => inputChange(e)}
-                  value={experience.description}
-                /> */}
               </div>
               <div className="p-field p-col-12">
                 <label htmlFor="current">
@@ -286,7 +274,7 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
                     onChange={e => {
                       setCheckedCurrent(e.checked);
                       // console.log(e)
-                      setExperience({...experience, [e.target.name]: e.checked});
+                      setExperience({ ...experience, [e.target.name]: e.checked });
                       setValue(e.target.name, e.checked, { shouldValidate: true });
                     }} checked={checkedCurrent}></Checkbox>
                   Set as current
