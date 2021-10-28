@@ -38,7 +38,7 @@ export const tokenPlugin = (req) => {
       if (process.env.NODE_ENV === 'development')
         return window.location.href = 'http://localhost:3010/login'
       else
-        return window.location.href = 'https://jobplicant.ng'
+        return window.location.href = process.env.API_ROOT_PROD + '/login'
     }
   });
 
@@ -51,7 +51,7 @@ export const tokenPlugin = (req) => {
       if (process.env.NODE_ENV === "development")
         return window.location.href = `http://localhost:3010/offline?returnUrl=${currentURL}`;
       else
-        return window.location.href = `https://jobplicant.ng/offline?returnUrl=${currentURL}`;
+        return window.location.href = `${process.env.API_ROOT_PROD}/offline?returnUrl=${currentURL}`;
     }
   })
 };
