@@ -31,7 +31,7 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
     formState: { errors },
   } = useForm({ mode: "onChange", reValidateMode: "onChange" });
 
-  const loading = useSelector(state => state.experience.submitting);
+  const loading = useSelector(state => state.experience.requesting);
   const [experience, setExperience] = useState({});
   const [checkedCurrent, setCheckedCurrent] = useState(false)
 

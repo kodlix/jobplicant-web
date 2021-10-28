@@ -14,6 +14,7 @@ import AdminContractType from 'pages/admin/dashboard/AdminContractType';
 import AdminQualification from 'pages/admin/dashboard/AdminQualification';
 import AnonymousRouteOrProtectedRoute from './anonymous-or-protected-route';
 import ModalRoute from 'components/chat/ModalRoute';
+import OfflinePage from 'pages/error-page/OfflinePage';
 
 
 const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard'));
@@ -91,6 +92,7 @@ const AppRouter = () => {
         <AnonymousRoute path="/recoverbynumber" exact component={RecoverByNumber} />
         <AnonymousRoute path="/recoverbyemail" exact component={RecoverByEmail} />
         <AnonymousRoute path="/reset" exact component={NewPassword} />
+        <Route path="/offline" exact component={OfflinePage} />
 
         <ProtectedRoute path="/pagenotfound" exact component={PageNotFound} />
         <ProtectedRoute path="/internalservererror" component={InternalServerError} />

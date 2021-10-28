@@ -1,0 +1,36 @@
+.notfoundpage {
+    font-size: 23em;
+    font-weight: bold;
+    color: #5A2846;
+}
+
+.nfcontainer {
+    margin: 5% auto;
+    /* background-color: #7e8890; */
+}
+
+.msg {
+    text-align: center;
+}
+
+@media screen and (max-width: 767px) {
+    .notfoundpage {
+        margin-top: 30vh;
+    }
+}
+
+#pnf {
+    height: 101vh;
+    width: 101vw;
+}
+
+.bgimage {
+    background-image: url('../../assets/images/404page.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.clearspace {
+    margin-bottom: -93px;
+    /* color: red; */
+}
