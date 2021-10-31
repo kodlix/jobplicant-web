@@ -46,11 +46,12 @@ export const tokenPlugin = (req) => {
     //manage error
     const currentURL = window.location.href;
 
-    console.log('super agent error', err, 'current location', currentURL)
-        if(process.env.NODE_ENV === "development")
+    if(err.code === 503) {
+         if(process.env.NODE_ENV === "development")
           return window.location.href = `http://localhost:3010/offline?returnUrl=${currentURL}`;
         else 
           return window.location.href = `https://jobplicant.ng/offline?returnUrl=${currentURL}`;
+    }
 })
 };
 
@@ -182,7 +183,7 @@ const Job = {
   edit: (id, data) => requests.put(`/job/${id}`, data),
   load: () => requests.get("/job"),
   view: (id) => requests.get(`/job/${id}`),
-  apply: (id, data) => requests.post(`/job/${id}/apply`, data),
+  apply: (id, data) => requests.post(`/job/${id}/apply`, {"cvUrl": data}),
   applicants: (id) => requests.get(`/job/${id}/applicants`),
   acceptApplication: (applicationId, data) => requests.put(`/job/${applicationId}/application/accept`, data),
   suspendApplication: (applicationId, data) => requests.put(`/job/${applicationId}/application/suspend`, data)

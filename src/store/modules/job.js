@@ -98,6 +98,8 @@ export default function reducer(state = initialState, action = {}) {
             return {
                 ...state,
                 loading: false,
+                jobApplicationRequest: false,
+            
             };
         default:
             return state;
