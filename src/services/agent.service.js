@@ -35,25 +35,25 @@ export const tokenPlugin = (req) => {
       //Always revert back here to change the production to the *CORRECT URL*
       // console.log("onResponse: This is called when Authorization is hit")
       localStorage.removeItem("auth")
-      if(process.env.NODE_ENV === 'development')
-        return window.location.href = `${process.env.LOCAL_DEV_URL}/login`
+      if (process.env.NODE_ENV === 'development')
+        return window.location.href = 'http://localhost:3010/login'
       else
-        return window.location.href = 'https://jobplicant.ng'
+        return window.location.href = process.env.API_ROOT_PROD + '/login'
     }
   });
 
-  req.on('error', function(err) {
+  req.on('error', function (err) {
     //manage error
     const currentURL = window.location.href;
 
-    console.log('Network is offline', err)
-    if(err.code === 503) {
-         if(process.env.NODE_ENV === "development")
-          return window.location.href = `${process.env.LOCAL_DEV_URL}/offline?returnUrl=${currentURL}`;
-        else 
-          return window.location.href = `https://jobplicant.ng/offline?returnUrl=${currentURL}`;
+    if (err.toString().includes('offline')) {
+      console.log('super agent error', err, 'current location', currentURL)
+      if (process.env.NODE_ENV === "development")
+        return window.location.href = `${process.env.LOCAL_DEV_URL}offline?returnUrl=${currentURL}`;
+      else
+        return window.location.href = `${process.env.API_ROOT_PROD}/offline?returnUrl=${currentURL}`;
     }
-})
+  })
 };
 
 const requests = {
