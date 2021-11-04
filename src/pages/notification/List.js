@@ -133,7 +133,7 @@ const List = () => {
                                                     <i className="pi pi-trash "> </i> Remove this notification
                                                 </li>
                                             </ul>
-                                            <span className={`${markAsRead ? '' : 'p-badge p-badge-dot p-badge-info'}`}> </span>
+                                            <span className={`${markAsRead ? '' : 'custom-badge p-badge-dot p-badge-info'}`}> </span>
                                         </div>
                                     </div>
                                 )

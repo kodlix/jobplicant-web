@@ -192,5 +192,13 @@
     }
 }
 
+.custom-badge {
+    background: rgb(44, 165, 94);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+}
+
 
 /* known Style in use */
