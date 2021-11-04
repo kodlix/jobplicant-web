@@ -36,7 +36,7 @@ export const tokenPlugin = (req) => {
       // console.log("onResponse: This is called when Authorization is hit")
       localStorage.removeItem("auth")
       if(process.env.NODE_ENV === 'development')
-        return window.location.href = 'http://localhost:3010/login'
+        return window.location.href = `${process.env.LOCAL_DEV_URL}/login`
       else
         return window.location.href = 'https://jobplicant.ng'
     }
@@ -46,9 +46,10 @@ export const tokenPlugin = (req) => {
     //manage error
     const currentURL = window.location.href;
 
+    console.log('Network is offline', err)
     if(err.code === 503) {
          if(process.env.NODE_ENV === "development")
-          return window.location.href = `http://localhost:3010/offline?returnUrl=${currentURL}`;
+          return window.location.href = `${process.env.LOCAL_DEV_URL}/offline?returnUrl=${currentURL}`;
         else 
           return window.location.href = `https://jobplicant.ng/offline?returnUrl=${currentURL}`;
     }
