@@ -26,7 +26,7 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
 
     const location = useLocation()
     const [width, height] = useWindowSize()
-   
+
 
     useEffect(() => {
         dispatch(loadProfileInfo());
@@ -116,15 +116,15 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                                         Messages
                                     </div>
                                 </Nav.Link>}
-                                {width > 800 && (<Nav.Link 
+                                {width > 800 && (<Nav.Link
                                     className="text-white" onClick={() => dispatch(toggleChatModal())}>
                                     <i className="pi pi-envelope itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
                                     <div className="itemTitle-appNavbar mx-2">
                                         Messages
                                     </div>
-                                </Nav.Link>) }
+                                </Nav.Link>)}
 
-                                <Nav.Link className="text-white" href="#">
+                                <Nav.Link className="text-white" href="/notification">
                                     <div className="position-relative">
                                         {/* <small className="badge bg-danger position-absolute alert-badge" >2</small> */}
                                         <i className="pi pi-bell itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />

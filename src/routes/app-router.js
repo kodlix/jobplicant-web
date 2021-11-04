@@ -51,6 +51,7 @@ const Timeline = React.lazy(() => import('../pages/timeline/Timeline'));
 const ViewPost = React.lazy(() => import('../pages/timeline/ViewPost'));
 const CreateContacts = React.lazy(() => import('../pages/contacts/Create'));
 const ListContacts = React.lazy(() => import('../pages/contacts/List'));
+const Notification = React.lazy(() => import('../pages/notification/List'));
 const AdminServicesAndServiceGroups = React.lazy(() => import('pages/admin/dashboard/AdminServicesAndServiceGroups'));
 
 const HOWTOSTART = React.lazy(() => import('../pages/generate-CV/HowToStart'));
@@ -117,6 +118,11 @@ const AppRouter = () => {
         <ProtectedRoute path="/instant-jobs" component={InstantJobs} />
         <ProtectedRoute path="/artisans" exact component={Artisan} />
         <ProtectedRoute path="/review/:jobId/:applicantId" exact component={Review} />
+
+        {/* NOTIFICATION */}
+        <ProtectedRoute path="/notification" component={Notification} />
+
+
 
         <AnonymousRouteOrProtectedRoute path="/timeline" exact component={Timeline} />
         <AnonymousRouteOrProtectedRoute path="/post/:id" exact component={ViewPost} />

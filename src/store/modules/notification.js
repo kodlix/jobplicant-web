@@ -5,6 +5,7 @@ const notification = {
     message: "",
     processing: false,
     processed: true,
+    loading: false,
 
 };
 
@@ -16,6 +17,7 @@ const PROCESSING = "app/notification/PROCESSING";
 const PROCESSED = "app/notification/PROCESSED";
 const ERROR_DISPLAYED = "app/notification/ERROR_DISPLAYED";
 const SUCCESS_DISPLAYED = "app/notification/SUCCESS_DISPLAYED";
+const LOADING = "app/notification/SUCCESS_DISPLAYED";
 
 const TIME_OUT = 10000;
 
@@ -49,6 +51,11 @@ export default function reducer(state = notification, action = {}) {
                 ...state,
                 processing: false,
             };
+        case LOADING:
+            return {
+                ...state,
+                loading: false
+            }
         default:
             return state;
     }
@@ -81,6 +88,11 @@ export function processing() {
 export function processed() {
     return {
         type: PROCESSED,
+    };
+}
+export function loading() {
+    return {
+        type: LOADING,
     };
 }
 

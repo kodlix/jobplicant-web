@@ -49,7 +49,7 @@ export const tokenPlugin = (req) => {
     if (err.toString().includes('offline')) {
       console.log('super agent error', err, 'current location', currentURL)
       if (process.env.NODE_ENV === "development")
-        return window.location.href = `http://localhost:3010/offline?returnUrl=${currentURL}`;
+        return window.location.href = `http://localhost:3000/offline?returnUrl=${currentURL}`;
       else
         return window.location.href = `${process.env.API_ROOT_PROD}/offline?returnUrl=${currentURL}`;
     }
