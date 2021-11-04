@@ -49,7 +49,7 @@ export const tokenPlugin = (req) => {
     if (err.toString().includes('offline')) {
       console.log('super agent error', err, 'current location', currentURL)
       if (process.env.NODE_ENV === "development")
-        return window.location.href = `http://localhost:3000/offline?returnUrl=${currentURL}`;
+        return window.location.href = `${process.env.LOCAL_DEV_URL}offline?returnUrl=${currentURL}`;
       else
         return window.location.href = `${process.env.API_ROOT_PROD}/offline?returnUrl=${currentURL}`;
     }
@@ -184,7 +184,7 @@ const Job = {
   edit: (id, data) => requests.put(`/job/${id}`, data),
   load: () => requests.get("/job"),
   view: (id) => requests.get(`/job/${id}`),
-  apply: (id, data) => requests.post(`/job/${id}/apply`, data),
+  apply: (id, data) => requests.post(`/job/${id}/apply`, { "cvUrl": data }),
   applicants: (id) => requests.get(`/job/${id}/applicants`),
   acceptApplication: (applicationId, data) => requests.put(`/job/${applicationId}/application/accept`, data),
   suspendApplication: (applicationId, data) => requests.put(`/job/${applicationId}/application/suspend`, data)

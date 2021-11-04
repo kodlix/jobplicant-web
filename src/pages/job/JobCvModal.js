@@ -2,16 +2,23 @@ import { Dialog } from 'primereact/dialog';
 import React from 'react';
 
 import './JobCvModal.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { apply } from 'store/modules/job';
 
-const JobCvCardItem = ({ cvData }) => {
+const JobCvCardItem = ({ cvData, setShowModal }) => {
     const [selected, setSelected] = React.useState(false);
+    const dispatch = useDispatch()
+    const requesting = useSelector(state => state.job.jobApplicationRequest)
+   
 
     const handleToggle = () => {
         setSelected(!selected)
     }
 
-    const apply = () => {
-        console.log('apply for job')
+    const handleJobApply = () => {
+        console.log('apply for job', cvData)
+        const { id, url } = cvData;
+        dispatch(apply(id, url))
     }
 
     return (
@@ -22,7 +29,7 @@ const JobCvCardItem = ({ cvData }) => {
                 <p className="subtitle">{cvData.description}</p>
             </div>
             <div className=" ml-auto">
-            <button className="btn btn-primary" onClick={apply}>Apply</button>
+            <button className="btn btn-primary" onClick={handleJobApply} disabled={requesting}>{!requesting ? 'Apply' : 'Please wait...'}</button>
             </div>
         </div>
     )
@@ -31,6 +38,14 @@ const JobCvCardItem = ({ cvData }) => {
 export default ({ cvData, showModal, setShowModal }) => {
 
     const onHide = () => setShowModal(false)
+
+    const response = useSelector( state => state.job.jobApplicationResponse)
+    
+    React.useEffect(() => {
+        if(response){
+            setShowModal(false)
+        }
+    }, [response])
 
     return (
         <Dialog

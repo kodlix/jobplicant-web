@@ -14,6 +14,7 @@ import { updateNotification, UserNotifications } from 'store/modules/appNotifica
 import { ViewModuleFromNotification } from 'helpers/viewModuleFromNotification';
 import useWindowSize from 'hooks/use-window-size';
 import { toggleChatModal } from 'store/modules/chat';
+import NotificationDropdown from './notification/NotificationDropdown';
 
 const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
     const userAccountType = agentService.Auth.current()?.accountType;
@@ -36,6 +37,7 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
     const user = agent.Auth?.current();
     const [notifications, setNotifications] = useState([]);
 
+    const [showNotification, setShowNotification] = useState(false)
 
     const allAdminNotifications = useSelector(state => state.appNotification.navBarNotifications);
 
@@ -59,6 +61,10 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
     const remove = (id) => {
         if (!id) return;
         dispatch(updateNotification(id));
+    }
+
+    const handleToggleNotification = () => {
+        setShowNotification(!showNotification)
     }
 
     return (
@@ -124,7 +130,12 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                                     </div>
                                 </Nav.Link>)}
 
-                                <Nav.Link className="text-white" href="/notification">
+                                <Nav.Link
+                                    className="text-white"
+                                    onClick={handleToggleNotification}
+                                    // onMouseEnter={() => setShowNotification(true)}
+                                    // onMouseLeave={() => setShowNotification(false)}
+                                    style={{ position: 'relative' }}>
                                     <div className="position-relative">
                                         {/* <small className="badge bg-danger position-absolute alert-badge" >2</small> */}
                                         <i className="pi pi-bell itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
@@ -132,7 +143,7 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                                     <div className="itemTitle-appNavbar mx-2">
                                         Notifications
                                     </div>
-
+                                    <NotificationDropdown showNotification={showNotification} />
                                 </Nav.Link>
                                 <Nav.Link className="text-white d-lg-none" href="/instant-hires">Request Instant Job</Nav.Link>
 

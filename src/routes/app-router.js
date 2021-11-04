@@ -120,7 +120,7 @@ const AppRouter = () => {
         <ProtectedRoute path="/review/:jobId/:applicantId" exact component={Review} />
 
         {/* NOTIFICATION */}
-        <ProtectedRoute path="/notification" component={Notification} />
+        <ProtectedRoute path="/notifications" component={Notification} />
 
 
 
