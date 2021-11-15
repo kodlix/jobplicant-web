@@ -374,10 +374,10 @@ const Contact = {
 const Notification = {
   loadAll: () => requests.get("/notification"),
   loadById: (id) => requests.get(`/notification/${id}`),
-  loadByAccount: (id) => requests.get(`/notification/byaccount/${id}`),
+  loadByAccount: (accountId) => requests.get(`/notification/account/${accountId}`),
   loadAllByAccount: (id, search, page) =>
     requests.get(
-      `/notification/by_account/all?page=${page}&search=${search}&accountId=${id}`
+      `/notification/account/all?page=${page}&search=${search}&accountId=${id}`
     ),
   updateNot: (id) => requests.put(`/notification/${id}`),
 
@@ -385,6 +385,7 @@ const Notification = {
   clearAll: () => requests.del(`/notification/me/clearall`)
 
 };
+
 const Cv = {
   create: (data) => requests.post("/cv", data),
   fetch: (userId) => requests.get(`/cv/${userId}`),
@@ -417,7 +418,6 @@ export default {
   setToken: (_accessToken) => {
     accessToken = _accessToken;
   },
-
   ContractType,
   Qualification,
   Skill,

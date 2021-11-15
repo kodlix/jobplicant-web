@@ -194,3 +194,7 @@
 
 
 /* known Style in use */
+
+.noti:hover {
+    background-color: #eee;
+}

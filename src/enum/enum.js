@@ -1,6 +1,6 @@
-export const NotificationType  = {
+export const NotificationType = {
     JOB: "job",
-    EVENT: "event",
+    POST: "post",
     ADVERT: "advert",
     BLOG: "blog"
 }

@@ -7,7 +7,6 @@
 }
 
 .notification-dropdown__header {
-    
     background-color: aliceblue;
     text-align: left;
 }
@@ -32,9 +31,7 @@
     font-size: 12px;
 }
 
-.notification-dropdown__list {
-
-}
+.notification-dropdown__list {}
 
 .notification-dropdown__list .notification-dropdown-list__item {
     border-bottom: .5px solid #eee;
@@ -44,11 +41,15 @@
     font-size: 12px;
 }
 
-.text { 
+.text {
     color: #222;
     font-size: 14px;
 }
 
 .hide {
     display: none;
+}
+
+.notification-dropdown-list__item :hover {
+    background-color: #eee;
 }
