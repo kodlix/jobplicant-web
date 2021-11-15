@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button } from 'primereact/button';
 import agentService from 'services/agent.service';
 import { loadProfileInfo } from './../store/modules/account';
 import { OnLogout } from '../store/modules/auth';
@@ -10,45 +9,49 @@ import './AppNavBar.css';
 import { ACCOUNT_TYPE } from 'constants/accountType';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { agent } from 'superagent';
-import { updateNotification, UserNotifications } from 'store/modules/appNotification';
 import { ViewModuleFromNotification } from 'helpers/viewModuleFromNotification';
 import useWindowSize from 'hooks/use-window-size';
 import { toggleChatModal } from 'store/modules/chat';
 import NotificationDropdown from './notification/NotificationDropdown';
+import { updateNotification, UserNotifications } from 'store/modules/appNotification';
 
 const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
     const userAccountType = agentService.Auth.current()?.accountType;
     const profileInfo = useSelector((state) => state.account.profileInfo);
+    const allUserNotifications = useSelector(state => state.appNotification.navBarNotifications.data);
+    // notificetion
+    const [notifications, setNotifications] = useState([]);
+    const [showNotification, setShowNotification] = useState(false);
+    const location = useLocation()
+    const [width, height] = useWindowSize()
     const dispatch = useDispatch();
     const isCorporate = profileInfo.accountType === ACCOUNT_TYPE.CORPORATE ? true : false;
+
+    console.log(notifications, "noti")
+    console.log(allUserNotifications, "From-the-back")
+
     const LogOut = () => {
         dispatch(OnLogout());
     };
 
-    const location = useLocation()
-    const [width, height] = useWindowSize()
+    const userId = agentService.Auth.current().id;
+    const userDetails = agentService.Auth.current();
+    console.log("userDetails", userDetails);
 
 
     useEffect(() => {
         dispatch(loadProfileInfo());
     }, [dispatch]);
 
-    // notificetion
-    const user = agent.Auth?.current();
-    const [notifications, setNotifications] = useState([]);
-
-    const [showNotification, setShowNotification] = useState(false)
-
-    const allAdminNotifications = useSelector(state => state.appNotification.navBarNotifications);
 
     useEffect(() => {
-        if (allAdminNotifications) {
-            setNotifications(allAdminNotifications)
+        if (allUserNotifications) {
+            setNotifications(allUserNotifications)
         }
-    }, [allAdminNotifications]);
+    }, [allUserNotifications]);
 
     useEffect(() => {
-        dispatch(UserNotifications(user?.accountId));
+        dispatch(UserNotifications(userId));
     }, [dispatch]);
 
     const viewNot = (not, viewFrom) => {
@@ -137,7 +140,7 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                                     // onMouseLeave={() => setShowNotification(false)}
                                     style={{ position: 'relative' }}>
                                     <div className="position-relative">
-                                        {/* <small className="badge bg-danger position-absolute alert-badge" >2</small> */}
+                                        {notifications && notifications.length > 0 && <small className="badge bg-danger position-absolute alert-badge" >{notifications.length}</small>}
                                         <i className="pi pi-bell itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
                                     </div>
                                     <div className="itemTitle-appNavbar mx-2">

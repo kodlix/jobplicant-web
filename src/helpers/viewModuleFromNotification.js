@@ -5,11 +5,11 @@ import { NotificationType } from "enum/enum";
 export const ViewModuleFromNotification = (notification, viewFrom) => {
     switch (notification?.notificationType?.name) {
         case NotificationType.BLOG: {
-            window.location.href = viewFrom === 'admin' ? `${window.location.origin}/admin/blogs/detail/${notification.entityId}` : viewFrom === 'customer' ? `${window.location.origin}/blog/view/${notification.entityId}` : `${window.location.origin}/blogs/${notification.entityId}`;
+            window.location.href = viewFrom === 'admin' ? `${window.location.origin}/admin/blogs/detail/${notification.entityId}` : viewFrom === 'customer' ? `${window.location.origin}/instant-job-hire/view/${notification.entityId}` : `${window.location.origin}/instant-job-hire/${notification.entityId}`;
             return;
         }
-        case NotificationType.EVENT: {
-            window.location.href = viewFrom === 'admin' ? `${window.location.origin}/admin/events/detail/${notification.entityId}` : viewFrom === 'customer' ? `${window.location.origin}/events/view/${notification.entityId}` : `${window.location.origin}/event/${notification.entityId}`;
+        case NotificationType.POST: {
+            window.location.href = viewFrom === 'admin' ? `${window.location.origin}/admin/events/detail/${notification.entityId}` : viewFrom === 'customer' ? `${window.location.origin}/job/listJobDetail/${notification.entityId}` : `${window.location.origin}/job/listJob/${notification.entityId}`;
             return;
         }
         case NotificationType.JOB: {

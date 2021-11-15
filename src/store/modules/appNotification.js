@@ -1,5 +1,5 @@
 import { push } from "connected-react-router";
-import { agent } from "superagent";
+import agent from "../../services/agent.service"
 import { processed, processing, showErrorMessage, showSuccessMessage } from './notification';
 
 // initial values
@@ -7,7 +7,7 @@ const defaultState = {
     notifications: [],
     notification: {},
     allNotifications: [],
-    navBarNotifications: {}
+    navBarNotifications: []
 };
 
 
@@ -15,7 +15,6 @@ const defaultState = {
 const LOAD_NOTIFICATIONS = 'app/notification/LOAD_NOTIFICATIONS';
 const LOAD_ALL_NOTIFICATIONS = 'app/notification/LOAD_ALL_NOTIFICATIONS';
 const LOAD_NOTIFICATION = 'app/notification/LOAD_NOTIFICATION';
-
 const LOAD_USER_NAVBAR_NOTIFICATIONS = 'app/notification/LOAD_USER_NAVBAR_NOTIFICATIONS';
 
 
@@ -102,7 +101,7 @@ export function allNotifications() {
 
 export function ViewNotification(id) {
     return dispatch => {
-        return agent.Notification.loadById(id).then(
+        return agent.Notification?.loadById(id).then(
             response => {
                 dispatch(loadNotification(response));
             },
@@ -113,9 +112,11 @@ export function ViewNotification(id) {
     }
 }
 
+
+
 export function UserNotifications(id) {
     return dispatch => {
-        return agent.Notification?.loadByAccount(id).then(
+        return agent.Notification.loadByAccount(id).then(
             response => {
                 dispatch(loadUserNavbarNotifications(response));
             },
@@ -156,18 +157,18 @@ export function allNotificationsByAccount(id, search, page) {
     }
 }
 
-export function deleteNotification(id, from) {
+export function deleteNotification(id) {
     return dispatch => {
         return agent.Notification.delete(id).then(
             response => {
                 //handle success
                 dispatch(showSuccessMessage(("Notification deleted successfully")));
-
-                if (from === 'admin') {
-                    dispatch(push("/admin/notifications"));
-                } else {
-                    dispatch(push("/notifications"));
-                }
+                // if (from === 'admin') {
+                //     dispatch(push("/admin/notifications"));
+                // } else {
+                //     dispatch(push("/notifications"));
+                // }
+                dispatch(push("/notifications"));
             },
             error => {
                 //handle error
