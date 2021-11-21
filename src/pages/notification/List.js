@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadContacts, removeContact } from "../../store/modules/contact";
 import agentService, { API_ROOT } from "../../services/agent.service";
 import { confirmDialog } from 'primereact/confirmdialog';
-import { formatter } from '../../helpers/converter';
 import { Button } from 'primereact/button';
 import "./Notification.css"
-import { ACCOUNT_TYPE } from 'constants/accountType';
-import { deleteNotification, ViewNotification } from "../../store/modules/appNotification";
+import { updateNotification, ViewNotification } from "../../store/modules/appNotification";
 import moment from 'moment';
 
 const List = () => {
@@ -50,6 +47,11 @@ const List = () => {
         setMarkAsRead(!markAsRead);
     }
 
+    const handleSeen = (noti) => {
+        dispatch(updateNotification(noti.id))
+        history.push(`/${noti.notificationType}/${noti.id}`)
+    }
+
     return (
         <>
             <div className={`contacts-container ${contactContainerClassName}`}>
@@ -72,7 +74,7 @@ const List = () => {
 
                             return (
                                 <div className={`p-card contact-individualContainer noti ${markAsRead ? 'bg-light' : ''}`} key={index}>
-                                    <Link className="text-secondary" to={`/${noti.notificationType}/${noti.id}`}><span className="d-flex ">
+                                    <div className="text-secondary" onClick={() => handleSeen(noti)}><span className="d-flex ">
                                         {
                                             noti.imageUrl &&
                                             <img
@@ -97,7 +99,7 @@ const List = () => {
                                                 <p className=""> {moment(noti?.createdAt).fromNow()} </p>
                                             </small>
                                         </span>
-                                    </span> </Link>
+                                    </span> </div>
                                     <div className="dropdown font-weight-bold ml-2 d-flex">
                                         <i
                                             className="pi pi-ellipsis-h p-pr-2" style={{ fontSize: '1.2rem' }}
@@ -123,7 +125,7 @@ const List = () => {
                                                 <i className="pi pi-trash "> </i> Remove this notification
                                             </li>
                                         </ul>
-                                        <span className={`${markAsRead ? '' : 'custom-badge p-badge-dot p-badge-info'}`}> </span>
+                                        <span className={`${noti.seen ? '' : 'custom-badge p-badge-dot p-badge-info'}`}> </span>
                                     </div>
                                 </div>
                             )

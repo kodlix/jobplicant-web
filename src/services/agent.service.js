@@ -379,7 +379,7 @@ const Notification = {
     requests.get(
       `/notification/account/all?page=${page}&search=${search}&accountId=${id}`
     ),
-  updateNot: (id) => requests.put(`/notification/${id}`),
+  updateNoti: (id) => requests.put(`/notification/${id}/seen`),
 
   delete: (id) => requests.del(`/notification/${id}`),
   clearAll: () => requests.del(`/notification/me/clearall`)

@@ -12,10 +12,10 @@ const defaultState = {
 
 
 // Action types
-const LOAD_NOTIFICATIONS = 'app/notification/LOAD_NOTIFICATIONS';
-const LOAD_ALL_NOTIFICATIONS = 'app/notification/LOAD_ALL_NOTIFICATIONS';
-const LOAD_NOTIFICATION = 'app/notification/LOAD_NOTIFICATION';
-const LOAD_USER_NAVBAR_NOTIFICATIONS = 'app/notification/LOAD_USER_NAVBAR_NOTIFICATIONS';
+const LOAD_SEEN_AND_UNSEEN_NOTIFICATIONS = 'app/appNotification/LOAD_SEEN_AND_UNSEEN_NOTIFICATIONS';
+const LOAD_ALL_NOTIFICATIONS = 'app/appNotification/LOAD_ALL_NOTIFICATIONS';
+const LOAD_NOTIFICATION = 'app/appNotification/LOAD_NOTIFICATION';
+const LOAD_USER_NAVBAR_NOTIFICATIONS = 'app/appNotification/LOAD_USER_NAVBAR_NOTIFICATIONS';
 
 
 
@@ -23,7 +23,7 @@ const LOAD_USER_NAVBAR_NOTIFICATIONS = 'app/notification/LOAD_USER_NAVBAR_NOTIFI
 // Reducer
 export default function reducer(state = defaultState, action = {}) {
     switch (action.type) {
-        case LOAD_NOTIFICATIONS:
+        case LOAD_SEEN_AND_UNSEEN_NOTIFICATIONS:
             return {
                 ...state,
                 notifications: action.payload
@@ -57,7 +57,7 @@ export function loadNotification(data) {
 
 export function loadNotifications(data) {
     return {
-        type: LOAD_NOTIFICATIONS,
+        type: LOAD_SEEN_AND_UNSEEN_NOTIFICATIONS,
         payload: data
     };
 }
@@ -129,7 +129,7 @@ export function UserNotifications(id) {
 
 export function updateNotification(id) {
     return dispatch => {
-        return agent.Notification.updateNot(id).then(
+        return agent.Notification.updateNoti(id).then(
             response => {
                 dispatch(NotificationUpdated(response));
             },
@@ -144,7 +144,7 @@ export function allNotificationsByAccount(id, search, page) {
     return dispatch => {
         dispatch(processing());
 
-        return agent.Notification.loadAllByAccount(id, search, page).then(
+        return agent.Notification.loadAllSeenAndUnseenByAccount(id, search, page).then(
             response => {
                 dispatch(processed());
                 dispatch(loadNotifications(response));
