@@ -380,7 +380,7 @@ const Notification = {
       `/notification/account/all?page=${page}&search=${search}&accountId=${id}`
     ),
   updateNoti: (id) => requests.put(`/notification/${id}/seen`),
-
+  loadAllSeenAndUnseenByAccount: (accountId, search, page, limit) => requests.get(`/notification/account/${accountId}/all?search=${search}&page=${page}&limit=${limit}`),
   delete: (id) => requests.del(`/notification/${id}`),
   clearAll: () => requests.del(`/notification/me/clearall`)
 

@@ -4,18 +4,21 @@ import { processed, processing, showErrorMessage, showSuccessMessage } from './n
 
 // initial values
 const defaultState = {
-    notifications: [],
+    seenAndUnseenNoti: [],
     notification: {},
     allNotifications: [],
-    navBarNotifications: []
+    navBarNotifications: [],
+    loading: false,
+    meta: {}
 };
 
 
 // Action types
-const LOAD_SEEN_AND_UNSEEN_NOTIFICATIONS = 'app/appNotification/LOAD_SEEN_AND_UNSEEN_NOTIFICATIONS';
+const LOAD_SEEN_AND_UNSEEN_NOTI = 'app/appNotification/LOAD_SEEN_AND_UNSEEN_NOTI';
 const LOAD_ALL_NOTIFICATIONS = 'app/appNotification/LOAD_ALL_NOTIFICATIONS';
 const LOAD_NOTIFICATION = 'app/appNotification/LOAD_NOTIFICATION';
 const LOAD_USER_NAVBAR_NOTIFICATIONS = 'app/appNotification/LOAD_USER_NAVBAR_NOTIFICATIONS';
+const LOADING = 'app/appNotification/LOADING';
 
 
 
@@ -23,10 +26,11 @@ const LOAD_USER_NAVBAR_NOTIFICATIONS = 'app/appNotification/LOAD_USER_NAVBAR_NOT
 // Reducer
 export default function reducer(state = defaultState, action = {}) {
     switch (action.type) {
-        case LOAD_SEEN_AND_UNSEEN_NOTIFICATIONS:
+        case LOAD_SEEN_AND_UNSEEN_NOTI:
             return {
                 ...state,
-                notifications: action.payload
+                seenAndUnseenNoti: [...state.seenAndUnseenNoti, ...action.payload.data],
+                meta: action.payload.meta
             };
         case LOAD_USER_NAVBAR_NOTIFICATIONS:
             return {
@@ -43,6 +47,12 @@ export default function reducer(state = defaultState, action = {}) {
                 ...state,
                 allNotifications: action.payload
             };
+        case LOADING:
+            return {
+                ...state,
+                loading: action.payload,
+                error: null
+            };
         default: return state
     }
 };
@@ -55,9 +65,10 @@ export function loadNotification(data) {
     };
 }
 
-export function loadNotifications(data) {
+export function seenAndUnseenNoti(data) {
+
     return {
-        type: LOAD_SEEN_AND_UNSEEN_NOTIFICATIONS,
+        type: LOAD_SEEN_AND_UNSEEN_NOTI,
         payload: data
     };
 }
@@ -83,21 +94,17 @@ export function NotificationUpdated(data) {
     };
 }
 
+export function isRequestLoading(data) {
+    return {
+        type: LOADING,
+        payload: data
+    }
+}
+
 
 
 //Actions
-export function allNotifications() {
-    return dispatch => {
-        return agent.Notification.loadAll().then(
-            response => {
-                dispatch(loadAllNotifications(response));
-            },
-            error => {
-                dispatch(showErrorMessage(error));
-            }
-        );
-    }
-}
+
 
 export function ViewNotification(id) {
     return dispatch => {
@@ -140,24 +147,23 @@ export function updateNotification(id) {
     }
 }
 
-export function allNotificationsByAccount(id, search, page) {
+export function allNotiByAccount(id, search, page, limit) {
     return dispatch => {
-        dispatch(processing());
-
-        return agent.Notification.loadAllSeenAndUnseenByAccount(id, search, page).then(
+        dispatch(isRequestLoading(true));
+        return agent.Notification.loadAllSeenAndUnseenByAccount(id, search, page, limit).then(
             response => {
-                dispatch(processed());
-                dispatch(loadNotifications(response));
+                dispatch(seenAndUnseenNoti(response));
+                dispatch(isRequestLoading(false));
             },
             error => {
-                dispatch(processed());
+                dispatch(isRequestLoading(false));
                 dispatch(showErrorMessage(error));
             }
         );
     }
 }
 
-export function deleteNotification(id) {
+export function deleteNoti(id) {
     return dispatch => {
         return agent.Notification.delete(id).then(
             response => {
@@ -168,6 +174,7 @@ export function deleteNotification(id) {
                 // } else {
                 //     dispatch(push("/notifications"));
                 // }
+                dispatch(seenAndUnseenNoti(response));
                 dispatch(push("/notifications"));
             },
             error => {

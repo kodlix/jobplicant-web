@@ -22,7 +22,8 @@ export default ({ showNotification }) => {
 
   useEffect(() => {
     if (userNotifications) {
-      setUserNoti(userNotifications);
+      let reducedNoti = userNotifications.splice(0, 5);
+      setUserNoti(reducedNoti);
     }
   }, [userNotifications])
 
@@ -35,7 +36,7 @@ export default ({ showNotification }) => {
       </div>
       <div className="notification-dropdown__content">
         <div className="notification-dropdown__list">
-          {userNotifications && userNotifications.length > 0 && userNotifications.map((noti, index) =>
+          {userNoti && userNoti.length > 0 && userNoti.map((noti, index) =>
             <div key={index} className="notification-dropdown-list__item">
               <div onClick={() => handleSeen(noti)}>  <div style={{ display: 'flex', justifyContent: 'flex-start', padding: '4px' }}>
                 <div style={{ width: '30%', paddingRight: '8px' }}>
