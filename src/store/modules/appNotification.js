@@ -169,13 +169,8 @@ export function deleteNoti(id) {
             response => {
                 //handle success
                 dispatch(showSuccessMessage(("Notification deleted successfully")));
-                // if (from === 'admin') {
-                //     dispatch(push("/admin/notifications"));
-                // } else {
-                //     dispatch(push("/notifications"));
-                // }
-                dispatch(seenAndUnseenNoti(response));
                 dispatch(push("/notifications"));
+                window.location.reload();
             },
             error => {
                 //handle error

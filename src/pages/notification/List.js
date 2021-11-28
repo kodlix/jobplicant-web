@@ -11,6 +11,7 @@ import moment from 'moment';
 import "./Notification.css";
 import { InputText } from 'primereact/inputtext';
 import Spinner from 'components/spinner/spinner.component';
+import { set } from 'react-hook-form';
 
 
 const List = () => {
@@ -49,6 +50,9 @@ const List = () => {
             acceptClassName: 'p-button-danger',
             accept: () => {
                 dispatch(deleteNoti(id));
+                // let myArr = allNotis.filter(item => item.id !== id);
+                // setAllNotis(myArr)
+                // console.log("remainder", myArr);
             }
         });
     };
