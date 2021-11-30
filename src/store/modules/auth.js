@@ -7,14 +7,8 @@ import { ACCOUNT_TYPE } from 'constants/accountType';
 // initial values
 const authData = {
   loading: false,
-  currentUser: {
-    // email: "",
-    // password: "",
-    // token: "",
-    // accountType: "",
-    // accountPackage: "",
-    // isRegComplete: false
-  }
+  currentUser: {},
+  loading: false,
 };
 
 
@@ -155,25 +149,32 @@ export function loginUser({ email, password, type }) {
   }
 }
 
-export function forgotPasswordUser({ email }) {
+export function forgotPassword(email) {
   return dispatch => {
-    return agent.Auth.forgotPassword(email).then(response => { // handle success
-      dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "A link to reset your password has been sent to your email", title: "Link sent to you" }));
-      dispatch(push(""));
+    dispatch(isRequestLoading(true))
+    return agent.Auth.forgotPassword(email).then(response => {
+      // handle success
+      console.log("res", response);
+      dispatch(isRequestLoading(false))
+      dispatch(push("/recoverbyemail"));
     }, error => { // handle error
+      dispatch(isRequestLoading(false))
       dispatch(showMessage({ type: "error", message: error }));
     });
   }
 }
 
-export function updateUserPassword(data) {
+export function updateUserPassword(shortCode, email, data) {
   return dispatch => {
-    return agent.Auth.updatePassword(data).then(response => {
-      console.log({ response });
+    dispatch(isRequestLoading(true))
+    return agent.Auth.updatePassword(shortCode, email, data).then(response => {
+      dispatch(isRequestLoading(false))
       // handle success
       dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "Password successfully updated" }));
       dispatch(push("/login"));
-    }, error => { // handle error
+    }, error => {
+      // handle error
+      dispatch(isRequestLoading(false))
       dispatch(showMessage({ type: "error", message: error }));
     });
   }

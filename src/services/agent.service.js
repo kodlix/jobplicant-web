@@ -107,14 +107,11 @@ const Auth = {
   register: (data) => requests.post("/auth/signUp", data),
   checkValidEmail: (email) =>
     requests.post(`/account/email/is-valid`, { email }),
-  forgotPassword: (email) =>
-    requests.put(`/auth/send-forget-password-email`, { email }),
-  updatePassword: (data) => {
-    const { shortCode, email, password, confirmPassword } = data;
-    requests.put(`/auth/change-password-email/${shortCode}/${email}`, {
-      password,
-      confirmPassword,
-    });
+  forgotPassword: (email) => requests.put(`/auth/send-forget-password-email`, { email }),
+
+  updatePassword: (shortCode, email, data) => {
+    return requests.put(`/auth/change-password-email?shortCode=${shortCode}&email=${email}`, data);
+    // console.log("testing", test);
   },
   resetPassword: (email, password) =>
     requests.post(`/ account / password / reset`, { email, password }),

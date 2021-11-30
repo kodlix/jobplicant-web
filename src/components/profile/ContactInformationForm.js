@@ -36,17 +36,17 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
   }, []);
 
   useEffect(() => {
-    
+
     if (profileInfo) {
-      console.log('profileinfo',profileInfo)
+      console.log('profileinfo', profileInfo)
       setContactInfo({
         ...profileInfo,
-        country: profileInfo.country ? countries.find(c => c.name === profileInfo.country) : null,
-        phoneNumber: profileInfo.contactPhoneNumber ||  "",
-        email: profileInfo.email ||  "",
-        city: profileInfo.city||  "",
-        postalCode: profileInfo.postalCode ||  "",
-        address: profileInfo.address ||  ""
+        country: profileInfo.country ? countries.find(c => c.name === profileInfo.country) : countries[0].name,
+        phoneNumber: profileInfo.contactPhoneNumber || "",
+        email: profileInfo.email || "",
+        city: profileInfo.city || "",
+        postalCode: profileInfo.postalCode || "",
+        address: profileInfo.address || ""
       });
 
       for (const [key, value] of Object.entries(profileInfo)) {
@@ -54,22 +54,23 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
       }
       setValue('phoneNumber', profileInfo.contactPhoneNumber); //`contactPhoneNumber` is variable to bind to `phoneNumber`
       setValue('country', profileInfo.country);
-      console.log('country in console', profileInfo.country)
+      console.log('country in console', profileInfo.country, 'country to update', countries[0].name)
     }
-    
+
   }, [profileInfo, countries]);
 
-  
-  
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     const contactData = { ...contactInfo, [name]: value };
-    
+
     setContactInfo(contactData);
+    setValue(name, value)
   }
-  
+
   const contactInfoSubmit = (data) => dispatch(updateContactInfo(contactInfo));
-  
+
   const { phoneNumber, email, country, city, postalCode, address } = contactInfo;
   return (
     <>
@@ -86,9 +87,10 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                   id="phoneNumber"
                   name="phoneNumber"
                   {...register("phoneNumber",
-                    { 
+                    {
                       required: 'Phone number is required',
-                      validate: value => value?.length > 0 || email?.length > 0 || "* Phone Number is required" }
+                      validate: value => value?.length > 0 || email?.length > 0 || "* Phone Number is required"
+                    }
                   )}
                   onChange={handleChange}
                   value={phoneNumber}
@@ -131,10 +133,10 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                   icon="pi pi-plus"
                   id="country"
                   name="country"
-                  {...register("country", {required: 'Country is required'})}
+                  {...register("country", { required: 'Country is required' })}
                   value={country}
                   onChange={handleChange}
-                  
+
                 />
               </div>
 
@@ -161,7 +163,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                   id="postalCode"
                   name="postalCode"
                   placeholder="Postal Code"
-                  {...register("postalCode", {required: "Postal code is required"})}
+                  {...register("postalCode", { required: "Postal code is required" })}
                   onChange={handleChange}
                   value={postalCode}
                 />
@@ -178,7 +180,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                   rows="2"
                   className="inputField"
                   placeholder="Address"
-                  {...register("address",{
+                  {...register("address", {
                     required: `Address is required`,
                   })}
                   value={address}

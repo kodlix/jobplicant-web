@@ -48,8 +48,6 @@ const Login = ({ props }) => {
                 <div className="p-grid p-mx-0">
                     <Toast ref={toast} />
 
-                    {/* <div className="p-col bgimage login-pane-left p-col-12 p-md-8 p-lg-8">
-                </div> */}
                     <div className="login-pane-left p-col-12 p-md-7 p-lg-8 p-p-5 small-screen">
                         <div className="left-content">
                             <div><h1 className="p-mb-0 p-text-center title">Joplicant Home for all</h1></div>
