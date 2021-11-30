@@ -78,7 +78,7 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                     <div>
                         <Navbar.Brand href="#home">
                             <Link className="navbar-brand logo" to="/dashboard">
-                                <img className="logo1" src="/assets/logo.png" alt="Logo" height="35" />
+                                <img className="logo1" src="/assets/images/logo/applogo.jpeg" alt="Logo" height="35" />
                             </Link>
                         </Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" className="bg-white" />

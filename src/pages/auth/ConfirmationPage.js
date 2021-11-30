@@ -47,7 +47,7 @@ const ConfirmationPage = () => {
                     </div>
                     <div className="login-pane-right p-col-12 p-md-5 p-lg-4">
                         <div className="logo-container">
-                            <img src="/assets/logo.png" width="150" alt="brand-logo" />
+                            <img src="/assets/images/logo/applogo.jpeg" width="150" alt="brand-logo" />
                         </div>
                         <div className="">
                             <div className="panel-login text-center">
@@ -59,7 +59,7 @@ const ConfirmationPage = () => {
                                     </div>
                                     <div className="p-field message">
                                         <div className="p-m-4">  <p>Let us know if this mobile number belongs to you.
-                                             Enter the code in the SMS sent to <b>0807 923 2514</b> (Nigeria).</p></div>
+                                            Enter the code in the SMS sent to <b>0807 923 2514</b> (Nigeria).</p></div>
                                     </div>
                                 </section>
                                 <form>

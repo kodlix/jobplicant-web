@@ -120,7 +120,7 @@ const TimelineLeftPanel = ({ profileInfo, expandProfileImage }) => {
             <img
               width="40"
               height="40"
-              src="../../assets/logo.png"
+              src="/assets/images/logo/applogo.jpeg"
               className="rounded-circle profile-picture-timeline p-mr-2"
             />
             <span>
@@ -142,7 +142,7 @@ const TimelineLeftPanel = ({ profileInfo, expandProfileImage }) => {
         <div className="p-card-body d-flex justify-content-between">
           <span className="d-flex align-items-end">
             <img
-              src="../../assets/logo.png"
+              src="/assets/images/logo/applogo.jpeg"
               width="40"
               height="40"
               className="rounded-circle profile-picture-timeline p-mr-2"
@@ -168,7 +168,7 @@ const TimelineLeftPanel = ({ profileInfo, expandProfileImage }) => {
             <img
               width="40"
               height="40"
-              src="../../assets/logo.png"
+              src="/assets/images/logo/applogo.jpeg"
               className="rounded-circle profile-picture-timeline p-mr-2"
             />
             <span>
@@ -192,7 +192,7 @@ const TimelineLeftPanel = ({ profileInfo, expandProfileImage }) => {
             <img
               width="40"
               height="40"
-              src="../../assets/logo.png"
+              src="/assets/images/logo/applogo.jpeg"
               className="rounded-circle profile-picture-timeline p-mr-2" />
             <span>
               <div className="p-card-title cardsubtitle-timeline p-mb-0">
@@ -215,7 +215,7 @@ const TimelineLeftPanel = ({ profileInfo, expandProfileImage }) => {
             <img
               width="40"
               height="40"
-              src="../../assets/logo.png"
+              src="/assets/images/logo/applogo.jpeg"
               className="rounded-circle profile-picture-timeline p-mr-2"
             />
             <span>
@@ -239,7 +239,7 @@ const TimelineLeftPanel = ({ profileInfo, expandProfileImage }) => {
             <img
               width="40"
               height="40"
-              src="../../assets/logo.png"
+              src="/assets/images/logo/applogo.jpeg"
               className="rounded-circle profile-picture-timeline p-mr-2" />
             <span>
               <div className="p-card-title cardsubtitle-timeline p-mb-0">

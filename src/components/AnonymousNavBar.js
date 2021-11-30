@@ -11,7 +11,7 @@ const AnonymousNavBar = () => {
             <div className="col-lg-12">
               <nav className="navbar navbar-expand-lg py-2">
                 <Link className="navbar-brand logo" to="/timeline">
-                  <img className="logo1" src="/assets/logo.png" alt="Logo" />
+                  <img className="logo1" src="/assets/images/logo/applogo.jpeg" alt="Logo" />
                 </Link>
                 <div className="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent"></div>
                 <div className="button">

@@ -15,7 +15,7 @@ const AppAdminNavBar = ({
                             <div className="col-lg-12">
                                 <nav className="navbar navbar-expand-lg">
                                     <Link className="navbar-brand logo" to="/profile-info">
-                                        <img className="logo1" src="/assets/logo.png" alt="Logo" />
+                                        <img className="logo1" src="/assets/images/logo/applogo.jpeg" alt="Logo" />
                                     </Link>
                                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                         <span className="toggler-icon"></span>

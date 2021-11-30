@@ -53,7 +53,7 @@ const ForgotPassword = () => {
                     </div>
                     <div className="p-col-12 p-md-5 p-lg-4 jobplicant-panel-right">
                         <div className="logo-container">
-                            <img src="../../assets/logo.png" alt="Logo" className="reponsive-logo" width="150" />
+                            <img src="/assets/images/logo/applogo.jpeg" alt="Logo" className="reponsive-logo" width="150" />
                         </div>
                         <div className="jobplicant-panel">
                             <div className="jobplicant-heading">
