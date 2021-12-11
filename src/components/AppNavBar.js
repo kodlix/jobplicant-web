@@ -8,7 +8,6 @@ import { OnLogout } from '../store/modules/auth';
 import './AppNavBar.css';
 import { ACCOUNT_TYPE } from 'constants/accountType';
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import { agent } from 'superagent';
 import { ViewModuleFromNotification } from 'helpers/viewModuleFromNotification';
 import useWindowSize from 'hooks/use-window-size';
 import { toggleChatModal } from 'store/modules/chat';
