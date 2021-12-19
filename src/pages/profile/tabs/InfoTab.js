@@ -15,9 +15,13 @@ import agentService from 'services/agent.service';
 import Spinner from 'components/spinner/spinner.component';
 import { loadCountry } from 'store/modules/location';
 import { ACCOUNT_TYPE } from 'constants/accountType';
+import { Skeleton } from 'primereact/skeleton'
 
 import CustomError from "pages/error-page/CustomError";
 import { ErrorBoundary } from "react-error-boundary";
+
+import { fetchCountries } from "store/modules/util";
+import { getQualifications } from "store/modules/admin";
 
 const InfoTab = () => {
   const dispatch = useDispatch();
@@ -49,6 +53,11 @@ const InfoTab = () => {
     dispatch(loadCountry());
 
   }, [educationUpdatedOrDeleted, userSkillUpdatedOrDeleted, experienceUpdatedOrDeleted]);
+
+  useEffect(() => {
+    dispatch(fetchCountries());
+    dispatch(getQualifications())
+  }, []);
 
   const expandImage = () => { };
 
@@ -89,58 +98,82 @@ const InfoTab = () => {
       }}
     >
       <>
-        <Biography
+        {loading ? <div>
+          <Skeleton width="10rem" className="p-mb-2"></Skeleton>
+          <Skeleton width="100%" height="100px"></Skeleton>
+        </div> : <Biography
           openCreate={openCreate}
           openEdit={openEdit}
           profileInfo={profileInfo}
-        />
+        />}
         <div className="p-grid">
           <div className="p-col-12 p-md-8 content-leftPanel">
             {/* experience */}
-            <Experience
+            {loading ? <div>
+              <Skeleton width="10rem" className="p-mb-2"></Skeleton>
+              <Skeleton width="100%" height="50px"></Skeleton>
+            </div> : <Experience
               openCreate={openCreate}
               openEdit={openEdit}
               profileInfo={profileInfo}
               formatDate={formatDate}
-            />
-            <Education
+            />}
+            {loading ? <div>
+              <Skeleton width="10rem" className="p-mb-2"></Skeleton>
+              <Skeleton width="100%" height="50px"></Skeleton>
+            </div> : <Education
               openCreate={openCreate}
               openEdit={openEdit}
               profileInfo={profileInfo}
               formatDate={formatDate}
-            />
+            />}
           </div>
           <div className="p-col-12 content-rightPanel p-md-4">
             {/* contact information */}
-            <ContactInformation
+            {loading ? <div>
+              <Skeleton width="10rem" className="p-mb-2"></Skeleton>
+              <Skeleton width="100%" height="50px"></Skeleton>
+            </div> : <ContactInformation
               openCreate={openCreate}
               openEdit={openEdit}
               profileInfo={profileInfo}
-            />
+            />}
             {/* skills */}
-            <Skills
+            {loading ? <div>
+              <Skeleton width="10rem" className="p-mb-2"></Skeleton>
+              <Skeleton width="100%" height="50px"></Skeleton>
+            </div> : <Skills
               openCreate={openCreate}
               openEdit={openEdit}
               profileInfo={profileInfo}
-            />
+            />}
             {/* hobbies */}
-            {accountType !== ACCOUNT_TYPE.ARTISAN && <Hobbies
+            {loading ? <div>
+              <Skeleton width="10rem" className="p-mb-2"></Skeleton>
+              <Skeleton width="100%" height="50px"></Skeleton>
+            </div> : accountType !== ACCOUNT_TYPE.ARTISAN && <Hobbies
               openCreate={openCreate}
               openEdit={openEdit}
               profileInfo={profileInfo}
             />}
             {/* profession of interest */}
-            {accountType !== ACCOUNT_TYPE.ARTISAN && <ProfessionsOfInterest
+            {loading ? <div>
+              <Skeleton width="10rem" className="p-mb-2"></Skeleton>
+              <Skeleton width="100%" height="50px"></Skeleton>
+            </div> : accountType !== ACCOUNT_TYPE.ARTISAN && <ProfessionsOfInterest
               openCreate={openCreate}
               openEdit={openEdit}
               profileInfo={profileInfo}
             />}
             {/* location of interest */}
-            <LocationOfInterest
+            {loading ? <div>
+              <Skeleton width="10rem" className="p-mb-2"></Skeleton>
+              <Skeleton width="100%" height="50px"></Skeleton>
+            </div> : <LocationOfInterest
               openCreate={openCreate}
               openEdit={openEdit}
               profileInfo={profileInfo}
-            />
+            />}
 
           </div>
         </div>

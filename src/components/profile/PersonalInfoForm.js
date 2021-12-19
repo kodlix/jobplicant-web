@@ -11,6 +11,7 @@ import { Calendar } from "primereact/calendar";
 import { loadCountry, loadLga, loadStates } from "store/modules/location";
 
 
+
 const PersonalInfoForm = ({ data, closeEditMode }) => {
   const [personalProfile, setPersonalProfile] = useState({
     firstName: "",
@@ -131,6 +132,18 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
       let stateId = e.target.value.id;
       dispatch(loadLga(stateId));
     }
+  }
+
+  const handleDateOfBirth = (e) => {
+    const inputName = "dateOfBirth";
+
+    const value = new Date(e.value).toISOString();
+
+    setPersonalProfile({
+      ...personalProfile,
+      [inputName]: e.value,
+    });
+    setValue(inputName, value, { shouldValidate: true });
   }
 
 
@@ -256,17 +269,9 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
                   {...register("dateOfBirth", {
                     required: `Date of birth is required`,
                   })}
-                  onSelect={(e) => {
-                    const inputName = "dateOfBirth";
-
-                    const value = new Date(e.value).toISOString();
-
-                    setPersonalProfile({
-                      ...personalProfile,
-                      [inputName]: e.value,
-                    });
-                    setValue(inputName, value, { shouldValidate: true });
-                  }}
+                  onSelect={handleDateOfBirth} 
+                  onChange={handleDateOfBirth}
+                  // yearNavigator
                 />
               </div>
               <div className="p-field p-col-12 p-md-6">

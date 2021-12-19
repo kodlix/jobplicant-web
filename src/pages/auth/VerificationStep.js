@@ -4,11 +4,18 @@ import React from 'react';
 import './Register.css'
 
 
-const VerificationStep = ({ goto, setAccountType }) => {
+const VerificationStep = ({ goto, accountType, setAccountType }) => {
     const setSelectedAccountType = (type, e) => {
         if (e.target.checked) {
             setAccountType(type)
         }
+    }
+    const handleGoto = () => {
+        if(accountType === null){
+            window.alert('Please select an account type!')
+            return;
+        }
+       goto(2)
     }
     return (
         <>
@@ -66,9 +73,7 @@ const VerificationStep = ({ goto, setAccountType }) => {
                                 </div>
                                 <div className=" text-right p-2 px-10">
                                     <button type="button" className="btn appcolor"
-                                        onClick={
-                                            () => goto(2)
-                                        }>Next</button>
+                                        onClick={ handleGoto}>Next</button>
                                 </div>
                             </div>
                         </div>

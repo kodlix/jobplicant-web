@@ -25,7 +25,7 @@ const JobplicantAvatar = ({
     const avatarContainer = (fullname) => {
         return <Avatar
             label={getInitials(fullname)}
-            size="xlarge"
+            size="large"
             className="avatar-title"
             shape="circle"
             style={{ backgroundColor: 'green' }}

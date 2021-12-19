@@ -4,8 +4,8 @@ import superagentPromise from "superagent-promise";
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api.herokuapp.com";
-// export const API_ROOT = "https://jobplicant-api.herokuapp.com";
+// export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api.herokuapp.com";
+export const API_ROOT = "https://jobplicant-api.herokuapp.com";
 
 console.log('API_ROOT', API_ROOT);
 console.log("environmental variables", process.env);
@@ -44,15 +44,15 @@ export const tokenPlugin = (req) => {
 
   req.on('error', function (err) {
     //manage error
-    const currentURL = window.location.href;
+    // const currentURL = window.location.href;
 
-    if (err.toString().includes('offline')) {
-      console.log('super agent error', err, 'current location', currentURL)
-      if (process.env.NODE_ENV === "development")
-        return window.location.href = `${process.env.LOCAL_DEV_URL}offline?returnUrl=${currentURL}`;
-      else
-        return window.location.href = `${process.env.API_ROOT_PROD}/offline?returnUrl=${currentURL}`;
-    }
+    // if (err.toString().includes('offline')) {
+    //   console.log('super agent error', err, 'current location', currentURL)
+    //   if (process.env.NODE_ENV === "development")
+    //     return window.location.href = `${process.env.LOCAL_DEV_URL}offline?returnUrl=${currentURL}`;
+    //   else
+    //     return window.location.href = `${process.env.API_ROOT_PROD}/offline?returnUrl=${currentURL}`;
+    // }
   })
 };
 

@@ -45,19 +45,19 @@ const UserProfile = ({ match }) => {
   };
 
   return (
-    <ErrorBoundary
-      FallbackComponent={CustomError} 
-      onReset={() => {
-        //reset the state of your app state
-        console.log('reset the app state')
-      }}
-    >
+    // <ErrorBoundary
+    //   FallbackComponent={CustomError} 
+    //   onReset={() => {
+    //     //reset the state of your app state
+    //     console.log('reset the app state')
+    //   }}
+    // >
       <>
         <div className="background">
-          <div className="pl-5">
-            <CustomBreadCrumb />
+          <div className=""> 
+            <CustomBreadCrumb /> 
           </div>
-          <div className="content-container">
+          <div className="content-container" style={{ width: '87%'}}>
 
             {/* personal info */}
             <PersonalInfo
@@ -91,7 +91,7 @@ const UserProfile = ({ match }) => {
         </div>
 
       </>
-    </ErrorBoundary>
+    // </ErrorBoundary>
   );
 };
 

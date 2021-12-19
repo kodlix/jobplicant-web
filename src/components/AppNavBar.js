@@ -154,8 +154,8 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                     </div>
                     <div className="d-flex">
                         <div>
-                            <Link to={"/instant-hires"} className="button btn bg-light text-muted font-weight-bold request-instant-job d-none d-lg-block" style={{ width: "14vw" }}>
-                                Request Instant Job
+                            <Link to={"/instant-hires"} className="button btn bg-light text-muted request-instant-job d-none d-lg-block" style={{ width: "14vw", display: 'block' }}>
+                                <small>Request Instant Job</small>
                             </Link>
                         </div>
                         <div
@@ -177,7 +177,7 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                                     />
                                     :
                                     <div className="profile-largescreen">
-                                        <i className="pi pi-user empty-profilepic-appNavbar p-ml-2" />
+                                        <i className="pi pi-user empty-profilepic-appNavbar p-ml-2"  />
                                     </div>
                             }
                         </div>

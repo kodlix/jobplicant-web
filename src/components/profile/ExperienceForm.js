@@ -9,7 +9,7 @@ import { createExperience, updateExperience } from "store/modules/experience";
 import { Calendar } from "primereact/calendar";
 import InputField from "components/InputField";
 
-import {Checkbox} from 'primereact/checkbox';
+import { Checkbox } from 'primereact/checkbox';
 import LimitedTextarea from "../LimitedTextarea";
 
 const jobCategoryList = [
@@ -50,7 +50,7 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
         company: itemToEdit.company,
       });
 
-      
+
 
       setValue("description", itemToEdit.description);
       setValue("startDate", itemToEdit.startDate);
@@ -94,12 +94,25 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
     formData.jobCategoryName = formData.jobCategory.name;
     formData.jobCategoryId = formData.jobCategory.id;
 
+    if (formData.current) {
+      // delete formData.endDate;
+      formData.endDate = new Date().toISOString()
+    }
+
     if (mode === 'create')
       dispatch(createExperience(formData));
     else
       dispatch(updateExperience(itemToEdit.id, formData));
 
   };
+
+  const monthNavigatorTemplate = (e) => {
+    return <Dropdown value={e.value} options={e.options} onChange={(event) => e.onChange(event.originalEvent, event.value)} style={{ lineHeight: 1 }} />;
+  }
+
+  const yearNavigatorTemplate = (e) => {
+    return <Dropdown value={e.value} options={e.options} onChange={(event) => e.onChange(event.originalEvent, event.value)} className="p-ml-2" style={{ lineHeight: 1 }} />;
+  }
 
   console.log('descrption', experience)
   return (
@@ -150,7 +163,7 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
                   defaultValue={experience.company}
                 />
               </div>
-              <div className="p-field p-col-12 p-md-6">
+              <div className={`p-field p-col-12 ${checkedCurrent ? 'p-md-12' : 'p-md-6'}`}>
                 <label className="inputLabel" htmlFor="startDate">
                   Start Date
                   {errors.startDate && (
@@ -178,9 +191,15 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
                   {...register("startDate", {
                     required: `* Start date is required`,
                   })}
+                  monthNavigatorTemplate={monthNavigatorTemplate}
+                  yearNavigatorTemplate={yearNavigatorTemplate}
+                  view="month"
+                  dateFormat="mm/yy"
+                  yearNavigator
+                  yearRange="2010:2030"
                 />
               </div>
-              <div className="p-field p-col-12 p-md-6">
+              {!checkedCurrent && <div className="p-field p-col-12 p-md-6">
                 <label className="inputLabel" htmlFor="endDate">
                   {" "}
                   End Date
@@ -208,8 +227,15 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
                   {...register("endDate", {
                     required: `* End date is required`,
                   })}
+                  monthNavigatorTemplate={monthNavigatorTemplate}
+                  yearNavigatorTemplate={yearNavigatorTemplate}
+                  view="month"
+                  dateFormat="mm/yy"
+                  yearNavigator
+                  yearRange="2010:2030"
+                  disabled={checkedCurrent}
                 />
-              </div>
+              </div>}
               <div className="p-field p-col-12 p-md-6">
                 <label className="inputLabel" htmlFor="jobCategory">
                   Job Category
@@ -261,10 +287,10 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
                     </span>
                   )}
                 </label>
-          
-                <LimitedTextarea 
-                  value={experience?.description } 
-                  limit={500} 
+
+                <LimitedTextarea
+                  value={experience?.description}
+                  limit={500}
                   register={register}
                 />
                 {/* <InputTextarea
@@ -286,7 +312,7 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
                     onChange={e => {
                       setCheckedCurrent(e.checked);
                       // console.log(e)
-                      setExperience({...experience, [e.target.name]: e.checked});
+                      setExperience({ ...experience, [e.target.name]: e.checked });
                       setValue(e.target.name, e.checked, { shouldValidate: true });
                     }} checked={checkedCurrent}></Checkbox>
                   Set as current

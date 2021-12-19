@@ -141,16 +141,17 @@ const Login = ({ props }) => {
 
                                             <div className="p-d-flex p-jc-between">
                                                 <div className="p-field-checkbox">
-                                                    <Checkbox inputId="rememberMe"
+                                                    {/* <Checkbox inputId="rememberMe"
                                                         name="rememberme"
                                                         id="rememberMe"
                                                         checked={checked}
                                                         onChange={e => setChecked(e.checked)}
-                                                    /> <label htmlFor="rememberMe"><span className="label-text p-ml-1">Remember me</span></label>
+                                                    /> <label htmlFor="rememberMe"><span className="label-text p-ml-1">Remember me</span></label> */}
                                                 </div>
                                                 <div>
                                                     <Link className="font-weight-bold forgot-pwd" to="/forgotpassword">Forgot password?</Link>
                                                 </div>
+                                              
                                                 {/* <div className="col-6 col-xs-3">
                                                 </div> */}
                                                 {/* <div className="col-6 col-xs-3 p-mb-1">
@@ -158,6 +159,7 @@ const Login = ({ props }) => {
                                                     </p>
                                                 </div> */}
                                             </div>
+                                            <br />
                                             <Button
                                                 label="Login"
                                                 type="submit"

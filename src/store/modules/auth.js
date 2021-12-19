@@ -131,12 +131,11 @@ export function loginUser({ email, password, type }) {
           onLogin(dispatch, response);
           console.log({ response });
           dispatch(push('/company'));
-        }
-        else if (response.accountType === ACCOUNT_TYPE.INSTANT_HIRE) {
+
+        } else if (response.accountType === ACCOUNT_TYPE.INSTANT_HIRE) {
           onLogin(dispatch, response);
           dispatch(push('/new-instant-hire'));
-        }
-        else {
+        } else {
           onLogin(dispatch, response);
           dispatch(push("/profile"));
         }
