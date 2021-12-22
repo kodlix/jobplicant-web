@@ -20,8 +20,6 @@ const InstantHires = () => {
     const instantJobs = useSelector(state => state.instantJob.instantjobs);
     const allJobs = useSelector(state => state.job.allJobs);
 
-    console.log("instantJobs", instantJobs);
-
     const userAccountType = agentService.Auth.current().accountType;
 
 

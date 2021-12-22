@@ -7,6 +7,7 @@ import { API_ROOT } from "../../services/agent.service";
 import ConnectionRequestPanel from "./ConnectionRequestPanel";
 import "./Contacts.css";
 import { ACCOUNT_TYPE } from 'constants/accountType';
+import { Link } from 'react-router-dom';
 
 const Create = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,8 @@ const Create = () => {
     { name: 'Istanbul', code: 'IST' },
     { name: 'Paris', code: 'PRS' }
   ];
+
+  console.log(users, "user details")
 
   const capitalizeFirstLetter = (name) => {
     if (name) {
@@ -63,6 +66,14 @@ const Create = () => {
   useEffect(() => {
     dispatch(loadFreeUsers(1, pageLimit, "loadingFreeUsers"))
   }, [dispatch]);
+
+  const getCurrentJobExperience = experiences => {
+    if (experiences && experiences.length) {
+      const experience = experiences.find(experience => experiences.current === true) || experiences[0]
+      return <div>{experience.jobTitle} at {experience.company}</div>
+    }
+    return <div></div>
+  }
 
   return (
     <>
@@ -117,7 +128,7 @@ const Create = () => {
                       !user.imageUrl &&
                       <i className="pi pi-user contact-emptyProfilePic"></i>
                     }
-                    <span className="p-ml-2">
+                    <Link to={`/applicant/${user.id}`} ><span className="p-ml-2 app-color" title="View user's profile">
                       <span className="p-card-title contacts-contactHeader p-mb-0">
                         <span className="p-mr-2">
                           {`${capitalizeFirstLetter(user?.firstName)} ${capitalizeFirstLetter(user?.lastName)}`}
@@ -136,7 +147,7 @@ const Create = () => {
                           photographer at photostat
                         </p>
                       </small>
-                    </span>
+                    </span></Link>
                   </span>
                   <div className="align-self-center">
                     {

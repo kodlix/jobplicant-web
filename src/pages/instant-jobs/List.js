@@ -23,10 +23,8 @@ const InstantJobs = () => {
     const allInstantJobs = useSelector(state => state.instantJob.allCurrentInstantJobs);
     const applicants = useSelector(state => state.instantJob.applicants);
 
-    console.log("All instant job =>", allInstantJobs);
 
     const requestedId = agent.Auth.current().id;
-    console.log("requestedId", requestedId);
 
 
 

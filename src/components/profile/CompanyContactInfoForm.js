@@ -124,7 +124,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
               <div className="p-field p-col-12 p-md-6">
                 <label htmlFor="email" className="inputLabel p-pr-3">Email Address
                   {errors.email && <small className="text-danger font-weight-bold">&nbsp;
-                  {errors?.email?.message}</small>}
+                    {errors?.email?.message}</small>}
                 </label>
                 <InputText name="email" id="email" type="email" value={contactInfo.email}
                   {...register("email",

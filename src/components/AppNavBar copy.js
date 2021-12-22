@@ -27,8 +27,6 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
     const dispatch = useDispatch();
     const isCorporate = profileInfo.accountType === ACCOUNT_TYPE.CORPORATE ? true : false;
 
-    console.log(notifications, "noti")
-    console.log(allUserNotifications, "From-the-back")
 
     const LogOut = () => {
         dispatch(OnLogout());
@@ -36,7 +34,6 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
 
     const userId = agentService.Auth.current().id;
     const userDetails = agentService.Auth.current();
-    console.log("userDetails", userDetails);
 
 
     useEffect(() => {

@@ -62,6 +62,14 @@ const PersonalInfo = ({ openCreate, openEdit, data, isViewApplicant }) => {
     }, 2000);
   };
 
+  const getCurrentJobExperience = experiences => {
+    if (experiences && experiences.length) {
+      const experience = experiences.find(experience => experiences.current === true) || experiences[0]
+      return <div>{experience.jobTitle} at {experience.company}</div>
+    }
+    return <div></div>
+  }
+
   if (loading)
     return <>
       <div className="p-d-flex p-mb-3">
@@ -99,10 +107,10 @@ const PersonalInfo = ({ openCreate, openEdit, data, isViewApplicant }) => {
           id="personalInfoEdit"
           onClick={() => openEdit(PROFILE.PERSONAL_INFO, profileInfo)}
         ></i>
-          <u>Edit Personal Info</u>
+          {/* <u>Edit Personal Info</u> */}
         </span>}
         <br />
-        {profileInfo.experiences.length ? <div>{profileInfo.experiences[0].jobTitle} at {profileInfo.experiences[0].company}</div> : <div></div>}
+        {getCurrentJobExperience(profileInfo.experiences)}
         {rating && accountType === ACCOUNT_TYPE.ARTISAN && <span>
           <div className="stars" style={{ "--rating": rating }}></div>
         </span>}

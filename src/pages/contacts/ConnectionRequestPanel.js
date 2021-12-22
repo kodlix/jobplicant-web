@@ -6,6 +6,7 @@ import { formatter } from '../../helpers/converter';
 import { confirmDialog } from 'primereact/confirmdialog';
 import { API_ROOT } from "../../services/agent.service";
 import "./Contacts.css";
+import { Link } from 'react-router-dom';
 
 const ConnectionRequestPanel = ({ setSelectedId, selectedId }) => {
   const dispatch = useDispatch();
@@ -77,8 +78,8 @@ const ConnectionRequestPanel = ({ setSelectedId, selectedId }) => {
                   }
                   <span className="w-100">
                     <div className="p-card-title contacts-cardsubtitle p-mb-0 d-flex justify-content-between">
-                      <span> {`${formatter.capitalizeFirstLetter(contact?.firstName)} ${formatter.capitalizeFirstLetter(contact?.lastName)}`}
-                      </span>
+                      <Link to={`/applicant/${contact.id}`}> <span className='app-color' title="View user's profile"> {`${formatter.capitalizeFirstLetter(contact?.firstName)} ${formatter.capitalizeFirstLetter(contact?.lastName)}`}
+                      </span></Link>
                       <span className="text-right">
                         {
                           loading === "acceptConnectionRequest"

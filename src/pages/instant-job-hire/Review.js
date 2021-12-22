@@ -36,7 +36,6 @@ const Review = (props) => {
     // console.log("instant-job => ", instantJob)
 
     const applicant = useParams();
-    console.log("applicantid", applicant)
 
     useEffect(() => {
         register("rating")

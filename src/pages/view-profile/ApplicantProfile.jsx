@@ -23,6 +23,7 @@ import Portfolio from 'components/profile/Portfolio';
 import { Button } from 'primereact/button';
 import "./ApplicantProfile.css"
 import moment from 'moment';
+import { Skeleton } from 'primereact/skeleton';
 
 // const ApplicantContext  = useContext(false);
 
@@ -41,7 +42,6 @@ const ApplicantProfile = () => {
     const applicantReview = useSelector(state => state.review.review);
     const accountType = agentService.Auth.current().accountType;
 
-    console.log("applicantReview", applicantReview)
 
     const history = useHistory();
 
@@ -60,9 +60,14 @@ const ApplicantProfile = () => {
 
     useEffect(() => {
         dispatch(loadCountry());
-        dispatch(loadAccountByUser(applicantid));
-        dispatch(loadApplicantReviews(applicantId, page, limit));
-    }, [dispatch, applicantid]);
+    }, [])
+
+    useEffect(() => {
+        if (applicantid) {
+            dispatch(loadAccountByUser(applicantid));
+            dispatch(loadApplicantReviews(applicantId, page, limit));
+        }
+    }, [applicantid]);
 
     const openCreate = (name) => {
         setMode("create");
@@ -83,8 +88,9 @@ const ApplicantProfile = () => {
 
         return year + "/" + month + "/" + day;
     };
-    if (loading)
-        return <Spinner />
+    // if (loading)
+    // return <Spinner />
+
 
     return (
         <div className="container">
@@ -101,6 +107,7 @@ const ApplicantProfile = () => {
                         <Button onClick={() => history.goBack()} className="bk-btn p-pt-2 app-color"><i className="pi pi-arrow-left text-white">  Back</i></Button>
                     </div>
                 </div>
+
                 <div className="p-grid">
                     <div className="p-col-9 content-smallscreen">
                         <div className="content-tab">

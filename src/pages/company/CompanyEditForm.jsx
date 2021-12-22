@@ -14,7 +14,7 @@ import { loadCountry, loadLga, loadStates } from "store/modules/location";
 import JobplicantAvatar from "components/profile/jobplicant-avatar";
 
 const CompanyEditForm = () => {
-  const loading = useSelector((state) => state.company.loading);
+  const loading = useSelector((state) => state.company.requestLoading);
   const uploading = useSelector((state) => state.account.loading);
   const id = useSelector((state) => state.account.profileInfo.id);
   const profileInfo = useSelector(state => state.account.profileInfo);
@@ -49,11 +49,14 @@ const CompanyEditForm = () => {
     setCompanyInfo({ ...companyInfo, [name]: value });
     setValue(name, value, { shouldValidate: true });
   };
-
   useEffect(() => {
     dispatch(loadCountry());
     dispatch(loadStates(1));
     dispatch(loadLga(1))
+  }, [])
+
+  useEffect(() => {
+
     setCompanyInfo({
       ...companyInfo,
       yearOfEstablishment: new Date(profileInfo.yearOfEstablishment),
@@ -80,7 +83,7 @@ const CompanyEditForm = () => {
     setValue('noOfEmployees', profileInfo.noOfEmployees);
     setValue('address', profileInfo.address);
 
-  }, [dispatch, profileInfo]);
+  }, [profileInfo]);
 
   useEffect(() => {
     if (!selectedFile) {
@@ -97,7 +100,7 @@ const CompanyEditForm = () => {
   useEffect(() => {
     if (countries) {
       setCompanyInfo({
-        ...companyInfo, 
+        ...companyInfo,
         country: countries.find(country => country.id === 1),
         state: states.find(state => state.id === 1),
         lga: lgas.find(lga => lga.id === 1),
@@ -162,7 +165,7 @@ const CompanyEditForm = () => {
     dispatch(updateCompanyInfo(obj))
   };
 
-  
+
 
   return (
     <>
@@ -299,9 +302,9 @@ const CompanyEditForm = () => {
                         className="profile-picture"
                       />)
                     } */}
-                    <JobplicantAvatar 
-                      width={165} 
-                      height={165} 
+                    <JobplicantAvatar
+                      width={165}
+                      height={165}
                       preview={preview}
                       data={profileInfo}
                     />
