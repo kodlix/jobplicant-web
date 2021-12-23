@@ -70,7 +70,7 @@ const HowToStart = () => {
                                             </div>
                                         </>)
                                     }
-                                    {isCvEmpty(cvData) && (<>
+                                    {isCvEmpty(cvData) && (<div className="panel">
                                         <div className="text-center p-p-0">
                                             <h4 className="cv-header">How do you want to start?</h4>
                                         </div>
@@ -92,7 +92,7 @@ const HowToStart = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </>)}
+                                    </div>)}
 
                                 </div>
                             </div>
