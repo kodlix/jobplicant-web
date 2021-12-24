@@ -581,13 +581,13 @@ export const loadServices = (page, limit, loadingType, search) => (dispatch) => 
   dispatch(adminLoading(loadingType))
   return agent.Service.load(page, limit, search).then((response) => {
     dispatch(actionLoadServices(response));
-    dispatch(
-      showMessage({
-        type: MESSAGE_TYPE.SUCCESS,
-        title: "Services Information",
-        message: "Services loaded successfully",
-      })
-    );
+    // dispatch(
+    //   showMessage({
+    //     type: MESSAGE_TYPE.SUCCESS,
+    //     title: "Services Information",
+    //     message: "",
+    //   })
+    // );
   },
     (error) => {
       // handle error

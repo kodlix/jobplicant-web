@@ -144,7 +144,7 @@ const Create = () => {
                           {user.email}
                         </p>
                         <p>
-                          photographer at photostat
+                          {getCurrentJobExperience(user.experiences)}
                         </p>
                       </small>
                     </span></Link>

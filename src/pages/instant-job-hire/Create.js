@@ -12,6 +12,7 @@ import { Calendar } from 'primereact/calendar';
 import RecentInstantJobs from 'pages/instant-jobs/Recent_instant_Jobs';
 
 import './InstantJobHire.css'
+import { loadServices } from 'store/modules/admin';
 
 const New = ({ mode }) => {
     const dispatch = useDispatch();
@@ -33,19 +34,16 @@ const New = ({ mode }) => {
     const API_KEY = "AIzaSyDxaC_Q4OI6Kx84VPT4W4k6N6FYLEVfcw0";
 
     const loading = useSelector(state => state.instantJob.loading);
+    const services = useSelector(state => state.admin.services).data;
+    console.log(services, "services list");
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(10);
+    const [search, setSearch] = useState("");
 
+    useEffect(() => {
+        dispatch(loadServices(page, limit, "loadServices", search));
+    }, [])
 
-    const Categories = [
-        { name: 'Mechanic', code: 'Mec' },
-        { name: 'Plumber', code: 'Plu' },
-        { name: 'Tailor', code: 'Tai' },
-        { name: 'Chef', code: 'Chef' },
-        { name: 'Dry-cleaners', code: 'Lan' },
-        { name: 'Painter', code: 'Pai' },
-        { name: 'Janitor', code: 'Jan' },
-        { name: 'Massage', code: 'Mas' },
-
-    ];
 
 
     // const minDate = () => {
@@ -109,13 +107,15 @@ const New = ({ mode }) => {
                 .then(response => response.json())
                 .then(data => {
                     let requester_location = data.results[0].formatted_address;
-                    console.log("requester's location => ", data)
+                    console.log("requester's location => ", requester_location)
+                    return requester_location;
 
                 })
         },
             error => {
                 alert('Could not locate your address unforturnately')
             })
+
     }
 
 
@@ -132,7 +132,7 @@ const New = ({ mode }) => {
                     data.now = false;
                 }
                 data.service = data.service.name;
-                locateUserHandler();
+                data.requesterLocation = locateUserHandler();
                 dispatch(createInstantJob(data));
             },
             reject: () => {
@@ -162,7 +162,7 @@ const New = ({ mode }) => {
                                                 <label htmlFor="service"> Job Service *</label>
 
                                                 <Dropdown
-                                                    options={Categories}
+                                                    options={services}
                                                     optionLabel="name"
                                                     filter
                                                     showClear
