@@ -70,8 +70,97 @@ const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected 
         }
     }
 
-    return (
-        <div>
+    return (<>
+        <div style={{ position: 'absolute', bottom: '24px', zIndex: 100, backgroundColor: 'transparent', borderRadius: '15px', padding: '4px', width: '100%' }}>
+
+            <div className="d-flex">
+                <div className="d-flex justify-content-start">
+                    <Button
+                        icon="pi pi-times"
+                        label="Go Back"
+                        className="p-button-rounded"
+                        style={{ boxShadow: '2px 3px 15px 2px #999' }}
+                        onClick={navigateBack}
+                    />
+                    {getTemplate(selected) !== null && <PDFDownloadLink
+                        document={getTemplate(selected)}
+                        fileName={`template-${selected}.pdf`}
+                        className="p-button p-button-rounded ml-1 mr-1"
+                        style={{
+                            // textDecoration: "none",
+                            // padding: "10px",
+                            // color: "white",
+                            // backgroundColor: 'var(--primary-color)',
+                            // borderRadius: '4px',
+                            // width: "50%",
+                            // margin: "20px ",
+                            // display: "block"
+                        }}
+                    >
+                        {({ blob, url, loading, error }) => {
+                            if (url) {
+                                setLoaded(true)
+                            }
+                            return (
+                                loading ? "Loading document..." : "Download Pdf")
+                        }
+                        }
+                    </PDFDownloadLink>}
+
+                    <Button
+                        onClick={handleSaveCv}
+                        label={submitting ? "Please wait..." : "Save CV"}
+                        disabled={submitting || !loaded}
+                        className="p-button mr-1 ml-1"
+                    // style={{
+                    //     textDecoration: "none",
+                    //     padding: "10px",
+                    //     color: "white",
+                    //     backgroundColor: 'var(--primary-color)',
+                    //     borderRadius: '4px',
+                    //     width: "50%",
+                    //     margin: "20px ",
+                    //     display: "block"
+                    // }}
+                    />
+
+                    {editMode ? <Button
+                        className="p-button-rounded p-button mr-1 ml-1"
+                        icon="pi pi-times"
+                        onClick={() => setEditMode(false)}
+                    />
+                        : <Button
+                            className="p-button-rounded p-button mr-1 ml-1"
+                            icon="pi pi-pencil"
+                            onClick={() => setEditMode(true)}
+                        />}
+                </div>
+
+                {/* <div className="d-flex">
+                    
+                        <Button icon="pi pi-arrow-left" className="p-button-rounded p-button" onClick={() => setShowPreview(false)} />
+
+                       
+           
+                </div> */}
+            </div>
+        </div>
+        <section>
+            <div className="cv-preview-box">
+                {<div>
+                    <div className="d-sm-block d-md-none">
+                        <h5>PDF not supported on mobile view, please view on desktop.</h5>
+                    </div>
+                    <PDFViewer className="col-12 d-sm-none d-md-block" height="740px">
+                        {
+                            getTemplate(selected)
+
+                        }
+                    </PDFViewer>
+                </div>}
+            </div>
+        </section>
+        {/* <div>
             <div className="generate-cv" >
                 <div className="content-container">
                     <div className="p-card">
@@ -83,73 +172,13 @@ const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected 
                         <div className="p-card-body">
                             <div className="p-grid justify-content-center">
                                 <div className="p-col-12 p-md-12 p-lg-12 preview-pane" style={{ position: 'relative' }}>
-                                    {/* <header className="header" >
+                                    <header className="header" >
                                 <i className="pi pi-arrow-left" onClick={() => setShowPreview(false)}></i>
 
                                 {editMode ? <i className="pi pi-times" onClick={() => setEditMode(false)}></i> : <i className="pi pi-pencil" onClick={() => setEditMode(true)}></i>}
-                            </header> */}
+                            </header> 
 
-                                    <section>
-                                        {/* <p>Adding to profile {addingToProfile.toString()}</p> */}
-                                        <div className="cv-preview-box">
-
-                                            <div className="d-flex justify-content-center">
-                                                {getTemplate(selected) !== null && <PDFDownloadLink
-                                                    document={getTemplate(selected)}
-                                                    fileName={`template-${selected}.pdf`}
-                                                    style={{
-                                                        textDecoration: "none",
-                                                        padding: "10px",
-                                                        color: "white",
-                                                        backgroundColor: 'var(--primary-color)',
-                                                        borderRadius: '4px',
-                                                        width: "50%",
-                                                        margin: "20px ",
-                                                        display: "block"
-                                                    }}
-                                                >
-                                                    {({ blob, url, loading, error }) => {
-                                                        if (url) {
-                                                            setLoaded(true)
-                                                        }
-                                                        return (
-                                                            loading ? "Loading document..." : "Download Pdf")
-                                                    }
-                                                    }
-                                                </PDFDownloadLink>}
-                                                <Button
-                                                    onClick={handleSaveCv}
-                                                    label={submitting ? "Please wait..." : "Save CV"}
-                                                    disabled={submitting || !loaded}
-                                                    style={{
-                                                        textDecoration: "none",
-                                                        padding: "10px",
-                                                        color: "white",
-                                                        backgroundColor: 'var(--primary-color)',
-                                                        borderRadius: '4px',
-                                                        width: "50%",
-                                                        margin: "20px ",
-                                                        display: "block"
-                                                    }}
-                                                />
-                                            </div>
-
-                                            {<div>
-                                                <div className="d-sm-block d-md-none">
-                                                    <h5>PDF not supported on mobile view, please view on desktop.</h5>
-                                                </div>
-                                                <PDFViewer className="col-12 d-sm-none d-md-block" height="740px">
-                                                    {
-                                                        getTemplate(selected)
-
-                                                    }
-                                                </PDFViewer>
-                                            </div>
-
-                                            }
-
-                                        </div>
-                                    </section>
+                                   
                                 </div>
 
                             </div>
@@ -158,8 +187,8 @@ const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected 
                     </div>
                 </div>
             </div>
-        </div >
-    )
+        </div > */}
+    </>)
 
 }
 
