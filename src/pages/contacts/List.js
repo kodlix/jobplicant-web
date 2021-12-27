@@ -135,7 +135,7 @@ const List = () => {
                 }
                 return (
                   <div className="p-card contact-individualContainer" key={contact.id}>
-                    <Link to={`/applicant/${contact.id}`} > <span className="d-flex app-color">
+                    <span className="d-flex">
                       {
                         contact.imageUrl &&
                         <img
@@ -152,9 +152,9 @@ const List = () => {
                       }
                       <span className="">
                         <span className="p-card-title contacts-contactHeader p-mb-0">
-                          <span className="p-mr-2">
+                          <Link to={`/applicant/${contact.id}`} >  <span className="p-mr-2 app-color" title="View user's profile">
                             {`${formatter.capitalizeFirstLetter(contact?.firstName)} ${formatter.capitalizeFirstLetter(contact?.lastName)}`}
-                          </span>
+                          </span> </Link>
                           {
                             contact.accountType === ACCOUNT_TYPE.ARTISAN &&
                             <div className="stars" style={{ "--rating": contact.rating }} />
@@ -167,7 +167,7 @@ const List = () => {
                           <b>Email:</b> {contact?.email || "Unavailable"}
                         </small>
                       </span>
-                    </span></Link>
+                    </span>
                     <div className="contacts-actionIcons">
                       {/* <i className="pi pi-phone p-pr-2" /> */}
                       <i className="pi pi-video p-pr-2" />

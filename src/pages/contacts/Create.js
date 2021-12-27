@@ -126,11 +126,11 @@ const Create = () => {
                       !user.imageUrl &&
                       <i className="pi pi-user contact-emptyProfilePic"></i>
                     }
-                    <Link to={`/applicant/${user.id}`} ><span className="p-ml-2 app-color" title="View user's profile">
+                    <span className="p-ml-2" title="View user's profile">
                       <span className="p-card-title contacts-contactHeader p-mb-0">
-                        <span className="p-mr-2">
+                        <Link to={`/applicant/${user.id}`}><span className="p-mr-2 app-color">
                           {`${capitalizeFirstLetter(user?.firstName)} ${capitalizeFirstLetter(user?.lastName)}`}
-                        </span>
+                        </span></Link>
                         {
                           user.accountType.toLowerCase() === ACCOUNT_TYPE.ARTISAN &&
                           <div className="stars" style={{ "--rating": user.rating }} />
@@ -145,7 +145,7 @@ const Create = () => {
                           {getCurrentJobExperience(user.experiences)}
                         </p>
                       </small>
-                    </span></Link>
+                    </span>
                   </span>
                   <div className="align-self-center">
                     {
