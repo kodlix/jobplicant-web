@@ -28,8 +28,6 @@ const Create = () => {
     { name: 'Paris', code: 'PRS' }
   ];
 
-  console.log(users, "user details")
-
   const capitalizeFirstLetter = (name) => {
     if (name) {
       return name[0].toUpperCase() + name.slice(1);

@@ -10,6 +10,10 @@ import "./Contacts.css"
 import ConnectionRequestPanel from './ConnectionRequestPanel';
 import { ACCOUNT_TYPE } from 'constants/accountType';
 
+import { Skeleton } from 'primereact/skeleton';
+import { Column } from 'primereact/column';
+// import './SkeletonDemo.css';
+
 const List = () => {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.contact.loadingContact);
@@ -21,6 +25,7 @@ const List = () => {
   const contacts = useSelector(state => state.contact.contacts);
   const contactContainerClassName = contacts.ids.length < 4 ? "containerHeight-contact" : "";
   const [pageNumber, setPageNumber] = useState(1);
+  console.log(contacts, "contact-data-shape");
 
   const loadMoreContacts = () => {
     dispatch(loadContacts(pageNumber + 1, pageLimit, "loadMoreContacts"));
@@ -30,6 +35,14 @@ const List = () => {
   useEffect(() => {
     dispatch(loadContacts(1, pageLimit, "loadingContacts"))
   }, [dispatch]);
+
+  const getCurrentJobExperience = experiences => {
+    if (experiences && experiences.length) {
+      const experience = experiences.find(experience => experiences.current === true) || experiences[0]
+      return <div>{experience.jobTitle} at {experience.company}</div>
+    }
+    return <div></div>
+  }
 
   const confirmRemove = (e) => {
     let contactId = e.currentTarget.dataset.id;
@@ -46,6 +59,53 @@ const List = () => {
       }
     });
   };
+
+  // if (loading) {
+  //   return <div className={`contacts-container ${contactContainerClassName}`}>
+  //     <div className="custom-skeleton p-p-4">
+  //       <ul className="p-m-0 p-p-0">
+  //         <li className="p-mb-3">
+  //           <div className="p-d-flex">
+  //             <Skeleton shape="circle" size="4rem" className="p-mr-2"></Skeleton>
+  //             <div style={{ flex: '1' }}>
+  //               <Skeleton width="100%" className="p-mb-2"></Skeleton>
+  //               <Skeleton width="75%"></Skeleton>
+  //             </div>
+  //           </div>
+  //         </li>
+  //         <li className="p-mb-3">
+  //           <div className="p-d-flex">
+  //             <Skeleton shape="circle" size="4rem" className="p-mr-2"></Skeleton>
+  //             <div style={{ flex: '1' }}>
+  //               <Skeleton width="100%" className="p-mb-2"></Skeleton>
+  //               <Skeleton width="75%"></Skeleton>
+  //             </div>
+  //           </div>
+  //         </li>
+  //         <li className="p-mb-3">
+  //           <div className="p-d-flex">
+  //             <Skeleton shape="circle" size="4rem" className="p-mr-2"></Skeleton>
+  //             <div style={{ flex: '1' }}>
+  //               <Skeleton width="100%" className="p-mb-2"></Skeleton>
+  //               <Skeleton width="75%"></Skeleton>
+  //             </div>
+  //           </div>
+  //         </li>
+  //         <li>
+  //           <div className="p-d-flex">
+  //             <Skeleton shape="circle" size="4rem" className="p-mr-2"></Skeleton>
+  //             <div style={{ flex: '1' }}>
+  //               <Skeleton width="100%" className="p-mb-2"></Skeleton>
+  //               <Skeleton width="75%"></Skeleton>
+  //             </div>
+  //           </div>
+  //         </li>
+  //       </ul>
+  //     </div>
+  //   </div>
+  // }
+
+
 
   return (
     <>
@@ -75,7 +135,7 @@ const List = () => {
                 }
                 return (
                   <div className="p-card contact-individualContainer" key={contact.id}>
-                    <span className="d-flex">
+                    <Link to={`/applicant/${contact.id}`} > <span className="d-flex app-color">
                       {
                         contact.imageUrl &&
                         <img
@@ -101,15 +161,15 @@ const List = () => {
                           }
                         </span>
                         <p>
-                          photographer at photostat
+                          {getCurrentJobExperience(contact.experiences)}
                         </p>
                         <small>
                           <b>Email:</b> {contact?.email || "Unavailable"}
                         </small>
                       </span>
-                    </span>
+                    </span></Link>
                     <div className="contacts-actionIcons">
-                      <i className="pi pi-phone p-pr-2" />
+                      {/* <i className="pi pi-phone p-pr-2" /> */}
                       <i className="pi pi-video p-pr-2" />
                       <i className="pi pi-comments p-pr-2" />
                       <i
