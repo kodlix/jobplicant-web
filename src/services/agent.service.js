@@ -5,7 +5,7 @@ import superagentPromise from "superagent-promise";
 const superagent = superagentPromise(_superagent, global.Promise);
 
 // export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api.herokuapp.com";
-export const API_ROOT = "https://jobplicant-api.herokuapp.com";
+export const API_ROOT = "http://localhost:8080";
 
 console.log('API_ROOT', API_ROOT);
 console.log("environmental variables", process.env);
@@ -27,7 +27,6 @@ export const tokenPlugin = (req) => {
   accessToken = getAuthToken();
   if (accessToken) {
     req.set("Authorization", `Bearer ${accessToken}`);
-    req.set('Content-Type', 'application/json')
   }
 
   req.on("response", function (res) {
@@ -36,7 +35,7 @@ export const tokenPlugin = (req) => {
       // console.log("onResponse: This is called when Authorization is hit")
       localStorage.removeItem("auth")
       if (process.env.NODE_ENV === 'development')
-        return window.location.href = 'http://localhost:3010/login'
+        return window.location.href = 'http://localhost:8080/login'
       else
         return window.location.href = process.env.API_ROOT_PROD + '/login'
     }

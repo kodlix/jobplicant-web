@@ -3,11 +3,11 @@ import { Avatar } from 'primereact/avatar';
 import './jobplicant-avatar.css'
 
 const AvatarOverlay = () => {
-    
 
-    return <div style={{width: '90px', height: '90px', backgroundColor: 'rgba(0,0,0,0.5)', position: 'absolute', borderRadius: '50px'}} >
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', transition: '.4sec ease-in-out', padding: '30px'}}>
-            <i className="pi pi-camera" style={{fontSize: '30px'}}></i>
+
+    return <div style={{ width: '90px', height: '90px', backgroundColor: 'rgba(0,0,0,0.5)', position: 'absolute', borderRadius: '50px' }} >
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', transition: '.4sec ease-in-out', padding: '30px' }}>
+            <i className="pi pi-camera" style={{ fontSize: '30px' }}></i>
         </div>
     </div>
 }
@@ -50,18 +50,19 @@ const JobplicantAvatar = ({
 
     const fullname = profileInfo.firstName ? profileInfo?.firstName + ' ' + profileInfo?.lastName : '';
     return (
-        <div className="userProfile-header" style={{ cursor: 'pointer', position: 'relative' }} onClick={handleClick} onMouseLeave={() => setCameraMode(false)} onMouseEnter={() => setCameraMode(true)}>
-            <span className="profilePic-container">
-                {profileInfo.imageUrl && profileInfo.imageUrl.includes("https") ?
-                    <img src={selectedFile ? preview : profileInfo.imageUrl}
-                        alt="User Image"
-                        width="130"
-                        height="130"
-                        className="profile-picture"
-                    />
-                    : fullname ? avatarContainer(fullname) : ''}
-                {/* {fullname ? avatarContainer(fullname) : ''} */}
-                {/* {!isProfileView && <label className="profilePic-label" htmlFor="upload-button" style={{ marginBottom: '-20px' }}>
+        <form>
+            <div className="userProfile-header" style={{ cursor: 'pointer', position: 'relative' }} onClick={handleClick} onMouseLeave={() => setCameraMode(false)} onMouseEnter={() => setCameraMode(true)}>
+                <span className="profilePic-container">
+                    {profileInfo.imageUrl && profileInfo.imageUrl.includes("https") ?
+                        <img src={selectedFile ? preview : profileInfo.imageUrl}
+                            alt="User Image"
+                            width="130"
+                            height="130"
+                            className="profile-picture"
+                        />
+                        : fullname ? avatarContainer(fullname) : ''}
+                    {/* {fullname ? avatarContainer(fullname) : ''} */}
+                    {/* {!isProfileView && <label className="profilePic-label" htmlFor="upload-button" style={{ marginBottom: '-20px' }}>
                     {loading ? (
                         <i className="pi pi-spin pi-spinner" style={{ color: "black" }}>
                         {" "}
@@ -70,9 +71,10 @@ const JobplicantAvatar = ({
                             <i className="pi pi-camera"></i>
                             )}
                         </label>} */}
-            </span>
-            {cameraMode && <AvatarOverlay />}
-        </div>
+                </span>
+                {cameraMode && <AvatarOverlay />}
+            </div>
+        </form>
     )
 }
 

@@ -51,10 +51,10 @@ const PersonalInfo = ({ openCreate, openEdit, data, isViewApplicant }) => {
       if (confirmation) {
         console.log(selectedFile);
         var formData = new FormData();
-        var extension = selectedFile.type.replace(/(.*)\//g, "");
-        let filename = `${profileInfo.id}.${extension}`;
+        // var extension = selectedFile.type.replace(/(.*)\//g, "");
+        // let filename = `${profileInfo.id}.${extension}`;
         // console.log(filename)
-        formData.append("image", selectedFile, filename);
+        formData.append("image", selectedFile);
         //   //dispatch to the service
         dispatch(updateProfilePicture(formData));
 
