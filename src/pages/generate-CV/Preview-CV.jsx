@@ -124,14 +124,15 @@ const PreviewCV = ({ selected, selectedTemplate, setShowPreview, handleSelected 
                     // }}
                     />
 
-                    {editMode ? <Button
+                    {editMode ? <Button label="Edit CV"
                         className="p-button-rounded p-button mr-1 ml-1"
-                        icon="pi pi-times"
+                        icon="pi pi-pencil"
                         onClick={() => setEditMode(false)}
                     />
-                        : <Button
+                        : <Button 
+                        label="Close Editor"
                             className="p-button-rounded p-button mr-1 ml-1"
-                            icon="pi pi-pencil"
+                            icon="pi pi-times"
                             onClick={() => setEditMode(true)}
                         />}
                 </div>

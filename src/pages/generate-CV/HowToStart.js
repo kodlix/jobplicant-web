@@ -8,6 +8,7 @@ import { fetchCV } from 'store/modules/cv';
 
 import { Card } from 'primereact/card';
 import { DUMMY_TEMPLATES } from './dummy-template';
+import Spinner from 'components/spinner/spinner.component';
 
 
 const HowToStart = () => {
@@ -15,6 +16,7 @@ const HowToStart = () => {
     const ref = useRef(null);
     const cvData = useSelector(state => state.cv.data)
     const profileInfo = useSelector((state) => state.account.profileInfo);
+    const loading = useSelector(state => state.cv.loading)
 
     React.useEffect(() => {
         if (profileInfo) {
@@ -39,6 +41,8 @@ const HowToStart = () => {
 
     const isCvEmpty = (data) => Object.keys(data).length === 0 && data.constructor === Object
 
+    console.log('cv data', cvData)
+
     return (
         <div className="d-flex p-jc-center">
             <div className="generate-cv" >
@@ -46,27 +50,34 @@ const HowToStart = () => {
                     <div className="p-grid">
                         <div className="p-col-12">
                             <div className="card card-size-list">
-                                <div className="card-body">
+                                {loading ? <Spinner /> : <div className="card-body">
+                                    
                                     {
                                         !isCvEmpty(cvData) && (<>
-                                            <h4 className="mb-2">Recent CV</h4>
-                                            <div className="card p-2">
-                                                <div className="w-100">
-                                                    <h4>{cvData.title}</h4>
-                                                    <p>{cvData.description}</p>
-                                                    <div className="p-d-flex justify-content-start">
-                                                        <a className="btn btn-primary" href={cvData.url}>View PDF</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr />
-                                            <div className="p-pt-3">
+                                            <div className="p-d-flex justify-content-between p-pt-3">
+                                                <h4 className="mb-2">Recent CV</h4>
                                                 <Link to={"/cv-template"}>
                                                     <Button
                                                         label="Create New"
                                                         className="p-button "
                                                     />
                                                 </Link>
+                                            </div>
+                                            <br />
+                                            <div className="p-grid">
+                                                <div className="p-col-12 p-md-4">
+                                                    <div className="card" style={{height: '240px'}}>
+                                                        <div className="w-100 text-center">
+                                                            <img src={cvData.url} style={{width: '100%', height: '130px'}} />
+                                                            <h4 style={{fontSize: '18px',marginTop: '4px'}}>{cvData.title}</h4>
+                                                            <p>{cvData.description}</p>
+                                                            <div className="p-d-flex justify-content-center align-item-center">
+                    
+                                                                <a className="btn btn-primary" href={cvData.url}>View PDF</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </>)
                                     }
@@ -94,7 +105,7 @@ const HowToStart = () => {
                                         </div>
                                     </div>)}
 
-                                </div>
+                                </div>}
                             </div>
                         </div>
                     </div>

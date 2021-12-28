@@ -1,6 +1,6 @@
 import { ACCOUNT_TYPE } from "constants/accountType";
 import { PROFILE } from "constants/profile";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import agentService from "services/agent.service";
 import { updateProfilePicture } from "store/modules/account";
@@ -19,6 +19,7 @@ const PersonalInfo = ({ openCreate, openEdit, data, isViewApplicant }) => {
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
+  const profilePicRef = useRef()
 
   useEffect(() => {
     if (!selectedFile) {
@@ -50,10 +51,10 @@ const PersonalInfo = ({ openCreate, openEdit, data, isViewApplicant }) => {
       if (confirmation) {
         console.log(selectedFile);
         var formData = new FormData();
-        var extension = selectedFile.type.replace(/(.*)\//g, "");
-        let filename = `${profileInfo.id}.${extension}`;
+        // var extension = selectedFile.type.replace(/(.*)\//g, "");
+        // let filename = `${profileInfo.id}.${extension}`;
         // console.log(filename)
-        formData.append("image", selectedFile, filename);
+        formData.append("image", selectedFile);
         //   //dispatch to the service
         dispatch(updateProfilePicture(formData));
 
@@ -90,9 +91,10 @@ const PersonalInfo = ({ openCreate, openEdit, data, isViewApplicant }) => {
         loading={loading}
         preview={preview}
         isViewApplicant={false}
-
+        handleClick={() => profilePicRef.current.click()}
       />
-      <input
+      <input 
+        ref={profilePicRef}
         type="file"
         id="upload-button"
         style={{ display: "none" }}
