@@ -65,7 +65,7 @@ const ConnectionRequestPanel = ({ setSelectedId, selectedId }) => {
                   {
                     contact.imageUrl &&
                     <img
-                      src={`${API_ROOT}/${contact.imageUrl}`}
+                      src={contact.imageUrl}
                       width="40"
                       height="40"
                       className="rounded-circle contact-requestspicture p-mr-2"

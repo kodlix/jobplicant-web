@@ -139,7 +139,7 @@ const List = () => {
                       {
                         contact.imageUrl &&
                         <img
-                          src={`${API_ROOT}/${contact.imageUrl}`}
+                          src={contact?.imageUrl}
                           width="85"
                           height="85"
                           alt={`${contact?.firstName}'s profile`}

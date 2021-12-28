@@ -114,7 +114,7 @@ const Create = () => {
                     {
                       user.imageUrl &&
                       <img
-                        src={`${API_ROOT}/${user.imageUrl}`}
+                        src={user.imageUrl}
                         width="85"
                         height="85"
                         className="rounded-circle contact-profilePicture"
