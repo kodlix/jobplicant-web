@@ -23,6 +23,15 @@ import Portfolio from 'components/profile/Portfolio';
 import { Button } from 'primereact/button';
 import "./ApplicantProfile.css"
 import moment from 'moment';
+import PersonalInfoSkeleton from 'components/skeletons/PersonalInfoSkeleton';
+import ExperienceSkeleton from 'components/skeletons/ExperienceSkeleton';
+import EducationSkeleton from 'components/skeletons/EducationSkeleton';
+import ContactInfoSkeleton from 'components/skeletons/ContactInfoSkeleton';
+import SkillSkeleton from 'components/skeletons/SkillSkeleton';
+import HobbiesSkeleton from 'components/skeletons/HobbiesSkeleton';
+import ProfessionOfInterestSkeleton from 'components/skeletons/ProfessionOfInterestSkeleton';
+import LocationOfInterestSkeleton from 'components/skeletons/LocationOfInterestSkeleton';
+import BiographySkeleton from 'components/skeletons/BiographySkeleton';
 
 // const ApplicantContext  = useContext(false);
 
@@ -34,9 +43,9 @@ const ApplicantProfile = () => {
     const [isShowInfo, setIsShowInfo] = useState(true);
     const [isHideReview, setIsHideReview] = useState(true);
 
-    const applicantid = useParams().id;
     const dispatch = useDispatch();
     const loading = useSelector(state => state.account.loading);
+    // const loading = useSelector(state => state.account.loading);
     const profileInfo = useSelector((state) => state.account.profileInfo);
     const applicantReview = useSelector(state => state.review.review);
     const accountType = agentService.Auth.current().accountType;
@@ -58,11 +67,12 @@ const ApplicantProfile = () => {
     const [mode, setMode] = useState("create");
     const [itemToEdit, setItemToEdit] = useState({});
 
+
     useEffect(() => {
-        dispatch(loadCountry());
-        dispatch(loadAccountByUser(applicantid));
+        dispatch(loadCountry())
+        dispatch(loadAccountByUser(applicantId));
         dispatch(loadApplicantReviews(applicantId, page, limit));
-    }, [dispatch, applicantid]);
+    }, []);
 
     const openCreate = (name) => {
         setMode("create");
@@ -83,20 +93,20 @@ const ApplicantProfile = () => {
 
         return year + "/" + month + "/" + day;
     };
-    if (loading)
-        return <Spinner />
+    // if (loading)
+    //     return <Spinner />
 
     return (
         <div className="container">
             <div className="pt-5">
                 <div className="d-flex justify-content-lg-between">
-                    <PersonalInfo
+                    {loading ? <PersonalInfoSkeleton /> : <PersonalInfo
                         openCreate={openCreate}
                         openEdit={openEdit}
                         data={profileInfo}
                         isViewApplicant={true}
 
-                    />
+                    />}
                     <div className="flex-shrink-0">
                         <Button onClick={() => history.goBack()} className="bk-btn p-pt-2 app-color"><i className="pi pi-arrow-left text-white">  Back</i></Button>
                     </div>
@@ -123,64 +133,64 @@ const ApplicantProfile = () => {
                         </div>
 
                         <div className="content-body" hidden={!isShowInfo}>
-                            <Biography
+                            {loading ? <BiographySkeleton /> : <Biography
                                 openCreate={openCreate}
                                 openEdit={openEdit}
                                 profileInfo={profileInfo}
                                 isViewApplicant={true}
-                            />
+                            />}
 
                             <div className="p-grid">
                                 <div className="p-col-12 p-md-8 content-leftPanel">
-                                    <Experience
+                                    {loading ? <ExperienceSkeleton /> : <Experience
                                         openCreate={openCreate}
                                         openEdit={openEdit}
                                         profileInfo={profileInfo}
                                         formatDate={formatDate}
                                         isViewApplicant={true}
 
-                                    />
-                                    <Education
+                                    />}
+                                    {loading ? <EducationSkeleton /> : <Education
                                         openCreate={openCreate}
                                         openEdit={openEdit}
                                         profileInfo={profileInfo}
                                         formatDate={formatDate}
                                         isViewApplicant={true}
 
-                                    />
+                                    />}
                                 </div>
                                 <div className="p-col-12 content-rightPanel p-md-4">
-                                    <ContactInformation
+                                    {loading ? <ContactInfoSkeleton /> : <ContactInformation
                                         openCreate={openCreate}
                                         openEdit={openEdit}
                                         profileInfo={profileInfo}
                                         isViewApplicant={true}
 
-                                    />
-                                    <Skills
-                                        openCreate={openCreate}
-                                        openEdit={openEdit}
-                                        profileInfo={profileInfo}
-                                        isViewApplicant={true}
-                                    />
-                                    {accountType !== ACCOUNT_TYPE.ARTISAN && <Hobbies
+                                    />}
+                                    {loading ? <SkillSkeleton /> : <Skills
                                         openCreate={openCreate}
                                         openEdit={openEdit}
                                         profileInfo={profileInfo}
                                         isViewApplicant={true}
                                     />}
-                                    {accountType !== ACCOUNT_TYPE.ARTISAN && <ProfessionsOfInterest
+                                    {accountType !== ACCOUNT_TYPE.ARTISAN && loading ? <HobbiesSkeleton /> : <Hobbies
                                         openCreate={openCreate}
                                         openEdit={openEdit}
                                         profileInfo={profileInfo}
                                         isViewApplicant={true}
                                     />}
-                                    <LocationOfInterest
+                                    {accountType !== ACCOUNT_TYPE.ARTISAN && loading ? <ProfessionOfInterestSkeleton /> : <ProfessionsOfInterest
                                         openCreate={openCreate}
                                         openEdit={openEdit}
                                         profileInfo={profileInfo}
                                         isViewApplicant={true}
-                                    />
+                                    />}
+                                    {loading ? <LocationOfInterestSkeleton /> : <LocationOfInterest
+                                        openCreate={openCreate}
+                                        openEdit={openEdit}
+                                        profileInfo={profileInfo}
+                                        isViewApplicant={true}
+                                    />}
 
                                 </div>
                             </div>

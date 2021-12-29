@@ -7,6 +7,7 @@ import { updateProfilePicture } from "store/modules/account";
 import JobplicantAvatar from "./jobplicant-avatar";
 
 import { Skeleton } from 'primereact/skeleton'
+import PersonalInfoSkeleton from "components/skeletons/PersonalInfoSkeleton";
 
 const PersonalInfo = ({ openCreate, openEdit, data, isViewApplicant }) => {
   const rating = 4.5;
@@ -64,16 +65,7 @@ const PersonalInfo = ({ openCreate, openEdit, data, isViewApplicant }) => {
   };
 
   if (loading)
-    return <>
-      <div className="p-d-flex p-mb-3">
-        <Skeleton shape="circle" size="4rem" className="p-mr-2"></Skeleton>
-        <div>
-          <Skeleton width="10rem" className="p-mb-2"></Skeleton>
-          <Skeleton width="5rem" className="p-mb-2"></Skeleton>
-          <Skeleton height=".5rem"></Skeleton>
-        </div>
-      </div>
-    </>
+    return <PersonalInfoSkeleton />
 
   return (
     <div className="personal-profile p-d-flex p-jc-start align-items-center">

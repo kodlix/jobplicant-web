@@ -52,6 +52,11 @@ const CompanyEditForm = () => {
 
   useEffect(() => {
     dispatch(loadCountry());
+
+  }, [])
+
+  useEffect(() => {
+   
     dispatch(loadStates(1));
     dispatch(loadLga(1))
     setCompanyInfo({
@@ -80,7 +85,7 @@ const CompanyEditForm = () => {
     setValue('noOfEmployees', profileInfo.noOfEmployees);
     setValue('address', profileInfo.address);
 
-  }, [dispatch, profileInfo]);
+  }, [profileInfo]);
 
   useEffect(() => {
     if (!selectedFile) {

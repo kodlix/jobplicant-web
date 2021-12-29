@@ -394,13 +394,13 @@ export const deleteSkills = (id) => dispatch => {
 export const getQualifications = () => (dispatch) => {
   return agent.Qualification.load().then((response) => {
     dispatch(actionLoadQualification(response));
-    dispatch(
-      showMessage({
-        type: MESSAGE_TYPE.SUCCESS,
-        title: "Qualification Information",
-        message: "Qualification loaded successfully",
-      })
-    );
+    // dispatch(
+    //   showMessage({
+    //     type: MESSAGE_TYPE.SUCCESS,
+    //     title: "Qualification Information",
+    //     message: "Qualification loaded successfully",
+    //   })
+    // );
   });
 };
 
