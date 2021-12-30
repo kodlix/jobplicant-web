@@ -23,7 +23,7 @@ const PortfolioForm = ({ data, closeEditMode }) => {
     if (data?.length > 0) {
       setPortfolioItems(data);
     }
-    
+
   }, []);
 
   const deletePortfolio = (e) => {
@@ -34,21 +34,23 @@ const PortfolioForm = ({ data, closeEditMode }) => {
   };
 
 
+  let newPortfolioArray = [];
   const addPortfolio = (e) => {
     if (portfolioItems.length >= 10) {
-     alert("Maximum number images exceeded");
+      alert("Maximum number images exceeded");
       return;
     }
 
     if (e.target.files.length) {
       const file = e.target.files[0];
       const preview = URL.createObjectURL(e.target.files[0]);
-      const newPortfolioArray = [...portfolioItems];
-      newPortfolioArray.unshift({
+      newPortfolioArray = [{
         id: "portfolio" + (portfolioItems.length + 1),
         imageURL: preview,
-      });
-      setPortfolioItems(newPortfolioArray.map(p => p.imageURL));
+      },
+      ...portfolioItems];
+      console.log('newPortfolioArray', newPortfolioArray)
+      // setPortfolioItems(newPortfolioArray.map(p => p.imageURL));
 
       setSelectedFiles([...selectedFiles, file]);
     }
@@ -66,7 +68,7 @@ const PortfolioForm = ({ data, closeEditMode }) => {
       const extension = file.type.replace(/(.*)\//g, "");
       const filename = `${uuidv4()}.${extension}`;
       console.log(filename);
-      formData.append("image", file, filename);
+      formData.append("files", file, filename);
     });
     dispatch(updateProfilePortfolio(formData));
   };
@@ -107,7 +109,7 @@ const PortfolioForm = ({ data, closeEditMode }) => {
                     <span
                       className="p-sm-6 p-md-3 p-col-12 editPortfolio-container p-p-0 p-mb-3"
                       key={index}
-                    > 
+                    >
                       <div className="p-mx-2">
                         <img src={item} alt="Portfolio Item" />
                         <span className="portfolioItem-icons">
