@@ -253,7 +253,7 @@ export function loadContacts(page, take, loadingType) {
           showMessage({
             type: MESSAGE_TYPE.SUCCESS,
             title: "Load Contacts",
-            message: "Contacts Loaded"
+            // message: "Contacts Loaded"
           })
         );
         dispatch(contactsLoaded(response));
@@ -278,7 +278,7 @@ export function loadPendingRequests(page, take, loadingType) {
           showMessage({
             type: MESSAGE_TYPE.SUCCESS,
             title: "Load Pending Requests",
-            message: "Pending Contact Requests Loaded",
+            // message: "Pending Contact Requests Loaded",
           })
         );
         dispatch(pendingRequestsLoaded(response));
