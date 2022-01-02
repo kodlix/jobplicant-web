@@ -1,6 +1,6 @@
 import AppNavBar from "components/AppNavBar";
+import CompanyTab from "components/company/CompanyTab";
 import PersonalInfo from "components/profile/PersonalInfo";
-import ProfileTab from "components/profile/ProfileTab";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, useRouteMatch } from "react-router";
@@ -30,14 +30,18 @@ const CompanyProfile = () => {
           <div className="p-col-12 p-md-9 content-smallscreen">
             <div className="content-tab">
               {/* ProfileTab */}
-              <ProfileTab />
+              <CompanyTab />
             </div>
             <div className="content-body pt-1">
               {/* <CompanyEditForm /> */}
               <Route path={`${match.path}/`} exact component={CompanyEditForm} />
-              <Route path={`${match.path}/info`} component={CompanyEditForm} />
-              <Route path={`${match.path}/edit`} component={CompanyEditForm} />
-              <Route path={`${match.path}/jobs`} component={CompanyJob} />
+             <Route path={`${match.path}/info`} exact>
+                <CompanyEditForm />
+              </Route>
+              
+               <Route path={`${match.path}/jobs`}>
+                <CompanyJob />
+              </Route>
             </div>
           </div>
         </div>

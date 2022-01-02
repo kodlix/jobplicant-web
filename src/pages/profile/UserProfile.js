@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppNavBar from "components/AppNavBar";
 
 import Portfolio from "components/profile/Portfolio";
@@ -19,6 +19,7 @@ import ChatContent from "components/chat/ChatContent";
 import { ACCOUNT_TYPE } from "constants/accountType";
 import CustomError from "pages/error-page/CustomError";
 import { ErrorBoundary } from "react-error-boundary";
+import { loadProfileInfo } from "store/modules/account";
 
 // import BreadCrumbPane from 'helpers/BreadCrumb';
 
@@ -43,6 +44,10 @@ const UserProfile = ({ match }) => {
     // setItemToEdit(data);
     dispatch(openModal(name));
   };
+
+  // useEffect(() => {
+  //   dispatch(loadProfileInfo());
+  // }, [])
 
   return (
     // <ErrorBoundary

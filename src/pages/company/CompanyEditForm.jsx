@@ -51,6 +51,11 @@ const CompanyEditForm = () => {
   };
   useEffect(() => {
     dispatch(loadCountry());
+
+  }, [])
+
+  useEffect(() => {
+   
     dispatch(loadStates(1));
     dispatch(loadLga(1))
   }, [])

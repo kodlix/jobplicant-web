@@ -22,6 +22,14 @@ import { ErrorBoundary } from "react-error-boundary";
 
 import { fetchCountries } from "store/modules/util";
 import { getQualifications } from "store/modules/admin";
+import ExperienceSkeleton from 'components/skeletons/ExperienceSkeleton';
+import EducationSkeleton from 'components/skeletons/EducationSkeleton';
+import ContactInfoSkeleton from 'components/skeletons/ContactInfoSkeleton';
+import SkillSkeleton from 'components/skeletons/SkillSkeleton';
+import HobbiesSkeleton from 'components/skeletons/HobbiesSkeleton';
+import ProfessionOfInterestSkeleton from 'components/skeletons/ProfessionOfInterestSkeleton';
+import LocationOfInterestSkeleton from 'components/skeletons/LocationOfInterestSkeleton';
+import BiographySkeleton from 'components/skeletons/BiographySkeleton';
 
 const InfoTab = () => {
   const dispatch = useDispatch();
@@ -98,10 +106,7 @@ const InfoTab = () => {
       }}
     >
       <>
-        {loading ? <div>
-          <Skeleton width="10rem" className="p-mb-2"></Skeleton>
-          <Skeleton width="100%" height="100px"></Skeleton>
-        </div> : <Biography
+        {loading ? <BiographySkeleton /> : <Biography
           openCreate={openCreate}
           openEdit={openEdit}
           profileInfo={profileInfo}
@@ -109,19 +114,13 @@ const InfoTab = () => {
         <div className="p-grid">
           <div className="p-col-12 p-md-8 content-leftPanel">
             {/* experience */}
-            {loading ? <div>
-              <Skeleton width="10rem" className="p-mb-2"></Skeleton>
-              <Skeleton width="100%" height="50px"></Skeleton>
-            </div> : <Experience
+            {loading ? <ExperienceSkeleton /> : <Experience
               openCreate={openCreate}
               openEdit={openEdit}
               profileInfo={profileInfo}
               formatDate={formatDate}
             />}
-            {loading ? <div>
-              <Skeleton width="10rem" className="p-mb-2"></Skeleton>
-              <Skeleton width="100%" height="50px"></Skeleton>
-            </div> : <Education
+            {loading ? <EducationSkeleton /> : <Education
               openCreate={openCreate}
               openEdit={openEdit}
               profileInfo={profileInfo}
@@ -130,46 +129,31 @@ const InfoTab = () => {
           </div>
           <div className="p-col-12 content-rightPanel p-md-4">
             {/* contact information */}
-            {loading ? <div>
-              <Skeleton width="10rem" className="p-mb-2"></Skeleton>
-              <Skeleton width="100%" height="50px"></Skeleton>
-            </div> : <ContactInformation
+            {loading ? <ContactInfoSkeleton /> : <ContactInformation
               openCreate={openCreate}
               openEdit={openEdit}
               profileInfo={profileInfo}
             />}
             {/* skills */}
-            {loading ? <div>
-              <Skeleton width="10rem" className="p-mb-2"></Skeleton>
-              <Skeleton width="100%" height="50px"></Skeleton>
-            </div> : <Skills
+            {loading ? <SkillSkeleton /> : <Skills
               openCreate={openCreate}
               openEdit={openEdit}
               profileInfo={profileInfo}
             />}
             {/* hobbies */}
-            {loading ? <div>
-              <Skeleton width="10rem" className="p-mb-2"></Skeleton>
-              <Skeleton width="100%" height="50px"></Skeleton>
-            </div> : accountType !== ACCOUNT_TYPE.ARTISAN && <Hobbies
+            {loading ? <HobbiesSkeleton /> : accountType !== ACCOUNT_TYPE.ARTISAN && <Hobbies
               openCreate={openCreate}
               openEdit={openEdit}
               profileInfo={profileInfo}
             />}
             {/* profession of interest */}
-            {loading ? <div>
-              <Skeleton width="10rem" className="p-mb-2"></Skeleton>
-              <Skeleton width="100%" height="50px"></Skeleton>
-            </div> : accountType !== ACCOUNT_TYPE.ARTISAN && <ProfessionsOfInterest
+            {loading ? <ProfessionOfInterestSkeleton /> : accountType !== ACCOUNT_TYPE.ARTISAN && <ProfessionsOfInterest
               openCreate={openCreate}
               openEdit={openEdit}
               profileInfo={profileInfo}
             />}
             {/* location of interest */}
-            {loading ? <div>
-              <Skeleton width="10rem" className="p-mb-2"></Skeleton>
-              <Skeleton width="100%" height="50px"></Skeleton>
-            </div> : <LocationOfInterest
+            {loading ? <LocationOfInterestSkeleton /> : <LocationOfInterest
               openCreate={openCreate}
               openEdit={openEdit}
               profileInfo={profileInfo}

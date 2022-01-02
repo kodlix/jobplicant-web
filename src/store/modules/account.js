@@ -133,13 +133,13 @@ export function updatePersonalProfile(data) {
         // dispatch(profileInfoLoaded(response));
         dispatch(loadProfileInfo())
         dispatch(closeModal());
-        dispatch(
-          showMessage({
-            type: MESSAGE_TYPE.SUCCESS,
-            title: "Profile Information",
-            message: "Personal profile info loaded successfully",
-          })
-        );
+        // dispatch(
+        //   showMessage({
+        //     type: MESSAGE_TYPE.SUCCESS,
+        //     title: "Profile Information",
+        //     message: "Personal profile info loaded successfully",
+        //   })
+        // );
       },
       (error) => {
         // handle error
