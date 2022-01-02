@@ -129,6 +129,7 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                                     </div>
                                 </Nav.Link>)}
 
+
                                 <Nav.Link
                                     className="text-white"
                                     onClick={handleToggleNotification}
@@ -145,6 +146,12 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                                     <NotificationDropdown showNotification={showNotification} />
                                 </Nav.Link>
                                 <Nav.Link className="text-white d-lg-none" href="/instant-hires">Request Instant Job</Nav.Link>
+                                {width <= 800 && (<Nav.Link className='text-white' onClick={LogOut}>
+                                    <i className="pi pi-sign-out itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
+                                    <div className="itemTitle-appNavbar mx-2">
+                                        Sign Out
+                                    </div>
+                                </Nav.Link>)}
 
                             </Nav>
                         </Navbar.Collapse>
