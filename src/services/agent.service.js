@@ -154,11 +154,12 @@ const Account = {
   updateContactInfo: (contactInfo) =>
     requests.put("/accounts/contact-info", contactInfo),
   updateLOI: (loi) =>
-    requests.put("/accounts/location", { "locations": loi }),
+    requests.put("/accounts/location", loi),
   updateHobies: (hobbies) => requests.put("/accounts/hobbies", { hobbies }),
   updateProfessionOfInterest: (interests) =>
     requests.put("/accounts/interests", { "interest": interests }),
   updateProfilePicture: (image) => requests.put("/accounts/upload-avatar", image),
+  deleteProfilePortfolio: filename => requests.del(`/accounts/images/${filename}`),
   updateProfilePortfolio: (images) => requests.put("/accounts/upload-portfolios", images),
   load: (email) => requests.get(`/account/getbyemail/${email}`),
   getByID: (id) => requests.get(`/accounts/${id}`),

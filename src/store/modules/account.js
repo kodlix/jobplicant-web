@@ -31,6 +31,7 @@ const account = {
     skills: [],
     experiences: [],
     educations: [],
+    portfolios: []
   },
 };
 
@@ -42,6 +43,7 @@ const LOAD_PROFILE_INFO_BY_USER = "app/account/LOAD_PROFILE_INFO_BY_USER";
 const LOAD_PROFILE_INFO_ERROR = "LOAD_PROFILE_INFO_ERROR";
 const DELETE_EXPERIENCE = "DELETE_EXPERIENCE";
 const DELETE_EDUCATION = "DELETE_EDUCATION";
+const REMOVE_PORTFOLIO = "REMOVE_PORTFOLIO"
 const SUBMITTING = "SUBMITTING";
 // Reducer
 export default function reducer(state = account, action = {}) {
@@ -70,6 +72,21 @@ export default function reducer(state = account, action = {}) {
         loading: false,
         submitting: false
       };
+    case REMOVE_PORTFOLIO:
+      const newPortfolios = state.profileInfo.portfolios.filter(image => {
+        const itemData = image.split("/");
+        const filename = itemData[itemData.length - 1]
+        return filename !== action.payload;
+      })
+      return {
+        ...state,
+        loading: false,
+        submitting: false,
+        profileInfo: {
+          ...state.profileInfo,
+          portfolios: newPortfolios 
+        }
+      }
     case DELETE_EDUCATION:
       const newEducations = state.profileInfo.educations.filter(edu => edu.id !== action.payload);
       console.log('new education', newEducations);
@@ -111,6 +128,10 @@ export const loading = () => ({
 });
 export const submitting = () => ({
   type: SUBMITTING
+})
+export const removePortfolio = payload => ({
+  type: REMOVE_PORTFOLIO,
+  payload
 })
 //delete education action creator
 export const deleteProfileEducation = id => ({
@@ -360,6 +381,31 @@ export function updateProfilePortfolio(images) {
       }
     );
   };
+}
+
+export function deleteProfilePortfolio(filename) {
+  return dispatch => {
+    dispatch(loading())
+    return agent.Account.deleteProfilePortfolio(filename).then(
+      (response) => {
+        // handle success
+        // dispatch(profileInfoLoaded(response));
+        dispatch(removePortfolio(filename))
+        dispatch(closeModal())
+        dispatch(
+          showMessage({
+            type: MESSAGE_TYPE.SUCCESS,
+            message: "Portfolio image successfully deleted",
+          })
+        );
+      },
+      (error) => {
+        // handle error
+        dispatch(profileInfoLoadedError());
+        dispatch(showMessage({ type: "error", message: error }));
+      }
+    );
+  }
 }
 
 export function loadAccountByUser(id) {

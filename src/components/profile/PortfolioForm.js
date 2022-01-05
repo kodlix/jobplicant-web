@@ -5,7 +5,7 @@ import { OverlayPanel } from "primereact/overlaypanel";
 import { Toast } from "primereact/toast";
 import SectionHeader from "./SectionHeader";
 import ModeFooter from "./ModeFooter";
-import { updateProfilePortfolio } from "store/modules/account";
+import { deleteProfilePortfolio, updateProfilePortfolio } from "store/modules/account";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
@@ -43,10 +43,16 @@ const PortfolioForm = ({ data, closeEditMode }) => {
   }, []);
 
   const deletePortfolio = (e) => {
+    const itemId = e.target.id;
     const newPortfolioArray = portfolioItems.filter(
       (item) => item !== e.target.id
     );
+
+    const itemData = itemId.split("/");
+    const filename = itemData[itemData.length - 1]
+    console.log('filename', filename)
     setPortfolioItems(newPortfolioArray);
+    dispatch(deleteProfilePortfolio(filename))
   };
 
 
@@ -65,7 +71,7 @@ const PortfolioForm = ({ data, closeEditMode }) => {
         imageURL: preview,
       },
       ...newPortfolioArray];
-      console.log('newPortfolioArray', newPortfolioArray)
+      // console.log('newPortfolioArray', newPortfolioArray)
       // setPortfolioItems(newPortfolioArray.map(p => p.imageURL));
 
       setSelectedFiles([...selectedFiles, {

@@ -5,10 +5,12 @@ const profile = {
     countries: [],
     states: [],
     lgas: [],
-    organizationNames: []
+    organizationNames: [],
+    fetchingStates: false,
 };
 
 // Action types
+const ON_FETCH_STATES = 'ON_FETCH_STATES'
 const COUNTRY = 'COUNTRY';
 const STATE = 'STATE';
 const LGA = 'LGA';
@@ -19,6 +21,8 @@ const ORGANIZATIONNAME = 'ORGANIZATIONNAME';
 export function onLoadCountry(country) {
     return { type: COUNTRY, payload: country };
 }
+export const onFetchStates = () => ({ type: ON_FETCH_STATES })
+
 export function onLoadState(state) {
     return { type: STATE, payload: state };
 }
@@ -33,6 +37,8 @@ export function onLoadOrganizationNames(organizationName) {
 // Reducer
 export default function reducer(state = profile, action) {
     switch (action.type) {
+        case ON_FETCH_STATES:
+            return { ...state, fetchingStates: true }
         case COUNTRY:
             return {
                 ...state,
@@ -45,7 +51,7 @@ export default function reducer(state = profile, action) {
                 ...state,
                 error: null,
                 states: action.payload,
-                fetching: false,
+                fetchingStates: false,
             };
         case LGA:
             return {
@@ -81,6 +87,7 @@ export function loadCountry() {
 
 export function loadStates(countryid) {
     return dispatch => {
+        dispatch(onFetchStates())
         if (countryid) {
             return agent.State.loadByCountry(countryid).then(
                 response => {
