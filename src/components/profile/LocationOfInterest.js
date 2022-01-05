@@ -4,13 +4,15 @@ import { PROFILE } from "constants/profile";
 import "./UserProfile.css";
 import { Tag } from "primereact/tag";
 
+
 const LocationOfInterest = ({ openCreate, openEdit, profileInfo, isViewApplicant }) => {
+  
+
   const formatLocation = (profileLocation) => {
     console.log('profile location', profileLocation?.locations)
 
     return <strong>{profileLocation.join(", ")}</strong>
   };
-
 
   return (
     <>
