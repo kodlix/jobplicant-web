@@ -14,7 +14,7 @@ const initialState = {
     jobApplicationRequest: false,
 }
 
-const LOADING = "LOADING";
+const LOADING = "LOADING_JOB";
 const EDITING_JOB = "EDITING_JOB";
 const EDIT_JOB_SUCCESS = 'EDIT_JOB_SUCCESS';
 const LOAD_ALL_JOBS = "LOAD_ALL_JOBS";
