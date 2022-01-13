@@ -3,6 +3,7 @@ import agent from "../../services/agent.service";
 import { MESSAGE_TYPE } from "../constant";
 import { closeModal } from "./modal";
 import { loadError } from "./experience";
+import { isRequestLoading } from "./review";
 
 // initial values
 const account = {
@@ -33,6 +34,7 @@ const account = {
     educations: [],
     portfolios: []
   },
+  artisanAccounts: [],
 };
 
 // Action types
@@ -41,6 +43,7 @@ const UPDATE_PROFILE = "app/account/UPDATE_PROFILE ";
 const LOAD_PROFILE_INFO = "app/account/LOAD_PROFILE_INFO";
 const LOAD_PROFILE_INFO_BY_USER = "app/account/LOAD_PROFILE_INFO_BY_USER";
 const LOAD_PROFILE_INFO_ERROR = "LOAD_PROFILE_INFO_ERROR";
+const LOAD_ARTISAN_ACCOUNT = "LOAD_ARTISAN_ACCOUNT";
 const DELETE_EXPERIENCE = "DELETE_EXPERIENCE";
 const DELETE_EDUCATION = "DELETE_EDUCATION";
 const REMOVE_PORTFOLIO = "REMOVE_PORTFOLIO"
@@ -72,6 +75,12 @@ export default function reducer(state = account, action = {}) {
         loading: false,
         submitting: false
       };
+    case LOAD_ARTISAN_ACCOUNT:
+      return {
+        ...state,
+        artisanAccounts: action.payload,
+        loading: false,
+      }
     case REMOVE_PORTFOLIO:
       const newPortfolios = state.profileInfo.portfolios.filter(image => {
         const itemData = image.split("/");
@@ -84,7 +93,7 @@ export default function reducer(state = account, action = {}) {
         submitting: false,
         profileInfo: {
           ...state.profileInfo,
-          portfolios: newPortfolios 
+          portfolios: newPortfolios
         }
       }
     case DELETE_EDUCATION:
@@ -143,6 +152,13 @@ export const deleteProfileExperience = id => ({
   type: DELETE_EXPERIENCE,
   payload: id
 })
+
+export const ArtisanAccount = (data) => {
+  return {
+    type: LOAD_ARTISAN_ACCOUNT,
+    payload: data
+  }
+}
 
 // Actions
 export function updatePersonalProfile(data) {
@@ -419,6 +435,25 @@ export function loadAccountByUser(id) {
       (error) => {
         // handle error
         dispatch(showMessage({ type: "error", message: error }));
+      }
+    );
+  };
+}
+
+
+export function loadArtisanAccounts(page, limit, search) {
+  return (dispatch) => {
+    dispatch(loading(true))
+    return agent.Account.loadArtisanAccounts(page, limit, search).then(
+      (response) => {
+        // handle success
+        dispatch(ArtisanAccount(response))
+        dispatch(loading(false));
+      },
+      (error) => {
+        // handle error
+        dispatch(showMessage({ type: "error", message: error }));
+        dispatch(loading(false))
       }
     );
   };

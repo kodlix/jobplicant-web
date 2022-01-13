@@ -322,13 +322,13 @@ export const deleteContractType = (id) => dispatch => {
 export const getSkills = () => (dispatch) => {
   return agent.Skill.load().then((response) => {
     dispatch(actionLoadSkills(response));
-    dispatch(
-      showMessage({
-        type: MESSAGE_TYPE.SUCCESS,
-        title: "Skills Information",
-        message: "Skills loaded successfully",
-      })
-    );
+    // dispatch(
+    //   showMessage({
+    //     type: MESSAGE_TYPE.SUCCESS,
+    //     title: "Skills Information",
+    //     message: "Skills loaded successfully",
+    //   })
+    // );
   });
 };
 

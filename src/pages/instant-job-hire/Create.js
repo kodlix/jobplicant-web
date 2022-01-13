@@ -35,6 +35,7 @@ const New = ({ mode }) => {
 
     const loading = useSelector(state => state.instantJob.loading);
     const services = useSelector(state => state.admin.services).data;
+
     console.log(services, "services list");
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);

@@ -48,6 +48,7 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
         description: itemToEdit.description,
         jobTitle: itemToEdit.jobTitle,
         company: itemToEdit.company,
+        current: checkedCurrent
       });
 
 
@@ -60,6 +61,7 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
       setValue("jobTitle", itemToEdit.jobTitle);
       setValue("jobCategory", jobCategoryList.find((j) => j.name == itemToEdit.jobCategoryName));
       setValue("company", itemToEdit.company);
+      setValue("current", checkedCurrent);
     }
   }, [itemToEdit]);
 
@@ -114,7 +116,6 @@ const ExperienceForm = ({ closeEditMode, itemToEdit, mode }) => {
     return <Dropdown value={e.value} options={e.options} onChange={(event) => e.onChange(event.originalEvent, event.value)} className="p-ml-2" style={{ lineHeight: 1 }} />;
   }
 
-  console.log('descrption', experience)
   return (
     <>
       <div className="p-mt-2">

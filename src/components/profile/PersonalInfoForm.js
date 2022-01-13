@@ -47,12 +47,12 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
   }, [])
 
   useEffect(() => {
-    
-    if(countries){
-      
-      
+
+    if (countries) {
+
+
       const countryObj = data.country ? countries.find(country => country.name === data.country) : null;
-    
+
       dispatch(loadStates(countryObj?.id));
       setPersonalProfile({
         ...personalProfile,
@@ -61,10 +61,10 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
       })
       setValue("country", countryObj?.name);
       // setCountryObj(countryObj)
-  
-      
+
+
       // // setCountryId(countryId)
-      
+
       // console.log('come on', data, countryObj)
     }
   }, [countries]);
@@ -72,7 +72,7 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
   useEffect(() => {
     if (states) {
       const stateObj = data.state ? states.find(state => state.name === data.state) : null
-      
+
       setPersonalProfile({
         ...personalProfile,
         state: stateObj
@@ -81,7 +81,7 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
       setStateObj(stateObj)
       dispatch(loadLga(stateObj?.id))
     }
-  }, [ states])
+  }, [states])
 
   useEffect(() => {
     if (lgas) {
@@ -98,7 +98,7 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
         ...personalProfile,
         firstName: data.firstName,
         lastName: data.lastName,
-        otherName: data.otherName || "Berner" ,
+        otherName: data.otherName || "Berner",
         dateOfBirth: new Date(data.dateOfBirth),
         city: data.city,
         country: countries.find(country => country.name === data.country),
@@ -109,7 +109,7 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
 
       setValue("firstName", data.firstName);
       setValue("lastName", data.lastName);
-      setValue("otherName", data.otherName|| "Berner");
+      setValue("otherName", data.otherName || "Berner");
       setValue("dateOfBirth", data.dateOfBirth);
       setValue("city", data.city);
       setValue("state", data.state);
@@ -224,7 +224,7 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
                   register={register}
                 />
               </div>
-              <div className="p-field p-col-12 p-md-6">
+              {/* <div className="p-field p-col-12 p-md-6">
                 <label htmlFor="otherName" className="inputLabel p-mb-2">
                   Other Name *
                 </label>
@@ -249,7 +249,8 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
                   register={register}
                   inputChange={handleChange}
                 />
-              </div>
+              </div> */}
+
               <div className="p-field p-col-12 p-md-6">
                 <label className="inputLabel" htmlFor="startDate">
                   Date Of Birth *
@@ -262,6 +263,7 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
                 <Calendar
                   id="dateOfBirth"
                   type="date"
+                  mask="99/99/9999"
                   value={personalProfile.dateOfBirth}
                   className="inputField"
                   dateFormat='dd/mm/yy'
@@ -269,9 +271,9 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
                   {...register("dateOfBirth", {
                     required: `Date of birth is required`,
                   })}
-                  onSelect={handleDateOfBirth} 
+                  onSelect={handleDateOfBirth}
                   onChange={handleDateOfBirth}
-                  // yearNavigator
+                // yearNavigator
                 />
               </div>
               <div className="p-field p-col-12 p-md-6">
@@ -369,7 +371,7 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
                   className="form-control"
                 />
               </div>
-              <div className="p-field p-col-12 p-md-6">
+              <div className="p-field p-col-12 p-md-12">
                 <label className="inputLabel" htmlFor="country">
                   City *
                   {errors.city && (

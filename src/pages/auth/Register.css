@@ -67,6 +67,14 @@
                     background-color: rgb(44, 165, 94);
                 }
                 
+                .dropdown-demo .p-dropdown {
+                    width: 14rem;
+                }
+                
+                .dropdown-demo .country-item-value img.flag {
+                    width: 17px;
+                }
+                
                 @media screen and (max-width: 767px) {
                     .small-screen {
                         display: none;

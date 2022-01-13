@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllInstantJobs } from 'store/modules/instantJob';
 
 
-const InstantHeader = ({ title, showCreateButton = false, showBack = false, count, showSearchBar = false, placeholder = "Search instant jobs" }) => {
+const InstantHeader = ({ title, showCreateButton = false, showBack = false, count, showSearchBar = false, placeholder = "Search instant jobs", }) => {
     const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState("");
     const [page, setPage] = useState(1)

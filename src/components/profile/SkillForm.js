@@ -52,13 +52,13 @@ const SkillForm = ({ data, closeEditMode }) => {
     }
 
     if (currentSkill) {
-      
+
       if (searchObjectArrayValues(skills, currentSkill)) {
         setSkills([...skills, currentSkill.name]);
         setValue("skills", skills);
         setCurrentSkill("");
         setDuplicateError(false)
-      }else{
+      } else {
         setDuplicateError(true)
       }
     }
@@ -74,7 +74,8 @@ const SkillForm = ({ data, closeEditMode }) => {
     setValue("skills", newSkillArray);
   };
 
-  const skillSubmit = (skill) => {
+  const skillSubmit = (data) => {
+    console.log('skills', skills, 'data', data)
 
     dispatch(createSkill(skills));
   };
@@ -93,30 +94,30 @@ const SkillForm = ({ data, closeEditMode }) => {
           sectionTitle="Skills"
         />
         <div className="">
-            <div>
-            </div>
+          <div>
+          </div>
           <form onSubmit={handleSubmit(skillSubmit)}>
             <label htmlFor="skillInput" className="inputLabel p-pr-3">
               Add up to 10 skills
             </label>
             {skills.map((skill, index) => (
               <button
-              key={index}
-              onClick={(e) => handleSkillDelete(skill)}
-              type="button"
-              className="p-mr-2 p-p-0 p-mb-1 tag-container"
-              id={skill}
+                key={index}
+                onClick={(e) => handleSkillDelete(skill)}
+                type="button"
+                className="p-mr-2 p-p-0 p-mb-1 tag-container"
+                id={skill}
               >
                 {loading ? (
                   <i className="fa fa-spinner fa-spin"></i>
-                  ) : (
-                    <span></span>
-                    )}
+                ) : (
+                  <span></span>
+                )}
                 <Tag
                   value={skill}
                   icon="pi pi-times"
                   className="p-p-2"
-                  ></Tag>
+                ></Tag>
               </button>
             ))}
             <span className="skillInput">
@@ -130,12 +131,12 @@ const SkillForm = ({ data, closeEditMode }) => {
                 filterBy="name"
                 placeholder="Select Skill"
                 icon="pi pi-plus"
-                />
+              />
               <i className="pi pi-plus" onClick={handleSkillAdd}></i>
             </span>
-           
+
             <ModeFooter id="skillEdit" onCancel={closeEditMode} />
-                {duplicateError && <div class="alert alert-danger">Skill already exists</div>}
+            {duplicateError && <div class="alert alert-danger">Skill already exists</div>}
           </form>
         </div>
       </div>

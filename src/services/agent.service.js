@@ -119,6 +119,7 @@ const Auth = {
   verifyResetToken: (email, token) =>
     requests.post(`/ account / password / verify - token`, { email, token }),
   verifyAccount: (code) => requests.get(`/verification/signup/${code}`),
+  artisanAccount: (page, limit, search) => requests.get(`/accounts/nearest-artisans?page=${page}&limit=${limit}&search=${search}`)
 };
 
 const User = {
@@ -162,6 +163,7 @@ const Account = {
   deleteProfilePortfolio: filename => requests.del(`/accounts/images/${filename}`),
   updateProfilePortfolio: (images) => requests.put("/accounts/upload-portfolios", images),
   load: (email) => requests.get(`/account/getbyemail/${email}`),
+  loadArtisanAccounts: () => requests.get("/accounts/nearest-artisans"),
   getByID: (id) => requests.get(`/accounts/${id}`),
   verifyAccount: (id) => requests.get(`/account/${id}`),
 };

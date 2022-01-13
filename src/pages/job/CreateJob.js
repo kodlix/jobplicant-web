@@ -40,6 +40,7 @@ const CreateJob = () => {
     mode: "onChange",
     reValidateMode: "all",
   });
+  console.log(loading, "loading");
 
   const handleChange = (e) => {
     const { name, value } = e.target;

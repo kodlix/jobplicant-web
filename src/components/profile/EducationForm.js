@@ -37,7 +37,7 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
 
   const loading = useSelector((state) => state.education.submitting);
   const dispatch = useDispatch();
-  
+
   const [yearOfGraduation, setYearOfGraduation] = useState(null);
   const [education, setEducation] = useState({
     institution: "",
@@ -103,23 +103,26 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
   };
 
   const educationSubmit = (data) => {
-    data.yearOfGraduation = yearOfGraduation.toISOString();
 
     if (mode === 'create') {
+      data.yearOfGraduation = yearOfGraduation.toISOString();
+      data.qualification = data.qualification.name;
+
       dispatch(createEducation(data));
     } else {
       dispatch(updateEducation(itemToEdit.id, data));
     }
+    console.log('education form', data)
 
   };
 
   const monthNavigatorTemplate = (e) => {
     return <Dropdown value={e.value} options={e.options} onChange={(event) => e.onChange(event.originalEvent, event.value)} style={{ lineHeight: 1 }} />;
-}
+  }
 
-const yearNavigatorTemplate = (e) => {
+  const yearNavigatorTemplate = (e) => {
     return <Dropdown value={e.value} options={e.options} onChange={(event) => e.onChange(event.originalEvent, event.value)} className="p-ml-2" style={{ lineHeight: 1 }} />;
-}
+  }
 
 
   return (
@@ -188,21 +191,21 @@ const yearNavigatorTemplate = (e) => {
                     </span>
                   )}
                 </label>
-                
-                <Calendar 
-                  id="navigatorstemplate" 
-                  value={yearOfGraduation} 
-                  onChange={(e) => setYearOfGraduation(e.value)} 
-          
-                  monthNavigatorTemplate={monthNavigatorTemplate} 
-                  yearNavigatorTemplate={yearNavigatorTemplate} 
-                  view="month" 
-                  dateFormat="yy" 
-                  yearNavigator 
-                  yearRange="2010:2030" 
+
+                <Calendar
+                  id="navigatorstemplate"
+                  value={yearOfGraduation}
+                  onChange={(e) => setYearOfGraduation(e.value)}
+
+                  monthNavigatorTemplate={monthNavigatorTemplate}
+                  yearNavigatorTemplate={yearNavigatorTemplate}
+                  view="month"
+                  dateFormat="yy"
+                  yearNavigator
+                  yearRange="2010:2030"
                 />
                 {/* <Dropdown optionLabel="" value={yearOfGraduation} options={years} onChange={(e) => setYearOfGraduation(e.value)} placeholder="Select Graduation Year"/> */}
-              
+
               </div>
               <div className="p-field p-col-12 p-md-12">
                 <label className="inputLabel" htmlFor="institution">
@@ -285,11 +288,11 @@ const yearNavigatorTemplate = (e) => {
                   })}
                   name="address"
                   onChange={handleChange}
-                  value={education.address} 
+                  value={education.address}
                   maxLength={500}
                 />
               </div>
-              
+
             </div>
             <ModeFooter
               id="educationEdit"

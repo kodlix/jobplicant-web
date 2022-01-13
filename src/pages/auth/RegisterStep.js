@@ -9,9 +9,20 @@ import { registerUser } from 'store/modules/auth';
 
 import './Register.css'
 import { ACCOUNT_TYPE } from 'constants/accountType';
+import { Dropdown } from 'primereact/dropdown';
 
 
 const RegisterStep = ({ accountType }) => {
+
+    const professions = [
+        { name: 'Software Developer', code: 'SD' },
+        { name: 'Doctor', code: 'DR' },
+        { name: 'Lawyer', code: 'LY' },
+        { name: 'Structural Engineer', code: 'SE' },
+        { name: 'Mechanical Engineer', code: 'ME' }
+    ];
+
+    const [selectedProf, setSelectedProf] = useState(null);
 
     // const [step, setStep] = useState(1)
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
@@ -21,8 +32,18 @@ const RegisterStep = ({ accountType }) => {
     const dispatch = useDispatch();
     const [gender, setGender] = useState(null)
 
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        setSelectedProf(e.value);
+        setValue(name, value, { shouldValidate: true });
+    };
+
+
     const onSubmit = (user) => {
         user.accountType = accountType;
+        user.profession = user.profession.name;
         dispatch(registerUser(user))
     }
 
@@ -130,6 +151,27 @@ const RegisterStep = ({ accountType }) => {
                                                 </span>}
                                             </label>
                                         </div>
+
+                                        <div className="p-field">
+                                            <Dropdown
+                                                value={selectedProf}
+                                                options={professions}
+                                                optionLabel="name"
+                                                editable
+                                                placeholder='Profession'
+                                                {...register("profession", { required: "Please select your Profession" })}
+                                                id="profession"
+                                                name="profession"
+                                                onChange={handleChange}
+                                            // onChange={(e) => handleChange(e, "profession")}
+
+                                            />
+                                            <label htmlFor="profession" className="">
+                                                {errors.profession && <span className="text-danger font-weight-bold "> <p>{errors.profession.message}</p>
+                                                </span>}
+                                            </label>
+                                        </div>
+
 
                                         <div><label htmlFor="gender" className="p-mb-1 p-text-bold gender-margin app-color" > Gender</label> </div>
 
