@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Button } from 'primereact/button';
 
 import './cv.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCV } from 'store/modules/cv';
 
@@ -12,6 +12,7 @@ import Spinner from 'components/spinner/spinner.component';
 
 
 const HowToStart = () => {
+    const history = useHistory()
     const dispatch = useDispatch()
     const ref = useRef(null);
     const cvData = useSelector(state => state.cv.data)
@@ -30,6 +31,16 @@ const HowToStart = () => {
             console.log('cv data', cvData)
         }
     }, [cvData])
+
+    console.log('profile', profileInfo)
+    const isValidProfileInfo = () => (profileInfo.educations.length > 0 || profileInfo.experiences.length > 0 || profileInfo.contactPhoneNumber !== null) ;
+    const goToCvTemplate = () => {
+
+        if (!isValidProfileInfo()) {
+            return window.alert('Please update your profile')
+        }
+        return history.push('/cv-template')
+    }
 
     const getTemplateImg = (templateId) => {
         //templateId is the designated title of the template
@@ -51,7 +62,7 @@ const HowToStart = () => {
                         <div className="p-col-12">
                             <div className="card card-size-list">
                                 {loading ? <Spinner /> : <div className="card-body">
-                                    
+
                                     {
                                         !isCvEmpty(cvData) && (<>
                                             <div className="p-d-flex justify-content-between p-pt-3">
@@ -66,13 +77,13 @@ const HowToStart = () => {
                                             <br />
                                             <div className="p-grid">
                                                 <div className="p-col-12 p-md-4">
-                                                    <div className="card" style={{height: '240px'}}>
+                                                    <div className="card" style={{ height: '240px' }}>
                                                         <div className="w-100 text-center">
-                                                            <img src={cvData.url} style={{width: '100%', height: '130px'}} />
-                                                            <h4 style={{fontSize: '18px',marginTop: '4px'}}>{cvData.title}</h4>
+                                                            <img src={cvData.url} style={{ width: '100%', height: '130px' }} />
+                                                            <h4 style={{ fontSize: '18px', marginTop: '4px' }}>{cvData.title}</h4>
                                                             <p>{cvData.description}</p>
                                                             <div className="p-d-flex justify-content-center align-item-center">
-                    
+
                                                                 <a className="btn btn-primary" href={cvData.url}>View PDF</a>
                                                             </div>
                                                         </div>
@@ -93,12 +104,13 @@ const HowToStart = () => {
                                                     <h5 className="font-weight-bold p-pt-3"> Create New Resume</h5>
                                                     <p className="p-pt-2 font-weight-bold">Create a new CV from your profile</p>
                                                     <div className="p-pt-3">
-                                                        <Link to={"/cv-template"}>
-                                                            <Button
-                                                                label="START FRESH"
-                                                                className="p-button "
-                                                            />
-                                                        </Link>
+                                                        {/* <Link to={"/cv-template"}> */}
+                                                        <Button
+                                                            onClick={goToCvTemplate}
+                                                            label="START FRESH"
+                                                            className="p-button "
+                                                        />
+                                                        {/* </Link> */}
                                                     </div>
                                                 </div>
                                             </div>

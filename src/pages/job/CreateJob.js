@@ -27,7 +27,9 @@ const CreateJob = () => {
   const states = useSelector(state => state.location.states);
   const dispatch = useDispatch();
   const [editorHtml, setEditorHtml] = useState("");
-  const [companyInfo, setCompanyInfo] = useState({});
+  const [companyInfo, setCompanyInfo] = useState({
+    minSalary: ''
+  });
   const {
     register,
     handleSubmit,
@@ -71,7 +73,13 @@ const CreateJob = () => {
         type: "manual",
         message: 'Job description is required'
       })
+      const minSalary = parseInt(companyInfo.minSalary)
+      const maxSalary = parseInt(companyInfo.maxSalary)
 
+      if(minSalary > maxSalary) {
+        window.alert('Minimum salary is not expected to be greater than maximum salary, please check your input.')
+        return;
+      }
     const dataToPost = {
       companyName: companyInfo.companyName,
       title: companyInfo.jobTitle,
@@ -79,8 +87,8 @@ const CreateJob = () => {
       contactType: companyInfo.contractType, //TODO: To be corrected
       hideCompanyName: companyInfo.hideCompanyName,
       jobUrl: companyInfo.website,
-      minSalary: parseInt(companyInfo.minSalary),
-      maxSalary: parseInt(companyInfo.maxSalary),
+      minSalary,
+      maxSalary,
       minQualification: companyInfo.minQualification,
       location: companyInfo.jobLocation,
       industry: companyInfo.industry,
@@ -91,6 +99,7 @@ const CreateJob = () => {
       minYearOfExperience: parseInt(companyInfo.minYearOfExperience),
 
     }
+    
     // console.log(dataToPost);
     return dispatch(createJob(dataToPost))
   };
@@ -372,7 +381,7 @@ const CreateJob = () => {
                                 inputLabel="Maximum Salary"
                                 register={register}
                                 inputChange={handleChange}
-                                className="form-control"
+                                className="form-control" 
                               />
                             </div>
                             <div className="p-field p-col-6 p-md-6">
