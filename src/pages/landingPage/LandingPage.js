@@ -136,7 +136,7 @@ const LandingPage = () => {
                         <div className="col-12">
                             <div className="section-title">
                                 <span className="wow fadeInDown" data-wow-delay=".2s">Job Category</span>
-                                <h2 className="wow fadeInUp" data-wow-delay=".4s">Choose Your Desire Category</h2>
+                                <h2 className="wow fadeInUp" data-wow-delay=".4s">Choose Your Desired Category</h2>
                                 <p className="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem
                                     Ipsum available, but the majority have suffered alteration in some form.</p>
                             </div>
@@ -161,7 +161,7 @@ const LandingPage = () => {
                                         <i className="lni lni-restaurant"></i>
                                     </div>
                                     <h3>Corporate <br />
-                                        Employer
+                                        Employers/Company
                                     </h3>
                                 </Link>
                             </div>

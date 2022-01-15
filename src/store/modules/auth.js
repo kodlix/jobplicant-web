@@ -134,7 +134,7 @@ export function loginUser({ email, password, type }) {
 
         } else if (response.accountType === ACCOUNT_TYPE.INSTANT_HIRE) {
           onLogin(dispatch, response);
-          dispatch(push('/new-instant-hire'));
+          dispatch(push('/create-instant-hire'));
         } else {
           onLogin(dispatch, response);
           dispatch(push("/profile"));

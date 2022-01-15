@@ -15,6 +15,9 @@ import Spinner from 'components/spinner/spinner.component'
 import JobSidePanel from 'components/JobSidePanel'
 import { Button } from 'primereact/button'
 import { Avatar } from 'primereact/avatar'
+import { ACCOUNT_TYPE } from '../../constants/accountType';
+import agentService from 'services/agent.service';
+
 
 const CardSkeleton = () => (
     <div className="custom-skeleton p-p-4">
@@ -60,6 +63,8 @@ const ListJob = () => {
 
     const jobs = useSelector(state => state.job.allJobs);
     const loading = useSelector(state => state.job.loading)
+    const userAccountType = agentService.Auth.current().accountType;
+
 
     useEffect(() => {
         dispatch(loadAllJobs())
@@ -85,12 +90,11 @@ const ListJob = () => {
                         <button style={styles.btnFind}>Find Jobs</button>
                     </div>
                 </div>
-                <div className="p-pl-3">
+                {userAccountType === ACCOUNT_TYPE.CORPORATE && <div className="p-pl-3">
                     <Link to={"/jobs/create"}>
                         <Button label="Post job" className="p-button-rounded p-button" />
                     </Link>
-
-                </div>
+                </div>}
             </div>
 
 

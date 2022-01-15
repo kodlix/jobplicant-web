@@ -18,6 +18,10 @@ const List = () => {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.contact.loadingContact);
   const error = useSelector(state => state.contact.error);
+  const meta = useSelector(state => state.contact.contacts.meta);
+
+  console.log(meta, "meta");
+
   const [selectedId, setSelectedId] = useState(null);
 
   // for contact list

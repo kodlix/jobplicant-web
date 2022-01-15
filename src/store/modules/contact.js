@@ -7,7 +7,11 @@ const contact = {
   loadingContact: "",
   pendingRequests: { data: {}, meta: {}, ids: [] },
   freeUsers: { data: {}, meta: {}, ids: [] },
-  contacts: { data: {}, meta: {}, ids: [] },
+  contacts: {
+    data: {},
+    meta: {},
+    ids: []
+  },
   error: null
 };
 

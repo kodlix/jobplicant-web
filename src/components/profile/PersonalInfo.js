@@ -17,6 +17,10 @@ const PersonalInfo = ({ openCreate, openEdit, data, isViewApplicant }) => {
 
   const loading = useSelector((state) => state.account.loading);
   const accountType = agentService.Auth.current().accountType;
+  const userId = agentService.Auth.current().id;
+
+  console.log(userId, "the user id of the log n user");
+
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -31,12 +35,11 @@ const PersonalInfo = ({ openCreate, openEdit, data, isViewApplicant }) => {
     const objectUrl = URL.createObjectURL(selectedFile);
     setPreview(objectUrl);
 
-
-
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFile, loading]);
 
   const uploadProfilePicture = (e) => {
+
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedFile(undefined);
       return;
@@ -85,7 +88,7 @@ const PersonalInfo = ({ openCreate, openEdit, data, isViewApplicant }) => {
         isViewApplicant={false}
         handleClick={() => profilePicRef.current.click()}
       />
-      <input 
+      <input
         ref={profilePicRef}
         type="file"
         id="upload-button"

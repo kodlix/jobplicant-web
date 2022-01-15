@@ -13,6 +13,7 @@ import { Dropdown } from 'primereact/dropdown';
 
 
 const RegisterStep = ({ accountType }) => {
+    console.log(accountType, " Account Type")
 
     const professions = [
         { name: 'Software Developer', code: 'SD' },
@@ -39,11 +40,17 @@ const RegisterStep = ({ accountType }) => {
         setSelectedProf(e.value);
         setValue(name, value, { shouldValidate: true });
     };
+    useEffect(() => {
+        if (accountType === ACCOUNT_TYPE.CORPORATE) return setValue("profession", " ", { shouldValidate: true });
+    }, [ACCOUNT_TYPE.CORPORATE])
 
 
     const onSubmit = (user) => {
         user.accountType = accountType;
-        user.profession = user.profession.name;
+        if (accountType === ACCOUNT_TYPE.JOB_SEEKER || accountType === ACCOUNT_TYPE.ARTISAN) {
+            user.profession = user.profession.name;
+        }
+
         dispatch(registerUser(user))
     }
 
@@ -152,25 +159,27 @@ const RegisterStep = ({ accountType }) => {
                                             </label>
                                         </div>
 
-                                        <div className="p-field">
-                                            <Dropdown
-                                                value={selectedProf}
-                                                options={professions}
-                                                optionLabel="name"
-                                                editable
-                                                placeholder='Profession'
-                                                {...register("profession", { required: "Please select your Profession" })}
-                                                id="profession"
-                                                name="profession"
-                                                onChange={handleChange}
-                                            // onChange={(e) => handleChange(e, "profession")}
+                                        {accountType === ACCOUNT_TYPE.ARTISAN | accountType === ACCOUNT_TYPE.JOB_SEEKER &&
+                                            <div className="p-field">
+                                                <Dropdown
+                                                    value={selectedProf}
+                                                    options={professions}
+                                                    optionLabel="name"
+                                                    editable
+                                                    placeholder='Profession'
+                                                    {...register("profession", { required: "Please select your Profession" })}
+                                                    id="profession"
+                                                    name="profession"
+                                                    onChange={handleChange}
+                                                // onChange={(e) => handleChange(e, "profession")}
 
-                                            />
-                                            <label htmlFor="profession" className="">
-                                                {errors.profession && <span className="text-danger font-weight-bold "> <p>{errors.profession.message}</p>
-                                                </span>}
-                                            </label>
-                                        </div>
+                                                />
+                                                <label htmlFor="profession" className="">
+                                                    {errors.profession && <span className="text-danger font-weight-bold "> <p>{errors.profession.message}</p>
+                                                    </span>}
+                                                </label>
+                                            </div>
+                                        }
 
 
                                         <div><label htmlFor="gender" className="p-mb-1 p-text-bold gender-margin app-color" > Gender</label> </div>
