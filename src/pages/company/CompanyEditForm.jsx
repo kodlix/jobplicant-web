@@ -23,7 +23,10 @@ const CompanyEditForm = () => {
   const countries = useSelector(state => state.location.countries);
   const states = useSelector(state => state.location.states);
   const lgas = useSelector(state => state.location.lgas);
-  const [companyInfo, setCompanyInfo] = useState({});
+  const [companyInfo, setCompanyInfo] = useState({
+    companyName: '',
+    yearOfEstablishment: null,
+  });
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -55,38 +58,44 @@ const CompanyEditForm = () => {
   }, [])
 
   useEffect(() => {
-   
-    dispatch(loadStates(1));
-    dispatch(loadLga(1))
-  }, [])
+    if (countries.length) {
+      console.log('fetchign state for country:', countries)
+      dispatch(loadStates(countries[0].id));
+    }
+  }, [countries])
+
+  useEffect(() => {
+    if (states.length) {
+      console.log("fetching lga for state:", states)
+      dispatch(loadLga(states[0].id))
+    }
+  }, [states])
 
   useEffect(() => {
 
-    setCompanyInfo({
-      ...companyInfo,
-      yearOfEstablishment: new Date(profileInfo.yearOfEstablishment),
-      companyName: profileInfo.companyName,
+    if (profileInfo !== null) {
+      console.log('profile info change', profileInfo)
+      setCompanyInfo({
+        ...companyInfo,
+        yearOfEstablishment: profileInfo.yearOfEstablishment ? new Date(profileInfo.yearOfEstablishment) : null,
+        companyName: profileInfo.companyName,
 
-      // country: companyInfo.country,
-      // state: companyInfo.state.name,
-      // lga: companyInfo.lga,
-      // lgaId: companyInfo.lga.id,
-      // lgaName: companyInfo.lga.name,
-      city: profileInfo.city,
-      noOfEmployees: profileInfo.noOfEmployees,
-      phoneNumber: profileInfo.contactPhoneNumber,
-      website: profileInfo.website,
-      address: profileInfo.address
-    });
+        city: profileInfo.city,
+        noOfEmployees: profileInfo.noOfEmployees,
+        phoneNumber: profileInfo.contactPhoneNumber,
+        website: profileInfo.website,
+        address: profileInfo.address
+      });
 
-    setValue("companyName", profileInfo.companyName);
-    setValue("yearOfEstablishment", profileInfo.yearOfEstablishment);
-    setValue('phoneNumber', profileInfo.contactPhoneNumber);
-    setValue('website', profileInfo.website);
+      setValue("companyName", profileInfo.companyName);
+      setValue("yearOfEstablishment", profileInfo.yearOfEstablishment);
+      setValue('phoneNumber', profileInfo.contactPhoneNumber);
+      setValue('website', profileInfo.website);
 
-    setValue('city', profileInfo.city);
-    setValue('noOfEmployees', profileInfo.noOfEmployees);
-    setValue('address', profileInfo.address);
+      setValue('city', profileInfo.city);
+      setValue('noOfEmployees', profileInfo.noOfEmployees);
+      setValue('address', profileInfo.address);
+    }
 
   }, [profileInfo]);
 
@@ -103,15 +112,32 @@ const CompanyEditForm = () => {
   }, [selectedFile, uploading]);
 
   useEffect(() => {
-    if (countries) {
+    if (countries.length) {
+      const countryObj = countries.find(country => country.id === 1)
       setCompanyInfo({
         ...companyInfo,
-        country: countries.find(country => country.id === 1),
-        state: states.find(state => state.id === 1),
-        lga: lgas.find(lga => lga.id === 1),
+        country: countryObj,
       })
+      setValue("country", countryObj.name)
     }
-  }, [countries])
+    if (states.length) {
+      const stateObj = states.find(state => state.id === 1)
+      setCompanyInfo({
+        ...companyInfo,
+        state: stateObj,
+      })
+      setValue("state", stateObj.name)
+    }
+    if (lgas.length) {
+      const lgaObj = lgas.find(lga => lga.id === 1)
+
+      setCompanyInfo({
+        ...companyInfo,
+        lga: lgaObj,
+      })
+      setValue("lga", lgaObj.name)
+    }
+  }, [countries, states, lgas])
 
   const uploadProfilePicture = e => {
     if (!e.target.files || e.target.files.length === 0) {
@@ -176,6 +202,7 @@ const CompanyEditForm = () => {
     <>
       <div className="card bg-white">
         <div className="container">
+
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="p-4">
               <div className="d-flex justify-content-between">
@@ -196,7 +223,7 @@ const CompanyEditForm = () => {
                           </span>
                         )}
                       </label>
-                      {editMode ? <p className="pi-text">{profileInfo.companyName}</p> : <InputField
+                      {editMode ? <p className="pi-text">{companyInfo.companyName}</p> : <InputField
                         id="companyName"
                         name="name"
                         inputLabel="Company Name"
@@ -223,13 +250,13 @@ const CompanyEditForm = () => {
                         inputChange={handleChange}
                         className="form-control"
                       /> */}
-                      {editMode ? <p className="pi-text">{moment(profileInfo.yearOfEstablishment).format('yyyy')}</p> : <Calendar
+                      {editMode ? <p className="pi-text">{moment(companyInfo.yearOfEstablishment).format('yyyy')}</p> : <Calendar
                         id="yearOfEstablishment"
                         view="month"
                         dateFormat="yy"
                         yearNavigator
                         yearRange="2010:2030"
-                        value={new Date(companyInfo.yearOfEstablishment)}
+                        value={companyInfo.yearOfEstablishment}
                         onSelect={(e) => {
                           const value = new Date(e.value).toISOString();
 
@@ -259,7 +286,7 @@ const CompanyEditForm = () => {
                           </span>
                         )}
                       </label>
-                      {editMode ? <p className="pi-text">{profileInfo.contactPhoneNumber}</p> : <InputField
+                      {editMode ? <p className="pi-text">{companyInfo.phoneNumber}</p> : <InputField
                         id="phoneNumber"
                         name="phoneNumber"
                         inputLabel="phoneNumber"
@@ -278,7 +305,7 @@ const CompanyEditForm = () => {
                           </span>
                         )}
                       </label>
-                      {editMode ? <p className="pi-text">{profileInfo.website}</p> : <InputField
+                      {editMode ? <p className="pi-text">{companyInfo.website}</p> : <InputField
                         id="website"
                         name="website"
                         inputLabel="website"

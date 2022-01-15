@@ -8,10 +8,11 @@ const InputField = ({
   defaultValue,
   rows,
   className,
-  placeholder
+  placeholder,
+  ...others
 }) => {
   return (
-    <InputText
+    <InputText {...others}
       rows={rows}
       id={id}
       type="text"
@@ -22,7 +23,8 @@ const InputField = ({
       })}
       onChange={inputChange} 
       className={className} 
-      placeholder={placeholder}
+      placeholder={placeholder} 
+      
     />
   );
 };

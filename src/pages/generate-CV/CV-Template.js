@@ -1,7 +1,7 @@
 import { Button } from 'primereact/button';
 import React from 'react';
 import { Link, Route, useHistory, useRouteMatch } from 'react-router-dom';
-
+import { useSelector } from 'react-redux'
 
 import './CV-Template.css';
 import PreviewCV from './Preview-CV';
@@ -88,6 +88,7 @@ const CVTEMPLATE = () => {
     const [selected, setSelected] = React.useState(-1)
     const [selectedTemplate, setSelectedTemplate] = React.useState(null);
     const [showPreview, setShowPreview] = React.useState(false)
+    const profile = useSelector(state => state.account.profileInfo)
 
     const match = useRouteMatch();
 
@@ -95,6 +96,7 @@ const CVTEMPLATE = () => {
         setSelected(id);
         setSelectedTemplate(template);
     }
+    const isValidProfileInfo = (profileInfo) => (profileInfo.educations.length > 0 || profileInfo.experiences.length > 0 || profileInfo.contactPhoneNumber !== null) ;
 
     return (
         <div>
@@ -103,13 +105,14 @@ const CVTEMPLATE = () => {
                 handleSelected={handleSelected}
                 setShowPreview={setShowPreview}
             />}
-
-            {showPreview && <PreviewCV
+            
+            {(isValidProfileInfo(profile) && showPreview )&& <PreviewCV
                 selected={selected}
                 handleSelected={handleSelected}
                 setShowPreview={setShowPreview}
                 selectedTemplate={selectedTemplate}
             />}
+            {!isValidProfileInfo(profile) && <div className="p-d-flex justify-content-center" ><div className=" p-3" style={{backgroundColor: '#eee'}}><h4 className="">Update your profile</h4></div></div>}
         </div >
     )
 }
