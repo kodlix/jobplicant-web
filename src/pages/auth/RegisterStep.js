@@ -41,7 +41,7 @@ const RegisterStep = ({ accountType }) => {
         setValue(name, value, { shouldValidate: true });
     };
     useEffect(() => {
-        if (accountType === ACCOUNT_TYPE.CORPORATE) return setValue("profession", " ", { shouldValidate: true });
+        if (accountType === ACCOUNT_TYPE.CORPORATE | accountType === ACCOUNT_TYPE.IN) return setValue("profession", " ", { shouldValidate: true });
     }, [ACCOUNT_TYPE.CORPORATE])
 
 

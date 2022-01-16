@@ -9,10 +9,28 @@ import SectionHeader from "./SectionHeader";
 import { Dropdown } from "primereact/dropdown";
 import { Calendar } from "primereact/calendar";
 import { loadCountry, loadLga, loadStates } from "store/modules/location";
+import { ACCOUNT_TYPE } from 'constants/accountType';
+import agentService from 'services/agent.service';
+
+
 
 
 
 const PersonalInfoForm = ({ data, closeEditMode }) => {
+
+  const accountType = agentService.Auth.current()?.accountType;
+
+  const professions = [
+    { name: 'Software Developer', code: 'SD' },
+    { name: 'Doctor', code: 'DR' },
+    { name: 'Lawyer', code: 'LY' },
+    { name: 'Structural Engineer', code: 'SE' },
+    { name: 'Mechanical Engineer', code: 'ME' },
+    { name: 'None', code: 'NE' }
+  ];
+
+  const [selectedProf, setSelectedProf] = useState(null);
+
   const [personalProfile, setPersonalProfile] = useState({
     firstName: "",
     lastName: "",
@@ -24,6 +42,7 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
     state: "",
     city: "",
     lga: "",
+    profession: ""
   });
   const loading = useSelector((state) => state.account.submitting);
   const countries = useSelector(state => state.location.countries);
@@ -105,6 +124,7 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
         state: states.find(state => state.name === data.state),
         lga: lgas.find(lga => lga.name === data.lga),
         address: data.address,
+        profession: data.profession,
       });
 
       setValue("firstName", data.firstName);
@@ -116,6 +136,7 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
       setValue("country", data.country);
       setValue("lga", data.country);
       setValue("address", data.address || '');
+      setValue("profession", data.profession || '');
 
     }
   }, [data]);
@@ -126,6 +147,14 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
       dispatch(loadStates(conuntryId));
     }
   }
+
+  const handleProfChange = (e) => {
+    const { name, value } = e.target;
+
+    setSelectedProf(e.value.name);
+    setPersonalProfile({ ...personalProfile, [name]: value });
+    setValue(name, value, { shouldValidate: true });
+  };
 
   const handleStateChange = (e) => {
     if (e.target.value) {
@@ -158,7 +187,10 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
     console.log(e.target.id);
   };
 
-  const personalInfoSubmit = (personal) => dispatch(updatePersonalProfile(personalProfile));
+  const personalInfoSubmit = (personal) => {
+    personalProfile.profession = selectedProf;
+    dispatch(updatePersonalProfile(personalProfile));
+  }
 
   return (
     <>
@@ -166,7 +198,7 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
         <SectionHeader
           id="personal"
           icon="person"
-          sectionTitle="Personal"
+          sectionTitle="Personal Information"
           onDelete={handleDelete}
         />
 
@@ -225,31 +257,31 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
                 />
               </div>
               {/* <div className="p-field p-col-12 p-md-6">
-                <label htmlFor="otherName" className="inputLabel p-mb-2">
-                  Other Name *
-                </label>
-                <label htmlFor="biographyInput" className="">
-                  {errors?.otherName?.type === "required" && (
-                    <span className="text-danger font-weight-bold">
-                      {" "}
-                      <p>{errors.otherName.message})</p>
-                    </span>
-                  )}
-                </label>
-                <InputField
-                  name="otherName"
-                  register={register}
-                  id="otherName"
-                  type="text"
-                  rows="12"
-                  inputLabel="Other Name"
-                  className="inputField"
-                  placeholder="Other Name"
-                  value={personalProfile.otherName}
-                  register={register}
-                  inputChange={handleChange}
-                />
-              </div> */}
+                        <label htmlFor="otherName" className="inputLabel p-mb-2">
+                          Other Name *
+                        </label>
+                        <label htmlFor="biographyInput" className="">
+                          {errors?.otherName?.type === "required" && (
+                            <span className="text-danger font-weight-bold">
+                              {" "}
+                              <p>{errors.otherName.message})</p>
+                            </span>
+                          )}
+                        </label>
+                        <InputField
+                          name="otherName"
+                          register={register}
+                          id="otherName"
+                          type="text"
+                          rows="12"
+                          inputLabel="Other Name"
+                          className="inputField"
+                          placeholder="Other Name"
+                          value={personalProfile.otherName}
+                          register={register}
+                          inputChange={handleChange}
+                        />
+                      </div> */}
 
               <div className="p-field p-col-12 p-md-6">
                 <label className="inputLabel" htmlFor="startDate">
@@ -308,8 +340,31 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
                   className="form-control"
                 />
               </div>
+
+              {accountType === ACCOUNT_TYPE.ARTISAN | accountType === ACCOUNT_TYPE.JOB_SEEKER &&
+                <div className="p-field p-col-12 p-md-6">
+                  <label htmlFor="profession" className="inputLabel"> Profession
+                    {errors.profession && <span className="text-danger font-weight-bold "> <p>{errors.profession.message}</p>
+                    </span>}
+                  </label>
+                  <Dropdown
+                    value={selectedProf}
+                    options={professions}
+                    optionLabel="name"
+                    editable
+                    placeholder='Profession'
+                    {...register("profession", { required: "Please select your Profession" })}
+                    id="profession"
+                    name="profession"
+                    onChange={handleProfChange}
+                  // onChange={(e) => handleChange(e, "profession")}
+
+                  />
+
+                </div>
+              }
               <div className="p-field p-col-12 p-md-6">
-                <label className="inputLabel" htmlFor="city">
+                <label className="inputLabel" htmlFor="state">
                   State *
                   {errors.state && (
                     <span className="text-danger font-weight-bold">
@@ -341,7 +396,7 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
                 />
               </div>
               <div className="p-field p-col-12 p-md-6">
-                <label className="inputLabel" htmlFor="state">
+                <label className="inputLabel" htmlFor="lga">
                   LGA *
                   {errors.lga && (
                     <span className="text-danger font-weight-bold">
@@ -371,8 +426,8 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
                   className="form-control"
                 />
               </div>
-              <div className="p-field p-col-12 p-md-12">
-                <label className="inputLabel" htmlFor="country">
+              <div className="p-field p-col-12 p-md-6">
+                <label className="inputLabel" htmlFor="city">
                   City *
                   {errors.city && (
                     <span className="text-danger font-weight-bold">
