@@ -12,8 +12,10 @@ import PersonalInfoSkeleton from "components/skeletons/PersonalInfoSkeleton";
 const PersonalInfo = ({ openCreate, openEdit, data, isViewApplicant }) => {
   const rating = 4.5;
   const dispatch = useDispatch();
-  // const profileInfo = useSelector((state) => state.account.profileInfo);
+
   const profileInfo = data;
+
+
 
   const loading = useSelector((state) => state.account.loading);
   const accountType = agentService.Auth.current().accountType;

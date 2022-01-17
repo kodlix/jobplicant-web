@@ -44,9 +44,9 @@ const LandingPage = () => {
                                     <div className="col-lg-6 co-12">
                                         <div className="inner-content">
                                             <div className="hero-text">
-                                                <h1 className="wow fadeInUp prim" data-wow-delay=".3s">Find Your Career
-                                                    <br />to Make a
-                                                    Better Life
+                                                <h1 className="wow fadeInUp prim" data-wow-delay=".3s">Join our community of Job seekers
+                                                    <br /> and connect to the right jobs for yourself
+
                                                 </h1>
                                                 <p className="wow fadeInUp" data-wow-delay=".5s">Creating a beautiful job website is
                                                     not

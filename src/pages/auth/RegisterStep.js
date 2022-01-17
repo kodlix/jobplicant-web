@@ -158,6 +158,23 @@ const RegisterStep = ({ accountType }) => {
                                                 </span>}
                                             </label>
                                         </div>
+                                        {
+                                            accountType === ACCOUNT_TYPE.CORPORATE &&
+                                            <div className="p-field">
+                                                <InputText type="text"
+                                                    className="form-control"
+                                                    name="companyName"
+                                                    id="companyName"
+                                                    placeholder="Company or Organiation Name"
+                                                    hidden={false}
+                                                    {...register("companyName", { required: "Please enter your company's Name" })}
+                                                />
+                                                <label htmlFor="name" className="">
+                                                    {errors.companyName && <span className="text-danger font-weight-bold "> <p>{errors.companyName.message}</p>
+                                                    </span>}
+                                                </label>
+                                            </div>
+                                        }
 
                                         {accountType === ACCOUNT_TYPE.ARTISAN | accountType === ACCOUNT_TYPE.JOB_SEEKER &&
                                             <div className="p-field">
@@ -180,8 +197,6 @@ const RegisterStep = ({ accountType }) => {
                                                 </label>
                                             </div>
                                         }
-
-
                                         <div><label htmlFor="gender" className="p-mb-1 p-text-bold gender-margin app-color" > Gender</label> </div>
 
                                         <div className="p-formgroup-inline">
@@ -208,27 +223,7 @@ const RegisterStep = ({ accountType }) => {
                                             </div>
                                             {errors.gender && <span className="text-danger font-weight-bold p-pl-1"> <p>{errors.gender.message}</p>
                                             </span>}
-
-
                                         </div>
-                                        {
-                                            accountType === ACCOUNT_TYPE.CORPORATE &&
-                                            <div className="p-field">
-                                                <InputText type="text"
-                                                    className="form-control p-mb-4"
-                                                    name="companyName"
-                                                    id="companyName"
-                                                    placeholder="Company or Organiation Name"
-                                                    hidden={false}
-                                                    {...register("companyName", { required: "Please enter your company's Name" })}
-                                                />
-                                                <label htmlFor="name" className="">
-                                                    {errors.companyName && <span className="text-danger font-weight-bold "> <p>{errors.companyName.message}</p>
-                                                    </span>}
-                                                </label>
-                                            </div>
-                                        }
-
                                         <div>
                                             <p className="term-policy p-mb-3">By clicking Sign Up, you agree to our <Link to="/"> <span className="app-color font-weight-bold">Terms, Data Policy </span></Link>
                                                 &nbsp; and <Link to="/"> <span className="app-color font-weight-bold">Cookie Policy.</span></Link>.</p>

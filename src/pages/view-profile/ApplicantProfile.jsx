@@ -32,6 +32,7 @@ import HobbiesSkeleton from 'components/skeletons/HobbiesSkeleton';
 import ProfessionOfInterestSkeleton from 'components/skeletons/ProfessionOfInterestSkeleton';
 import LocationOfInterestSkeleton from 'components/skeletons/LocationOfInterestSkeleton';
 import BiographySkeleton from 'components/skeletons/BiographySkeleton';
+import { loadUserProfileById } from 'store/modules/profile';
 
 // const ApplicantContext  = useContext(false);
 
@@ -44,12 +45,11 @@ const ApplicantProfile = () => {
     const [isHideReview, setIsHideReview] = useState(true);
 
     const dispatch = useDispatch();
-    const loading = useSelector(state => state.account.loading);
+    const loading = useSelector(state => state.profile.loading);
     // const loading = useSelector(state => state.account.loading);
-    const profileInfo = useSelector((state) => state.account.profileInfo);
+    const profileInfo = useSelector((state) => state.profile.data);
     const applicantReview = useSelector(state => state.review.review);
     const accountType = agentService.Auth.current().accountType;
-
 
     const history = useHistory();
 
@@ -66,10 +66,11 @@ const ApplicantProfile = () => {
     const [mode, setMode] = useState("create");
     const [itemToEdit, setItemToEdit] = useState({});
 
+    console.log('loading', loading, 'data', profileInfo)
 
     useEffect(() => {
         dispatch(loadCountry())
-        dispatch(loadAccountByUser(applicantId));
+        dispatch(loadUserProfileById(applicantId));
         dispatch(loadApplicantReviews(applicantId, page, limit));
     }, []);
 
@@ -96,6 +97,10 @@ const ApplicantProfile = () => {
     // return <Spinner />
 
     //     return <Spinner />
+    const currentUserInfo = useSelector((state) => state.account.profileInfo); //currently logged in user
+
+    const isProfile = currentUserInfo.id === profileInfo.id;
+    console.log('current id', currentUserInfo.id, 'profile id', profileInfo.id)
 
     return (
         <div className="container">

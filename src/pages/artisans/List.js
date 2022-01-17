@@ -109,9 +109,9 @@ const Applicant = (props) => {
                                                 <div className="card">
                                                     <img src={artisan.imageUrl} height="150px" className="card-img-top" alt="..." />
                                                     <div className="card-body" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                                        <Link to={`/applicant/${artisan.userId}`} ><p className="card-title font-weight-bold app-color" title="Click to view profile">{`${artisan.firstName} ${artisan.lastName}`} - <span className="font-weight-bold">
-                                                            <Tag className="p-mr-2 secondary-color" value={artisan.profession} icon="pi pi-user" rounded></Tag>
-                                                        </span> </p></Link>
+                                                        <Link to={`/applicant/${artisan.userId}`} ><p className="card-title font-weight-bold app-color" title="Click to view profile">{`${artisan.firstName} ${artisan.lastName}`}  <div className="font-weight-bold">
+                                                            <Tag className="p-mr-2 secondary-color text-nowrap text-center" style={{ paddingRight: "5vw" }} value={artisan.profession} icon="pi pi-user" rounded></Tag>
+                                                        </div> </p></Link>
 
                                                         <p className="card-text"> <span className="font-weight-bold">Location :</span> {artisan.locations}</p>
                                                         <p className="card-text"><span className="font-weight-bold">Phone Nuber:</span> {artisan.phoneNumber}</p>

@@ -23,6 +23,7 @@ import chat from './chat'
 import review from './review'
 import appNotification from './appNotification'
 import cv from './cv'
+import profile from './profile'
 
 const appReducer = (history) => combineReducers({
   router: connectRouter(history),
@@ -48,7 +49,8 @@ const appReducer = (history) => combineReducers({
   chat,
   review,
   appNotification,
-  cv
+  cv,
+  profile
 });
 
 export default appReducer;

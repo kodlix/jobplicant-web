@@ -1,6 +1,7 @@
 import React from 'react';
 import { Avatar } from 'primereact/avatar';
 import './jobplicant-avatar.css'
+import { useSelector } from 'react-redux';
 
 const AvatarOverlay = () => {
 
@@ -23,6 +24,10 @@ const JobplicantAvatar = ({
     handleClick
 }) => {
     const profileInfo = data;
+    const currentUserInfo = useSelector((state) => state.account.profileInfo); //currently logged in user
+
+    const isProfile = currentUserInfo.id === profileInfo.id;
+    console.log('current id', currentUserInfo.id, 'profile id', profileInfo.id)
 
     const [cameraMode, setCameraMode] = React.useState(false)
 
@@ -51,7 +56,7 @@ const JobplicantAvatar = ({
     const fullname = profileInfo.firstName ? profileInfo?.firstName + ' ' + profileInfo?.lastName : '';
     return (
         <form>
-            <div className="userProfile-header" style={{ cursor: 'pointer', position: 'relative' }} onClick={handleClick} onMouseLeave={() => setCameraMode(false)} onMouseEnter={() => setCameraMode(true)}>
+            <div className="userProfile-header" style={{ cursor: 'pointer', position: 'relative' }} onClick={isProfile ? () => handleClick() : () => { }} onMouseLeave={() => setCameraMode(false)} onMouseEnter={() => setCameraMode(true)}>
                 <span className="profilePic-container">
                     {profileInfo.imageUrl && profileInfo.imageUrl.includes("https") ?
                         <img src={selectedFile ? preview : profileInfo.imageUrl}
@@ -72,7 +77,7 @@ const JobplicantAvatar = ({
                             )}
                         </label>} */}
                 </span>
-                {cameraMode && <AvatarOverlay />}
+                {(cameraMode) && <AvatarOverlay />}
             </div>
         </form>
     )
