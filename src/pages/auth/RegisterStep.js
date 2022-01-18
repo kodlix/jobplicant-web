@@ -89,7 +89,9 @@ const RegisterStep = ({ accountType }) => {
                     </div>
                     <div className="login-pane-right p-col-12 p-md-5 p-lg-4">
                         <div className="logo-container">
-                            <img src="/assets/images/logo/applogo.jpeg" width="150" alt="brand-logo" />
+                            <Link to="/">
+                                <img src="/assets/images/logo/applogo.jpeg" width="150" alt="brand-logo" />
+                            </Link>
                         </div>
                         <div className="">
                             <div className="panel-login text-center">

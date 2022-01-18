@@ -1,3 +1,8 @@
+:root {
+    --ap-sec-color: rgb(44, 165, 94);
+    --app-primary-color: rgb(90, 40, 70);
+}
+
 .App {
     text-align: center;
 }
@@ -42,6 +47,10 @@
 }
 
 .secondary-color {
-    background-color: #2ca55e;
+    background-color: var(--app-primary-color);
     border: none;
+}
+
+.on-hover:hover {
+    background-color: var(--ap-sec-color) !important;
 }
