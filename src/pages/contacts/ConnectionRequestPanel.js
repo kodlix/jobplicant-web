@@ -78,7 +78,7 @@ const ConnectionRequestPanel = ({ setSelectedId, selectedId }) => {
                   }
                   <span className="w-100">
                     <div className="p-card-title contacts-cardsubtitle p-mb-0 d-flex justify-content-between">
-                      <Link to={`/applicant/${contact.id}`}> <span className='app-color' title="View user's profile"> {`${formatter.capitalizeFirstLetter(contact?.firstName)} ${formatter.capitalizeFirstLetter(contact?.lastName)}`}
+                      <Link to={`/applicant/${contact.id}?profile=${contact.id}&request-connection=1`}> <span className='app-color' title="View user's profile"> {`${formatter.capitalizeFirstLetter(contact?.firstName)} ${formatter.capitalizeFirstLetter(contact?.lastName)}`}
                       </span></Link>
                       <span className="text-right">
                         {

@@ -77,7 +77,12 @@ const PersonalInfo = ({ openCreate, openEdit, data, isViewApplicant }) => {
     return <div></div>
   }
 
-  if (loading)
+  /**
+   * This condition was causing the 
+   *  skeleton to show unnessarily, 
+   * i am not if it's needed having it here...
+   */
+  if (loading && !isViewApplicant) 
     return <PersonalInfoSkeleton />
 
   return (

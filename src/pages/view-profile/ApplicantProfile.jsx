@@ -15,7 +15,7 @@ import agentService from 'services/agent.service';
 import Spinner from 'components/spinner/spinner.component';
 import { loadCountry } from 'store/modules/location';
 import PersonalInfo from 'components/profile/PersonalInfo';
-import { useHistory, useParams } from 'react-router';
+import { useHistory, useLocation, useParams } from 'react-router';
 import { ACCOUNT_TYPE } from 'constants/accountType';
 import { loadApplicantReviews } from 'store/modules/review';
 import { formatter } from 'helpers/converter';
@@ -33,6 +33,7 @@ import ProfessionOfInterestSkeleton from 'components/skeletons/ProfessionOfInter
 import LocationOfInterestSkeleton from 'components/skeletons/LocationOfInterestSkeleton';
 import BiographySkeleton from 'components/skeletons/BiographySkeleton';
 import { loadUserProfileById } from 'store/modules/profile';
+import ConnectionConfirm from './components/ConnectionConfirm';
 
 // const ApplicantContext  = useContext(false);
 
@@ -52,6 +53,9 @@ const ApplicantProfile = () => {
     const accountType = agentService.Auth.current().accountType;
 
     const history = useHistory();
+
+    const search = useLocation().search;
+    const isRequestConnection = new URLSearchParams(search).get('request-connection');
 
     const handleInfoTab = () => {
         setIsHideReview(true);
@@ -99,8 +103,8 @@ const ApplicantProfile = () => {
     //     return <Spinner />
     const currentUserInfo = useSelector((state) => state.account.profileInfo); //currently logged in user
 
-    const isProfile = currentUserInfo.id === profileInfo.id;
-    console.log('current id', currentUserInfo.id, 'profile id', profileInfo.id)
+    // const isProfile = currentUserInfo.id === profileInfo.id;
+    // console.log('connection reqeust', isRequestConnection, typeof isRequestConnection)
 
     return (
         <div className="container">
@@ -113,6 +117,7 @@ const ApplicantProfile = () => {
                         isViewApplicant={true}
 
                     />}
+                    {isRequestConnection === "1" && <ConnectionConfirm contactId={profileInfo.id} contactDetails={profileInfo} />}
                     <div className="flex-shrink-0">
                         <Button onClick={() => history.goBack()} className="bk-btn p-pt-2 app-color"><i className="pi pi-arrow-left text-white">  Back</i></Button>
                     </div>
