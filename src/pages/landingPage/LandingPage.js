@@ -115,7 +115,7 @@ const LandingPage = () => {
                         <div className="col-lg-3 col-md-4 col-12">
                             <div className="process-item">
                                 <i className="lni lni-user"></i>
-                                <h4>Corporate Employers/Company </h4>
+                                <h4>Recruiter </h4>
                                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                             </div>
                         </div>
@@ -450,7 +450,6 @@ const LandingPage = () => {
 
                                 <div className="f-about single-footer">
                                     <div className="logo">
-                                        {/* <Link to="index.html"><img src="assets/logo.png" alt="Logo" /></Link> */}
                                         <Link className="navbar-brand logo" to="index.html">
                                             <img className="logo1" src="assets/images/logo/applogo.jpeg" height="40px" alt="Logo" />
                                         </Link>

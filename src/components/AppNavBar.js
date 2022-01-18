@@ -145,7 +145,7 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                                     </div>
                                     <NotificationDropdown showNotification={showNotification} />
                                 </Nav.Link>
-                                <Nav.Link className="text-white d-lg-none" href="/instant-hires">Request Instant Job</Nav.Link>
+                                <Nav.Link className="text-white d-lg-none" href="/create-instant-hire">Request Instant Job</Nav.Link>
                                 {width <= 800 && (<Nav.Link className='text-white' onClick={LogOut}>
                                     <i className="pi pi-sign-out itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
                                     <div className="itemTitle-appNavbar mx-2">
@@ -158,7 +158,7 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                     </div>
                     <div className="d-flex">
                         <div>
-                            <Link to={"/instant-hires"} className="button btn bg-light text-muted request-instant-job d-none d-lg-block" style={{ width: "14vw", display: 'block' }}>
+                            <Link to={"/create-instant-hire"} className="button btn bg-light text-muted request-instant-job d-none d-lg-block" style={{ width: "14vw", display: 'block' }}>
                                 <small>Request Instant Job</small>
                             </Link>
                         </div>
