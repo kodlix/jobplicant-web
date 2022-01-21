@@ -119,7 +119,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                 />
               </div>
 
-              <div className="p-field p-col-12 p-md-4 p-py-0 p-pl-2 p-pr-2">
+              <div className="p-field p-col-12 p-md-6 p-py-0 p-pl-2 p-pr-2">
                 <label htmlFor="country" className="inputLabel p-pr-3">Country *
                   {errors?.country?.type === 'required' && <small className="text-danger font-weight-bold">&nbsp; {errors.country.message}</small>}
                 </label>
@@ -140,7 +140,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                 />
               </div>
 
-              <div className="p-field p-col-12 p-md-4 p-py-0 p-pl-2 p-pr-2">
+              <div className="p-field p-col-12 p-md-6 p-py-0 p-pl-2 p-pr-2">
                 <label htmlFor="city" className="inputLabel p-pr-3">City *
                   {errors?.city?.type === 'required' && <small className="text-danger font-weight-bold">&nbsp; {errors.city.message}</small>}
                 </label>
@@ -155,7 +155,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                 />
               </div>
 
-              <div className="p-field p-col-12 p-md-4 p-py-0 p-pl-2 p-pr-2" >
+              {/* <div className="p-field p-col-12 p-md-4 p-py-0 p-pl-2 p-pr-2" >
                 <label htmlFor="postalCode" className="inputLabel p-pr-3">Postal Code *
                   {errors?.postalCode?.type === 'required' && <span className="text-danger font-weight-bold">&nbsp; {errors.postalCode.message}</span>}
                 </label>
@@ -167,7 +167,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                   onChange={handleChange}
                   value={postalCode}
                 />
-              </div>
+              </div> */}
 
               <div className="p-field p-col-12 p-md-12">
                 <label htmlFor="address" className="inputLabel">Address *

@@ -109,28 +109,28 @@ const LandingPage = () => {
                             <div className="process-item">
                                 <i className="lni lni-cog"></i>
                                 <h4>Artisan Job-Seekers</h4>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                <p>Set up ypur profile in minutes and make yourself available by those that requires your servicez.</p>
                             </div>
                         </div>
                         <div className="col-lg-3 col-md-4 col-12">
                             <div className="process-item">
                                 <i className="lni lni-user"></i>
                                 <h4>Recruiter </h4>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                <p>Make your vacant position in your company for corporate job seekers to find and apply for them.</p>
                             </div>
                         </div>
                         <div className="col-lg-3 col-md-4 col-12">
                             <div className="process-item">
                                 <i className="lni lni-book"></i>
                                 <h4>Corporate Job</h4>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                <p> Find and apply for Vacancies from various companies in your prefered location and apply form them.</p>
                             </div>
                         </div>
                         <div className="col-lg-3 col-md-4 col-12">
                             <div className="process-item">
                                 <i className="lni lni-fireworks"></i>
-                                <h4>Instant  Applicant Hire</h4>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                <h4>Instant Applicant Hire</h4>
+                                <p>Find hand-workers near you by either searching for them or create a service for them to applyy.</p>
                             </div>
                         </div>
                     </div>

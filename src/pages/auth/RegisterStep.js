@@ -10,10 +10,19 @@ import { registerUser } from 'store/modules/auth';
 import './Register.css'
 import { ACCOUNT_TYPE } from 'constants/accountType';
 import { Dropdown } from 'primereact/dropdown';
+import { useRef } from 'react';
 
 
 const RegisterStep = ({ accountType }) => {
-    console.log(accountType, " Account Type")
+
+    const dispatch = useDispatch();
+    const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm({
+        mode: "onChange",
+        reValidateMode: "onChange"
+    });
+
+    const password = useRef(({}));
+    password.current = watch("password", "");
 
     const professions = [
         { name: 'Software Developer', code: 'SD' },
@@ -24,13 +33,7 @@ const RegisterStep = ({ accountType }) => {
     ];
 
     const [selectedProf, setSelectedProf] = useState(null);
-
     // const [step, setStep] = useState(1)
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm({
-        mode: "onChange",
-        reValidateMode: "onChange"
-    });
-    const dispatch = useDispatch();
     const [gender, setGender] = useState(null)
 
 
@@ -153,10 +156,31 @@ const RegisterStep = ({ accountType }) => {
                                                 name="password"
                                                 id="password"
                                                 placeholder="New password"
-                                                {...register("password", { required: "Please enter your password" })}
+                                                {...register("password", {
+                                                    required: "Please enter your password",
+                                                    minLength: {
+                                                        value: 8,
+                                                        message: "Password must not be less than 8 characters"
+                                                    }
+                                                })}
                                             />
                                             <label htmlFor="password" className="">
                                                 {errors.password && <span className="text-danger font-weight-bold "> <p>{errors.password.message}</p>
+                                                </span>}
+                                            </label>
+                                        </div>
+                                        <div className="p-field">
+                                            <InputText
+                                                id="confirmPassword"
+                                                type="password"
+                                                name="confirmPassword"
+                                                placeholder="Confirm New Password"
+                                                {...register("confirmPassword", {
+                                                    validate: value => value === password.current || "Passwords does not match"
+                                                })}
+                                            />
+                                            <label htmlFor="confirmPassword" className="">
+                                                {errors.confirmPassword && <span className="text-danger font-weight-bold"> <p>{errors.confirmPassword.message}</p>
                                                 </span>}
                                             </label>
                                         </div>
