@@ -65,8 +65,8 @@ const RegisterStep = ({ accountType }) => {
     return (
         <>
             <div className="p-fluid">
-                <div className="p-grid">
-                    <div className="login-pane-right p-md-4 my-4 mx-auto">
+                <div className="p-grid p-px-4">
+                    <div className="login-pane-right p-md-4 my-4 mx-auto p-px-4">
                         <div className="logo-container">
                             <Link to="/">
                                 <img src="/assets/images/logo/applogo.jpeg" width="150" alt="brand-logo" />
