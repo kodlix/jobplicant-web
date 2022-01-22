@@ -65,32 +65,8 @@ const RegisterStep = ({ accountType }) => {
     return (
         <>
             <div className="p-fluid">
-                <div className="p-grid p-mx-0">
-                    <div className="login-pane-left p-col-12 p-md-7 p-lg-8 p-xl-8 small-screen">
-                        <div className="left-content">
-                            <div><h1 className="p-mb-0 p-text-center title">Joplicant Home for all</h1></div>
-                            <div>
-                                <div>
-                                    <p> <h2 className="p-text-center sub-title"> Job seekers, Artisan, Employer</h2></p>
-                                </div>
-                                <section className="about font-weight-bold p-mt-4 p-mb-4">
-                                    <ul>
-                                        <li>Artisans meets employers</li>
-                                        <li> You need to get a skilled worker for that urgent need? not too worry,</li>
-                                        <li> Employeers find employees you need to get a skilled worker for that urgent need? not too worry,</li>
-                                        <li>Employees find the right jobs you need to get a skilled worker for that urgent need? not too worry,</li>
-                                    </ul>
-                                </section>
-                            </div>
-                            <div>
-                                <div className="font-weight-bold">
-                                    <p>You need to get a skilled worker for that urgent need? not too worry, Instant Job Hire is all you need to connect to the right person within you.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div className="login-pane-right p-col-12 p-md-5 p-lg-4">
+                <div className="p-grid">
+                    <div className="login-pane-right p-md-4 my-4 mx-auto">
                         <div className="logo-container">
                             <Link to="/">
                                 <img src="/assets/images/logo/applogo.jpeg" width="150" alt="brand-logo" />
@@ -101,11 +77,11 @@ const RegisterStep = ({ accountType }) => {
                             </div>
                             <div className="panel-signup">
                                 <div className="login-title sm-page-title">
-                                    <h3 className="p-mb-3  text-center">Sign up for free!</h3>
+                                    <h5 className="p-mb-3 text-center">Sign up for free!</h5>
                                 </div>
                                 <form onSubmit={handleSubmit(onSubmit)}>
-                                    <div className="p-fluid">
-                                        <div className="p-field">
+                                    <div className="p-grid">
+                                        <div className="p-field col-6 p-pr-1">
                                             <InputText type="text"
                                                 id="firstname"
                                                 name="firstName"
@@ -118,7 +94,7 @@ const RegisterStep = ({ accountType }) => {
                                             </label>
 
                                         </div>
-                                        <div className="p-field">
+                                        <div className="p-field col-6">
                                             <InputText type="text"
                                                 name="lastName"
                                                 id="lastname"
@@ -132,12 +108,12 @@ const RegisterStep = ({ accountType }) => {
                                             </label>
                                         </div>
 
-                                        <div className="p-field">
+                                        <div className="p-field col-12">
 
                                             <InputText type="email"
                                                 name="email"
                                                 id="numberOrEmail"
-                                                placeholder="Mobile number or email address"
+                                                placeholder="Enter email address"
                                                 {...register("email", {
                                                     required: true,
                                                     pattern: /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i,
@@ -151,9 +127,8 @@ const RegisterStep = ({ accountType }) => {
 
                                             </label>
                                         </div>
-                                        <div className="p-field">
+                                        <div className="p-field col-6 p-pr-1">
                                             <InputText type="password"
-                                                name="password"
                                                 id="password"
                                                 placeholder="New password"
                                                 {...register("password", {
@@ -169,12 +144,12 @@ const RegisterStep = ({ accountType }) => {
                                                 </span>}
                                             </label>
                                         </div>
-                                        <div className="p-field">
+                                        <div className="p-field col-6">
                                             <InputText
                                                 id="confirmPassword"
                                                 type="password"
                                                 name="confirmPassword"
-                                                placeholder="Confirm New Password"
+                                                placeholder="Confirm password"
                                                 {...register("confirmPassword", {
                                                     validate: value => value === password.current || "Passwords does not match"
                                                 })}
@@ -186,12 +161,12 @@ const RegisterStep = ({ accountType }) => {
                                         </div>
                                         {
                                             accountType === ACCOUNT_TYPE.CORPORATE &&
-                                            <div className="p-field">
+                                            <div className="p-field col-12">
                                                 <InputText type="text"
                                                     className="form-control"
                                                     name="companyName"
                                                     id="companyName"
-                                                    placeholder="Company or Organiation Name"
+                                                    placeholder="Company or Organization Name"
                                                     hidden={false}
                                                     {...register("companyName", { required: "Please enter your company's Name" })}
                                                 />
@@ -203,7 +178,7 @@ const RegisterStep = ({ accountType }) => {
                                         }
 
                                         {accountType === ACCOUNT_TYPE.ARTISAN | accountType === ACCOUNT_TYPE.JOB_SEEKER &&
-                                            <div className="p-field">
+                                            <div className="p-field col-12">
                                                 <Dropdown
                                                     value={selectedProf}
                                                     options={professions}
@@ -214,8 +189,6 @@ const RegisterStep = ({ accountType }) => {
                                                     id="profession"
                                                     name="profession"
                                                     onChange={handleChange}
-                                                // onChange={(e) => handleChange(e, "profession")}
-
                                                 />
                                                 <label htmlFor="profession" className="">
                                                     {errors.profession && <span className="text-danger font-weight-bold "> <p>{errors.profession.message}</p>
@@ -232,7 +205,6 @@ const RegisterStep = ({ accountType }) => {
                                                     value="male"
                                                     onChange={(e) => { setGender(e.value); setValue("gender", e.value, { shouldValidate: true }) }}
                                                     checked={gender === 'male'}
-                                                // {...register("gender", { required: "Gender is required" })}
                                                 />
 
                                                 <label htmlFor="male">Male</label>
@@ -243,7 +215,6 @@ const RegisterStep = ({ accountType }) => {
                                                     value="female"
                                                     onChange={(e) => { setGender(e.value); setValue("gender", e.value, { shouldValidate: true }) }}
                                                     checked={gender === 'female'}
-                                                // {...register("gender", { required: "Gender is required" })}
                                                 />
                                                 <label htmlFor="female">Female</label>
                                             </div>
