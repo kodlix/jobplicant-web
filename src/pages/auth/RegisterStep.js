@@ -68,6 +68,9 @@ const RegisterStep = ({ accountType }) => {
                 <div className="p-grid p-mx-0">
                     <div className="login-pane-left p-col-12 p-md-7 p-lg-8 p-xl-8 small-screen">
                         <div className="left-content">
+                            {/* <div><svg xmlns="http://www.w3.org/2000/svg" className="" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ width: "2rem" }} >
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+                            </svg></div> */}
                             <div><h1 className="p-mb-0 p-text-center title">Joplicant Home for all</h1></div>
                             <div>
                                 <div>

@@ -75,6 +75,26 @@
                     width: 17px;
                 }
                 
+                .verificationStep {
+                    /* background-color: var(--app-primary-color); */
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 20px;
+                }
+                
+                .accountType-header {
+                    bottom: 30vh;
+                }
+                
+                .artisanService {
+                    background-color: var(--ap-sec-color);
+                }
+                
+                .artisan {
+                    background-color: var(--app-primary-color);
+                }
+                
                 @media screen and (max-width: 767px) {
                     .small-screen {
                         display: none;
