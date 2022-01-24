@@ -36,6 +36,7 @@ figure img {
 figure h5 {
     transition: 0.2s;
     /* transform: translateY(-20px); */
+    color: white;
     font-size: 16px;
     text-align: center;
 }

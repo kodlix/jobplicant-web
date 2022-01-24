@@ -95,6 +95,14 @@
                     background-color: var(--app-primary-color);
                 }
                 
+                .company {
+                    background-color: brown;
+                }
+                
+                .job-seker {
+                    background-color: tomato;
+                }
+                
                 @media screen and (max-width: 767px) {
                     .small-screen {
                         display: none;

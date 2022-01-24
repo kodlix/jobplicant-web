@@ -31,20 +31,23 @@ const VerificationStep = ({ goto, accountType, setAccountType }) => {
                             onClick={(e) => setSelectedAccountType(ACCOUNT_TYPE.INSTANT_HIRE, e)}
                             image="/assets/images/accountTypes/thinkingman.png"
                             body="To Request for Instant Artisan Services"
-                            className="artisanService"
+                            customstyle='artisan'
                         />
                         <AccountTypesOptions
                             onClick={(e) => setSelectedAccountType(ACCOUNT_TYPE.ARTISAN, e)}
                             image="/assets/images/accountTypes/handworker.png"
-                            body="To Provide Service as an Artisan." className="artisan" />
+                            body="To Provide Service as an Artisan."
+                            customstyle="artisanService" />
                         <AccountTypesOptions
                             onClick={(e) => setSelectedAccountType(ACCOUNT_TYPE.CORPORATE, e)}
                             image="/assets/images/accountTypes/recruiter.png"
-                            body="To Recruit Corporate Jobseekers." />
+                            body="To Recruit Corporate Jobseekers."
+                            customstyle="company" />
                         <AccountTypesOptions
                             onClick={(e) => setSelectedAccountType(ACCOUNT_TYPE.JOB_SEEKER, e)}
                             image="/assets/images/accountTypes/jobseekers.png"
-                            body="To Look for Corporate Job Opportunities" />
+                            body="To Look for Corporate Job Opportunities"
+                            customstyle="job-seker" />
 
                     </div>
                 </div>
