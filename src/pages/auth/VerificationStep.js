@@ -1,3 +1,4 @@
+import AccountTypesOptions from 'components/AccountTypeOptions/AccountTypesOptions';
 import { ACCOUNT_TYPE } from 'constants/accountType';
 import React from 'react';
 
@@ -5,23 +6,55 @@ import './Register.css'
 
 
 const VerificationStep = ({ goto, accountType, setAccountType }) => {
+
+
     const setSelectedAccountType = (type, e) => {
-        if (e.target.checked) {
+        if (type) {
             setAccountType(type)
         }
+        goto(2)
     }
-    const handleGoto = () => {
-        if(accountType === null){
-            window.alert('Please select an account type!')
-            return;
-        }
-       goto(2)
-    }
+
+    // const handleGoto = () => {
+    //     if (accountType === null) {
+    //         window.alert('Please select an account type!')
+    //         return;
+    //     }
+    //     goto(2)
+    // }
     return (
         <>
             <div className="p-fluid">
-                <div className="p-grid">
-                    <div className="login-pane-left p-col-12 sm-height"
+                <div className="">
+                    <div className="verificationStep">
+                        <AccountTypesOptions
+                            onClick={(e) => setSelectedAccountType(ACCOUNT_TYPE.INSTANT_HIRE, e)}
+                            image="/assets/images/accountTypes/thinkingman.png"
+                            body="To Request for Instant Artisan Services"
+                            customstyle='artisan'
+                        />
+                        <AccountTypesOptions
+                            onClick={(e) => setSelectedAccountType(ACCOUNT_TYPE.ARTISAN, e)}
+                            image="/assets/images/accountTypes/handworker.png"
+                            body="To Provide Service as an Artisan."
+                            customstyle="artisanService" />
+                        <AccountTypesOptions
+                            onClick={(e) => setSelectedAccountType(ACCOUNT_TYPE.CORPORATE, e)}
+                            image="/assets/images/accountTypes/recruiter.png"
+                            body="To Recruit Corporate Jobseekers."
+                            customstyle="company" />
+                        <AccountTypesOptions
+                            onClick={(e) => setSelectedAccountType(ACCOUNT_TYPE.JOB_SEEKER, e)}
+                            image="/assets/images/accountTypes/jobseekers.png"
+                            body="To Look for Corporate Job Opportunities"
+                            customstyle="job-seker" />
+
+                    </div>
+                </div>
+            </div>
+
+
+            {/* <div className="login-pane-left p-col-12 sm-height"
                         style={
                             {
                                 minHeight: '104vh',
@@ -77,9 +110,10 @@ const VerificationStep = ({ goto, accountType, setAccountType }) => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
+            {/* </div>
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }
