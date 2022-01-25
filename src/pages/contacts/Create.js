@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { loadFreeUsers, sendContactRequest } from "../../store/modules/contact";
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
-import { API_ROOT } from "../../services/agent.service";
 import ConnectionRequestPanel from "./ConnectionRequestPanel";
 import "./Contacts.css";
 import { ACCOUNT_TYPE } from 'constants/accountType';

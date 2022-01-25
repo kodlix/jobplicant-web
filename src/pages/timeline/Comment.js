@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import moment from 'moment';
 import { likeComment, dislikeComment, deleteComment } from "../../store/modules/comment";
-import agent, { API_ROOT } from "../../services/agent.service";
+import agent from "../../services/agent.service";
 import { formatter } from '../../helpers/converter';
 import ThumbsDown from "../../components/ThumbDown";
 import ThumbsUp from "../../components/ThumbUp";
@@ -37,7 +37,7 @@ const Comment = ({ comment, key, postId, expandProfileImage }) => {
             <img
               width="40"
               height="40"
-              src={`${API_ROOT}/${comment.imageUrl}`}
+              src={`${comment.imageUrl}`}
               className="rounded-circle profile-picture-timeline p-mr-2"
               onClick={expandProfileImage}
               alt="profile"

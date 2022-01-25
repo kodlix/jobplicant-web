@@ -246,7 +246,6 @@ a .cardsubtitle-timeline {
   font-size: 0.8rem !important;
   justify-content: space-between;
   border-top: 1px rgba(128, 128, 128, 0.432) solid;
-  border-bottom: 1px rgba(128, 128, 128, 0.432) solid;
 }
 
 .post-statusbar-content {

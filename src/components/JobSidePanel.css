@@ -10,15 +10,15 @@
 }
 
 .cardsubtitle-JobPanelComponent {
-  font-size: 0.9rem;
   color: #a93f7e;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .p-card-body-JobPanelComponent {
   color: rgba(0, 0, 0, 0.616);
   padding-top: 0.7rem !important;
   border-bottom: 0.1px solid rgba(128, 128, 128, 0.267);
+  width: 100%;
 }
 
 .jobdetails-JobPanelComponent {
@@ -29,15 +29,10 @@ a.p-card-body-JobPanelComponent {
   color: rgba(0, 0, 0, 0.829);
 }
 
-a.p-card-body-JobPanelComponent:hover div, 
-a.p-card-body-JobPanelComponent:hover .jobdetails-JobPanelComponent,
-a.p-card-body-JobPanelComponent:hover .seemore-JobPanelComponent {
-  color: white;
-}
 
-/* .p-card-body-JobPanelComponent:hover > .jobDescription-JobPanelComponent, .p-card-body-JobPanelComponent:hover > .cardsubtitle-JobPanelComponent, .p-card-body-JobPanelComponent:hover div span i {
-  color: white;
-} */
+.p-card-body-JobPanelComponent:hover > .jobDescription-JobPanelComponent, .p-card-body-JobPanelComponent:hover > .cardsubtitle-JobPanelComponent, .p-card-body-JobPanelComponent:hover div span i {
+  color: white !important;
+}
 
 
 .p-card-body-JobPanelComponent:hover {
@@ -49,10 +44,6 @@ a.p-card-body-JobPanelComponent:hover .seemore-JobPanelComponent {
   color: rgba(0, 0, 0, 0.616);
 }
 
-.seemore-JobPanelComponent {
-  color: #5A2846;
-  font-weight: 600;
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 0.5rem;
+.p-card-body-JobPanelComponent:hover > b, .cardsubtitle-JobPanelComponent:hover > span, .jobdetails-JobPanelComponent:hover{
+  color: #fff !important;
 }

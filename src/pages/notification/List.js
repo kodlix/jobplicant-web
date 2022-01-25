@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import agentService, { API_ROOT } from "../../services/agent.service";
+import agentService from "../../services/agent.service";
 import { confirmDialog } from 'primereact/confirmdialog';
-import { Button } from 'primereact/button';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { allNotiByAccount, deleteNoti, updateNotification } from "../../store/modules/appNotification";
 import moment from 'moment';
@@ -11,7 +10,6 @@ import moment from 'moment';
 import "./Notification.css";
 import { InputText } from 'primereact/inputtext';
 import Spinner from 'components/spinner/spinner.component';
-import { set } from 'react-hook-form';
 
 
 const List = () => {
@@ -132,7 +130,7 @@ const List = () => {
                                             {
                                                 noti.imageUrl &&
                                                 <img
-                                                    src={`${API_ROOT}/${noti.imageUrl}`}
+                                                    src={`${noti.imageUrl}`}
                                                     width="75"
                                                     height="75"
                                                     alt={`${noti?.firstName}'s profile`}

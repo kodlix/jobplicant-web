@@ -107,10 +107,10 @@ const CommentForm = ({ postId, imageUrl, expandProfileImage }) => {
       <img
         alt="Profile"
         src={imageUrl}
-        width="55"
-        height="55"
+        width="40"
+        height="40"
         className="rounded-circle profile-picture-timeline align-self-center"
-        onClick={expandProfileImage}
+        // onClick={expandProfileImage}
       />
       <form
         onSubmit={handleSubmit(onSubmit)}

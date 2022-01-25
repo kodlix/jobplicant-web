@@ -4,10 +4,10 @@ import CommentList from './CommentList';
 import CommentForm from './CommentForm';
 import { formatter } from '../../helpers/converter';
 import { openModal } from "store/modules/modal";
-import { deletePost, likePost, dislikePost, viewPost } from "../../store/modules/timeline";
+import { deletePost, likePost, dislikePost } from "../../store/modules/timeline";
 import { loadComments } from "../../store/modules/comment";
 import { TIMELINE } from "constants/timeline";
-import agent, { API_ROOT } from "../../services/agent.service";
+import agent from "../../services/agent.service";
 import moment from "moment";
 import ThumbsDown from "../../components/ThumbDown";
 import ThumbsUp from "../../components/ThumbUp";
@@ -19,6 +19,7 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
   const dispatch = useDispatch();
   const loading = useSelector(state => state.timeline.loadingPosts);
   const [copyAlert, setCopyAlert] = useState(null);
+  const [currentPostId, setCurrentPostId] = useState(null);
   const isCorporate = profileInfo?.accountType === ACCOUNT_TYPE.CORPORATE ? true : false;
   const postId = post.id;
 
@@ -52,6 +53,11 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
   const handleViewComments = (postId, commentPage, pageLimit, loadingType) => {
     dispatch(loadComments(postId, commentPage, pageLimit, loadingType));
   }
+
+  const showComment = (postId) => {
+    postId === currentPostId? setCurrentPostId(null): setCurrentPostId(postId);
+  }
+
   return (
     <div className="p-card p-py-3 p-py-sm-5 p-pl-3 p-pl-sm-5 p-pr-4 p-pr-sm-6 p-mb-2 timeline-posts">
       <span className="d-flex justify-content-between">
@@ -61,7 +67,7 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
               <img
                 width="70"
                 height="70"
-                src={`${API_ROOT}/${post.author.imageUrl}`}
+                src={`${post.author.imageUrl}`}
                 alt={
                   !isCorporate
                     ? formatter.capitalizeFirstLetter(post.author.firstName)
@@ -86,10 +92,10 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
                 {formatter.capitalizeFirstLetter(post?.author?.companyName)}
               </span>
             }
-            {
+            {/* {
               post.author.accountType === ACCOUNT_TYPE.ARTISAN &&
               <span className="stars p-ml-1 align-text-bottom" style={{ "--rating": post.author.rating }} />
-            }
+            } */}
             <div className="poster-description">
               <p>
               </p>
@@ -138,14 +144,12 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
           </div>
         }
       </span>
-      <h6 className="p-my-3">
-        <u>
+      <h6 className="p-my-2">
           {post.title}
-        </u>
       </h6>
-      <div className="p-my-4 w-100 h-100">
+      <div className="p-my-2 w-100 h-100">
         <div
-          className="p-mb-3"
+          className="p-mb-1"
           dangerouslySetInnerHTML={{ __html: post.body }}
         />
         {
@@ -154,11 +158,11 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
             width="100%"
             alt={post.title}
             className="timeline-postImage text-white"
-            src={`${API_ROOT}/${post.postImage}`}
+            src={`${post.postImage}`}
             onClick={expandPostImage} />
         }
       </div>
-      <div className="cardtitle-statusbar-timeline p-my-3 p-py-3">
+      <div className="cardtitle-statusbar-timeline p-my-3 p-py-2">
         {
           <div className="d-flex">
             {
@@ -174,6 +178,7 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
                     liked={false}
                     className="p-mr-1"
                   />
+                  
                   {
                     post.likes > 0 &&
                     <h6 className="p-pr-1">
@@ -225,6 +230,16 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
         <div
           className="timeline-postShare-button"
           data-id={post.id}
+          onClick={() =>showComment(post.id)}
+        >
+          <span className="p-button-label">
+            Comment
+          </span>
+        </div>
+
+        <div
+          className="timeline-postShare-button"
+          data-id={post.id}
           onClick={handleShareButton}
         >
           <span className="p-button-label">
@@ -237,7 +252,7 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
         </span>
       </div>
       {
-        isAuthenticated &&
+        isAuthenticated && currentPostId == post.id &&
         <CommentForm
           postId={post.id}
           imageUrl={profileInfo?.imageUrl}

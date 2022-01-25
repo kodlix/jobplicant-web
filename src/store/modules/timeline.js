@@ -472,7 +472,7 @@ export function deletePost(id, deleteType) {
           })
         );
         if (deleteType === "fromViewPost") {
-          dispatch(push("/timeline"));
+          dispatch(push("/posts"));
         }
         else {
           dispatch(postDeleted(id));

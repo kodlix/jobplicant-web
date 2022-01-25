@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { API_ROOT } from "../../services/agent.service"
+import React, { useState, useEffect } from 'react';
 import { Button } from 'primereact/button';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
@@ -10,7 +9,7 @@ import { Picker } from 'emoji-mart';
 import { Emoji } from 'emoji-mart'
 import { Dropdown } from 'primereact/dropdown';
 import { Editor } from 'primereact/editor';
-import { createPost, editPost, viewPost } from "store/modules/timeline";
+import { createPost, editPost } from "store/modules/timeline";
 import "./Timeline.css";
 import { ACCOUNT_TYPE } from 'constants/accountType';
 
@@ -24,11 +23,11 @@ const CreatePostModal = ({ post, clearModalInput }) => {
   const [_quill, setQuill] = useState(null);
   const [image, setImage] = useState({ preview: "", raw: "" });
   const { register, handleSubmit, formState: { errors }, setValue } = useForm("");
-  const [selectedViewerGroup, setSelectedViewerGroup] = useState({ name: 'Public', code: 'PBC' });
+  const [selectedViewerGroup, setSelectedViewerGroup] = useState({ name: 'Any one', code: 'PBC' });
   const baseClassName = isEmojiOpen ? "TextEditor-actions-emoji-picker-timeline--open" : "TextEditor-actions-emoji-picker-timeline"
   const viewerGroups = [
-    { name: 'Public', code: 'PBC' },
-    { name: 'Group', code: 'GRP' }
+    { name: 'Any one', code: 'PBC' },
+    { name: 'My connections only', code: 'CON' }
   ];
 
   const onViewerGroupChange = (e) => {
@@ -50,7 +49,7 @@ const CreatePostModal = ({ post, clearModalInput }) => {
       setValue("title", post.title);
       setValue("body", post.body);
       if (post.postImage) {
-        const imageurl = API_ROOT + "/" + post.postImage
+        const imageurl = post.postImage
         setImage({
           preview: imageurl,
           raw: post.postImage
@@ -149,7 +148,7 @@ const CreatePostModal = ({ post, clearModalInput }) => {
     const updatedPostObject = Object.assign({}, postObject);
     updatedPostObject[inputName] = inputValue;
     setPostObject({ ...postObject, ...updatedPostObject });
-    setValue(inputName, inputValue, { shouldValidate: true });
+    setValue(inputName, inputValue);
   };
 
   const onSubmit = (data) => {

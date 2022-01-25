@@ -84,23 +84,6 @@ const Timeline = () => {
               {
                 isAuthenticated &&
                 <div className="p-card p-grid p-mb-2 p-mt-0 p-mx-0 p-p-3 align-items-center">
-                  <div className="p-col-2 text-center profilepic-startpost-timeline p-pl-0 p-sm-pl-3">
-                    {
-                      profileInfo.imageUrl &&
-                      <img
-                        width="70"
-                        height="70"
-                        alt="Profile"
-                        className="rounded-circle d-flex p-ml-1 p-ml-xs-2 p-ml-sm-4 p-ml-md-3"
-                        src={profileInfo?.imageUrl}
-                        onClick={(e) => expandProfileImage(e.target.src)}
-                      />
-                    }
-                    {
-                      !profileInfo.imageUrl &&
-                      <i className="pi pi-user timeline-emptyProfilePic-small" />
-                    }
-                  </div>
                   <div className="p-col-10">
                     <Button
                       label="Start a Post"

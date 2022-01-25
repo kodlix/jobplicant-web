@@ -10,7 +10,7 @@ const AnonymousNavBar = () => {
           <div className="row align-items-center">
             <div className="col-lg-12">
               <nav className="navbar navbar-expand-lg py-2">
-                <Link className="navbar-brand logo" to="/timeline">
+                <Link className="navbar-brand logo" to="/posts">
                   <img className="logo1" src="/assets/images/logo/applogo.jpeg" alt="Logo" />
                 </Link>
                 <div className="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent"></div>

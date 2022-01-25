@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadContacts, removeContact } from "../../store/modules/contact";
-import { API_ROOT } from "../../services/agent.service";
 import { confirmDialog } from 'primereact/confirmdialog';
 import { formatter } from '../../helpers/converter';
 import { Button } from 'primereact/button';
@@ -10,8 +9,6 @@ import "./Contacts.css"
 import ConnectionRequestPanel from './ConnectionRequestPanel';
 import { ACCOUNT_TYPE } from 'constants/accountType';
 
-import { Skeleton } from 'primereact/skeleton';
-import { Column } from 'primereact/column';
 // import './SkeletonDemo.css';
 
 const List = () => {

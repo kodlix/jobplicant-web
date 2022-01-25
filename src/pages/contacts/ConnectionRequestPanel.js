@@ -4,7 +4,6 @@ import { loadPendingRequests, acceptRequest, rejectRequest } from "../../store/m
 import { Button } from 'primereact/button';
 import { formatter } from '../../helpers/converter';
 import { confirmDialog } from 'primereact/confirmdialog';
-import { API_ROOT } from "../../services/agent.service";
 import "./Contacts.css";
 import { Link } from 'react-router-dom';
 

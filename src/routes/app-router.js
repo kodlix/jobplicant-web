@@ -124,7 +124,7 @@ const AppRouter = () => {
 
 
 
-        <AnonymousRouteOrProtectedRoute path="/timeline" exact component={Timeline} />
+        <AnonymousRouteOrProtectedRoute path="/posts" exact component={Timeline} />
         <AnonymousRouteOrProtectedRoute path="/post/:id" exact component={ViewPost} />
         <ProtectedRoute path="/contacts" exact component={ListContacts} />
         <ProtectedRoute path="/contacts/create" exact component={CreateContacts} />
