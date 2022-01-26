@@ -5,8 +5,8 @@ import superagentPromise from "superagent-promise";
 const superagent = superagentPromise(_superagent, global.Promise);
 
 // export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api.herokuapp.com";
-// export const API_ROOT = "https://jobplicant-api.herokuapp.com";
-export const API_ROOT = "http://localhost:8080";
+export const API_ROOT = "https://jobplicant-api.herokuapp.com";
+// export const API_ROOT = "http://localhost:8080";
 
 
 console.log('API_ROOT', API_ROOT);
