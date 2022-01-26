@@ -141,15 +141,26 @@ const CreatePostModal = ({ post, clearModalInput }) => {
   };
 
   const inputChange = (e, inputName) => {
+    const inputLength = e?.htmlValue?.split("<")?.length;
+    const postObjectLength = postObject?.body?.split("<")?.length;
+
+    if (inputLength  === postObjectLength) {
+      return;
+    }
     const inputValue =
       inputName && (inputName === "body")
         ? e.htmlValue
         : e.target.value
     const updatedPostObject = Object.assign({}, postObject);
     updatedPostObject[inputName] = inputValue;
+    setValue(inputName, inputValue, { shouldValidate: true });
     setPostObject({ ...postObject, ...updatedPostObject });
-    setValue(inputName, inputValue);
   };
+
+  const validateEditorBody = (value) => {
+    const quilText = _quill.getText().trim().length;
+    return quilText || " Post content is required";
+  }
 
   const onSubmit = (data) => {
     const formData = new FormData();
@@ -312,7 +323,7 @@ const CreatePostModal = ({ post, clearModalInput }) => {
             className="TextEditor-container-timeline"
             onTextChange={(e) => { inputChange(e, "body") }}
             {...register("body", {
-              validate: value => _quill.getText().trim().length || " Post content is required"
+              validate: (e) => {validateEditorBody(e)}
             })}
             id="body"
             name="body"
