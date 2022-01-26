@@ -17,7 +17,7 @@
 .p-card-body-JobPanelComponent {
   color: rgba(0, 0, 0, 0.616);
   padding-top: 0.7rem !important;
-  border-bottom: 0.1px solid rgba(128, 128, 128, 0.267);
+  border-bottom: 0.1px solid rgba(211, 206, 206, 0.267);
   width: 100%;
 }
 
@@ -31,12 +31,12 @@ a.p-card-body-JobPanelComponent {
 
 
 .p-card-body-JobPanelComponent:hover > .jobDescription-JobPanelComponent, .p-card-body-JobPanelComponent:hover > .cardsubtitle-JobPanelComponent, .p-card-body-JobPanelComponent:hover div span i {
-  color: white !important;
+  color: rgb(209, 205, 205) !important;
 }
 
 
 .p-card-body-JobPanelComponent:hover {
-  background-color: #5A2846;
+  background-color: #cecacd !important;
 }
 
 .jobDescription-JobPanelComponent {
