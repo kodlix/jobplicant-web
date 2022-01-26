@@ -125,7 +125,7 @@
 /* left panel */
 .leftpanel-top-container-timeline {
   height: 127px;
-  background-color: #5A2846;
+  /* background-color: #689f38; */
 }
 
 .leftpanel-bottom-container-timeline {
@@ -137,6 +137,12 @@
   padding: 1rem 0;
   border-top: 1px rgba(128, 128, 128, 0.432) solid;
   border-bottom: 1px rgba(128, 128, 128, 0.432) solid;
+  display: flex;
+  justify-content: center;
+}
+
+.timeline-leftpanel-connection h6{
+  font-size: .9rem;
 }
 
 .timeline-companyName {
@@ -171,7 +177,7 @@
 }
 
 .cardtitle-posts {
-  font-size: 1.2rem !important;
+  /* font-size: 1.2rem !important; */
   font-weight: 500 !important;
 }
 
@@ -179,7 +185,7 @@
   color: gray;
   display: flex;
   align-items: flex-end;
-  font-size: 0.8rem !important;
+  font-size: 0.7rem !important;
 }
 
 .timeline-cardtitle-posttime > .pi-clock {

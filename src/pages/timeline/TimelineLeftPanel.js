@@ -13,8 +13,8 @@ const TimelineLeftPanel = ({ profileInfo, expandProfileImage }) => {
           {
             profileInfo.imageUrl &&
             <img
-              width="80"
-              height="80"
+              width="70"
+              height="70"
               alt="Profile"
               src={profileInfo?.imageUrl}
               className="rounded-circle timeline-profilePicture"
@@ -29,9 +29,9 @@ const TimelineLeftPanel = ({ profileInfo, expandProfileImage }) => {
           {
             profileInfo?.firstName && profileInfo?.accountType !== ACCOUNT_TYPE.CORPORATE &&
             <>
-              <h4 className="p-mt-2">
+              <h6 className="p-mt-2">
                 {`${formatter.capitalizeFirstLetter(profileInfo?.firstName)} ${formatter.capitalizeFirstLetter(profileInfo?.lastName)}`}
-              </h4>
+              </h6>
               <p className="p-mb-4 ">
                 <p className="p-mt-1">
                   Graphic Designer at Self Employed
@@ -60,9 +60,9 @@ const TimelineLeftPanel = ({ profileInfo, expandProfileImage }) => {
           {
             profileInfo?.firstName && profileInfo?.accountType === ACCOUNT_TYPE.CORPORATE &&
             <>
-              <h4 className="p-my-1 timeline-companyName">
+              <h6 className="p-my-1 timeline-companyName">
                 {formatter.capitalizeFirstLetter(profileInfo?.companyName)}
-              </h4>
+              </h6>
               <p className="p-mb-4">
                 {
                   (profileInfo.city || profileInfo.country) &&
@@ -86,19 +86,19 @@ const TimelineLeftPanel = ({ profileInfo, expandProfileImage }) => {
             </>
           }
           <div className="timeline-leftpanel-connection">
-            <h5>
+            <h6 className='px-4'>
               Following
-            </h5>
-            <h6>
-              45
+            </h6>
+            <h6 >
+             <span className='badge bg-dark'>45</span> 
             </h6>
           </div>
-          <div className="timeline-leftpanel-connection">
-            <h5>
+          <div className="timeline-leftpanel-connection" >
+          <h6 className='px-4'>
               Followers
-            </h5>
-            <h6>
-              45
+            </h6>
+            <h6 >
+             <span className='badge bg-dark'>15</span> 
             </h6>
           </div>
           <Link

@@ -187,6 +187,7 @@ export function postComment(id, comment, loadingType) {
           })
         );
         dispatch(loadingComment("createCommentSuccess"));
+        dispatch(loadComments(response.postId, 1, 50, null));
         dispatch(addCreatedComment(id, response));
         dispatch(addCommentId(id, response.id));
         dispatch(loadingComment(null));

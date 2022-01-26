@@ -4,7 +4,7 @@ import CommentList from './CommentList';
 import CommentForm from './CommentForm';
 import { formatter } from '../../helpers/converter';
 import { openModal } from "store/modules/modal";
-import { deletePost, likePost, dislikePost } from "../../store/modules/timeline";
+import { deletePost, likePost } from "../../store/modules/timeline";
 import { loadComments } from "../../store/modules/comment";
 import { TIMELINE } from "constants/timeline";
 import agent from "../../services/agent.service";
@@ -15,7 +15,8 @@ import "./Timeline.css";
 
 import "./Timeline.css";
 import { ACCOUNT_TYPE } from 'constants/accountType';
-const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, commentCount, setImageToDisplay }) => {
+import { Link } from 'react-router-dom';
+const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, commentCount, setImageToDisplay, viewPage = false }) => {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.timeline.loadingPosts);
   const [copyAlert, setCopyAlert] = useState(null);
@@ -33,10 +34,7 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
     dispatch(likePost(postId));
   }
 
-  const handleDislike = (e) => {
-    const postId = e.currentTarget.dataset.id
-    dispatch(dislikePost(postId));
-  }
+
 
   const handleShareButton = (e) => {
     const postId = e.currentTarget.dataset.id;
@@ -55,7 +53,7 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
   }
 
   const showComment = (postId) => {
-    postId === currentPostId? setCurrentPostId(null): setCurrentPostId(postId);
+    postId === currentPostId ? setCurrentPostId(null) : setCurrentPostId(postId);
   }
 
   return (
@@ -65,8 +63,8 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
           {
             post?.author?.imageUrl ?
               <img
-                width="70"
-                height="70"
+                width="40"
+                height="40"
                 src={`${post.author.imageUrl}`}
                 alt={
                   !isCorporate
@@ -81,13 +79,13 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
           }
           <span>
             {
-              !isCorporate &&
+              !isCorporate && post?.author?.firstName &&
               <span className="p-card-title cardtitle-posts p-mb-0">
                 {`${formatter.capitalizeFirstLetter(post?.author?.firstName)} ${formatter.capitalizeFirstLetter(post?.author?.lastName)}`}
               </span>
             }
             {
-              isCorporate &&
+              isCorporate && post?.author?.companyName &&
               <span className="p-card-title cardtitle-posts p-mb-0">
                 {formatter.capitalizeFirstLetter(post?.author?.companyName)}
               </span>
@@ -104,58 +102,65 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
               <i className="pi pi-map-marker p-pl-2 p-pr-1" />
               <span>Nigeria</span>
             </div>
-            <div className="timeline-cardtitle-posttime">
-              <i className="pi pi-clock p-pr-1 p-mt-2" />
-              <span>
-                {moment(post.createdAt).fromNow('MMMM Do YYYY')} ago
-              </span>
-            </div>
+
           </span>
         </span>
         {
-          post.createdBy === agent.Auth.current()?.email &&
           <div className="dropdown font-weight-bold ml-2">
-            <i
-              type="button"
-              className="pi pi-ellipsis-v"
-              role="button"
-              data-bs-toggle="dropdown"
-              id="dropdownMenuLink"
-              aria-expanded="false"
-            />
-            <ul
-              className="dropdown-menu"
-              aria-labelledby="dropdownMenuLink"
-            >
-              <li
-                className="dropdown-item timeline-dropdownItem"
-                onClick={() => onShow(post.id)}
-              >
-                Edit
-              </li>
-              <li
-                className="dropdown-item timeline-dropdownItem"
-                data-id={post.id}
-                onClick={(e) => dispatch(deletePost(e.currentTarget.dataset.id))}
-              >
-                Delete
-              </li>
-            </ul>
+            {post.createdBy === agent.Auth.current()?.email &&
+              <>
+                <i
+                  type="button"
+                  className="pi pi-ellipsis-v"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  id="dropdownMenuLink"
+                  aria-expanded="false"
+                />
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuLink"
+                >
+                  <li
+                    className="dropdown-item timeline-dropdownItem"
+                    onClick={() => onShow(post.id)}
+                  >
+                    Edit
+                  </li>
+                  <li
+                    className="dropdown-item timeline-dropdownItem"
+                    data-id={post.id}
+                    onClick={(e) => dispatch(deletePost(e.currentTarget.dataset.id))}
+                  >
+                    Delete
+                  </li>
+                </ul>
+              </>
+            }
+            {viewPage && <Link to={"/posts"} className='text-dark'> back</Link>}
           </div>
+
         }
       </span>
-      <h6 className="p-my-2">
-          {post.title}
+      <h6 className="p-my-2 d-flex align-center justify-content-between" style={{ fontSize: '0.9rem' }}>
+        <Link to={"/post/" + post.id}> {post.title}</Link>
+        <span className="timeline-cardtitle-posttime">
+          <i className="pi pi-clock p-pr-1 p-mt-2" />
+          <span>
+            {moment(post.createdAt).fromNow('MMMM Do YYYY')} ago
+          </span>
+        </span>
       </h6>
       <div className="p-my-2 w-100 h-100">
         <div
           className="p-mb-1"
+          style={{ fontSize: '0.9rem' }}
           dangerouslySetInnerHTML={{ __html: post.body }}
         />
         {
           post?.postImage &&
           <img
-            width="100%"
+            width="80%"
             alt={post.title}
             className="timeline-postImage text-white"
             src={`${post.postImage}`}
@@ -178,7 +183,7 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
                     liked={false}
                     className="p-mr-1"
                   />
-                  
+
                   {
                     post.likes > 0 &&
                     <h6 className="p-pr-1">
@@ -196,41 +201,12 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
                   }
                 </p>
             }
-            {
-              isAuthenticated ?
-                <span
-                  data-id={post.id}
-                  onClick={(e) => handleDislike(e)}
-                  className="post-statusbar-content align-items-start"
-                >
-                  <ThumbsDown
-                    width="23"
-                    height="23"
-                    disliked={false}
-                    className="p-mr-1" />
-                  {
-                    post.dislikes > 0 &&
-                    <h6 className="p-pr-1">
-                      {post.dislikes}
-                    </h6>
-                  }
-                </span>
-                :
-                <>
-                  {
-                    post.dislikes > 0 &&
-                    <p className="p-pr-1">
-                      {`${post.dislikes} ${post.dislikes > 1 ? "dislikes" : "dislike"}`}
-                    </p>
-                  }
-                </>
-            }
           </div>
         }
         <div
           className="timeline-postShare-button"
           data-id={post.id}
-          onClick={() =>showComment(post.id)}
+          onClick={() => showComment(post.id)}
         >
           <span className="p-button-label">
             Comment

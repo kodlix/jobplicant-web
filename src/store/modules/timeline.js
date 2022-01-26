@@ -329,6 +329,7 @@ export function createPost(post) {
         );
         dispatch(closeModal());
         dispatch(postCreated(response));
+        dispatch(loadPosts(1, 50, "loadPosts"));
         dispatch(loading("postSuccess"));
         dispatch(loading(null));
       },
