@@ -1,23 +1,45 @@
 import React, { useState } from "react";
 import AccountTypesOptions from "components/AccountTypeOptions/AccountTypesOptions";
 import { ACCOUNT_TYPE } from "constants/accountType";
-import { set } from "react-hook-form";
 
 import "./Register.css";
 
 const VerificationStep = ({ goto, accountType, setAccountType }) => {
 
-  const [selectedCard, setSelectedCard] = useState(false)
-  console.log(selectedCard, " selected value")
-
+  const [corporateCard, setCorporateCard] = useState(false);
+  const [artisanCard, setArtisanCard] = useState(false);
+  const [companyCard, setCompanyCard] = useState(false);
+  const [instantHireCard, setInstantHireCard] = useState(false);
 
   const setSelectedAccountType = (type, e) => {
     if (type) {
       setAccountType(type);
     }
-    if (type === ACCOUNT_TYPE.INSTANT_HIRE) {
-      setSelectedCard(true);
+    if (type === ACCOUNT_TYPE.JOB_SEEKER) {
+      setCorporateCard(true);
+      setArtisanCard(false);
+      setCompanyCard(false);
+      setInstantHireCard(false);
     }
+    if (type === ACCOUNT_TYPE.ARTISAN) {
+      setArtisanCard(true);
+      setCorporateCard(false);
+      setCompanyCard(false);
+      setInstantHireCard(false);
+    }
+    if (type === ACCOUNT_TYPE.CORPORATE) {
+      setCompanyCard(true);
+      setCorporateCard(false);
+      setArtisanCard(false);
+      setInstantHireCard(false);
+    }
+    if (type === ACCOUNT_TYPE.INSTANT_HIRE) {
+      setInstantHireCard(true);
+      setCorporateCard(false);
+      setArtisanCard(false);
+      setCompanyCard(false);
+    }
+
   };
 
   const handleGoto = () => {
@@ -40,24 +62,20 @@ const VerificationStep = ({ goto, accountType, setAccountType }) => {
               }
               image="/assets/images/accountTypes/thinkingman.png"
               body="To Request for Instant Artisan Services"
-              customstyle="artisan"
+              customstyle={` artisan ${instantHireCard ? "active-card" : ""}`}
               style={{ border: "4px solid yellow" }}
             />
             <AccountTypesOptions
               onClick={(e) => setSelectedAccountType(ACCOUNT_TYPE.ARTISAN, e)}
               image="/assets/images/accountTypes/handworker.png"
               body="To Provide Service as an Artisan."
-              customstyle="artisanService"
-              className={`${selectedCard ? "hight-btn" : ""}`}
-
+              customstyle={` artisanService ${artisanCard ? "active-card" : ""}`}
             />
             <AccountTypesOptions
               onClick={(e) => setSelectedAccountType(ACCOUNT_TYPE.CORPORATE, e)}
               image="/assets/images/accountTypes/recruiter.png"
               body="To Recruit Corporate Jobseekers."
-              customstyle="company"
-              className={`${selectedCard ? "hight-btn" : ""}`}
-
+              customstyle={` company ${companyCard ? "active-card" : ""}`}
             />
             <AccountTypesOptions
               onClick={(e) =>
@@ -65,9 +83,8 @@ const VerificationStep = ({ goto, accountType, setAccountType }) => {
               }
               image="/assets/images/accountTypes/jobseekers.png"
               body="To Look for Corporate Job Opportunities"
-              customstyle="job-seker"
-              // className={`${selectedCard ? "hight-btn" : ""}`}
-              className="hight-btn"
+              customstyle={` job-seker ${corporateCard ? "active-card" : ""}`}
+
 
             />
           </div>
