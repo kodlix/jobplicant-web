@@ -1,29 +1,38 @@
+import React, { useState } from "react";
 import AccountTypesOptions from "components/AccountTypeOptions/AccountTypesOptions";
 import { ACCOUNT_TYPE } from "constants/accountType";
-import React from "react";
+import { set } from "react-hook-form";
 
 import "./Register.css";
 
 const VerificationStep = ({ goto, accountType, setAccountType }) => {
+
+  const [selectedCard, setSelectedCard] = useState(false)
+  console.log(selectedCard, " selected value")
+
+
   const setSelectedAccountType = (type, e) => {
     if (type) {
       setAccountType(type);
     }
-    goto(2);
+    if (type === ACCOUNT_TYPE.INSTANT_HIRE) {
+      setSelectedCard(true);
+    }
   };
 
-  // const handleGoto = () => {
-  //     if (accountType === null) {
-  //         window.alert('Please select an account type!')
-  //         return;
-  //     }
-  //     goto(2)
-  // }
+  const handleGoto = () => {
+    if (accountType === null) {
+      window.alert('Please select an account type!')
+      return;
+    }
+    goto(2)
+  }
+
   return (
     <>
       <div className="p-fluid">
         <div className="verificationContainer">
-          <h5>Select account Type</h5>
+          <h5>Select Account Type</h5>
           <div className="verificationStep">
             <AccountTypesOptions
               onClick={(e) =>
@@ -32,18 +41,23 @@ const VerificationStep = ({ goto, accountType, setAccountType }) => {
               image="/assets/images/accountTypes/thinkingman.png"
               body="To Request for Instant Artisan Services"
               customstyle="artisan"
+              style={{ border: "4px solid yellow" }}
             />
             <AccountTypesOptions
               onClick={(e) => setSelectedAccountType(ACCOUNT_TYPE.ARTISAN, e)}
               image="/assets/images/accountTypes/handworker.png"
               body="To Provide Service as an Artisan."
               customstyle="artisanService"
+              className={`${selectedCard ? "hight-btn" : ""}`}
+
             />
             <AccountTypesOptions
               onClick={(e) => setSelectedAccountType(ACCOUNT_TYPE.CORPORATE, e)}
               image="/assets/images/accountTypes/recruiter.png"
               body="To Recruit Corporate Jobseekers."
               customstyle="company"
+              className={`${selectedCard ? "hight-btn" : ""}`}
+
             />
             <AccountTypesOptions
               onClick={(e) =>
@@ -52,9 +66,12 @@ const VerificationStep = ({ goto, accountType, setAccountType }) => {
               image="/assets/images/accountTypes/jobseekers.png"
               body="To Look for Corporate Job Opportunities"
               customstyle="job-seker"
+              // className={`${selectedCard ? "hight-btn" : ""}`}
+              className="hight-btn"
+
             />
           </div>
-          <button className="btn-proceed">Proceed</button>
+          <button className="btn-proceed" onClick={handleGoto}>Proceed</button>
         </div>
       </div>
 

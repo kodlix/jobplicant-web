@@ -9,22 +9,23 @@ const InputField = ({
   rows,
   className,
   placeholder,
+  type,
   ...others
 }) => {
   return (
     <InputText {...others}
       rows={rows}
       id={id}
-      type="text"
+      type={type}
       name={id}
       defaultValue={defaultValue}
       {...register(id, {
         required: `* ${inputLabel} is required`,
       })}
-      onChange={inputChange} 
-      className={className} 
-      placeholder={placeholder} 
-      
+      onChange={inputChange}
+      className={className}
+      placeholder={placeholder}
+
     />
   );
 };

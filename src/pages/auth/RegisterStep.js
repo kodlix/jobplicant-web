@@ -13,13 +13,17 @@ import { Dropdown } from 'primereact/dropdown';
 import { useRef } from 'react';
 
 
-const RegisterStep = ({ accountType }) => {
+const RegisterStep = ({ goto, accountType }) => {
 
     const dispatch = useDispatch();
     const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm({
         mode: "onChange",
         reValidateMode: "onChange"
     });
+
+    const handleGoto = () => {
+        goto(1)
+    }
 
     const password = useRef(({}));
     password.current = watch("password", "");
@@ -67,10 +71,10 @@ const RegisterStep = ({ accountType }) => {
             <div className="p-fluid">
                 <div className="p-grid p-px-4">
                     <div className="login-pane-right p-md-4 my-4 mx-auto p-px-4">
-                        <div className="logo-container">
-                            <Link to="/">
-                                <img src="/assets/images/logo/applogo.jpeg" width="150" alt="brand-logo" />
-                            </Link>
+                        <div className="logo-container finger" onClick={handleGoto}>
+                            {/* <Link to="/"> */}
+                            <img src="/assets/images/logo/applogo.jpeg" width="150" alt="brand-logo" />
+                            {/* </Link> */}
                         </div>
                         <div className="">
                             <div className="panel-login text-center">
