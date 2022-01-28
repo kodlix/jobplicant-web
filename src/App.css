@@ -1,5 +1,5 @@
 :root {
-    --ap-sec-color: rgb(44, 165, 94);
+    --app-sec-color: rgb(44, 165, 94);
     --app-primary-color: rgb(90, 40, 70);
 }
 
@@ -52,5 +52,9 @@
 }
 
 .on-hover:hover {
-    background-color: var(--ap-sec-color) !important;
+    background-color: var(--app-sec-color) !important;
+}
+
+.sec-color {
+    background-color: var(--app-sec-color);
 }

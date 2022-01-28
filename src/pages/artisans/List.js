@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Rating } from 'primereact/rating';
 import { Button } from 'primereact/button';
-import './Artisans.css'
 import { useSelector, useDispatch } from 'react-redux';
 import { Artisans } from "./data";
 import { Tag } from 'primereact/tag';
@@ -15,6 +14,7 @@ import { Link } from 'react-router-dom';
 import { InputText } from 'primereact/inputtext';
 
 
+import './Artisans.css'
 
 const Applicant = (props) => {
     const dispatch = useDispatch();
@@ -65,18 +65,18 @@ const Applicant = (props) => {
 
                                     /> */}
 
-                                    <header className="instant d-flex">
-                                        <div className="title-container w-100"   >
+                                    <header className="instant row">
+                                        <div className="title-container col-md-7 col-sm-12"   >
                                             <h2 className="title sm-screen ">Available hand-workers near you </h2>
                                         </div>
 
-                                        <div className="d-flex align-items-baseline">
-                                            <div className="p-input-icon-right searchInput-container-contact">
+                                        <div className="align-items-baseline col-md-5 col-sm-12">
+                                            <div className="d-flex p-input-icon-right searchInput-container-contact">
                                                 <div className="p-input-icon-left">
                                                     <i className="pi pi-search" />
 
                                                     <InputText className="p-mr-2 p-pr-5"
-                                                        placeholder="Search name of a  handwork"
+                                                        placeholder="Search by profession"
                                                         value={inputValue}
                                                         onChange={handleSearch}
                                                     />
@@ -95,10 +95,10 @@ const Applicant = (props) => {
                                                     inputValue && loading !== "searchUsers" &&
                                                     <i className="pi pi-times p-mr-2" onClick={(e) => handleSearch(e)} name="clear" />
                                                 }
+                                                <div className="flex-shrink-0">
+                                                    <Link to="/instant-hires" className="bk-btn p-pt-2 app-color"><i className="pi pi-arrow-left">Back</i></Link>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="flex-shrink-0">
-                                            <Link to="/instant-hires" className="bk-btn p-pt-2 app-color"><i className="pi pi-arrow-left">Back</i></Link>
                                         </div>
                                     </header >
                                     <hr className="font-weight-bolder appcolor" />
@@ -110,7 +110,7 @@ const Applicant = (props) => {
                                                     <img src={artisan.imageUrl} height="150px" className="card-img-top" alt="..." />
                                                     <div className="card-body" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                                         <Link to={`/applicant/${artisan.userId}`} ><p className="card-title font-weight-bold app-color" title="Click to view profile">{`${artisan.firstName} ${artisan.lastName}`}  <div className="font-weight-bold">
-                                                            <Tag className="p-mr-2 secondary-color text-nowrap text-center" style={{ paddingRight: "5vw" }} value={artisan.profession} icon="pi pi-user" rounded></Tag>
+                                                            <Tag className="p-mr-2 header-color text-nowrap text-center" style={{ paddingRight: "5vw" }} value={artisan.profession} icon="pi pi-user" rounded></Tag>
                                                         </div> </p></Link>
 
                                                         <p className="card-text"> <span className="font-weight-bold">Location :</span> {artisan.locations}</p>
@@ -134,7 +134,7 @@ const Applicant = (props) => {
                             </div>
 
                         </div>
-                        {artisans?.length > 0 && <div className="pt-2 pb-2 ">
+                        {artisans?.length > 0 && <div className="pt-2 pb-2 load-more">
                             <Button label="Load more" className='w-100' />
                         </div>}
                     </div>

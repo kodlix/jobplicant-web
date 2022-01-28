@@ -2,7 +2,7 @@ figure {
     width: 200px;
     height: 200px;
     color: white;
-    background-color: var(--ap-sec-color);
+    background-color: var(--app-sec-color);
     /* display: inline-flex; */
     justify-content: center;
     align-items: center;

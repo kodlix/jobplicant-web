@@ -277,6 +277,7 @@ const InstantJob = {
     requests.get(`/instant-job/${jobId}/applicants`),
   loadAllInstantJobs: (page, take) =>
     requests.get("/instant-job/current", page, take),
+  loadAppliedJobsById: (page, limit, search, sort) => requests.get(`/instant-job/applications/me?page=${page}&limit=${limit}&search=${search}&sort=${sort}`),
   view: (id) => requests.get(`/instant-job/${id}`),
   edit: (id, instantJob) => requests.put(`/instant-job/${id}`, instantJob),
   delete: (id) => requests.del(`/instant-job/${id}`),

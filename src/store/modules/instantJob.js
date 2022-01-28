@@ -9,6 +9,7 @@ const Initial_State = {
     instantjobs: [],
     allCurrentInstantJobs: [],
     applicants: [],
+    appliedJobs: [],
     applicantProfile: null,
     loading: false
 };
@@ -21,6 +22,7 @@ const LOAD_INSTANT_JOB = 'app/instantJob/LOAD_INSTANT_JOB';
 const LOAD_ALL_INSTANT_JOBS = 'app/instantJob/LOAD_ALL_INSTANT_JOBS';
 const LOAD_INSTANT_APPLICANTS = 'app/instantJob/LOAD_INSTANT_APPLICANT';
 const LOAD_APPLICANT_INFO = 'app/instantJob/LOAD_APPLICANT_INFO';
+const LOAD_APPLIED_JOBS = 'LOAD_APPLIED_JOBS';
 const LOADING = "LOADING";
 
 
@@ -67,6 +69,11 @@ export default function reducer(state = Initial_State, action = {}) {
                 ...state,
                 applicantProfile: action.payload
             };
+        case LOAD_APPLIED_JOBS:
+            return {
+                ...state,
+                appliedJobs: action.payload,
+            }
         case LOADING:
             return {
                 ...state,
@@ -122,6 +129,14 @@ export function onLoadApplicantProfile(data) {
 export function isRequestLoading(data) {
     return {
         type: LOADING,
+        payload: data
+    }
+}
+
+//This is to get all the job a user has applied for.
+export function fetchAppliedJobs(data) {
+    return {
+        type: LOAD_APPLIED_JOBS,
         payload: data
     }
 }
@@ -303,6 +318,21 @@ export function review(id) {
             },
             error => {
                 dispatch(showMessage({ type: "error", message: error, title: "Failed to delete Instant job" }));
+            }
+        )
+    }
+}
+
+export function loadJobsApplied(page, limit, search, sort) {
+    return dispatch => {
+        return agent.InstantJob.loadAppliedJobsById(page, limit, search, sort).then(
+            response => {
+                //handle success
+                console.log(response, "response for the server")
+                dispatch(fetchAppliedJobs(response));
+            },
+            error => {
+                dispatch(showMessage({ type: "error", message: error, title: "Failed to load all applied jobs" }));
             }
         )
     }
