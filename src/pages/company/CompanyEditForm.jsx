@@ -18,6 +18,7 @@ const CompanyEditForm = () => {
   const uploading = useSelector((state) => state.account.loading);
   const id = useSelector((state) => state.account.profileInfo.id);
   const profileInfo = useSelector(state => state.account.profileInfo);
+  const successEditMode = useSelector(state => state.company.isEditMode) //Edit mode from redux...
 
   const dispatch = useDispatch();
   const countries = useSelector(state => state.location.countries);
@@ -27,6 +28,10 @@ const CompanyEditForm = () => {
     companyName: '',
     yearOfEstablishment: null,
   });
+
+  const [selectedCountryId, setSelectedCountryId] = useState(1);
+  const [selectedStateId, setSelectedStateId] = useState(1);
+  const [selectedLgaId, setSelectedLgaId] = useState(1);
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -52,6 +57,7 @@ const CompanyEditForm = () => {
     setCompanyInfo({ ...companyInfo, [name]: value });
     setValue(name, value, { shouldValidate: true });
   };
+  
   useEffect(() => {
     dispatch(loadCountry());
 
@@ -86,7 +92,8 @@ const CompanyEditForm = () => {
         website: profileInfo.website,
         address: profileInfo.address
       });
-
+      
+      
       setValue("companyName", profileInfo.companyName);
       setValue("yearOfEstablishment", profileInfo.yearOfEstablishment);
       setValue('phoneNumber', profileInfo.contactPhoneNumber);
@@ -113,29 +120,36 @@ const CompanyEditForm = () => {
 
   useEffect(() => {
     if (countries.length) {
-      const countryObj = countries.find(country => country.id === 1)
+      
+      const countryObj = countries.find(country => country.id === selectedCountryId)
       setCompanyInfo({
         ...companyInfo,
         country: countryObj,
       })
-      setValue("country", countryObj.name)
+      setValue("country", countryObj?.name)
     }
+
     if (states.length) {
-      const stateObj = states.find(state => state.id === 1)
+      const stateObj = states.find(state => state.id === selectedStateId)
       setCompanyInfo({
         ...companyInfo,
         state: stateObj,
       })
-      setValue("state", stateObj.name)
+      setValue("state", stateObj?.name)
+      setSelectedStateId(states.find(s => s.name == profileInfo.state)?.id)
+      // console.log('selected state id returnd', selectedStateId)
+     
     }
     if (lgas.length) {
-      const lgaObj = lgas.find(lga => lga.id === 1)
+      // setSelectedLgaId(lgas.find(l => l.name == profileInfo.lga)?.id)
+      // const lgaId = lgas.find(l => l.name == profileInfo.lga).id
+      const lgaObj = lgas.find(lga => lga.id === selectedLgaId)
 
       setCompanyInfo({
         ...companyInfo,
         lga: lgaObj,
       })
-      setValue("lga", lgaObj.name)
+      setValue("lga", lgaObj?.name)
     }
   }, [countries, states, lgas])
 
@@ -168,13 +182,20 @@ const CompanyEditForm = () => {
   }
 
   const handleCountryChange = (e) => {
-    let conuntryId = e.target.value.id;
-    dispatch(loadStates(conuntryId));
+    let countryId = e.target.value.id;
+    setSelectedCountryId(countryId);
+    dispatch(loadStates(countryId));
   }
 
   const handleStateChange = (e) => {
     let stateId = e.target.value.id;
+    setSelectedStateId(stateId)
     dispatch(loadLga(stateId));
+  }
+
+  const handleLgaChange = e => {
+    let lgaId = e.target.value.id;
+    setSelectedLgaId(lgaId);
   }
 
   const onSubmit = () => {
@@ -194,6 +215,7 @@ const CompanyEditForm = () => {
     // console.log(`id: ${id}, company info: `, obj)
     // console.log(obj)
     dispatch(updateCompanyInfo(obj))
+
   };
 
 
@@ -454,7 +476,7 @@ const CompanyEditForm = () => {
                     )}
                     onChange={(e) => {
                       handleChange(e);
-                      handleChange(e)
+                      handleLgaChange(e)
                     }}
                     className="form-control"
                   />}
