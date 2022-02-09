@@ -1,6 +1,7 @@
 import AccountTypesOptions from 'components/AccountTypeOptions/AccountTypesOptions';
 import { ACCOUNT_TYPE } from 'constants/accountType';
 import React from 'react';
+import { isArtisanApp } from 'services/agent.service';
 
 import './Register.css'
 
@@ -27,28 +28,32 @@ const VerificationStep = ({ goto, accountType, setAccountType }) => {
             <div className="p-fluid">
                 <div className="">
                     <div className="verificationStep">
-                        <AccountTypesOptions
-                            onClick={(e) => setSelectedAccountType(ACCOUNT_TYPE.INSTANT_HIRE, e)}
-                            image="/assets/images/accountTypes/thinkingman.png"
-                            body="To Request for Instant Artisan Services"
-                            customstyle='artisan'
-                        />
-                        <AccountTypesOptions
-                            onClick={(e) => setSelectedAccountType(ACCOUNT_TYPE.ARTISAN, e)}
-                            image="/assets/images/accountTypes/handworker.png"
-                            body="To Provide Service as an Artisan."
-                            customstyle="artisanService" />
-                        <AccountTypesOptions
-                            onClick={(e) => setSelectedAccountType(ACCOUNT_TYPE.CORPORATE, e)}
-                            image="/assets/images/accountTypes/recruiter.png"
-                            body="To Recruit Corporate Jobseekers."
-                            customstyle="company" />
-                        <AccountTypesOptions
-                            onClick={(e) => setSelectedAccountType(ACCOUNT_TYPE.JOB_SEEKER, e)}
-                            image="/assets/images/accountTypes/jobseekers.png"
-                            body="To Look for Corporate Job Opportunities"
-                            customstyle="job-seker" />
-
+                        {isArtisanApp &&
+                            <>
+                                <AccountTypesOptions
+                                    onClick={(e) => setSelectedAccountType(ACCOUNT_TYPE.INSTANT_HIRE, e)}
+                                    image="/assets/images/accountTypes/thinkingman.png"
+                                    body="To Request for Instant Artisan Services"
+                                    customstyle='artisan'
+                                />
+                                <AccountTypesOptions
+                                    onClick={(e) => setSelectedAccountType(ACCOUNT_TYPE.ARTISAN, e)}
+                                    image="/assets/images/accountTypes/handworker.png"
+                                    body="To Provide Service as an Artisan."
+                                    customstyle="artisanService" />
+                            </>}
+                        {!isArtisanApp && <>
+                            <AccountTypesOptions
+                                onClick={(e) => setSelectedAccountType(ACCOUNT_TYPE.CORPORATE, e)}
+                                image="/assets/images/accountTypes/recruiter.png"
+                                body="To Recruit Corporate Jobseekers."
+                                customstyle="company" />
+                            <AccountTypesOptions
+                                onClick={(e) => setSelectedAccountType(ACCOUNT_TYPE.JOB_SEEKER, e)}
+                                image="/assets/images/accountTypes/jobseekers.png"
+                                body="To Look for Corporate Job Opportunities"
+                                customstyle="job-seker" />
+                        </>}
                     </div>
                 </div>
             </div>

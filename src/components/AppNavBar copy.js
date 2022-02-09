@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import agentService from 'services/agent.service';
+import agentService, { isArtisanApp } from 'services/agent.service';
 import { loadProfileInfo } from './../store/modules/account';
 import { OnLogout } from '../store/modules/auth';
 
@@ -103,13 +103,12 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                                         </div>
                                     </Nav.Link>}
 
-                                <Nav.Link className="text-white" href="/howtostart">
+                                {!isArtisanApp && <Nav.Link className="text-white" href="/howtostart">
                                     <i className="pi pi-file itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
                                     <div className="itemTitle-appNavbar mx-2">
                                         CV Service
                                     </div>
-
-                                </Nav.Link>
+                                </Nav.Link>}
                                 <Nav.Link className="text-white" href="/contacts">
                                     <i className="pi pi-users itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
                                     <div className="itemTitle-appNavbar mx-2">
