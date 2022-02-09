@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { loadAccountByUser } from "store/modules/account";
 import { openModal } from "store/modules/modal";
 import Biography from "components/profile/Biography";
 import Experience from "components/profile/Experience";
@@ -12,13 +11,11 @@ import LocationOfInterest from "components/profile/LocationOfInterest";
 import ContactInformation from "components/profile/ContactInformation";
 import ModalForm from 'components/profile/ModalForm';
 import agentService from 'services/agent.service';
-import Spinner from 'components/spinner/spinner.component';
 import { loadCountry } from 'store/modules/location';
 import PersonalInfo from 'components/profile/PersonalInfo';
 import { useHistory, useLocation, useParams } from 'react-router';
 import { ACCOUNT_TYPE } from 'constants/accountType';
 import { loadApplicantReviews } from 'store/modules/review';
-import { formatter } from 'helpers/converter';
 import Portfolio from 'components/profile/Portfolio';
 import { Button } from 'primereact/button';
 import "./ApplicantProfile.css"

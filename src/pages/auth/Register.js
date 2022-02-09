@@ -16,7 +16,7 @@ const Register = () => {
             <div>
                 {/* {step == 1 && <AccountTypeStep goto={goto} setAccountType={setAccountType}/>} */}
                 {step === 1 && <VerificationStep goto={goto} accountType={accountType} setAccountType={setAccountType} />}
-                {step === 2 && <RegisterStep accountType={accountType} />}
+                {step === 2 && <RegisterStep accountType={accountType} goto={goto} />}
             </div>
         </>
     )

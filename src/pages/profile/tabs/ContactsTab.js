@@ -39,10 +39,10 @@ const ContactsTab = () => {
 
   return (
     <>
-      <div className="p-card p-4 mt-2">
+      <div className="p-card p-4 mt-1">
         <h3>Contacts</h3>
       </div>
-      <div className="mt-3">
+      <div className="mt-1">
         {myContacts && myContacts.length > 0 && myContacts.map((contactId, index) => {
           const contact = contacts.data[contactId];
           if (!contact) {

@@ -2,23 +2,25 @@ import AppNavBar from "components/AppNavBar";
 import CompanyTab from "components/company/CompanyTab";
 import PersonalInfo from "components/profile/PersonalInfo";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, useRouteMatch } from "react-router";
 import { loadProfileInfo } from "store/modules/account";
 import { loadCompanyInfo } from "store/modules/company";
 import CompanyEdit from "./CompanyEdit";
 import CompanyEditForm from "./CompanyEditForm";
 import CompanyJob from "./CompanyJob";
+import { loadCountry, loadLga, loadStates } from "store/modules/location";
 
-import './CompanyProfile.css';
+import "./CompanyProfile.css";
 
 const CompanyProfile = () => {
-  const match = useRouteMatch()
+  const match = useRouteMatch();
   const dispatch = useDispatch();
 
   useEffect(() => {
     //...
-    dispatch(loadProfileInfo())
+    dispatch(loadProfileInfo());
+
     // dispatch(loadCompanyInfo())
   }, []);
 
@@ -34,12 +36,16 @@ const CompanyProfile = () => {
             </div>
             <div className="content-body pt-1">
               {/* <CompanyEditForm /> */}
-              <Route path={`${match.path}/`} exact component={CompanyEditForm} />
-             <Route path={`${match.path}/info`} exact>
+              <Route
+                path={`${match.path}/`}
+                exact
+                component={CompanyEditForm}
+              />
+              <Route path={`${match.path}/info`} exact>
                 <CompanyEditForm />
               </Route>
-              
-               <Route path={`${match.path}/jobs`}>
+
+              <Route path={`${match.path}/jobs`}>
                 <CompanyJob />
               </Route>
             </div>
@@ -51,4 +57,4 @@ const CompanyProfile = () => {
   );
 };
 
-export default CompanyProfile
+export default CompanyProfile;

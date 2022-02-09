@@ -36,17 +36,17 @@ const LOAD_COMPANY_INFO_ERROR = "LOAD_COMPANY_INFO_ERROR";
 export default function reducer(state = INITIAL_STATE, action = {}) {
   switch (action.type) {
     case LOADING_COMPANY:
-      return { ...state, requestLoading: true };
+      return { ...state, requestLoading: true};
     case LOAD_COMPANY_INFO:
       return {
         ...state,
         companyInfo: action.payload,
-        requestLoading: false
+        requestLoading: false,
       };
     case LOAD_COMPANY_INFO_ERROR:
       return {
         ...state,
-        requestLoading: false
+        requestLoading: false,
       };
     default:
       return state;
@@ -71,6 +71,7 @@ export function updateCompanyInfo(data) {
     return agent.Account.updateCompanyInfo(data).then(
       (response) => {
         dispatch(companyInfoLoaded(response));
+        
         //   dispatch(closeModal());
         dispatch(
           showMessage({
@@ -79,6 +80,7 @@ export function updateCompanyInfo(data) {
             message: "Company info updated successfully",
           })
         );
+        window.location.href = window.location.pathname;
       },
       (error) => {
         // handle error

@@ -7,13 +7,12 @@ import { loadProfileInfo } from "store/modules/account";
 const ReviewTab = () => {
     const dispatch = useDispatch();
     const applicantReview = useSelector(state => state.account.profileInfo);
-    console.log("review", applicantReview);
 
     console.log("review-details", applicantReview)
 
     useEffect(() => {
         dispatch(loadProfileInfo());
-    }, [dispatch])
+    }, [])
 
     return (
         <>

@@ -6,8 +6,10 @@ const superagent = superagentPromise(_superagent, global.Promise);
 
 // export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api.herokuapp.com";
 // export const API_ROOT = "https://jobplicant-api.herokuapp.com";
-export const API_ROOT = "http://localhost:8080";
+// export const API_ROOT = "http://localhost:8080";
 export const isArtisanApp = process.env.REACT_APP_CURRENT_APP === "artisan";
+export const API_ROOT = "https://jobplicant-api.herokuapp.com";
+// export const API_ROOT = "http://localhost:8080";
 
 
 console.log('API_ROOT', API_ROOT);
@@ -278,6 +280,7 @@ const InstantJob = {
     requests.get(`/instant-job/${jobId}/applicants`),
   loadAllInstantJobs: (page, take) =>
     requests.get("/instant-job/current", page, take),
+  loadAppliedJobsById: (page, limit, search, sort) => requests.get(`/instant-job/applications/me?page=${page}&limit=${limit}&search=${search}&sort=${sort}`),
   view: (id) => requests.get(`/instant-job/${id}`),
   edit: (id, instantJob) => requests.put(`/instant-job/${id}`, instantJob),
   delete: (id) => requests.del(`/instant-job/${id}`),

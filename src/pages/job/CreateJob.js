@@ -73,13 +73,13 @@ const CreateJob = () => {
         type: "manual",
         message: 'Job description is required'
       })
-      const minSalary = parseInt(companyInfo.minSalary)
-      const maxSalary = parseInt(companyInfo.maxSalary)
+    const minSalary = parseInt(companyInfo.minSalary)
+    const maxSalary = parseInt(companyInfo.maxSalary)
 
-      if(minSalary > maxSalary) {
-        window.alert('Minimum salary is not expected to be greater than maximum salary, please check your input.')
-        return;
-      }
+    if (minSalary > maxSalary) {
+      window.alert('Minimum salary is not expected to be greater than maximum salary, please check your input.')
+      return;
+    }
     const dataToPost = {
       companyName: companyInfo.companyName,
       title: companyInfo.jobTitle,
@@ -99,7 +99,7 @@ const CreateJob = () => {
       minYearOfExperience: parseInt(companyInfo.minYearOfExperience),
 
     }
-    
+
     // console.log(dataToPost);
     return dispatch(createJob(dataToPost))
   };
@@ -381,7 +381,7 @@ const CreateJob = () => {
                                 inputLabel="Maximum Salary"
                                 register={register}
                                 inputChange={handleChange}
-                                className="form-control" 
+                                className="form-control"
                               />
                             </div>
                             <div className="p-field p-col-6 p-md-6">
