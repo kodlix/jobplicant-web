@@ -1,5 +1,6 @@
 import InputField from "components/InputField";
 import moment from "moment";
+import { useHistory } from "react-router-dom";
 import ModeFooter from "components/profile/ModeFooter";
 import { Button } from "primereact/button";
 import { Calendar } from "primereact/calendar";
@@ -14,6 +15,7 @@ import { loadCountry, loadLga, loadStates } from "store/modules/location";
 import JobplicantAvatar from "components/profile/jobplicant-avatar";
 
 const CompanyEditForm = ({ countryId, stateId, lgaId }) => {
+  const history = useHistory();
   const loading = useSelector((state) => state.company.requestLoading);
   const uploading = useSelector((state) => state.account.loading);
   const id = useSelector((state) => state.account.profileInfo.id);
@@ -70,7 +72,10 @@ const CompanyEditForm = ({ countryId, stateId, lgaId }) => {
         website: profileInfo.website,
         address: profileInfo.address,
       });
-
+      // console.log(
+      //   "profileInfo.yearOfEstablishment)",
+      //   profileInfo.yearOfEstablishment
+      // );
       setValue("companyName", profileInfo.companyName);
       setValue("yearOfEstablishment", profileInfo.yearOfEstablishment);
       setValue("phoneNumber", profileInfo.contactPhoneNumber);
@@ -94,7 +99,24 @@ const CompanyEditForm = ({ countryId, stateId, lgaId }) => {
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFile, uploading]);
 
+  const handleEditMode = () => {
+    setEditMode(!editMode);
+    if (editMode) {
+      history.push({
+        search: "mode=edit",
+      });
+      return;
+    }
+    history.replace({ search: "" });
+  };
+
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search); // id=123
+    let mode = params.get("mode"); // 123
+    if (mode === "edit") {
+      setEditMode(false);
+    }
+
     dispatch(loadCountry());
   }, []);
 
@@ -187,9 +209,9 @@ const CompanyEditForm = ({ countryId, stateId, lgaId }) => {
     //todo
   };
 
-  const onSubmit = () => {
+  const onSubmit = (data) => {
     const obj = {
-      ...companyInfo,
+      ...data,
       countryId: companyInfo.country.id,
       countryName: companyInfo.country.name,
       stateId: companyInfo.state.id,
@@ -197,12 +219,11 @@ const CompanyEditForm = ({ countryId, stateId, lgaId }) => {
       lga: companyInfo.lga,
       lgaId: companyInfo.lga.id,
       lgaName: companyInfo.lga.name,
-      noOfEmployees: parseInt(companyInfo.noOfEmployees),
-      contactPhoneNumber: companyInfo.phoneNumber,
-      city: companyInfo.city,
+      phonenumber: data.phoneNumber,
+      contactPhoneNumber: data.phoneNumber,
     };
-    // console.log(`id: ${id}, company info: `, obj)
-    // console.log(obj)
+    // // console.log(`id: ${id}, company info: `, obj)
+    // console.log(obj);
     dispatch(updateCompanyInfo(obj));
   };
 
@@ -217,13 +238,15 @@ const CompanyEditForm = ({ countryId, stateId, lgaId }) => {
                 {editMode && (
                   <i
                     className="pi pi-pencil"
-                    onClick={() => setEditMode(false)}
+                    // onClick={() => setEditMode(false)}
+                    onClick={handleEditMode}
                   ></i>
                 )}
                 {!editMode && (
                   <i
                     className="pi pi-times"
-                    onClick={() => setEditMode(true)}
+                    // onClick={() => setEditMode(true)}
+                    onClick={handleEditMode}
                   ></i>
                 )}
               </div>
@@ -241,11 +264,11 @@ const CompanyEditForm = ({ countryId, stateId, lgaId }) => {
                         )}
                       </label>
                       {editMode ? (
-                        <p className="pi-text">{companyInfo.companyName}</p>
+                        <p className="pi-text">{profileInfo.companyName}</p>
                       ) : (
                         <InputField
                           id="companyName"
-                          name="name"
+                          name="companyName"
                           inputLabel="Company Name"
                           register={register}
                           inputChange={handleChange}
@@ -273,7 +296,7 @@ const CompanyEditForm = ({ countryId, stateId, lgaId }) => {
                       /> */}
                       {editMode ? (
                         <p className="pi-text">
-                          {moment(companyInfo.yearOfEstablishment).format(
+                          {moment(profileInfo.yearOfEstablishment).format(
                             "yyyy"
                           )}
                         </p>
@@ -284,14 +307,15 @@ const CompanyEditForm = ({ countryId, stateId, lgaId }) => {
                           dateFormat="yy"
                           yearNavigator
                           yearRange="2010:2030"
-                          value={companyInfo.yearOfEstablishment}
+                          name="yearOfEstablishment"
+                          value={new Date(profileInfo.yearOfEstablishment)}
                           onSelect={(e) => {
                             const value = new Date(e.value).toISOString();
 
-                            setCompanyInfo({
-                              ...companyInfo,
-                              yearOfEstablishment: value,
-                            });
+                            // setCompanyInfo({
+                            //   ...companyInfo,
+                            //   yearOfEstablishment: value,
+                            // });
                             setValue("yearOfEstablishment", value, {
                               shouldValidate: true,
                             });
@@ -316,7 +340,9 @@ const CompanyEditForm = ({ countryId, stateId, lgaId }) => {
                         )}
                       </label>
                       {editMode ? (
-                        <p className="pi-text">{companyInfo.phoneNumber}</p>
+                        <p className="pi-text">
+                          {profileInfo.contactPhoneNumber}
+                        </p>
                       ) : (
                         <InputField
                           id="phoneNumber"
@@ -339,7 +365,7 @@ const CompanyEditForm = ({ countryId, stateId, lgaId }) => {
                         )}
                       </label>
                       {editMode ? (
-                        <p className="pi-text">{companyInfo.website}</p>
+                        <p className="pi-text">{profileInfo.website}</p>
                       ) : (
                         <InputField
                           id="website"
@@ -564,7 +590,7 @@ const CompanyEditForm = ({ countryId, stateId, lgaId }) => {
                         handleChange(e);
                       }}
                       className="form-control"
-                      defaultValue={companyInfo.address}
+                      defaultValue={profileInfo.address}
                     ></textarea>
                   )}
                 </div>
