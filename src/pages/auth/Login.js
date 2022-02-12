@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Toast } from 'primereact/toast';
 import { Password } from 'primereact/password';
+import { currentApp } from 'services/agent.service';
 
 import './Login.css'
 
@@ -35,6 +36,7 @@ const Login = ({ props }) => {
 
         user.type = 'artisan'; // Not required but needed to login successfully
         console.log(user)
+        user.app = currentApp;
         dispatch(loginUser(user));
     }
 

@@ -7,9 +7,11 @@ const superagent = superagentPromise(_superagent, global.Promise);
 // export const API_ROOT = process.env.NODE_ENV === "development" ? 'http://localhost:8080' : "https://jobplicant-api.herokuapp.com";
 // export const API_ROOT = "https://jobplicant-api.herokuapp.com";
 // export const API_ROOT = "http://localhost:8080";
+export const currentApp = process.env.REACT_APP_CURRENT_APP;
 export const isArtisanApp = process.env.REACT_APP_CURRENT_APP === "artisan";
-export const API_ROOT = "https://jobplicant-api.herokuapp.com";
-// export const API_ROOT = "http://localhost:8080";
+
+// export const API_ROOT = "https://jobplicant-api.herokuapp.com";
+export const API_ROOT = "http://localhost:8080";
 
 
 console.log('API_ROOT', API_ROOT);
@@ -106,8 +108,8 @@ const Auth = {
     const user = Auth.current();
     return user?.role === ('Super-admin' || "Developer");
   },
-  login: (email, password, type) =>
-    requests.post("/auth/signIn", { email, password, type }),
+  login: (email, password, type, app) =>
+    requests.post("/auth/signIn", { email, password, type, app }),
   register: (data) => requests.post("/auth/signUp", data),
   checkValidEmail: (email) =>
     requests.post(`/account/email/is-valid`, { email }),
