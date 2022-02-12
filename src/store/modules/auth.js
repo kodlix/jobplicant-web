@@ -112,10 +112,10 @@ export function verifyAccount(code) {
   }
 }
 
-export function loginUser({ email, password, type }) {
+export function loginUser({ email, password, type, app }) {
   return dispatch => {
     dispatch(isRequestLoading(true))
-    return agent.Auth.login(email, password, type).then(
+    return agent.Auth.login(email, password, type, app).then(
       response => {
         // handle success
         dispatch(showMessage({ type: MESSAGE_TYPE.SUCCESS, message: "welcome, login successful", title: "Login Success" }));
