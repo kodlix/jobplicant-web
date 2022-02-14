@@ -48,13 +48,13 @@ const SecurityVerification = () => {
                                             <div className="panel-signup ">
                                                 <section>
                                                     <div className="authfy-heading message">
-                                                        <h4 className="">Enter the code  that was sent to your email
+                                                        <h4 className="">Enter the code that was sent to your email
                                                         </h4>
                                                     </div>
                                                     <div className="p-field message p-text-secondary">
                                                         <div className="p-mt-4">
                                                             <p>To finish your registration, please enter the verification code we sent to
-                                                                 &nbsp;<strong>{email || phonenumber}</strong>. It might take a few seconds to receive your code.</p>
+                                                                &nbsp;<strong>{email || phonenumber}</strong>. It might take a few seconds to receive your code.</p>
                                                         </div>
                                                     </div>
                                                 </section>
@@ -72,7 +72,7 @@ const SecurityVerification = () => {
                                                             </label>
                                                         </div>
                                                         <div className="font-weight-bold">
-                                                            <Link to="/">
+                                                            <Link to="">
                                                                 <span className="app-color">Resend Code</span>
                                                             </Link>
                                                         </div>
