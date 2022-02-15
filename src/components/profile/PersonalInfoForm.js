@@ -12,7 +12,6 @@ import { loadCountry, loadLga, loadStates } from "store/modules/location";
 import { ACCOUNT_TYPE } from 'constants/accountType';
 import agentService from 'services/agent.service';
 
-
 const corporateProfessions = [
   { name: 'Software Developer', code: 'SD' },
   { name: 'Doctor', code: 'DR' },
@@ -30,21 +29,9 @@ const artisanProfessions = [
   { name: 'Cobbler', code: 'CL' }
 ];
 
-
-
-
 const PersonalInfoForm = ({ data, closeEditMode }) => {
 
   const accountType = agentService.Auth.current()?.accountType;
-
-  const professions = [
-    { name: 'Software Developer', code: 'SD' },
-    { name: 'Doctor', code: 'DR' },
-    { name: 'Lawyer', code: 'LY' },
-    { name: 'Structural Engineer', code: 'SE' },
-    { name: 'Mechanical Engineer', code: 'ME' },
-    { name: 'None', code: 'NE' }
-  ];
 
   const [selectedProf, setSelectedProf] = useState(null);
 
@@ -357,16 +344,17 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
                   className="form-control"
                 />
               </div>
-              <div className="p-field p-col-12 p-md-6">
-                <label className="inputLabel" htmlFor="profession">
-                  Professsion *
-                  {errors.profession && (
-                    <span className="text-danger font-weight-bold">
-                      &nbsp; {errors.profession.message}
-                    </span>
-                  )}
-                </label>
-                {accountType === ACCOUNT_TYPE.ARTISAN ?
+              {accountType === ACCOUNT_TYPE.ARTISAN ?
+                <div className="p-field p-col-12 p-md-6">
+                  <label className="inputLabel" htmlFor="profession">
+                    Professsion *
+                    {errors.profession && (
+                      <span className="text-danger font-weight-bold">
+                        &nbsp; {errors.profession.message}
+                      </span>
+                    )}
+                  </label>
+
                   <div className="p-field">
                     <Dropdown
                       value={selectedProf}
@@ -377,13 +365,20 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
                       {...register("profession", { required: "Please select your Profession" })}
                       id="profession"
                       name="profession"
-                      onChange={handleChange}
+                      onChange={handleProfChange}
                     />
-                    <label htmlFor="profession" className="">
-                      {errors.profession && <span className="text-danger font-weight-bold "> <p>{errors.profession.message}</p>
-                      </span>}
+
+                  </div>
+                </div> : accountType === ACCOUNT_TYPE.JOB_SEEKER ?
+                  <div className="p-field p-col-12 p-md-6">
+                    <label className="inputLabel" htmlFor="profession">
+                      Professsion *
+                      {errors.profession && (
+                        <span className="text-danger font-weight-bold">
+                          &nbsp; {errors.profession.message}
+                        </span>
+                      )}
                     </label>
-                  </div> : accountType === ACCOUNT_TYPE.JOB_SEEKER ? <div className="p-field">
                     <Dropdown
                       value={selectedProf}
                       options={corporateProfessions}
@@ -393,33 +388,10 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
                       {...register("profession", { required: "Please select your Profession" })}
                       id="profession"
                       name="profession"
-                      onChange={handleChange}
+                      onChange={handleProfChange}
                     />
                   </div> : ""
-                }
-              </div>
 
-              {accountType === ACCOUNT_TYPE.ARTISAN | accountType === ACCOUNT_TYPE.JOB_SEEKER &&
-                <div className="p-field p-col-12 p-md-6">
-                  <label htmlFor="profession" className="inputLabel"> Profession
-                    {errors.profession && <span className="text-danger font-weight-bold "> <p>{errors.profession.message}</p>
-                    </span>}
-                  </label>
-                  <Dropdown
-                    value={selectedProf}
-                    options={professions}
-                    optionLabel="name"
-                    editable
-                    placeholder='Profession'
-                    {...register("profession", { required: "Please select your Profession" })}
-                    id="profession"
-                    name="profession"
-                    onChange={handleProfChange}
-                  // onChange={(e) => handleChange(e, "profession")}
-
-                  />
-
-                </div>
               }
               <div className="p-field p-col-12 p-md-6">
                 <label className="inputLabel" htmlFor="state">
