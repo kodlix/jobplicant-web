@@ -13,6 +13,23 @@ import { ACCOUNT_TYPE } from 'constants/accountType';
 import agentService from 'services/agent.service';
 
 
+const corporateProfessions = [
+  { name: 'Software Developer', code: 'SD' },
+  { name: 'Doctor', code: 'DR' },
+  { name: 'Lawyer', code: 'LY' },
+  { name: 'Structural Engineer', code: 'SE' },
+  { name: 'Mechanical Engineer', code: 'ME' }
+];
+
+const artisanProfessions = [
+  { name: 'Tailor', code: 'TR' },
+  { name: 'Plumbing', code: 'DR' },
+  { name: 'Electrican', code: 'EL' },
+  { name: 'Mechanic', code: 'ME' },
+  { name: 'Dry-Cleaner', code: 'DC' },
+  { name: 'Cobbler', code: 'CL' }
+];
+
 
 
 
@@ -339,6 +356,47 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
                   }}
                   className="form-control"
                 />
+              </div>
+              <div className="p-field p-col-12 p-md-6">
+                <label className="inputLabel" htmlFor="profession">
+                  Professsion *
+                  {errors.profession && (
+                    <span className="text-danger font-weight-bold">
+                      &nbsp; {errors.profession.message}
+                    </span>
+                  )}
+                </label>
+                {accountType === ACCOUNT_TYPE.ARTISAN ?
+                  <div className="p-field">
+                    <Dropdown
+                      value={selectedProf}
+                      options={artisanProfessions}
+                      optionLabel="name"
+                      editable
+                      placeholder='Profession'
+                      {...register("profession", { required: "Please select your Profession" })}
+                      id="profession"
+                      name="profession"
+                      onChange={handleChange}
+                    />
+                    <label htmlFor="profession" className="">
+                      {errors.profession && <span className="text-danger font-weight-bold "> <p>{errors.profession.message}</p>
+                      </span>}
+                    </label>
+                  </div> : accountType === ACCOUNT_TYPE.JOB_SEEKER ? <div className="p-field">
+                    <Dropdown
+                      value={selectedProf}
+                      options={corporateProfessions}
+                      optionLabel="name"
+                      editable
+                      placeholder='Profession'
+                      {...register("profession", { required: "Please select your Profession" })}
+                      id="profession"
+                      name="profession"
+                      onChange={handleChange}
+                    />
+                  </div> : ""
+                }
               </div>
 
               {accountType === ACCOUNT_TYPE.ARTISAN | accountType === ACCOUNT_TYPE.JOB_SEEKER &&

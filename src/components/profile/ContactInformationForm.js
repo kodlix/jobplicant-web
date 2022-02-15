@@ -69,7 +69,11 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
     setValue(name, value)
   }
 
-  const contactInfoSubmit = (data) => dispatch(updateContactInfo(contactInfo));
+  const contactInfoSubmit = (data) => {
+    data.postalCode = null;
+    dispatch(updateContactInfo(contactInfo));
+    console.log(data, "data containing postal code")
+  }
 
   const { phoneNumber, email, country, city, postalCode, address } = contactInfo;
   return (

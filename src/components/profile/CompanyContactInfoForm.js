@@ -97,6 +97,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
     data.lga = "Ifako";
     data.country = data.country.name;
     data.state = data.state.name
+    data.postalCode = null;
     console.log(data);
     dispatch(updateCompanyContactInfo(data));
     return;
@@ -177,7 +178,7 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
                 <label htmlFor="postalCode" className="inputLabel p-pr-3">Postal Code *
                   {errors.postalCode && <span className="text-danger font-weight-bold">&nbsp; {errors.postalCode.message}</span>}
                 </label>
-                <InputText id="postalCode" type="text" placeholder="Postal Code"
+                <InputText id="postalCode" type="text" placeholder="Postal Code" name="postalCode"
                   {...register("postalCode",
                     {
                       required: ` Postal Code is required`
