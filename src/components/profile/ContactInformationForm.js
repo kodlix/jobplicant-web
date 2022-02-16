@@ -69,10 +69,9 @@ const ContactInfoForm = ({ closeEditMode, data }) => {
     setValue(name, value)
   }
 
-  const contactInfoSubmit = (data) => {
-    data.postalCode = null;
+  const contactInfoSubmit = () => {
+    contactInfo.postalCode = 1234; // Postal code not needed but is still required from the back end.
     dispatch(updateContactInfo(contactInfo));
-    console.log(data, "data containing postal code")
   }
 
   const { phoneNumber, email, country, city, postalCode, address } = contactInfo;
