@@ -85,10 +85,10 @@ const DataTableComponent = () => {
   const renderHeader = () => {
     return (
       <div className="table-header d-flex justify-content-between cardtitle">
-        Personnel Management
+        Artisans
         <span>
           Search
-        <span className="p-input-icon-left p-ml-2">
+          <span className="p-input-icon-left p-ml-2">
             {/* <i className="pi pi-search" /> */}
             <InputText type="search"
               onInput={(e) => setGlobalFilter(e.target.value)}
@@ -111,8 +111,8 @@ const DataTableComponent = () => {
   const actionBodyTemplate = (rowData) => {
     return (
       <>
-        <i className="pi pi-ellipsis-v p-pr-3 actionColumn-ellipsis" onClick={(event) => menu.current.toggle(event)}></i>
-        <SlideMenu ref={menu} model={actionDropdown} popup viewportHeight={190} ></SlideMenu>
+        {/* <i className="pi pi-ellipsis-v p-pr-3 actionColumn-ellipsis" onClick={(event) => menu.current.toggle(event)}></i> */}
+        {/* <SlideMenu ref={menu} model={actionDropdown} popup viewportHeight={190} ></SlideMenu> */}
         <i className="pi pi-trash actionColumn-trash" id={rowData.name} onClick={(e) => console.log(e.target.id)}></i>
       </>
     )
