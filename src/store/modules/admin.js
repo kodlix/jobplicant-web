@@ -445,7 +445,7 @@ export const updateQualification = (data, id) => dispatch => {
 }
 
 export const deleteQualification = (id) => dispatch => {
-  return agent.Skill.delete(id).then(c => (response) => {
+  return agent.Qualification.delete(id).then(c => (response) => {
     dispatch(actionDeleteQualification(response));
     dispatch(
       showMessage({
