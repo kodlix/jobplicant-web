@@ -3,6 +3,8 @@ import LineChart from './LineChart';
 import BarChart from './BarChart';
 import ProgressTrackerBar from './ProgressTrackerBar';
 import DataTableComponent from './DataTableComponent';
+import { Link } from 'react-router-dom';
+import './Dashboard.css'
 
 const EmployeeDashboard = () => {
   return (
@@ -11,23 +13,34 @@ const EmployeeDashboard = () => {
       <h6 className="p-mb-4">Account activity on Jobplicant so far</h6>
       <div className="p-grid p-mx-lg-0 grid-margin p-py-1">
         <div className="p-col-12 p-lg-4 p-p-lg-1">
-          <div className="p-card h-100 p-mt-2 text-center">
+          <div className="p-card h-100 p-mt-2 text-center p-rounded-lg">
             <div className="p-card-title p-px-3 p-pt-4">Welcome Jane Doe!</div>
             <div className="p-card-body svgimage p-pt-0">
             </div>
           </div>
         </div>
         <div className="p-col-12 p-lg-4 p-p-lg-1 p-py-0">
-          <div className="p-card h-100 p-mt-2">
+          <div className="p-card h-100 p-mt-2 p-rounded-lg">
             <div className="p-card-title cardtitle">Recent Activity</div>
-            <div className="p-card-body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-              quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
-              </div>
+            <div className="p-card-body p-card-body-Activity p-px-3">
+              <span>Someone checked your profile</span>
+            </div>
+            <div className="p-card-body p-card-body-Activity p-px-3">
+              <span>User 1223 re your profile</span>
+            </div>
+            <div className="p-card-body p-card-body-Activity p-px-3">
+              <span>Someone checked your profile</span>
+            </div>
+            <div className="p-card-body p-card-body-Activity p-px-3">
+              <span>Someone checked your profile</span>
+            </div>
+            <div className="p-card-body p-card-body-Activity p-px-3">
+              <span>Someone checked your profile</span>
+            </div>
           </div>
         </div>
         <div className="p-col-12 p-lg-4 p-p-lg-1">
-          <div className="p-card h-100 p-mt-2">
+          <div className="p-card h-100 p-mt-2 p-rounded-lg">
             <div className="p-card-title cardtitle">Progress Tracker</div>
             <div className="p-card-body p-pt-0">
               <div className="progressBar-title">
@@ -79,7 +92,7 @@ const EmployeeDashboard = () => {
           </div>
         </div>
       </div>
-      <div className="p-grid p-mx-0">
+      {/* <div className="p-grid p-mx-0">
         <div className="p-col-12 p-pb-md-0 p-lg-3 p-md-6 p-px-1 p-py-0 p-py-lg-2">
           <div className="p-card p-mt-2">
             <div className="p-card-title cardtitle p-px-3 p-pt-3 d-flex justify-content-between">
@@ -148,7 +161,7 @@ const EmployeeDashboard = () => {
               Earning Breakdown
             </div>
             <div className="p-card-body p-p-0">
-              {/* <LineChart /> */}
+              <LineChart />
             </div>
           </div>
         </div>
@@ -158,23 +171,23 @@ const EmployeeDashboard = () => {
               Monthly Revenue
             </div>
             <div className="p-card-body p-p-0">
-              {/* <BarChart /> */}
+              <BarChart />
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       {/* <div className="">
         <div className="p-card p-mt-2">
           <div className="p-card-title cardtitle"> */}
       {/* Personnel Management */}
       {/* </div> */}
-      <div className="p-grid p-mx-0 p-px-1 datatable-container">
-        <div className="p-col-12 p-card p-px-0 p-py-0 p-mt-2 datatable-content">
-          <DataTableComponent />
-          {/* </div>
+      {/* <div className="p-grid p-mx-0 p-px-1 datatable-container">
+        <div className="p-col-12 p-card p-px-0 p-py-0 p-mt-2 datatable-content"> */}
+      {/* <DataTableComponent /> */}
+      {/* </div>
         </div> */}
-        </div>
-      </div>
+      {/* </div>
+      </div> */}
     </div>
 
   );

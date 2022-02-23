@@ -122,5 +122,22 @@
 
 }
 
+.cardbody-Activity {
+  font-size: 0.8rem !important;
+}
 
+.p-card-body-Activity {
+  color: rgba(0, 0, 0, 0.616);
+  padding-top: 0.7rem !important;
+  padding-bottom: 0.7rem !important;
+  border-bottom: 0.1px solid rgba(211, 206, 206, 0.267);
+  width: 100%;
+}
 
+a.p-card-body-Activity {
+  color: rgba(0, 0, 0, 0.829);
+}
+
+.p-card-body-Activity:hover {
+  background-color: #eee !important;
+}
