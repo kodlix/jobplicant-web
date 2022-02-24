@@ -84,7 +84,7 @@ const ListJob = () => {
                         <InputText style={styles.inputStyle} placeholder="Location" />
                     </div>
                     <div className="list-job-search-box" style={styles.box}>
-                        <Dropdown style={styles.inputStyle} placeholder="Category" />
+                        <Dropdown style={styles.inputStyle} placeholder="Industry" />
                     </div>
                     <div className="list-job-search-box" style={styles.boxButton}>
                         <button style={styles.btnFind}>Find Jobs</button>
