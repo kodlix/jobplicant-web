@@ -63,6 +63,7 @@ const Artisan = React.lazy(() => import('../pages/artisans/List'));
 
 const ListJob = React.lazy(() => import('../pages/job/ListJob'));
 const ListJobDetail = React.lazy(() => import('pages/job/ListJobDetail'));
+const Accounts = React.lazy(() => import('pages//admin/dashboard/Accounts'));
 
 
 
@@ -139,6 +140,7 @@ const AppRouter = () => {
         <ProtectedAdminRoute path={`/admin-skills`} component={AdminSkill} />
         <ProtectedAdminRoute path="/admin-contractType" component={AdminContractType} />
         <ProtectedAdminRoute path="/admin-services" component={AdminServicesAndServiceGroups} />
+        <ProtectedAdminRoute path="/accounts" component={Accounts} />
         <Redirect to="/login" />
       </Switch>
       {/* {isModal

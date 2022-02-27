@@ -64,6 +64,10 @@ const DataTableComponent = () => {
 
           ]
         },
+        // {
+        //   label: 'Edit',
+        //   icon: 'pi pi-fw pi-pencil'
+        // },
         {
           label: 'Delete',
           icon: 'pi pi-fw pi-trash'
@@ -113,6 +117,7 @@ const DataTableComponent = () => {
       <>
         {/* <i className="pi pi-ellipsis-v p-pr-3 actionColumn-ellipsis" onClick={(event) => menu.current.toggle(event)}></i> */}
         {/* <SlideMenu ref={menu} model={actionDropdown} popup viewportHeight={190} ></SlideMenu> */}
+        {/* <i className="pi pi-pencil actionColumn-pencil" id={rowData.name} onClick={(e) => console.log(e.target.id)}></i> */}
         <i className="pi pi-trash actionColumn-trash" id={rowData.name} onClick={(e) => console.log(e.target.id)}></i>
       </>
     )
