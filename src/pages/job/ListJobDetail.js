@@ -2,7 +2,7 @@ import Spinner from "components/spinner/spinner.component";
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, useParams } from "react-router-dom";
-import { apply, applyJob, viewJob } from "store/modules/job";
+import { apply, applyJob, applyWithCV, viewJob } from "store/modules/job";
 import BackgroundImage from "../../assets/bg.png";
 import parser from "html-react-parser";
 import { SplitButton } from "primereact/splitbutton";
@@ -11,6 +11,7 @@ import JobCvModal from "./JobCvModal";
 
 const ListJobDetail = () => {
   const [showModal, setShowModal] = React.useState(false);
+  const [file, setFile] = React.useState(null);
   const dispatch = useDispatch();
   const history = useHistory();
   const param = useParams();
@@ -85,11 +86,24 @@ const ListJobDetail = () => {
   ];
 
   const handleFileChanged = (e) => {
-    console.log("file changed", e.target.files);
+    // console.log("file changed", e.target.files[0]);
+    const selectedFile = e.target.files[0];
+    if (selectedFile === null) return;
+
+    setFile(e.target.files[0]);
   };
 
-  const handleApplyForJob = (id) =>
-    dispatch(apply(id, { jobId: jobDetail.id }));
+  const handleApplyForJob = (id) => {
+    if (file !== null) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      dispatch(applyWithCV(id, formData));
+      return;
+    }
+    // dispatch(apply(id, { jobId: jobDetail.id }));
+  };
+
   if (jobDetail === null) return <Spinner />;
 
   return (
@@ -192,11 +206,48 @@ const ListJobDetail = () => {
                                 </ul>
                             </div>
                         </div> */}
+            {file !== null && (
+              <div
+                style={{
+                  border: "1px dashed #aaa",
+                  borderRadius: "0px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  padding: "8px",
+                  marginTop: "8px",
+                  marginBottom: "8px",
+                }}
+              >
+                <div>
+                  <p>{file.name}</p>
+                  <p>{file.size}</p>
+                </div>
+                <div className="p-as-center" style={{ width: "40%" }}>
+                  <div className="p-d-flex justify-content-end">
+                    <button
+                      className="btn btn-sm btn-primary"
+                      onClick={handleApplyForJob}
+                    >
+                      Apply with CV
+                    </button>
+                  </div>
+                  <div className="mt-2 text-center p-d-flex justify-content-end">
+                    {" "}
+                    <i
+                      class="pi pi-times"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => setFile(null)}
+                    ></i>
+                  </div>
+                </div>
+              </div>
+            )}
             <input
               type="file"
               style={{ display: "none" }}
               ref={fileUploadRef}
               onChange={handleFileChanged}
+              accept="pdf, docx"
             />
             <SplitButton
               ref={splitButtonRef}
