@@ -11,7 +11,7 @@ export default ({ showNotification }) => {
 
   const [userNoti, setUserNoti] = useState([]);
   let history = useHistory();
-
+  ``
   const handleSeen = (noti) => {
     dispatch(updateNotification(noti.id));
     history.push(`/${noti.notificationType}/${noti.id}`)
