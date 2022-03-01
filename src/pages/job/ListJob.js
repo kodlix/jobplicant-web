@@ -100,8 +100,8 @@ const ListJob = () => {
 
             {/* {jobs && <p>{JSON.stringify(jobs)}</p>} */}
 
-            <div className="container mt-5">
-                <div className="p-grid">
+            <div className="container mt-5 rounded-3">
+                <div className="p-grid rounded-3 ">
                     <FilterPanel />
                     <div className="p-col-12 p-md-6">
                         {loading ?
