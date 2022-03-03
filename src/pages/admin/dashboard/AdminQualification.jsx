@@ -26,12 +26,12 @@ const AdminQualification = () => {
         formState: { errors },
     } = useForm({ mode: "onChange", reValidateMode: "onChange" });
 
-    // useEffect(() => {
-    //     dispatch(getQualifications());
-    // }, [])
+    useEffect(() => {
+        dispatch(getQualifications());
+    }, [])
 
     useEffect(() => {
-        dispatch(getQualifications())
+        // dispatch(getQualifications())
         if (message === 'created') {
             setQualifications({ name: '', description: '' })
         }
