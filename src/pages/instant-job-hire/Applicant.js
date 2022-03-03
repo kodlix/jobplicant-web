@@ -193,7 +193,7 @@ const Applicant = (props) => {
 
                                         <div className="col-md-4 col-sm-12 highlight-card p-pb-3" >
                                             <div key={applicant.applicantId} className="card">
-                                                <img src="https://source.unsplash.com/random/100x100" height="150px" className="card-img-top" alt="..." />
+                                                <img src={applicant.imageUrl} height="150px" className="card-img-top" alt="..." />
                                                 <div className="card-body">
                                                     <div className="applicant-actionIcons float-right">
                                                         <i className="pi pi-video p-pr-2" data-toggle="tooltip" data-placement="top" title="Video Call" />
