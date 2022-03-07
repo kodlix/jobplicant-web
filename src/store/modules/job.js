@@ -10,6 +10,7 @@ const initialState = {
   jobs: [],
   jobDetail: null,
   applicants: [],
+  appliedJobs: [], //current logged in user applied jobs
   jobApplicationResponse: null,
   jobApplicationRequest: false,
   uploadCvRequest: false,
@@ -30,6 +31,7 @@ const APPLY_JOB_WITH_CV = "APPLY_JOB_WITH_CV";
 const LOADING_APPLICANTS = "LOADING_APPLICANTS";
 const GET_JOB_APPLICANTS = "GET_JOB_APPLICANTS";
 const LOAD_JOBS_ERROR = "LOAD_JOBS_ERROR";
+const ALL_APPLIED_JOBS = "ALL_APPLIED_JOBS";
 
 // Reducer
 export default function reducer(state = initialState, action = {}) {
@@ -109,6 +111,11 @@ export default function reducer(state = initialState, action = {}) {
         loadingApplicants: false,
         applicants: action.payload,
       };
+    case ALL_APPLIED_JOBS:
+      return {
+        ...state,
+        appliedJobs: action.payload,
+      };
     case LOAD_JOBS_ERROR:
       return {
         ...state,
@@ -123,6 +130,10 @@ export default function reducer(state = initialState, action = {}) {
 // Action Creators
 export const allJobsLoaded = (data) => ({
   type: LOAD_ALL_JOBS,
+  payload: data,
+});
+export const allAppliedJobResponse = (data) => ({
+  type: ALL_APPLIED_JOBS,
   payload: data,
 });
 export function jobsLoaded(data) {
@@ -184,6 +195,24 @@ export const loadJobs = () => (dispatch) => {
     dispatch(jobsLoaded(response));
   });
 };
+export const loadAppliedJobs = () => (dispatch) => {
+  return agent.Job.loadAppliedJobs().then(
+    (response) => {
+      console.log("response test jobs", response.data);
+      dispatch(allAppliedJobResponse(response.data));
+    },
+    (error) => {
+      dispatch(showMessage({ type: "error", message: error }));
+    }
+  );
+};
+// export const loadJobs = () => (dispatch) => {
+//   dispatch(loading(true));
+//   return agent.Job.load().then((response) => {
+//     dispatch(loading(false));
+//     dispatch(jobsLoaded(response));
+//   });
+// };
 
 export function viewJob(jobId) {
   return (dispatch) => {
@@ -284,7 +313,7 @@ export function applyWithCV(jobId, data) {
           })
         );
         //apply for the job with cv url
-        dispatch(apply(jobId, response.url));
+        // dispatch(apply(jobId, response.url));
       },
       (error) => {
         // handle error
@@ -311,7 +340,7 @@ export function viewApplicant(jobId) {
   };
 }
 
-export function acceptApplicant(applicationId, data) {
+export function acceptCorporateApplicant(applicationId, data) {
   return (dispatch) => {
     return agent.Job.acceptApplication(applicationId, data).then(
       (response) => {
@@ -320,6 +349,42 @@ export function acceptApplicant(applicationId, data) {
             type: MESSAGE_TYPE.SUCCESS,
             title: "Applicant status",
             message: "Applicant accepted!",
+          })
+        );
+      },
+      (error) => {
+        dispatch(showMessage({ type: "error", message: error }));
+      }
+    );
+  };
+}
+export function rejectCorporateApplicant(applicationId, data) {
+  return (dispatch) => {
+    return agent.Job.rejectApplication(applicationId, data).then(
+      (response) => {
+        dispatch(
+          showMessage({
+            type: MESSAGE_TYPE.SUCCESS,
+            title: "Applicant status",
+            message: "Applicant rejected!",
+          })
+        );
+      },
+      (error) => {
+        dispatch(showMessage({ type: "error", message: error }));
+      }
+    );
+  };
+}
+export function suspendApplicant(applicationId, data) {
+  return (dispatch) => {
+    return agent.Job.suspendApplication(applicationId, data).then(
+      (response) => {
+        dispatch(
+          showMessage({
+            type: MESSAGE_TYPE.SUCCESS,
+            title: "Applicant status",
+            message: "Applicant suspended!",
           })
         );
       },

@@ -2,7 +2,13 @@ import Spinner from "components/spinner/spinner.component";
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, useParams } from "react-router-dom";
-import { apply, applyJob, applyWithCV, viewJob } from "store/modules/job";
+import {
+  apply,
+  applyJob,
+  applyWithCV,
+  loadAppliedJobs,
+  viewJob,
+} from "store/modules/job";
 import BackgroundImage from "../../assets/bg.png";
 import parser from "html-react-parser";
 import { SplitButton } from "primereact/splitbutton";
@@ -25,15 +31,20 @@ const ListJobDetail = () => {
   const jobApplicationResponse = useSelector(
     (state) => state.job.jobApplicationResponse
   );
+  const uploadCvRequest = useSelector((state) => state.job.uploadCvRequest);
   const loading = useSelector((state) => state.job.loading);
-
-  useEffect(() => {
-    dispatch(viewJob(param.jobListId));
-  }, []);
+  const appliedJobs = useSelector((state) => state.job.appliedJobs);
 
   const cvData = useSelector((state) => state.cv.data);
   const profileInfo = useSelector((state) => state.account.profileInfo);
   const onHide = () => setShowModal(false);
+
+  useEffect(() => {
+    console.log("confirm job detail id", param.jobListId);
+    dispatch(viewJob(param.jobListId));
+
+    dispatch(loadAppliedJobs());
+  }, []);
 
   React.useEffect(() => {
     if (profileInfo) {
@@ -47,6 +58,11 @@ const ListJobDetail = () => {
       console.log("cv data", cvData);
     }
   }, [cvData]);
+
+  const isAppliedForJob = (jobId) => {
+    const result = appliedJobs.filter((job) => job.jobId === jobId);
+    return result.length > 0;
+  };
 
   const formatValue = (value) =>
     new Intl.NumberFormat("en-US", {}).format(value);
@@ -98,7 +114,7 @@ const ListJobDetail = () => {
       const formData = new FormData();
       formData.append("file", file);
 
-      dispatch(applyWithCV(id, formData));
+      // dispatch(applyWithCV(id, formData));
       return;
     }
     // dispatch(apply(id, { jobId: jobDetail.id }));
@@ -128,9 +144,9 @@ const ListJobDetail = () => {
               />
             </div>
             <div className="company-caption" style={styles.topBarTextContainer}>
-              <h4 style={styles.topBarHeaderTextStyle}>{jobDetail.title}</h4>
+              <h4 style={styles.topBarHeaderTextStyle}>{jobDetail?.title}</h4>
               <p style={styles.topBarSubHeaderTextStyle}>
-                {jobDetail.companyName}
+                {jobDetail?.companyName}
               </p>
             </div>
           </div>
@@ -158,7 +174,7 @@ const ListJobDetail = () => {
               <p className="mt-3">
                 {jobDetail.description === null
                   ? ""
-                  : parser(jobDetail.description)}
+                  : parser(jobDetail?.description)}
               </p>
             </div>
             <div className="p-card p-4 mt-3">
@@ -225,10 +241,11 @@ const ListJobDetail = () => {
                 <div className="p-as-center" style={{ width: "40%" }}>
                   <div className="p-d-flex justify-content-end">
                     <button
+                      disabled={uploadCvRequest}
                       className="btn btn-sm btn-primary"
-                      onClick={handleApplyForJob}
+                      onClick={() => handleApplyForJob(jobDetail.id)}
                     >
-                      Apply with CV
+                      {uploadCvRequest ? "Uploading..." : "Apply with CV"}
                     </button>
                   </div>
                   <div className="mt-2 text-center p-d-flex justify-content-end">
@@ -249,15 +266,21 @@ const ListJobDetail = () => {
               onChange={handleFileChanged}
               accept="pdf, docx"
             />
-            <SplitButton
-              ref={splitButtonRef}
-              label={`Apply`}
-              loading={jobApplicationRequest}
-              onClick={() => splitButtonRef.current.onDropdownButtonClick()}
-              model={cvData !== null ? optionsWithCVData : options}
-              className="btn btn-block"
-              style={styles.btn}
-            ></SplitButton>
+            {isAppliedForJob(jobDetail.id) ? (
+              <div className="py-3 p-d-flex p-jc-center">
+                <h4>You already applied for this job!</h4>
+              </div>
+            ) : (
+              <SplitButton
+                ref={splitButtonRef}
+                label={`Apply`}
+                loading={jobApplicationRequest}
+                onClick={() => splitButtonRef.current.onDropdownButtonClick()}
+                model={cvData !== null ? optionsWithCVData : options}
+                className="btn btn-block"
+                style={styles.btn}
+              ></SplitButton>
+            )}
             {/* <button onClick={() => handleApplyForJob(jobDetail.id)} className="btn btn-block" style={styles.btnApply}>{jobApplicationRequest ? <span><i className="pi pi-spin pi-spinner"></i> Please wait...</span> : `Apply`}</button> */}
           </div>
           <div className="col-md-3">
@@ -268,29 +291,29 @@ const ListJobDetail = () => {
                 <div className="overview-list-item" style={styles.overListItem}>
                   <p style={styles.overviewListHeader}>Offered Salary</p>
                   <p style={styles.overviewListText}>
-                    &#x20A6;{formatValue(jobDetail.minSalary)} - &#x20A6;
-                    {formatValue(jobDetail.maxSalary)}
+                    &#x20A6;{formatValue(jobDetail?.minSalary)} - &#x20A6;
+                    {formatValue(jobDetail?.maxSalary)}
                   </p>
                 </div>
                 <div className="overview-list-item" style={styles.overListItem}>
                   <p style={styles.overviewListHeader}>Industry</p>
-                  <p style={styles.overviewListText}>{jobDetail.industry}</p>
+                  <p style={styles.overviewListText}>{jobDetail?.industry}</p>
                 </div>
                 <div className="overview-list-item" style={styles.overListItem}>
                   <p style={styles.overviewListHeader}>Experience</p>
                   <p style={styles.overviewListText}>
-                    {jobDetail.minYearOfExperience} year(s)
+                    {jobDetail?.minYearOfExperience} year(s)
                   </p>
                 </div>
                 <div className="overview-list-item" style={styles.overListItem}>
                   <p style={styles.overviewListHeader}>Qualification</p>
                   <p style={styles.overviewListText}>
-                    {jobDetail.minQualification}
+                    {jobDetail?.minQualification}
                   </p>
                 </div>
                 <div className="overview-list-item" style={styles.overListItem}>
                   <p style={styles.overviewListHeader}>Job Location</p>
-                  <p style={styles.overviewListText}>{jobDetail.location}</p>
+                  <p style={styles.overviewListText}>{jobDetail?.location}</p>
                 </div>
               </div>
             </div>
@@ -299,10 +322,10 @@ const ListJobDetail = () => {
                 <h4 className="p-title">Company Address</h4>
                 <hr />
                 <ul className="overview-list">
-                  <li style={styles.contactItem}>{jobDetail.address}</li>
-                  <li style={styles.contactItem}>{jobDetail.contactPhone}</li>
-                  <li style={styles.contactItem}>{jobDetail.email}</li>
-                  <li style={styles.contactItem}>{jobDetail.jobUrl}</li>
+                  <li style={styles.contactItem}>{jobDetail?.address}</li>
+                  <li style={styles.contactItem}>{jobDetail?.contactPhone}</li>
+                  <li style={styles.contactItem}>{jobDetail?.email}</li>
+                  <li style={styles.contactItem}>{jobDetail?.jobUrl}</li>
                 </ul>
               </div>
             )}
