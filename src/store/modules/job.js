@@ -313,7 +313,7 @@ export function applyWithCV(jobId, data) {
           })
         );
         //apply for the job with cv url
-        dispatch(apply(jobId, response.url));
+        // dispatch(apply(jobId, response.url));
       },
       (error) => {
         // handle error

@@ -60,10 +60,7 @@ const ListJobDetail = () => {
   }, [cvData]);
 
   const isAppliedForJob = (jobId) => {
-    const result = appliedJobs.filter((job) => {
-      console.log("job detail id: ", jobId, "job", job.jobId);
-      return job.jobId === jobId;
-    });
+    const result = appliedJobs.filter((job) => job.jobId === jobId);
     return result.length > 0;
   };
 
@@ -117,7 +114,7 @@ const ListJobDetail = () => {
       const formData = new FormData();
       formData.append("file", file);
 
-      dispatch(applyWithCV(id, formData));
+      // dispatch(applyWithCV(id, formData));
       return;
     }
     // dispatch(apply(id, { jobId: jobDetail.id }));
