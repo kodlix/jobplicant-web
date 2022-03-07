@@ -192,11 +192,14 @@ const Job = {
   save: (data) => requests.post("/job", data),
   edit: (id, data) => requests.put(`/job/${id}`, data),
   load: () => requests.get("/job"),
+  loadAppliedJobs: () => requests.get("/job/applications/m/all"),
   view: (id) => requests.get(`/job/${id}`),
   apply: (id, data) => requests.post(`/job/${id}/apply`, { cvUrl: data }),
   applicants: (id) => requests.get(`/job/${id}/applicants`),
   acceptApplication: (applicationId, data) =>
     requests.put(`/job/${applicationId}/application/accept`, data),
+  rejectApplication: (applicationId, data) =>
+    requests.put(`/job/${applicationId}/application/reject`, data),
   suspendApplication: (applicationId, data) =>
     requests.put(`/job/${applicationId}/application/suspend`, data),
   applyWithCV: (id, data) => requests.post(`/job/${id}/apply-with-cv`, data),
