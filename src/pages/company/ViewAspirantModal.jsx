@@ -42,18 +42,20 @@ const ViewAspirantModal = ({ showModal, onHide, jobId }) => {
                 <h4>No applicants yet</h4>
               </div>
             )}
-            {applicants && applicants.length > 0 && (
+            {applicants && applicants.length && (
               <h4>{applicants.length} Applicant(s)</h4>
             )}
-            {applicants.map((applicant, index) => {
-              return (
-                <ViewApplicatonItem
-                  applicant={applicant}
-                  jobId={jobId}
-                  key={index}
-                />
-              );
-            })}
+            {applicants &&
+              applicants.length &&
+              applicants.map((applicant, index) => {
+                return (
+                  <ViewApplicatonItem
+                    applicant={applicant}
+                    jobId={jobId}
+                    key={index}
+                  />
+                );
+              })}
           </div>
         )}
       </div>

@@ -329,7 +329,7 @@ export function viewApplicant(jobId) {
     dispatch(actionLoadingApplicants());
     return agent.Job.applicants(jobId).then(
       (response) => {
-        dispatch(actionGetApplicant(response));
+        dispatch(actionGetApplicant(response.data));
       },
       (error) => {
         // handle error
