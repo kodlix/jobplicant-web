@@ -197,12 +197,13 @@ const New = ({ mode }) => {
 
                                         <div className="p-fluid p-md-6 p-sm-12">
                                             <div className="p-field">
-                                                <label htmlFor="address">Meet Up Location * </label>
+                                                <label htmlFor="address">Address/Meet Up Location * </label>
                                                 <InputText
                                                     type="text"
-                                                    placeholder="Address"
+                                                    placeholder="Enter a plcae"
                                                     name="address"
                                                     {...register("address", { required: "Address is required" })}
+                                                    id="autocomplete"
                                                 />
                                                 {errors.address && <span className="text-danger font-weight-bold "> <p>{errors.address.message}</p>
                                                 </span>}
@@ -220,7 +221,7 @@ const New = ({ mode }) => {
 
                                                 />
 
-                                                {errors.address && <span className="text-danger font-weight-bold "> <p>{errors.phoneNumber.message}</p>
+                                                {errors.phoneNumber && <span className="text-danger font-weight-bold "> <p>{errors.phoneNumber.message}</p>
                                                 </span>}
                                             </div>
                                         </div>
