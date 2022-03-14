@@ -53,3 +53,14 @@
 .notification-dropdown-list__item :hover {
     background-color: #eee;
 }
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+.notification-dropdown__container {
+    position: absolute;
+    top: 55px;
+    width: 100%;
+    box-shadow: 2px 2px 1px #eee;
+    border-radius: 8px;
+}
+}

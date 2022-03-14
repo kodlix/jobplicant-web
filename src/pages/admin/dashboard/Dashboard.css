@@ -122,5 +122,6 @@
 
 }
 
-
-
+.dashboard-item {
+    color: green;
+}

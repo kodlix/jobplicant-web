@@ -141,3 +141,7 @@ a.p-card-body-Activity {
 .p-card-body-Activity:hover {
   background-color: #eee !important;
 }
+
+.dashboard-item {
+    color: green;
+}
