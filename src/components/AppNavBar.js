@@ -77,7 +77,7 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                                 <img className="logo1" src="/assets/images/logo/applogo.jpeg" alt="Logo" height="35" />
                             </Link>
                         </Navbar.Brand>
-                        <Navbar.Toggle aria-controls="responsive-navbar-nav" className="bg-white" />
+                        <Navbar.Toggle aria-controls="responsive-navbar-nav" className="bg-white float-right" />
                     </div>
                     <div>
                         <Navbar.Collapse id="responsive-navbar-nav" className="brown-color text-center">
