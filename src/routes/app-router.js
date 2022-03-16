@@ -65,6 +65,8 @@ const ListJob = React.lazy(() => import('../pages/job/ListJob'));
 const ListJobDetail = React.lazy(() => import('pages/job/ListJobDetail'));
 const Accounts = React.lazy(() => import('pages//admin/dashboard/Accounts'));
 
+const VideoChat = React.lazy(() => import('../pages/videoCall/videoChatt'));
+
 
 
 const AppRouter = () => {
@@ -134,6 +136,9 @@ const AppRouter = () => {
         <ProtectedRoute path="/cv-template" component={CVTEMPLATE} />
         {/* INSTANT MESSAGING */}
         <ProtectedRoute path="/instant-messaging" children={<InstantMessaging />} />
+
+        {/* VIDEO CHAT */}
+        <ProtectedRoute path="/videochat" component={VideoChat} />
         {/* admin routes */}
         <ProtectedAdminRoute path="/admin" component={AdminDashboard} />
         <ProtectedAdminRoute path="/admin-qualification" component={AdminQualification} />
