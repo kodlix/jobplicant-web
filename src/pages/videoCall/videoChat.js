@@ -1,46 +1,49 @@
 import React, { useEffect, useRef, useState } from 'react';
+
+import { Button } from 'primereact/button';
 import Peer from 'simple-peer';
-import { io } from 'socket.io-client';
-import { on } from 'superagent';
+import io from 'socket.io-client';
 
 
-const socket = io.connect("");
+const socket = io.connect("http://localhost:8000");
 
 
-const videoChatt = () => {
-    const [me, setMe] = useState();
+const VideoChat = () => {
+    const [me, setMe] = useState("");
     const [stream, setStream] = useState();
     const [receivingCall, setReceivingCall] = useState(false);
-    const [callerId, setCallerId] = useState();
+    const [callerId, setCallerId] = useState("");
     const [callerSignal, setCallerSignal] = useState();
     const [callAccepted, setCallAccepted] = useState(false);
     const [idToCall, setIdToCall] = useState("");
     const [callEnded, setCallEnded] = useState(false);
     const [name, setName] = useState("");
 
-    const myvideo = useRef();
+    const myVideo = useRef();
     const userVideo = useRef();
     const connectionRef = useRef();
+
+    console.log(me, "my ID")
 
 
     useEffect(() => {
         navigator.mediaDevices.getUserMedia({ video: true, audion: true, }).then((stream) => {
             setStream(stream)
-            myvideo.current.scrObject = stream;
-            socket.on('me', (id) => {
-                setMe(id)
-            })
-
-            socket.io('callUser', (data) => {
-                setReceivingCall(true);
-                setCallerId(data.from)
-                setName(data.name);
-                setCallerSignal(data.signal);
-
-            })
+            myVideo.current.scrObject = stream;
         })
 
+        socket.on('me', (id) => {
+            setMe(id)
+        })
+
+        socket.on('callUser', (data) => {
+            setReceivingCall(true);
+            setCallerId(data.from)
+            setName(data.name);
+            setCallerSignal(data.signal);
+        })
     }, [])
+
     // initiate video call
     const callUser = (id) => {
         const peer = new Peer({
@@ -48,6 +51,7 @@ const videoChatt = () => {
             tricate: false,
             stream: stream
         })
+
         peer.on("signal", (data) => {
             socket.emit("calluser", {
                 userToCall: id,
@@ -93,23 +97,22 @@ const videoChatt = () => {
     const endCall = () => {
         setCallEnded(true)
         connectionRef.current.distroy();
-
-
     }
 
     return (
         <>
-            <div className='d-flex'>
-                <div>
-                    {stream && <video playsInline muted ref={myvideo} autoPlay style={{ width: "50px" }} />}
-                </div>
-
-                <div>
-                    {callAccepted && !callEnded ? <video playsInline muted ref={userVideo} autoPlay style={{ width: "50px" }} />
-                        : null
-                    }
-                </div>
+            {stream && <h1> Can you see me?</h1>}
+            {/* <div className='d-flex'> */}
+            <div>
+                {stream && <video playsInline muted ref={myVideo} autoPlay style={{ width: "320", height: "240" }} />}
             </div>
+
+            <div>
+                {callAccepted && !callEnded ? <video playsInline muted ref={userVideo} autoPlay style={{ width: "50px" }} />
+                    : null
+                }
+            </div>
+            {/* </div> */}
             <div className='d-flex'>
                 {receivingCall && !callAccepted ? (
                     <div><h1>{name} is calling ...</h1>
@@ -126,4 +129,4 @@ const videoChatt = () => {
     )
 }
 
-export default videoChatt
+export default VideoChat
