@@ -141,12 +141,7 @@ const CreatePostModal = ({ post, clearModalInput }) => {
   };
 
   const inputChange = (e, inputName) => {
-    const inputLength = e?.htmlValue?.split("<")?.length;
-    const postObjectLength = postObject?.body?.split("<")?.length;
-
-    if (inputLength  === postObjectLength) {
-      return;
-    }
+    
     const inputValue =
       inputName && (inputName === "body")
         ? e.htmlValue
@@ -154,7 +149,7 @@ const CreatePostModal = ({ post, clearModalInput }) => {
     const updatedPostObject = Object.assign({}, postObject);
     updatedPostObject[inputName] = inputValue;
     setValue(inputName, inputValue, { shouldValidate: true });
-    setPostObject({ ...postObject, ...updatedPostObject });
+    //setPostObject({ ...postObject, ...updatedPostObject });
   };
 
   const validateEditorBody = (value) => {
