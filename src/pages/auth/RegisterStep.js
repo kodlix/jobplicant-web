@@ -21,6 +21,7 @@ const RegisterStep = ({ goto, accountType }) => {
         reValidateMode: "onChange"
     });
 
+
     const handleGoto = () => {
         goto(1)
     }
@@ -28,12 +29,21 @@ const RegisterStep = ({ goto, accountType }) => {
     const password = useRef(({}));
     password.current = watch("password", "");
 
-    const professions = [
+    const corporateProfessions = [
         { name: 'Software Developer', code: 'SD' },
         { name: 'Doctor', code: 'DR' },
         { name: 'Lawyer', code: 'LY' },
         { name: 'Structural Engineer', code: 'SE' },
         { name: 'Mechanical Engineer', code: 'ME' }
+    ];
+
+    const artisanProfessions = [
+        { name: 'Tailor', code: 'TR' },
+        { name: 'Plumbing', code: 'DR' },
+        { name: 'Electrican', code: 'EL' },
+        { name: 'Mechanic', code: 'ME' },
+        { name: 'Dry-Cleaner', code: 'DC' },
+        { name: 'Cobbler', code: 'CL' }
     ];
 
     const [selectedProf, setSelectedProf] = useState(null);
@@ -84,8 +94,8 @@ const RegisterStep = ({ goto, accountType }) => {
                                     <h5 className="p-mb-3 text-center">Sign up for free!</h5>
                                 </div>
                                 <form onSubmit={handleSubmit(onSubmit)}>
-                                    <div className="p-grid">
-                                        <div className="p-field col-6 p-pr-1">
+                                    <div className="p-fluid">
+                                        <div className="p-field">
                                             <InputText type="text"
                                                 id="firstname"
                                                 name="firstName"
@@ -98,7 +108,7 @@ const RegisterStep = ({ goto, accountType }) => {
                                             </label>
 
                                         </div>
-                                        <div className="p-field col-6">
+                                        <div className="p-field">
                                             <InputText type="text"
                                                 name="lastName"
                                                 id="lastname"
@@ -112,7 +122,7 @@ const RegisterStep = ({ goto, accountType }) => {
                                             </label>
                                         </div>
 
-                                        <div className="p-field col-12">
+                                        <div className="p-field">
 
                                             <InputText type="email"
                                                 name="email"
@@ -131,7 +141,7 @@ const RegisterStep = ({ goto, accountType }) => {
 
                                             </label>
                                         </div>
-                                        <div className="p-field col-6 p-pr-1">
+                                        <div className="p-field">
                                             <InputText type="password"
                                                 id="password"
                                                 placeholder="New password"
@@ -148,7 +158,7 @@ const RegisterStep = ({ goto, accountType }) => {
                                                 </span>}
                                             </label>
                                         </div>
-                                        <div className="p-field col-6">
+                                        <div className="p-field">
                                             <InputText
                                                 id="confirmPassword"
                                                 type="password"
@@ -165,7 +175,7 @@ const RegisterStep = ({ goto, accountType }) => {
                                         </div>
                                         {
                                             accountType === ACCOUNT_TYPE.CORPORATE &&
-                                            <div className="p-field col-12">
+                                            <div className="p-field">
                                                 <InputText type="text"
                                                     className="form-control"
                                                     name="companyName"
@@ -181,11 +191,11 @@ const RegisterStep = ({ goto, accountType }) => {
                                             </div>
                                         }
 
-                                        {accountType === ACCOUNT_TYPE.ARTISAN | accountType === ACCOUNT_TYPE.JOB_SEEKER &&
-                                            <div className="p-field col-12">
+                                        {accountType === ACCOUNT_TYPE.ARTISAN ?
+                                            <div className="p-field">
                                                 <Dropdown
                                                     value={selectedProf}
-                                                    options={professions}
+                                                    options={artisanProfessions}
                                                     optionLabel="name"
                                                     editable
                                                     placeholder='Profession'
@@ -198,7 +208,23 @@ const RegisterStep = ({ goto, accountType }) => {
                                                     {errors.profession && <span className="text-danger font-weight-bold "> <p>{errors.profession.message}</p>
                                                     </span>}
                                                 </label>
-                                            </div>
+                                            </div> : accountType === ACCOUNT_TYPE.JOB_SEEKER ? <div className="p-field">
+                                                <Dropdown
+                                                    value={selectedProf}
+                                                    options={corporateProfessions}
+                                                    optionLabel="name"
+                                                    editable
+                                                    placeholder='Profession'
+                                                    {...register("profession", { required: "Please select your Profession" })}
+                                                    id="profession"
+                                                    name="profession"
+                                                    onChange={handleChange}
+                                                />
+                                                <label htmlFor="profession" className="">
+                                                    {errors.profession && <span className="text-danger font-weight-bold "> <p>{errors.profession.message}</p>
+                                                    </span>}
+                                                </label>
+                                            </div> : ""
                                         }
                                         <div><label htmlFor="gender" className="p-mb-1 p-text-bold gender-margin app-color" > Gender</label> </div>
 

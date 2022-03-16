@@ -10,8 +10,6 @@ export default ({ showNotification }) => {
   const userNotifications = useSelector(state => state.appNotification.navBarNotifications.data);
 
   const [userNoti, setUserNoti] = useState([]);
-  console.log(userNotifications, "dropdown noti");
-  console.log(userNoti, "state noti");
   let history = useHistory();
 
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import agentService, {isArtisanApp} from 'services/agent.service';
+import agentService, { isArtisanApp } from 'services/agent.service';
 import { loadProfileInfo } from './../store/modules/account';
 import { OnLogout } from '../store/modules/auth';
 
@@ -84,47 +84,47 @@ const AppNavBar = ({ displaySearBar = false, instantJobAlert = false }) => {
                             <Nav className="me-auto text-align-sm-center">
                                 <Nav.Link className="text-white" href="/posts">
                                     <i className="pi pi-home itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
-                                    <div className="itemTitle-appNavbar">
+                                    <div className="itemTitle-appNavbar mx-3">
                                         Home
                                     </div>
                                 </Nav.Link>
                                 {userAccountType === ACCOUNT_TYPE.ARTISAN ?
                                     <Nav.Link className="text-white" href="/instant-jobs">
                                         <i className="pi pi-briefcase itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
-                                        <div className="itemTitle-appNavbar mx-2">
+                                        <div className="itemTitle-appNavbar mx-3">
                                             Jobs
                                         </div>
                                     </Nav.Link>
                                     : <Nav.Link className="text-white" href="/jobs">
                                         <i className="pi pi-briefcase itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
-                                        <div className="itemTitle-appNavbar mx-2">
+                                        <div className="itemTitle-appNavbar mx-3">
                                             Jobs
                                         </div>
                                     </Nav.Link>}
 
                                 {!isArtisanApp && <Nav.Link className="text-white" href="/howtostart">
                                     <i className="pi pi-file itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
-                                    <div className="itemTitle-appNavbar mx-2">
+                                    <div className="itemTitle-appNavbar mx-3">
                                         CV Service
                                     </div>
                                 </Nav.Link>
                                 }
                                 <Nav.Link className="text-white" href="/contacts">
                                     <i className="pi pi-users itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
-                                    <div className="itemTitle-appNavbar mx-2">
+                                    <div className="itemTitle-appNavbar mx-3">
                                         Contact
                                     </div>
                                 </Nav.Link>
                                 {width <= 800 && <Nav.Link className="text-white" href="/instant-messaging">
                                     <i className="pi pi-envelope itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
-                                    <div className="itemTitle-appNavbar mx-2">
+                                    <div className="itemTitle-appNavbar mx-3">
                                         Messages
                                     </div>
                                 </Nav.Link>}
                                 {width > 800 && (<Nav.Link
                                     className="text-white" onClick={() => dispatch(toggleChatModal())}>
                                     <i className="pi pi-envelope itemIcon-appNavbar" style={{ 'fontSize': '1.5em' }} />
-                                    <div className="itemTitle-appNavbar mx-2">
+                                    <div className="itemTitle-appNavbar mx-3">
                                         Messages
                                     </div>
                                 </Nav.Link>)}

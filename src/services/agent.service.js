@@ -13,11 +13,9 @@ export const isArtisanApp = process.env.REACT_APP_CURRENT_APP === "artisan";
 export const API_ROOT = "https://jobplicant-api.herokuapp.com";
 // export const API_ROOT = "http://localhost:8080";
 
-
-console.log('API_ROOT', API_ROOT);
+console.log("API_ROOT", API_ROOT);
 console.log("environmental variables", process.env);
-export const IMAGE_URL = API_ROOT + '/account/uploads/';
-
+export const IMAGE_URL = API_ROOT + "/account/uploads/";
 
 let accessToken = null;
 const responseBody = (res) => res.body;
@@ -40,18 +38,16 @@ export const tokenPlugin = (req) => {
     if (res.status === 401) {
       //Always revert back here to change the production to the *CORRECT URL*
       // console.log("onResponse: This is called when Authorization is hit")
-      localStorage.removeItem("auth")
-      if (process.env.NODE_ENV === 'development')
-        return window.location.href = 'http://localhost:8080/login'
-      else
-        return window.location.href = process.env.API_ROOT_PROD + '/login'
+      localStorage.removeItem("auth");
+      if (process.env.NODE_ENV === "development")
+        return (window.location.href = "http://localhost:8080/login");
+      else return (window.location.href = process.env.API_ROOT_PROD + "/login");
     }
   });
 
-  req.on('error', function (err) {
+  req.on("error", function (err) {
     //manage error
     // const currentURL = window.location.href;
-
     // if (err.toString().includes('offline')) {
     //   console.log('super agent error', err, 'current location', currentURL)
     //   if (process.env.NODE_ENV === "development")
@@ -59,7 +55,7 @@ export const tokenPlugin = (req) => {
     //   else
     //     return window.location.href = `${process.env.API_ROOT_PROD}/offline?returnUrl=${currentURL}`;
     // }
-  })
+  });
 };
 
 const requests = {
@@ -106,17 +102,21 @@ const Auth = {
   current: () => JSON.parse(window.localStorage.getItem("auth")),
   isAdmin: () => {
     const user = Auth.current();
-    return user?.role === ('Super-admin' || "Developer");
+    return user?.role === ("Super-admin" || "Developer");
   },
   login: (email, password, type, app) =>
     requests.post("/auth/signIn", { email, password, type, app }),
   register: (data) => requests.post("/auth/signUp", data),
   checkValidEmail: (email) =>
     requests.post(`/account/email/is-valid`, { email }),
-  forgotPassword: (email) => requests.put(`/auth/send-forget-password-email`, { email }),
+  forgotPassword: (email) =>
+    requests.put(`/auth/send-forget-password-email`, { email }),
 
   updatePassword: (shortCode, email, data) => {
-    return requests.put(`/auth/change-password-email?shortCode=${shortCode}&email=${email}`, data);
+    return requests.put(
+      `/auth/change-password-email?shortCode=${shortCode}&email=${email}`,
+      data
+    );
     // console.log("testing", test);
   },
   resetPassword: (email, password) =>
@@ -126,7 +126,10 @@ const Auth = {
   verifyResetToken: (email, token) =>
     requests.post(`/ account / password / verify - token`, { email, token }),
   verifyAccount: (code) => requests.get(`/verification/signup/${code}`),
-  artisanAccount: (page, limit, search) => requests.get(`/accounts/nearest-artisans?page=${page}&limit=${limit}&search=${search}`)
+  artisanAccount: (page, limit, search) =>
+    requests.get(
+      `/accounts/nearest-artisans?page=${page}&limit=${limit}&search=${search}`
+    ),
 };
 
 const User = {
@@ -150,25 +153,25 @@ const Account = {
   getProfileInfo: () => requests.get(`/accounts/profile/active`),
   updateCompanyInfo: (data) => requests.put("/accounts/company-info", data),
   updateBiography: (biography) => requests.put("/accounts/bio", biography),
-  updateProfile: (profile) => requests.put("/accounts/profile", profile), //To update personal info e.g firstname, lastname etc... 
+  updateProfile: (profile) => requests.put("/accounts/profile", profile), //To update personal info e.g firstname, lastname etc...
   updateExperience: (experience) =>
     requests.put("/accounts/job-experience", experience),
-  getProfileInfo: () =>
-    requests.get(`/accounts/profile/active`),
-  updateBiography: (biography) =>
-    requests.put('/accounts/bio', biography),
+  getProfileInfo: () => requests.get(`/accounts/profile/active`),
+  updateBiography: (biography) => requests.put("/accounts/bio", biography),
   updateExperience: (experience) =>
-    requests.put('/accounts/job-experience', experience),
+    requests.put("/accounts/job-experience", experience),
   updateContactInfo: (contactInfo) =>
     requests.put("/accounts/contact-info", contactInfo),
-  updateLOI: (loi) =>
-    requests.put("/accounts/location", loi),
+  updateLOI: (loi) => requests.put("/accounts/location", loi),
   updateHobies: (hobbies) => requests.put("/accounts/hobbies", { hobbies }),
   updateProfessionOfInterest: (interests) =>
-    requests.put("/accounts/interests", { "interest": interests }),
-  updateProfilePicture: (image) => requests.put("/accounts/upload-avatar", image),
-  deleteProfilePortfolio: filename => requests.del(`/accounts/images/${filename}`),
-  updateProfilePortfolio: (images) => requests.put("/accounts/upload-portfolios", images),
+    requests.put("/accounts/interests", { interest: interests }),
+  updateProfilePicture: (image) =>
+    requests.put("/accounts/upload-avatar", image),
+  deleteProfilePortfolio: (filename) =>
+    requests.del(`/accounts/images/${filename}`),
+  updateProfilePortfolio: (images) =>
+    requests.put("/accounts/upload-portfolios", images),
   load: (email) => requests.get(`/account/getbyemail/${email}`),
   loadArtisanAccounts: () => requests.get("/accounts/nearest-artisans"),
   getByID: (id) => requests.get(`/accounts/${id}`),
@@ -189,12 +192,18 @@ const Job = {
   save: (data) => requests.post("/job", data),
   edit: (id, data) => requests.put(`/job/${id}`, data),
   load: () => requests.get("/job"),
+  loadAppliedJobs: () => requests.get("/job/applications/m/all"),
   view: (id) => requests.get(`/job/${id}`),
-  apply: (id, data) => requests.post(`/job/${id}/apply`, { "cvUrl": data }),
+  apply: (id, data) => requests.post(`/job/${id}/apply`, { cvUrl: data }),
   applicants: (id) => requests.get(`/job/${id}/applicants`),
-  acceptApplication: (applicationId, data) => requests.put(`/job/${applicationId}/application/accept`, data),
-  suspendApplication: (applicationId, data) => requests.put(`/job/${applicationId}/application/suspend`, data)
-}
+  acceptApplication: (applicationId, data) =>
+    requests.put(`/job/${applicationId}/application/accept`, data),
+  rejectApplication: (applicationId, data) =>
+    requests.put(`/job/${applicationId}/application/reject`, data),
+  suspendApplication: (applicationId, data) =>
+    requests.put(`/job/${applicationId}/application/suspend`, data),
+  applyWithCV: (id, data) => requests.post(`/job/${id}/apply-with-cv`, data),
+};
 
 //education service api
 const Education = {
@@ -204,10 +213,10 @@ const Education = {
   edit: (id, data) => requests.put(`/education/${id}`, data),
   delete: (id) => requests.del(`/education/${id}`),
   view: (id) => requests.get(`/education/${id}`),
-}
+};
 
 const UserSkill = {
-  save: (userskill) => requests.post("/user-skill", { "skills": userskill }),
+  save: (userskill) => requests.post("/user-skill", { skills: userskill }),
   load: () => requests.get("/user-skill"),
   delete: (id) => requests.del(`/user-skill/${id}`),
 };
@@ -271,27 +280,25 @@ const ScheduleMeeting = {
 const Company = {
   load: () => requests.get(`/company`),
   put: (id, data) => requests.put(`/company/${id}`, data),
-
-}
+};
 
 const InstantJob = {
   save: (instantjob) => requests.post("/instant-job", instantjob),
   apply: (jobid) => requests.post(`/instant-job/${jobid}/apply`, null),
   load: () => requests.get(`/instant-job`),
-  loadApplicants: (jobId) =>
-    requests.get(`/instant-job/${jobId}/applicants`),
+  loadApplicants: (jobId) => requests.get(`/instant-job/${jobId}/applicants`),
   loadAllInstantJobs: (page, take) =>
     requests.get("/instant-job/current", page, take),
-  loadAppliedJobsById: (page, limit, search, sort) => requests.get(`/instant-job/applications/me?page=${page}&limit=${limit}&search=${search}&sort=${sort}`),
+  loadAppliedJobsById: (page, limit, search, sort) =>
+    requests.get(
+      `/instant-job/applications/me?page=${page}&limit=${limit}&search=${search}&sort=${sort}`
+    ),
   view: (id) => requests.get(`/instant-job/${id}`),
   edit: (id, instantJob) => requests.put(`/instant-job/${id}`, instantJob),
   delete: (id) => requests.del(`/instant-job/${id}`),
-  accept: (id) =>
-    requests.put(`/instant-job/${id}/application/accept`, null),
-  reject: (id) =>
-    requests.put(`/instant-job/${id}/application/reject`, null),
-  reject: (id) =>
-    requests.put(`/instant-job/${id}/application/reject`, null),
+  accept: (id) => requests.put(`/instant-job/${id}/application/accept`, null),
+  reject: (id) => requests.put(`/instant-job/${id}/application/reject`, null),
+  reject: (id) => requests.put(`/instant-job/${id}/application/reject`, null),
 };
 
 const Review = {
@@ -302,103 +309,157 @@ const Review = {
     return requests.get(url);
   },
   edit: (id) => requests.put(`review/edit/${id}`, id),
-
 };
 
 const ContractType = {
   save: (data) => requests.post("/contract-type", data),
-  load: () => requests.get("/contract-type",),
+  load: () => requests.get("/contract-type"),
   view: (id) => requests.get(`/contract-type/${id}`),
   edit: (id, data) => requests.put(`/contract-type/${id}`, data),
   delete: (id) => requests.del(`/contract-type/${id}`),
-}
+};
 
 const Qualification = {
   save: (data) => requests.post("/qualification", data),
-  load: () => requests.get("/qualification",),
+  load: () => requests.get("/qualification"),
   view: (id) => requests.get(`/qualification/${id}`),
   edit: (id, data) => requests.put(`/qualification/${id}`, data),
   delete: (id) => requests.del(`/qualification/${id}`),
-}
+};
 
 const Skill = {
   save: (data) => requests.post("/skill", data),
-  load: () => requests.get("/skill",),
+  load: () => requests.get("/skill"),
   view: (id) => requests.get(`/skill/${id}`),
   edit: (id, data) => requests.put(`/skill/${id}`, data),
   delete: (id) => requests.del(`/skill/${id}`),
-}
+};
 
 const ServiceGroup = {
   save: (data) => requests.post("/service-group", data),
-  load: (page, limit, search) => requests.get(`/service-group?${new URLSearchParams({ page: page, limit: limit, search: search }).toString()}`),
-  loadForService: (page, limit, search) => requests.get(`/service-group?${new URLSearchParams({ page: page, limit: limit, search: search }).toString()}`),
+  load: (page, limit, search) =>
+    requests.get(
+      `/service-group?${new URLSearchParams({
+        page: page,
+        limit: limit,
+        search: search,
+      }).toString()}`
+    ),
+  loadForService: (page, limit, search) =>
+    requests.get(
+      `/service-group?${new URLSearchParams({
+        page: page,
+        limit: limit,
+        search: search,
+      }).toString()}`
+    ),
   view: (id) => requests.get(`/service-group/${id}`),
   edit: (id, data) => requests.put(`/service-group/${id}`, data),
   delete: (id) => requests.del(`/service-group/${id}`),
-}
+};
 
 const Service = {
   save: (data) => requests.post("/service", data),
-  load: (page, limit, search) => requests.get(`/service?${new URLSearchParams({ page: page, limit: limit, search: search }).toString()}`),
+  load: (page, limit, search) =>
+    requests.get(
+      `/service?${new URLSearchParams({
+        page: page,
+        limit: limit,
+        search: search,
+      }).toString()}`
+    ),
   view: (id) => requests.get(`/service/${id}`),
   edit: (id, data) => requests.put(`/service/${id}`, data),
   delete: (id) => requests.del(`/service/${id}`),
-}
+};
 
 const Post = {
   save: (data) => requests.post("/post", data),
   edit: (id, data) => requests.put(`/post/${id}`, data),
-  load: (page, take) => requests.get(`/post?${new URLSearchParams({ page: page, take: take }).toString()}`),
-  loadByUserId: (id, page, take) => requests.get(`/post/user/${id}?${new URLSearchParams({ page: page, take: take }).toString()}`),
+  load: (page, take) =>
+    requests.get(
+      `/post?${new URLSearchParams({ page: page, take: take }).toString()}`
+    ),
+  loadByUserId: (id, page, take) =>
+    requests.get(
+      `/post/user/${id}?${new URLSearchParams({
+        page: page,
+        take: take,
+      }).toString()}`
+    ),
   view: (id) => requests.get(`/post/${id}`),
   search: (page, search) => requests.get("/post/search", page, search),
   like: (id) => requests.put(`/post/like/${id}`),
   dislike: (id) => requests.put(`/post/dislike/${id}`),
   postCount: () => requests.get("/post/count"),
   postCountByUser: (userId) => requests.get(`/post/user/${userId}/count`),
-  delete: (id) => requests.del(`/post/${id}`)
+  delete: (id) => requests.del(`/post/${id}`),
 };
 
 const Comment = {
   save: (id, data) => requests.post(`/comment/${id}`, data),
-  load: (id, page, take) => requests.get(`/comment/post/${id}?${new URLSearchParams({ page: page, take: take }).toString()}`),
+  load: (id, page, take) =>
+    requests.get(
+      `/comment/post/${id}?${new URLSearchParams({
+        page: page,
+        take: take,
+      }).toString()}`
+    ),
   like: (id) => requests.put(`/comment/like/${id}`),
   dislike: (id) => requests.put(`/comment/dislike/${id}`),
-  delete: (id) => requests.del(`/comment/${id}`)
-}
+  delete: (id) => requests.del(`/comment/${id}`),
+};
 
 const Contact = {
-  load: (page, limit, search = "") => requests.get(`/contact/free?${new URLSearchParams({ page: page, limit: limit, search: search }).toString()}`),
-  loadContacts: (page, limit) => requests.get(`/contact?${new URLSearchParams({ page: page, limit: limit }).toString()}`),
-  loadRequests: (page, take) => requests.get(`/contact/request/pending?${new URLSearchParams({ page: page, take: take }).toString()}`),
+  load: (page, limit, search = "") =>
+    requests.get(
+      `/contact/free?${new URLSearchParams({
+        page: page,
+        limit: limit,
+        search: search,
+      }).toString()}`
+    ),
+  loadContacts: (page, limit) =>
+    requests.get(
+      `/contact?${new URLSearchParams({ page: page, limit: limit }).toString()}`
+    ),
+  loadRequests: (page, take) =>
+    requests.get(
+      `/contact/request/pending?${new URLSearchParams({
+        page: page,
+        take: take,
+      }).toString()}`
+    ),
   add: (id) => requests.post("/contact", id),
   delete: (id) => requests.del(`/contact/${id}`),
   accept: (data) => requests.post("/contact/accept", data),
-  reject: (id) => requests.del(`/contact/reject/${id}`)
-}
+  reject: (id) => requests.del(`/contact/reject/${id}`),
+};
 
 const Notification = {
   loadAll: () => requests.get("/notification"),
   loadById: (id) => requests.get(`/notification/${id}`),
-  loadByAccount: (accountId) => requests.get(`/notification/account/${accountId}`),
+  loadByAccount: (accountId) =>
+    requests.get(`/notification/account/${accountId}`),
   loadAllByAccount: (id, search, page) =>
     requests.get(
       `/notification/account/all?page=${page}&search=${search}&accountId=${id}`
     ),
   updateNoti: (id) => requests.put(`/notification/${id}/seen`),
-  loadAllSeenAndUnseenByAccount: (accountId, search, page, limit) => requests.get(`/notification/account/${accountId}/all?search=${search}&page=${page}&limit=${limit}`),
+  loadAllSeenAndUnseenByAccount: (accountId, search, page, limit) =>
+    requests.get(
+      `/notification/account/${accountId}/all?search=${search}&page=${page}&limit=${limit}`
+    ),
   delete: (id) => requests.del(`/notification/${id}`),
-  clearAll: () => requests.del(`/notification/me/clearall`)
-
+  clearAll: () => requests.del(`/notification/me/clearall`),
 };
 
 const Cv = {
   create: (data) => requests.post("/cv", data),
   fetch: (userId) => requests.get(`/cv/${userId}`),
   update: (id, data) => requests.put(`/cv/${id}`, data),
-  delete: (id) => requests.del(`/cv/${id}`)
-}
+  delete: (id) => requests.del(`/cv/${id}`),
+};
 
 export default {
   Auth,
@@ -431,5 +492,5 @@ export default {
   ServiceGroup,
   Service,
   Review,
-  Cv
+  Cv,
 };

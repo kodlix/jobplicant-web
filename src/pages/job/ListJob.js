@@ -84,7 +84,7 @@ const ListJob = () => {
                         <InputText style={styles.inputStyle} placeholder="Location" />
                     </div>
                     <div className="list-job-search-box" style={styles.box}>
-                        <Dropdown style={styles.inputStyle} placeholder="Category" />
+                        <Dropdown style={styles.inputStyle} placeholder="Industry" />
                     </div>
                     <div className="list-job-search-box" style={styles.boxButton}>
                         <button style={styles.btnFind}>Find Jobs</button>
@@ -100,8 +100,8 @@ const ListJob = () => {
 
             {/* {jobs && <p>{JSON.stringify(jobs)}</p>} */}
 
-            <div className="container mt-5">
-                <div className="p-grid">
+            <div className="container mt-5 rounded-3">
+                <div className="p-grid rounded-3 ">
                     <FilterPanel />
                     <div className="p-col-12 p-md-6">
                         {loading ?
