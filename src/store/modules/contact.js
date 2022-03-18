@@ -72,7 +72,7 @@ export default function reducer(state = contact, action = {}) {
       if (state?.loadingContact === "loadMoreContacts") {
         const idArray = Array.from(new Set([
           ...state.contacts.ids,
-          ...contactArray.map(({ id }) => id),
+          ...contactArray?.map(({ id }) => id),
         ]));
         uniqueContactIds.push(...idArray)
       }

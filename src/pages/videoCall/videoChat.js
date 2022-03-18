@@ -4,6 +4,8 @@ import { Button } from 'primereact/button';
 import Peer from 'simple-peer';
 import io from 'socket.io-client';
 
+import './videoChat.css'
+
 
 const socket = io.connect("http://localhost:8000");
 
@@ -29,7 +31,7 @@ const VideoChat = () => {
     useEffect(() => {
         navigator.mediaDevices.getUserMedia({ video: true, audion: true, }).then((stream) => {
             setStream(stream)
-            myVideo.current.scrObject = stream;
+            myVideo.current.srcObject = stream;
         })
 
         socket.on('me', (id) => {
@@ -48,7 +50,7 @@ const VideoChat = () => {
     const callUser = (id) => {
         const peer = new Peer({
             initiator: true,
-            tricate: false,
+            trickle: false,
             stream: stream
         })
 
@@ -61,8 +63,8 @@ const VideoChat = () => {
             })
         })
 
-        peer.on("streem", (stream) => {
-            userVideo.current.scrObject = stream;
+        peer.on("stream", (stream) => {
+            userVideo.current.srcObject = stream;
         })
 
         socket.on("allAccepted", (signal) => {
@@ -77,7 +79,7 @@ const VideoChat = () => {
         setCallAccepted(true);
         const peer = new Peer({
             initiator: false,
-            tricate: false,
+            trickle: false,
             stream: stream
         })
 
@@ -86,44 +88,47 @@ const VideoChat = () => {
         })
 
         peer.on("stream", (stream) => {
-            userVideo.current.scrObject = stream;
+            userVideo.current.srcObject = stream;
         })
 
         peer.signal(callerSignal)
         connectionRef.current = peer;
     }
 
+
     //Ability to leave the call
     const endCall = () => {
         setCallEnded(true)
         connectionRef.current.distroy();
     }
-
     return (
         <>
-            {stream && <h1> Can you see me?</h1>}
-            {/* <div className='d-flex'> */}
-            <div>
-                {stream && <video playsInline muted ref={myVideo} autoPlay style={{ width: "320", height: "240" }} />}
-            </div>
+            <div className='container pt-5'>
+                {!callAccepted ? <div id='myVideo'>
+                    {stream && <video playsInline muted ref={myVideo} autoPlay width="60%" height="auto" />}
+                </div> :
+                    <div>
+                        {stream && <video playsInline muted ref={myVideo} autoPlay style={{ width: "320", height: "240" }} />}
+                    </div>}
 
-            <div>
-                {callAccepted && !callEnded ? <video playsInline muted ref={userVideo} autoPlay style={{ width: "50px" }} />
-                    : null
-                }
+                <div>
+                    {callAccepted && !callEnded ? <video playsInline muted ref={userVideo} autoPlay style={{ width: "50px" }} />
+                        : null
+                    }
+                </div>
+                {/* </div> */}
+                <div className='d-flex'>
+                    {receivingCall && !callAccepted ? (
+                        <div><h1>{name} is calling ...</h1>
+                            <Button icon="" title="Answer" onClick={answerCall()} className="bg-success" style={{ backgroundColor: "red" }} />
+                        </div>
+                    ) : null}
+                </div>
+                {callAccepted && <div className='d-flex'>
+                    <Button icon="" onClick={endCall()} className="bg-danger" />
+                    <Button icon="" onClick={endCall()} className="bg-danger" />
+                </div>}
             </div>
-            {/* </div> */}
-            <div className='d-flex'>
-                {receivingCall && !callAccepted ? (
-                    <div><h1>{name} is calling ...</h1>
-                        <Button icon="" title="Answer" onClick={answerCall()} className="bg-success" style={{ backgroundColor: "red" }} />
-                    </div>
-                ) : null}
-            </div>
-            {callAccepted && <div className='d-flex'>
-                <Button icon="" onClick={endCall()} className="bg-danger" />
-                <Button icon="" onClick={endCall()} className="bg-danger" />
-            </div>}
 
         </>
     )
