@@ -5,6 +5,7 @@ import Peer from 'simple-peer';
 import io from 'socket.io-client';
 
 import './videoChat.css'
+import VideoCallFooter from './Footer/videoCallFooter';
 
 
 const socket = io.connect("http://localhost:8000");
@@ -20,6 +21,8 @@ const VideoChat = () => {
     const [idToCall, setIdToCall] = useState("");
     const [callEnded, setCallEnded] = useState(false);
     const [name, setName] = useState("");
+    const [mute, setMute] = useState("");
+    const [stopVideo, setStopVideo] = useState("");
 
     const myVideo = useRef();
     const userVideo = useRef();
@@ -95,6 +98,28 @@ const VideoChat = () => {
         connectionRef.current = peer;
     }
 
+    const muteUnmute = () => {
+        const enabled = stream.getAudioTracks()[0].enabled;
+        if (enabled) {
+            stream.getAudioTracks()[0].enabled = false;
+            setMute(true);
+        } else {
+            stream.getAudioTracks()[0].enabled = true;
+            setMute(false);
+        }
+    };
+
+    const playStopVideo = () => {
+        const enabled = stream.getVideoTracks()[0].enabled;
+        if (enabled) {
+            stream.getVideoTracks()[0].enabled = false;
+            setStopVideo(true);
+        } else {
+            stream.getVideoTracks()[0].enabled = true;
+            setStopVideo(false);
+        }
+    };
+
 
     //Ability to leave the call
     const endCall = () => {
@@ -105,7 +130,9 @@ const VideoChat = () => {
         <>
             <div className='container pt-5'>
                 {!callAccepted ? <div id='myVideo'>
-                    {stream && <video playsInline muted ref={myVideo} autoPlay width="60%" height="auto" />}
+                    {stream &&
+                        <video playsInline muted ref={myVideo} autoPlay width="60%" height="auto" />
+                    }
                 </div> :
                     <div>
                         {stream && <video playsInline muted ref={myVideo} autoPlay style={{ width: "320", height: "240" }} />}
@@ -128,6 +155,7 @@ const VideoChat = () => {
                     <Button icon="" onClick={endCall()} className="bg-danger" />
                     <Button icon="" onClick={endCall()} className="bg-danger" />
                 </div>}
+                <VideoCallFooter mute={mute} setMute={setMute} stopVideo={stopVideo} setStopVideo={setStopVideo} />
             </div>
 
         </>
