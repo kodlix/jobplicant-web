@@ -176,7 +176,7 @@ export default function reducer(state = contact, action = {}) {
     case ERROR:
       return {
         ...state,
-        error: action.payload.data,
+        error: action.payload,
         loadingContact: null
       };
     default:
