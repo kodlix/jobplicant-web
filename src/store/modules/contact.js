@@ -32,10 +32,10 @@ export default function reducer(state = contact, action = {}) {
     case LOADING_CONTACT:
       return {
         ...state,
-        loadingContact: action.payload,
+        loadingContact: action.payload.data,
       };
     case LOAD_FREE_USERS:
-      const data = action.payload
+      const data = action.payload.data
       const uniqueFreeIds = [];
       if (state?.loadingContact === "loadMore") {
         const idArray = Array.from(new Set([
@@ -67,12 +67,12 @@ export default function reducer(state = contact, action = {}) {
         loadingContact: null
       };
     case LOAD_CONTACTS:
-      const contactArray = action.payload
+      const contactArray = action.payload.data
       const uniqueContactIds = [];
       if (state?.loadingContact === "loadMoreContacts") {
         const idArray = Array.from(new Set([
           ...state.contacts.ids,
-          ...contactArray?.map(({ id }) => id),
+          ...contactArray.map(({ id }) => id),
         ]));
         uniqueContactIds.push(...idArray)
       }
@@ -99,13 +99,13 @@ export default function reducer(state = contact, action = {}) {
         loadingContact: null
       };
     case CONTACT_ADDED:
-      console.log("contact added", action.payload)
+      console.log("contact added", action.payload.data)
       return {
         ...state,
         contacts: {
           ...state.contacts,
-          ids: [action.payload.id, ...state.contacts.ids],
-          data: { [action.payload.id]: action.payload, ...state.contacts.data }
+          ids: [action.payload.data.id, ...state.contacts.ids],
+          data: { [action.payload.data.id]: action.payload.data, ...state.contacts.data }
         }
       };
     case REQUEST_SENT:
@@ -132,7 +132,7 @@ export default function reducer(state = contact, action = {}) {
         }
       };
     case LOAD_PENDING_REQUESTS:
-      const pendingArray = action.payload
+      const pendingArray = action.payload.data
       const uniquePendingIds = [];
       if (state?.loadingContact === "loadMorePending") {
         const idArray = Array.from(new Set([
@@ -176,7 +176,7 @@ export default function reducer(state = contact, action = {}) {
     case ERROR:
       return {
         ...state,
-        error: action.payload,
+        error: action.payload.data,
         loadingContact: null
       };
     default:
