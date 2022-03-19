@@ -460,7 +460,14 @@ const Cv = {
   update: (id, data) => requests.put(`/cv/${id}`, data),
   delete: (id) => requests.del(`/cv/${id}`),
 };
-
+const Chat = {
+  createChat: (data) => requests.post("/chat", data),
+  deleteChatConversation: (conversationId) =>
+    requests.del(`/chat/${conversationId}`),
+  getConversationList: () => requests.get(`/chat/conversation-list`),
+  getConversationsWithPartnerId: (partnerId) =>
+    requests.get(`/chat/conversation-messages/${partnerId}`),
+};
 export default {
   Auth,
   User,
@@ -493,4 +500,5 @@ export default {
   Service,
   Review,
   Cv,
+  Chat,
 };
