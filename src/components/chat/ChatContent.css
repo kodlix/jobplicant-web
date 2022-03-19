@@ -1,6 +1,6 @@
-.chat-content-container{
+.chat-content-container {
     position: fixed;
-    bottom: 0px;
+    bottom: 10px;
     right: 340px;
     height: 400px;
     width: 500px;
@@ -14,7 +14,7 @@
 }
 
 
-.chat-content-header{
+.chat-content-header {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -26,37 +26,65 @@
     padding-bottom: 8px;
     padding-right: 10px;
 }
+
 .chat-content-header .left {
     display: flex;
     align-items: center;
     justify-self: center;
 }
+
 .chat-content-header .left img {
     height: 40px;
     border-radius: 50px;
     margin-right: 8px;
 }
-.chat-content-header .left h4{
+
+.chat-content-header .left h4 {
     font-size: 18px;
 }
+
 .chat-content-header .right {
     padding: 10px;
 }
-.chat-content-header .right i{
+
+.chat-content-header .right i {
     cursor: pointer;
 }
-.chat-content-body{
+
+.chat-content-body {
     padding: 12px;
     display: flex;
     flex-direction: column;
     position: relative;
     flex: 1;
+    max-height: 276px;
+    overflow-y: scroll;
+    /*height: 300px; */
+    background-color: #eee;
 }
-.chat-content-body .chat-content-messages{
+
+.chat-content-body .chat-content-messages {
+
+    display: flex;
+    flex-direction: column;
     flex: 1;
-    padding: 24px;
+
 }
-.chat-content-body .chat-content-input{
+
+
+
+.chat-content-body .chat-content-messages msg {
+    display: flex;
+    max-width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px;
+    margin: 4px;
+    text-align: left;
+}
+
+
+.chat-content-container .chat-content-input {
     background-color: #eee;
     padding: 12px;
     display: flex;
@@ -66,17 +94,20 @@
     left: 0;
     right: 0;
 }
-.chat-content-body .chat-content-input input{
+
+.chat-content-container .chat-content-input input {
     flex: 1;
     border: none;
-    padding: 4px 0;
-    border-radius: 50px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-right: 4px;
 }
 
-.chat-content-body .chat-content-input button {
-    
+.chat-content-container .chat-content-input button {
+
     box-shadow: 3px 2px 3px #eee;
     padding: 6px 20px;
     font-size: 16px;
-    border-radius: 50px;
+    border-radius: 4px;
+
 }

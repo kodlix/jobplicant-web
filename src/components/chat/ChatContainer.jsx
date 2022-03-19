@@ -1,31 +1,43 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { toggleChatModal } from 'store/modules/chat';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleChatModal } from "../../store/modules/chat";
 
-import "./ChatContainer.css"
-import ChatList from './ChatList';
+import "./ChatContainer.css";
+import ChatList from "./ChatList";
 
-const ChatContainer = ({ setContact, selectedContact }) => {
-    const show = useSelector(state => state.chat.showChatModal)
-    const dispatch = useDispatch()
+const ChatContainer = () => {
+  const show = useSelector((state) => state.chat.showChatModal);
+  const userProfile = useSelector((state) => state.account.profileInfo);
 
-    return (
-        <div className={`chat-container ${show ? 'show' : ''}`}>
-            <div className="chat-header">
-                <div className="left">
-                    <img className="rounded-image" src="https://source.unsplash.com/random/50x50" />
-                    <h4>Messaging</h4>
-                </div>
-                <div className="right">
-                    <i onClick={() => dispatch(toggleChatModal())} className={`pi ${!show ? 'pi-chevron-up' : 'pi-chevron-down'} right-caret`}></i>
-                </div>
-            </div>
-            <div className="chat-body">
+  const dispatch = useDispatch();
 
-                <ChatList selectedContact={selectedContact} setContact={setContact} />
-            </div>
+  return (
+    <div className={`chat-container ${show ? "show" : ""}`}>
+      <div className="chat-header">
+        <div className="left">
+          <img
+            style={{ width: "30px", height: "30px" }}
+            className="rounded-image"
+            src={
+              userProfile.imageUrl ?? "https://source.unsplash.com/random/50x50"
+            }
+          />
+          <h4>Messaging</h4>
         </div>
-    )
-}
+        <div className="right">
+          <i
+            onClick={() => dispatch(toggleChatModal())}
+            className={`pi ${
+              !show ? "pi-chevron-up" : "pi-chevron-down"
+            } right-caret`}
+          ></i>
+        </div>
+      </div>
+      <div className="chat-body">
+        <ChatList />
+      </div>
+    </div>
+  );
+};
 
-export default ChatContainer
+export default ChatContainer;
