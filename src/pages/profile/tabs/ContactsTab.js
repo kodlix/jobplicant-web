@@ -55,8 +55,8 @@ const ContactsTab = () => {
             >
               <div className="d-flex">
                 <img
-                  src="https://source.unsplash.com/random/50x50"
-                  className="rounded circle"
+                  src={contact.imageUrl} width="50px" height="50px"
+                  className="rounded-circle"
                   alt="image"
                 />
                 <div className="p-2"></div>
