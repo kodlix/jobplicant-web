@@ -7,6 +7,7 @@ import {
 } from "../../store/modules/chat";
 import "./ChatContent.css";
 import moment from "moment";
+import { useHistory } from "react-router";
 
 const sentStyle = {
   borderRadius: "4px",
@@ -55,6 +56,7 @@ const ChatContentItem = ({ conversation, contact }) => {
 };
 
 const ChatContent = () => {
+  const history = useHistory();
   const chatMessageRef = useRef(null);
   const dispatch = useDispatch();
   const contact = useSelector((state) => state.chat.selectedContact);
@@ -118,7 +120,12 @@ const ChatContent = () => {
             style={{ width: "40px", height: "40px" }}
             src={contact.imageUrl ?? "https://source.unsplash.com/random/50x50"}
           />
-          <h4>{getName(contact)}</h4>
+          <h4
+            style={{ cursor: "pointer" }}
+            onClick={() => history.push(`/applicant/${contact.id}`)}
+          >
+            {getName(contact)}
+          </h4>
         </div>
         <div className="right">
           <i onClick={handleRefreshConversation} className="pi pi-refresh"></i>
