@@ -4,6 +4,7 @@ import chatJSON from "./chat.json";
 import { actionSetSelectedContact } from "../../store/modules/chat";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
+import ChatAvatar from "../../assets/avatar-chat.png";
 
 const ChatList = () => {
   const dispatch = useDispatch();
@@ -25,8 +26,12 @@ const ChatList = () => {
       setContacts(localContacts);
       setFilteredContact(localContacts);
     }
+  }, [contact]);
+
+  // console.log("converstaion list", conversationList);
+  useEffect(() => {
     console.log("conversation list in a useEffect");
-    if (conversationList.data && contact) {
+    if (conversationList.data && contacts.length) {
       console.log("conversation list data");
       const result = conversationList.data.reduce(function (acc, item) {
         (acc[item["recieverId"]] = acc[item["recieverId"]] || []).push(item);
@@ -46,12 +51,7 @@ const ChatList = () => {
       setFilteredConversation(groupedRecentConversations);
       // console.log("conversation list loaded", conversationList.data);
     }
-  }, [contact, conversationList.data]);
-
-  // console.log("converstaion list", conversationList);
-  // useEffect(() => {
-
-  // }, [conversationList.data]);
+  }, [contacts.length, conversationList.data]);
 
   const transformObjToList = (contact) => {
     return contact.ids.map((id) => contact.data[id]);
@@ -131,9 +131,7 @@ const ChatList = () => {
             >
               <img
                 style={{ width: "30px", height: "30px" }}
-                src={
-                  item.imageUrl ?? "https://source.unsplash.com/random/70x70"
-                }
+                src={item.imageUrl ?? ChatAvatar}
               />
               <div className="contact-detail">
                 <h4>
@@ -187,7 +185,7 @@ const ChatList = () => {
           >
             <img
               style={{ width: "40px", height: "40px" }}
-              src={item.imageUrl ?? "https://source.unsplash.com/random/70x70"}
+              src={item.imageUrl ?? ChatAvatar}
             />
             <div className="contact-detail">
               <h4>

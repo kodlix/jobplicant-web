@@ -4,6 +4,7 @@ import { toggleChatModal } from "../../store/modules/chat";
 
 import "./ChatContainer.css";
 import ChatList from "./ChatList";
+import ChatAvatar from "../../assets/avatar-chat.png";
 
 const ChatContainer = () => {
   const show = useSelector((state) => state.chat.showChatModal);
@@ -18,9 +19,7 @@ const ChatContainer = () => {
           <img
             style={{ width: "30px", height: "30px" }}
             className="rounded-image"
-            src={
-              userProfile.imageUrl ?? "https://source.unsplash.com/random/50x50"
-            }
+            src={userProfile.imageUrl ?? ChatAvatar}
           />
           <h4>Messaging</h4>
         </div>
