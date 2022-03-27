@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import LineChart from './LineChart';
 import BarChart from './BarChart';
 import ProgressTrackerBar from './ProgressTrackerBar';
 import DataTableComponent from './DataTableComponent';
 import { Link } from 'react-router-dom';
 import './Dashboard.css'
+import agentService from 'services/agent.service';
+import { UserPostCount } from 'store/modules/dashboard';
+import { agent } from 'superagent';
+import { useDispatch } from 'react-redux';
 
 const EmployeeDashboard = () => {
+  const dispatch = useDispatch();
+  const id = agentService.Auth.current().id;
+  const name = agentService.Auth.current().name;
+
+  useEffect(() => {
+    dispatch(UserPostCount(id))
+  }, [])
+
   return (
     <div className="dashboard-container">
       <h3 className="p-pb-2"><i className="pi pi-chart-line p-pr-2"></i>Dashboard</h3>
-      <h6 className="p-mb-4">Welcome Paul, check the activities on Jobplicant so far</h6>
+      <h6 className="p-mb-4">Welcome {name}, check the activities on Jobplicant so far</h6>
       {/*   ARTISAN DASHBOARD     */}
       <h6>Shown only if loggedInUser === Artisan</h6>
       <div className="row">

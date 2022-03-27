@@ -1,10 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ProgressTrackerBar from './ProgressTrackerBar';
 import DataTableComponent from './DataTableComponent';
 import BarChart from 'pages/dashboard/BarChart';
 import LineChart from 'pages/dashboard/LineChart';
+import { useDispatch, useSelector } from 'react-redux';
+import { AdminPostCount, UserAdminCount } from 'store/modules/dashboard';
+import agentService from 'services/agent.service';
+
 
 const EmployeeDashboard = () => {
+  const dispatch = useDispatch();
+  const [posts, setPosts] = useState([]);
+  const userCountGroup = useSelector(state => state.dashboard.count);
+  const allPostCount = useSelector(state => state.dashboard.allPost);
+
+  const dashboardData = userCountGroup?.data;
+  // console.log({ allPostCount })
+  const corporate = dashboardData?.find(x => x.accountType === "Corporate");
+  const instantHire = dashboardData?.find(x => x.accountType === "Instant Hire");
+  const jobSeeker = dashboardData?.find(x => x.accountType === "Job Seeker");
+  const artisan = dashboardData?.find(x => x.accountType === "Artisan");
+
+
+  useEffect(() => {
+    dispatch(UserAdminCount());
+    dispatch(AdminPostCount());
+  }, [])
+
+
   return (
     <div className="dashboard-container">
       <h3 className="p-pb-2 p-mt-5"><i className="pi pi-chart-line p-pr-2"></i>Dashboard</h3>
@@ -89,7 +112,7 @@ const EmployeeDashboard = () => {
                 </div>
                 <div>
                   <h5 className="font-size-16 text-uppercase mt-0 text-white">Corporate</h5>
-                  <h4 className="font-weight-medium text-white font-size-24">197</h4>
+                  <h4 className="font-weight-medium text-white font-size-24">{corporate?.userCount}</h4>
                 </div>
                 {/* <div className="mini-stat-label bg-secondary col-3 float-right">
                   <p className="mb-0">+ 12%</p>
@@ -113,8 +136,8 @@ const EmployeeDashboard = () => {
                   <i className="pi pi-user" style={{ fontSize: "2rem" }}></i>
                 </div>
                 <div>
-                  <h5 className="font-size-16 text-uppercase mt-0 text-white">Artisans</h5>
-                  <h4 className="font-weight-medium text-white font-size-24">285</h4>
+                  <h5 className="font-size-16 text-uppercase mt-0 text-white">Artisan</h5>
+                  <h4 className="font-weight-medium text-white font-size-24">{artisan?.userCount}</h4>
                 </div>
                 {/* <div className="mini-stat-label bg-secondary col-3 float-right">
                   <p className="mb-0">+ 12%</p>
@@ -138,8 +161,8 @@ const EmployeeDashboard = () => {
                   <i className="pi pi-briefcase" style={{ fontSize: "2rem" }}></i>
                 </div>
                 <div>
-                  <h5 className="font-size-16 text-uppercase mt-0 text-white">Job Seekers</h5>
-                  <h4 className="font-weight-medium text-white font-size-24">156</h4>
+                  <h5 className="font-size-16 text-uppercase mt-0 text-white">Job Seeker</h5>
+                  <h4 className="font-weight-medium text-white font-size-24">{jobSeeker?.userCount}</h4>
                 </div>
                 {/* <div className="mini-stat-label bg-secondary col-3 float-right">
                   <p className="mb-0">+ 12%</p>
@@ -163,8 +186,8 @@ const EmployeeDashboard = () => {
                   <i className="pi pi-briefcase" style={{ fontSize: "2rem" }}></i>
                 </div>
                 <div>
-                  <h5 className="font-size-16 text-uppercase mt-0 text-white">Clients</h5>
-                  <h4 className="font-weight-medium text-white font-size-24">85</h4>
+                  <h5 className="font-size-16 text-uppercase mt-0 text-white">Instant Hire</h5>
+                  <h4 className="font-weight-medium text-white font-size-24">{instantHire?.userCount}</h4>
                 </div>
                 {/* <div className="mini-stat-label bg-secondary col-3 float-right">
                   <p className="mb-0">+ 12%</p>

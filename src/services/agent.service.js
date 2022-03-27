@@ -468,6 +468,16 @@ const Chat = {
   getConversationsWithPartnerId: (partnerId) =>
     requests.get(`/chat/conversation-messages/${partnerId}`),
 };
+
+const Dashboard = {
+  getCountByGroup: () =>
+    requests.get("/accounts/users-count-by-group"),
+  getAllPostCount: () =>
+    requests.get("/post/count"),
+  getUserPostCount: (userId) =>
+    requests.get(`/post/user/${userId}/count`),
+}
+
 export default {
   Auth,
   User,
@@ -501,4 +511,5 @@ export default {
   Review,
   Cv,
   Chat,
+  Dashboard,
 };
