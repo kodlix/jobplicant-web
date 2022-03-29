@@ -30,9 +30,9 @@ const groups = [
 
 const GroupsTab = () => (
   <>
-    <div className="p-card p-4 mt-1">
+    {/* <div className="p-card p-4 mt-1">
       <h3>Groups</h3>
-    </div>
+    </div> */}
     <div className="mt-1">
       {groups.map(({ name, ratings, description }, index) => (
         <div
