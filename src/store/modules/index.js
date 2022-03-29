@@ -24,6 +24,7 @@ import review from './review'
 import appNotification from './appNotification'
 import cv from './cv'
 import profile from './profile'
+import dashboard from './dashboard';
 
 const appReducer = (history) => combineReducers({
   router: connectRouter(history),
@@ -50,7 +51,8 @@ const appReducer = (history) => combineReducers({
   review,
   appNotification,
   cv,
-  profile
+  profile,
+  dashboard,
 });
 
 export default appReducer;

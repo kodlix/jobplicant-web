@@ -1,10 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ProgressTrackerBar from './ProgressTrackerBar';
 import DataTableComponent from './DataTableComponent';
 import BarChart from 'pages/dashboard/BarChart';
 import LineChart from 'pages/dashboard/LineChart';
+import './Dashboard.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { AdminPostCount, AdminJobCount, UserAdminCount } from 'store/modules/dashboard';
+
 
 const EmployeeDashboard = () => {
+  const dispatch = useDispatch();
+  const userCountGroup = useSelector(state => state.dashboard.count);
+  const allPostCount = useSelector(state => state.dashboard.allPost);
+  const allJobCount = useSelector(state => state.dashboard.allJob);
+
+  const dashboardData = userCountGroup?.data;
+  const jobCount = allJobCount?.data;
+  const corporate = dashboardData?.find(x => x.accountType === "Corporate");
+  const instantHire = dashboardData?.find(x => x.accountType === "Instant Hire");
+  const jobSeeker = dashboardData?.find(x => x.accountType === "Job Seeker");
+  const artisan = dashboardData?.find(x => x.accountType === "Artisan");
+
+
+  useEffect(() => {
+    dispatch(UserAdminCount());
+    dispatch(AdminPostCount());
+    dispatch(AdminJobCount());
+  }, [])
+
+
   return (
     <div className="dashboard-container">
       <h3 className="p-pb-2 p-mt-5"><i className="pi pi-chart-line p-pr-2"></i>Dashboard</h3>
@@ -80,16 +104,16 @@ const EmployeeDashboard = () => {
         </div>
       </div> */}
       <div className="row">
-        <div className="col-xl-3 col-md-6">
-          <div className="card mini-stat text-white" style={{ backgroundColor: "green", opacity: "0.8" }}>
-            <div className="card-body">
+        <div className="col-xl-3 col-md-6 p-mb-2">
+          <div className="card mini-stat">
+            <div className="card-body dashboard-item">
               <div className="mb-4">
                 <div className="float-left mini-stat-img mr-4 col-3">
                   <i className="pi pi-briefcase" style={{ fontSize: "2rem" }}></i>
                 </div>
                 <div>
-                  <h5 className="font-size-16 text-uppercase mt-0 text-white">Corporate</h5>
-                  <h4 className="font-weight-medium text-white font-size-24">197</h4>
+                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item">Corporate</h5>
+                  <h4 className="font-weight-medium dashboard-item font-size-24">{corporate?.userCount}</h4>
                 </div>
                 {/* <div className="mini-stat-label bg-secondary col-3 float-right">
                   <p className="mb-0">+ 12%</p>
@@ -98,23 +122,23 @@ const EmployeeDashboard = () => {
               </div>
               <div className="pt-2">
                 <div className="float-right">
-                  <a href="#" className="text-white"><i className="pi pi-chevron-right mt-1" /></a>
+                  <a href="#"><i className="pi pi-chevron-right mt-1 dashboard-item" /></a>
                 </div>
-                <p className="text-white mb-0 mt-1 h6">Since last month</p>
+                <p className="dashboard-item mb-0 mt-1 h6">Since last month</p>
               </div>
             </div>
           </div>
         </div>
-        <div className="col-xl-3 col-md-6">
-          <div className="card mini-stat text-white" style={{ backgroundColor: "green", opacity: "0.8" }}>
-            <div className="card-body">
+        <div className="col-xl-3 col-md-6 p-mb-2">
+          <div className="card mini-stat">
+            <div className="card-body dashboard-item">
               <div className="mb-4">
                 <div className="float-left mini-stat-img mr-4 col-3">
                   <i className="pi pi-user" style={{ fontSize: "2rem" }}></i>
                 </div>
                 <div>
-                  <h5 className="font-size-16 text-uppercase mt-0 text-white">Artisans</h5>
-                  <h4 className="font-weight-medium text-white font-size-24">285</h4>
+                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item">Artisans</h5>
+                  <h4 className="font-weight-medium dashboard-item font-size-24">{artisan?.userCount}</h4>
                 </div>
                 {/* <div className="mini-stat-label bg-secondary col-3 float-right">
                   <p className="mb-0">+ 12%</p>
@@ -123,23 +147,23 @@ const EmployeeDashboard = () => {
               </div>
               <div className="pt-2">
                 <div className="float-right">
-                  <a href="#" className="text-white"><i className="pi pi-chevron-right mt-1" /></a>
+                  <a href="#"><i className="pi pi-chevron-right mt-1 dashboard-item" /></a>
                 </div>
-                <p className="text-white mb-0 mt-1 h6">Since last month</p>
+                <p className="dashboard-item mb-0 mt-1 h6">Since last month</p>
               </div>
             </div>
           </div>
         </div>
-        <div className="col-xl-3 col-md-6">
-          <div className="card mini-stat text-white" style={{ backgroundColor: "green", opacity: "0.8" }}>
-            <div className="card-body">
+        <div className="col-xl-3 col-md-6 p-mb-2">
+          <div className="card mini-stat">
+            <div className="card-body dashboard-item">
               <div className="mb-4">
                 <div className="float-left mini-stat-img mr-4 col-3">
                   <i className="pi pi-briefcase" style={{ fontSize: "2rem" }}></i>
                 </div>
                 <div>
-                  <h5 className="font-size-16 text-uppercase mt-0 text-white">Job Seekers</h5>
-                  <h4 className="font-weight-medium text-white font-size-24">156</h4>
+                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item">Job Seekers</h5>
+                  <h4 className="font-weight-medium dashboard-item font-size-24">{jobSeeker?.userCount}</h4>
                 </div>
                 {/* <div className="mini-stat-label bg-secondary col-3 float-right">
                   <p className="mb-0">+ 12%</p>
@@ -148,23 +172,23 @@ const EmployeeDashboard = () => {
               </div>
               <div className="pt-2">
                 <div className="float-right">
-                  <a href="#" className="text-white"><i className="pi pi-chevron-right mt-1" /></a>
+                  <a href="#"><i className="pi pi-chevron-right mt-1 dashboard-item" /></a>
                 </div>
-                <p className="text-white mb-0 mt-1 h6">Since last month</p>
+                <p className="dashboard-item mb-0 mt-1 h6">Since last month</p>
               </div>
             </div>
           </div>
         </div>
-        <div className="col-xl-3 col-md-6">
-          <div className="card mini-stat text-white" style={{ backgroundColor: "green", opacity: "0.8" }}>
-            <div className="card-body">
+        <div className="col-xl-3 col-md-6 p-mb-2">
+          <div className="card mini-stat">
+            <div className="card-body dashboard-item">
               <div className="mb-4">
                 <div className="float-left mini-stat-img mr-4 col-3">
                   <i className="pi pi-briefcase" style={{ fontSize: "2rem" }}></i>
                 </div>
                 <div>
-                  <h5 className="font-size-16 text-uppercase mt-0 text-white">Clients</h5>
-                  <h4 className="font-weight-medium text-white font-size-24">85</h4>
+                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item">Instant Hire</h5>
+                  <h4 className="font-weight-medium dashboard-item font-size-24">{instantHire?.userCount}</h4>
                 </div>
                 {/* <div className="mini-stat-label bg-secondary col-3 float-right">
                   <p className="mb-0">+ 12%</p>
@@ -173,14 +197,14 @@ const EmployeeDashboard = () => {
               </div>
               <div className="pt-2">
                 <div className="float-right">
-                  <a href="#" className="text-white"><i className="pi pi-chevron-right mt-1" /></a>
+                  <a href="#"><i className="pi pi-chevron-right mt-1 dashboard-item" /></a>
                 </div>
-                <p className="text-white mb-0 mt-1 h6">Since last month</p>
+                <p className="dashboard-item mb-0 mt-1 h6">Since last month</p>
               </div>
             </div>
           </div>
         </div>
-        {/* <div className="col-xl-3 col-md-6">
+        {/* <div className="col-xl-3 col-md-6 p-mb-2">
           <div className="card mini-stat bg-primary text-white">
             <div className="card-body">
               <div className="mb-4">
@@ -203,7 +227,7 @@ const EmployeeDashboard = () => {
             </div>
           </div>
         </div>
-        <div className="col-xl-3 col-md-6">
+        <div className="col-xl-3 col-md-6 p-mb-2">
           <div className="card mini-stat bg-primary text-white">
             <div className="card-body">
               <div className="mb-4">
@@ -228,49 +252,70 @@ const EmployeeDashboard = () => {
         </div> */}
       </div>
       <div className="row  p-mt-3">
-        <div className="col-xl-3 col-md-6">
-          <div className="card mini-stat text-white" style={{ backgroundColor: "green", opacity: "0.8" }}>
-            <div className="card-body">
+        <div className="col-xl-3 col-md-6 p-mb-2">
+          <div className="card mini-stat">
+            <div className="card-body dashboard-item">
               <div className="mb-4">
                 <div className="float-left mini-stat-img mr-4 col-3">
                   <i className="pi pi-comments" style={{ fontSize: "2rem" }}></i>
                 </div>
                 <div>
-                  <h5 className="font-size-16 text-uppercase mt-0 text-white">Total Posts</h5>
-                  <h4 className="font-weight-medium text-white font-size-24">187</h4>
+                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item">Total Posts</h5>
+                  <h4 className="font-weight-medium dashboard-item font-size-24">{allPostCount?.data}</h4>
                 </div>
               </div>
               <div className="pt-2">
                 <div className="float-right">
-                  <a href="#" className="text-white"><i className="pi pi-chevron-right mt-1" /></a>
+                  <a href="#"><i className="pi pi-chevron-right mt-1 dashboard-item" /></a>
                 </div>
-                <p className="text-white mb-0 mt-1 h6">Since last month</p>
+                <p className="dashboard-item mb-0 mt-1 h6">Since last month</p>
               </div>
             </div>
           </div>
         </div>
-        <div className="col-xl-3 col-md-6">
-          <div className="card mini-stat text-white" style={{ backgroundColor: "green", opacity: "0.8" }}>
-            <div className="card-body">
+        <div className="col-xl-3 col-md-6 p-mb-2">
+          <div className="card mini-stat">
+            <div className="card-body dashboard-item">
               <div className="mb-4">
                 <div className="float-left mini-stat-img mr-4 col-3">
                   <i className="pi pi-briefcase" style={{ fontSize: "2rem" }}></i>
                 </div>
                 <div>
-                  <h5 className="font-size-16 text-uppercase mt-0 text-white">Total Jobs</h5>
-                  <h4 className="font-weight-medium text-white font-size-24">90</h4>
+                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item">Corporate Jobs</h5>
+                  <h4 className="font-weight-medium dashboard-item font-size-24">{jobCount?.corporateJob}</h4>
                 </div>
               </div>
               <div className="pt-2">
                 <div className="float-right">
-                  <a href="#" className="text-white"><i className="pi pi-chevron-right mt-1" /></a>
+                  <a href="#"><i className="pi pi-chevron-right mt-1 dashboard-item" /></a>
                 </div>
-                <p className="text-white mb-0 mt-1 h6">Since last month</p>
+                <p className="dashboard-item mb-0 mt-1 h6">Since last month</p>
               </div>
             </div>
           </div>
         </div>
-        {/* <div className="col-xl-3 col-md-6">
+        <div className="col-xl-3 col-md-6 p-mb-2">
+          <div className="card mini-stat">
+            <div className="card-body dashboard-item">
+              <div className="mb-4">
+                <div className="float-left mini-stat-img mr-4 col-3">
+                  <i className="pi pi-briefcase" style={{ fontSize: "2rem" }}></i>
+                </div>
+                <div>
+                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item">Instant Services</h5>
+                  <h4 className="font-weight-medium dashboard-item font-size-24">{jobCount?.instantService}</h4>
+                </div>
+              </div>
+              <div className="pt-2">
+                <div className="float-right">
+                  <a href="#"><i className="pi pi-chevron-right mt-1 dashboard-item" /></a>
+                </div>
+                <p className="dashboard-item mb-0 mt-1 h6">Since last month</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* <div className="col-xl-3 col-md-6 p-mb-2">
           <div className="card mini-stat text-white" style={{ backgroundColor: "green", opacity: "0.8" }}>
             <div className="card-body">
               <div className="mb-4">
@@ -291,7 +336,7 @@ const EmployeeDashboard = () => {
             </div>
           </div>
         </div>
-        <div className="col-xl-3 col-md-6">
+        <div className="col-xl-3 col-md-6 p-mb-2">
           <div className="card mini-stat text-white" style={{ backgroundColor: "green", opacity: "0.8" }}>
             <div className="card-body">
               <div className="mb-4">

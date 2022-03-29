@@ -468,6 +468,26 @@ const Chat = {
   getConversationsWithPartnerId: (partnerId) =>
     requests.get(`/chat/conversation-messages/${partnerId}`),
 };
+
+const Dashboard = {
+  getCountByGroup: () =>
+    requests.get("/accounts/users-count-by-group"),
+  getAllPostCount: () =>
+    requests.get("/post/count"),
+  getAllJobCount: () =>
+    requests.get("/job/count"),
+  getUserPostCount: (userId) =>
+    requests.get(`/post/user/${userId}/count`),
+  loadUserContact: () =>
+    requests.get(`/contact/count`),
+  loadInstantService: () =>
+    requests.get(`/instant-job/applications/m/count`),
+  loadJobs: () =>
+    requests.get(`/job/applications/m/count`),
+  loadUserActivities: () =>
+    requests.get(`/accounts/user-activities`),
+}
+
 export default {
   Auth,
   User,
@@ -501,4 +521,5 @@ export default {
   Review,
   Cv,
   Chat,
+  Dashboard,
 };
