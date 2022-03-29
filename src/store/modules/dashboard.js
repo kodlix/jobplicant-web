@@ -3,14 +3,24 @@ import { showMessage } from "./notification";
 
 const dashboard = {
     count: [],
-    allPost: 0,
+    allPost: {},
+    allJob: {},
     userPost: {},
+    userContact: {},
+    instantService: {},
+    userJob: {},
+    userActivities: []
 }
 
 // Action types
 const COUNT = "COUNT";
 const POST = "POST";
+const JOB = "JOB";
 const USER_POST_COUNT = "USER_POST_COUNT";
+const USER_CONTACT = "USER_CONTACT";
+const INSTANT_SERVICE = "INSTANT_SERVICE";
+const USER_JOB = "USER_JOB";
+const USER_ACTIVITIES = "USER_ACTIVITIES";
 
 // Reducer
 export default function reducer(state = dashboard, action = {}) {
@@ -25,10 +35,35 @@ export default function reducer(state = dashboard, action = {}) {
                 ...state,
                 allPost: action.payload,
             }
+        case JOB:
+            return {
+                ...state,
+                allJob: action.payload,
+            }
         case USER_POST_COUNT:
             return {
                 ...state,
                 userPost: action.payload,
+            }
+        case USER_CONTACT:
+            return {
+                ...state,
+                userContact: action.payload,
+            }
+        case INSTANT_SERVICE:
+            return {
+                ...state,
+                instantService: action.payload,
+            }
+        case USER_JOB:
+            return {
+                ...state,
+                userJob: action.payload,
+            }
+        case USER_ACTIVITIES:
+            return {
+                ...state,
+                userActivities: action.payload,
             }
         default:
             return state;
@@ -43,9 +78,27 @@ export function userCountByGroup(data) {
 export function getAllPosts(data) {
     return { type: POST, payload: data };
 }
+export function getAllJobs(data) {
+    return { type: JOB, payload: data };
+}
 
 export function getUserPosts(data) {
     return { type: USER_POST_COUNT, payload: data };
+}
+
+export function getUserContacts(data) {
+    return { type: USER_CONTACT, payload: data };
+}
+
+export function getInstantService(data) {
+    return { type: INSTANT_SERVICE, payload: data };
+}
+
+export function getUserJob(data) {
+    return { type: USER_JOB, payload: data };
+}
+export function getUserActivities(data) {
+    return { type: USER_ACTIVITIES, payload: data };
 }
 
 //Action
@@ -65,8 +118,18 @@ export const UserAdminCount = () => (dispatch) => {
 export const AdminPostCount = () => (dispatch) => {
     return agent.Dashboard.getAllPostCount().then(
         (response) => {
-            console.log("allpost", response);
             dispatch(getAllPosts(response));
+        },
+        (error) => {
+            dispatch(showMessage({ type: "error", message: error }));
+        }
+    );
+};
+
+export const AdminJobCount = () => (dispatch) => {
+    return agent.Dashboard.getAllJobCount().then(
+        (response) => {
+            dispatch(getAllJobs(response));
         },
         (error) => {
             dispatch(showMessage({ type: "error", message: error }));
@@ -79,7 +142,6 @@ export const AdminPostCount = () => (dispatch) => {
 export const UserPostCount = (userId) => async (dispatch) => {
     return agent.Dashboard.getUserPostCount(userId).then(
         (response) => {
-            console.log("userpost", response);
             dispatch(getUserPosts(response));
         },
         (error) => {
@@ -88,17 +150,48 @@ export const UserPostCount = (userId) => async (dispatch) => {
     );
 };
 
-// export function getUserCount(userId) {
-//     return (dispatch) => {
-//         return agent.Dashboard.getAllPostCount(userId).then(
-//             (res) => {
-//                 dispatch(getUserCount(res))
-//             },
-//             (error) => {
-//                 dispatch(showMessage({ type: "error", message: error }))
-//             }
+export const UserContact = () => async (dispatch) => {
+    return agent.Dashboard.loadUserContact().then(
+        (response) => {
+            dispatch(getUserContacts(response));
+        },
+        (error) => {
+            dispatch(showMessage({ type: "error", message: error }));
+        }
+    );
+};
 
-//         )
-//     }
-// }
+export const InstantService = () => async (dispatch) => {
+    return agent.Dashboard.loadInstantService().then(
+        (response) => {
+            dispatch(getInstantService(response));
+        },
+        (error) => {
+            dispatch(showMessage({ type: "error", message: error }));
+        }
+    );
+};
+
+export const UserJob = () => async (dispatch) => {
+    return agent.Dashboard.loadJobs().then(
+        (response) => {
+            dispatch(getUserJob(response));
+        },
+        (error) => {
+            dispatch(showMessage({ type: "error", message: error }));
+        }
+    );
+};
+
+export const UserActivities = () => async (dispatch) => {
+    return agent.Dashboard.loadUserActivities().then(
+        (response) => {
+            console.log("acti", response);
+            dispatch(getUserActivities(response));
+        },
+        (error) => {
+            dispatch(showMessage({ type: "error", message: error }));
+        }
+    );
+};
 
