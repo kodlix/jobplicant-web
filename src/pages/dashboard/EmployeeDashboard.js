@@ -32,7 +32,7 @@ const EmployeeDashboard = () => {
       <h3 className="p-pb-2"><i className="pi pi-chart-line p-pr-2"></i>Dashboard</h3>
       <h6 className="p-mb-4">Welcome {name}, check the activities on Jobplicant so far</h6>
       <div className="row">
-        <div className="col-xl-3 col-md-6 p-mb-2">
+        <div className="col-xl-4 col-md-6 p-mb-2">
           <div className="card mini-stat">
             <div className="card-body dashboard-item">
               <div className="mb-4">
@@ -57,7 +57,7 @@ const EmployeeDashboard = () => {
             </div>
           </div>
         </div>
-        <div className="col-xl-3 col-md-6 p-mb-2">
+        <div className="col-xl-4 col-md-6 p-mb-2">
           <div className="card mini-stat">
             <div className="card-body dashboard-item">
               <div className="mb-4">
@@ -82,7 +82,7 @@ const EmployeeDashboard = () => {
             </div>
           </div>
         </div>
-        <div className="col-xl-3 col-md-6 p-mb-2">
+        <div className="col-xl-4 col-md-6 p-mb-2">
           <div className="card mini-stat">
             <div className="card-body dashboard-item">
               <div className="mb-4">
@@ -110,19 +110,22 @@ const EmployeeDashboard = () => {
       </div>
 
       <div className="p-grid p-mx-lg-0 grid-margin p-py-1">
-        <div className="p-col-12 p-lg-4 p-p-lg-1 p-py-0">
+        <div className="p-col-12 p-lg-6 p-p-lg-1 p-py-0">
           <div className="p-card h-100 p-mt-2 p-rounded-lg">
-            <div className="p-card-title cardtitle">Recent Activity</div>
+            <div className="p-card-title cardtitle h6">Recent Activity</div>
             {userActivities && userActivities.length > 0 && userActivities.map(activity =>
               <div className="p-card-body p-card-body-Activity p-px-3">
                 <span>{activity.message}</span>
               </div>
             )}
+            {userActivities?.length === 0 && <div className="p-card-body p-card-body-Activity p-px-3">
+              <h6 className="text-center">You have no activity yet</h6>
+            </div>}
           </div>
         </div>
-        <div className="p-col-12 p-lg-4 p-p-lg-1">
+        <div className="p-col-12 p-lg-6 p-p-lg-1">
           <div className="p-card h-100 p-mt-2 p-rounded-lg">
-            <div className="p-card-title cardtitle">Progress Tracker</div>
+            <div className="p-card-title cardtitle h6">Progress Tracker</div>
             <div className="p-card-body p-pt-0">
               <div className="progressBar-title">
                 <span>
