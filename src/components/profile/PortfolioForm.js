@@ -5,25 +5,37 @@ import { OverlayPanel } from "primereact/overlaypanel";
 import { Toast } from "primereact/toast";
 import SectionHeader from "./SectionHeader";
 import ModeFooter from "./ModeFooter";
-import { deleteProfilePortfolio, updateProfilePortfolio } from "store/modules/account";
+import {
+  deleteProfilePortfolio,
+  updateProfilePortfolio,
+} from "store/modules/account";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
 const SectionSelectedFiles = ({ selectedFiles, removeFile }) => {
-  
-  return (<> <p className="pl-2"> Selected files</p>
-    {selectedFiles.map(({ id, imageURL }, index) => (
-      <div key={index} className="p-d-flex justify-content-start align-items-center m-2 p-3" style={{ border: '1px dashed #AAA' }}>
-        <img src={imageURL} style={{ width: '50px', height: '50px' }} />
-        <p className="pl-4">{id} </p>
-        <i className="pi pi-times ml-auto" style={{ cursor: 'pointer' }} onClick={() => removeFile(id)}></i>
-      </div>
-    ))
-    }
-    <br />
-
-  </>)
-}
+  return (
+    <>
+      {" "}
+      <p className="pl-2"> Selected files</p>
+      {selectedFiles.map(({ id, imageURL }, index) => (
+        <div
+          key={index}
+          className="p-d-flex justify-content-start align-items-center m-2 p-3"
+          style={{ border: "1px dashed #AAA" }}
+        >
+          <img src={imageURL} style={{ width: "50px", height: "50px" }} />
+          <p className="pl-4">{id} </p>
+          <i
+            className="pi pi-times ml-auto"
+            style={{ cursor: "pointer" }}
+            onClick={() => removeFile(id)}
+          ></i>
+        </div>
+      ))}
+      <br />
+    </>
+  );
+};
 
 const PortfolioForm = ({ data, closeEditMode }) => {
   const { handleSubmit } = useForm();
@@ -39,7 +51,6 @@ const PortfolioForm = ({ data, closeEditMode }) => {
     if (data?.length > 0) {
       setPortfolioItems(data);
     }
-
   }, []);
 
   const deletePortfolio = (e) => {
@@ -49,12 +60,10 @@ const PortfolioForm = ({ data, closeEditMode }) => {
     );
 
     const itemData = itemId.split("/");
-    const filename = itemData[itemData.length - 1]
-    console.log('filename', filename)
+    const filename = itemData[itemData.length - 1];
     setPortfolioItems(newPortfolioArray);
-    dispatch(deleteProfilePortfolio(filename))
+    dispatch(deleteProfilePortfolio(filename));
   };
-
 
   let newPortfolioArray = [];
   const addPortfolio = (e) => {
@@ -66,19 +75,23 @@ const PortfolioForm = ({ data, closeEditMode }) => {
     if (e.target.files.length) {
       const file = e.target.files[0];
       const preview = URL.createObjectURL(e.target.files[0]);
-      newPortfolioArray = [{
-        id: "portfolio-" + Math.random(100, 10000),
-        imageURL: preview,
-      },
-      ...newPortfolioArray];
-      // console.log('newPortfolioArray', newPortfolioArray)
+      newPortfolioArray = [
+        {
+          id: "portfolio-" + Math.random(100, 10000),
+          imageURL: preview,
+        },
+        ...newPortfolioArray,
+      ];
       // setPortfolioItems(newPortfolioArray.map(p => p.imageURL));
 
-      setSelectedFiles([...selectedFiles, {
-        file,
-        id: "portfolio-" + Math.random(100, 10000),
-        imageURL: preview
-      }]);
+      setSelectedFiles([
+        ...selectedFiles,
+        {
+          file,
+          id: "portfolio-" + Math.random(100, 10000),
+          imageURL: preview,
+        },
+      ]);
     }
   };
 
@@ -93,15 +106,14 @@ const PortfolioForm = ({ data, closeEditMode }) => {
     selectedFiles.forEach(({ file }) => {
       const extension = file.type.replace(/(.*)\//g, "");
       const filename = `${uuidv4()}.${extension}`;
-      console.log(filename);
       formData.append("files", file, filename);
     });
     dispatch(updateProfilePortfolio(formData));
   };
 
-  const removeFile = id => {
-    setSelectedFiles(selectedFiles.filter(file => file.id !== id))
-  }
+  const removeFile = (id) => {
+    setSelectedFiles(selectedFiles.filter((file) => file.id !== id));
+  };
 
   return (
     <>
@@ -112,15 +124,22 @@ const PortfolioForm = ({ data, closeEditMode }) => {
           icon="images"
           sectionTitle="Portfolio"
         />
-        
+
         <div className="p-card-body">
           <form onSubmit={handleSubmit(portfolioSubmit)}>
-          {selectedFiles.length > 0 && (<><SectionSelectedFiles selectedFiles={selectedFiles} removeFile={removeFile} />
-        <ModeFooter
-              loading={loading}
-              id="portfolioEdit"
-              onCancel={closeEditMode}
-            /></>)}
+            {selectedFiles.length > 0 && (
+              <>
+                <SectionSelectedFiles
+                  selectedFiles={selectedFiles}
+                  removeFile={removeFile}
+                />
+                <ModeFooter
+                  loading={loading}
+                  id="portfolioEdit"
+                  onCancel={closeEditMode}
+                />
+              </>
+            )}
             <br />
             <span className="width-100 p-mb-4">
               <div className="p-grid">
@@ -174,7 +193,6 @@ const PortfolioForm = ({ data, closeEditMode }) => {
               </div>
             </span>
             <div></div>
-            
           </form>
         </div>
       </div>
