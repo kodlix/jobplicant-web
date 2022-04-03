@@ -40,19 +40,9 @@ const EmployeeDashboard = () => {
                   <i className="pi pi-comment" style={{ fontSize: "2rem" }}></i>
                 </div>
                 <div>
-                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item">Posts</h5>
+                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item mb-2">Posts</h5>
                   <h4 className="font-weight-medium font-size-24 dashboard-item">{userPost?.data}</h4>
                 </div>
-                {/* <div className="mini-stat-label bg-secondary col-3 float-right">
-                  <p className="mb-0">+ 12%</p>
-                  <i className="pi pi-arrow-up text-white ml-2" />
-                </div> */}
-              </div>
-              <div className="pt-2">
-                <div className="float-right">
-                  <a href="#"><i className="pi pi-chevron-right mt-1 dashboard-item" /></a>
-                </div>
-                <p className="mb-0 mt-1 h6">Since last month</p>
               </div>
             </div>
           </div>
@@ -65,19 +55,9 @@ const EmployeeDashboard = () => {
                   <i className="pi pi-user-plus" style={{ fontSize: "2rem" }}></i>
                 </div>
                 <div>
-                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item">Connections</h5>
+                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item mb-2">Connections</h5>
                   <h4 className="font-weight-medium dashboard-item font-size-24">{userContact?.data}</h4>
                 </div>
-                {/* <div className="mini-stat-label bg-secondary col-3 float-right">
-                  <p className="mb-0">+ 12%</p>
-                  <i className="pi pi-arrow-up text-white ml-2" />
-                </div> */}
-              </div>
-              <div className="pt-2">
-                <div className="float-right">
-                  <a href="#"><i className="pi pi-chevron-right mt-1 dashboard-item" /></a>
-                </div>
-                <p className="dashboard-item mb-0 mt-1 h6">Since last month</p>
               </div>
             </div>
           </div>
@@ -90,19 +70,9 @@ const EmployeeDashboard = () => {
                   <i className="pi pi-briefcase" style={{ fontSize: "2rem" }}></i>
                 </div>
                 <div>
-                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item">Applied Jobs</h5>
+                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item mb-2">Applied Jobs</h5>
                   <h4 className="font-weight-medium dashboard-item font-size-24">{userJob?.data}</h4>
                 </div>
-                {/* <div className="mini-stat-label bg-secondary col-3 float-right">
-                  <p className="mb-0">+ 12%</p>
-                  <i className="pi pi-arrow-up text-white ml-2" />
-                </div> */}
-              </div>
-              <div className="pt-2">
-                <div className="float-right">
-                  <a href="#"><i className="pi pi-chevron-right mt-1 dashboard-item" /></a>
-                </div>
-                <p className="dashboard-item mb-0 mt-1 h6">Since last month</p>
               </div>
             </div>
           </div>

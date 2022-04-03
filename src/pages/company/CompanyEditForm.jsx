@@ -153,7 +153,7 @@ const CompanyEditForm = ({ countryId, stateId, lgaId }) => {
   useEffect(() => {
     if (lgas.length && profileInfo) {
       const lgaObject = lgas.find(
-        (l) => l.name.toLowerCase() === profileInfo.lga.toLowerCase()
+        (l) => l?.name?.toLowerCase() === profileInfo?.lga?.toLowerCase()
       );
       if (lgaObject) {
         setCompanyInfo({
@@ -320,7 +320,6 @@ const CompanyEditForm = ({ countryId, stateId, lgaId }) => {
                               shouldValidate: true,
                             });
                           }}
-                          name="yearOfEstablishment"
                           {...register("yearOfEstablishment", {
                             required: `* Year of establishment is required`,
                           })}

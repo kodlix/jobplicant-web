@@ -16,7 +16,7 @@ import { Link, useHistory } from "react-router-dom";
 
 import './CreateJob.css';
 
-const contractTypeList = ["Full-Time", "Contact-Based", "Internship"];
+const contractTypeList = ["Full-Time", "Contract-Based", "Internship"];
 
 const CreateJob = () => {
   const loading = useSelector((state) => state.job.loading);
@@ -84,7 +84,7 @@ const CreateJob = () => {
       companyName: companyInfo.companyName,
       title: companyInfo.jobTitle,
       description: editorHtml,
-      contactType: companyInfo.contractType, //TODO: To be corrected
+      contractType: companyInfo.contractType, //TODO: To be corrected
       hideCompanyName: companyInfo.hideCompanyName,
       jobUrl: companyInfo.website,
       minSalary,
