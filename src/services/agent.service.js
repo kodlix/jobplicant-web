@@ -203,6 +203,7 @@ const Job = {
   suspendApplication: (applicationId, data) =>
     requests.put(`/job/${applicationId}/application/suspend`, data),
   applyWithCV: (id, data) => requests.post(`/job/${id}/apply-with-cv`, data),
+  jobsFIlter: (filter) => requests.get(`/job/all/filter?=${filter}`),
 };
 
 //education service api
@@ -247,21 +248,21 @@ const JobVacancy = {
     requests.put(`/ jobvacancy / reject / ${id}`, rejection),
 };
 
-const Outlet = {
-  save: (outlet) => requests.post("/outlet", outlet),
-  load: (pageNumber) => requests.get("/outlet/apps/active", pageNumber),
-  view: (id) => requests.get(`/ outlet / ${id}`),
-  edit: (id, outlet) => requests.put(`/ outlet / ${id}`, outlet),
-  delete: (id) => requests.del(`/ outlet / ${id}`),
-};
+// const Outlet = {
+//   save: (outlet) => requests.post("/outlet", outlet),
+//   load: (pageNumber) => requests.get("/outlet/apps/active", pageNumber),
+//   view: (id) => requests.get(`/ outlet / ${id}`),
+//   edit: (id, outlet) => requests.put(`/ outlet / ${id}`, outlet),
+//   delete: (id) => requests.del(`/ outlet / ${id}`),
+// };
 
-const Poll = {
-  save: (poll) => requests.post("/poll", poll),
-  load: (pageNumber) => requests.get("/poll", pageNumber),
-  view: (id) => requests.get(`/ poll / ${id}`),
-  edit: (id, poll) => requests.put(`/ poll / ${id}`, poll),
-  delete: (id) => requests.del(`/ poll / ${id}`),
-};
+// const Poll = {
+//   save: (poll) => requests.post("/poll", poll),
+//   load: (pageNumber) => requests.get("/poll", pageNumber),
+//   view: (id) => requests.get(`/ poll / ${id}`),
+//   edit: (id, poll) => requests.put(`/ poll / ${id}`, poll),
+//   delete: (id) => requests.del(`/ poll / ${id}`),
+// };
 
 const ScheduleMeeting = {
   save: (schedulemeeting) =>
@@ -488,10 +489,16 @@ const Dashboard = {
     requests.get(`/accounts/user-activities`),
 }
 
+const Industries = {
+  getIndustries: () => requests.get("/industry"),
+
+}
+
+
 export default {
   Auth,
   User,
-  Outlet,
+  // Outlet,
   Sector,
   Account,
   JobExperience,
@@ -501,7 +508,7 @@ export default {
   Lga,
   JobVacancy,
   ScheduleMeeting,
-  Poll,
+  // Poll,
   Company,
   Education,
   UserSkill,
@@ -510,6 +517,7 @@ export default {
   Comment,
   Contact,
   Notification,
+  Industries,
   setToken: (_accessToken) => {
     accessToken = _accessToken;
   },

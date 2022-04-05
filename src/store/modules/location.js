@@ -7,6 +7,7 @@ const profile = {
     lgas: [],
     organizationNames: [],
     fetchingStates: false,
+    loading: false,
 };
 
 // Action types
@@ -15,6 +16,7 @@ const COUNTRY = 'COUNTRY';
 const STATE = 'STATE';
 const LGA = 'LGA';
 const ORGANIZATIONNAME = 'ORGANIZATIONNAME';
+const LOADING = "LOADING"
 
 
 //Action Creator
@@ -125,5 +127,10 @@ export function LoadOrganizationNames() {
         );
     }
 }
+
+// Filter Function
+
+
+
 
 

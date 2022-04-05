@@ -10,6 +10,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadStates } from 'store/modules/location';
 import { getQualifications } from 'store/modules/admin';
 import { useForm } from 'react-hook-form';
+import { allJobsFilter } from 'store/modules/job';
+import { loadIndustries } from 'store/modules/industry';
+import { experienceLevel, ContractTypes } from './dummyData';
 
 const FilterPanel = () => {
   const dispatch = useDispatch();
@@ -18,45 +21,17 @@ const FilterPanel = () => {
     mode: "onChange",
     reValidateMode: "all"
   });
+
   const allStates = useSelector(state => state.location.states);
+  const industries = useSelector(state => state.industry.industries)?.data;
   const allQualifications = useSelector(state => state.admin.qualifications);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedState, setSelectedState] = useState(null);
+  const [location, setLocation] = useState(null);
   const [selectedContract, setSelectedContract] = useState(null);
-  const [selectedQua, setSelectedQua] = useState(null);
+  const [level, setLevel] = useState(null)
   const [salaryRange, setSalaryRange] = useState([0, 100]);
   const [states, setStates] = useState(null);
+  const [industry, setIndustry] = useState(null);
   const [qualification, setQualification] = useState(null);
-
-  const JobCategories = [
-    { name: 'Telecommunication', code: 'TC' },
-    { name: 'Agriculturer', code: 'AR' },
-    { name: 'Medical', code: 'MC' },
-    { name: 'Technology', code: 'TY' },
-    { name: 'Accountant', code: 'AT' }
-  ];
-
-  const ContractTypes = [
-    { name: 'Full Time', code: 'FT' },
-    { name: 'Part Time', code: 'PT' },
-    { name: 'Contract', code: 'CT' },
-  ];
-
-  const onCategoryChange = (e) => {
-    setSelectedCategory(e.value);
-  }
-
-  const onStateChange = (e) => {
-    setSelectedState(e.value)
-  }
-
-  const onContractChange = (e) => {
-    setSelectedContract(e.value)
-  }
-
-  const onQualificationChange = (e) => {
-    setSelectedQua(e.value)
-  }
 
   useEffect(() => {
     if (allStates) {
@@ -70,15 +45,39 @@ const FilterPanel = () => {
   useEffect(() => {
     dispatch(loadStates(1));
     dispatch(getQualifications());
+    dispatch(loadIndustries())
   }, []);
 
 
   const handleClearAllField = () => {
-    setValue("jobCategory", setSelectedCategory(null));
+    setValue("industry", setIndustry(null));
     setValue("contractType", setSelectedContract(null));
-    setValue("location", setSelectedState(null));
-    setValue("experience", setSelectedQua(null));
+    setValue("state", setLocation(null));
+    setValue("level", setLevel(null));
   }
+
+  const onSubmit = (data) => {
+    let params = "";
+    data.industry = industry?.name || "";
+    data.location = location?.name || "";
+    data.contractType = selectedContract?.name || "";
+    data.level = level?.name || "";
+
+    if (data.industry) {
+      params = `industry=${data.industry || ""}&`
+    }
+    if (data.location) {
+      params = params + `location=${data.location || ""}&`
+    }
+    if (data.level) {
+      params = params + `level=${data.level || ""}&`
+    }
+    if (data.contractType) {
+      params = params + `contractType=${data.contractType || ""}&`
+    }
+    dispatch(allJobsFilter(params))
+  }
+
 
   return (
     <>
@@ -91,53 +90,64 @@ const FilterPanel = () => {
             Clear all filters
           </span>
         </div>
-        <div className="p-card-title cardContent-filterpanel">
-          <div className="d-flex justify-content-between">
-            <div className="cardSubtitle-filterpanel">
-              Job Industry
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="p-card-title cardContent-filterpanel">
+            <div className="d-flex justify-content-between">
+              <div className="cardSubtitle-filterpanel">
+                Industry
+              </div>
             </div>
+            <Dropdown
+              options={industries}
+              optionLabel="name"
+              filter
+              showClear
+              filterBy="name"
+              id="industry"
+              name="industry"
+              value={industry}
+              {...register("industry")}
+              className="w-100 formElements-filterPanel"
+              onChange={(e) => setIndustry(e.value)} />
           </div>
-          <Dropdown
-            options={JobCategories}
-            value={selectedCategory}
-            optionLabel="name"
-            onChange={onCategoryChange}
-            className="w-100 formElements-filterPanel"
-            name="jobCategory"
-          />
-        </div>
-        <div className="p-card-title cardContent-filterpanel">
-          <div className="d-flex justify-content-between">
-            <div className="cardSubtitle-filterpanel">
-              Contract Type
+          <div className="p-card-title cardContent-filterpanel">
+            <div className="d-flex justify-content-between">
+              <div className="cardSubtitle-filterpanel">
+                Contract Type
+              </div>
             </div>
+            {/* <InputText className="w-100 formElements-filterPanel"/> */}
+            <Dropdown
+              options={ContractTypes}
+              value={selectedContract}
+              filter
+              showClear
+              filterBy="name"
+              optionLabel="name"
+              className="w-100 formElements-filterPanel"
+              name="contractType"
+              {...register("contractType")}
+              onChange={(e) => setSelectedContract(e.value)} />
           </div>
-          {/* <InputText className="w-100 formElements-filterPanel"/> */}
-          <Dropdown
-            options={ContractTypes}
-            value={selectedContract}
-            optionLabel="name"
-            onChange={onContractChange}
-            className="w-100 formElements-filterPanel"
-            name="contractType"
-          />
-        </div>
-        <div className="p-card-title p-py-1 p-px-3">
-          <div className="d-flex justify-content-between">
-            <div className="cardSubtitle-filterpanel">
-              Location
+          <div className="p-card-title p-py-1 p-px-3">
+            <div className="d-flex justify-content-between">
+              <div className="cardSubtitle-filterpanel">
+                Location
+              </div>
             </div>
+            <Dropdown
+              options={states}
+              value={location}
+              filter
+              showClear
+              filterBy="name"
+              optionLabel="name"
+              className="w-100 formElements-filterPanel"
+              name="state"
+              {...register("state")}
+              onChange={(e) => setLocation(e.value)} />
           </div>
-          <Dropdown
-            options={states}
-            value={selectedState}
-            optionLabel="name"
-            onChange={onStateChange}
-            className="w-100 formElements-filterPanel"
-            name="location"
-          />
-        </div>
-        {/* <div className="p-card-title cardContent-filterpanel">
+          {/* <div className="p-card-title cardContent-filterpanel">
           <div className="d-flex justify-content-between align-items-center p-pb-2">
             <div className="cardSubtitle-filterpanel">
               Salary Range (₦)
@@ -172,25 +182,29 @@ const FilterPanel = () => {
             onChange={(e) => setSalaryRange(e.value)}
             className="formElements-filterPanel p-mt-3" />
         </div> */}
-        <div className="p-card-title cardContent-filterpanel">
-          <div className="d-flex justify-content-between">
-            <div className="cardSubtitle-filterpanel">
-              Experience Level
+          <div className="p-card-title cardContent-filterpanel">
+            <div className="d-flex justify-content-between">
+              <div className="cardSubtitle-filterpanel">
+                Experience Level
+              </div>
             </div>
+            <Dropdown
+              options={experienceLevel}
+              value={level}
+              filter
+              showClear
+              filterBy="name"
+              optionLabel="name"
+              className="w-100 formElements-filterPanel"
+              name="level"
+              {...register("level")}
+              onChange={(e) => setLevel(e.value)} />
           </div>
-          <Dropdown
-            options={qualification}
-            value={selectedQua}
-            optionLabel="name"
-            onChange={onQualificationChange}
-            className="w-100 formElements-filterPanel"
-            name="experience"
-          />
-        </div>
 
-        <div className="pr-3" align="right">
-          <Button className="card-sideButton" label="Apply" type="button" />
-        </div>
+          <div className="pr-3" align="right">
+            <Button type="submit" className="card-sideButton" label="Apply" />
+          </div>
+        </form>
       </div>
 
     </>

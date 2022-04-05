@@ -25,6 +25,7 @@ import appNotification from './appNotification'
 import cv from './cv'
 import profile from './profile'
 import dashboard from './dashboard';
+import industry from './industry';
 
 const appReducer = (history) => combineReducers({
   router: connectRouter(history),
@@ -53,6 +54,7 @@ const appReducer = (history) => combineReducers({
   cv,
   profile,
   dashboard,
+  industry,
 });
 
 export default appReducer;
