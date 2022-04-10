@@ -105,7 +105,12 @@ const Auth = {
     return user?.role === ("Super-admin" || "Developer");
   },
   login: (email, password, type, app) =>
-    requests.post("/auth/signIn", { email, password, type, app }),
+    requests.post("/auth/signIn", {
+      email: email.toLowerCase(),
+      password,
+      type,
+      app,
+    }),
   register: (data) => requests.post("/auth/signUp", data),
   checkValidEmail: (email) =>
     requests.post(`/account/email/is-valid`, { email }),
@@ -204,6 +209,7 @@ const Job = {
     requests.put(`/job/${applicationId}/application/suspend`, data),
   applyWithCV: (id, data) => requests.post(`/job/${id}/apply-with-cv`, data),
   jobsFIlter: (filter) => requests.get(`/job/all/filter?=${filter}`),
+  getIndustries: () => requests.get(`/industry`),
 };
 
 //education service api
@@ -471,29 +477,19 @@ const Chat = {
 };
 
 const Dashboard = {
-  getCountByGroup: () =>
-    requests.get("/accounts/users-count-by-group"),
-  getAllPostCount: () =>
-    requests.get("/post/count"),
-  getAllJobCount: () =>
-    requests.get("/job/count"),
-  getUserPostCount: (userId) =>
-    requests.get(`/post/user/${userId}/count`),
-  loadUserContact: () =>
-    requests.get(`/contact/count`),
-  loadInstantService: () =>
-    requests.get(`/instant-job/applications/m/count`),
-  loadJobs: () =>
-    requests.get(`/job/applications/m/count`),
-  loadUserActivities: () =>
-    requests.get(`/accounts/user-activities`),
-}
+  getCountByGroup: () => requests.get("/accounts/users-count-by-group"),
+  getAllPostCount: () => requests.get("/post/count"),
+  getAllJobCount: () => requests.get("/job/count"),
+  getUserPostCount: (userId) => requests.get(`/post/user/${userId}/count`),
+  loadUserContact: () => requests.get(`/contact/count`),
+  loadInstantService: () => requests.get(`/instant-job/applications/m/count`),
+  loadJobs: () => requests.get(`/job/applications/m/count`),
+  loadUserActivities: () => requests.get(`/accounts/user-activities`),
+};
 
 const Industries = {
   getIndustries: () => requests.get("/industry"),
-
-}
-
+};
 
 export default {
   Auth,
