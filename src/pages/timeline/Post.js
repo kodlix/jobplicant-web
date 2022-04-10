@@ -16,12 +16,13 @@ import "./Timeline.css";
 import "./Timeline.css";
 import { ACCOUNT_TYPE } from 'constants/accountType';
 import { Link } from 'react-router-dom';
+import { MEDIATYPES } from 'constants/setup';
 const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, commentCount, setImageToDisplay, viewPage = false }) => {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.timeline.loadingPosts);
   const [copyAlert, setCopyAlert] = useState(null);
   const [currentPostId, setCurrentPostId] = useState(null);
-  const isCorporate = profileInfo?.accountType === ACCOUNT_TYPE.CORPORATE ? true : false;
+  const isCorporate = post?.author?.accountType === ACCOUNT_TYPE.CORPORATE ? true : false;
   const postId = post.id;
 
   const expandPostImage = (e) => {
@@ -33,7 +34,6 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
     const postId = e.currentTarget.dataset.id
     dispatch(likePost(postId));
   }
-
 
 
   const handleShareButton = (e) => {
@@ -78,18 +78,19 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
               <i className="pi pi-user p-mt-2 p-mb-2 p-mr-sm-3 p-mr-2 timeline-emptyProfilePic-medium"></i>
           }
           <span>
-            {
-              !isCorporate && post?.author?.firstName &&
-              <span className="p-card-title cardtitle-posts p-mb-0">
-                {`${formatter.capitalizeFirstLetter(post?.author?.firstName)} ${formatter.capitalizeFirstLetter(post?.author?.lastName)}`}
-              </span>
-            }
-            {
-              isCorporate && post?.author?.companyName &&
-              <span className="p-card-title cardtitle-posts p-mb-0">
-                {formatter.capitalizeFirstLetter(post?.author?.companyName)}
-              </span>
-            }
+
+            <>
+              {!isCorporate ?
+                <span className="p-card-title cardtitle-posts p-mb-0">
+                  {`${formatter.capitalizeFirstLetter(post?.author?.firstName)} ${formatter.capitalizeFirstLetter(post?.author?.lastName)}`}
+                </span>
+                :
+                isCorporate && post?.author?.companyName &&
+                <span className="p-card-title cardtitle-posts p-mb-0">
+                  {formatter.capitalizeFirstLetter(post?.author?.companyName)}
+                </span>
+              }
+            </>
             {/* {
               post.author.accountType === ACCOUNT_TYPE.ARTISAN &&
               <span className="stars p-ml-1 align-text-bottom" style={{ "--rating": post.author.rating }} />
@@ -97,10 +98,16 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
             <div className="poster-description">
               <p>
               </p>
-              <i className="pi pi-briefcase p-pr-1" />
-              <span>Software Engineer</span>
-              <i className="pi pi-map-marker p-pl-2 p-pr-1" />
-              <span>Nigeria</span>
+              {!isCorporate && <>
+                <i className="pi pi-briefcase p-pr-1" />
+                <span> {post?.author?.profession}</span>
+              </>
+              }
+
+              <>
+                <i className="pi pi-map-marker p-pl-2 p-pr-1" />
+                <span>{post?.author?.city && post?.author?.city}</span>
+              </>
             </div>
 
           </span>
@@ -121,12 +128,12 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
                   className="dropdown-menu"
                   aria-labelledby="dropdownMenuLink"
                 >
-                  <li
+                  {/* <li
                     className="dropdown-item timeline-dropdownItem"
                     onClick={() => onShow(post.id)}
                   >
                     Edit
-                  </li>
+                  </li> */}
                   <li
                     className="dropdown-item timeline-dropdownItem"
                     data-id={post.id}
@@ -157,15 +164,29 @@ const Post = ({ profileInfo, post, isAuthenticated, expandProfileImage, onShow, 
           style={{ fontSize: '0.9rem' }}
           dangerouslySetInnerHTML={{ __html: post.body }}
         />
-        {
-          post?.postImage &&
-          <img
-            width="80%"
-            alt={post.title}
-            className="timeline-postImage text-white"
-            src={`${post.postImage}`}
-            onClick={expandPostImage} />
-        }
+        {post?.postMedia?.length > 0 && post?.postMedia.map(media =>
+          <>
+            {
+               media?.mediaType?.toLowerCase() == MEDIATYPES.IMAGE.toLowerCase()
+              && <img
+                width="80%"
+                alt={post.title}
+                className="timeline-postImage text-white"
+                src={`${media.url}`}
+                onClick={expandPostImage} />
+            }
+
+            {
+              media?.mediaType?.toLowerCase() == MEDIATYPES.VIDEO.toLowerCase()
+              && <video wwidth="80%" height="240" controls>
+                <source src={media?.url} type="video/mp4" />
+                <source src={media?.url} type="video/ogg" />
+                Your browser does not support the video tag.
+              </video>
+            }
+          </>)}
+
+
       </div>
       <div className="cardtitle-statusbar-timeline p-my-3 p-py-2">
         {

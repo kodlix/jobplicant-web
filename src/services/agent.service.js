@@ -10,8 +10,8 @@ const superagent = superagentPromise(_superagent, global.Promise);
 export const currentApp = process.env.REACT_APP_CURRENT_APP;
 export const isArtisanApp = process.env.REACT_APP_CURRENT_APP === "artisan";
 
-export const API_ROOT = "https://jobplicant-api.herokuapp.com";
-// export const API_ROOT = "http://localhost:8080";
+// export const API_ROOT = "https://jobplicant-api.herokuapp.com";
+export const API_ROOT = "http://localhost:8080";
 
 console.log("API_ROOT", API_ROOT);
 console.log("environmental variables", process.env);
