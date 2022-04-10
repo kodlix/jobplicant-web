@@ -66,8 +66,7 @@ const PersonalInfo = ({ openCreate, openEdit, data, isViewApplicant }) => {
   const getCurrentJobExperience = (experiences) => {
     if (experiences && experiences.length) {
       const experience =
-        experiences.find((experience) => experiences.current === true) ||
-        experiences[0];
+        experiences.find((experience) => experience.current) || experiences[0];
       return (
         <div>
           {experience.jobTitle} at {experience.company}
