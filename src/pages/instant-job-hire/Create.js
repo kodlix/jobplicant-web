@@ -250,7 +250,6 @@ const New = ({ mode }) => {
                                                         setStartDate(value);
                                                         setValue(inputName, value, { shouldValidate: true });
                                                     }}
-                                                    name="startDate"
                                                     {...register("startDate", {
                                                         required: `Start date is required`,
                                                     })}
@@ -278,7 +277,6 @@ const New = ({ mode }) => {
                                                         setEndDate(value);
                                                         setValue(inputName, value, { shouldValidate: true });
                                                     }}
-                                                    name="endDate"
                                                     {...register("endDate", {
                                                         required: ` End date is required`,
                                                         validate: value => !value || !startdate || value > startdate || "End date cannot be less than Start date"

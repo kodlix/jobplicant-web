@@ -12,6 +12,7 @@ import { Editor } from 'primereact/editor';
 import { createPost, editPost } from "store/modules/timeline";
 import "./Timeline.css";
 import { ACCOUNT_TYPE } from 'constants/accountType';
+import { MEDIATYPES } from 'constants/setup';
 
 const CreatePostModal = ({ post, clearModalInput }) => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const CreatePostModal = ({ post, clearModalInput }) => {
   const profileInfo = useSelector((state) => state.account.profileInfo);
   const [postObject, setPostObject] = useState({});
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
+  const [mediaType, setMediaType] = useState("");
   const [_quill, setQuill] = useState(null);
   const [image, setImage] = useState({ preview: "", raw: "" });
   const { register, handleSubmit, formState: { errors }, setValue } = useForm("");
@@ -62,14 +64,46 @@ const CreatePostModal = ({ post, clearModalInput }) => {
     }
   }, [post]);
 
-
-  const handleImageChange = e => {
+  const handleVideoChange = e => {
+    const files = e.target.files;
+    for (let i = 0; i <= files.length - 1; i++) {
+      let fsize = files.item(i).size;
+      let file = Math.round((fsize / 1024));
+      // The size of the file.
+      if (file >= 5120) {
+        alert("Video too big, please select a video less than 5mb");
+        return;
+      }
+    }
     if (e.target.files.length) {
       setImage({
         preview: URL.createObjectURL(e.target.files[0]),
         raw: e.target.files[0]
       });
     }
+    setMediaType(MEDIATYPES.VIDEO);
+  };
+
+
+  const handleImageChange = e => {
+    const files = e.target.files;
+    for (let i = 0; i <= files.length - 1; i++) {
+      let fsize = files.item(i).size;
+      let file = Math.round((fsize / 1024));
+      // The size of the file.
+      if (file >= 1024) {
+        alert("Image too big, please select a file less than 1mb");
+        return;
+      }
+    }
+
+    if (e.target.files.length) {
+      setImage({
+        preview: URL.createObjectURL(e.target.files[0]),
+        raw: e.target.files[0]
+      });
+    }
+    setMediaType(MEDIATYPES.IMAGE);
   };
 
   // EmojiPicker
@@ -141,7 +175,7 @@ const CreatePostModal = ({ post, clearModalInput }) => {
   };
 
   const inputChange = (e, inputName) => {
-    
+
     const inputValue =
       inputName && (inputName === "body")
         ? e.htmlValue
@@ -161,8 +195,9 @@ const CreatePostModal = ({ post, clearModalInput }) => {
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("body", data.body);
+    formData.append("mediaType", mediaType);
     if (image.raw) {
-      formData.append("postImage", image.raw)
+      formData.append("files", image.raw)
     };
     if (Object.keys(post).length > 0) {
       dispatch(editPost(post.id, formData));
@@ -318,7 +353,7 @@ const CreatePostModal = ({ post, clearModalInput }) => {
             className="TextEditor-container-timeline"
             onTextChange={(e) => { inputChange(e, "body") }}
             {...register("body", {
-              validate: (e) => {validateEditorBody(e)}
+              validate: (e) => { validateEditorBody(e) }
             })}
             id="body"
             name="body"
@@ -331,6 +366,7 @@ const CreatePostModal = ({ post, clearModalInput }) => {
               type="file"
               id="timeline-uploadPhoto"
               style={{ display: "none" }}
+              name="files"
               onChange={handleImageChange}
               onClick={(e) => e.target.value = null}
               accept="image/*"
@@ -341,6 +377,8 @@ const CreatePostModal = ({ post, clearModalInput }) => {
             <input
               type="file"
               id="timeline-uploadVideo"
+              name="files"
+              onChange={handleVideoChange}
               style={{ display: "none" }}
               accept="video/*"
               onClick={(e) => e.target.value = null}

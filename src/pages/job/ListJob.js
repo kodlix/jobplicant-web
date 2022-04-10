@@ -2,7 +2,7 @@ import { Badge } from 'primereact/badge'
 import { Skeleton } from 'primereact/skeleton'
 import { Dropdown } from 'primereact/dropdown'
 import { InputText } from 'primereact/inputtext'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Tag } from "primereact/tag";
 import BackgroundImage from '../../assets/bg.png'
@@ -62,13 +62,25 @@ const ListJob = () => {
     const dispatch = useDispatch();
 
     const jobs = useSelector(state => state.job.allJobs);
+    const FilterJobs = useSelector(state => state.job.filteredjobs)?.data;
     const loading = useSelector(state => state.job.loading)
     const userAccountType = agentService.Auth.current().accountType;
 
+    const [allJobs, setAllJobs] = useState([]);
+    console.log(jobs, "Filter")
 
     useEffect(() => {
         dispatch(loadAllJobs())
     }, [])
+
+    useEffect(() => {
+        if (FilterJobs?.length > 0) {
+            setAllJobs(FilterJobs)
+        }
+        else {
+            setAllJobs(jobs)
+        }
+    }, [FilterJobs, jobs])
 
 
     return (
@@ -80,12 +92,12 @@ const ListJob = () => {
                     <div className="list-job-search-box" style={styles.box}>
                         <InputText style={styles.inputStyle} placeholder="Job Title" />
                     </div>
-                    <div className="list-job-search-box" style={styles.box}>
+                    {/* <div className="list-job-search-box" style={styles.box}>
                         <InputText style={styles.inputStyle} placeholder="Location" />
                     </div>
                     <div className="list-job-search-box" style={styles.box}>
                         <Dropdown style={styles.inputStyle} placeholder="Industry" />
-                    </div>
+                    </div> */}
                     <div className="list-job-search-box" style={styles.boxButton}>
                         <button style={styles.btnFind}>Find Jobs</button>
                     </div>
@@ -107,10 +119,10 @@ const ListJob = () => {
                         {loading ?
                             <CardSkeleton /> : (<>
                                 <div className="header-count-section" style={styles.jobListingHeader}>
-                                    <h4 className="ml-4">{jobs.length} matches found</h4>
+                                    <h4 className="ml-4">{jobs?.length > 0 ? jobs?.length : FilterJobs?.length || 0} matches found</h4>
                                 </div>
                                 <div className="job-listing-container">
-                                    {jobs.map((job, index) => <CardItem key={index} job={job} />)}
+                                    {allJobs && allJobs?.length > 0 && allJobs?.map((job, index) => <CardItem key={index} job={job} />)}
 
                                 </div>
                             </>)}

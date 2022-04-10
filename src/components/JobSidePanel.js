@@ -22,7 +22,7 @@ const JobSidePanel = ({ data }) => {
                   <div className="p-card-title cardbody-JobPanelComponent">
                     <div className="d-flex justify-content-between">
                       <div className="cardsubtitle-JobPanelComponent">{job.title}</div>
-                      <Tag className="p-mr-2" severity="success" value={job.contactType}></Tag>
+                      <Tag className="p-mr-2" severity="success" value={job?.contractType}></Tag>
                     </div>
                     {
                       !job.hideCompanyName &&

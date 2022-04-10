@@ -15,6 +15,7 @@ const initialState = {
   jobApplicationRequest: false,
   uploadCvRequest: false,
   uploadCvResponse: null,
+  filteredjobs: [],
 };
 
 const LOADING = "LOADING_JOB";
@@ -32,6 +33,7 @@ const LOADING_APPLICANTS = "LOADING_APPLICANTS";
 const GET_JOB_APPLICANTS = "GET_JOB_APPLICANTS";
 const LOAD_JOBS_ERROR = "LOAD_JOBS_ERROR";
 const ALL_APPLIED_JOBS = "ALL_APPLIED_JOBS";
+const FILTERED_JOBS = "FILTERED_JOBS";
 
 // Reducer
 export default function reducer(state = initialState, action = {}) {
@@ -122,6 +124,12 @@ export default function reducer(state = initialState, action = {}) {
         loading: false,
         jobApplicationRequest: false,
       };
+    case FILTERED_JOBS:
+      return {
+        ...state,
+        loading: false,
+        filteredjobs: action.payload
+      }
     default:
       return state;
   }
@@ -179,6 +187,10 @@ export const editingJob = () => ({
 export const loading = () => ({
   type: LOADING,
 });
+export const fetchedFilterJobs = (response) => ({
+  type: FILTERED_JOBS,
+  payload: response,
+})
 
 // Actions
 export const loadAllJobs = () => (dispatch) => {
@@ -394,3 +406,37 @@ export function suspendApplicant(applicationId, data) {
     );
   };
 }
+
+// Filter Function
+
+export function allJobsFilter(data) {
+  return (dispatch) => {
+    dispatch(loading(true));
+    return agent.Job.jobsFIlter(data).then(
+      (response) => {
+        dispatch(fetchedFilterJobs(response))
+        dispatch(loading(false));
+        // handle success
+        // dispatch(
+        //   showMessage({
+        //     type: MESSAGE_TYPE.SUCCESS,
+        //     message: "Jobs successfully filtered",
+        //     title: "job filtered Successfully",
+        //   })
+        // );
+      },
+      (error) => {
+        // handle error
+        dispatch(
+          showMessage({
+            type: "error",
+            message: error,
+            title: "Failed to create Instant job",
+          })
+        );
+        dispatch(loading(false));
+      }
+    );
+  };
+}
+
