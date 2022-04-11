@@ -107,10 +107,10 @@ const CommentForm = ({ postId, imageUrl, expandProfileImage }) => {
       <img
         alt="Profile"
         src={imageUrl}
-        width="55"
-        height="55"
+        width="40"
+        height="40"
         className="rounded-circle profile-picture-timeline align-self-center"
-        onClick={expandProfileImage}
+        // onClick={expandProfileImage}
       />
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -128,7 +128,7 @@ const CommentForm = ({ postId, imageUrl, expandProfileImage }) => {
           onChange={(e) => { inputChange(e) }}
         />
         <span className="timeline-commentButtons-container">
-          {
+          {/* {
             emojiPickerId === postId &&
             <div id='TextEditor-comment-emoji-picker'>
               <Picker
@@ -140,8 +140,8 @@ const CommentForm = ({ postId, imageUrl, expandProfileImage }) => {
                 style={{ position: 'absolute', right: '0', top: '-360px', 'z-index': '1', 'padding-bottom': '10px' }}
               />
             </div>
-          }
-          <span
+          } */}
+          {/* <span
             id="TextEditor-comment-emoji-button"
             onClick={() => _handleEmojiToggle(postId)}
           >
@@ -149,7 +149,7 @@ const CommentForm = ({ postId, imageUrl, expandProfileImage }) => {
               emoji={{ id: 'slightly_smiling_face' }}
               size={23}
             />
-          </span>
+          </span> */}
           <Button
             type="submit"
             label="Comment"

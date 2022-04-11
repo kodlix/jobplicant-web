@@ -15,14 +15,14 @@ const JobSidePanel = ({ data }) => {
           <div className="p-card-title cardtitle-JobPanelComponent">
             Recent Jobs
           </div>
-          <div className="p-pb-4">
+          <div className="p-pb-2 w-100">
             {
               data?.map((job) =>
-                <Link to={`/jobs/view/${job.id}`} className="p-card-body p-card-body-JobPanelComponent p-px-3 p-pb-3" key={job.id} id={job.id}>
+                <Link to={`/jobs/view/${job.id}`} className="p-card-body p-card-body-JobPanelComponent p-px-3" key={job.id} id={job.id}>
                   <div className="p-card-title cardbody-JobPanelComponent">
                     <div className="d-flex justify-content-between">
                       <div className="cardsubtitle-JobPanelComponent">{job.title}</div>
-                      <Tag className="p-mr-2" severity="success" value={job.contactType}></Tag>
+                      <Tag className="p-mr-2" severity="success" value={job?.contractType}></Tag>
                     </div>
                     {
                       !job.hideCompanyName &&
@@ -47,7 +47,6 @@ const JobSidePanel = ({ data }) => {
                       </span>
                     </div>
                   </div>
-                  <div className="seemore-JobPanelComponent">See more...</div>
                 </Link>
               )
             }

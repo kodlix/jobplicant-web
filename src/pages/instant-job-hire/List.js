@@ -20,8 +20,6 @@ const InstantHires = () => {
     const instantJobs = useSelector(state => state.instantJob.instantjobs);
     const allJobs = useSelector(state => state.job.allJobs);
 
-    console.log("instantJobs", instantJobs);
-
     const userAccountType = agentService.Auth.current().accountType;
 
 
@@ -76,8 +74,8 @@ const InstantHires = () => {
                                                 </div>
                                                 <Link to={`/instant-hire-applicants/${instantjob.id}`}>
                                                     <small className="p-text-secondary">
-                                                        <p className="font-weight-bold app-color text-capitalize">Job Service : {instantjob.service} </p>
-                                                        <p><span className="font-weight-bold app-color text-capitalize">Job Location : </span> {instantjob.location}</p>
+                                                        <p className="font-weight-bold app-color text-capitalize">Service : {instantjob.service} </p>
+                                                        <p><span className="font-weight-bold app-color text-capitalize">Location : </span> {instantjob.location}</p>
                                                         {/* <p><span className="font-weight-bold app-color">Time : </span>{instantjob.time} </p> */}
                                                         <p><span className="font-weight-bold app-color text-capitalize">Address : </span>{instantjob.address} </p>
                                                         <p><span className="font-weight-bold app-color text-capitalize">Phone Number : </span>{instantjob.phoneNumber} </p>

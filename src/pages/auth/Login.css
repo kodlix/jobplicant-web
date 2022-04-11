@@ -5,6 +5,10 @@ html {
     -ms-text-size-adjust: 100%;
 }
 
+.default-color{
+    color: #5A2846;
+}
+
 
 /*  apply a natural box layout model to all elements  */
 
@@ -16,7 +20,7 @@ html {
 
 .login-pane-right {
     background-color: #fff;
-    min-height: 101.3vh;
+    /* min-height: 101.3vh; */
 }
 
 .brand-logo {
@@ -86,13 +90,6 @@ html {
     }
     .spanOr {
         margin-bottom: 3vh;
-    }
-    .login-pane-left {
-        min-height: 30vh;
-        max-height: 30vh;
-    }
-    .login-pane-right {
-        padding: 30px;
     }
 }
 

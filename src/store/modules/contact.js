@@ -7,7 +7,11 @@ const contact = {
   loadingContact: "",
   pendingRequests: { data: {}, meta: {}, ids: [] },
   freeUsers: { data: {}, meta: {}, ids: [] },
-  contacts: { data: {}, meta: {}, ids: [] },
+  contacts: {
+    data: {},
+    meta: {},
+    ids: []
+  },
   error: null
 };
 
@@ -15,7 +19,7 @@ const contact = {
 const LOAD_FREE_USERS = "LOAD_FREE_USERS";
 const LOAD_CONTACTS = "LOAD_CONTACTS";
 const LOAD_PENDING_REQUESTS = "LOAD_PENDING_REQUESTS";
-const LOADING_CONTACT = "LOADING";
+const LOADING_CONTACT = "LOADING_CONTACT";
 const ERROR = "ERROR";
 const CONTACT_ADDED = "CONTACT_ADDED";
 const CONTACT_DELETED = "CONTACT_DELETED";
@@ -28,10 +32,10 @@ export default function reducer(state = contact, action = {}) {
     case LOADING_CONTACT:
       return {
         ...state,
-        loadingContact: action.payload,
+        loadingContact: action.payload.data,
       };
     case LOAD_FREE_USERS:
-      const data = action.payload
+      const data = action.payload.data
       const uniqueFreeIds = [];
       if (state?.loadingContact === "loadMore") {
         const idArray = Array.from(new Set([
@@ -63,7 +67,7 @@ export default function reducer(state = contact, action = {}) {
         loadingContact: null
       };
     case LOAD_CONTACTS:
-      const contactArray = action.payload
+      const contactArray = action.payload.data
       const uniqueContactIds = [];
       if (state?.loadingContact === "loadMoreContacts") {
         const idArray = Array.from(new Set([
@@ -95,13 +99,13 @@ export default function reducer(state = contact, action = {}) {
         loadingContact: null
       };
     case CONTACT_ADDED:
-      console.log("contact added", action.payload)
+      console.log("contact added", action.payload.data)
       return {
         ...state,
         contacts: {
           ...state.contacts,
-          ids: [action.payload.id, ...state.contacts.ids],
-          data: { [action.payload.id]: action.payload, ...state.contacts.data }
+          ids: [action.payload.data.id, ...state.contacts.ids],
+          data: { [action.payload.data.id]: action.payload.data, ...state.contacts.data }
         }
       };
     case REQUEST_SENT:
@@ -128,7 +132,7 @@ export default function reducer(state = contact, action = {}) {
         }
       };
     case LOAD_PENDING_REQUESTS:
-      const pendingArray = action.payload
+      const pendingArray = action.payload.data
       const uniquePendingIds = [];
       if (state?.loadingContact === "loadMorePending") {
         const idArray = Array.from(new Set([
@@ -253,7 +257,7 @@ export function loadContacts(page, take, loadingType) {
           showMessage({
             type: MESSAGE_TYPE.SUCCESS,
             title: "Load Contacts",
-            message: "Contacts Loaded"
+            // message: "Contacts Loaded"
           })
         );
         dispatch(contactsLoaded(response));
@@ -278,7 +282,7 @@ export function loadPendingRequests(page, take, loadingType) {
           showMessage({
             type: MESSAGE_TYPE.SUCCESS,
             title: "Load Pending Requests",
-            message: "Pending Contact Requests Loaded",
+            // message: "Pending Contact Requests Loaded",
           })
         );
         dispatch(pendingRequestsLoaded(response));

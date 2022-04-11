@@ -12,7 +12,7 @@ const CustomBreadCrumb = () => {
     const size = paths.length;
 
     return (
-        <div className="breadcrumb" >
+        <div className="breadcrumb" style={{paddingLeft: '80px'}} >
             <div className="d-flex" style={{alignItems: 'center'}}>
                 {
                     paths.map((path, index) => {

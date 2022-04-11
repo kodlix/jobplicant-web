@@ -6,6 +6,7 @@ import ModeFooter from "./ModeFooter";
 import SectionHeader from "./SectionHeader";
 import { Dropdown } from "primereact/dropdown";
 import { updateLOI } from "store/modules/account";
+import { loadStates } from "store/modules/location";
 
 const LOIList = [
   { name: "New York", id: "NY" },
@@ -18,18 +19,19 @@ const LOIList = [
 ];
 
 const LOIForm = ({ data, closeEditMode }) => {
+  console.log('Loi data', data)
   const { register, handleSubmit, setValue } = useForm();
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.account.loading);
 
   const [LOIs, setLOIs] = useState([]);
-  const [currentLOI, setCurrentLOI] = useState("");
+  const [currentLOI, setCurrentLOI] = useState({});
 
   const searchObjectArrayValues = (array, value) => {
-    const LOIExists = array.filter((LOI) => LOI.id === value);
+    console.log('LOIS TEST AGAIN', array)
+    const LOIExists = array.filter((LOI) => LOI.name === value);
     return !Boolean(LOIExists.length > 0);
   };
-
   const handleLOIChange = (e) => {
     const value = e.target.value;
     setCurrentLOI(value);
@@ -39,22 +41,29 @@ const LOIForm = ({ data, closeEditMode }) => {
     if (LOIs.length > 2) {
       console.log('loi is greater than 2');
     }else{
-      const { id } = currentLOI;
-  
-      if (searchObjectArrayValues(LOIs, id)) {
-        setLOIs([...LOIs, currentLOI]);
+      const { name } = currentLOI;
+   
+      if (searchObjectArrayValues(LOIs, name)) {
+        setLOIs([...LOIs, name]);
+        setValue("locations", LOIs);
+        setCurrentLOI("");
       }
-      setValue("location", LOIs);
-      setCurrentLOI("");
     }
   };
   const handleLOIDelete = (loiToRemove) => {
     // if (e.target.className === "p-tag-icon pi pi-times") {
     const newLOIArray = LOIs.filter((LOI) => LOI !== loiToRemove);
     setLOIs(newLOIArray);
-    setValue("location", newLOIArray);
+    setValue("locations", newLOIArray);
     // }
   };
+
+  const states = useSelector(state => state.location.states)
+  const fetchingStates = useSelector(state => state.location.fetchingStates)
+
+  useEffect(() => {
+    dispatch(loadStates(1))
+  }, [])
 
   useEffect(() => {
     if (data?.length > 0) {
@@ -64,10 +73,10 @@ const LOIForm = ({ data, closeEditMode }) => {
     }
   }, []);
 
-  const LOISubmit = (loiData) => {
-    const dataToPost = LOIs.map(loi => loi.name);
-    dispatch(updateLOI(dataToPost));
-  };
+  const LOISubmit = (loiData) =>{
+    console.log('data to post', LOIs)
+     dispatch(updateLOI({"locations": LOIs}));
+    }
 
   return (
     <>
@@ -77,11 +86,11 @@ const LOIForm = ({ data, closeEditMode }) => {
           <form onSubmit={handleSubmit(LOISubmit)}>
             <span className="skillInput p-mb-4">
               <label htmlFor="LOIInput" className="inputLabel p-pr-3">
-                Add up to 2 locations of interest
+                Add up to 3 locations of interest
               </label>
             </span>
-            {LOIs.length > 0 ? (
-              LOIs.map((LOI, index) => (
+        
+            { LOIs.map((LOI, index) => 
                 <button
                   key={index}
                   onClick={(e) => handleLOIDelete(LOI)}
@@ -95,14 +104,13 @@ const LOIForm = ({ data, closeEditMode }) => {
                     className="p-p-2"
                   ></Tag>
                 </button>
-              ))
-            ) : (
-              <div>No tags</div>
-            )}
+              )}
+            
+             
             <span className="skillInput">
               <Dropdown
                 value={currentLOI}
-                options={LOIList}
+                options={states}
                 onChange={handleLOIChange}
                 optionLabel="name"
                 filter

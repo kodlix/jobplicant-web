@@ -1,13 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ProgressTrackerBar from './ProgressTrackerBar';
 import DataTableComponent from './DataTableComponent';
+import BarChart from 'pages/dashboard/BarChart';
+import LineChart from 'pages/dashboard/LineChart';
+import './Dashboard.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { AdminPostCount, AdminJobCount, UserAdminCount } from 'store/modules/dashboard';
+
 
 const EmployeeDashboard = () => {
+  const dispatch = useDispatch();
+  const userCountGroup = useSelector(state => state.dashboard.count);
+  const allPostCount = useSelector(state => state.dashboard.allPost);
+  const allJobCount = useSelector(state => state.dashboard.allJob);
+
+  const dashboardData = userCountGroup?.data;
+  const jobCount = allJobCount?.data;
+  const corporate = dashboardData?.find(x => x.accountType === "Corporate");
+  const instantHire = dashboardData?.find(x => x.accountType === "Instant Hire");
+  const jobSeeker = dashboardData?.find(x => x.accountType === "Job Seeker");
+  const artisan = dashboardData?.find(x => x.accountType === "Artisan");
+
+
+  useEffect(() => {
+    dispatch(UserAdminCount());
+    dispatch(AdminPostCount());
+    dispatch(AdminJobCount());
+  }, [])
+
+
   return (
     <div className="dashboard-container">
-      <h3 className="p-pb-2"><i className="pi pi-chart-line p-pr-2"></i>Dashboard</h3>
-      <h6 className="p-mb-4">Account activity on Jobplicant so far</h6>
-      <div className="p-grid p-mx-lg-0 grid-margin p-py-1">
+      <h3 className="p-pb-2 p-mt-5"><i className="pi pi-chart-line p-pr-2"></i>Dashboard</h3>
+      <h6 className="p-mb-4">Activities on Jobplicant so far</h6>
+      {/* <div className="p-grid p-mx-lg-0 grid-margin p-py-1">
         <div className="p-col-12 p-lg-4 p-p-lg-1">
           <div className="p-card h-100 p-mt-2 text-center">
             <div className="p-card-title p-px-3 p-pt-4">Welcome Jane Doe!</div>
@@ -76,102 +102,261 @@ const EmployeeDashboard = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div className="p-grid p-mx-0">
-        <div className="p-col-12 p-pb-md-0 p-lg-3 p-md-6 p-px-1 p-py-0 p-py-lg-2">
-          <div className="p-card p-mt-2">
-            <div className="p-card-title cardtitle p-px-3 p-pt-3 d-flex justify-content-between">
-              <span>
-                <p>Earnings(Monthly)</p>
-                <p>$40,000</p>
-              </span>
-              <i className="pi pi-dollar"></i>
-            </div>
-            <div className="p-card-body d-flex justify-content-between p-py-2">
-              <h6>View Report</h6>
-              <i className="pi pi-chevron-right"></i>
-            </div>
-          </div>
-        </div>
-        <div className="p-col-12 p-pb-md-0 p-lg-3 p-md-6 p-px-1 p-py-0 p-py-lg-2">
-          <div className="p-card p-mt-2">
-            <div className="p-card-title cardtitle p-px-3 p-pt-3 d-flex justify-content-between">
-              <span>
-                <p>Earnings(Monthly)</p>
-                <p>$40,000</p>
-              </span>
-              <i className="pi pi-dollar"></i>
-            </div>
-            <div className="p-card-body d-flex justify-content-between p-py-2">
-              <h6>View Report</h6>
-              <i className="pi pi-chevron-right"></i>
+      </div> */}
+      <div className="row">
+        <div className="col-xl-3 col-md-6 p-mb-2">
+          <div className="card mini-stat">
+            <div className="card-body dashboard-item">
+              <div className="mb-4">
+                <div className="float-left mini-stat-img mr-4 col-3">
+                  <i className="pi pi-briefcase" style={{ fontSize: "2rem" }}></i>
+                </div>
+                <div>
+                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item">Corporate</h5>
+                  <h4 className="font-weight-medium dashboard-item font-size-24">{corporate?.userCount}</h4>
+                </div>
+                {/* <div className="mini-stat-label bg-secondary col-3 float-right">
+                  <p className="mb-0">+ 12%</p>
+                  <i className="pi pi-arrow-up text-white ml-2" />
+                </div> */}
+              </div>
+              <div className="pt-2">
+                <div className="float-right">
+                  <a href="#"><i className="pi pi-chevron-right mt-1 dashboard-item" /></a>
+                </div>
+                <p className="dashboard-item mb-0 mt-1 h6">Since last month</p>
+              </div>
             </div>
           </div>
         </div>
-        <div className="p-col-12 p-lg-3 p-md-6 p-px-1 p-py-0 p-pb-md-2 p-pt-lg-2">
-          <div className="p-card p-mt-2">
-            <div className="p-card-title cardtitle p-px-3 p-pt-3 d-flex justify-content-between">
-              <span>
-                <p>Earnings(Monthly)</p>
-                <p>$40,000</p>
-              </span>
-              <i className="pi pi-dollar"></i>
-            </div>
-            <div className="p-card-body d-flex justify-content-between p-py-2">
-              <h6>View Report</h6>
-              <i className="pi pi-chevron-right"></i>
-            </div>
-          </div>
-        </div>
-        <div className="p-col-12 p-lg-3 p-md-6 p-px-1 p-pt-0 p-pb-2 p-pt-lg-2">
-          <div className="p-card p-mt-2">
-            <div className="p-card-title cardtitle p-px-3 p-pt-3 d-flex justify-content-between">
-              <span>
-                <p>Earnings(Monthly)</p>
-                <p>$40,000</p>
-              </span>
-              <i className="pi pi-dollar"></i>
-            </div>
-            <div className="p-card-body d-flex justify-content-between p-py-2">
-              <h6>View Report</h6>
-              <i className="pi pi-chevron-right"></i>
+        <div className="col-xl-3 col-md-6 p-mb-2">
+          <div className="card mini-stat">
+            <div className="card-body dashboard-item">
+              <div className="mb-4">
+                <div className="float-left mini-stat-img mr-4 col-3">
+                  <i className="pi pi-user" style={{ fontSize: "2rem" }}></i>
+                </div>
+                <div>
+                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item">Artisans</h5>
+                  <h4 className="font-weight-medium dashboard-item font-size-24">{artisan?.userCount}</h4>
+                </div>
+                {/* <div className="mini-stat-label bg-secondary col-3 float-right">
+                  <p className="mb-0">+ 12%</p>
+                  <i className="pi pi-arrow-up text-white ml-2" />
+                </div> */}
+              </div>
+              <div className="pt-2">
+                <div className="float-right">
+                  <a href="#"><i className="pi pi-chevron-right mt-1 dashboard-item" /></a>
+                </div>
+                <p className="dashboard-item mb-0 mt-1 h6">Since last month</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="p-grid p-mx-0">
-        <div className="p-col-12 p-py-0 p-lg-6 p-px-1">
-          <div className="p-card p-mt-2">
-            <div className="p-card-title cardtitle">
-              Earning Breakdown
-            </div>
-            <div className="p-card-body p-p-0">
-              {/* <LineChart /> */}
+        <div className="col-xl-3 col-md-6 p-mb-2">
+          <div className="card mini-stat">
+            <div className="card-body dashboard-item">
+              <div className="mb-4">
+                <div className="float-left mini-stat-img mr-4 col-3">
+                  <i className="pi pi-briefcase" style={{ fontSize: "2rem" }}></i>
+                </div>
+                <div>
+                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item">Job Seekers</h5>
+                  <h4 className="font-weight-medium dashboard-item font-size-24">{jobSeeker?.userCount}</h4>
+                </div>
+                {/* <div className="mini-stat-label bg-secondary col-3 float-right">
+                  <p className="mb-0">+ 12%</p>
+                  <i className="pi pi-arrow-up text-white ml-2" />
+                </div> */}
+              </div>
+              <div className="pt-2">
+                <div className="float-right">
+                  <a href="#"><i className="pi pi-chevron-right mt-1 dashboard-item" /></a>
+                </div>
+                <p className="dashboard-item mb-0 mt-1 h6">Since last month</p>
+              </div>
             </div>
           </div>
         </div>
-        <div className="p-col-12 p-pt-0 p-lg-6 p-px-1">
-          <div className="p-card p-mt-2">
-            <div className="p-card-title cardtitle">
-              Monthly Revenue
-            </div>
-            <div className="p-card-body p-p-0">
-              {/* <BarChart /> */}
+        <div className="col-xl-3 col-md-6 p-mb-2">
+          <div className="card mini-stat">
+            <div className="card-body dashboard-item">
+              <div className="mb-4">
+                <div className="float-left mini-stat-img mr-4 col-3">
+                  <i className="pi pi-briefcase" style={{ fontSize: "2rem" }}></i>
+                </div>
+                <div>
+                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item">Instant Hire</h5>
+                  <h4 className="font-weight-medium dashboard-item font-size-24">{instantHire?.userCount}</h4>
+                </div>
+                {/* <div className="mini-stat-label bg-secondary col-3 float-right">
+                  <p className="mb-0">+ 12%</p>
+                  <i className="pi pi-arrow-up text-white ml-2" />
+                </div> */}
+              </div>
+              <div className="pt-2">
+                <div className="float-right">
+                  <a href="#"><i className="pi pi-chevron-right mt-1 dashboard-item" /></a>
+                </div>
+                <p className="dashboard-item mb-0 mt-1 h6">Since last month</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      {/* <div className="">
-        <div className="p-card p-mt-2">
-          <div className="p-card-title cardtitle"> */}
-      {/* Personnel Management */}
-      {/* </div> */}
-      <div className="p-grid p-mx-0 p-px-1 datatable-container">
-        <div className="p-col-12 p-card p-px-0 p-py-0 p-mt-2 datatable-content">
-          <DataTableComponent />
-          {/* </div>
+        {/* <div className="col-xl-3 col-md-6 p-mb-2">
+          <div className="card mini-stat bg-primary text-white">
+            <div className="card-body">
+              <div className="mb-4">
+                <div className="float-left mini-stat-img mr-4">
+                  <img src="public/assets/images/services-icon/03.png" alt />
+                </div>
+                <h5 className="font-size-16 text-uppercase mt-0 text-white-50">Job Seekers</h5>
+                <h4 className="font-weight-medium font-size-24">15.8 <i className="mdi mdi-arrow-up text-success ml-2" />
+                </h4>
+                <div className="mini-stat-label bg-info">
+                  <p className="mb-0"> 00%</p>
+                </div>
+              </div>
+              <div className="pt-2">
+                <div className="float-right">
+                  <a href="#" className="text-white-50"><i className="mdi mdi-arrow-right h5" /></a>
+                </div>
+                <p className="text-white-50 mb-0 mt-1">Since last month</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col-xl-3 col-md-6 p-mb-2">
+          <div className="card mini-stat bg-primary text-white">
+            <div className="card-body">
+              <div className="mb-4">
+                <div className="float-left mini-stat-img mr-4">
+                  <img src="public/assets/images/services-icon/04.png" alt />
+                </div>
+                <h5 className="font-size-16 text-uppercase mt-0 text-white-50">Product Sold</h5>
+                <h4 className="font-weight-medium font-size-24">2436 <i className="mdi mdi-arrow-up text-success ml-2" />
+                </h4>
+                <div className="mini-stat-label bg-warning">
+                  <p className="mb-0">+ 84%</p>
+                </div>
+              </div>
+              <div className="pt-2">
+                <div className="float-right">
+                  <a href="#" className="text-white-50"><i className="mdi mdi-arrow-right h5" /></a>
+                </div>
+                <p className="text-white-50 mb-0 mt-1">Since last month</p>
+              </div>
+            </div>
+          </div>
         </div> */}
+      </div>
+      <div className="row  p-mt-3">
+        <div className="col-xl-3 col-md-6 p-mb-2">
+          <div className="card mini-stat">
+            <div className="card-body dashboard-item">
+              <div className="mb-4">
+                <div className="float-left mini-stat-img mr-4 col-3">
+                  <i className="pi pi-comments" style={{ fontSize: "2rem" }}></i>
+                </div>
+                <div>
+                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item">Total Posts</h5>
+                  <h4 className="font-weight-medium dashboard-item font-size-24">{allPostCount?.data}</h4>
+                </div>
+              </div>
+              <div className="pt-2">
+                <div className="float-right">
+                  <a href="#"><i className="pi pi-chevron-right mt-1 dashboard-item" /></a>
+                </div>
+                <p className="dashboard-item mb-0 mt-1 h6">Since last month</p>
+              </div>
+            </div>
+          </div>
         </div>
+        <div className="col-xl-3 col-md-6 p-mb-2">
+          <div className="card mini-stat">
+            <div className="card-body dashboard-item">
+              <div className="mb-4">
+                <div className="float-left mini-stat-img mr-4 col-3">
+                  <i className="pi pi-briefcase" style={{ fontSize: "2rem" }}></i>
+                </div>
+                <div>
+                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item">Corporate Jobs</h5>
+                  <h4 className="font-weight-medium dashboard-item font-size-24">{jobCount?.corporateJob}</h4>
+                </div>
+              </div>
+              <div className="pt-2">
+                <div className="float-right">
+                  <a href="#"><i className="pi pi-chevron-right mt-1 dashboard-item" /></a>
+                </div>
+                <p className="dashboard-item mb-0 mt-1 h6">Since last month</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col-xl-3 col-md-6 p-mb-2">
+          <div className="card mini-stat">
+            <div className="card-body dashboard-item">
+              <div className="mb-4">
+                <div className="float-left mini-stat-img mr-4 col-3">
+                  <i className="pi pi-briefcase" style={{ fontSize: "2rem" }}></i>
+                </div>
+                <div>
+                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item">Instant Services</h5>
+                  <h4 className="font-weight-medium dashboard-item font-size-24">{jobCount?.instantService}</h4>
+                </div>
+              </div>
+              <div className="pt-2">
+                <div className="float-right">
+                  <a href="#"><i className="pi pi-chevron-right mt-1 dashboard-item" /></a>
+                </div>
+                <p className="dashboard-item mb-0 mt-1 h6">Since last month</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* <div className="col-xl-3 col-md-6 p-mb-2">
+          <div className="card mini-stat text-white" style={{ backgroundColor: "green", opacity: "0.8" }}>
+            <div className="card-body">
+              <div className="mb-4">
+                <div className="float-left mini-stat-img mr-4 col-3">
+                  <i className="pi pi-briefcase" style={{ fontSize: "2rem" }}></i>
+                </div>
+                <div>
+                  <h5 className="font-size-16 text-uppercase mt-0 text-white">Job seeker</h5>
+                  <h4 className="font-weight-medium text-white font-size-24">156</h4>
+                </div>
+              </div>
+              <div className="pt-2">
+                <div className="float-right">
+                  <a href="#" className="text-white"><i className="pi pi-chevron-right mt-1" /></a>
+                </div>
+                <p className="text-white mb-0 mt-1 h6">Since last month</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col-xl-3 col-md-6 p-mb-2">
+          <div className="card mini-stat text-white" style={{ backgroundColor: "green", opacity: "0.8" }}>
+            <div className="card-body">
+              <div className="mb-4">
+                <div className="float-left mini-stat-img mr-4 col-3">
+                  <i className="pi pi-briefcase" style={{ fontSize: "2rem" }}></i>
+                </div>
+                <div>
+                  <h5 className="font-size-16 text-uppercase mt-0 text-white">Clients</h5>
+                  <h4 className="font-weight-medium text-white font-size-24">85</h4>
+                </div>
+              </div>
+              <div className="pt-2">
+                <div className="float-right">
+                  <a href="#" className="text-white"><i className="pi pi-chevron-right mt-1" /></a>
+                </div>
+                <p className="text-white mb-0 mt-1 h6">Since last month</p>
+              </div>
+            </div>
+          </div>
+        </div> */}
       </div>
     </div>
 

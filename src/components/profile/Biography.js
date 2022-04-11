@@ -7,7 +7,7 @@ import "./UserProfile.css";
 
 const Biography = ({ openCreate, openEdit, profileInfo, isViewApplicant }) => {
 
-
+  
   return (
     <>
       <div className="p-card p-mt-2">

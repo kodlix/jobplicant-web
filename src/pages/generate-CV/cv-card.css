@@ -1,0 +1,8 @@
+.thumb-card-button {
+    border: none;
+    outline: none;
+    background-color: brown;
+    border-radius: 4px;
+    color: white;
+    font-size: 12px;
+}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadProfileInfo } from "store/modules/account";
 import { openModal } from "store/modules/modal";
@@ -10,15 +10,30 @@ import Hobbies from "components/profile/Hobbies";
 import ProfessionsOfInterest from "components/profile/ProfessionsOfInterest";
 import LocationOfInterest from "components/profile/LocationOfInterest";
 import ContactInformation from "components/profile/ContactInformation";
-import ModalForm from 'components/profile/ModalForm';
-import agentService from 'services/agent.service';
-import Spinner from 'components/spinner/spinner.component';
-import { loadCountry } from 'store/modules/location';
-import { ACCOUNT_TYPE } from 'constants/accountType';
+import ModalForm from "components/profile/ModalForm";
+import agentService from "services/agent.service";
+import Spinner from "components/spinner/spinner.component";
+import { loadCountry } from "store/modules/location";
+import { ACCOUNT_TYPE } from "constants/accountType";
+import { Skeleton } from "primereact/skeleton";
+
+import CustomError from "pages/error-page/CustomError";
+import { ErrorBoundary } from "react-error-boundary";
+
+import { fetchCountries } from "store/modules/util";
+import { getQualifications } from "store/modules/admin";
+import ExperienceSkeleton from "components/skeletons/ExperienceSkeleton";
+import EducationSkeleton from "components/skeletons/EducationSkeleton";
+import ContactInfoSkeleton from "components/skeletons/ContactInfoSkeleton";
+import SkillSkeleton from "components/skeletons/SkillSkeleton";
+import HobbiesSkeleton from "components/skeletons/HobbiesSkeleton";
+import ProfessionOfInterestSkeleton from "components/skeletons/ProfessionOfInterestSkeleton";
+import LocationOfInterestSkeleton from "components/skeletons/LocationOfInterestSkeleton";
+import BiographySkeleton from "components/skeletons/BiographySkeleton";
 
 const InfoTab = () => {
   const dispatch = useDispatch();
-  const loading = useSelector(state => state.account.loading);
+  const loading = useSelector((state) => state.account.loading);
   const profileInfo = useSelector((state) => state.account.profileInfo);
   const accountType = agentService.Auth.current().accountType;
 
@@ -32,7 +47,9 @@ const InfoTab = () => {
   const userSkillUpdatedOrDeleted = useSelector(
     (state) => state.userSkill.updatedOrDeleted
   );
-  const experienceUpdatedOrDeleted = useSelector(state => state.experience.updatedOrDeleted);
+  const experienceUpdatedOrDeleted = useSelector(
+    (state) => state.experience.updatedOrDeleted
+  );
 
   const [mode, setMode] = useState("create");
   const [itemToEdit, setItemToEdit] = useState({});
@@ -44,9 +61,18 @@ const InfoTab = () => {
   useEffect(() => {
     dispatch(loadProfileInfo());
     dispatch(loadCountry());
-  }, [educationUpdatedOrDeleted, userSkillUpdatedOrDeleted, experienceUpdatedOrDeleted]);
+  }, [
+    educationUpdatedOrDeleted,
+    userSkillUpdatedOrDeleted,
+    experienceUpdatedOrDeleted,
+  ]);
 
-  const expandImage = () => { };
+  useEffect(() => {
+    dispatch(fetchCountries());
+    dispatch(getQualifications());
+  }, []);
+
+  const expandImage = () => {};
 
   const openCreate = (name) => {
     setMode("create");
@@ -61,7 +87,6 @@ const InfoTab = () => {
   };
 
   const uploadProfilePicture = (e) => {
-    console.log("files");
     console.table(e.target.files);
   };
 
@@ -73,73 +98,111 @@ const InfoTab = () => {
     return year + "/" + month + "/" + day;
   };
 
-  if (loading)
-    return <Spinner />
+  // if (loading)
+  //   return <Spinner />
 
   return (
-    <>
-      <Biography
-        openCreate={openCreate}
-        openEdit={openEdit}
-        profileInfo={profileInfo}
-      />
-      <div className="p-grid">
-        <div className="p-col-12 p-md-8 content-leftPanel">
-          {/* experience */}
-          <Experience
+    <ErrorBoundary
+      FallbackComponent={CustomError}
+      onReset={() => {
+        //reset the state of your app state
+      }}
+    >
+      <>
+        {loading ? (
+          <BiographySkeleton />
+        ) : (
+          <Biography
             openCreate={openCreate}
             openEdit={openEdit}
             profileInfo={profileInfo}
-            formatDate={formatDate}
           />
-          <Education
-            openCreate={openCreate}
-            openEdit={openEdit}
-            profileInfo={profileInfo}
-            formatDate={formatDate}
-          />
+        )}
+        <div className="p-grid">
+          <div className="p-col-12 p-md-8 content-leftPanel">
+            {/* experience */}
+            {loading ? (
+              <ExperienceSkeleton />
+            ) : (
+              <Experience
+                openCreate={openCreate}
+                openEdit={openEdit}
+                profileInfo={profileInfo}
+                formatDate={formatDate}
+              />
+            )}
+            {loading ? (
+              <EducationSkeleton />
+            ) : (
+              <Education
+                openCreate={openCreate}
+                openEdit={openEdit}
+                profileInfo={profileInfo}
+                formatDate={formatDate}
+              />
+            )}
+          </div>
+          <div className="p-col-12 content-rightPanel p-md-4">
+            {/* contact information */}
+            {loading ? (
+              <ContactInfoSkeleton />
+            ) : (
+              <ContactInformation
+                openCreate={openCreate}
+                openEdit={openEdit}
+                profileInfo={profileInfo}
+              />
+            )}
+            {/* skills */}
+            {loading ? (
+              <SkillSkeleton />
+            ) : (
+              <Skills
+                openCreate={openCreate}
+                openEdit={openEdit}
+                profileInfo={profileInfo}
+              />
+            )}
+            {/* hobbies */}
+            {loading ? (
+              <HobbiesSkeleton />
+            ) : (
+              accountType !== ACCOUNT_TYPE.ARTISAN && (
+                <Hobbies
+                  openCreate={openCreate}
+                  openEdit={openEdit}
+                  profileInfo={profileInfo}
+                />
+              )
+            )}
+            {/* profession of interest */}
+            {loading ? (
+              <ProfessionOfInterestSkeleton />
+            ) : (
+              accountType !== ACCOUNT_TYPE.ARTISAN && (
+                <ProfessionsOfInterest
+                  openCreate={openCreate}
+                  openEdit={openEdit}
+                  profileInfo={profileInfo}
+                />
+              )
+            )}
+            {/* location of interest */}
+            {loading ? (
+              <LocationOfInterestSkeleton />
+            ) : (
+              <LocationOfInterest
+                openCreate={openCreate}
+                openEdit={openEdit}
+                profileInfo={profileInfo}
+              />
+            )}
+          </div>
         </div>
-        <div className="p-col-12 content-rightPanel p-md-4">
-          {/* contact information */}
-          <ContactInformation
-            openCreate={openCreate}
-            openEdit={openEdit}
-            profileInfo={profileInfo}
-          />
-          {/* skills */}
-          <Skills
-            openCreate={openCreate}
-            openEdit={openEdit}
-            profileInfo={profileInfo}
-          />
-          {/* hobbies */}
-          {accountType !== ACCOUNT_TYPE.ARTISAN && <Hobbies
-            openCreate={openCreate}
-            openEdit={openEdit}
-            profileInfo={profileInfo}
-          />}
-          {/* profession of interest */}
-          {accountType !== ACCOUNT_TYPE.ARTISAN && <ProfessionsOfInterest
-            openCreate={openCreate}
-            openEdit={openEdit}
-            profileInfo={profileInfo}
-          />}
-          {/* location of interest */}
-          <LocationOfInterest
-            openCreate={openCreate}
-            openEdit={openEdit}
-            profileInfo={profileInfo}
-          />
-
-        </div>
-      </div>
-      <ModalForm
-        data={profileInfo}
-        mode={mode}
-        itemToEdit={itemToEdit}
-      />
-    </>
+        <ModalForm data={profileInfo} mode={mode} itemToEdit={itemToEdit} />
+      </>
+    </ErrorBoundary>
   );
-}
+};
 
 export default InfoTab;

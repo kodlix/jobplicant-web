@@ -46,13 +46,10 @@ const Edit = (props) => {
 
     const instantjob = useSelector(state => state.instantJob.instantjob);
     const loading = useSelector(state => state.instantJob.loading);
-    console.log("instantjob =>", instantjob);
 
     const loggedInUserId = agentService.Auth.current().id
-    console.log("loggedInUserId", loggedInUserId);
 
     const instantJobId = props.match.params.id;
-    console.log({ itemToEdit })
 
     useEffect(() => {
         dispatch(loadInstantJob(instantJobId))
@@ -65,7 +62,6 @@ const Edit = (props) => {
             itemToEdit.endDate = new Date(itemToEdit.endDate);
             let category = Categories.find(category => category.name === itemToEdit.service);
             setSelectedCategory(category)
-            console.log("category", category)
 
             setValue("service", itemToEdit.service);
             setValue("location", itemToEdit.location);
@@ -115,7 +111,6 @@ const Edit = (props) => {
             setValue("startDate", instantJobDate, { shouldValidate: true })
             // setValue("time", new Date().toLocaleTimeString(), { shouldValidate: false })
 
-            console.log("instant job => ", instantJobDate)
             setIsJobDateNow(true);
         } else {
             setValue("startDate", "", { shouldValidate: true })

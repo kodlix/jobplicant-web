@@ -18,6 +18,7 @@ const SkillForm = ({ data, closeEditMode }) => {
 
   const [currentSkill, setCurrentSkill] = useState("");
   const [skills, setSkills] = useState([]);
+  const [duplicateError, setDuplicateError] = useState(false)
 
   useEffect(() => {
     dispatch(getSkills())
@@ -26,7 +27,6 @@ const SkillForm = ({ data, closeEditMode }) => {
 
   useEffect(() => {
     if (data?.length > 0) {
-      console.log('data', data)
       setCurrentSkill();
       setSkills(data);
       register("skills");
@@ -35,7 +35,7 @@ const SkillForm = ({ data, closeEditMode }) => {
   }, [data]);
 
   const searchObjectArrayValues = (array, object) => {
-    const skillExists = array.filter((skill) => skill.id === object.id);
+    const skillExists = array.filter((skill) => skill === object.name);
     return !Boolean(skillExists.length > 0);
   };
 
@@ -52,10 +52,14 @@ const SkillForm = ({ data, closeEditMode }) => {
     }
 
     if (currentSkill) {
+
       if (searchObjectArrayValues(skills, currentSkill)) {
         setSkills([...skills, currentSkill.name]);
         setValue("skills", skills);
         setCurrentSkill("");
+        setDuplicateError(false)
+      } else {
+        setDuplicateError(true)
       }
     }
   }
@@ -70,7 +74,9 @@ const SkillForm = ({ data, closeEditMode }) => {
     setValue("skills", newSkillArray);
   };
 
-  const skillSubmit = (skill) => {
+  const skillSubmit = (data) => {
+    console.log('skills', skills, 'data', data)
+
     dispatch(createSkill(skills));
   };
 
@@ -88,6 +94,8 @@ const SkillForm = ({ data, closeEditMode }) => {
           sectionTitle="Skills"
         />
         <div className="">
+          <div>
+          </div>
           <form onSubmit={handleSubmit(skillSubmit)}>
             <label htmlFor="skillInput" className="inputLabel p-pr-3">
               Add up to 10 skills
@@ -126,7 +134,9 @@ const SkillForm = ({ data, closeEditMode }) => {
               />
               <i className="pi pi-plus" onClick={handleSkillAdd}></i>
             </span>
+
             <ModeFooter id="skillEdit" onCancel={closeEditMode} />
+            {duplicateError && <div class="alert alert-danger">Skill already exists</div>}
           </form>
         </div>
       </div>

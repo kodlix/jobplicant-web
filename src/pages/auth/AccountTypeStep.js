@@ -4,6 +4,7 @@ import React from "react";
 import "./Register.css";
 
 const AccountTypeStep = ({ goto, setAccountType }) => {
+
   const setSelectedAccountType = (type, e) => {
     if (e.target.checked) {
       setAccountType(type);
@@ -55,7 +56,7 @@ const AccountTypeStep = ({ goto, setAccountType }) => {
                           name="accountType"
                           id="invalidCheck2"
                           onChange={(e) =>
-                            setSelectedAccountType("instant-hire", e)
+                            setSelectedAccountType(ACCOUNT_TYPE.INSTANT_HIRE, e)
                           }
                           required
                         />
@@ -79,7 +80,7 @@ const AccountTypeStep = ({ goto, setAccountType }) => {
                           name="accountType"
                           id="invalidCheck3"
                           onChange={(e) =>
-                            setSelectedAccountType("job-seeker", e)
+                            setSelectedAccountType(ACCOUNT_TYPE.JOB_SEEKER, e)
                           }
                           required
                         />

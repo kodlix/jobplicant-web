@@ -77,13 +77,13 @@ export function loadUserSkills() {
   return (dispatch) => {
     return agent.UserSkill.load().then((response) => {
       dispatch(userSkillLoaded(response));
-      dispatch(
-        showMessage({
-          type: MESSAGE_TYPE.SUCCESS,
-          title: "Profile Information",
-          message: "User skill loaded successfully",
-        })
-      );
+      // dispatch(
+      //   showMessage({
+      //     type: MESSAGE_TYPE.SUCCESS,
+      //     title: "Profile Information",
+      //     message: "User skill loaded successfully",
+      //   })
+      // );
     });
   };
 }

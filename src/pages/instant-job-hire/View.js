@@ -13,12 +13,10 @@ const View = () => {
     const dispatch = useDispatch()
     const history = useHistory();
     const param = useParams();
-    console.log("param", param);
 
     const instantJobDetail = useSelector(state => state.instantJob.instantjob)
     const jobApplicationRequest = useSelector(state => state.job.jobApplicationRequest)
     const loading = useSelector(state => state.job.loading)
-    console.log("details", instantJobDetail);
 
     useEffect(() => {
         dispatch(loadInstantJob(param.id))

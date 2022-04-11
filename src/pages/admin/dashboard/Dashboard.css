@@ -27,7 +27,7 @@
 }
 
 .svgimage {
-    background-image: url('../../assets/images/Time09.jpg');
+    /* background-image: url('../../assets/images/Time09.jpg'); */
     background-repeat: no-repeat;
     width: 100%;
     height: 250px;
@@ -122,5 +122,6 @@
 
 }
 
-
-
+.dashboard-item {
+    color: green;
+}

@@ -68,3 +68,21 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+### Use this to update your env file
+
+NODE_PATH=src
+NODE_ENV=production
+REACT_APP_NOT_SECRET_CODE
+API_ROOT_PROD=https://jobplicant-api-pyfpg.ondigitalocean.app
+API_ROOT_LOCAL=http://localhost:8080
+API_ROOT_LIVE=https://jobplicant-api.herokuapp.com
+PORT=3010
+
+
+# HOW TO SET UP DEVELOPEMENT ENVIRONMENT FOR FRONT-END
+
+1. Go to the .env file and update the value at 
+REACT_APP_CURRENT_APP=artisan
+
+to either artisan or jobplicant.

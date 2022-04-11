@@ -28,16 +28,12 @@ const ModalMode = ({ onHide, post, imageUrl }) => {
   return (
     <>
       <Dialog header={dialogTitle} visible={modalVisible} onHide={onModalClose} style={{ width: "60rem" }} className='dialogModal-timeline'>
-        {
+        {/* {
           (modalName === TIMELINE.CREATEPOST || modalName === TIMELINE.CREATEJOB) &&
           < ToggleButton
             checked={toggle}
-            onLabel="I confirm"
-            offLabel="I reject"
-            onIcon="pi pi-check"
-            offIcon="pi pi-times"
             onChange={toggleModal} />
-        }
+        } */}
         {
           (modalName === TIMELINE.CREATEPOST || modalName === TIMELINE.EDITPOST) && toggle &&
           <PostForm

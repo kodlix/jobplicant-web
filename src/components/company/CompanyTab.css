@@ -1,0 +1,10 @@
+.profileNav {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.profileNav Link {
+    text-decoration: none;    
+    text-align: center;
+
+}

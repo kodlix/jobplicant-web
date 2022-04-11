@@ -46,7 +46,7 @@ const EmailConfirmation = () => {
                 </div> */}
                 {/* <div className="login-pane-right p-col-12 p-md-4 p-lg-4"> */}
                 {/* <div className="brand-logo text-center">
-                        <img src="/assets/logo.png" width="150" alt="brand-logo" />
+                        <img src="/assets/images/logo/applogo.jpeg" width="150" alt="brand-logo" />
                     </div> */}
                 {/* <div className=""> */}
                 <div className="panel-login">
@@ -69,7 +69,7 @@ const EmailConfirmation = () => {
                 <div className="confirmbtn p-grid">
                     <Link to="/login">
                         < span className="p-p-4 p-text-primary resendemail"> Resend email </span>  </Link>
-              
+
                 </div>
                 {/* </div> */}
             </div>

@@ -7,7 +7,7 @@ import { OnLogout } from '../store/modules/auth';
 import { Link } from 'react-router-dom';
 
 // import './AppSideBar.css';
-import agentService from 'services/agent.service';
+import agentService, {isArtisanApp} from 'services/agent.service';
 import { ACCOUNT_TYPE } from 'constants/accountType';
 
 const AppSideBar = (props) => {
@@ -65,12 +65,12 @@ const AppSideBar = (props) => {
                                 </Link>
                             </li>}
 
-                            <li className='li-border'>
+                            {!isArtisanApp && <li className='li-border'>
                                 <Link to="/howtostart">
                                     <i className="li-icon lni lni-clipboard"></i>
                                     <span className="li-title">CV Service</span>
                                 </Link>
-                            </li>
+                            </li>}
                             <li className='li-border'>
                                 <a href="bookmarked.html">
                                     <i className="li-icon lni lni-bookmark"></i>

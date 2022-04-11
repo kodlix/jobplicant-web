@@ -3,7 +3,7 @@ import agent from "../../services/agent.service";
 import { showMessage } from "./notification";
 
 const INITIAL_STATE = {
-  loading: false,
+  requestLoading: false,
   companyInfo: {
     name: "",
     profile: "",
@@ -27,25 +27,26 @@ const INITIAL_STATE = {
 };
 
 // Action types
-const LOADING = "LOADING";
+const LOADING_COMPANY = "LOADING_COMPANY";
+const LOADING = "COMPANY_LOADING";
 const LOAD_COMPANY_INFO = "LOAD_COMPANY_INFO";
 const LOAD_COMPANY_INFO_ERROR = "LOAD_COMPANY_INFO_ERROR";
 
 // Reducer
 export default function reducer(state = INITIAL_STATE, action = {}) {
   switch (action.type) {
-    case LOADING:
-      return { ...state, loading: true };
+    case LOADING_COMPANY:
+      return { ...state, requestLoading: true};
     case LOAD_COMPANY_INFO:
       return {
         ...state,
-        loading: false,
         companyInfo: action.payload,
+        requestLoading: false,
       };
     case LOAD_COMPANY_INFO_ERROR:
       return {
         ...state,
-        loading: false,
+        requestLoading: false,
       };
     default:
       return state;
@@ -60,7 +61,7 @@ export const companyInfoLoadedError = () => ({
   type: LOAD_COMPANY_INFO_ERROR,
 });
 export const loading = () => ({
-  type: LOADING,
+  type: LOADING_COMPANY,
 });
 
 // Actions
@@ -70,6 +71,7 @@ export function updateCompanyInfo(data) {
     return agent.Account.updateCompanyInfo(data).then(
       (response) => {
         dispatch(companyInfoLoaded(response));
+        
         //   dispatch(closeModal());
         dispatch(
           showMessage({
@@ -78,6 +80,7 @@ export function updateCompanyInfo(data) {
             message: "Company info updated successfully",
           })
         );
+        window.location.href = window.location.pathname;
       },
       (error) => {
         // handle error
@@ -88,17 +91,17 @@ export function updateCompanyInfo(data) {
   };
 }
 export function loadCompanyInfo() {
-    return (dispatch) => {
-      return agent.Company.load().then((response) => {
-        console.log('company info', response);
-        dispatch(companyInfoLoaded(response));
-        dispatch(
-          showMessage({
-            type: MESSAGE_TYPE.SUCCESS,
-            title: "Company Information",
-            message: "Company info loaded successfully",
-          })
-        );
-      });
-    };
-  }
+  return (dispatch) => {
+    return agent.Company.load().then((response) => {
+      console.log('company info', response);
+      dispatch(companyInfoLoaded(response));
+      dispatch(
+        showMessage({
+          type: MESSAGE_TYPE.SUCCESS,
+          title: "Company Information",
+          message: "Company info loaded successfully",
+        })
+      );
+    });
+  };
+}

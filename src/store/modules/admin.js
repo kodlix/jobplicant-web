@@ -322,13 +322,13 @@ export const deleteContractType = (id) => dispatch => {
 export const getSkills = () => (dispatch) => {
   return agent.Skill.load().then((response) => {
     dispatch(actionLoadSkills(response));
-    dispatch(
-      showMessage({
-        type: MESSAGE_TYPE.SUCCESS,
-        title: "Skills Information",
-        message: "Skills loaded successfully",
-      })
-    );
+    // dispatch(
+    //   showMessage({
+    //     type: MESSAGE_TYPE.SUCCESS,
+    //     title: "Skills Information",
+    //     message: "Skills loaded successfully",
+    //   })
+    // );
   });
 };
 
@@ -394,13 +394,13 @@ export const deleteSkills = (id) => dispatch => {
 export const getQualifications = () => (dispatch) => {
   return agent.Qualification.load().then((response) => {
     dispatch(actionLoadQualification(response));
-    dispatch(
-      showMessage({
-        type: MESSAGE_TYPE.SUCCESS,
-        title: "Qualification Information",
-        message: "Qualification loaded successfully",
-      })
-    );
+    // dispatch(
+    //   showMessage({
+    //     type: MESSAGE_TYPE.SUCCESS,
+    //     title: "Qualification Information",
+    //     message: "Qualification loaded successfully",
+    //   })
+    // );
   });
 };
 
@@ -445,7 +445,7 @@ export const updateQualification = (data, id) => dispatch => {
 }
 
 export const deleteQualification = (id) => dispatch => {
-  return agent.Skill.delete(id).then(c => (response) => {
+  return agent.Qualification.delete(id).then(c => (response) => {
     dispatch(actionDeleteQualification(response));
     dispatch(
       showMessage({
@@ -581,13 +581,13 @@ export const loadServices = (page, limit, loadingType, search) => (dispatch) => 
   dispatch(adminLoading(loadingType))
   return agent.Service.load(page, limit, search).then((response) => {
     dispatch(actionLoadServices(response));
-    dispatch(
-      showMessage({
-        type: MESSAGE_TYPE.SUCCESS,
-        title: "Services Information",
-        message: "Services loaded successfully",
-      })
-    );
+    // dispatch(
+    //   showMessage({
+    //     type: MESSAGE_TYPE.SUCCESS,
+    //     title: "Services Information",
+    //     message: "",
+    //   })
+    // );
   },
     (error) => {
       // handle error

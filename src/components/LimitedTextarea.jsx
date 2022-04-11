@@ -2,10 +2,18 @@ import React from 'react';
 import { InputTextarea } from "primereact/inputtextarea";
 
 const LimitedTextarea = ({ value , limit, register }) => {
-  console.log('value', value)
-  const [content, setContent] = React.useState(value);
+  // console.log('value', value)
+  const [content, setContent] = React.useState("");
   const [charLength, setCharLength] = React.useState(limit);
   // const [content, setContent] = React.useState(value.slice(0, limit));
+
+  React.useEffect(() => {
+    console.log('value', value)
+    if(value !== undefined) {
+      setContent(value);
+      setFormattedContent(value)
+    }
+  }, [value])
 
   const setFormattedContent = React.useCallback(
     text => {
@@ -14,6 +22,7 @@ const LimitedTextarea = ({ value , limit, register }) => {
       const charCount = text.length;
       const charLength = limit - charCount;
       setCharLength(charLength);
+      
     },
     [limit, setContent]
   );
@@ -36,19 +45,6 @@ const LimitedTextarea = ({ value , limit, register }) => {
     </>
   )
 
-  // return (
-  //   <>
-  //     <textarea
-  //       rows={rows}
-  //       cols={cols}
-  //       onChange={event => setFormattedContent(event.target.value)}
-  //       value={content}
-  //     />
-  //     <p>
-  //       {content.length}/{limit}
-  //     </p>
-  //   </>
-  // );
 }
 
 export default LimitedTextarea

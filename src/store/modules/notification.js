@@ -2,31 +2,60 @@
 const notification = {
     type: "", // takes success, error, info, warning
     title: "",
-    message: ""
+    message: "",
+    processing: false,
+    processed: true,
+    loading: false,
+
 };
 
 
 // Action types
 const MESSAGE_DISPLAYED = 'app/notification/MESSAGE_DISPLAYED';
 const MESSAGE_CLEARED = 'app/notification/MESSAGE_CLEARED ';
+const PROCESSING = "app/notification/PROCESSING";
+const PROCESSED = "app/notification/PROCESSED";
+const ERROR_DISPLAYED = "app/notification/ERROR_DISPLAYED";
+const SUCCESS_DISPLAYED = "app/notification/SUCCESS_DISPLAYED";
+const LOADING = "app/notification/SUCCESS_DISPLAYED";
+
+const TIME_OUT = 10000;
+
+
 
 // Reducer
 export default function reducer(state = notification, action = {}) {
     switch (action.type) {
         case MESSAGE_DISPLAYED: return {
-                ...state,
-                ...action.payload,
-                fetching: false
-            };
+            ...state,
+            ...action.payload,
+            fetching: false
+        };
 
         case MESSAGE_CLEARED: return {
+            ...state,
+            type: "",
+            title: "",
+            message: "",
+            fetching: false,
+            offline: false
+        };
+        case PROCESSING:
+            return {
                 ...state,
-                type: "",
-                title: "",
-                message: "",
-                fetching: false,
-                offline: false
+                processing: true,
             };
+
+        case PROCESSED:
+            return {
+                ...state,
+                processing: false,
+            };
+        case LOADING:
+            return {
+                ...state,
+                loading: false
+            }
         default:
             return state;
     }
@@ -34,21 +63,55 @@ export default function reducer(state = notification, action = {}) {
 
 // action creators
 export function messageDisplayed(data) {
-    if (! data) {
+    if (!data) {
         return;
     }
 
-    return {type: MESSAGE_DISPLAYED, payload: data, notificationType: data.type};
+    return { type: MESSAGE_DISPLAYED, payload: data, notificationType: data.type };
 }
 
 
 export function messageCleared() {
-    return {type: MESSAGE_CLEARED};
+    return { type: MESSAGE_CLEARED };
 }
 
 export function offlineMessageDisplayed() {
-    return {type: MESSAGE_DISPLAYED};
+    return { type: MESSAGE_DISPLAYED };
 }
+
+export function processing() {
+    return {
+        type: PROCESSING,
+    };
+}
+
+export function processed() {
+    return {
+        type: PROCESSED,
+    };
+}
+export function loading() {
+    return {
+        type: LOADING,
+    };
+}
+
+export function errorMessageDisplayed(data) {
+    return {
+        type: ERROR_DISPLAYED,
+        payload: data,
+        notificationType: "error",
+    };
+}
+export function successMessageDisplayed(data) {
+    return {
+        type: SUCCESS_DISPLAYED,
+        payload: data,
+        notificationType: "success",
+    };
+}
+
+
 
 
 // actions
@@ -66,6 +129,23 @@ export function showMessage(data) {
     return dispatch => {
         dispatch(messageDisplayed(data))
     }
+}
+export function showErrorMessage(message) {
+    return (dispatch) => {
+        dispatch(errorMessageDisplayed(serializeError(message)));
+        setTimeout(() => {
+            dispatch(messageCleared());
+        }, TIME_OUT);
+    };
+}
+
+export function showSuccessMessage(message) {
+    return (dispatch) => {
+        dispatch(successMessageDisplayed(message));
+        setTimeout(() => {
+            dispatch(messageCleared());
+        }, TIME_OUT);
+    };
 }
 
 
@@ -88,9 +168,9 @@ function serializeError(error) {
 
 
     if (error.response && typeof error.response === 'object' && error.response !== null) {
-        const {body} = error.response;
+        const { body } = error.response;
         if (typeof body === 'object' && body !== null) {
-            const {message, error: bodyError} = body;
+            const { message, error: bodyError } = body;
             if (typeof message === 'string' && message !== null) {
                 return message
             }

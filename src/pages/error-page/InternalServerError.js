@@ -1,5 +1,5 @@
-import { Button } from 'primereact/button';
 import React from 'react'
+import { Button } from 'primereact/button';
 import { Link } from 'react-router-dom';
 import './InternalServerError.css';
 

@@ -17,7 +17,6 @@ const RecentInstantJobs = () => {
     const [copyAlert, setCopyAlert] = useState(null);
 
     const allCurrentInstantJobs = useSelector(state => state.instantJob.allCurrentInstantJobs);
-    console.log("allcurrentjob", allCurrentInstantJobs)
 
     useEffect(() => {
         dispatch(fetchAllInstantJobs(page, take))
@@ -56,12 +55,17 @@ const RecentInstantJobs = () => {
                                 <div className="panel-login text-center"></div>
                                 <div className="highlight-card p-p-1">
                                     <div className="row " style={{ flexWrap: "nowrap !important" }} >
-                                        <div className="col-3 rounded-circle">
-                                            <img
-                                                src="https://source.unsplash.com/random/100x100" style={{ borderRadius: "50%" }}
-                                                className="img-fluid"
+                                        <div className="col-3">
+                                            {instantjob.poster.imageUrl ? <img
+                                                src={instantjob.poster.imageUrl}
+                                                className="img-fluid rounded-circle"
+                                                alt="user-image" style={{ width: "50px", height: "50px" }}
+                                            /> : <img
+                                                src="../assets/images/logo/applogo.jpeg"
+                                                className="img-fluid rounded-circle"
                                                 alt="user-image"
-                                            />
+                                                style={{ width: "50px", height: "50px" }}
+                                            />}
                                         </div>
                                         <div className="col-9">
                                             <small >
@@ -76,7 +80,7 @@ const RecentInstantJobs = () => {
                                                     </div>
                                                     <div>
                                                         <div>
-                                                            <i className="pi pi-share-alt p-pt-2" data-id={instantjob.id}
+                                                            <i className="pi pi-share-alt p-pt-2 icon-size" data-id={instantjob.id}
                                                                 onClick={handleShareButton}> Share
                                                             </i>
                                                         </div>

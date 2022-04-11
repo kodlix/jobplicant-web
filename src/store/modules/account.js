@@ -3,6 +3,7 @@ import agent from "../../services/agent.service";
 import { MESSAGE_TYPE } from "../constant";
 import { closeModal } from "./modal";
 import { loadError } from "./experience";
+import { isRequestLoading } from "./review";
 
 // initial values
 const account = {
@@ -31,7 +32,9 @@ const account = {
     skills: [],
     experiences: [],
     educations: [],
+    portfolios: []
   },
+  artisanAccounts: [],
 };
 
 // Action types
@@ -40,8 +43,10 @@ const UPDATE_PROFILE = "app/account/UPDATE_PROFILE ";
 const LOAD_PROFILE_INFO = "app/account/LOAD_PROFILE_INFO";
 const LOAD_PROFILE_INFO_BY_USER = "app/account/LOAD_PROFILE_INFO_BY_USER";
 const LOAD_PROFILE_INFO_ERROR = "LOAD_PROFILE_INFO_ERROR";
+const LOAD_ARTISAN_ACCOUNT = "LOAD_ARTISAN_ACCOUNT";
 const DELETE_EXPERIENCE = "DELETE_EXPERIENCE";
 const DELETE_EDUCATION = "DELETE_EDUCATION";
+const REMOVE_PORTFOLIO = "REMOVE_PORTFOLIO"
 const SUBMITTING = "SUBMITTING";
 // Reducer
 export default function reducer(state = account, action = {}) {
@@ -70,6 +75,27 @@ export default function reducer(state = account, action = {}) {
         loading: false,
         submitting: false
       };
+    case LOAD_ARTISAN_ACCOUNT:
+      return {
+        ...state,
+        artisanAccounts: action.payload,
+        loading: false,
+      }
+    case REMOVE_PORTFOLIO:
+      const newPortfolios = state.profileInfo.portfolios.filter(image => {
+        const itemData = image.split("/");
+        const filename = itemData[itemData.length - 1]
+        return filename !== action.payload;
+      })
+      return {
+        ...state,
+        loading: false,
+        submitting: false,
+        profileInfo: {
+          ...state.profileInfo,
+          portfolios: newPortfolios
+        }
+      }
     case DELETE_EDUCATION:
       const newEducations = state.profileInfo.educations.filter(edu => edu.id !== action.payload);
       console.log('new education', newEducations);
@@ -112,6 +138,10 @@ export const loading = () => ({
 export const submitting = () => ({
   type: SUBMITTING
 })
+export const removePortfolio = payload => ({
+  type: REMOVE_PORTFOLIO,
+  payload
+})
 //delete education action creator
 export const deleteProfileEducation = id => ({
   type: DELETE_EDUCATION,
@@ -123,6 +153,13 @@ export const deleteProfileExperience = id => ({
   payload: id
 })
 
+export const ArtisanAccount = (data) => {
+  return {
+    type: LOAD_ARTISAN_ACCOUNT,
+    payload: data
+  }
+}
+
 // Actions
 export function updatePersonalProfile(data) {
   return (dispatch) => {
@@ -133,13 +170,13 @@ export function updatePersonalProfile(data) {
         // dispatch(profileInfoLoaded(response));
         dispatch(loadProfileInfo())
         dispatch(closeModal());
-        dispatch(
-          showMessage({
-            type: MESSAGE_TYPE.SUCCESS,
-            title: "Profile Information",
-            message: "Personal profile info loaded successfully",
-          })
-        );
+        // dispatch(
+        //   showMessage({
+        //     type: MESSAGE_TYPE.SUCCESS,
+        //     title: "Profile Information",
+        //     message: "Personal profile info loaded successfully",
+        //   })
+        // );
       },
       (error) => {
         // handle error
@@ -362,6 +399,31 @@ export function updateProfilePortfolio(images) {
   };
 }
 
+export function deleteProfilePortfolio(filename) {
+  return dispatch => {
+    dispatch(loading())
+    return agent.Account.deleteProfilePortfolio(filename).then(
+      (response) => {
+        // handle success
+        // dispatch(profileInfoLoaded(response));
+        dispatch(removePortfolio(filename))
+        dispatch(closeModal())
+        dispatch(
+          showMessage({
+            type: MESSAGE_TYPE.SUCCESS,
+            message: "Portfolio image successfully deleted",
+          })
+        );
+      },
+      (error) => {
+        // handle error
+        dispatch(profileInfoLoadedError());
+        dispatch(showMessage({ type: "error", message: error }));
+      }
+    );
+  }
+}
+
 export function loadAccountByUser(id) {
   return (dispatch) => {
     return agent.Account.getByID(id).then(
@@ -373,6 +435,25 @@ export function loadAccountByUser(id) {
       (error) => {
         // handle error
         dispatch(showMessage({ type: "error", message: error }));
+      }
+    );
+  };
+}
+
+
+export function loadArtisanAccounts(page, limit, search) {
+  return (dispatch) => {
+    dispatch(loading(true))
+    return agent.Account.loadArtisanAccounts(page, limit, search).then(
+      (response) => {
+        // handle success
+        dispatch(ArtisanAccount(response))
+        dispatch(loading(false));
+      },
+      (error) => {
+        // handle error
+        dispatch(showMessage({ type: "error", message: error }));
+        dispatch(loading(false))
       }
     );
   };

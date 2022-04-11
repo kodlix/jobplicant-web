@@ -23,10 +23,8 @@ const InstantJobs = () => {
     const allInstantJobs = useSelector(state => state.instantJob.allCurrentInstantJobs);
     const applicants = useSelector(state => state.instantJob.applicants);
 
-    console.log("All instant job =>", allInstantJobs);
 
     const requestedId = agent.Auth.current().id;
-    console.log("requestedId", requestedId);
 
 
 
@@ -78,11 +76,16 @@ const InstantJobs = () => {
                                         <div className="highlight-card p-p-2">
                                             <div className="row" style={{ flexWrap: "nowrap !important" }}>
                                                 <div className="col-2">
-                                                    <img
-                                                        src="https://source.unsplash.com/random/100x100" style={{ borderRadius: "50%" }}
-                                                        className="img-fluid"
+                                                    {instantjob.poster.imageUrl ? <img
+                                                        src={instantjob.poster.imageUrl}
+                                                        className="img-fluid rounded-circle"
+                                                        alt="user-image" style={{ width: "70px", height: "70px" }}
+                                                    /> : <img
+                                                        src="../assets/images/logo/applogo.jpeg"
+                                                        className="img-fluid rounded-circle"
                                                         alt="user-image"
-                                                    />
+                                                        style={{ width: "70px", height: "70px" }}
+                                                    />}
                                                 </div>
                                                 {/* <div className="p-2" ></div> */}
                                                 <div className="col-10">

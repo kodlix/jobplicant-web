@@ -10,11 +10,13 @@ import { Column } from 'primereact/column';
 
 const AdminQualification = () => {
     const dispatch = useDispatch();
-    const qualifictions = useSelector((state) => state.admin.qualifications);
+    const schQualification = useSelector((state) => state.admin.qualifications);
     const loading = useSelector(state => state.admin.loading)
     const message = useSelector(state => state.admin.message)
 
-    const [qualification, setQualification] = useState({});
+    const [qualifications, setQualifications] = useState([]);
+    console.log(qualifications, " these are qualifications");
+
     const {
         register,
         handleSubmit,
@@ -29,43 +31,46 @@ const AdminQualification = () => {
     }, [])
 
     useEffect(() => {
-        dispatch(getQualifications())
+        // dispatch(getQualifications())
         if (message === 'created') {
-            setQualification({ name: '', description: '' })
+            setQualifications({ name: '', description: '' })
+        }
+        if (schQualification) {
+            setQualifications(schQualification)
         }
 
-    }, [message])
-
-
+    }, [message, schQualification])
 
     const handleChange = e => {
-        setQualification({ ...qualification, [e.target.name]: e.target.value })
+        setQualifications({ ...qualifications, [e.target.name]: e.target.value })
         setValue(e.target.name, e.target.value)
     }
 
     const handleEdit = (data, id) => {
-        setQualification({ ...qualification, id, name: data.name, description: data.description })
-        setValue('name', qualification.name);
-        setValue('description', qualification.description)
+        setQualifications({ ...qualifications, id, name: data.name, description: data.description })
+        setValue('name', qualifications.name);
+        setValue('description', qualifications.description)
     }
 
     const handleDelete = (id) => {
+        let result;
         var confirm = window.confirm('do you want to remove?')
         if (confirm) {
             dispatch(deleteQualification(id));
+            result = qualifications.filter(q => q.id !== id)
             console.log(id)
         }
     }
 
     const handleCreateNew = () => {
-        setQualification({});
+        setQualifications({});
         setValue('name', '');
         setValue('description', '')
     }
 
     const onSubmit = e => {
-        const obj = { name: qualification.name, description: qualification.description };
-        if (qualification.id) {
+        const obj = { name: qualifications.name, description: qualifications.description };
+        if (qualifications.id) {
             dispatch(updateQualification(obj))
         } else {
             dispatch(createQualification(obj))
@@ -91,12 +96,12 @@ const AdminQualification = () => {
         <div className="background-top"></div>
         <div className="background-bottom" >
 
-            <h3 className="p-pb-2"><i className="pi pi-chart-line p-pr-2"></i>Qualification</h3>
+            <h3 className="p-pb-2"><i className="pi pi-chart-line p-pr-2"></i>qualifications</h3>
             <div className="p-grid p-mx-lg-0 grid-margin p-py-1">
                 <div className="p-col-12 p-lg-8 p-p-lg-1 p-py-0">
                     <div className="p-card h-100 p-mt-2">
                         <div className="p-card-body pt-4">
-                            {getTableData(qualifictions.data)}
+                            {getTableData(qualifications)}
                             {/* {qualifictions.map((q, index) => (<span key={index}>
                                 <Tag >
                                     <span 
@@ -128,7 +133,7 @@ const AdminQualification = () => {
                                 <div className="p-fluid p-formgrid p-grid">
                                     <div className="p-field p-col-12 p-md-12 ">
                                         <label className="inputLabel" htmlFor="course">
-                                            Qualification
+                                            qualifications
                                             {errors.name && (
                                                 <span className="text-danger font-weight-bold">
                                                     &nbsp; {errors.name.message}
@@ -137,11 +142,11 @@ const AdminQualification = () => {
                                         </label>
                                         <CustomInputField
                                             id="name"
-                                            name="Qualification"
-                                            inputLabel="Qualification"
+                                            name="qualifications"
+                                            inputLabel="qualifications"
                                             register={register}
                                             inputChange={handleChange}
-                                            value={qualification.name}
+                                            value={qualifications.name}
                                         />
                                     </div>
                                     <div className="p-field p-col-12 p-md-12">
@@ -159,19 +164,19 @@ const AdminQualification = () => {
                                             inputLabel="Description"
                                             register={register}
                                             inputChange={handleChange}
-                                            value={qualification.description}
+                                            value={qualifications.description}
                                         />
                                     </div>
                                 </div>
                                 <div className="buttons">
                                     <Button
                                         iconPos="left"
-                                        label={loading ? "Please wait..." : qualification.id ? "Update" : "Create"}
+                                        label={loading ? "Please wait..." : qualifications.id ? "Update" : "Create"}
                                         id="saveButton"
                                         type="submit"
                                         disabled={loading}
                                     />
-                                    {qualification.id && <Button label="Add New" type="button" onClick={handleCreateNew} />}
+                                    {qualifications.id && <Button label="Add New" type="button" onClick={handleCreateNew} />}
                                 </div>
                             </form>
                         </div>

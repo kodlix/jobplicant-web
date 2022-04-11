@@ -1,5 +1,6 @@
 import InputField from "components/InputField";
 import moment from "moment";
+import { useHistory } from "react-router-dom";
 import ModeFooter from "components/profile/ModeFooter";
 import { Button } from "primereact/button";
 import { Calendar } from "primereact/calendar";
@@ -13,23 +14,28 @@ import { updateCompanyInfo } from "store/modules/company";
 import { loadCountry, loadLga, loadStates } from "store/modules/location";
 import JobplicantAvatar from "components/profile/jobplicant-avatar";
 
-const CompanyEditForm = () => {
-  const loading = useSelector((state) => state.company.loading);
+const CompanyEditForm = ({ countryId, stateId, lgaId }) => {
+  const history = useHistory();
+  const loading = useSelector((state) => state.company.requestLoading);
   const uploading = useSelector((state) => state.account.loading);
   const id = useSelector((state) => state.account.profileInfo.id);
-  const profileInfo = useSelector(state => state.account.profileInfo);
+  const profileInfo = useSelector((state) => state.account.profileInfo);
+  const successEditMode = useSelector((state) => state.company.isEditMode); //Edit mode from redux...
 
   const dispatch = useDispatch();
-  const countries = useSelector(state => state.location.countries);
-  const states = useSelector(state => state.location.states);
-  const lgas = useSelector(state => state.location.lgas);
-  const [companyInfo, setCompanyInfo] = useState({});
+  const countries = useSelector((state) => state.location.countries);
+  const states = useSelector((state) => state.location.states);
+  const lgas = useSelector((state) => state.location.lgas);
+  const [companyInfo, setCompanyInfo] = useState({
+    companyName: "",
+    yearOfEstablishment: null,
+  });
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [editMode, setEditMode] = useState(true);
 
-  console.log('company button loading', loading)
+  console.log("company button loading", loading);
 
   const {
     register,
@@ -51,36 +57,35 @@ const CompanyEditForm = () => {
   };
 
   useEffect(() => {
-    dispatch(loadCountry());
-    dispatch(loadStates(1));
-    dispatch(loadLga(1))
-    setCompanyInfo({
-      ...companyInfo,
-      yearOfEstablishment: new Date(profileInfo.yearOfEstablishment),
-      companyName: profileInfo.companyName,
+    if (profileInfo !== null) {
+      console.log("profile info change", profileInfo);
+      setCompanyInfo({
+        ...companyInfo,
+        yearOfEstablishment: profileInfo.yearOfEstablishment
+          ? new Date(profileInfo.yearOfEstablishment)
+          : null,
+        companyName: profileInfo.companyName,
 
-      // country: companyInfo.country,
-      // state: companyInfo.state.name,
-      // lga: companyInfo.lga,
-      // lgaId: companyInfo.lga.id,
-      // lgaName: companyInfo.lga.name,
-      city: profileInfo.city,
-      noOfEmployees: profileInfo.noOfEmployees,
-      phoneNumber: profileInfo.contactPhoneNumber,
-      website: profileInfo.website,
-      address: profileInfo.address
-    });
+        city: profileInfo.city,
+        noOfEmployees: profileInfo.noOfEmployees,
+        phoneNumber: profileInfo.contactPhoneNumber,
+        website: profileInfo.website,
+        address: profileInfo.address,
+      });
+      // console.log(
+      //   "profileInfo.yearOfEstablishment)",
+      //   profileInfo.yearOfEstablishment
+      // );
+      setValue("companyName", profileInfo.companyName);
+      setValue("yearOfEstablishment", profileInfo.yearOfEstablishment);
+      setValue("phoneNumber", profileInfo.contactPhoneNumber);
+      setValue("website", profileInfo.website);
 
-    setValue("companyName", profileInfo.companyName);
-    setValue("yearOfEstablishment", profileInfo.yearOfEstablishment);
-    setValue('phoneNumber', profileInfo.contactPhoneNumber);
-    setValue('website', profileInfo.website);
-
-    setValue('city', profileInfo.city);
-    setValue('noOfEmployees', profileInfo.noOfEmployees);
-    setValue('address', profileInfo.address);
-
-  }, [dispatch, profileInfo]);
+      setValue("city", profileInfo.city);
+      setValue("noOfEmployees", profileInfo.noOfEmployees);
+      setValue("address", profileInfo.address);
+    }
+  }, [profileInfo]);
 
   useEffect(() => {
     if (!selectedFile) {
@@ -94,18 +99,73 @@ const CompanyEditForm = () => {
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFile, uploading]);
 
-  useEffect(() => {
-    if (countries) {
-      setCompanyInfo({
-        ...companyInfo, 
-        country: countries.find(country => country.id === 1),
-        state: states.find(state => state.id === 1),
-        lga: lgas.find(lga => lga.id === 1),
-      })
+  const handleEditMode = () => {
+    setEditMode(!editMode);
+    if (editMode) {
+      history.push({
+        search: "mode=edit",
+      });
+      return;
     }
-  }, [countries])
+    history.replace({ search: "" });
+  };
 
-  const uploadProfilePicture = e => {
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search); // id=123
+    let mode = params.get("mode"); // 123
+    if (mode === "edit") {
+      setEditMode(false);
+    }
+
+    dispatch(loadCountry());
+  }, []);
+
+  useEffect(() => {
+    if (countries.length && profileInfo) {
+      const countryObject = countries.find(
+        (c) => c.name === profileInfo.country
+      );
+      if (countryObject) {
+        dispatch(loadStates(countryObject.id));
+        setCompanyInfo({
+          ...companyInfo,
+          country: countryObject,
+        });
+        setValue("country", countryObject.name);
+      }
+    }
+  }, [profileInfo, countries.length]);
+
+  useEffect(() => {
+    if (states.length && profileInfo) {
+      const stateObject = states.find((s) => s.name === profileInfo.state);
+      if (stateObject) {
+        dispatch(loadLga(stateObject.id));
+        setCompanyInfo({
+          ...companyInfo,
+          state: stateObject,
+        });
+        setValue("state", stateObject.name);
+      }
+    }
+  }, [states.length, profileInfo]);
+
+  useEffect(() => {
+    if (lgas.length && profileInfo) {
+      const lgaObject = lgas.find(
+        (l) => l?.name?.toLowerCase() === profileInfo?.lga?.toLowerCase()
+      );
+      if (lgaObject) {
+        setCompanyInfo({
+          ...companyInfo,
+          lga: lgaObject,
+        });
+        setValue("lga", lgaObject.name);
+      }
+    }
+  }, [lgas.length, profileInfo]);
+
+  const uploadProfilePicture = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedFile(undefined);
       return;
@@ -131,21 +191,27 @@ const CompanyEditForm = () => {
         return;
       }
     }, 2000);
-  }
+  };
 
   const handleCountryChange = (e) => {
-    let conuntryId = e.target.value.id;
-    dispatch(loadStates(conuntryId));
-  }
+    let countryId = e.target.value.id;
+    dispatch(loadStates(countryId));
+  };
 
   const handleStateChange = (e) => {
     let stateId = e.target.value.id;
     dispatch(loadLga(stateId));
-  }
+  };
 
-  const onSubmit = () => {
+  const handleLgaChange = (e) => {
+    //< == for now the function does nothing...
+    let lgaId = e.target.value.id;
+    //todo
+  };
+
+  const onSubmit = (data) => {
     const obj = {
-      ...companyInfo,
+      ...data,
       countryId: companyInfo.country.id,
       countryName: companyInfo.country.name,
       stateId: companyInfo.state.id,
@@ -153,16 +219,13 @@ const CompanyEditForm = () => {
       lga: companyInfo.lga,
       lgaId: companyInfo.lga.id,
       lgaName: companyInfo.lga.name,
-      noOfEmployees: parseInt(companyInfo.noOfEmployees),
-      contactPhoneNumber: companyInfo.phoneNumber,
-      city: companyInfo.city
-    }
-    // console.log(`id: ${id}, company info: `, obj)
-    // console.log(obj)
-    dispatch(updateCompanyInfo(obj))
+      phonenumber: data.phoneNumber,
+      contactPhoneNumber: data.phoneNumber,
+    };
+    // // console.log(`id: ${id}, company info: `, obj)
+    // console.log(obj);
+    dispatch(updateCompanyInfo(obj));
   };
-
-  
 
   return (
     <>
@@ -172,8 +235,20 @@ const CompanyEditForm = () => {
             <div className="p-4">
               <div className="d-flex justify-content-between">
                 <h4>Edit Profile</h4>
-                {editMode && <i className="pi pi-pencil" onClick={() => setEditMode(false)}></i>}
-                {!editMode && <i className="pi pi-times" onClick={() => setEditMode(true)}></i>}
+                {editMode && (
+                  <i
+                    className="pi pi-pencil"
+                    // onClick={() => setEditMode(false)}
+                    onClick={handleEditMode}
+                  ></i>
+                )}
+                {!editMode && (
+                  <i
+                    className="pi pi-times"
+                    // onClick={() => setEditMode(true)}
+                    onClick={handleEditMode}
+                  ></i>
+                )}
               </div>
               <div className="p-2"></div>
               <div className="row">
@@ -188,14 +263,18 @@ const CompanyEditForm = () => {
                           </span>
                         )}
                       </label>
-                      {editMode ? <p className="pi-text">{profileInfo.companyName}</p> : <InputField
-                        id="companyName"
-                        name="name"
-                        inputLabel="Company Name"
-                        register={register}
-                        inputChange={handleChange}
-                        className="form-control"
-                      />}
+                      {editMode ? (
+                        <p className="pi-text">{profileInfo.companyName}</p>
+                      ) : (
+                        <InputField
+                          id="companyName"
+                          name="companyName"
+                          inputLabel="Company Name"
+                          register={register}
+                          inputChange={handleChange}
+                          className="form-control"
+                        />
+                      )}
                     </div>
 
                     <div className="p-field p-col-6 p-md-6">
@@ -215,30 +294,38 @@ const CompanyEditForm = () => {
                         inputChange={handleChange}
                         className="form-control"
                       /> */}
-                      {editMode ? <p className="pi-text">{moment(profileInfo.yearOfEstablishment).format('yyyy')}</p> : <Calendar
-                        id="yearOfEstablishment"
-                        view="month"
-                        dateFormat="yy"
-                        yearNavigator
-                        yearRange="2010:2030"
-                        value={new Date(companyInfo.yearOfEstablishment)}
-                        onSelect={(e) => {
-                          const value = new Date(e.value).toISOString();
+                      {editMode ? (
+                        <p className="pi-text">
+                          {moment(profileInfo.yearOfEstablishment).format(
+                            "yyyy"
+                          )}
+                        </p>
+                      ) : (
+                        <Calendar
+                          id="yearOfEstablishment"
+                          view="month"
+                          dateFormat="yy"
+                          yearNavigator
+                          yearRange="2010:2030"
+                          name="yearOfEstablishment"
+                          value={new Date(profileInfo.yearOfEstablishment)}
+                          onSelect={(e) => {
+                            const value = new Date(e.value).toISOString();
 
-                          setCompanyInfo({
-                            ...companyInfo,
-                            yearOfEstablishment: value,
-                          });
-                          setValue("yearOfEstablishment", value, {
-                            shouldValidate: true,
-                          });
-                        }}
-                        name="yearOfEstablishment"
-                        {...register("yearOfEstablishment", {
-                          required: `* Year of establishment is required`,
-                        })}
-                        style={{ width: "100%" }}
-                      />}
+                            // setCompanyInfo({
+                            //   ...companyInfo,
+                            //   yearOfEstablishment: value,
+                            // });
+                            setValue("yearOfEstablishment", value, {
+                              shouldValidate: true,
+                            });
+                          }}
+                          {...register("yearOfEstablishment", {
+                            required: `* Year of establishment is required`,
+                          })}
+                          style={{ width: "100%" }}
+                        />
+                      )}
                     </div>
                   </div>
                   <div className="row">
@@ -251,14 +338,20 @@ const CompanyEditForm = () => {
                           </span>
                         )}
                       </label>
-                      {editMode ? <p className="pi-text">{profileInfo.contactPhoneNumber}</p> : <InputField
-                        id="phoneNumber"
-                        name="phoneNumber"
-                        inputLabel="phoneNumber"
-                        register={register}
-                        inputChange={handleChange}
-                        className="form-control"
-                      />}
+                      {editMode ? (
+                        <p className="pi-text">
+                          {profileInfo.contactPhoneNumber}
+                        </p>
+                      ) : (
+                        <InputField
+                          id="phoneNumber"
+                          name="phoneNumber"
+                          inputLabel="phoneNumber"
+                          register={register}
+                          inputChange={handleChange}
+                          className="form-control"
+                        />
+                      )}
                     </div>
 
                     <div className="p-field p-col-6 p-md-6">
@@ -270,19 +363,22 @@ const CompanyEditForm = () => {
                           </span>
                         )}
                       </label>
-                      {editMode ? <p className="pi-text">{profileInfo.website}</p> : <InputField
-                        id="website"
-                        name="website"
-                        inputLabel="website"
-                        register={register}
-                        inputChange={handleChange}
-                        className="form-control"
-                      />}
+                      {editMode ? (
+                        <p className="pi-text">{profileInfo.website}</p>
+                      ) : (
+                        <InputField
+                          id="website"
+                          name="website"
+                          inputLabel="website"
+                          register={register}
+                          inputChange={handleChange}
+                          className="form-control"
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
                 <div className="col-md-3 text-center p-mt-4">
-
                   <span className="profilePic-container">
                     {/* {selectedFile ? (<img
                       src={preview}
@@ -299,21 +395,29 @@ const CompanyEditForm = () => {
                         className="profile-picture"
                       />)
                     } */}
-                    <JobplicantAvatar 
-                      width={165} 
-                      height={165} 
+                    <JobplicantAvatar
+                      width={165}
+                      height={165}
                       preview={preview}
                       data={profileInfo}
                     />
-                    {!editMode && <label className="profilePic-label" htmlFor="upload-button">
-                      {uploading ? (
-                        <i className="pi pi-spin pi-spinner" style={{ color: "black" }}>
-                          {" "}
-                        </i>
-                      ) : (
-                        <i className="pi pi-camera"></i>
-                      )}
-                    </label>}
+                    {!editMode && (
+                      <label
+                        className="profilePic-label"
+                        htmlFor="upload-button"
+                      >
+                        {uploading ? (
+                          <i
+                            className="pi pi-spin pi-spinner"
+                            style={{ color: "black" }}
+                          >
+                            {" "}
+                          </i>
+                        ) : (
+                          <i className="pi pi-camera"></i>
+                        )}
+                      </label>
+                    )}
                   </span>
                   <input
                     type="file"
@@ -321,7 +425,12 @@ const CompanyEditForm = () => {
                     style={{ display: "none" }}
                     onChange={uploadProfilePicture}
                   />
-                  <input type="hidden" name="logo" register="true" value={companyInfo.logo} />
+                  <input
+                    type="hidden"
+                    name="logo"
+                    register="true"
+                    value={companyInfo.logo}
+                  />
                 </div>
               </div>
 
@@ -336,27 +445,31 @@ const CompanyEditForm = () => {
                     )}
                   </label>
 
-                  {editMode ? <p className="pi-text">{companyInfo.country && companyInfo.country.name}</p> : <Dropdown
-                    options={countries}
-                    optionLabel="name"
-                    filter
-                    showClear
-                    filterBy="name"
-                    icon="pi pi-plus"
-                    id="country"
-                    name="country"
-                    value={companyInfo.country}
-                    {...register("country",
-                      {
-                        required: ` Country is required`
-                      }
-                    )}
-                    onChange={(e) => {
-                      handleChange(e)
-                      handleCountryChange(e);
-                    }}
-                    className="form-control"
-                  />}
+                  {editMode ? (
+                    <p className="pi-text">
+                      {companyInfo.country && companyInfo.country.name}
+                    </p>
+                  ) : (
+                    <Dropdown
+                      options={countries}
+                      optionLabel="name"
+                      filter
+                      showClear
+                      filterBy="name"
+                      icon="pi pi-plus"
+                      id="country"
+                      name="country"
+                      value={companyInfo.country}
+                      {...register("country", {
+                        required: ` Country is required`,
+                      })}
+                      onChange={(e) => {
+                        handleChange(e);
+                        handleCountryChange(e);
+                      }}
+                      className="form-control"
+                    />
+                  )}
                 </div>
                 <div className="p-field p-col-6 p-md-6">
                   <label className="inputLabel" htmlFor="course">
@@ -368,27 +481,31 @@ const CompanyEditForm = () => {
                     )}
                   </label>
 
-                  {editMode ? <p className="pi-text">{companyInfo.state && companyInfo.state.name}</p> : <Dropdown
-                    options={states}
-                    optionLabel="name"
-                    filter
-                    showClear
-                    filterBy="name"
-                    icon="pi pi-plus"
-                    id="stateList"
-                    name="state"
-                    value={companyInfo.state}
-                    {...register("state",
-                      {
-                        required: ` State is required`
-                      }
-                    )}
-                    onChange={(e) => {
-                      handleChange(e);
-                      handleStateChange(e);
-                    }}
-                    className="form-control"
-                  />}
+                  {editMode ? (
+                    <p className="pi-text">
+                      {companyInfo.state && companyInfo.state.name}
+                    </p>
+                  ) : (
+                    <Dropdown
+                      options={states}
+                      optionLabel="name"
+                      filter
+                      showClear
+                      filterBy="name"
+                      icon="pi pi-plus"
+                      id="stateList"
+                      name="state"
+                      value={companyInfo.state}
+                      {...register("state", {
+                        required: ` State is required`,
+                      })}
+                      onChange={(e) => {
+                        handleChange(e);
+                        handleStateChange(e);
+                      }}
+                      className="form-control"
+                    />
+                  )}
                 </div>
               </div>
               <div className="row">
@@ -402,27 +519,31 @@ const CompanyEditForm = () => {
                     )}
                   </label>
 
-                  {editMode ? <p className="pi-text">{companyInfo.lga && companyInfo.lga.name}</p> : <Dropdown
-                    options={lgas}
-                    optionLabel="name"
-                    filter
-                    showClear
-                    filterBy="name"
-                    icon="pi pi-plus"
-                    id="lgaList"
-                    name="lga"
-                    value={companyInfo.lga}
-                    {...register("lga",
-                      {
-                        required: ` LGA is required`
-                      }
-                    )}
-                    onChange={(e) => {
-                      handleChange(e);
-                      handleChange(e)
-                    }}
-                    className="form-control"
-                  />}
+                  {editMode ? (
+                    <p className="pi-text">
+                      {companyInfo.lga && companyInfo.lga.name}
+                    </p>
+                  ) : (
+                    <Dropdown
+                      options={lgas}
+                      optionLabel="name"
+                      filter
+                      showClear
+                      filterBy="name"
+                      icon="pi pi-plus"
+                      id="lgaList"
+                      name="lga"
+                      value={companyInfo.lga}
+                      {...register("lga", {
+                        required: ` LGA is required`,
+                      })}
+                      onChange={(e) => {
+                        handleChange(e);
+                        handleLgaChange(e);
+                      }}
+                      className="form-control"
+                    />
+                  )}
                 </div>
                 <div className="p-field p-col-6 p-md-6">
                   <label className="inputLabel" htmlFor="course">
@@ -433,14 +554,18 @@ const CompanyEditForm = () => {
                       </span>
                     )}
                   </label>
-                  {editMode ? <p className="pi pi-text">{profileInfo.city}</p> : <InputField
-                    id="city"
-                    name="city"
-                    inputLabel="city"
-                    register={register}
-                    inputChange={handleChange}
-                    className="form-control"
-                  />}
+                  {editMode ? (
+                    <p className="pi pi-text">{profileInfo.city}</p>
+                  ) : (
+                    <InputField
+                      id="city"
+                      name="city"
+                      inputLabel="city"
+                      register={register}
+                      inputChange={handleChange}
+                      className="form-control"
+                    />
+                  )}
                 </div>
               </div>
               <div className="row">
@@ -453,16 +578,20 @@ const CompanyEditForm = () => {
                       </span>
                     )}
                   </label>
-                  {editMode ? <p className="pi pi-text">{profileInfo.address}</p> : <textarea
-                    id="address"
-                    name="address"
-                    onChange={(e) => {
-                      register("address");
-                      handleChange(e);
-                    }}
-                    className="form-control"
-                    defaultValue={companyInfo.address}
-                  ></textarea>}
+                  {editMode ? (
+                    <p className="pi pi-text">{profileInfo.address}</p>
+                  ) : (
+                    <textarea
+                      id="address"
+                      name="address"
+                      onChange={(e) => {
+                        register("address");
+                        handleChange(e);
+                      }}
+                      className="form-control"
+                      defaultValue={profileInfo.address}
+                    ></textarea>
+                  )}
                 </div>
                 <div className="p-field p-col-6 p-md-6">
                   <label className="inputLabel" htmlFor="course">
@@ -473,20 +602,36 @@ const CompanyEditForm = () => {
                       </span>
                     )}
                   </label>
-                  {editMode ? <p className="pi pi-text">{profileInfo.noOfEmployees}</p> : <InputField
-                    id="noOfEmployees"
-                    name="noOfEmployees"
-                    inputLabel="noOfEmployees"
-                    register={register}
-                    inputChange={handleChange}
-                    className="form-control"
-                    type="number"
-                  />}
+                  {editMode ? (
+                    <p className="pi pi-text">{profileInfo.noOfEmployees}</p>
+                  ) : (
+                    <InputField
+                      id="noOfEmployees"
+                      name="noOfEmployees"
+                      inputLabel="noOfEmployees"
+                      register={register}
+                      inputChange={handleChange}
+                      className="form-control"
+                      type="number"
+                    />
+                  )}
                 </div>
               </div>
             </div>
-            <div id="personalProfileForm" className="editMode-footer p-d-flex align-item-end flex-row-reverse">
-              {!editMode && <Button disabled={loading} icon="pi pi-check" iconPos="left" label={loading ? 'please wait...' : 'Save'} id="saveButton" type='submit' />}
+            <div
+              id="personalProfileForm"
+              className="editMode-footer p-d-flex align-item-end flex-row-reverse"
+            >
+              {!editMode && (
+                <Button
+                  disabled={loading}
+                  icon="pi pi-check"
+                  iconPos="left"
+                  label={loading ? "please wait..." : "Save"}
+                  id="saveButton"
+                  type="submit"
+                />
+              )}
             </div>
             <div className="pb-4"></div>
           </form>

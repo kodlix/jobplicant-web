@@ -1,9 +1,11 @@
 .commentForm {
   width: 100%;
-  background-color: #5a284625;
+  height: auto;
+  background-color: #b89fae25;
   border-radius: 10px;
   padding-bottom: 3rem;
   margin-left: 0.5rem;
+  font-size: 0.9rem;
 }
 
 .timeline-commentInputContainer {
@@ -12,14 +14,15 @@
 }
 
 .timeline-commentButton {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 }
 
 .timeline-commentButtons-container {
   position: absolute;
-  height: 35px;
+  height: 45px;
   bottom: 1rem;
   right: 0;
+  font-size: small !important;
 }
 
 .timeline-commentListTitle {

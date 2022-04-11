@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { API_ROOT } from "../../services/agent.service"
+import React, { useState, useEffect } from 'react';
 import { Button } from 'primereact/button';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
@@ -10,9 +9,10 @@ import { Picker } from 'emoji-mart';
 import { Emoji } from 'emoji-mart'
 import { Dropdown } from 'primereact/dropdown';
 import { Editor } from 'primereact/editor';
-import { createPost, editPost, viewPost } from "store/modules/timeline";
+import { createPost, editPost } from "store/modules/timeline";
 import "./Timeline.css";
 import { ACCOUNT_TYPE } from 'constants/accountType';
+import { MEDIATYPES } from 'constants/setup';
 
 const CreatePostModal = ({ post, clearModalInput }) => {
   const dispatch = useDispatch();
@@ -21,14 +21,15 @@ const CreatePostModal = ({ post, clearModalInput }) => {
   const profileInfo = useSelector((state) => state.account.profileInfo);
   const [postObject, setPostObject] = useState({});
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
+  const [mediaType, setMediaType] = useState("");
   const [_quill, setQuill] = useState(null);
   const [image, setImage] = useState({ preview: "", raw: "" });
   const { register, handleSubmit, formState: { errors }, setValue } = useForm("");
-  const [selectedViewerGroup, setSelectedViewerGroup] = useState({ name: 'Public', code: 'PBC' });
+  const [selectedViewerGroup, setSelectedViewerGroup] = useState({ name: 'Any one', code: 'PBC' });
   const baseClassName = isEmojiOpen ? "TextEditor-actions-emoji-picker-timeline--open" : "TextEditor-actions-emoji-picker-timeline"
   const viewerGroups = [
-    { name: 'Public', code: 'PBC' },
-    { name: 'Group', code: 'GRP' }
+    { name: 'Any one', code: 'PBC' },
+    { name: 'My connections only', code: 'CON' }
   ];
 
   const onViewerGroupChange = (e) => {
@@ -50,7 +51,7 @@ const CreatePostModal = ({ post, clearModalInput }) => {
       setValue("title", post.title);
       setValue("body", post.body);
       if (post.postImage) {
-        const imageurl = API_ROOT + "/" + post.postImage
+        const imageurl = post.postImage
         setImage({
           preview: imageurl,
           raw: post.postImage
@@ -63,14 +64,46 @@ const CreatePostModal = ({ post, clearModalInput }) => {
     }
   }, [post]);
 
-
-  const handleImageChange = e => {
+  const handleVideoChange = e => {
+    const files = e.target.files;
+    for (let i = 0; i <= files.length - 1; i++) {
+      let fsize = files.item(i).size;
+      let file = Math.round((fsize / 1024));
+      // The size of the file.
+      if (file >= 5120) {
+        alert("Video too big, please select a video less than 5mb");
+        return;
+      }
+    }
     if (e.target.files.length) {
       setImage({
         preview: URL.createObjectURL(e.target.files[0]),
         raw: e.target.files[0]
       });
     }
+    setMediaType(MEDIATYPES.VIDEO);
+  };
+
+
+  const handleImageChange = e => {
+    const files = e.target.files;
+    for (let i = 0; i <= files.length - 1; i++) {
+      let fsize = files.item(i).size;
+      let file = Math.round((fsize / 1024));
+      // The size of the file.
+      if (file >= 1024) {
+        alert("Image too big, please select a file less than 1mb");
+        return;
+      }
+    }
+
+    if (e.target.files.length) {
+      setImage({
+        preview: URL.createObjectURL(e.target.files[0]),
+        raw: e.target.files[0]
+      });
+    }
+    setMediaType(MEDIATYPES.IMAGE);
   };
 
   // EmojiPicker
@@ -142,22 +175,29 @@ const CreatePostModal = ({ post, clearModalInput }) => {
   };
 
   const inputChange = (e, inputName) => {
+
     const inputValue =
       inputName && (inputName === "body")
         ? e.htmlValue
         : e.target.value
     const updatedPostObject = Object.assign({}, postObject);
     updatedPostObject[inputName] = inputValue;
-    setPostObject({ ...postObject, ...updatedPostObject });
     setValue(inputName, inputValue, { shouldValidate: true });
+    //setPostObject({ ...postObject, ...updatedPostObject });
   };
+
+  const validateEditorBody = (value) => {
+    const quilText = _quill.getText().trim().length;
+    return quilText || " Post content is required";
+  }
 
   const onSubmit = (data) => {
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("body", data.body);
+    formData.append("mediaType", mediaType);
     if (image.raw) {
-      formData.append("postImage", image.raw)
+      formData.append("files", image.raw)
     };
     if (Object.keys(post).length > 0) {
       dispatch(editPost(post.id, formData));
@@ -313,7 +353,7 @@ const CreatePostModal = ({ post, clearModalInput }) => {
             className="TextEditor-container-timeline"
             onTextChange={(e) => { inputChange(e, "body") }}
             {...register("body", {
-              validate: value => _quill.getText().trim().length || " Post content is required"
+              validate: (e) => { validateEditorBody(e) }
             })}
             id="body"
             name="body"
@@ -326,6 +366,7 @@ const CreatePostModal = ({ post, clearModalInput }) => {
               type="file"
               id="timeline-uploadPhoto"
               style={{ display: "none" }}
+              name="files"
               onChange={handleImageChange}
               onClick={(e) => e.target.value = null}
               accept="image/*"
@@ -336,6 +377,8 @@ const CreatePostModal = ({ post, clearModalInput }) => {
             <input
               type="file"
               id="timeline-uploadVideo"
+              name="files"
+              onChange={handleVideoChange}
               style={{ display: "none" }}
               accept="video/*"
               onClick={(e) => e.target.value = null}

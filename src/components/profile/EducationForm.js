@@ -8,10 +8,19 @@ import { InputText } from "primereact/inputtext";
 import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
 import { updateEducation, createEducation } from "store/modules/education";
-import { fetchCountries } from "store/modules/util";
-import { getQualifications } from "store/modules/admin";
 
 
+const generateYears = () => {
+  var today = new Date();
+  var currentYear = today.getFullYear();
+  let arr = []
+  for (let year = currentYear; year > 1970; year--) {
+    arr = [...arr, year]
+  }
+  return arr;
+}
+
+const years = generateYears()
 
 const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemToEdit, mode }) => {
   const {
@@ -28,7 +37,7 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
 
   const loading = useSelector((state) => state.education.submitting);
   const dispatch = useDispatch();
-  
+
   const [yearOfGraduation, setYearOfGraduation] = useState(null);
   const [education, setEducation] = useState({
     institution: "",
@@ -44,14 +53,9 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
   const countryList = useSelector(state => state.util.countries);
   const qualificationList = useSelector(state => state.admin.qualifications);
 
-  useEffect(() => {
-    dispatch(fetchCountries());
-    dispatch(getQualifications())
-  }, []);
 
   useEffect(() => {
     if (Object.values(itemToEdit).length >= 1) {
-      console.log('item edit', itemToEdit)
       setEducation({
         ...education,
         institution: itemToEdit.institution,
@@ -66,7 +70,7 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
       setYearOfGraduation(new Date(itemToEdit.yearOfGraduation));
 
       setValue('institution', itemToEdit.institution);
-      setValue('qualification', itemToEdit.qualification);
+      setValue('qualification', qualificationList.find(q => q.name == itemToEdit.qualification).name);
       setValue('course', itemToEdit.course);
       setValue('city', itemToEdit.city);
       setValue('country', itemToEdit.country);
@@ -75,7 +79,6 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
 
     }
   }, [itemToEdit])
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -100,25 +103,26 @@ const EducationForm = ({ educationObject, componentStatus, closeEditMode, itemTo
   };
 
   const educationSubmit = (data) => {
-    console.log(data);
-    data.qualification = data.qualification.name;
-    data.yearOfGraduation = yearOfGraduation.toISOString();
 
     if (mode === 'create') {
+      data.yearOfGraduation = yearOfGraduation.toISOString();
+      data.qualification = data.qualification.name;
+
       dispatch(createEducation(data));
     } else {
       dispatch(updateEducation(itemToEdit.id, data));
     }
+    console.log('education form', data)
 
   };
 
   const monthNavigatorTemplate = (e) => {
     return <Dropdown value={e.value} options={e.options} onChange={(event) => e.onChange(event.originalEvent, event.value)} style={{ lineHeight: 1 }} />;
-}
+  }
 
-const yearNavigatorTemplate = (e) => {
+  const yearNavigatorTemplate = (e) => {
     return <Dropdown value={e.value} options={e.options} onChange={(event) => e.onChange(event.originalEvent, event.value)} className="p-ml-2" style={{ lineHeight: 1 }} />;
-}
+  }
 
 
   return (
@@ -187,19 +191,21 @@ const yearNavigatorTemplate = (e) => {
                     </span>
                   )}
                 </label>
-                
-                <Calendar 
-                  id="navigatorstemplate" 
-                  value={yearOfGraduation} 
-                  onChange={(e) => setYearOfGraduation(e.value)} 
-                  monthNavigator 
-                  yearNavigator 
+
+                <Calendar
+                  id="navigatorstemplate"
+                  value={yearOfGraduation}
+                  onChange={(e) => setYearOfGraduation(e.value)}
+
+                  monthNavigatorTemplate={monthNavigatorTemplate}
+                  yearNavigatorTemplate={yearNavigatorTemplate}
+                  view="month"
+                  dateFormat="yy"
+                  yearNavigator
                   yearRange="2010:2030"
-                  monthNavigatorTemplate={monthNavigatorTemplate} 
-                  yearNavigatorTemplate={yearNavigatorTemplate} 
-                  dateFormat="yy" 
                 />
-              
+                {/* <Dropdown optionLabel="" value={yearOfGraduation} options={years} onChange={(e) => setYearOfGraduation(e.value)} placeholder="Select Graduation Year"/> */}
+
               </div>
               <div className="p-field p-col-12 p-md-12">
                 <label className="inputLabel" htmlFor="institution">
@@ -282,11 +288,11 @@ const yearNavigatorTemplate = (e) => {
                   })}
                   name="address"
                   onChange={handleChange}
-                  value={education.address} 
+                  value={education.address}
                   maxLength={500}
                 />
               </div>
-              
+
             </div>
             <ModeFooter
               id="educationEdit"

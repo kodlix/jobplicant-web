@@ -4,8 +4,8 @@ import { loadPendingRequests, acceptRequest, rejectRequest } from "../../store/m
 import { Button } from 'primereact/button';
 import { formatter } from '../../helpers/converter';
 import { confirmDialog } from 'primereact/confirmdialog';
-import { API_ROOT } from "../../services/agent.service";
 import "./Contacts.css";
+import { Link } from 'react-router-dom';
 
 const ConnectionRequestPanel = ({ setSelectedId, selectedId }) => {
   const dispatch = useDispatch();
@@ -64,7 +64,7 @@ const ConnectionRequestPanel = ({ setSelectedId, selectedId }) => {
                   {
                     contact.imageUrl &&
                     <img
-                      src={`${API_ROOT}/${contact.imageUrl}`}
+                      src={contact.imageUrl}
                       width="40"
                       height="40"
                       className="rounded-circle contact-requestspicture p-mr-2"
@@ -77,8 +77,8 @@ const ConnectionRequestPanel = ({ setSelectedId, selectedId }) => {
                   }
                   <span className="w-100">
                     <div className="p-card-title contacts-cardsubtitle p-mb-0 d-flex justify-content-between">
-                      <span> {`${formatter.capitalizeFirstLetter(contact?.firstName)} ${formatter.capitalizeFirstLetter(contact?.lastName)}`}
-                      </span>
+                      <Link to={`/applicant/${contact.id}?profile=${contact.id}&request-connection=1`}> <span className='app-color' title="View user's profile"> {`${formatter.capitalizeFirstLetter(contact?.firstName)} ${formatter.capitalizeFirstLetter(contact?.lastName)}`}
+                      </span></Link>
                       <span className="text-right">
                         {
                           loading === "acceptConnectionRequest"

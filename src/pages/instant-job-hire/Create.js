@@ -12,6 +12,7 @@ import { Calendar } from 'primereact/calendar';
 import RecentInstantJobs from 'pages/instant-jobs/Recent_instant_Jobs';
 
 import './InstantJobHire.css'
+import { loadServices } from 'store/modules/admin';
 
 const New = ({ mode }) => {
     const dispatch = useDispatch();
@@ -33,20 +34,17 @@ const New = ({ mode }) => {
     const API_KEY = "AIzaSyDxaC_Q4OI6Kx84VPT4W4k6N6FYLEVfcw0";
 
     const loading = useSelector(state => state.instantJob.loading);
-    // console.log("loading => ", loading);
+    const services = useSelector(state => state.admin.services).data;
 
+    console.log(services, "services list");
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(10);
+    const [search, setSearch] = useState("");
 
-    const Categories = [
-        { name: 'Mechanic', code: 'Mec' },
-        { name: 'Plumber', code: 'Plu' },
-        { name: 'Tailor', code: 'Tai' },
-        { name: 'Chef', code: 'Chef' },
-        { name: 'Dry-cleaners', code: 'Lan' },
-        { name: 'Painter', code: 'Pai' },
-        { name: 'Janitor', code: 'Jan' },
-        { name: 'Massage', code: 'Mas' },
+    useEffect(() => {
+        dispatch(loadServices(page, limit, "loadServices", search));
+    }, [])
 
-    ];
 
 
     // const minDate = () => {
@@ -86,7 +84,6 @@ const New = ({ mode }) => {
             setValue("startDate", instantJobDate, { shouldValidate: true })
             // setValue("time", new Date().toLocaleTimeString(), { shouldValidate: false })
 
-            console.log("instant job => ", instantJobDate)
             setIsJobDateNow(true);
         } else {
             setValue("startDate", "", { shouldValidate: true })
@@ -111,13 +108,15 @@ const New = ({ mode }) => {
                 .then(response => response.json())
                 .then(data => {
                     let requester_location = data.results[0].formatted_address;
-                    console.log("requester's location => ", data)
+                    console.log("requester's location => ", requester_location)
+                    return requester_location;
 
                 })
         },
             error => {
                 alert('Could not locate your address unforturnately')
             })
+
     }
 
 
@@ -134,7 +133,7 @@ const New = ({ mode }) => {
                     data.now = false;
                 }
                 data.service = data.service.name;
-                locateUserHandler();
+                data.requesterLocation = locateUserHandler();
                 dispatch(createInstantJob(data));
             },
             reject: () => {
@@ -164,7 +163,7 @@ const New = ({ mode }) => {
                                                 <label htmlFor="service"> Job Service *</label>
 
                                                 <Dropdown
-                                                    options={Categories}
+                                                    options={services}
                                                     optionLabel="name"
                                                     filter
                                                     showClear
@@ -198,12 +197,13 @@ const New = ({ mode }) => {
 
                                         <div className="p-fluid p-md-6 p-sm-12">
                                             <div className="p-field">
-                                                <label htmlFor="address">Meet Up Location * </label>
+                                                <label htmlFor="address">Address/Meet Up Location * </label>
                                                 <InputText
                                                     type="text"
-                                                    placeholder="Address"
+                                                    placeholder="Enter a plcae"
                                                     name="address"
                                                     {...register("address", { required: "Address is required" })}
+                                                    id="autocomplete"
                                                 />
                                                 {errors.address && <span className="text-danger font-weight-bold "> <p>{errors.address.message}</p>
                                                 </span>}
@@ -221,7 +221,7 @@ const New = ({ mode }) => {
 
                                                 />
 
-                                                {errors.address && <span className="text-danger font-weight-bold "> <p>{errors.phoneNumber.message}</p>
+                                                {errors.phoneNumber && <span className="text-danger font-weight-bold "> <p>{errors.phoneNumber.message}</p>
                                                 </span>}
                                             </div>
                                         </div>
@@ -250,7 +250,6 @@ const New = ({ mode }) => {
                                                         setStartDate(value);
                                                         setValue(inputName, value, { shouldValidate: true });
                                                     }}
-                                                    name="startDate"
                                                     {...register("startDate", {
                                                         required: `Start date is required`,
                                                     })}
@@ -278,7 +277,6 @@ const New = ({ mode }) => {
                                                         setEndDate(value);
                                                         setValue(inputName, value, { shouldValidate: true });
                                                     }}
-                                                    name="endDate"
                                                     {...register("endDate", {
                                                         required: ` End date is required`,
                                                         validate: value => !value || !startdate || value > startdate || "End date cannot be less than Start date"

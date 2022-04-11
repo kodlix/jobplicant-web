@@ -1,0 +1,208 @@
+.contacts-container {
+    background-color: #5a28461f;
+    padding-top: 3rem;
+}
+
+.containerHeight-contact {
+    height: 100vh;
+}
+
+.contacts-content {
+    width: 86%;
+    margin: auto;
+}
+
+.contact-individualContainer {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.contact-cardtitle {
+    color: #2ca55e;
+    padding: 0.8rem;
+    font-size: 1.1rem !important;
+}
+
+.contact-sidepanel-cardtitle {
+    border-bottom: 1px solid #5a284657;
+    font-size: 1rem !important;
+    padding: 0.7rem 1rem;
+}
+
+.contacts-contactHeader {
+    vertical-align: top;
+    font-size: 1.1rem !important;
+}
+
+.contacts-actionIcons .pi {
+    font-size: 1.3rem;
+    padding: 0.5rem;
+    font-weight: 600;
+    color: #5A2846;
+    cursor: pointer;
+}
+
+.contacts-actionIcons .pi-trash:hover {
+    color: red;
+}
+
+.contacts-spinner {
+    color: white !important;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    font-weight: 500;
+    color: #5A2846;
+}
+
+.contact-requestspicture {
+    border: 3px solid #5A2846;
+}
+
+.contacts-cardsubtitle,
+.contacts-cardsubtitle .p-dropdown-label {
+    font-size: 0.8rem !important;
+}
+
+.contact-searchInput {
+    font-size: 0.8rem;
+}
+
+.contact-sortDropdown {
+    max-height: 37.2px;
+}
+
+.contact-emptyProfilePic {
+    border: 5px #5A2846 solid;
+    width: fit-content;
+    margin: auto;
+    font-size: 3rem;
+    border-radius: 50%;
+    padding: 0.8rem;
+    color: #5A2846;
+    font-weight: 700;
+    background-color: white;
+    margin-bottom: 0.5rem;
+}
+
+.contact-emptyProfilePic-small {
+    border: 3px #5A2846 solid;
+    width: -moz-fit-content;
+    width: fit-content;
+    font-size: 1.1rem;
+    border-radius: 50%;
+    padding: 0.4rem;
+    color: #5A2846;
+    font-weight: 700;
+    margin-right: 0.5rem;
+}
+
+.contact-profilePicture {
+    border: 4px #5A2846 solid;
+    object-fit: cover;
+    background-color: white;
+    cursor: pointer;
+}
+
+.contacts-jobDescription {
+    font-size: 0.8rem;
+    color: rgba(0, 0, 0, 0.616);
+}
+
+.contacts-accept-button,
+.contacts-reject-button {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    padding: 0;
+}
+
+.contacts-accept-button {
+    background: green !important;
+}
+
+.contacts-accept-button .pi,
+.contacts-reject-button .pi {
+    font-weight: 700;
+    margin: auto;
+}
+
+
+/* rating */
+
+ :root {
+    --star-size: 25px;
+    --star-color: rgb(180, 175, 175);
+    --star-background: #2ca55e;
+}
+
+.stars {
+    --percent: calc(var(--rating) / 5 * 100%);
+    display: inline-block;
+    font-size: var(--star-size);
+    /* font-family: Times; */
+    line-height: 1;
+}
+
+.stars:before {
+    content: '★★★★★';
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+    background-clip: content-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+/* rating */
+
+@media screen and (max-width: 1150px) {
+    .contacts-content {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .contacts-actionIcons i {
+        font-size: 0.8rem !important;
+    }
+}
+
+@media screen and (max-width: 530px) {
+    .pageTitle-contact {
+        display: block !important;
+    }
+    .searchInput-container-contact {
+        margin-left: 0.5rem;
+        margin-bottom: 0.5rem;
+        width: 100%;
+    }
+    .searchInput-container-contact>div,
+    .searchInput-container-contact>div>input {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 562px) {
+    .contact-individualContainer {
+        display: block;
+    }
+    .contacts-actionIcons .pi {
+        padding: 0;
+    }
+}
+
+.custom-badge {
+    background: rgb(44, 165, 94);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+}
+
+
+/* known Style in use */
+
+.noti:hover {
+    background-color: #eee;
+}

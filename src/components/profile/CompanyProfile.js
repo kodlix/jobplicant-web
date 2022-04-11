@@ -24,7 +24,7 @@ const UserProfile = () => {
         <div className="content-container">
           <div className="userProfile-header">
             <span className="profilePic-container">
-              <img src="../../assets/logo.png" alt="User Image" width="130" height="130" className="profile-picture" />
+              <img src="/assets/images/logo/applogo.jpeg" alt="User Image" width="130" height="130" className="profile-picture" />
               <label className="profilePic-label" htmlFor="upload-button"><i className="pi pi-camera"></i></label>
             </span>
             <input

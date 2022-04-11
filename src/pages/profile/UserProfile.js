@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppNavBar from "components/AppNavBar";
 
 import Portfolio from "components/profile/Portfolio";
@@ -17,12 +17,15 @@ import agentService from "services/agent.service";
 import ChatContainer from "components/chat/ChatContainer";
 import ChatContent from "components/chat/ChatContent";
 import { ACCOUNT_TYPE } from "constants/accountType";
+import CustomError from "pages/error-page/CustomError";
+import { ErrorBoundary } from "react-error-boundary";
+import { loadProfileInfo } from "store/modules/account";
 
 // import BreadCrumbPane from 'helpers/BreadCrumb';
 
 
 const UserProfile = ({ match }) => {
-  const [contact, setContact] = React.useState(null)
+  
   const profileInfo = useSelector((state) => state.account.profileInfo);
 
   const dispatch = useDispatch();
@@ -42,47 +45,58 @@ const UserProfile = ({ match }) => {
     dispatch(openModal(name));
   };
 
+  // useEffect(() => {
+  //   dispatch(loadProfileInfo());
+  // }, [])
+
   return (
-    <>
-      <div className="background">
-        <div className="pl-5">
-          <CustomBreadCrumb />
-        </div>
-        <div className="content-container">
-
-          {/* personal info */}
-          <PersonalInfo
-            openCreate={openCreate}
-            openEdit={openEdit}
-            data={profileInfo}
-          />
-
-          <div className="p-grid">
-            <div className="p-col-12 p-md-9 content-smallscreen">
-              <div className="content-tab">
-                {/* ProfileTab */}
-                <ProfileTab />
-              </div>
-              <div className="content-body">
-                {/* biography */}
-
-                <Route path={`${match.path}/`} exact component={InfoTab} />
-                <Route path={`${match.path}/info`} component={InfoTab} />
-                <Route path={`${match.path}/jobs`} component={JobsTab} />
-                <Route path={`${match.path}/contacts`} component={ContactsTab} />
-                <Route path={`${match.path}/groups`} component={GroupsTab} />
-                <Route path={`${match.path}/review`} component={ReviewTab} />
-              </div>
-            </div>
-            {/* portfolio */}
-            {accountType === ACCOUNT_TYPE.ARTISAN && <Portfolio openCreate={openCreate} openEdit={openEdit} />}
+    // <ErrorBoundary
+    //   FallbackComponent={CustomError} 
+    //   onReset={() => {
+    //     //reset the state of your app state
+    //     console.log('reset the app state')
+    //   }}
+    // >
+      <>
+        <div className="background">
+          <div className=""> 
+            <CustomBreadCrumb /> 
           </div>
-        </div>
-        <ChatContainer setContact={setContact} selectedContact={contact} />
-        {contact !== null && <ChatContent setContact={setContact} contact={contact} />}
-      </div>
+          <div className="content-container" style={{ width: '87%'}}>
 
-    </>
+            {/* personal info */}
+            <PersonalInfo
+              openCreate={openCreate}
+              openEdit={openEdit}
+              data={profileInfo}
+            />
+
+            <div className="p-grid">
+              <div className="p-col-12 p-md-9 content-smallscreen">
+                <div className="content-tab">
+                  {/* ProfileTab */}
+                  <ProfileTab />
+                </div>
+                <div className="content-body">
+                  {/* biography */}
+
+                  <Route path={`${match.path}/`} exact component={InfoTab} />
+                  <Route path={`${match.path}/info`} component={InfoTab} />
+                  <Route path={`${match.path}/jobs`} component={JobsTab} />
+                  <Route path={`${match.path}/contacts`} component={ContactsTab} />
+                  <Route path={`${match.path}/groups`} component={GroupsTab} />
+                  <Route path={`${match.path}/review`} component={ReviewTab} />
+                </div>
+              </div>
+              {/* portfolio */}
+              {accountType === ACCOUNT_TYPE.ARTISAN && <Portfolio openCreate={openCreate} openEdit={openEdit} />}
+            </div>
+          </div>
+          
+        </div>
+
+      </>
+    // </ErrorBoundary>
   );
 };
 

@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllInstantJobs } from 'store/modules/instantJob';
 
 
-const InstantHeader = ({ title, showCreateButton = false, showBack = false, count, showSearchBar = false }) => {
+const InstantHeader = ({ title, showCreateButton = false, showBack = false, count, showSearchBar = false, placeholder = "Search instant jobs", }) => {
     const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState("");
     const [page, setPage] = useState(1)
@@ -42,7 +42,7 @@ const InstantHeader = ({ title, showCreateButton = false, showBack = false, coun
                     <div className="p-input-icon-right searchInput-container-contact">
                         <div className="p-input-icon-left">
                             <i className="pi pi-search" />
-                            <InputText className="p-mr-2 p-pr-5 contact-searchInput" placeholder="Search instant jobs" value={searchValue} onChange={handleSearchInputChange} />
+                            <InputText className="p-mr-2 p-pr-5 contact-searchInput" placeholder={placeholder} value={searchValue} onChange={handleSearchInputChange} />
                         </div>
                         {
                             loading === "searchUsers" &&
@@ -55,8 +55,8 @@ const InstantHeader = ({ title, showCreateButton = false, showBack = false, coun
                     </div>
                 </div>}
                 <div className="flex-shrink-0">
-                    {showCreateButton && <Link to="/create-instant-hire"> <Button iconPos="left" label="Create" className="create-btn" type="button" /></Link>}
-                    {showBack && <Link to="/instant-hires" className="bk-btn p-pt-2 app-color"><i className="pi pi-arrow-left">Back</i></Link>}
+                    {showCreateButton && <Link to="/create-instant-hire"> <Button iconPos="left" label="Create" className="create-btn on-hover" type="button" /></Link>}
+                    {showBack && <Link to="/artisans" className="bk-btn p-pt-2 app-color"><i className="pi pi-arrow-left on-hover">Back</i></Link>}
                 </div>
             </header >
             <hr className="font-weight-bolder appcolor" />

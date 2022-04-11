@@ -1,34 +1,101 @@
-import React from 'react';
-import LineChart from './LineChart';
-import BarChart from './BarChart';
+import React, { useEffect, useState } from 'react';
 import ProgressTrackerBar from './ProgressTrackerBar';
-import DataTableComponent from './DataTableComponent';
+import './Dashboard.css'
+import agentService from 'services/agent.service';
+import { UserPostCount, UserContact, UserJob, UserActivities } from 'store/modules/dashboard';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 const EmployeeDashboard = () => {
+
+  const dispatch = useDispatch();
+  const id = agentService.Auth.current().id;
+  const name = agentService.Auth.current().name;
+  const userPost = useSelector(state => state.dashboard.userPost);
+  const userContact = useSelector(state => state.dashboard.userContact);
+  const userJob = useSelector(state => state.dashboard.userJob);
+  const activities = useSelector(state => state.dashboard.userActivities);
+  const userActivities = activities.data
+
+  useEffect(() => {
+    dispatch(UserPostCount(id));
+    dispatch(UserContact());
+    dispatch(UserJob());
+    dispatch(UserActivities());
+  }, [])
+
+  console.log("activity", userActivities)
+  // console.log("activities", activities.data)
+
   return (
     <div className="dashboard-container">
       <h3 className="p-pb-2"><i className="pi pi-chart-line p-pr-2"></i>Dashboard</h3>
-      <h6 className="p-mb-4">Account activity on Jobplicant so far</h6>
-      <div className="p-grid p-mx-lg-0 grid-margin p-py-1">
-        <div className="p-col-12 p-lg-4 p-p-lg-1">
-          <div className="p-card h-100 p-mt-2 text-center">
-            <div className="p-card-title p-px-3 p-pt-4">Welcome Jane Doe!</div>
-            <div className="p-card-body svgimage p-pt-0">
+      <h6 className="p-mb-4">Welcome {name}, check the activities on Jobplicant so far</h6>
+      <div className="row">
+        <div className="col-xl-4 col-md-6 p-mb-2">
+          <div className="card mini-stat">
+            <div className="card-body dashboard-item">
+              <div className="mb-4">
+                <div className="float-left mini-stat-img mr-4 col-3">
+                  <i className="pi pi-comment" style={{ fontSize: "2rem" }}></i>
+                </div>
+                <div>
+                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item mb-2">Posts</h5>
+                  <h4 className="font-weight-medium font-size-24 dashboard-item">{userPost?.data}</h4>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div className="p-col-12 p-lg-4 p-p-lg-1 p-py-0">
-          <div className="p-card h-100 p-mt-2">
-            <div className="p-card-title cardtitle">Recent Activity</div>
-            <div className="p-card-body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-              quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
+        <div className="col-xl-4 col-md-6 p-mb-2">
+          <div className="card mini-stat">
+            <div className="card-body dashboard-item">
+              <div className="mb-4">
+                <div className="float-left mini-stat-img mr-4 col-3">
+                  <i className="pi pi-user-plus" style={{ fontSize: "2rem" }}></i>
+                </div>
+                <div>
+                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item mb-2">Connections</h5>
+                  <h4 className="font-weight-medium dashboard-item font-size-24">{userContact?.data}</h4>
+                </div>
               </div>
+            </div>
           </div>
         </div>
-        <div className="p-col-12 p-lg-4 p-p-lg-1">
-          <div className="p-card h-100 p-mt-2">
-            <div className="p-card-title cardtitle">Progress Tracker</div>
+        <div className="col-xl-4 col-md-6 p-mb-2">
+          <div className="card mini-stat">
+            <div className="card-body dashboard-item">
+              <div className="mb-4">
+                <div className="float-left mini-stat-img mr-4 col-3">
+                  <i className="pi pi-briefcase" style={{ fontSize: "2rem" }}></i>
+                </div>
+                <div>
+                  <h5 className="font-size-16 text-uppercase mt-0 dashboard-item mb-2">Applied Jobs</h5>
+                  <h4 className="font-weight-medium dashboard-item font-size-24">{userJob?.data}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-grid p-mx-lg-0 grid-margin p-py-1">
+        <div className="p-col-12 p-lg-6 p-p-lg-1 p-py-0">
+          <div className="p-card h-100 p-mt-2 p-rounded-lg">
+            <div className="p-card-title cardtitle h6">Recent Activity</div>
+            {userActivities && userActivities.length > 0 && userActivities.map(activity =>
+              <div className="p-card-body p-card-body-Activity p-px-3">
+                <span>{activity.message}</span>
+              </div>
+            )}
+            {userActivities?.length === 0 && <div className="p-card-body p-card-body-Activity p-px-3">
+              <h6 className="text-center">You have no activity yet</h6>
+            </div>}
+          </div>
+        </div>
+        <div className="p-col-12 p-lg-6 p-p-lg-1">
+          <div className="p-card h-100 p-mt-2 p-rounded-lg">
+            <div className="p-card-title cardtitle h6">Progress Tracker</div>
             <div className="p-card-body p-pt-0">
               <div className="progressBar-title">
                 <span>
@@ -77,102 +144,6 @@ const EmployeeDashboard = () => {
               <ProgressTrackerBar value={100} className="progressBar progressBar5" />
             </div>
           </div>
-        </div>
-      </div>
-      <div className="p-grid p-mx-0">
-        <div className="p-col-12 p-pb-md-0 p-lg-3 p-md-6 p-px-1 p-py-0 p-py-lg-2">
-          <div className="p-card p-mt-2">
-            <div className="p-card-title cardtitle p-px-3 p-pt-3 d-flex justify-content-between">
-              <span>
-                <p>Earnings(Monthly)</p>
-                <p>$40,000</p>
-              </span>
-              <i className="pi pi-dollar"></i>
-            </div>
-            <div className="p-card-body d-flex justify-content-between p-py-2">
-              <h6>View Report</h6>
-              <i className="pi pi-chevron-right"></i>
-            </div>
-          </div>
-        </div>
-        <div className="p-col-12 p-pb-md-0 p-lg-3 p-md-6 p-px-1 p-py-0 p-py-lg-2">
-          <div className="p-card p-mt-2">
-            <div className="p-card-title cardtitle p-px-3 p-pt-3 d-flex justify-content-between">
-              <span>
-                <p>Earnings(Monthly)</p>
-                <p>$40,000</p>
-              </span>
-              <i className="pi pi-dollar"></i>
-            </div>
-            <div className="p-card-body d-flex justify-content-between p-py-2">
-              <h6>View Report</h6>
-              <i className="pi pi-chevron-right"></i>
-            </div>
-          </div>
-        </div>
-        <div className="p-col-12 p-lg-3 p-md-6 p-px-1 p-py-0 p-pb-md-2 p-pt-lg-2">
-          <div className="p-card p-mt-2">
-            <div className="p-card-title cardtitle p-px-3 p-pt-3 d-flex justify-content-between">
-              <span>
-                <p>Earnings(Monthly)</p>
-                <p>$40,000</p>
-              </span>
-              <i className="pi pi-dollar"></i>
-            </div>
-            <div className="p-card-body d-flex justify-content-between p-py-2">
-              <h6>View Report</h6>
-              <i className="pi pi-chevron-right"></i>
-            </div>
-          </div>
-        </div>
-        <div className="p-col-12 p-lg-3 p-md-6 p-px-1 p-pt-0 p-pb-2 p-pt-lg-2">
-          <div className="p-card p-mt-2">
-            <div className="p-card-title cardtitle p-px-3 p-pt-3 d-flex justify-content-between">
-              <span>
-                <p>Earnings(Monthly)</p>
-                <p>$40,000</p>
-              </span>
-              <i className="pi pi-dollar"></i>
-            </div>
-            <div className="p-card-body d-flex justify-content-between p-py-2">
-              <h6>View Report</h6>
-              <i className="pi pi-chevron-right"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="p-grid p-mx-0">
-        <div className="p-col-12 p-py-0 p-lg-6 p-px-1">
-          <div className="p-card p-mt-2">
-            <div className="p-card-title cardtitle">
-              Earning Breakdown
-            </div>
-            <div className="p-card-body p-p-0">
-              {/* <LineChart /> */}
-            </div>
-          </div>
-        </div>
-        <div className="p-col-12 p-pt-0 p-lg-6 p-px-1">
-          <div className="p-card p-mt-2">
-            <div className="p-card-title cardtitle">
-              Monthly Revenue
-            </div>
-            <div className="p-card-body p-p-0">
-              {/* <BarChart /> */}
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* <div className="">
-        <div className="p-card p-mt-2">
-          <div className="p-card-title cardtitle"> */}
-      {/* Personnel Management */}
-      {/* </div> */}
-      <div className="p-grid p-mx-0 p-px-1 datatable-container">
-        <div className="p-col-12 p-card p-px-0 p-py-0 p-mt-2 datatable-content">
-          <DataTableComponent />
-          {/* </div>
-        </div> */}
         </div>
       </div>
     </div>

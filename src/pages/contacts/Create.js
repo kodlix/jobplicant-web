@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { loadFreeUsers, sendContactRequest } from "../../store/modules/contact";
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
-import { API_ROOT } from "../../services/agent.service";
 import ConnectionRequestPanel from "./ConnectionRequestPanel";
 import "./Contacts.css";
 import { ACCOUNT_TYPE } from 'constants/accountType';
+import { Link } from 'react-router-dom';
 
 const Create = () => {
   const dispatch = useDispatch();
@@ -64,6 +64,14 @@ const Create = () => {
     dispatch(loadFreeUsers(1, pageLimit, "loadingFreeUsers"))
   }, [dispatch]);
 
+  const getCurrentJobExperience = experiences => {
+    if (experiences && experiences.length) {
+      const experience = experiences.find(experience => experiences.current === true) || experiences[0]
+      return <div>{experience.jobTitle} at {experience.company}</div>
+    }
+    return <div></div>
+  }
+
   return (
     <>
       <div className={`contacts-container ${contactContainerClassName}`}>
@@ -105,7 +113,7 @@ const Create = () => {
                     {
                       user.imageUrl &&
                       <img
-                        src={`${API_ROOT}/${user.imageUrl}`}
+                        src={user.imageUrl}
                         width="85"
                         height="85"
                         className="rounded-circle contact-profilePicture"
@@ -117,11 +125,11 @@ const Create = () => {
                       !user.imageUrl &&
                       <i className="pi pi-user contact-emptyProfilePic"></i>
                     }
-                    <span className="p-ml-2">
+                    <span className="p-ml-2" title="View user's profile">
                       <span className="p-card-title contacts-contactHeader p-mb-0">
-                        <span className="p-mr-2">
+                        <Link to={`/applicant/${user.id}`}><span className="p-mr-2 app-color">
                           {`${capitalizeFirstLetter(user?.firstName)} ${capitalizeFirstLetter(user?.lastName)}`}
-                        </span>
+                        </span></Link>
                         {
                           user.accountType.toLowerCase() === ACCOUNT_TYPE.ARTISAN &&
                           <div className="stars" style={{ "--rating": user.rating }} />
@@ -133,7 +141,7 @@ const Create = () => {
                           {user.email}
                         </p>
                         <p>
-                          photographer at photostat
+                          {getCurrentJobExperience(user.experiences)}
                         </p>
                       </small>
                     </span>
