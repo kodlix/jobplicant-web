@@ -10,9 +10,12 @@ const superagent = superagentPromise(_superagent, global.Promise);
 export const currentApp = process.env.REACT_APP_CURRENT_APP;
 export const isArtisanApp = process.env.REACT_APP_CURRENT_APP === "artisan";
 
-export const API_ROOT = process.env.NODE_ENV === "development" ? process.env.REACT_APP_API_ROOT_LOCAL : process.env.REACT_APP_API_ROOT_PROD;
+export const API_ROOT =
+  process.env.NODE_ENV === "development"
+    ? process.env.REACT_APP_API_ROOT_LOCAL
+    : process.env.REACT_APP_API_ROOT_PROD;
 // export const API_ROOT = "http://localhost:8080";
-console.log('ENVIRONMENT:', process.env.NODE_ENV)
+console.log("ENVIRONMENT:", process.env.NODE_ENV);
 
 console.log("API_ROOT", API_ROOT);
 console.log("environmental variables", process.env);
@@ -27,7 +30,7 @@ const getAuthToken = () => {
   return accessToken;
 };
 
-console.log(' request on dev mode:', process.env.REACT_APP_API_ROOT_LOCAL)
+console.log(" request on dev mode:", process.env.REACT_APP_API_ROOT_LOCAL);
 export const tokenPlugin = (req) => {
   req.set("Accept", "application/json");
 
@@ -37,13 +40,13 @@ export const tokenPlugin = (req) => {
   }
 
   req.on("response", function (res) {
-    console.log('onResponse returned kick off')
+    console.log("onResponse returned kick off");
     if (res.status === 401) {
       //Always revert back here to change the production to the *CORRECT URL*
       // console.log("onResponse: This is called when Authorization is hit")
       localStorage.removeItem("auth");
       if (process.env.NODE_ENV === "development")
-        return (window.location.href = "http://localhost:8080/login");
+        return (window.location.href = "http://localhost:3000/login");
       else return (window.location.href = process.env.API_ROOT_PROD + "/login");
     }
   });
