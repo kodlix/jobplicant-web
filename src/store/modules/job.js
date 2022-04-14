@@ -417,13 +417,13 @@ export function allJobsFilter(data) {
         dispatch(fetchedFilterJobs(response))
         dispatch(loading(false));
         // handle success
-        // dispatch(
-        //   showMessage({
-        //     type: MESSAGE_TYPE.SUCCESS,
-        //     message: "Jobs successfully filtered",
-        //     title: "job filtered Successfully",
-        //   })
-        // );
+        dispatch(
+          showMessage({
+            type: MESSAGE_TYPE.SUCCESS,
+            message: "Jobs successfully filtered",
+            title: "job filtered Successfully",
+          })
+        );
       },
       (error) => {
         // handle error
