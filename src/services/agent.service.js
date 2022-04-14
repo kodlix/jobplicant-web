@@ -10,8 +10,12 @@ const superagent = superagentPromise(_superagent, global.Promise);
 export const currentApp = process.env.REACT_APP_CURRENT_APP;
 export const isArtisanApp = process.env.REACT_APP_CURRENT_APP === "artisan";
 
-export const API_ROOT = "https://jobplicant-api.herokuapp.com";
+export const API_ROOT =
+  process.env.NODE_ENV === "development"
+    ? process.env.REACT_APP_API_ROOT_LOCAL
+    : process.env.REACT_APP_API_ROOT_PROD;
 // export const API_ROOT = "http://localhost:8080";
+console.log("ENVIRONMENT:", process.env.NODE_ENV);
 
 console.log("API_ROOT", API_ROOT);
 console.log("environmental variables", process.env);
@@ -26,6 +30,7 @@ const getAuthToken = () => {
   return accessToken;
 };
 
+console.log(" request on dev mode:", process.env.REACT_APP_API_ROOT_LOCAL);
 export const tokenPlugin = (req) => {
   req.set("Accept", "application/json");
 
@@ -35,12 +40,13 @@ export const tokenPlugin = (req) => {
   }
 
   req.on("response", function (res) {
+    console.log("onResponse returned kick off");
     if (res.status === 401) {
       //Always revert back here to change the production to the *CORRECT URL*
       // console.log("onResponse: This is called when Authorization is hit")
       localStorage.removeItem("auth");
       if (process.env.NODE_ENV === "development")
-        return (window.location.href = "http://localhost:8080/login");
+        return (window.location.href = "http://localhost:3000/login");
       else return (window.location.href = process.env.API_ROOT_PROD + "/login");
     }
   });
@@ -105,7 +111,12 @@ const Auth = {
     return user?.role === ("Super-admin" || "Developer");
   },
   login: (email, password, type, app) =>
-    requests.post("/auth/signIn", { email, password, type, app }),
+    requests.post("/auth/signIn", {
+      email: email.toLowerCase(),
+      password,
+      type,
+      app,
+    }),
   register: (data) => requests.post("/auth/signUp", data),
   checkValidEmail: (email) =>
     requests.post(`/account/email/is-valid`, { email }),
@@ -204,6 +215,7 @@ const Job = {
     requests.put(`/job/${applicationId}/application/suspend`, data),
   applyWithCV: (id, data) => requests.post(`/job/${id}/apply-with-cv`, data),
   jobsFIlter: (filter) => requests.get(`/job/all/filter?=${filter}`),
+  getIndustries: () => requests.get(`/industry`),
 };
 
 //education service api
@@ -471,29 +483,19 @@ const Chat = {
 };
 
 const Dashboard = {
-  getCountByGroup: () =>
-    requests.get("/accounts/users-count-by-group"),
-  getAllPostCount: () =>
-    requests.get("/post/count"),
-  getAllJobCount: () =>
-    requests.get("/job/count"),
-  getUserPostCount: (userId) =>
-    requests.get(`/post/user/${userId}/count`),
-  loadUserContact: () =>
-    requests.get(`/contact/count`),
-  loadInstantService: () =>
-    requests.get(`/instant-job/applications/m/count`),
-  loadJobs: () =>
-    requests.get(`/job/applications/m/count`),
-  loadUserActivities: () =>
-    requests.get(`/accounts/user-activities`),
-}
+  getCountByGroup: () => requests.get("/accounts/users-count-by-group"),
+  getAllPostCount: () => requests.get("/post/count"),
+  getAllJobCount: () => requests.get("/job/count"),
+  getUserPostCount: (userId) => requests.get(`/post/user/${userId}/count`),
+  loadUserContact: () => requests.get(`/contact/count`),
+  loadInstantService: () => requests.get(`/instant-job/applications/m/count`),
+  loadJobs: () => requests.get(`/job/applications/m/count`),
+  loadUserActivities: () => requests.get(`/accounts/user-activities`),
+};
 
 const Industries = {
   getIndustries: () => requests.get("/industry"),
-
-}
-
+};
 
 export default {
   Auth,

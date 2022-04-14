@@ -16,6 +16,7 @@ const initialState = {
   uploadCvRequest: false,
   uploadCvResponse: null,
   filteredjobs: [],
+  industries: [],
 };
 
 const LOADING = "LOADING_JOB";
@@ -34,6 +35,7 @@ const GET_JOB_APPLICANTS = "GET_JOB_APPLICANTS";
 const LOAD_JOBS_ERROR = "LOAD_JOBS_ERROR";
 const ALL_APPLIED_JOBS = "ALL_APPLIED_JOBS";
 const FILTERED_JOBS = "FILTERED_JOBS";
+const GET_JOB_INDUSTRIES = "GET_JOB_INDUSTRIES";
 
 // Reducer
 export default function reducer(state = initialState, action = {}) {
@@ -128,8 +130,13 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         loading: false,
-        filteredjobs: action.payload
-      }
+        filteredjobs: action.payload,
+      };
+    case GET_JOB_INDUSTRIES:
+      return {
+        ...state,
+        industries: action.payload,
+      };
     default:
       return state;
   }
@@ -190,8 +197,11 @@ export const loading = () => ({
 export const fetchedFilterJobs = (response) => ({
   type: FILTERED_JOBS,
   payload: response,
-})
-
+});
+export const getJobIndustries = (payload) => ({
+  type: GET_JOB_INDUSTRIES,
+  payload,
+});
 // Actions
 export const loadAllJobs = () => (dispatch) => {
   dispatch(loading(true));
@@ -414,7 +424,7 @@ export function allJobsFilter(data) {
     dispatch(loading(true));
     return agent.Job.jobsFIlter(data).then(
       (response) => {
-        dispatch(fetchedFilterJobs(response))
+        dispatch(fetchedFilterJobs(response));
         dispatch(loading(false));
         // handle success
         dispatch(
@@ -440,3 +450,13 @@ export function allJobsFilter(data) {
   };
 }
 
+export const getIndustries = () => (dispatch) => {
+  return agent.Job.getIndustries().then(
+    (response) => {
+      dispatch(getJobIndustries(response.data));
+    },
+    (error) => {
+      dispatch(showMessage({ type: "error", message: error }));
+    }
+  );
+};

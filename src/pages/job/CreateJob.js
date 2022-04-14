@@ -7,28 +7,32 @@ import { Button } from "primereact/button";
 import { Calendar } from "primereact/calendar";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import BackgroundImage from '../../assets/bg.png'
-import avatarImage from '../../assets/avatar.png'
+import BackgroundImage from "../../assets/bg.png";
+import avatarImage from "../../assets/avatar.png";
 import { Dropdown } from "primereact/dropdown";
 import { loadCountry, loadStates } from "store/modules/location";
-import { createJob } from "store/modules/job";
+import { createJob, getIndustries } from "store/modules/job";
 import { Link, useHistory } from "react-router-dom";
+import { Chips } from "primereact/chips";
 
-import './CreateJob.css';
+import "./CreateJob.css";
 
 const contractTypeList = ["Full-Time", "Contract-Based", "Internship"];
 
 const CreateJob = () => {
   const loading = useSelector((state) => state.job.loading);
-  const jobs = useSelector(state => state.job.jobs)
-  const history = useHistory()
+  const jobs = useSelector((state) => state.job.jobs);
+  const history = useHistory();
   // const id = useSelector((state) => state.account.profileInfo.id);
-  const countries = useSelector(state => state.location.countries);
-  const states = useSelector(state => state.location.states);
+  const countries = useSelector((state) => state.location.countries);
+  const states = useSelector((state) => state.location.states);
+  const industryList = useSelector((state) => state.job.industries);
   const dispatch = useDispatch();
   const [editorHtml, setEditorHtml] = useState("");
   const [companyInfo, setCompanyInfo] = useState({
-    minSalary: ''
+    industry: "",
+    minSalary: "",
+    skills: "",
   });
   const {
     register,
@@ -42,7 +46,7 @@ const CreateJob = () => {
     mode: "onChange",
     reValidateMode: "all",
   });
-  console.log(loading, "loading");
+  console.log("industries", industryList);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,32 +56,34 @@ const CreateJob = () => {
   };
 
   useEffect(() => {
+    dispatch(getIndustries());
     dispatch(loadCountry());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     if (jobs.length) {
-      history.push('/company/jobs')
+      history.push("/company/jobs");
     }
-  }, [jobs.length])
-
+  }, [jobs.length]);
 
   const handleCountryChange = (e) => {
     let conuntryId = e.target.value.id;
     dispatch(loadStates(conuntryId));
-  }
+  };
 
   const onSubmit = () => {
     if (!editorHtml)
-      return setError('jobDescription', {
+      return setError("jobDescription", {
         type: "manual",
-        message: 'Job description is required'
-      })
-    const minSalary = parseInt(companyInfo.minSalary)
-    const maxSalary = parseInt(companyInfo.maxSalary)
+        message: "Job description is required",
+      });
+    const minSalary = parseInt(companyInfo.minSalary);
+    const maxSalary = parseInt(companyInfo.maxSalary);
 
     if (minSalary > maxSalary) {
-      window.alert('Minimum salary is not expected to be greater than maximum salary, please check your input.')
+      window.alert(
+        "Minimum salary is not expected to be greater than maximum salary, please check your input."
+      );
       return;
     }
     const dataToPost = {
@@ -97,11 +103,11 @@ const CreateJob = () => {
       country: companyInfo.country.name,
       state: companyInfo.state.name,
       minYearOfExperience: parseInt(companyInfo.minYearOfExperience),
-
-    }
+      skills: companyInfo.skills,
+    };
 
     // console.log(dataToPost);
-    return dispatch(createJob(dataToPost))
+    return dispatch(createJob(dataToPost));
   };
 
   return (
@@ -177,13 +183,27 @@ const CreateJob = () => {
                                   </span>
                                 )}
                               </label>
-                              <InputField
-                                id="industry"
+                              <br />
+                              <Dropdown
+                                value={companyInfo.industry}
+                                options={industryList}
+                                optionLabel="name"
+                                onChange={(e) => {
+                                  setCompanyInfo({
+                                    ...companyInfo,
+                                    industry: e.value,
+                                  });
+                                  setValue("industry", e.value, {
+                                    shouldValidate: true,
+                                  });
+                                }}
                                 name="industry"
-                                inputLabel="industry"
-                                register={register}
-                                inputChange={handleChange}
-                                className="form-control"
+                                filter
+                                showClear
+                                placeholder="Select Industry"
+                                icon="pi pi-plus"
+                                id="industry"
+                                className="w-100"
                               />
                             </div>
                             <div className="p-field p-col-6 p-md-6 p-sm-12">
@@ -308,9 +328,8 @@ const CreateJob = () => {
                                 placeholder="Select Contract Type"
                                 icon="pi pi-plus"
                                 id="contractTypeInput"
-                                className="form-control"
+                                className="w-100"
                               />
-
                             </div>
                             <div className="p-field p-col-6 p-md-6 p-sm-12">
                               <label className="inputLabel" htmlFor="course">
@@ -404,13 +423,11 @@ const CreateJob = () => {
                                 id="country"
                                 name="country"
                                 value={companyInfo.country}
-                                {...register("country",
-                                  {
-                                    required: ` Country is required`
-                                  }
-                                )}
+                                {...register("country", {
+                                  required: ` Country is required`,
+                                })}
                                 onChange={(e) => {
-                                  handleChange(e)
+                                  handleChange(e);
                                   handleCountryChange(e);
                                 }}
                                 className="form-control"
@@ -436,11 +453,9 @@ const CreateJob = () => {
                                 id="stateList"
                                 name="state"
                                 value={companyInfo.state}
-                                {...register("state",
-                                  {
-                                    required: ` State is required`
-                                  }
-                                )}
+                                {...register("state", {
+                                  required: ` State is required`,
+                                })}
                                 onChange={(e) => {
                                   handleChange(e);
                                 }}
@@ -450,7 +465,8 @@ const CreateJob = () => {
 
                             <div className="p-field p-col-6 p-md-6">
                               <label className="inputLabel" htmlFor="course">
-                                Minimum Year of Experience<span className="text-red">*</span>
+                                Minimum Year of Experience
+                                <span className="text-red">*</span>
                                 {errors.lga && (
                                   <span className="text-danger font-weight-bold">
                                     &nbsp; {errors.lga.message}
@@ -466,12 +482,12 @@ const CreateJob = () => {
                                 inputChange={handleChange}
                                 className="form-control"
                               />
-
                             </div>
 
                             <div className="p-field p-col-6 p-md-6">
                               <label className="inputLabel" htmlFor="course">
-                                Don't show company name?<span className="text-red">*</span>
+                                Don't show company name?
+                                <span className="text-red">*</span>
                                 {errors.hideCompanyName && (
                                   <span className="text-danger font-weight-bold">
                                     &nbsp; {errors.hideCompanyName.message}
@@ -479,7 +495,10 @@ const CreateJob = () => {
                                 )}
                               </label>
                               <Dropdown
-                                options={[{ name: 'Show', value: true }, { name: 'Hide', value: false }]}
+                                options={[
+                                  { name: "Show", value: true },
+                                  { name: "Hide", value: false },
+                                ]}
                                 optionLabel="name"
                                 filter
                                 showClear
@@ -491,12 +510,38 @@ const CreateJob = () => {
                                 {...register("hideCompanyName")}
                                 onChange={(e) => {
                                   handleChange(e);
-                                  console.log(e.target.value)
+                                  console.log(e.target.value);
                                 }}
-                                className="form-control"
+                                className="w-100"
                               />
                             </div>
-
+                            {/*  */}
+                            <div className="p-field p-col-6 p-md-6">
+                              <label className="inputLabel" htmlFor="course">
+                                Skills
+                                <span className="text-red">*</span>
+                                {errors.skills && (
+                                  <span className="text-danger font-weight-bold">
+                                    &nbsp; {errors.skills.message}
+                                  </span>
+                                )}
+                              </label>
+                              <Chips
+                                id="skills"
+                                name="skills"
+                                register={register}
+                                value={companyInfo.skills}
+                                onChange={(e) => {
+                                  setCompanyInfo({
+                                    ...companyInfo,
+                                    skills: e.value,
+                                  });
+                                  setValue("skills", e.value);
+                                }}
+                                className="w-100"
+                              />
+                            </div>
+                            {/*  */}
                           </div>
                         </div>
                       </div>
@@ -519,15 +564,18 @@ const CreateJob = () => {
                               <div style={{ height: "200px" }} id="description">
                                 {/* Editor */}
                                 <ReactQuill
-                                  style={{ height: '100%' }}
-                                  bounds={document.querySelector('#description')}
+                                  style={{ height: "100%" }}
+                                  bounds={document.querySelector(
+                                    "#description"
+                                  )}
                                   theme="snow"
                                   onChange={(html) => {
                                     setEditorHtml(html);
-                                    setValue('jobDescription', html, { shouldValidate: true })
+                                    setValue("jobDescription", html, {
+                                      shouldValidate: true,
+                                    });
                                   }}
                                   value={editorHtml}
-
                                   modules={editorModules}
                                   formats={editorFormats}
                                   placeholder="Write something..."
@@ -625,7 +673,7 @@ const CreateJob = () => {
                       <Button
                         icon="pi pi-check"
                         iconPos="left"
-                        label={loading ? 'Please wait...' : "Create"}
+                        label={loading ? "Please wait..." : "Create"}
                         id="saveButton"
                         disabled={loading}
                         type="submit"
