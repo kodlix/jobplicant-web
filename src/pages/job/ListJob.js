@@ -95,7 +95,7 @@ const CardItem = ({ job }) => (
             </span>
           ))
         ) : (
-          <Tag>N/A</Tag>
+          <div></div>
         )}
       </div>
       {/* <div>

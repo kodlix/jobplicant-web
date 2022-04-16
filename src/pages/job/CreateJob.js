@@ -97,7 +97,7 @@ const CreateJob = () => {
       maxSalary,
       minQualification: companyInfo.minQualification,
       location: companyInfo.jobLocation,
-      industry: companyInfo.industry,
+      industry: companyInfo.industry.name,
       startDate: new Date(companyInfo.startDate),
       endDate: new Date(companyInfo.endDate),
       country: companyInfo.country.name,
