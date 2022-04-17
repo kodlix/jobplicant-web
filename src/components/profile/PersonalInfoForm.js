@@ -193,7 +193,14 @@ const PersonalInfoForm = ({ data, closeEditMode }) => {
 
   const personalInfoSubmit = (personal) => {
     personalProfile.profession = selectedProf;
-    dispatch(updatePersonalProfile(personalProfile));
+    const dataToPost = {
+      ...personalProfile,
+      lga: personalProfile.lga.name,
+      state: personalProfile.state.name,
+      country: personalProfile.country.name,
+    };
+    // console.log("personal profile", dataToPost);
+    dispatch(updatePersonalProfile(dataToPost));
   };
 
   return (

@@ -114,10 +114,10 @@ const ListJobDetail = () => {
       const formData = new FormData();
       formData.append("file", file);
 
-      // dispatch(applyWithCV(id, formData));
+      dispatch(applyWithCV(id, formData));
       return;
     }
-    // dispatch(apply(id, { jobId: jobDetail.id }));
+    dispatch(apply(id, { jobId: jobDetail.id }));
   };
 
   if (jobDetail === null) return <Spinner />;
@@ -177,7 +177,7 @@ const ListJobDetail = () => {
                   : parser(jobDetail?.description)}
               </p>
             </div>
-            <div className="p-card p-4 mt-3">
+            {/* <div className="p-card p-4 mt-3">
               <h4 className="p-title">Skills and Qualification</h4>
               <div className="mt-3">
                 <ul>
@@ -209,7 +209,7 @@ const ListJobDetail = () => {
                   </li>
                 </ul>
               </div>
-            </div>
+            </div> */}
             {/* <div className="p-card p-4 mt-3">
                             <h4 className="p-title">Skills and Qualification</h4>
                             <div className="mt-3">
@@ -222,7 +222,7 @@ const ListJobDetail = () => {
                                 </ul>
                             </div>
                         </div> */}
-            {file !== null && (
+            {file !== undefined && file !== null && (
               <div
                 style={{
                   border: "1px dashed #aaa",
