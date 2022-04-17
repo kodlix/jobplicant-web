@@ -39,6 +39,7 @@ const ListJobDetail = () => {
   const profileInfo = useSelector((state) => state.account.profileInfo);
   const onHide = () => setShowModal(false);
 
+  // console.log("job detail ", jobDetail);
   useEffect(() => {
     console.log("confirm job detail id", param.jobListId);
     dispatch(viewJob(param.jobListId));
@@ -117,7 +118,7 @@ const ListJobDetail = () => {
       dispatch(applyWithCV(id, formData));
       return;
     }
-    dispatch(apply(id, { jobId: jobDetail.id }));
+    dispatch(apply(id, { jobId: id }));
   };
 
   if (jobDetail === null) return <Spinner />;
@@ -128,6 +129,7 @@ const ListJobDetail = () => {
         showModal={showModal}
         setShowModal={setShowModal}
         cvData={cvData}
+        jobId={jobDetail.id}
       />
       <div style={styles.container}>
         <div className="container">
